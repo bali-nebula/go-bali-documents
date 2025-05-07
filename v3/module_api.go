@@ -12,7 +12,7 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│              This "Module.go" file was automatically generated.              │
+│             This "module_api.go" file was automatically generated.           │
 │      Updates to any part of this file—other than the Module Description      │
 │             and the Global Functions sections may be overwritten.            │
 └──────────────────────────────────────────────────────────────────────────────┘
@@ -31,7 +31,7 @@ package module
 import (
 	ast "github.com/bali-nebula/go-bali-documents/v3/ast"
 	gra "github.com/bali-nebula/go-bali-documents/v3/grammar"
-	col "github.com/craterdog/go-collection-framework/v5/collection"
+	col "github.com/craterdog/go-collection-framework/v7"
 )
 
 // TYPE ALIASES
@@ -348,721 +348,865 @@ type (
 	Methodical = gra.Methodical
 )
 
-// CLASS CONSTRUCTORS
+// CLASS ACCESSORS
 
-// Ast/AcceptClause
+// Ast
+
+func AcceptClauseClass() AcceptClauseClassLike {
+	return ast.AcceptClauseClass()
+}
 
 func AcceptClause(
 	message ast.MessageLike,
-) ast.AcceptClauseLike {
-	return ast.AcceptClauseClass().AcceptClause(
+) AcceptClauseLike {
+	return AcceptClauseClass().AcceptClause(
 		message,
 	)
 }
 
-// Ast/Action
+func ActionClass() ActionClassLike {
+	return ast.ActionClass()
+}
 
 func Action(
 	any_ any,
-) ast.ActionLike {
-	return ast.ActionClass().Action(
+) ActionLike {
+	return ActionClass().Action(
 		any_,
 	)
 }
 
-// Ast/AdditionalArgument
+func AdditionalArgumentClass() AdditionalArgumentClassLike {
+	return ast.AdditionalArgumentClass()
+}
 
 func AdditionalArgument(
 	argument ast.ArgumentLike,
-) ast.AdditionalArgumentLike {
-	return ast.AdditionalArgumentClass().AdditionalArgument(
+) AdditionalArgumentLike {
+	return AdditionalArgumentClass().AdditionalArgument(
 		argument,
 	)
 }
 
-// Ast/AdditionalAssociation
+func AdditionalAssociationClass() AdditionalAssociationClassLike {
+	return ast.AdditionalAssociationClass()
+}
 
 func AdditionalAssociation(
 	association ast.AssociationLike,
-) ast.AdditionalAssociationLike {
-	return ast.AdditionalAssociationClass().AdditionalAssociation(
+) AdditionalAssociationLike {
+	return AdditionalAssociationClass().AdditionalAssociation(
 		association,
 	)
 }
 
-// Ast/AdditionalIndex
+func AdditionalIndexClass() AdditionalIndexClassLike {
+	return ast.AdditionalIndexClass()
+}
 
 func AdditionalIndex(
 	index ast.IndexLike,
-) ast.AdditionalIndexLike {
-	return ast.AdditionalIndexClass().AdditionalIndex(
+) AdditionalIndexLike {
+	return AdditionalIndexClass().AdditionalIndex(
 		index,
 	)
 }
 
-// Ast/AdditionalStatement
+func AdditionalStatementClass() AdditionalStatementClassLike {
+	return ast.AdditionalStatementClass()
+}
 
 func AdditionalStatement(
 	statement ast.StatementLike,
-) ast.AdditionalStatementLike {
-	return ast.AdditionalStatementClass().AdditionalStatement(
+) AdditionalStatementLike {
+	return AdditionalStatementClass().AdditionalStatement(
 		statement,
 	)
 }
 
-// Ast/AdditionalValue
+func AdditionalValueClass() AdditionalValueClassLike {
+	return ast.AdditionalValueClass()
+}
 
 func AdditionalValue(
 	component ast.ComponentLike,
-) ast.AdditionalValueLike {
-	return ast.AdditionalValueClass().AdditionalValue(
+) AdditionalValueLike {
+	return AdditionalValueClass().AdditionalValue(
 		component,
 	)
 }
 
-// Ast/And
-
-func And() ast.AndLike {
-	return ast.AndClass().And()
+func AndClass() AndClassLike {
+	return ast.AndClass()
 }
 
-// Ast/AnnotatedAssociation
+func And() AndLike {
+	return AndClass().And()
+}
+
+func AnnotatedAssociationClass() AnnotatedAssociationClassLike {
+	return ast.AnnotatedAssociationClass()
+}
 
 func AnnotatedAssociation(
 	association ast.AssociationLike,
 	optionalNote string,
-) ast.AnnotatedAssociationLike {
-	return ast.AnnotatedAssociationClass().AnnotatedAssociation(
+) AnnotatedAssociationLike {
+	return AnnotatedAssociationClass().AnnotatedAssociation(
 		association,
 		optionalNote,
 	)
 }
 
-// Ast/AnnotatedStatement
+func AnnotatedStatementClass() AnnotatedStatementClassLike {
+	return ast.AnnotatedStatementClass()
+}
 
 func AnnotatedStatement(
 	any_ any,
-) ast.AnnotatedStatementLike {
-	return ast.AnnotatedStatementClass().AnnotatedStatement(
+) AnnotatedStatementLike {
+	return AnnotatedStatementClass().AnnotatedStatement(
 		any_,
 	)
 }
 
-// Ast/AnnotatedValue
+func AnnotatedValueClass() AnnotatedValueClassLike {
+	return ast.AnnotatedValueClass()
+}
 
 func AnnotatedValue(
 	component ast.ComponentLike,
 	optionalNote string,
-) ast.AnnotatedValueLike {
-	return ast.AnnotatedValueClass().AnnotatedValue(
+) AnnotatedValueLike {
+	return AnnotatedValueClass().AnnotatedValue(
 		component,
 		optionalNote,
 	)
 }
 
-// Ast/Argument
+func ArgumentClass() ArgumentClassLike {
+	return ast.ArgumentClass()
+}
 
 func Argument(
 	identifier string,
-) ast.ArgumentLike {
-	return ast.ArgumentClass().Argument(
+) ArgumentLike {
+	return ArgumentClass().Argument(
 		identifier,
 	)
 }
 
-// Ast/Arguments
+func ArgumentsClass() ArgumentsClassLike {
+	return ast.ArgumentsClass()
+}
 
 func Arguments(
 	argument ast.ArgumentLike,
 	additionalArguments col.Sequential[ast.AdditionalArgumentLike],
-) ast.ArgumentsLike {
-	return ast.ArgumentsClass().Arguments(
+) ArgumentsLike {
+	return ArgumentsClass().Arguments(
 		argument,
 		additionalArguments,
 	)
 }
 
-// Ast/Assignment
+func AssignmentClass() AssignmentClassLike {
+	return ast.AssignmentClass()
+}
 
 func Assignment(
 	any_ any,
-) ast.AssignmentLike {
-	return ast.AssignmentClass().Assignment(
+) AssignmentLike {
+	return AssignmentClass().Assignment(
 		any_,
 	)
 }
 
-// Ast/Association
+func AssociationClass() AssociationClassLike {
+	return ast.AssociationClass()
+}
 
 func Association(
 	primitive ast.PrimitiveLike,
 	component ast.ComponentLike,
-) ast.AssociationLike {
-	return ast.AssociationClass().Association(
+) AssociationLike {
+	return AssociationClass().Association(
 		primitive,
 		component,
 	)
 }
 
-// Ast/AtLevel
+func AtLevelClass() AtLevelClassLike {
+	return ast.AtLevelClass()
+}
 
 func AtLevel(
 	expression ast.ExpressionLike,
-) ast.AtLevelLike {
-	return ast.AtLevelClass().AtLevel(
+) AtLevelLike {
+	return AtLevelClass().AtLevel(
 		expression,
 	)
 }
 
-// Ast/Bag
+func BagClass() BagClassLike {
+	return ast.BagClass()
+}
 
 func Bag(
 	expression ast.ExpressionLike,
-) ast.BagLike {
-	return ast.BagClass().Bag(
+) BagLike {
+	return BagClass().Bag(
 		expression,
 	)
 }
 
-// Ast/Blocking
+func BlockingClass() BlockingClassLike {
+	return ast.BlockingClass()
+}
 
 func Blocking(
 	any_ any,
-) ast.BlockingLike {
-	return ast.BlockingClass().Blocking(
+) BlockingLike {
+	return BlockingClass().Blocking(
 		any_,
 	)
 }
 
-// Ast/Bracket
+func BracketClass() BracketClassLike {
+	return ast.BracketClass()
+}
 
 func Bracket(
 	any_ any,
-) ast.BracketLike {
-	return ast.BracketClass().Bracket(
+) BracketLike {
+	return BracketClass().Bracket(
 		any_,
 	)
 }
 
-// Ast/BreakClause
-
-func BreakClause() ast.BreakClauseLike {
-	return ast.BreakClauseClass().BreakClause()
+func BreakClauseClass() BreakClauseClassLike {
+	return ast.BreakClauseClass()
 }
 
-// Ast/CheckoutClause
+func BreakClause() BreakClauseLike {
+	return BreakClauseClass().BreakClause()
+}
+
+func CheckoutClauseClass() CheckoutClauseClassLike {
+	return ast.CheckoutClauseClass()
+}
 
 func CheckoutClause(
 	recipient ast.RecipientLike,
 	optionalAtLevel ast.AtLevelLike,
 	cited ast.CitedLike,
-) ast.CheckoutClauseLike {
-	return ast.CheckoutClauseClass().CheckoutClause(
+) CheckoutClauseLike {
+	return CheckoutClauseClass().CheckoutClause(
 		recipient,
 		optionalAtLevel,
 		cited,
 	)
 }
 
-// Ast/Cited
+func CitedClass() CitedClassLike {
+	return ast.CitedClass()
+}
 
 func Cited(
 	expression ast.ExpressionLike,
-) ast.CitedLike {
-	return ast.CitedClass().Cited(
+) CitedLike {
+	return CitedClass().Cited(
 		expression,
 	)
 }
 
-// Ast/Collection
+func CollectionClass() CollectionClassLike {
+	return ast.CollectionClass()
+}
 
 func Collection(
 	any_ any,
-) ast.CollectionLike {
-	return ast.CollectionClass().Collection(
+) CollectionLike {
+	return CollectionClass().Collection(
 		any_,
 	)
 }
 
-// Ast/ColonEqual
-
-func ColonEqual() ast.ColonEqualLike {
-	return ast.ColonEqualClass().ColonEqual()
+func ColonEqualClass() ColonEqualClassLike {
+	return ast.ColonEqualClass()
 }
 
-// Ast/CommentLine
+func ColonEqual() ColonEqualLike {
+	return ColonEqualClass().ColonEqual()
+}
+
+func CommentLineClass() CommentLineClassLike {
+	return ast.CommentLineClass()
+}
 
 func CommentLine(
 	comment string,
-) ast.CommentLineLike {
-	return ast.CommentLineClass().CommentLine(
+) CommentLineLike {
+	return CommentLineClass().CommentLine(
 		comment,
 	)
 }
 
-// Ast/Complement
+func ComplementClass() ComplementClassLike {
+	return ast.ComplementClass()
+}
 
 func Complement(
 	logical ast.LogicalLike,
-) ast.ComplementLike {
-	return ast.ComplementClass().Complement(
+) ComplementLike {
+	return ComplementClass().Complement(
 		logical,
 	)
 }
 
-// Ast/Component
+func ComponentClass() ComponentClassLike {
+	return ast.ComponentClass()
+}
 
 func Component(
 	entity ast.EntityLike,
 	optionalParameters ast.ParametersLike,
-) ast.ComponentLike {
-	return ast.ComponentClass().Component(
+) ComponentLike {
+	return ComponentClass().Component(
 		entity,
 		optionalParameters,
 	)
 }
 
-// Ast/Condition
+func ConditionClass() ConditionClassLike {
+	return ast.ConditionClass()
+}
 
 func Condition(
 	expression ast.ExpressionLike,
-) ast.ConditionLike {
-	return ast.ConditionClass().Condition(
+) ConditionLike {
+	return ConditionClass().Condition(
 		expression,
 	)
 }
 
-// Ast/ContinueClause
-
-func ContinueClause() ast.ContinueClauseLike {
-	return ast.ContinueClauseClass().ContinueClause()
+func ContinueClauseClass() ContinueClauseClassLike {
+	return ast.ContinueClauseClass()
 }
 
-// Ast/DashEqual
-
-func DashEqual() ast.DashEqualLike {
-	return ast.DashEqualClass().DashEqual()
+func ContinueClause() ContinueClauseLike {
+	return ContinueClauseClass().ContinueClause()
 }
 
-// Ast/DefaultEqual
-
-func DefaultEqual() ast.DefaultEqualLike {
-	return ast.DefaultEqualClass().DefaultEqual()
+func DashEqualClass() DashEqualClassLike {
+	return ast.DashEqualClass()
 }
 
-// Ast/DiscardClause
+func DashEqual() DashEqualLike {
+	return DashEqualClass().DashEqual()
+}
+
+func DefaultEqualClass() DefaultEqualClassLike {
+	return ast.DefaultEqualClass()
+}
+
+func DefaultEqual() DefaultEqualLike {
+	return DefaultEqualClass().DefaultEqual()
+}
+
+func DiscardClauseClass() DiscardClauseClassLike {
+	return ast.DiscardClauseClass()
+}
 
 func DiscardClause(
 	draft ast.DraftLike,
-) ast.DiscardClauseLike {
-	return ast.DiscardClauseClass().DiscardClause(
+) DiscardClauseLike {
+	return DiscardClauseClass().DiscardClause(
 		draft,
 	)
 }
 
-// Ast/DoClause
+func DoClauseClass() DoClauseClassLike {
+	return ast.DoClauseClass()
+}
 
 func DoClause(
 	invocation ast.InvocationLike,
-) ast.DoClauseLike {
-	return ast.DoClauseClass().DoClause(
+) DoClauseLike {
+	return DoClauseClass().DoClause(
 		invocation,
 	)
 }
 
-// Ast/Document
+func DocumentClass() DocumentClassLike {
+	return ast.DocumentClass()
+}
 
 func Document(
 	optionalNotice ast.NoticeLike,
 	component ast.ComponentLike,
-) ast.DocumentLike {
-	return ast.DocumentClass().Document(
+) DocumentLike {
+	return DocumentClass().Document(
 		optionalNotice,
 		component,
 	)
 }
 
-// Ast/Draft
+func DraftClass() DraftClassLike {
+	return ast.DraftClass()
+}
 
 func Draft(
 	expression ast.ExpressionLike,
-) ast.DraftLike {
-	return ast.DraftClass().Draft(
+) DraftLike {
+	return DraftClass().Draft(
 		expression,
 	)
 }
 
-// Ast/Element
+func ElementClass() ElementClassLike {
+	return ast.ElementClass()
+}
 
 func Element(
 	any_ any,
-) ast.ElementLike {
-	return ast.ElementClass().Element(
+) ElementLike {
+	return ElementClass().Element(
 		any_,
 	)
 }
 
-// Ast/Entity
+func EntityClass() EntityClassLike {
+	return ast.EntityClass()
+}
 
 func Entity(
 	any_ any,
-) ast.EntityLike {
-	return ast.EntityClass().Entity(
+) EntityLike {
+	return EntityClass().Entity(
 		any_,
 	)
 }
 
-// Ast/Event
+func EventClass() EventClassLike {
+	return ast.EventClass()
+}
 
 func Event(
 	expression ast.ExpressionLike,
-) ast.EventLike {
-	return ast.EventClass().Event(
+) EventLike {
+	return EventClass().Event(
 		expression,
 	)
 }
 
-// Ast/Exception
+func ExceptionClass() ExceptionClassLike {
+	return ast.ExceptionClass()
+}
 
 func Exception(
 	expression ast.ExpressionLike,
-) ast.ExceptionLike {
-	return ast.ExceptionClass().Exception(
+) ExceptionLike {
+	return ExceptionClass().Exception(
 		expression,
 	)
 }
 
-// Ast/Exclusive
-
-func Exclusive() ast.ExclusiveLike {
-	return ast.ExclusiveClass().Exclusive()
+func ExclusiveClass() ExclusiveClassLike {
+	return ast.ExclusiveClass()
 }
 
-// Ast/ExclusiveRange
+func Exclusive() ExclusiveLike {
+	return ExclusiveClass().Exclusive()
+}
+
+func ExclusiveRangeClass() ExclusiveRangeClassLike {
+	return ast.ExclusiveRangeClass()
+}
 
 func ExclusiveRange(
 	primitive1 ast.PrimitiveLike,
 	primitive2 ast.PrimitiveLike,
 	bracket ast.BracketLike,
-) ast.ExclusiveRangeLike {
-	return ast.ExclusiveRangeClass().ExclusiveRange(
+) ExclusiveRangeLike {
+	return ExclusiveRangeClass().ExclusiveRange(
 		primitive1,
 		primitive2,
 		bracket,
 	)
 }
 
-// Ast/Expression
+func ExpressionClass() ExpressionClassLike {
+	return ast.ExpressionClass()
+}
 
 func Expression(
 	subject ast.SubjectLike,
 	predicates col.Sequential[ast.PredicateLike],
-) ast.ExpressionLike {
-	return ast.ExpressionClass().Expression(
+) ExpressionLike {
+	return ExpressionClass().Expression(
 		subject,
 		predicates,
 	)
 }
 
-// Ast/Failure
+func FailureClass() FailureClassLike {
+	return ast.FailureClass()
+}
 
 func Failure(
 	symbol string,
-) ast.FailureLike {
-	return ast.FailureClass().Failure(
+) FailureLike {
+	return FailureClass().Failure(
 		symbol,
 	)
 }
 
-// Ast/Flow
+func FlowClass() FlowClassLike {
+	return ast.FlowClass()
+}
 
 func Flow(
 	any_ any,
-) ast.FlowLike {
-	return ast.FlowClass().Flow(
+) FlowLike {
+	return FlowClass().Flow(
 		any_,
 	)
 }
 
-// Ast/Function
+func FunctionClass() FunctionClassLike {
+	return ast.FunctionClass()
+}
 
 func Function(
 	identifier string,
 	optionalArguments ast.ArgumentsLike,
-) ast.FunctionLike {
-	return ast.FunctionClass().Function(
+) FunctionLike {
+	return FunctionClass().Function(
 		identifier,
 		optionalArguments,
 	)
 }
 
-// Ast/IfClause
+func IfClauseClass() IfClauseClassLike {
+	return ast.IfClauseClass()
+}
 
 func IfClause(
 	condition ast.ConditionLike,
 	procedure ast.ProcedureLike,
-) ast.IfClauseLike {
-	return ast.IfClauseClass().IfClause(
+) IfClauseLike {
+	return IfClauseClass().IfClause(
 		condition,
 		procedure,
 	)
 }
 
-// Ast/Inclusive
-
-func Inclusive() ast.InclusiveLike {
-	return ast.InclusiveClass().Inclusive()
+func InclusiveClass() InclusiveClassLike {
+	return ast.InclusiveClass()
 }
 
-// Ast/InclusiveRange
+func Inclusive() InclusiveLike {
+	return InclusiveClass().Inclusive()
+}
+
+func InclusiveRangeClass() InclusiveRangeClassLike {
+	return ast.InclusiveRangeClass()
+}
 
 func InclusiveRange(
 	primitive1 ast.PrimitiveLike,
 	primitive2 ast.PrimitiveLike,
 	bracket ast.BracketLike,
-) ast.InclusiveRangeLike {
-	return ast.InclusiveRangeClass().InclusiveRange(
+) InclusiveRangeLike {
+	return InclusiveRangeClass().InclusiveRange(
 		primitive1,
 		primitive2,
 		bracket,
 	)
 }
 
-// Ast/Index
+func IndexClass() IndexClassLike {
+	return ast.IndexClass()
+}
 
 func Index(
 	expression ast.ExpressionLike,
-) ast.IndexLike {
-	return ast.IndexClass().Index(
+) IndexLike {
+	return IndexClass().Index(
 		expression,
 	)
 }
 
-// Ast/Indices
+func IndicesClass() IndicesClassLike {
+	return ast.IndicesClass()
+}
 
 func Indices(
 	index ast.IndexLike,
 	additionalIndexes col.Sequential[ast.AdditionalIndexLike],
-) ast.IndicesLike {
-	return ast.IndicesClass().Indices(
+) IndicesLike {
+	return IndicesClass().Indices(
 		index,
 		additionalIndexes,
 	)
 }
 
-// Ast/Indirect
+func IndirectClass() IndirectClassLike {
+	return ast.IndirectClass()
+}
 
 func Indirect(
 	any_ any,
-) ast.IndirectLike {
-	return ast.IndirectClass().Indirect(
+) IndirectLike {
+	return IndirectClass().Indirect(
 		any_,
 	)
 }
 
-// Ast/Induction
+func InductionClass() InductionClassLike {
+	return ast.InductionClass()
+}
 
 func Induction(
 	any_ any,
-) ast.InductionLike {
-	return ast.InductionClass().Induction(
+) InductionLike {
+	return InductionClass().Induction(
 		any_,
 	)
 }
 
-// Ast/InlineAttributes
+func InlineAttributesClass() InlineAttributesClassLike {
+	return ast.InlineAttributesClass()
+}
 
 func InlineAttributes(
 	association ast.AssociationLike,
 	additionalAssociations col.Sequential[ast.AdditionalAssociationLike],
-) ast.InlineAttributesLike {
-	return ast.InlineAttributesClass().InlineAttributes(
+) InlineAttributesLike {
+	return InlineAttributesClass().InlineAttributes(
 		association,
 		additionalAssociations,
 	)
 }
 
-// Ast/InlineParameters
+func InlineParametersClass() InlineParametersClassLike {
+	return ast.InlineParametersClass()
+}
 
 func InlineParameters(
 	association ast.AssociationLike,
 	additionalAssociations col.Sequential[ast.AdditionalAssociationLike],
-) ast.InlineParametersLike {
-	return ast.InlineParametersClass().InlineParameters(
+) InlineParametersLike {
+	return InlineParametersClass().InlineParameters(
 		association,
 		additionalAssociations,
 	)
 }
 
-// Ast/InlineStatements
+func InlineStatementsClass() InlineStatementsClassLike {
+	return ast.InlineStatementsClass()
+}
 
 func InlineStatements(
 	statement ast.StatementLike,
 	additionalStatements col.Sequential[ast.AdditionalStatementLike],
-) ast.InlineStatementsLike {
-	return ast.InlineStatementsClass().InlineStatements(
+) InlineStatementsLike {
+	return InlineStatementsClass().InlineStatements(
 		statement,
 		additionalStatements,
 	)
 }
 
-// Ast/InlineValues
+func InlineValuesClass() InlineValuesClassLike {
+	return ast.InlineValuesClass()
+}
 
 func InlineValues(
 	component ast.ComponentLike,
 	additionalValues col.Sequential[ast.AdditionalValueLike],
-) ast.InlineValuesLike {
-	return ast.InlineValuesClass().InlineValues(
+) InlineValuesLike {
+	return InlineValuesClass().InlineValues(
 		component,
 		additionalValues,
 	)
 }
 
-// Ast/Inverse
+func InverseClass() InverseClassLike {
+	return ast.InverseClass()
+}
 
 func Inverse(
 	any_ any,
-) ast.InverseLike {
-	return ast.InverseClass().Inverse(
+) InverseLike {
+	return InverseClass().Inverse(
 		any_,
 	)
 }
 
-// Ast/Inversion
+func InversionClass() InversionClassLike {
+	return ast.InversionClass()
+}
 
 func Inversion(
 	inverse ast.InverseLike,
 	numerical ast.NumericalLike,
-) ast.InversionLike {
-	return ast.InversionClass().Inversion(
+) InversionLike {
+	return InversionClass().Inversion(
 		inverse,
 		numerical,
 	)
 }
 
-// Ast/Invocation
+func InvocationClass() InvocationClassLike {
+	return ast.InvocationClass()
+}
 
 func Invocation(
 	any_ any,
-) ast.InvocationLike {
-	return ast.InvocationClass().Invocation(
+) InvocationLike {
+	return InvocationClass().Invocation(
 		any_,
 	)
 }
 
-// Ast/Ior
-
-func Ior() ast.IorLike {
-	return ast.IorClass().Ior()
+func IorClass() IorClassLike {
+	return ast.IorClass()
 }
 
-// Ast/Is
-
-func Is() ast.IsLike {
-	return ast.IsClass().Is()
+func Ior() IorLike {
+	return IorClass().Ior()
 }
 
-// Ast/Item
+func IsClass() IsClassLike {
+	return ast.IsClass()
+}
+
+func Is() IsLike {
+	return IsClass().Is()
+}
+
+func ItemClass() ItemClassLike {
+	return ast.ItemClass()
+}
 
 func Item(
 	symbol string,
-) ast.ItemLike {
-	return ast.ItemClass().Item(
+) ItemLike {
+	return ItemClass().Item(
 		symbol,
 	)
 }
 
-// Ast/LetClause
+func LetClauseClass() LetClauseClassLike {
+	return ast.LetClauseClass()
+}
 
 func LetClause(
 	recipient ast.RecipientLike,
 	assignment ast.AssignmentLike,
 	expression ast.ExpressionLike,
-) ast.LetClauseLike {
-	return ast.LetClauseClass().LetClause(
+) LetClauseLike {
+	return LetClauseClass().LetClause(
 		recipient,
 		assignment,
 		expression,
 	)
 }
 
-// Ast/Logical
+func LogicalClass() LogicalClassLike {
+	return ast.LogicalClass()
+}
 
 func Logical(
 	any_ any,
-) ast.LogicalLike {
-	return ast.LogicalClass().Logical(
+) LogicalLike {
+	return LogicalClass().Logical(
 		any_,
 	)
 }
 
-// Ast/Magnitude
+func MagnitudeClass() MagnitudeClassLike {
+	return ast.MagnitudeClass()
+}
 
 func Magnitude(
 	numerical ast.NumericalLike,
-) ast.MagnitudeLike {
-	return ast.MagnitudeClass().Magnitude(
+) MagnitudeLike {
+	return MagnitudeClass().Magnitude(
 		numerical,
 	)
 }
 
-// Ast/MainClause
+func MainClauseClass() MainClauseClassLike {
+	return ast.MainClauseClass()
+}
 
 func MainClause(
 	any_ any,
-) ast.MainClauseLike {
-	return ast.MainClauseClass().MainClause(
+) MainClauseLike {
+	return MainClauseClass().MainClause(
 		any_,
 	)
 }
 
-// Ast/MatchHandler
+func MatchHandlerClass() MatchHandlerClassLike {
+	return ast.MatchHandlerClass()
+}
 
 func MatchHandler(
 	template ast.TemplateLike,
 	procedure ast.ProcedureLike,
-) ast.MatchHandlerLike {
-	return ast.MatchHandlerClass().MatchHandler(
+) MatchHandlerLike {
+	return MatchHandlerClass().MatchHandler(
 		template,
 		procedure,
 	)
 }
 
-// Ast/Matches
-
-func Matches() ast.MatchesLike {
-	return ast.MatchesClass().Matches()
+func MatchesClass() MatchesClassLike {
+	return ast.MatchesClass()
 }
 
-// Ast/Message
+func Matches() MatchesLike {
+	return MatchesClass().Matches()
+}
+
+func MessageClass() MessageClassLike {
+	return ast.MessageClass()
+}
 
 func Message(
 	expression ast.ExpressionLike,
-) ast.MessageLike {
-	return ast.MessageClass().Message(
+) MessageLike {
+	return MessageClass().Message(
 		expression,
 	)
 }
 
-// Ast/Messaging
+func MessagingClass() MessagingClassLike {
+	return ast.MessagingClass()
+}
 
 func Messaging(
 	any_ any,
-) ast.MessagingLike {
-	return ast.MessagingClass().Messaging(
+) MessagingLike {
+	return MessagingClass().Messaging(
 		any_,
 	)
 }
 
-// Ast/Method
+func MethodClass() MethodClassLike {
+	return ast.MethodClass()
+}
 
 func Method(
 	identifier1 string,
 	blocking ast.BlockingLike,
 	identifier2 string,
 	optionalArguments ast.ArgumentsLike,
-) ast.MethodLike {
-	return ast.MethodClass().Method(
+) MethodLike {
+	return MethodClass().Method(
 		identifier1,
 		blocking,
 		identifier2,
@@ -1070,509 +1214,613 @@ func Method(
 	)
 }
 
-// Ast/MultilineAttributes
+func MultilineAttributesClass() MultilineAttributesClassLike {
+	return ast.MultilineAttributesClass()
+}
 
 func MultilineAttributes(
 	newline string,
 	annotatedAssociations col.Sequential[ast.AnnotatedAssociationLike],
-) ast.MultilineAttributesLike {
-	return ast.MultilineAttributesClass().MultilineAttributes(
+) MultilineAttributesLike {
+	return MultilineAttributesClass().MultilineAttributes(
 		newline,
 		annotatedAssociations,
 	)
 }
 
-// Ast/MultilineParameters
+func MultilineParametersClass() MultilineParametersClassLike {
+	return ast.MultilineParametersClass()
+}
 
 func MultilineParameters(
 	newline string,
 	annotatedAssociations col.Sequential[ast.AnnotatedAssociationLike],
-) ast.MultilineParametersLike {
-	return ast.MultilineParametersClass().MultilineParameters(
+) MultilineParametersLike {
+	return MultilineParametersClass().MultilineParameters(
 		newline,
 		annotatedAssociations,
 	)
 }
 
-// Ast/MultilineStatements
+func MultilineStatementsClass() MultilineStatementsClassLike {
+	return ast.MultilineStatementsClass()
+}
 
 func MultilineStatements(
 	newline string,
 	annotatedStatements col.Sequential[ast.AnnotatedStatementLike],
-) ast.MultilineStatementsLike {
-	return ast.MultilineStatementsClass().MultilineStatements(
+) MultilineStatementsLike {
+	return MultilineStatementsClass().MultilineStatements(
 		newline,
 		annotatedStatements,
 	)
 }
 
-// Ast/MultilineValues
+func MultilineValuesClass() MultilineValuesClassLike {
+	return ast.MultilineValuesClass()
+}
 
 func MultilineValues(
 	newline string,
 	annotatedValues col.Sequential[ast.AnnotatedValueLike],
-) ast.MultilineValuesLike {
-	return ast.MultilineValuesClass().MultilineValues(
+) MultilineValuesLike {
+	return MultilineValuesClass().MultilineValues(
 		newline,
 		annotatedValues,
 	)
 }
 
-// Ast/NoAttributes
-
-func NoAttributes() ast.NoAttributesLike {
-	return ast.NoAttributesClass().NoAttributes()
+func NoAttributesClass() NoAttributesClassLike {
+	return ast.NoAttributesClass()
 }
 
-// Ast/NoStatements
-
-func NoStatements() ast.NoStatementsLike {
-	return ast.NoStatementsClass().NoStatements()
+func NoAttributes() NoAttributesLike {
+	return NoAttributesClass().NoAttributes()
 }
 
-// Ast/NoValues
-
-func NoValues() ast.NoValuesLike {
-	return ast.NoValuesClass().NoValues()
+func NoStatementsClass() NoStatementsClassLike {
+	return ast.NoStatementsClass()
 }
 
-// Ast/NotarizeClause
+func NoStatements() NoStatementsLike {
+	return NoStatementsClass().NoStatements()
+}
+
+func NoValuesClass() NoValuesClassLike {
+	return ast.NoValuesClass()
+}
+
+func NoValues() NoValuesLike {
+	return NoValuesClass().NoValues()
+}
+
+func NotarizeClauseClass() NotarizeClauseClassLike {
+	return ast.NotarizeClauseClass()
+}
 
 func NotarizeClause(
 	draft ast.DraftLike,
 	cited ast.CitedLike,
-) ast.NotarizeClauseLike {
-	return ast.NotarizeClauseClass().NotarizeClause(
+) NotarizeClauseLike {
+	return NotarizeClauseClass().NotarizeClause(
 		draft,
 		cited,
 	)
 }
 
-// Ast/Notice
+func NoticeClass() NoticeClassLike {
+	return ast.NoticeClass()
+}
 
 func Notice(
 	comment string,
 	newline string,
-) ast.NoticeLike {
-	return ast.NoticeClass().Notice(
+) NoticeLike {
+	return NoticeClass().Notice(
 		comment,
 		newline,
 	)
 }
 
-// Ast/Numerical
+func NumericalClass() NumericalClassLike {
+	return ast.NumericalClass()
+}
 
 func Numerical(
 	any_ any,
-) ast.NumericalLike {
-	return ast.NumericalClass().Numerical(
+) NumericalLike {
+	return NumericalClass().Numerical(
 		any_,
 	)
 }
 
-// Ast/OnClause
+func OnClauseClass() OnClauseClassLike {
+	return ast.OnClauseClass()
+}
 
 func OnClause(
 	failure ast.FailureLike,
 	matchHandlers col.Sequential[ast.MatchHandlerLike],
-) ast.OnClauseLike {
-	return ast.OnClauseClass().OnClause(
+) OnClauseLike {
+	return OnClauseClass().OnClause(
 		failure,
 		matchHandlers,
 	)
 }
 
-// Ast/Operation
+func OperationClass() OperationClassLike {
+	return ast.OperationClass()
+}
 
 func Operation(
 	any_ any,
-) ast.OperationLike {
-	return ast.OperationClass().Operation(
+) OperationLike {
+	return OperationClass().Operation(
 		any_,
 	)
 }
 
-// Ast/Operator
+func OperatorClass() OperatorClassLike {
+	return ast.OperatorClass()
+}
 
 func Operator(
 	any_ any,
-) ast.OperatorLike {
-	return ast.OperatorClass().Operator(
+) OperatorLike {
+	return OperatorClass().Operator(
 		any_,
 	)
 }
 
-// Ast/Parameters
+func ParametersClass() ParametersClassLike {
+	return ast.ParametersClass()
+}
 
 func Parameters(
 	any_ any,
-) ast.ParametersLike {
-	return ast.ParametersClass().Parameters(
+) ParametersLike {
+	return ParametersClass().Parameters(
 		any_,
 	)
 }
 
-// Ast/PlusEqual
-
-func PlusEqual() ast.PlusEqualLike {
-	return ast.PlusEqualClass().PlusEqual()
+func PlusEqualClass() PlusEqualClassLike {
+	return ast.PlusEqualClass()
 }
 
-// Ast/PostClause
+func PlusEqual() PlusEqualLike {
+	return PlusEqualClass().PlusEqual()
+}
+
+func PostClauseClass() PostClauseClassLike {
+	return ast.PostClauseClass()
+}
 
 func PostClause(
 	message ast.MessageLike,
 	bag ast.BagLike,
-) ast.PostClauseLike {
-	return ast.PostClauseClass().PostClause(
+) PostClauseLike {
+	return PostClauseClass().PostClause(
 		message,
 		bag,
 	)
 }
 
-// Ast/Precedence
+func PrecedenceClass() PrecedenceClassLike {
+	return ast.PrecedenceClass()
+}
 
 func Precedence(
 	expression ast.ExpressionLike,
-) ast.PrecedenceLike {
-	return ast.PrecedenceClass().Precedence(
+) PrecedenceLike {
+	return PrecedenceClass().Precedence(
 		expression,
 	)
 }
 
-// Ast/Predicate
+func PredicateClass() PredicateClassLike {
+	return ast.PredicateClass()
+}
 
 func Predicate(
 	action ast.ActionLike,
 	expression ast.ExpressionLike,
-) ast.PredicateLike {
-	return ast.PredicateClass().Predicate(
+) PredicateLike {
+	return PredicateClass().Predicate(
 		action,
 		expression,
 	)
 }
 
-// Ast/Primitive
+func PrimitiveClass() PrimitiveClassLike {
+	return ast.PrimitiveClass()
+}
 
 func Primitive(
 	any_ any,
-) ast.PrimitiveLike {
-	return ast.PrimitiveClass().Primitive(
+) PrimitiveLike {
+	return PrimitiveClass().Primitive(
 		any_,
 	)
 }
 
-// Ast/Procedure
+func ProcedureClass() ProcedureClassLike {
+	return ast.ProcedureClass()
+}
 
 func Procedure(
 	any_ any,
-) ast.ProcedureLike {
-	return ast.ProcedureClass().Procedure(
+) ProcedureLike {
+	return ProcedureClass().Procedure(
 		any_,
 	)
 }
 
-// Ast/PublishClause
+func PublishClauseClass() PublishClauseClassLike {
+	return ast.PublishClauseClass()
+}
 
 func PublishClause(
 	event ast.EventLike,
-) ast.PublishClauseLike {
-	return ast.PublishClauseClass().PublishClause(
+) PublishClauseLike {
+	return PublishClauseClass().PublishClause(
 		event,
 	)
 }
 
-// Ast/Recipient
+func RecipientClass() RecipientClassLike {
+	return ast.RecipientClass()
+}
 
 func Recipient(
 	any_ any,
-) ast.RecipientLike {
-	return ast.RecipientClass().Recipient(
+) RecipientLike {
+	return RecipientClass().Recipient(
 		any_,
 	)
 }
 
-// Ast/Referent
+func ReferentClass() ReferentClassLike {
+	return ast.ReferentClass()
+}
 
 func Referent(
 	indirect ast.IndirectLike,
-) ast.ReferentLike {
-	return ast.ReferentClass().Referent(
+) ReferentLike {
+	return ReferentClass().Referent(
 		indirect,
 	)
 }
 
-// Ast/RejectClause
+func RejectClauseClass() RejectClauseClassLike {
+	return ast.RejectClauseClass()
+}
 
 func RejectClause(
 	message ast.MessageLike,
-) ast.RejectClauseLike {
-	return ast.RejectClauseClass().RejectClause(
+) RejectClauseLike {
+	return RejectClauseClass().RejectClause(
 		message,
 	)
 }
 
-// Ast/Repository
+func RepositoryClass() RepositoryClassLike {
+	return ast.RepositoryClass()
+}
 
 func Repository(
 	any_ any,
-) ast.RepositoryLike {
-	return ast.RepositoryClass().Repository(
+) RepositoryLike {
+	return RepositoryClass().Repository(
 		any_,
 	)
 }
 
-// Ast/Result
+func ResultClass() ResultClassLike {
+	return ast.ResultClass()
+}
 
 func Result(
 	expression ast.ExpressionLike,
-) ast.ResultLike {
-	return ast.ResultClass().Result(
+) ResultLike {
+	return ResultClass().Result(
 		expression,
 	)
 }
 
-// Ast/RetrieveClause
+func RetrieveClauseClass() RetrieveClauseClassLike {
+	return ast.RetrieveClauseClass()
+}
 
 func RetrieveClause(
 	recipient ast.RecipientLike,
 	bag ast.BagLike,
-) ast.RetrieveClauseLike {
-	return ast.RetrieveClauseClass().RetrieveClause(
+) RetrieveClauseLike {
+	return RetrieveClauseClass().RetrieveClause(
 		recipient,
 		bag,
 	)
 }
 
-// Ast/ReturnClause
+func ReturnClauseClass() ReturnClauseClassLike {
+	return ast.ReturnClauseClass()
+}
 
 func ReturnClause(
 	result ast.ResultLike,
-) ast.ReturnClauseLike {
-	return ast.ReturnClauseClass().ReturnClause(
+) ReturnClauseLike {
+	return ReturnClauseClass().ReturnClause(
 		result,
 	)
 }
 
-// Ast/San
-
-func San() ast.SanLike {
-	return ast.SanClass().San()
+func SanClass() SanClassLike {
+	return ast.SanClass()
 }
 
-// Ast/SaveClause
+func San() SanLike {
+	return SanClass().San()
+}
+
+func SaveClauseClass() SaveClauseClassLike {
+	return ast.SaveClauseClass()
+}
 
 func SaveClause(
 	draft ast.DraftLike,
 	cited ast.CitedLike,
-) ast.SaveClauseLike {
-	return ast.SaveClauseClass().SaveClause(
+) SaveClauseLike {
+	return SaveClauseClass().SaveClause(
 		draft,
 		cited,
 	)
 }
 
-// Ast/SelectClause
+func SelectClauseClass() SelectClauseClassLike {
+	return ast.SelectClauseClass()
+}
 
 func SelectClause(
 	target ast.TargetLike,
 	matchHandlers col.Sequential[ast.MatchHandlerLike],
-) ast.SelectClauseLike {
-	return ast.SelectClauseClass().SelectClause(
+) SelectClauseLike {
+	return SelectClauseClass().SelectClause(
 		target,
 		matchHandlers,
 	)
 }
 
-// Ast/Sequence
+func SequenceClass() SequenceClassLike {
+	return ast.SequenceClass()
+}
 
 func Sequence(
 	expression ast.ExpressionLike,
-) ast.SequenceLike {
-	return ast.SequenceClass().Sequence(
+) SequenceLike {
+	return SequenceClass().Sequence(
 		expression,
 	)
 }
 
-// Ast/SlashEqual
-
-func SlashEqual() ast.SlashEqualLike {
-	return ast.SlashEqualClass().SlashEqual()
+func SlashEqualClass() SlashEqualClassLike {
+	return ast.SlashEqualClass()
 }
 
-// Ast/StarEqual
-
-func StarEqual() ast.StarEqualLike {
-	return ast.StarEqualClass().StarEqual()
+func SlashEqual() SlashEqualLike {
+	return SlashEqualClass().SlashEqual()
 }
 
-// Ast/Statement
+func StarEqualClass() StarEqualClassLike {
+	return ast.StarEqualClass()
+}
+
+func StarEqual() StarEqualLike {
+	return StarEqualClass().StarEqual()
+}
+
+func StatementClass() StatementClassLike {
+	return ast.StatementClass()
+}
 
 func Statement(
 	mainClause ast.MainClauseLike,
 	optionalOnClause ast.OnClauseLike,
-) ast.StatementLike {
-	return ast.StatementClass().Statement(
+) StatementLike {
+	return StatementClass().Statement(
 		mainClause,
 		optionalOnClause,
 	)
 }
 
-// Ast/StatementLine
+func StatementLineClass() StatementLineClassLike {
+	return ast.StatementLineClass()
+}
 
 func StatementLine(
 	statement ast.StatementLike,
 	optionalNote string,
-) ast.StatementLineLike {
-	return ast.StatementLineClass().StatementLine(
+) StatementLineLike {
+	return StatementLineClass().StatementLine(
 		statement,
 		optionalNote,
 	)
 }
 
-// Ast/String
+func StringClass() StringClassLike {
+	return ast.StringClass()
+}
 
 func String(
 	any_ any,
-) ast.StringLike {
-	return ast.StringClass().String(
+) StringLike {
+	return StringClass().String(
 		any_,
 	)
 }
 
-// Ast/Subcomponent
+func SubcomponentClass() SubcomponentClassLike {
+	return ast.SubcomponentClass()
+}
 
 func Subcomponent(
 	identifier string,
 	indices ast.IndicesLike,
-) ast.SubcomponentLike {
-	return ast.SubcomponentClass().Subcomponent(
+) SubcomponentLike {
+	return SubcomponentClass().Subcomponent(
 		identifier,
 		indices,
 	)
 }
 
-// Ast/Subject
+func SubjectClass() SubjectClassLike {
+	return ast.SubjectClass()
+}
 
 func Subject(
 	any_ any,
-) ast.SubjectLike {
-	return ast.SubjectClass().Subject(
+) SubjectLike {
+	return SubjectClass().Subject(
 		any_,
 	)
 }
 
-// Ast/Target
+func TargetClass() TargetClassLike {
+	return ast.TargetClass()
+}
 
 func Target(
 	any_ any,
-) ast.TargetLike {
-	return ast.TargetClass().Target(
+) TargetLike {
+	return TargetClass().Target(
 		any_,
 	)
 }
 
-// Ast/Template
+func TemplateClass() TemplateClassLike {
+	return ast.TemplateClass()
+}
 
 func Template(
 	expression ast.ExpressionLike,
-) ast.TemplateLike {
-	return ast.TemplateClass().Template(
+) TemplateLike {
+	return TemplateClass().Template(
 		expression,
 	)
 }
 
-// Ast/ThrowClause
+func ThrowClauseClass() ThrowClauseClassLike {
+	return ast.ThrowClauseClass()
+}
 
 func ThrowClause(
 	exception ast.ExceptionLike,
-) ast.ThrowClauseLike {
-	return ast.ThrowClauseClass().ThrowClause(
+) ThrowClauseLike {
+	return ThrowClauseClass().ThrowClause(
 		exception,
 	)
 }
 
-// Ast/Variable
+func VariableClass() VariableClassLike {
+	return ast.VariableClass()
+}
 
 func Variable(
 	identifier string,
-) ast.VariableLike {
-	return ast.VariableClass().Variable(
+) VariableLike {
+	return VariableClass().Variable(
 		identifier,
 	)
 }
 
-// Ast/WhileClause
+func WhileClauseClass() WhileClauseClassLike {
+	return ast.WhileClauseClass()
+}
 
 func WhileClause(
 	condition ast.ConditionLike,
 	procedure ast.ProcedureLike,
-) ast.WhileClauseLike {
-	return ast.WhileClauseClass().WhileClause(
+) WhileClauseLike {
+	return WhileClauseClass().WhileClause(
 		condition,
 		procedure,
 	)
 }
 
-// Ast/WithClause
+func WithClauseClass() WithClauseClassLike {
+	return ast.WithClauseClass()
+}
 
 func WithClause(
 	item ast.ItemLike,
 	sequence ast.SequenceLike,
 	procedure ast.ProcedureLike,
-) ast.WithClauseLike {
-	return ast.WithClauseClass().WithClause(
+) WithClauseLike {
+	return WithClauseClass().WithClause(
 		item,
 		sequence,
 		procedure,
 	)
 }
 
-// Ast/Xor
-
-func Xor() ast.XorLike {
-	return ast.XorClass().Xor()
+func XorClass() XorClassLike {
+	return ast.XorClass()
 }
 
-// Grammar/Formatter
-
-func Formatter() gra.FormatterLike {
-	return gra.FormatterClass().Formatter()
+func Xor() XorLike {
+	return XorClass().Xor()
 }
 
-// Grammar/Parser
+// Grammar
 
-func Parser() gra.ParserLike {
-	return gra.ParserClass().Parser()
+func FormatterClass() FormatterClassLike {
+	return gra.FormatterClass()
 }
 
-// Grammar/Processor
-
-func Processor() gra.ProcessorLike {
-	return gra.ProcessorClass().Processor()
+func Formatter() FormatterLike {
+	return FormatterClass().Formatter()
 }
 
-// Grammar/Scanner
+func ParserClass() ParserClassLike {
+	return gra.ParserClass()
+}
+
+func Parser() ParserLike {
+	return ParserClass().Parser()
+}
+
+func ProcessorClass() ProcessorClassLike {
+	return gra.ProcessorClass()
+}
+
+func Processor() ProcessorLike {
+	return ProcessorClass().Processor()
+}
+
+func ScannerClass() ScannerClassLike {
+	return gra.ScannerClass()
+}
 
 func Scanner(
 	source string,
 	tokens col.QueueLike[gra.TokenLike],
-) gra.ScannerLike {
-	return gra.ScannerClass().Scanner(
+) ScannerLike {
+	return ScannerClass().Scanner(
 		source,
 		tokens,
 	)
 }
 
-// Grammar/Token
+func TokenClass() TokenClassLike {
+	return gra.TokenClass()
+}
 
 func Token(
 	line uint,
 	position uint,
 	type_ gra.TokenType,
 	value string,
-) gra.TokenLike {
-	return gra.TokenClass().Token(
+) TokenLike {
+	return TokenClass().Token(
 		line,
 		position,
 		type_,
@@ -1580,18 +1828,22 @@ func Token(
 	)
 }
 
-// Grammar/Validator
-
-func Validator() gra.ValidatorLike {
-	return gra.ValidatorClass().Validator()
+func ValidatorClass() ValidatorClassLike {
+	return gra.ValidatorClass()
 }
 
-// Grammar/Visitor
+func Validator() ValidatorLike {
+	return ValidatorClass().Validator()
+}
+
+func VisitorClass() VisitorClassLike {
+	return gra.VisitorClass()
+}
 
 func Visitor(
 	processor gra.Methodical,
-) gra.VisitorLike {
-	return gra.VisitorClass().Visitor(
+) VisitorLike {
+	return VisitorClass().Visitor(
 		processor,
 	)
 }

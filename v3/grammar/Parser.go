@@ -22,9 +22,8 @@ package grammar
 import (
 	fmt "fmt"
 	ast "github.com/bali-nebula/go-bali-documents/v3/ast"
-	fra "github.com/craterdog/go-collection-framework/v5"
-	col "github.com/craterdog/go-collection-framework/v5/collection"
-	uti "github.com/craterdog/go-missing-utilities/v2"
+	col "github.com/craterdog/go-collection-framework/v7"
+	uti "github.com/craterdog/go-missing-utilities/v7"
 	mat "math"
 	sts "strings"
 )
@@ -58,8 +57,8 @@ func (v *parser_) ParseSource(
 	source string,
 ) ast.DocumentLike {
 	v.source_ = sts.ReplaceAll(source, "\t", "    ")
-	v.tokens_ = fra.Queue[TokenLike]()
-	v.next_ = fra.Stack[TokenLike]()
+	v.tokens_ = col.Queue[TokenLike]()
+	v.next_ = col.Stack[TokenLike]()
 
 	// The scanner runs in a separate Go routine.
 	ScannerClass().Scanner(v.source_, v.tokens_)
@@ -82,7 +81,7 @@ func (v *parser_) parseAcceptClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "accept" delimiter.
 	_, token, ok = v.parseDelimiter("accept")
@@ -157,7 +156,7 @@ func (v *parser_) parseAdditionalArgument() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "," delimiter.
 	_, token, ok = v.parseDelimiter(",")
@@ -205,7 +204,7 @@ func (v *parser_) parseAdditionalAssociation() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "," delimiter.
 	_, token, ok = v.parseDelimiter(",")
@@ -253,7 +252,7 @@ func (v *parser_) parseAdditionalIndex() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "," delimiter.
 	_, token, ok = v.parseDelimiter(",")
@@ -301,7 +300,7 @@ func (v *parser_) parseAdditionalStatement() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single ";" delimiter.
 	_, token, ok = v.parseDelimiter(";")
@@ -349,7 +348,7 @@ func (v *parser_) parseAdditionalValue() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "," delimiter.
 	_, token, ok = v.parseDelimiter(",")
@@ -397,7 +396,7 @@ func (v *parser_) parseAnd() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "and" delimiter.
 	_, token, ok = v.parseDelimiter("and")
@@ -428,7 +427,7 @@ func (v *parser_) parseAnnotatedAssociation() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Association rule.
 	var association ast.AssociationLike
@@ -496,7 +495,7 @@ func (v *parser_) parseAnnotatedValue() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Component rule.
 	var component ast.ComponentLike
@@ -537,7 +536,7 @@ func (v *parser_) parseArgument() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single identifier token.
 	var identifier string
@@ -569,7 +568,7 @@ func (v *parser_) parseArguments() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Argument rule.
 	var argument ast.ArgumentLike
@@ -589,7 +588,7 @@ func (v *parser_) parseArguments() (
 	}
 
 	// Attempt to parse multiple AdditionalArgument rules.
-	var additionalArguments = fra.List[ast.AdditionalArgumentLike]()
+	var additionalArguments = col.List[ast.AdditionalArgumentLike]()
 additionalArgumentsLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var additionalArgument ast.AdditionalArgumentLike
@@ -692,7 +691,7 @@ func (v *parser_) parseAssociation() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Primitive rule.
 	var primitive ast.PrimitiveLike
@@ -762,7 +761,7 @@ func (v *parser_) parseAtLevel() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "at" delimiter.
 	_, token, ok = v.parseDelimiter("at")
@@ -827,7 +826,7 @@ func (v *parser_) parseBag() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -912,7 +911,7 @@ func (v *parser_) parseBreakClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "break" delimiter.
 	_, token, ok = v.parseDelimiter("break")
@@ -960,7 +959,7 @@ func (v *parser_) parseCheckoutClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "checkout" delimiter.
 	_, token, ok = v.parseDelimiter("checkout")
@@ -1054,7 +1053,7 @@ func (v *parser_) parseCited() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -1166,7 +1165,7 @@ func (v *parser_) parseColonEqual() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single ":=" delimiter.
 	_, token, ok = v.parseDelimiter(":=")
@@ -1197,7 +1196,7 @@ func (v *parser_) parseCommentLine() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single comment token.
 	var comment string
@@ -1229,7 +1228,7 @@ func (v *parser_) parseComplement() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "not" delimiter.
 	_, token, ok = v.parseDelimiter("not")
@@ -1277,7 +1276,7 @@ func (v *parser_) parseComponent() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Entity rule.
 	var entity ast.EntityLike
@@ -1319,7 +1318,7 @@ func (v *parser_) parseCondition() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -1350,7 +1349,7 @@ func (v *parser_) parseContinueClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "continue" delimiter.
 	_, token, ok = v.parseDelimiter("continue")
@@ -1398,7 +1397,7 @@ func (v *parser_) parseDashEqual() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "-=" delimiter.
 	_, token, ok = v.parseDelimiter("-=")
@@ -1429,7 +1428,7 @@ func (v *parser_) parseDefaultEqual() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "?=" delimiter.
 	_, token, ok = v.parseDelimiter("?=")
@@ -1460,7 +1459,7 @@ func (v *parser_) parseDiscardClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "discard" delimiter.
 	_, token, ok = v.parseDelimiter("discard")
@@ -1508,7 +1507,7 @@ func (v *parser_) parseDoClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "do" delimiter.
 	_, token, ok = v.parseDelimiter("do")
@@ -1556,7 +1555,7 @@ func (v *parser_) parseDocument() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse an optional Notice rule.
 	var optionalNotice ast.NoticeLike
@@ -1598,7 +1597,7 @@ func (v *parser_) parseDraft() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -1773,7 +1772,7 @@ func (v *parser_) parseEvent() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -1804,7 +1803,7 @@ func (v *parser_) parseException() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -1835,7 +1834,7 @@ func (v *parser_) parseExclusive() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single ")" delimiter.
 	_, token, ok = v.parseDelimiter(")")
@@ -1866,7 +1865,7 @@ func (v *parser_) parseExclusiveRange() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "(" delimiter.
 	_, token, ok = v.parseDelimiter("(")
@@ -1973,7 +1972,7 @@ func (v *parser_) parseExpression() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Subject rule.
 	var subject ast.SubjectLike
@@ -1993,7 +1992,7 @@ func (v *parser_) parseExpression() (
 	}
 
 	// Attempt to parse multiple Predicate rules.
-	var predicates = fra.List[ast.PredicateLike]()
+	var predicates = col.List[ast.PredicateLike]()
 predicatesLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var predicate ast.PredicateLike
@@ -2033,7 +2032,7 @@ func (v *parser_) parseFailure() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single symbol token.
 	var symbol string
@@ -2146,7 +2145,7 @@ func (v *parser_) parseFunction() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single identifier token.
 	var identifier string
@@ -2223,7 +2222,7 @@ func (v *parser_) parseIfClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "if" delimiter.
 	_, token, ok = v.parseDelimiter("if")
@@ -2308,7 +2307,7 @@ func (v *parser_) parseInclusive() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "]" delimiter.
 	_, token, ok = v.parseDelimiter("]")
@@ -2339,7 +2338,7 @@ func (v *parser_) parseInclusiveRange() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "[" delimiter.
 	_, token, ok = v.parseDelimiter("[")
@@ -2446,7 +2445,7 @@ func (v *parser_) parseIndex() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -2477,7 +2476,7 @@ func (v *parser_) parseIndices() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Index rule.
 	var index ast.IndexLike
@@ -2497,7 +2496,7 @@ func (v *parser_) parseIndices() (
 	}
 
 	// Attempt to parse multiple AdditionalIndex rules.
-	var additionalIndexes = fra.List[ast.AdditionalIndexLike]()
+	var additionalIndexes = col.List[ast.AdditionalIndexLike]()
 additionalIndexesLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var additionalIndex ast.AdditionalIndexLike
@@ -2627,7 +2626,7 @@ func (v *parser_) parseInlineAttributes() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "[" delimiter.
 	_, token, ok = v.parseDelimiter("[")
@@ -2664,7 +2663,7 @@ func (v *parser_) parseInlineAttributes() (
 	}
 
 	// Attempt to parse multiple AdditionalAssociation rules.
-	var additionalAssociations = fra.List[ast.AdditionalAssociationLike]()
+	var additionalAssociations = col.List[ast.AdditionalAssociationLike]()
 additionalAssociationsLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var additionalAssociation ast.AdditionalAssociationLike
@@ -2721,7 +2720,7 @@ func (v *parser_) parseInlineParameters() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "(" delimiter.
 	_, token, ok = v.parseDelimiter("(")
@@ -2758,7 +2757,7 @@ func (v *parser_) parseInlineParameters() (
 	}
 
 	// Attempt to parse multiple AdditionalAssociation rules.
-	var additionalAssociations = fra.List[ast.AdditionalAssociationLike]()
+	var additionalAssociations = col.List[ast.AdditionalAssociationLike]()
 additionalAssociationsLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var additionalAssociation ast.AdditionalAssociationLike
@@ -2815,7 +2814,7 @@ func (v *parser_) parseInlineStatements() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "{" delimiter.
 	_, token, ok = v.parseDelimiter("{")
@@ -2852,7 +2851,7 @@ func (v *parser_) parseInlineStatements() (
 	}
 
 	// Attempt to parse multiple AdditionalStatement rules.
-	var additionalStatements = fra.List[ast.AdditionalStatementLike]()
+	var additionalStatements = col.List[ast.AdditionalStatementLike]()
 additionalStatementsLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var additionalStatement ast.AdditionalStatementLike
@@ -2909,7 +2908,7 @@ func (v *parser_) parseInlineValues() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "[" delimiter.
 	_, token, ok = v.parseDelimiter("[")
@@ -2946,7 +2945,7 @@ func (v *parser_) parseInlineValues() (
 	}
 
 	// Attempt to parse multiple AdditionalValue rules.
-	var additionalValues = fra.List[ast.AdditionalValueLike]()
+	var additionalValues = col.List[ast.AdditionalValueLike]()
 additionalValuesLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var additionalValue ast.AdditionalValueLike
@@ -3039,7 +3038,7 @@ func (v *parser_) parseInversion() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Inverse rule.
 	var inverse ast.InverseLike
@@ -3119,7 +3118,7 @@ func (v *parser_) parseIor() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "ior" delimiter.
 	_, token, ok = v.parseDelimiter("ior")
@@ -3150,7 +3149,7 @@ func (v *parser_) parseIs() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "is" delimiter.
 	_, token, ok = v.parseDelimiter("is")
@@ -3181,7 +3180,7 @@ func (v *parser_) parseItem() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single symbol token.
 	var symbol string
@@ -3213,7 +3212,7 @@ func (v *parser_) parseLetClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "let" delimiter.
 	_, token, ok = v.parseDelimiter("let")
@@ -3380,7 +3379,7 @@ func (v *parser_) parseMagnitude() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "|" delimiter.
 	_, token, ok = v.parseDelimiter("|")
@@ -3490,7 +3489,7 @@ func (v *parser_) parseMatchHandler() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "matching" delimiter.
 	_, token, ok = v.parseDelimiter("matching")
@@ -3575,7 +3574,7 @@ func (v *parser_) parseMatches() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "matches" delimiter.
 	_, token, ok = v.parseDelimiter("matches")
@@ -3606,7 +3605,7 @@ func (v *parser_) parseMessage() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -3691,7 +3690,7 @@ func (v *parser_) parseMethod() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single identifier token.
 	var identifier1 string
@@ -3807,7 +3806,7 @@ func (v *parser_) parseMultilineAttributes() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "[" delimiter.
 	_, token, ok = v.parseDelimiter("[")
@@ -3845,7 +3844,7 @@ func (v *parser_) parseMultilineAttributes() (
 	}
 
 	// Attempt to parse multiple AnnotatedAssociation rules.
-	var annotatedAssociations = fra.List[ast.AnnotatedAssociationLike]()
+	var annotatedAssociations = col.List[ast.AnnotatedAssociationLike]()
 annotatedAssociationsLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var annotatedAssociation ast.AnnotatedAssociationLike
@@ -3902,7 +3901,7 @@ func (v *parser_) parseMultilineParameters() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "(" delimiter.
 	_, token, ok = v.parseDelimiter("(")
@@ -3940,7 +3939,7 @@ func (v *parser_) parseMultilineParameters() (
 	}
 
 	// Attempt to parse multiple AnnotatedAssociation rules.
-	var annotatedAssociations = fra.List[ast.AnnotatedAssociationLike]()
+	var annotatedAssociations = col.List[ast.AnnotatedAssociationLike]()
 annotatedAssociationsLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var annotatedAssociation ast.AnnotatedAssociationLike
@@ -3997,7 +3996,7 @@ func (v *parser_) parseMultilineStatements() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "{" delimiter.
 	_, token, ok = v.parseDelimiter("{")
@@ -4035,7 +4034,7 @@ func (v *parser_) parseMultilineStatements() (
 	}
 
 	// Attempt to parse multiple AnnotatedStatement rules.
-	var annotatedStatements = fra.List[ast.AnnotatedStatementLike]()
+	var annotatedStatements = col.List[ast.AnnotatedStatementLike]()
 annotatedStatementsLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var annotatedStatement ast.AnnotatedStatementLike
@@ -4092,7 +4091,7 @@ func (v *parser_) parseMultilineValues() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "[" delimiter.
 	_, token, ok = v.parseDelimiter("[")
@@ -4130,7 +4129,7 @@ func (v *parser_) parseMultilineValues() (
 	}
 
 	// Attempt to parse multiple AnnotatedValue rules.
-	var annotatedValues = fra.List[ast.AnnotatedValueLike]()
+	var annotatedValues = col.List[ast.AnnotatedValueLike]()
 annotatedValuesLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var annotatedValue ast.AnnotatedValueLike
@@ -4187,7 +4186,7 @@ func (v *parser_) parseNoAttributes() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "[" delimiter.
 	_, token, ok = v.parseDelimiter("[")
@@ -4252,7 +4251,7 @@ func (v *parser_) parseNoStatements() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "{" delimiter.
 	_, token, ok = v.parseDelimiter("{")
@@ -4300,7 +4299,7 @@ func (v *parser_) parseNoValues() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "[" delimiter.
 	_, token, ok = v.parseDelimiter("[")
@@ -4348,7 +4347,7 @@ func (v *parser_) parseNotarizeClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "notarize" delimiter.
 	_, token, ok = v.parseDelimiter("notarize")
@@ -4433,7 +4432,7 @@ func (v *parser_) parseNotice() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single comment token.
 	var comment string
@@ -4576,7 +4575,7 @@ func (v *parser_) parseOnClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "on" delimiter.
 	_, token, ok = v.parseDelimiter("on")
@@ -4613,7 +4612,7 @@ func (v *parser_) parseOnClause() (
 	}
 
 	// Attempt to parse multiple MatchHandler rules.
-	var matchHandlers = fra.List[ast.MatchHandlerLike]()
+	var matchHandlers = col.List[ast.MatchHandlerLike]()
 matchHandlersLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var matchHandler ast.MatchHandlerLike
@@ -4842,7 +4841,7 @@ func (v *parser_) parsePlusEqual() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "+=" delimiter.
 	_, token, ok = v.parseDelimiter("+=")
@@ -4873,7 +4872,7 @@ func (v *parser_) parsePostClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "post" delimiter.
 	_, token, ok = v.parseDelimiter("post")
@@ -4958,7 +4957,7 @@ func (v *parser_) parsePrecedence() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "(" delimiter.
 	_, token, ok = v.parseDelimiter("(")
@@ -5023,7 +5022,7 @@ func (v *parser_) parsePredicate() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Action rule.
 	var action ast.ActionLike
@@ -5137,7 +5136,7 @@ func (v *parser_) parsePublishClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "publish" delimiter.
 	_, token, ok = v.parseDelimiter("publish")
@@ -5212,7 +5211,7 @@ func (v *parser_) parseReferent() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "@" delimiter.
 	_, token, ok = v.parseDelimiter("@")
@@ -5260,7 +5259,7 @@ func (v *parser_) parseRejectClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "reject" delimiter.
 	_, token, ok = v.parseDelimiter("reject")
@@ -5353,7 +5352,7 @@ func (v *parser_) parseResult() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -5384,7 +5383,7 @@ func (v *parser_) parseRetrieveClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "retrieve" delimiter.
 	_, token, ok = v.parseDelimiter("retrieve")
@@ -5469,7 +5468,7 @@ func (v *parser_) parseReturnClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "return" delimiter.
 	_, token, ok = v.parseDelimiter("return")
@@ -5517,7 +5516,7 @@ func (v *parser_) parseSan() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "san" delimiter.
 	_, token, ok = v.parseDelimiter("san")
@@ -5548,7 +5547,7 @@ func (v *parser_) parseSaveClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "save" delimiter.
 	_, token, ok = v.parseDelimiter("save")
@@ -5633,7 +5632,7 @@ func (v *parser_) parseSelectClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "select" delimiter.
 	_, token, ok = v.parseDelimiter("select")
@@ -5670,7 +5669,7 @@ func (v *parser_) parseSelectClause() (
 	}
 
 	// Attempt to parse multiple MatchHandler rules.
-	var matchHandlers = fra.List[ast.MatchHandlerLike]()
+	var matchHandlers = col.List[ast.MatchHandlerLike]()
 matchHandlersLoop:
 	for count := 0; count < mat.MaxInt; count++ {
 		var matchHandler ast.MatchHandlerLike
@@ -5710,7 +5709,7 @@ func (v *parser_) parseSequence() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -5741,7 +5740,7 @@ func (v *parser_) parseSlashEqual() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "/=" delimiter.
 	_, token, ok = v.parseDelimiter("/=")
@@ -5772,7 +5771,7 @@ func (v *parser_) parseStarEqual() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "*=" delimiter.
 	_, token, ok = v.parseDelimiter("*=")
@@ -5803,7 +5802,7 @@ func (v *parser_) parseStatement() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single MainClause rule.
 	var mainClause ast.MainClauseLike
@@ -5845,7 +5844,7 @@ func (v *parser_) parseStatementLine() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Statement rule.
 	var statement ast.StatementLike
@@ -5967,7 +5966,7 @@ func (v *parser_) parseSubcomponent() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single identifier token.
 	var identifier string
@@ -6197,7 +6196,7 @@ func (v *parser_) parseTemplate() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -6228,7 +6227,7 @@ func (v *parser_) parseThrowClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "throw" delimiter.
 	_, token, ok = v.parseDelimiter("throw")
@@ -6276,7 +6275,7 @@ func (v *parser_) parseVariable() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single identifier token.
 	var identifier string
@@ -6308,7 +6307,7 @@ func (v *parser_) parseWhileClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "while" delimiter.
 	_, token, ok = v.parseDelimiter("while")
@@ -6393,7 +6392,7 @@ func (v *parser_) parseWithClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "with" delimiter.
 	_, token, ok = v.parseDelimiter("with")
@@ -6530,7 +6529,7 @@ func (v *parser_) parseXor() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 
 	// Attempt to parse a single "xor" delimiter.
 	_, token, ok = v.parseDelimiter("xor")
@@ -6586,7 +6585,7 @@ func (v *parser_) parseToken(
 	ok bool,
 ) {
 	// Attempt to parse a specific token type.
-	var tokens = fra.List[TokenLike]()
+	var tokens = col.List[TokenLike]()
 	token = v.getNextToken()
 	for token != nil {
 		tokens.AppendValue(token)
@@ -6727,7 +6726,7 @@ func parserClass() *parserClass_ {
 
 var parserClassReference_ = &parserClass_{
 	// Initialize the class constants.
-	syntax_: fra.CatalogFromMap[string, string](
+	syntax_: col.CatalogFromMap[string, string](
 		map[string]string{
 			"$Document":  `Notice? Component`,
 			"$Notice":    `comment newline`,

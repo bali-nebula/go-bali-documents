@@ -20,8 +20,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v5/collection"
-	uti "github.com/craterdog/go-missing-utilities/v2"
+	col "github.com/craterdog/go-collection-framework/v7"
+	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
 // CLASS INTERFACE

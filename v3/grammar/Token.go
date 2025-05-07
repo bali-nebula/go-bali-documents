@@ -20,7 +20,7 @@
 package grammar
 
 import (
-	uti "github.com/craterdog/go-missing-utilities/v2"
+	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
 // CLASS INTERFACE

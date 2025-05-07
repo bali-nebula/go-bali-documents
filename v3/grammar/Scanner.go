@@ -21,9 +21,8 @@ package grammar
 
 import (
 	fmt "fmt"
-	fra "github.com/craterdog/go-collection-framework/v5"
-	col "github.com/craterdog/go-collection-framework/v5/collection"
-	uti "github.com/craterdog/go-missing-utilities/v2"
+	col "github.com/craterdog/go-collection-framework/v7"
+	uti "github.com/craterdog/go-missing-utilities/v7"
 	reg "regexp"
 	sts "strings"
 	uni "unicode"
@@ -263,7 +262,7 @@ func scannerClass() *scannerClass_ {
 
 var scannerClassReference_ = &scannerClass_{
 	// Initialize the class constants.
-	tokens_: fra.CatalogFromMap[TokenType, string](
+	tokens_: col.CatalogFromMap[TokenType, string](
 		map[TokenType]string{
 			// Define identifiers for each type of token.
 			ErrorToken:       "error",
@@ -305,7 +304,7 @@ var scannerClassReference_ = &scannerClass_{
 			VersionToken:     "version",
 		},
 	),
-	matchers_: fra.CatalogFromMap[TokenType, *reg.Regexp](
+	matchers_: col.CatalogFromMap[TokenType, *reg.Regexp](
 		map[TokenType]*reg.Regexp{
 			// Define pattern matchers for each type of token.
 			AmpersandToken:   reg.MustCompile("^" + ampersand_),

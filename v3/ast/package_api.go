@@ -12,12 +12,12 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│              This "Package.go" file was automatically generated.             │
+│            This "package_api.go" file was automatically generated.           │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 
 Package "ast" provides the abstract syntax tree (AST) classes for this module
-based on the "Syntax.cdsn" grammar for the module.  Each AST class manages the
+based on the "syntax.cdsn" grammar for the module.  Each AST class manages the
 attributes associated with its corresponding rule definition found in the
 grammar.
 
@@ -36,7 +36,7 @@ on interfaces, not on each other.
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v5/collection"
+	col "github.com/craterdog/go-collection-framework/v7"
 )
 
 // TYPE DECLARATIONS

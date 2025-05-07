@@ -22,7 +22,7 @@ package grammar
 import (
 	fmt "fmt"
 	ast "github.com/bali-nebula/go-bali-documents/v3/ast"
-	uti "github.com/craterdog/go-missing-utilities/v2"
+	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
 // CLASS INTERFACE

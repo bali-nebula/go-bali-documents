@@ -12,7 +12,7 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│              This "Package.go" file was automatically generated.             │
+│            This "package_api.go" file was automatically generated.           │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 
@@ -42,7 +42,7 @@ package grammar
 
 import (
 	ast "github.com/bali-nebula/go-bali-documents/v3/ast"
-	col "github.com/craterdog/go-collection-framework/v5/collection"
+	col "github.com/craterdog/go-collection-framework/v7"
 )
 
 // TYPE DECLARATIONS

@@ -8,12 +8,12 @@
  * Initiative. (See http://opensource.org/licenses/MIT)                        *
  *******************************************************************************/
 
-package grammar_test
+package module_test
 
 import (
 	fmt "fmt"
 	gra "github.com/bali-nebula/go-bali-documents/v3/grammar"
-	uti "github.com/craterdog/go-missing-utilities/v2"
+	uti "github.com/craterdog/go-missing-utilities/v7"
 	ass "github.com/stretchr/testify/assert"
 	osx "os"
 	sts "strings"
