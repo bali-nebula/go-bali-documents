@@ -199,8 +199,8 @@ $Argument: identifier
 $Method: identifier Blocking identifier "(" Arguments? ")"
 
 $Blocking:
-    "."
-    "<-"
+    dot
+	arrow
 
 $Subcomponent: identifier "[" Indices "]"
 
@@ -241,24 +241,12 @@ $Invocation:
 $LetClause: "let" Recipient Assignment Expression
 
 $Assignment:
-    ColonEqual
-    DefaultEqual
-    PlusEqual
-    DashEqual
-    StarEqual
-    SlashEqual
-
-$ColonEqual: ":="
-
-$DefaultEqual: "?="
-
-$PlusEqual: "+="
-
-$DashEqual: "-="
-
-$StarEqual: "*="
-
-$SlashEqual: "/="
+":="
+"?="
+"+="
+"-="
+"*="
+"/="
 
 $Recipient:
     Item
@@ -311,22 +299,34 @@ $Subject:
 $Predicate: Operation Expression
 
 $Operation:
-    "+"
-    "-"
-    "*"
-    "÷"
-    "%"
-    "^"
+    Textual
+	Logic
+	Arithmetic
+	Comparison
+
+$Textual:
     "&"
-    "<<"
-    "=="
-    ">>"
-	"is"
-	"matches"
+    "is"
+    "matches"
+
+$Logic:
 	"and"
 	"san"
 	"ior"
 	"xor"
+
+$Arithmetic:
+    plus
+	minus
+	star
+	slash
+	percent
+	caret
+
+$Comparison:
+    less
+	equal
+	more
 
 $Precedence: "(" Expression ")"
 
@@ -355,9 +355,9 @@ $Logical:
 $Inversion: Inverse Numerical
 
 $Inverse:
-    "-"
-    "/"
-    "*"
+    minus
+    slash
+    star
 
 $Numerical:
     Component
@@ -499,11 +499,33 @@ $unicode: ('u' base16{4}) | ('U' base16{8})
 
 $version: 'v' ordinal ('.' ordinal)*
 
-$identifier: letter (letter | DIGIT)*  ! Must be after alphanumeric expressions.
-
 $weeks: timespan 'W'
 
 $year: '0' | ordinal
 
 $years: timespan 'Y'
+
+$identifier: letter (letter | DIGIT)*  ! Must be after all alphanumeric expressions.
+
+$less: "<"
+
+$equal: "="
+
+$more: ">"
+
+$plus: "+"
+
+$minus: "-"
+
+$star: "*"
+
+$slash: "/"
+
+$percent: "%"
+
+$caret: "^"
+
+$dot: "."
+
+$arrow: "<-"
 

@@ -332,83 +332,45 @@ func (v *visitor_) visitArguments(
 	}
 }
 
+func (v *visitor_) visitArithmetic(
+	arithmetic ast.ArithmeticLike,
+) {
+	// Visit the possible arithmetic expression types.
+	var actual = arithmetic.GetAny().(string)
+	switch {
+	case ScannerClass().MatchesType(actual, PlusToken):
+		v.processor_.ProcessPlus(actual)
+	case ScannerClass().MatchesType(actual, MinusToken):
+		v.processor_.ProcessMinus(actual)
+	case ScannerClass().MatchesType(actual, StarToken):
+		v.processor_.ProcessStar(actual)
+	case ScannerClass().MatchesType(actual, SlashToken):
+		v.processor_.ProcessSlash(actual)
+	case ScannerClass().MatchesType(actual, PercentToken):
+		v.processor_.ProcessPercent(actual)
+	case ScannerClass().MatchesType(actual, CaretToken):
+		v.processor_.ProcessCaret(actual)
+	}
+}
+
 func (v *visitor_) visitAssignment(
 	assignment ast.AssignmentLike,
 ) {
-	// Visit the possible assignment rule types.
-	switch actual := assignment.GetAny().(type) {
-	case ast.ColonEqualLike:
-		v.processor_.PreprocessColonEqual(
-			actual,
-			1,
-			1,
-		)
-		v.visitColonEqual(actual)
-		v.processor_.PostprocessColonEqual(
-			actual,
-			1,
-			1,
-		)
-	case ast.DefaultEqualLike:
-		v.processor_.PreprocessDefaultEqual(
-			actual,
-			1,
-			1,
-		)
-		v.visitDefaultEqual(actual)
-		v.processor_.PostprocessDefaultEqual(
-			actual,
-			1,
-			1,
-		)
-	case ast.PlusEqualLike:
-		v.processor_.PreprocessPlusEqual(
-			actual,
-			1,
-			1,
-		)
-		v.visitPlusEqual(actual)
-		v.processor_.PostprocessPlusEqual(
-			actual,
-			1,
-			1,
-		)
-	case ast.DashEqualLike:
-		v.processor_.PreprocessDashEqual(
-			actual,
-			1,
-			1,
-		)
-		v.visitDashEqual(actual)
-		v.processor_.PostprocessDashEqual(
-			actual,
-			1,
-			1,
-		)
-	case ast.StarEqualLike:
-		v.processor_.PreprocessStarEqual(
-			actual,
-			1,
-			1,
-		)
-		v.visitStarEqual(actual)
-		v.processor_.PostprocessStarEqual(
-			actual,
-			1,
-			1,
-		)
-	case ast.SlashEqualLike:
-		v.processor_.PreprocessSlashEqual(
-			actual,
-			1,
-			1,
-		)
-		v.visitSlashEqual(actual)
-		v.processor_.PostprocessSlashEqual(
-			actual,
-			1,
-			1,
-		)
+	// Visit the possible assignment literal values.
+	var actual = assignment.GetAny().(string)
+	switch actual {
+	case ":=":
+		v.processor_.ProcessDelimiter(":=")
+	case "?=":
+		v.processor_.ProcessDelimiter("?=")
+	case "+=":
+		v.processor_.ProcessDelimiter("+=")
+	case "-=":
+		v.processor_.ProcessDelimiter("-=")
+	case "*=":
+		v.processor_.ProcessDelimiter("*=")
+	case "/=":
+		v.processor_.ProcessDelimiter("/=")
 	}
 }
 
@@ -496,13 +458,13 @@ func (v *visitor_) visitBag(
 func (v *visitor_) visitBlocking(
 	blocking ast.BlockingLike,
 ) {
-	// Visit the possible blocking literal values.
+	// Visit the possible blocking expression types.
 	var actual = blocking.GetAny().(string)
-	switch actual {
-	case ".":
-		v.processor_.ProcessDelimiter(".")
-	case "<-":
-		v.processor_.ProcessDelimiter("<-")
+	switch {
+	case ScannerClass().MatchesType(actual, DotToken):
+		v.processor_.ProcessDot(actual)
+	case ScannerClass().MatchesType(actual, ArrowToken):
+		v.processor_.ProcessArrow(actual)
 	}
 }
 
@@ -730,18 +692,26 @@ func (v *visitor_) visitCollection(
 	}
 }
 
-func (v *visitor_) visitColonEqual(
-	colonEqual ast.ColonEqualLike,
-) {
-	var delimiter = colonEqual.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-}
-
 func (v *visitor_) visitCommentLine(
 	commentLine ast.CommentLineLike,
 ) {
 	var comment = commentLine.GetComment()
 	v.processor_.ProcessComment(comment)
+}
+
+func (v *visitor_) visitComparison(
+	comparison ast.ComparisonLike,
+) {
+	// Visit the possible comparison expression types.
+	var actual = comparison.GetAny().(string)
+	switch {
+	case ScannerClass().MatchesType(actual, LessToken):
+		v.processor_.ProcessLess(actual)
+	case ScannerClass().MatchesType(actual, EqualToken):
+		v.processor_.ProcessEqual(actual)
+	case ScannerClass().MatchesType(actual, MoreToken):
+		v.processor_.ProcessMore(actual)
+	}
 }
 
 func (v *visitor_) visitComplement(
@@ -827,20 +797,6 @@ func (v *visitor_) visitContinueClause(
 
 	var delimiter2 = continueClause.GetDelimiter2()
 	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitDashEqual(
-	dashEqual ast.DashEqualLike,
-) {
-	var delimiter = dashEqual.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-}
-
-func (v *visitor_) visitDefaultEqual(
-	defaultEqual ast.DefaultEqualLike,
-) {
-	var delimiter = defaultEqual.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
 }
 
 func (v *visitor_) visitDiscardClause(
@@ -1772,15 +1728,15 @@ func (v *visitor_) visitInlineValues(
 func (v *visitor_) visitInverse(
 	inverse ast.InverseLike,
 ) {
-	// Visit the possible inverse literal values.
+	// Visit the possible inverse expression types.
 	var actual = inverse.GetAny().(string)
-	switch actual {
-	case "-":
-		v.processor_.ProcessDelimiter("-")
-	case "/":
-		v.processor_.ProcessDelimiter("/")
-	case "*":
-		v.processor_.ProcessDelimiter("*")
+	switch {
+	case ScannerClass().MatchesType(actual, MinusToken):
+		v.processor_.ProcessMinus(actual)
+	case ScannerClass().MatchesType(actual, SlashToken):
+		v.processor_.ProcessSlash(actual)
+	case ScannerClass().MatchesType(actual, StarToken):
+		v.processor_.ProcessStar(actual)
 	}
 }
 
@@ -1912,6 +1868,23 @@ func (v *visitor_) visitLetClause(
 		1,
 		1,
 	)
+}
+
+func (v *visitor_) visitLogic(
+	logic ast.LogicLike,
+) {
+	// Visit the possible logic literal values.
+	var actual = logic.GetAny().(string)
+	switch actual {
+	case "and":
+		v.processor_.ProcessDelimiter("and")
+	case "san":
+		v.processor_.ProcessDelimiter("san")
+	case "ior":
+		v.processor_.ProcessDelimiter("ior")
+	case "xor":
+		v.processor_.ProcessDelimiter("xor")
+	}
 }
 
 func (v *visitor_) visitLogical(
@@ -2679,41 +2652,56 @@ func (v *visitor_) visitOnClause(
 func (v *visitor_) visitOperation(
 	operation ast.OperationLike,
 ) {
-	// Visit the possible operation literal values.
-	var actual = operation.GetAny().(string)
-	switch actual {
-	case "+":
-		v.processor_.ProcessDelimiter("+")
-	case "-":
-		v.processor_.ProcessDelimiter("-")
-	case "*":
-		v.processor_.ProcessDelimiter("*")
-	case "÷":
-		v.processor_.ProcessDelimiter("÷")
-	case "%":
-		v.processor_.ProcessDelimiter("%")
-	case "^":
-		v.processor_.ProcessDelimiter("^")
-	case "&":
-		v.processor_.ProcessDelimiter("&")
-	case "<<":
-		v.processor_.ProcessDelimiter("<<")
-	case "==":
-		v.processor_.ProcessDelimiter("==")
-	case ">>":
-		v.processor_.ProcessDelimiter(">>")
-	case "is":
-		v.processor_.ProcessDelimiter("is")
-	case "matches":
-		v.processor_.ProcessDelimiter("matches")
-	case "and":
-		v.processor_.ProcessDelimiter("and")
-	case "san":
-		v.processor_.ProcessDelimiter("san")
-	case "ior":
-		v.processor_.ProcessDelimiter("ior")
-	case "xor":
-		v.processor_.ProcessDelimiter("xor")
+	// Visit the possible operation rule types.
+	switch actual := operation.GetAny().(type) {
+	case ast.TextualLike:
+		v.processor_.PreprocessTextual(
+			actual,
+			1,
+			1,
+		)
+		v.visitTextual(actual)
+		v.processor_.PostprocessTextual(
+			actual,
+			1,
+			1,
+		)
+	case ast.LogicLike:
+		v.processor_.PreprocessLogic(
+			actual,
+			1,
+			1,
+		)
+		v.visitLogic(actual)
+		v.processor_.PostprocessLogic(
+			actual,
+			1,
+			1,
+		)
+	case ast.ArithmeticLike:
+		v.processor_.PreprocessArithmetic(
+			actual,
+			1,
+			1,
+		)
+		v.visitArithmetic(actual)
+		v.processor_.PostprocessArithmetic(
+			actual,
+			1,
+			1,
+		)
+	case ast.ComparisonLike:
+		v.processor_.PreprocessComparison(
+			actual,
+			1,
+			1,
+		)
+		v.visitComparison(actual)
+		v.processor_.PostprocessComparison(
+			actual,
+			1,
+			1,
+		)
 	}
 }
 
@@ -2747,13 +2735,6 @@ func (v *visitor_) visitParameters(
 			1,
 		)
 	}
-}
-
-func (v *visitor_) visitPlusEqual(
-	plusEqual ast.PlusEqualLike,
-) {
-	var delimiter = plusEqual.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
 }
 
 func (v *visitor_) visitPostClause(
@@ -3270,20 +3251,6 @@ func (v *visitor_) visitSequence(
 	)
 }
 
-func (v *visitor_) visitSlashEqual(
-	slashEqual ast.SlashEqualLike,
-) {
-	var delimiter = slashEqual.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-}
-
-func (v *visitor_) visitStarEqual(
-	starEqual ast.StarEqualLike,
-) {
-	var delimiter = starEqual.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-}
-
 func (v *visitor_) visitStatement(
 	statement ast.StatementLike,
 ) {
@@ -3598,6 +3565,21 @@ func (v *visitor_) visitTemplate(
 		1,
 		1,
 	)
+}
+
+func (v *visitor_) visitTextual(
+	textual ast.TextualLike,
+) {
+	// Visit the possible textual literal values.
+	var actual = textual.GetAny().(string)
+	switch actual {
+	case "&":
+		v.processor_.ProcessDelimiter("&")
+	case "is":
+		v.processor_.ProcessDelimiter("is")
+	case "matches":
+		v.processor_.ProcessDelimiter("matches")
+	}
 }
 
 func (v *visitor_) visitThrowClause(

@@ -27,21 +27,21 @@ import (
 
 // Access Function
 
-func SlashEqualClass() SlashEqualClassLike {
-	return slashEqualClass()
+func TextualClass() TextualClassLike {
+	return textualClass()
 }
 
 // Constructor Methods
 
-func (c *slashEqualClass_) SlashEqual(
-	delimiter string,
-) SlashEqualLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
+func (c *textualClass_) Textual(
+	any_ any,
+) TextualLike {
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &slashEqual_{
+	var instance = &textual_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
+		any_: any_,
 	}
 	return instance
 }
@@ -50,37 +50,37 @@ func (c *slashEqualClass_) SlashEqual(
 
 // Principal Methods
 
-func (v *slashEqual_) GetClass() SlashEqualClassLike {
-	return slashEqualClass()
+func (v *textual_) GetClass() TextualClassLike {
+	return textualClass()
 }
 
 // Attribute Methods
 
-func (v *slashEqual_) GetDelimiter() string {
-	return v.delimiter_
+func (v *textual_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type slashEqual_ struct {
+type textual_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
+	any_ any
 }
 
 // Class Structure
 
-type slashEqualClass_ struct {
+type textualClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func slashEqualClass() *slashEqualClass_ {
-	return slashEqualClassReference_
+func textualClass() *textualClass_ {
+	return textualClassReference_
 }
 
-var slashEqualClassReference_ = &slashEqualClass_{
+var textualClassReference_ = &textualClass_{
 	// Initialize the class constants.
 }

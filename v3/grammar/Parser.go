@@ -597,62 +597,121 @@ additionalArgumentsLoop:
 	return
 }
 
+func (v *parser_) parseArithmetic() (
+	arithmetic ast.ArithmeticLike,
+	token TokenLike,
+	ok bool,
+) {
+	// Attempt to parse a single plus Arithmetic.
+	var plus string
+	plus, token, ok = v.parseToken(PlusToken)
+	if ok {
+		// Found a single plus Arithmetic.
+		arithmetic = ast.ArithmeticClass().Arithmetic(plus)
+		return
+	}
+
+	// Attempt to parse a single minus Arithmetic.
+	var minus string
+	minus, token, ok = v.parseToken(MinusToken)
+	if ok {
+		// Found a single minus Arithmetic.
+		arithmetic = ast.ArithmeticClass().Arithmetic(minus)
+		return
+	}
+
+	// Attempt to parse a single star Arithmetic.
+	var star string
+	star, token, ok = v.parseToken(StarToken)
+	if ok {
+		// Found a single star Arithmetic.
+		arithmetic = ast.ArithmeticClass().Arithmetic(star)
+		return
+	}
+
+	// Attempt to parse a single slash Arithmetic.
+	var slash string
+	slash, token, ok = v.parseToken(SlashToken)
+	if ok {
+		// Found a single slash Arithmetic.
+		arithmetic = ast.ArithmeticClass().Arithmetic(slash)
+		return
+	}
+
+	// Attempt to parse a single percent Arithmetic.
+	var percent string
+	percent, token, ok = v.parseToken(PercentToken)
+	if ok {
+		// Found a single percent Arithmetic.
+		arithmetic = ast.ArithmeticClass().Arithmetic(percent)
+		return
+	}
+
+	// Attempt to parse a single caret Arithmetic.
+	var caret string
+	caret, token, ok = v.parseToken(CaretToken)
+	if ok {
+		// Found a single caret Arithmetic.
+		arithmetic = ast.ArithmeticClass().Arithmetic(caret)
+		return
+	}
+
+	// This is not a single Arithmetic rule.
+	return
+}
+
 func (v *parser_) parseAssignment() (
 	assignment ast.AssignmentLike,
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single ColonEqual Assignment.
-	var colonEqual ast.ColonEqualLike
-	colonEqual, token, ok = v.parseColonEqual()
+	var delimiter string
+
+	// Attempt to parse a single ":=" delimiter.
+	delimiter, token, ok = v.parseDelimiter(":=")
 	if ok {
-		// Found a single ColonEqual Assignment.
-		assignment = ast.AssignmentClass().Assignment(colonEqual)
+		// Found a single ":=" delimiter.
+		assignment = ast.AssignmentClass().Assignment(delimiter)
 		return
 	}
 
-	// Attempt to parse a single DefaultEqual Assignment.
-	var defaultEqual ast.DefaultEqualLike
-	defaultEqual, token, ok = v.parseDefaultEqual()
+	// Attempt to parse a single "?=" delimiter.
+	delimiter, token, ok = v.parseDelimiter("?=")
 	if ok {
-		// Found a single DefaultEqual Assignment.
-		assignment = ast.AssignmentClass().Assignment(defaultEqual)
+		// Found a single "?=" delimiter.
+		assignment = ast.AssignmentClass().Assignment(delimiter)
 		return
 	}
 
-	// Attempt to parse a single PlusEqual Assignment.
-	var plusEqual ast.PlusEqualLike
-	plusEqual, token, ok = v.parsePlusEqual()
+	// Attempt to parse a single "+=" delimiter.
+	delimiter, token, ok = v.parseDelimiter("+=")
 	if ok {
-		// Found a single PlusEqual Assignment.
-		assignment = ast.AssignmentClass().Assignment(plusEqual)
+		// Found a single "+=" delimiter.
+		assignment = ast.AssignmentClass().Assignment(delimiter)
 		return
 	}
 
-	// Attempt to parse a single DashEqual Assignment.
-	var dashEqual ast.DashEqualLike
-	dashEqual, token, ok = v.parseDashEqual()
+	// Attempt to parse a single "-=" delimiter.
+	delimiter, token, ok = v.parseDelimiter("-=")
 	if ok {
-		// Found a single DashEqual Assignment.
-		assignment = ast.AssignmentClass().Assignment(dashEqual)
+		// Found a single "-=" delimiter.
+		assignment = ast.AssignmentClass().Assignment(delimiter)
 		return
 	}
 
-	// Attempt to parse a single StarEqual Assignment.
-	var starEqual ast.StarEqualLike
-	starEqual, token, ok = v.parseStarEqual()
+	// Attempt to parse a single "*=" delimiter.
+	delimiter, token, ok = v.parseDelimiter("*=")
 	if ok {
-		// Found a single StarEqual Assignment.
-		assignment = ast.AssignmentClass().Assignment(starEqual)
+		// Found a single "*=" delimiter.
+		assignment = ast.AssignmentClass().Assignment(delimiter)
 		return
 	}
 
-	// Attempt to parse a single SlashEqual Assignment.
-	var slashEqual ast.SlashEqualLike
-	slashEqual, token, ok = v.parseSlashEqual()
+	// Attempt to parse a single "/=" delimiter.
+	delimiter, token, ok = v.parseDelimiter("/=")
 	if ok {
-		// Found a single SlashEqual Assignment.
-		assignment = ast.AssignmentClass().Assignment(slashEqual)
+		// Found a single "/=" delimiter.
+		assignment = ast.AssignmentClass().Assignment(delimiter)
 		return
 	}
 
@@ -839,21 +898,21 @@ func (v *parser_) parseBlocking() (
 	token TokenLike,
 	ok bool,
 ) {
-	var delimiter string
-
-	// Attempt to parse a single "." delimiter.
-	delimiter, token, ok = v.parseDelimiter(".")
+	// Attempt to parse a single dot Blocking.
+	var dot string
+	dot, token, ok = v.parseToken(DotToken)
 	if ok {
-		// Found a single "." delimiter.
-		blocking = ast.BlockingClass().Blocking(delimiter)
+		// Found a single dot Blocking.
+		blocking = ast.BlockingClass().Blocking(dot)
 		return
 	}
 
-	// Attempt to parse a single "<-" delimiter.
-	delimiter, token, ok = v.parseDelimiter("<-")
+	// Attempt to parse a single arrow Blocking.
+	var arrow string
+	arrow, token, ok = v.parseToken(ArrowToken)
 	if ok {
-		// Found a single "<-" delimiter.
-		blocking = ast.BlockingClass().Blocking(delimiter)
+		// Found a single arrow Blocking.
+		blocking = ast.BlockingClass().Blocking(arrow)
 		return
 	}
 
@@ -1151,38 +1210,6 @@ func (v *parser_) parseCollection() (
 	return
 }
 
-func (v *parser_) parseColonEqual() (
-	colonEqual ast.ColonEqualLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single ":=" literal.
-	var delimiter string
-	delimiter, token, ok = v.parseDelimiter(":=")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single ColonEqual rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$ColonEqual", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Found a single ColonEqual rule.
-	ok = true
-	v.remove(tokens)
-	colonEqual = ast.ColonEqualClass().ColonEqual(delimiter)
-	return
-}
-
 func (v *parser_) parseCommentLine() (
 	commentLine ast.CommentLineLike,
 	token TokenLike,
@@ -1212,6 +1239,42 @@ func (v *parser_) parseCommentLine() (
 	ok = true
 	v.remove(tokens)
 	commentLine = ast.CommentLineClass().CommentLine(comment)
+	return
+}
+
+func (v *parser_) parseComparison() (
+	comparison ast.ComparisonLike,
+	token TokenLike,
+	ok bool,
+) {
+	// Attempt to parse a single less Comparison.
+	var less string
+	less, token, ok = v.parseToken(LessToken)
+	if ok {
+		// Found a single less Comparison.
+		comparison = ast.ComparisonClass().Comparison(less)
+		return
+	}
+
+	// Attempt to parse a single equal Comparison.
+	var equal string
+	equal, token, ok = v.parseToken(EqualToken)
+	if ok {
+		// Found a single equal Comparison.
+		comparison = ast.ComparisonClass().Comparison(equal)
+		return
+	}
+
+	// Attempt to parse a single more Comparison.
+	var more string
+	more, token, ok = v.parseToken(MoreToken)
+	if ok {
+		// Found a single more Comparison.
+		comparison = ast.ComparisonClass().Comparison(more)
+		return
+	}
+
+	// This is not a single Comparison rule.
 	return
 }
 
@@ -1390,70 +1453,6 @@ func (v *parser_) parseContinueClause() (
 		delimiter1,
 		delimiter2,
 	)
-	return
-}
-
-func (v *parser_) parseDashEqual() (
-	dashEqual ast.DashEqualLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single "-=" literal.
-	var delimiter string
-	delimiter, token, ok = v.parseDelimiter("-=")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single DashEqual rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$DashEqual", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Found a single DashEqual rule.
-	ok = true
-	v.remove(tokens)
-	dashEqual = ast.DashEqualClass().DashEqual(delimiter)
-	return
-}
-
-func (v *parser_) parseDefaultEqual() (
-	defaultEqual ast.DefaultEqualLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single "?=" literal.
-	var delimiter string
-	delimiter, token, ok = v.parseDelimiter("?=")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single DefaultEqual rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$DefaultEqual", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Found a single DefaultEqual rule.
-	ok = true
-	v.remove(tokens)
-	defaultEqual = ast.DefaultEqualClass().DefaultEqual(delimiter)
 	return
 }
 
@@ -3047,29 +3046,30 @@ func (v *parser_) parseInverse() (
 	token TokenLike,
 	ok bool,
 ) {
-	var delimiter string
-
-	// Attempt to parse a single "-" delimiter.
-	delimiter, token, ok = v.parseDelimiter("-")
+	// Attempt to parse a single minus Inverse.
+	var minus string
+	minus, token, ok = v.parseToken(MinusToken)
 	if ok {
-		// Found a single "-" delimiter.
-		inverse = ast.InverseClass().Inverse(delimiter)
+		// Found a single minus Inverse.
+		inverse = ast.InverseClass().Inverse(minus)
 		return
 	}
 
-	// Attempt to parse a single "/" delimiter.
-	delimiter, token, ok = v.parseDelimiter("/")
+	// Attempt to parse a single slash Inverse.
+	var slash string
+	slash, token, ok = v.parseToken(SlashToken)
 	if ok {
-		// Found a single "/" delimiter.
-		inverse = ast.InverseClass().Inverse(delimiter)
+		// Found a single slash Inverse.
+		inverse = ast.InverseClass().Inverse(slash)
 		return
 	}
 
-	// Attempt to parse a single "*" delimiter.
-	delimiter, token, ok = v.parseDelimiter("*")
+	// Attempt to parse a single star Inverse.
+	var star string
+	star, token, ok = v.parseToken(StarToken)
 	if ok {
-		// Found a single "*" delimiter.
-		inverse = ast.InverseClass().Inverse(delimiter)
+		// Found a single star Inverse.
+		inverse = ast.InverseClass().Inverse(star)
 		return
 	}
 
@@ -3268,8 +3268,10 @@ func (v *parser_) parseLetClause() (
 	assignment, token, ok = v.parseAssignment()
 	switch {
 	case ok:
-		// No additional put backs allowed at this point.
-		tokens = nil
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
 	case uti.IsDefined(tokens):
 		// This is not a single Assignment rule.
 		v.putBack(tokens)
@@ -3306,6 +3308,49 @@ func (v *parser_) parseLetClause() (
 		assignment,
 		expression,
 	)
+	return
+}
+
+func (v *parser_) parseLogic() (
+	logic ast.LogicLike,
+	token TokenLike,
+	ok bool,
+) {
+	var delimiter string
+
+	// Attempt to parse a single "and" delimiter.
+	delimiter, token, ok = v.parseDelimiter("and")
+	if ok {
+		// Found a single "and" delimiter.
+		logic = ast.LogicClass().Logic(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "san" delimiter.
+	delimiter, token, ok = v.parseDelimiter("san")
+	if ok {
+		// Found a single "san" delimiter.
+		logic = ast.LogicClass().Logic(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "ior" delimiter.
+	delimiter, token, ok = v.parseDelimiter("ior")
+	if ok {
+		// Found a single "ior" delimiter.
+		logic = ast.LogicClass().Logic(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "xor" delimiter.
+	delimiter, token, ok = v.parseDelimiter("xor")
+	if ok {
+		// Found a single "xor" delimiter.
+		logic = ast.LogicClass().Logic(delimiter)
+		return
+	}
+
+	// This is not a single Logic rule.
 	return
 }
 
@@ -4637,133 +4682,39 @@ func (v *parser_) parseOperation() (
 	token TokenLike,
 	ok bool,
 ) {
-	var delimiter string
-
-	// Attempt to parse a single "+" delimiter.
-	delimiter, token, ok = v.parseDelimiter("+")
+	// Attempt to parse a single Textual Operation.
+	var textual ast.TextualLike
+	textual, token, ok = v.parseTextual()
 	if ok {
-		// Found a single "+" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
+		// Found a single Textual Operation.
+		operation = ast.OperationClass().Operation(textual)
 		return
 	}
 
-	// Attempt to parse a single "-" delimiter.
-	delimiter, token, ok = v.parseDelimiter("-")
+	// Attempt to parse a single Logic Operation.
+	var logic ast.LogicLike
+	logic, token, ok = v.parseLogic()
 	if ok {
-		// Found a single "-" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
+		// Found a single Logic Operation.
+		operation = ast.OperationClass().Operation(logic)
 		return
 	}
 
-	// Attempt to parse a single "*" delimiter.
-	delimiter, token, ok = v.parseDelimiter("*")
+	// Attempt to parse a single Arithmetic Operation.
+	var arithmetic ast.ArithmeticLike
+	arithmetic, token, ok = v.parseArithmetic()
 	if ok {
-		// Found a single "*" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
+		// Found a single Arithmetic Operation.
+		operation = ast.OperationClass().Operation(arithmetic)
 		return
 	}
 
-	// Attempt to parse a single "÷" delimiter.
-	delimiter, token, ok = v.parseDelimiter("÷")
+	// Attempt to parse a single Comparison Operation.
+	var comparison ast.ComparisonLike
+	comparison, token, ok = v.parseComparison()
 	if ok {
-		// Found a single "÷" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "%" delimiter.
-	delimiter, token, ok = v.parseDelimiter("%")
-	if ok {
-		// Found a single "%" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "^" delimiter.
-	delimiter, token, ok = v.parseDelimiter("^")
-	if ok {
-		// Found a single "^" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "&" delimiter.
-	delimiter, token, ok = v.parseDelimiter("&")
-	if ok {
-		// Found a single "&" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "<<" delimiter.
-	delimiter, token, ok = v.parseDelimiter("<<")
-	if ok {
-		// Found a single "<<" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "==" delimiter.
-	delimiter, token, ok = v.parseDelimiter("==")
-	if ok {
-		// Found a single "==" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single ">>" delimiter.
-	delimiter, token, ok = v.parseDelimiter(">>")
-	if ok {
-		// Found a single ">>" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "is" delimiter.
-	delimiter, token, ok = v.parseDelimiter("is")
-	if ok {
-		// Found a single "is" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "matches" delimiter.
-	delimiter, token, ok = v.parseDelimiter("matches")
-	if ok {
-		// Found a single "matches" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "and" delimiter.
-	delimiter, token, ok = v.parseDelimiter("and")
-	if ok {
-		// Found a single "and" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "san" delimiter.
-	delimiter, token, ok = v.parseDelimiter("san")
-	if ok {
-		// Found a single "san" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "ior" delimiter.
-	delimiter, token, ok = v.parseDelimiter("ior")
-	if ok {
-		// Found a single "ior" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
-		return
-	}
-
-	// Attempt to parse a single "xor" delimiter.
-	delimiter, token, ok = v.parseDelimiter("xor")
-	if ok {
-		// Found a single "xor" delimiter.
-		operation = ast.OperationClass().Operation(delimiter)
+		// Found a single Comparison Operation.
+		operation = ast.OperationClass().Operation(comparison)
 		return
 	}
 
@@ -4795,38 +4746,6 @@ func (v *parser_) parseParameters() (
 	}
 
 	// This is not a single Parameters rule.
-	return
-}
-
-func (v *parser_) parsePlusEqual() (
-	plusEqual ast.PlusEqualLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single "+=" literal.
-	var delimiter string
-	delimiter, token, ok = v.parseDelimiter("+=")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single PlusEqual rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$PlusEqual", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Found a single PlusEqual rule.
-	ok = true
-	v.remove(tokens)
-	plusEqual = ast.PlusEqualClass().PlusEqual(delimiter)
 	return
 }
 
@@ -5705,70 +5624,6 @@ func (v *parser_) parseSequence() (
 	return
 }
 
-func (v *parser_) parseSlashEqual() (
-	slashEqual ast.SlashEqualLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single "/=" literal.
-	var delimiter string
-	delimiter, token, ok = v.parseDelimiter("/=")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single SlashEqual rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$SlashEqual", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Found a single SlashEqual rule.
-	ok = true
-	v.remove(tokens)
-	slashEqual = ast.SlashEqualClass().SlashEqual(delimiter)
-	return
-}
-
-func (v *parser_) parseStarEqual() (
-	starEqual ast.StarEqualLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single "*=" literal.
-	var delimiter string
-	delimiter, token, ok = v.parseDelimiter("*=")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single StarEqual rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$StarEqual", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Found a single StarEqual rule.
-	ok = true
-	v.remove(tokens)
-	starEqual = ast.StarEqualClass().StarEqual(delimiter)
-	return
-}
-
 func (v *parser_) parseStatement() (
 	statement ast.StatementLike,
 	token TokenLike,
@@ -6199,6 +6054,41 @@ func (v *parser_) parseTemplate() (
 	ok = true
 	v.remove(tokens)
 	template = ast.TemplateClass().Template(expression)
+	return
+}
+
+func (v *parser_) parseTextual() (
+	textual ast.TextualLike,
+	token TokenLike,
+	ok bool,
+) {
+	var delimiter string
+
+	// Attempt to parse a single "&" delimiter.
+	delimiter, token, ok = v.parseDelimiter("&")
+	if ok {
+		// Found a single "&" delimiter.
+		textual = ast.TextualClass().Textual(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "is" delimiter.
+	delimiter, token, ok = v.parseDelimiter("is")
+	if ok {
+		// Found a single "is" delimiter.
+		textual = ast.TextualClass().Textual(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "matches" delimiter.
+	delimiter, token, ok = v.parseDelimiter("matches")
+	if ok {
+		// Found a single "matches" delimiter.
+		textual = ast.TextualClass().Textual(delimiter)
+		return
+	}
+
+	// This is not a single Textual rule.
 	return
 }
 
@@ -6818,8 +6708,8 @@ var parserClassReference_ = &parserClass_{
 			"$Argument":           `identifier`,
 			"$Method":             `identifier Blocking identifier "(" Arguments? ")"`,
 			"$Blocking": `
-    "."
-    "<-"`,
+    dot
+    arrow`,
 			"$Subcomponent":    `identifier "[" Indices "]"`,
 			"$Indices":         `Index AdditionalIndex*`,
 			"$AdditionalIndex": `"," Index`,
@@ -6841,18 +6731,12 @@ var parserClassReference_ = &parserClass_{
     Method`,
 			"$LetClause": `"let" Recipient Assignment Expression`,
 			"$Assignment": `
-    ColonEqual
-    DefaultEqual
-    PlusEqual
-    DashEqual
-    StarEqual
-    SlashEqual`,
-			"$ColonEqual":   `":="`,
-			"$DefaultEqual": `"?="`,
-			"$PlusEqual":    `"+="`,
-			"$DashEqual":    `"-="`,
-			"$StarEqual":    `"*="`,
-			"$SlashEqual":   `"/="`,
+    ":="
+    "?="
+    "+="
+    "-="
+    "*="
+    "/="`,
 			"$Recipient": `
     Item
     Subcomponent`,
@@ -6885,22 +6769,30 @@ var parserClassReference_ = &parserClass_{
     Variable  ! This must be last since others also begin with an identifier.`,
 			"$Predicate": `Operation Expression`,
 			"$Operation": `
-    "+"
-    "-"
-    "*"
-    "÷"
-    "%"
-    "^"
+    Textual
+    Logic
+    Arithmetic
+    Comparison`,
+			"$Textual": `
     "&"
-    "<<"
-    "=="
-    ">>"
     "is"
-    "matches"
+    "matches"`,
+			"$Logic": `
     "and"
     "san"
     "ior"
     "xor"`,
+			"$Arithmetic": `
+    plus
+    minus
+    star
+    slash
+    percent
+    caret`,
+			"$Comparison": `
+    less
+    equal
+    more`,
 			"$Precedence": `"(" Expression ")"`,
 			"$Referent":   `"@" Indirect`,
 			"$Indirect": `
@@ -6922,9 +6814,9 @@ var parserClassReference_ = &parserClass_{
     Variable  ! This must be last since others also begin with an identifier.`,
 			"$Inversion": `Inverse Numerical`,
 			"$Inverse": `
-    "-"
-    "/"
-    "*"`,
+    minus
+    slash
+    star`,
 			"$Numerical": `
     Component
     Subcomponent

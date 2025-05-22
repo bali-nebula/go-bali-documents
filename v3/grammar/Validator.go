@@ -67,6 +67,12 @@ func (v *validator_) ProcessAngle(
 	v.validateToken(angle, AngleToken)
 }
 
+func (v *validator_) ProcessArrow(
+	arrow string,
+) {
+	v.validateToken(arrow, ArrowToken)
+}
+
 func (v *validator_) ProcessBinary(
 	binary string,
 ) {
@@ -85,6 +91,12 @@ func (v *validator_) ProcessBytecode(
 	v.validateToken(bytecode, BytecodeToken)
 }
 
+func (v *validator_) ProcessCaret(
+	caret string,
+) {
+	v.validateToken(caret, CaretToken)
+}
+
 func (v *validator_) ProcessCitation(
 	citation string,
 ) {
@@ -97,10 +109,22 @@ func (v *validator_) ProcessComment(
 	v.validateToken(comment, CommentToken)
 }
 
+func (v *validator_) ProcessDot(
+	dot string,
+) {
+	v.validateToken(dot, DotToken)
+}
+
 func (v *validator_) ProcessDuration(
 	duration string,
 ) {
 	v.validateToken(duration, DurationToken)
+}
+
+func (v *validator_) ProcessEqual(
+	equal string,
+) {
+	v.validateToken(equal, EqualToken)
 }
 
 func (v *validator_) ProcessIdentifier(
@@ -109,10 +133,28 @@ func (v *validator_) ProcessIdentifier(
 	v.validateToken(identifier, IdentifierToken)
 }
 
+func (v *validator_) ProcessLess(
+	less string,
+) {
+	v.validateToken(less, LessToken)
+}
+
+func (v *validator_) ProcessMinus(
+	minus string,
+) {
+	v.validateToken(minus, MinusToken)
+}
+
 func (v *validator_) ProcessMoment(
 	moment string,
 ) {
 	v.validateToken(moment, MomentToken)
+}
+
+func (v *validator_) ProcessMore(
+	more string,
+) {
+	v.validateToken(more, MoreToken)
 }
 
 func (v *validator_) ProcessName(
@@ -151,10 +193,22 @@ func (v *validator_) ProcessPattern(
 	v.validateToken(pattern, PatternToken)
 }
 
+func (v *validator_) ProcessPercent(
+	percent string,
+) {
+	v.validateToken(percent, PercentToken)
+}
+
 func (v *validator_) ProcessPercentage(
 	percentage string,
 ) {
 	v.validateToken(percentage, PercentageToken)
+}
+
+func (v *validator_) ProcessPlus(
+	plus string,
+) {
+	v.validateToken(plus, PlusToken)
 }
 
 func (v *validator_) ProcessProbability(
@@ -175,10 +229,22 @@ func (v *validator_) ProcessResource(
 	v.validateToken(resource, ResourceToken)
 }
 
+func (v *validator_) ProcessSlash(
+	slash string,
+) {
+	v.validateToken(slash, SlashToken)
+}
+
 func (v *validator_) ProcessSpace(
 	space string,
 ) {
 	v.validateToken(space, SpaceToken)
+}
+
+func (v *validator_) ProcessStar(
+	star string,
+) {
+	v.validateToken(star, StarToken)
 }
 
 func (v *validator_) ProcessSymbol(
@@ -287,6 +353,14 @@ func (v *validator_) PreprocessArguments(
 	// TBD - Add any validation checks.
 }
 
+func (v *validator_) PreprocessArithmetic(
+	arithmetic ast.ArithmeticLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
 func (v *validator_) PreprocessAssignment(
 	assignment ast.AssignmentLike,
 	index_ uint,
@@ -367,16 +441,16 @@ func (v *validator_) PreprocessCollection(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessColonEqual(
-	colonEqual ast.ColonEqualLike,
+func (v *validator_) PreprocessCommentLine(
+	commentLine ast.CommentLineLike,
 	index_ uint,
 	count_ uint,
 ) {
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessCommentLine(
-	commentLine ast.CommentLineLike,
+func (v *validator_) PreprocessComparison(
+	comparison ast.ComparisonLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -409,22 +483,6 @@ func (v *validator_) PreprocessCondition(
 
 func (v *validator_) PreprocessContinueClause(
 	continueClause ast.ContinueClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessDashEqual(
-	dashEqual ast.DashEqualLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessDefaultEqual(
-	defaultEqual ast.DefaultEqualLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -679,6 +737,14 @@ func (v *validator_) PreprocessLetClause(
 	// TBD - Add any validation checks.
 }
 
+func (v *validator_) PreprocessLogic(
+	logic ast.LogicLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
 func (v *validator_) PreprocessLogical(
 	logical ast.LogicalLike,
 	index_ uint,
@@ -831,14 +897,6 @@ func (v *validator_) PreprocessParameters(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessPlusEqual(
-	plusEqual ast.PlusEqualLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
 func (v *validator_) PreprocessPostClause(
 	postClause ast.PostClauseLike,
 	index_ uint,
@@ -967,22 +1025,6 @@ func (v *validator_) PreprocessSequence(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessSlashEqual(
-	slashEqual ast.SlashEqualLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessStarEqual(
-	starEqual ast.StarEqualLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
 func (v *validator_) PreprocessStatement(
 	statement ast.StatementLike,
 	index_ uint,
@@ -1033,6 +1075,14 @@ func (v *validator_) PreprocessTarget(
 
 func (v *validator_) PreprocessTemplate(
 	template ast.TemplateLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
+func (v *validator_) PreprocessTextual(
+	textual ast.TextualLike,
 	index_ uint,
 	count_ uint,
 ) {

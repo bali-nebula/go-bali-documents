@@ -56,26 +56,37 @@ type TokenType uint8
 const (
 	ErrorToken TokenType = iota
 	AngleToken
+	ArrowToken
 	BinaryToken
 	BooleanToken
 	BytecodeToken
+	CaretToken
 	CitationToken
 	CommentToken
 	DelimiterToken
+	DotToken
 	DurationToken
+	EqualToken
 	IdentifierToken
+	LessToken
+	MinusToken
 	MomentToken
+	MoreToken
 	NameToken
 	NarrativeToken
 	NewlineToken
 	NoteToken
 	NumberToken
 	PatternToken
+	PercentToken
 	PercentageToken
+	PlusToken
 	ProbabilityToken
 	QuoteToken
 	ResourceToken
+	SlashToken
 	SpaceToken
+	StarToken
 	SymbolToken
 	TagToken
 	VersionToken
@@ -292,6 +303,9 @@ type Methodical interface {
 	ProcessAngle(
 		angle string,
 	)
+	ProcessArrow(
+		arrow string,
+	)
 	ProcessBinary(
 		binary string,
 	)
@@ -300,6 +314,9 @@ type Methodical interface {
 	)
 	ProcessBytecode(
 		bytecode string,
+	)
+	ProcessCaret(
+		caret string,
 	)
 	ProcessCitation(
 		citation string,
@@ -310,14 +327,29 @@ type Methodical interface {
 	ProcessDelimiter(
 		delimiter string,
 	)
+	ProcessDot(
+		dot string,
+	)
 	ProcessDuration(
 		duration string,
+	)
+	ProcessEqual(
+		equal string,
 	)
 	ProcessIdentifier(
 		identifier string,
 	)
+	ProcessLess(
+		less string,
+	)
+	ProcessMinus(
+		minus string,
+	)
 	ProcessMoment(
 		moment string,
+	)
+	ProcessMore(
+		more string,
 	)
 	ProcessName(
 		name string,
@@ -337,8 +369,14 @@ type Methodical interface {
 	ProcessPattern(
 		pattern string,
 	)
+	ProcessPercent(
+		percent string,
+	)
 	ProcessPercentage(
 		percentage string,
+	)
+	ProcessPlus(
+		plus string,
 	)
 	ProcessProbability(
 		probability string,
@@ -349,8 +387,14 @@ type Methodical interface {
 	ProcessResource(
 		resource string,
 	)
+	ProcessSlash(
+		slash string,
+	)
 	ProcessSpace(
 		space string,
+	)
+	ProcessStar(
+		star string,
 	)
 	ProcessSymbol(
 		symbol string,
@@ -504,6 +548,19 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessArithmetic(
+		arithmetic ast.ArithmeticLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessArithmeticSlot(
+		slot uint,
+	)
+	PostprocessArithmetic(
+		arithmetic ast.ArithmeticLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessAssignment(
 		assignment ast.AssignmentLike,
 		index_ uint,
@@ -634,19 +691,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessColonEqual(
-		colonEqual ast.ColonEqualLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessColonEqualSlot(
-		slot uint,
-	)
-	PostprocessColonEqual(
-		colonEqual ast.ColonEqualLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessCommentLine(
 		commentLine ast.CommentLineLike,
 		index_ uint,
@@ -657,6 +701,19 @@ type Methodical interface {
 	)
 	PostprocessCommentLine(
 		commentLine ast.CommentLineLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessComparison(
+		comparison ast.ComparisonLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessComparisonSlot(
+		slot uint,
+	)
+	PostprocessComparison(
+		comparison ast.ComparisonLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -709,32 +766,6 @@ type Methodical interface {
 	)
 	PostprocessContinueClause(
 		continueClause ast.ContinueClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessDashEqual(
-		dashEqual ast.DashEqualLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessDashEqualSlot(
-		slot uint,
-	)
-	PostprocessDashEqual(
-		dashEqual ast.DashEqualLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessDefaultEqual(
-		defaultEqual ast.DefaultEqualLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessDefaultEqualSlot(
-		slot uint,
-	)
-	PostprocessDefaultEqual(
-		defaultEqual ast.DefaultEqualLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -1141,6 +1172,19 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessLogic(
+		logic ast.LogicLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessLogicSlot(
+		slot uint,
+	)
+	PostprocessLogic(
+		logic ast.LogicLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessLogical(
 		logical ast.LogicalLike,
 		index_ uint,
@@ -1388,19 +1432,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessPlusEqual(
-		plusEqual ast.PlusEqualLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessPlusEqualSlot(
-		slot uint,
-	)
-	PostprocessPlusEqual(
-		plusEqual ast.PlusEqualLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessPostClause(
 		postClause ast.PostClauseLike,
 		index_ uint,
@@ -1609,32 +1640,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessSlashEqual(
-		slashEqual ast.SlashEqualLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessSlashEqualSlot(
-		slot uint,
-	)
-	PostprocessSlashEqual(
-		slashEqual ast.SlashEqualLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessStarEqual(
-		starEqual ast.StarEqualLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessStarEqualSlot(
-		slot uint,
-	)
-	PostprocessStarEqual(
-		starEqual ast.StarEqualLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessStatement(
 		statement ast.StatementLike,
 		index_ uint,
@@ -1723,6 +1728,19 @@ type Methodical interface {
 	)
 	PostprocessTemplate(
 		template ast.TemplateLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessTextual(
+		textual ast.TextualLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessTextualSlot(
+		slot uint,
+	)
+	PostprocessTextual(
+		textual ast.TextualLike,
 		index_ uint,
 		count_ uint,
 	)

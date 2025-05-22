@@ -27,21 +27,21 @@ import (
 
 // Access Function
 
-func DashEqualClass() DashEqualClassLike {
-	return dashEqualClass()
+func ComparisonClass() ComparisonClassLike {
+	return comparisonClass()
 }
 
 // Constructor Methods
 
-func (c *dashEqualClass_) DashEqual(
-	delimiter string,
-) DashEqualLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
+func (c *comparisonClass_) Comparison(
+	any_ any,
+) ComparisonLike {
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &dashEqual_{
+	var instance = &comparison_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
+		any_: any_,
 	}
 	return instance
 }
@@ -50,37 +50,37 @@ func (c *dashEqualClass_) DashEqual(
 
 // Principal Methods
 
-func (v *dashEqual_) GetClass() DashEqualClassLike {
-	return dashEqualClass()
+func (v *comparison_) GetClass() ComparisonClassLike {
+	return comparisonClass()
 }
 
 // Attribute Methods
 
-func (v *dashEqual_) GetDelimiter() string {
-	return v.delimiter_
+func (v *comparison_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type dashEqual_ struct {
+type comparison_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
+	any_ any
 }
 
 // Class Structure
 
-type dashEqualClass_ struct {
+type comparisonClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func dashEqualClass() *dashEqualClass_ {
-	return dashEqualClassReference_
+func comparisonClass() *comparisonClass_ {
+	return comparisonClassReference_
 }
 
-var dashEqualClassReference_ = &dashEqualClass_{
+var comparisonClassReference_ = &comparisonClass_{
 	// Initialize the class constants.
 }

@@ -27,21 +27,21 @@ import (
 
 // Access Function
 
-func ColonEqualClass() ColonEqualClassLike {
-	return colonEqualClass()
+func ArithmeticClass() ArithmeticClassLike {
+	return arithmeticClass()
 }
 
 // Constructor Methods
 
-func (c *colonEqualClass_) ColonEqual(
-	delimiter string,
-) ColonEqualLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
+func (c *arithmeticClass_) Arithmetic(
+	any_ any,
+) ArithmeticLike {
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &colonEqual_{
+	var instance = &arithmetic_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
+		any_: any_,
 	}
 	return instance
 }
@@ -50,37 +50,37 @@ func (c *colonEqualClass_) ColonEqual(
 
 // Principal Methods
 
-func (v *colonEqual_) GetClass() ColonEqualClassLike {
-	return colonEqualClass()
+func (v *arithmetic_) GetClass() ArithmeticClassLike {
+	return arithmeticClass()
 }
 
 // Attribute Methods
 
-func (v *colonEqual_) GetDelimiter() string {
-	return v.delimiter_
+func (v *arithmetic_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type colonEqual_ struct {
+type arithmetic_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
+	any_ any
 }
 
 // Class Structure
 
-type colonEqualClass_ struct {
+type arithmeticClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func colonEqualClass() *colonEqualClass_ {
-	return colonEqualClassReference_
+func arithmeticClass() *arithmeticClass_ {
+	return arithmeticClassReference_
 }
 
-var colonEqualClassReference_ = &colonEqualClass_{
+var arithmeticClassReference_ = &arithmeticClass_{
 	// Initialize the class constants.
 }

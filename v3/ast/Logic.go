@@ -27,21 +27,21 @@ import (
 
 // Access Function
 
-func PlusEqualClass() PlusEqualClassLike {
-	return plusEqualClass()
+func LogicClass() LogicClassLike {
+	return logicClass()
 }
 
 // Constructor Methods
 
-func (c *plusEqualClass_) PlusEqual(
-	delimiter string,
-) PlusEqualLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
+func (c *logicClass_) Logic(
+	any_ any,
+) LogicLike {
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &plusEqual_{
+	var instance = &logic_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
+		any_: any_,
 	}
 	return instance
 }
@@ -50,37 +50,37 @@ func (c *plusEqualClass_) PlusEqual(
 
 // Principal Methods
 
-func (v *plusEqual_) GetClass() PlusEqualClassLike {
-	return plusEqualClass()
+func (v *logic_) GetClass() LogicClassLike {
+	return logicClass()
 }
 
 // Attribute Methods
 
-func (v *plusEqual_) GetDelimiter() string {
-	return v.delimiter_
+func (v *logic_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type plusEqual_ struct {
+type logic_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
+	any_ any
 }
 
 // Class Structure
 
-type plusEqualClass_ struct {
+type logicClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func plusEqualClass() *plusEqualClass_ {
-	return plusEqualClassReference_
+func logicClass() *logicClass_ {
+	return logicClassReference_
 }
 
-var plusEqualClassReference_ = &plusEqualClass_{
+var logicClassReference_ = &logicClass_{
 	// Initialize the class constants.
 }

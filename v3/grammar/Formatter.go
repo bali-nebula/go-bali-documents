@@ -66,6 +66,12 @@ func (v *formatter_) ProcessAngle(
 	v.appendString(angle)
 }
 
+func (v *formatter_) ProcessArrow(
+	arrow string,
+) {
+	v.appendString(arrow)
+}
+
 func (v *formatter_) ProcessBinary(
 	binary string,
 ) {
@@ -82,6 +88,12 @@ func (v *formatter_) ProcessBytecode(
 	bytecode string,
 ) {
 	v.appendString(bytecode)
+}
+
+func (v *formatter_) ProcessCaret(
+	caret string,
+) {
+	v.appendString(caret)
 }
 
 func (v *formatter_) ProcessCitation(
@@ -102,10 +114,22 @@ func (v *formatter_) ProcessDelimiter(
 	v.appendString(delimiter)
 }
 
+func (v *formatter_) ProcessDot(
+	dot string,
+) {
+	v.appendString(dot)
+}
+
 func (v *formatter_) ProcessDuration(
 	duration string,
 ) {
 	v.appendString(duration)
+}
+
+func (v *formatter_) ProcessEqual(
+	equal string,
+) {
+	v.appendString(equal)
 }
 
 func (v *formatter_) ProcessIdentifier(
@@ -114,10 +138,28 @@ func (v *formatter_) ProcessIdentifier(
 	v.appendString(identifier)
 }
 
+func (v *formatter_) ProcessLess(
+	less string,
+) {
+	v.appendString(less)
+}
+
+func (v *formatter_) ProcessMinus(
+	minus string,
+) {
+	v.appendString(minus)
+}
+
 func (v *formatter_) ProcessMoment(
 	moment string,
 ) {
 	v.appendString(moment)
+}
+
+func (v *formatter_) ProcessMore(
+	more string,
+) {
+	v.appendString(more)
 }
 
 func (v *formatter_) ProcessName(
@@ -156,10 +198,22 @@ func (v *formatter_) ProcessPattern(
 	v.appendString(pattern)
 }
 
+func (v *formatter_) ProcessPercent(
+	percent string,
+) {
+	v.appendString(percent)
+}
+
 func (v *formatter_) ProcessPercentage(
 	percentage string,
 ) {
 	v.appendString(percentage)
+}
+
+func (v *formatter_) ProcessPlus(
+	plus string,
+) {
+	v.appendString(plus)
 }
 
 func (v *formatter_) ProcessProbability(
@@ -180,10 +234,22 @@ func (v *formatter_) ProcessResource(
 	v.appendString(resource)
 }
 
+func (v *formatter_) ProcessSlash(
+	slash string,
+) {
+	v.appendString(slash)
+}
+
 func (v *formatter_) ProcessSpace(
 	space string,
 ) {
 	v.appendString(space)
+}
+
+func (v *formatter_) ProcessStar(
+	star string,
+) {
+	v.appendString(star)
 }
 
 func (v *formatter_) ProcessSymbol(
@@ -391,6 +457,23 @@ func (v *formatter_) ProcessArgumentsSlot(
 	}
 }
 
+func (v *formatter_) PreprocessArithmetic(
+	arithmetic ast.ArithmeticLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessArithmeticSlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
 func (v *formatter_) PreprocessAssignment(
 	assignment ast.AssignmentLike,
 	index_ uint,
@@ -561,23 +644,6 @@ func (v *formatter_) ProcessCollectionSlot(
 	}
 }
 
-func (v *formatter_) PreprocessColonEqual(
-	colonEqual ast.ColonEqualLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessColonEqualSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
 func (v *formatter_) PreprocessCommentLine(
 	commentLine ast.CommentLineLike,
 	index_ uint,
@@ -587,6 +653,23 @@ func (v *formatter_) PreprocessCommentLine(
 }
 
 func (v *formatter_) ProcessCommentLineSlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
+func (v *formatter_) PreprocessComparison(
+	comparison ast.ComparisonLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessComparisonSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -655,40 +738,6 @@ func (v *formatter_) PreprocessContinueClause(
 }
 
 func (v *formatter_) ProcessContinueClauseSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessDashEqual(
-	dashEqual ast.DashEqualLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessDashEqualSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessDefaultEqual(
-	defaultEqual ast.DefaultEqualLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessDefaultEqualSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -1224,6 +1273,23 @@ func (v *formatter_) ProcessLetClauseSlot(
 	}
 }
 
+func (v *formatter_) PreprocessLogic(
+	logic ast.LogicLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessLogicSlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
 func (v *formatter_) PreprocessLogical(
 	logical ast.LogicalLike,
 	index_ uint,
@@ -1547,23 +1613,6 @@ func (v *formatter_) ProcessParametersSlot(
 	}
 }
 
-func (v *formatter_) PreprocessPlusEqual(
-	plusEqual ast.PlusEqualLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessPlusEqualSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
 func (v *formatter_) PreprocessPostClause(
 	postClause ast.PostClauseLike,
 	index_ uint,
@@ -1836,40 +1885,6 @@ func (v *formatter_) ProcessSequenceSlot(
 	}
 }
 
-func (v *formatter_) PreprocessSlashEqual(
-	slashEqual ast.SlashEqualLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessSlashEqualSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessStarEqual(
-	starEqual ast.StarEqualLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessStarEqualSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
 func (v *formatter_) PreprocessStatement(
 	statement ast.StatementLike,
 	index_ uint,
@@ -1981,6 +1996,23 @@ func (v *formatter_) PreprocessTemplate(
 }
 
 func (v *formatter_) ProcessTemplateSlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
+func (v *formatter_) PreprocessTextual(
+	textual ast.TextualLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessTextualSlot(
 	slot uint,
 ) {
 	switch slot {
