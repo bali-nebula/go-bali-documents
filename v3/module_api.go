@@ -40,13 +40,11 @@ import (
 
 type (
 	AcceptClauseClassLike          = ast.AcceptClauseClassLike
-	ActionClassLike                = ast.ActionClassLike
 	AdditionalArgumentClassLike    = ast.AdditionalArgumentClassLike
 	AdditionalAssociationClassLike = ast.AdditionalAssociationClassLike
 	AdditionalIndexClassLike       = ast.AdditionalIndexClassLike
 	AdditionalStatementClassLike   = ast.AdditionalStatementClassLike
 	AdditionalValueClassLike       = ast.AdditionalValueClassLike
-	AndClassLike                   = ast.AndClassLike
 	AnnotatedAssociationClassLike  = ast.AnnotatedAssociationClassLike
 	AnnotatedStatementClassLike    = ast.AnnotatedStatementClassLike
 	AnnotatedValueClassLike        = ast.AnnotatedValueClassLike
@@ -98,15 +96,13 @@ type (
 	InverseClassLike               = ast.InverseClassLike
 	InversionClassLike             = ast.InversionClassLike
 	InvocationClassLike            = ast.InvocationClassLike
-	IorClassLike                   = ast.IorClassLike
-	IsClassLike                    = ast.IsClassLike
 	ItemClassLike                  = ast.ItemClassLike
+	LegalNoticeClassLike           = ast.LegalNoticeClassLike
 	LetClauseClassLike             = ast.LetClauseClassLike
 	LogicalClassLike               = ast.LogicalClassLike
 	MagnitudeClassLike             = ast.MagnitudeClassLike
 	MainClauseClassLike            = ast.MainClauseClassLike
 	MatchHandlerClassLike          = ast.MatchHandlerClassLike
-	MatchesClassLike               = ast.MatchesClassLike
 	MessageClassLike               = ast.MessageClassLike
 	MessagingClassLike             = ast.MessagingClassLike
 	MethodClassLike                = ast.MethodClassLike
@@ -118,11 +114,9 @@ type (
 	NoStatementsClassLike          = ast.NoStatementsClassLike
 	NoValuesClassLike              = ast.NoValuesClassLike
 	NotarizeClauseClassLike        = ast.NotarizeClauseClassLike
-	NoticeClassLike                = ast.NoticeClassLike
 	NumericalClassLike             = ast.NumericalClassLike
 	OnClauseClassLike              = ast.OnClauseClassLike
 	OperationClassLike             = ast.OperationClassLike
-	OperatorClassLike              = ast.OperatorClassLike
 	ParametersClassLike            = ast.ParametersClassLike
 	PlusEqualClassLike             = ast.PlusEqualClassLike
 	PostClauseClassLike            = ast.PostClauseClassLike
@@ -138,7 +132,6 @@ type (
 	ResultClassLike                = ast.ResultClassLike
 	RetrieveClauseClassLike        = ast.RetrieveClauseClassLike
 	ReturnClauseClassLike          = ast.ReturnClauseClassLike
-	SanClassLike                   = ast.SanClassLike
 	SaveClauseClassLike            = ast.SaveClauseClassLike
 	SelectClauseClassLike          = ast.SelectClauseClassLike
 	SequenceClassLike              = ast.SequenceClassLike
@@ -155,18 +148,15 @@ type (
 	VariableClassLike              = ast.VariableClassLike
 	WhileClauseClassLike           = ast.WhileClauseClassLike
 	WithClauseClassLike            = ast.WithClauseClassLike
-	XorClassLike                   = ast.XorClassLike
 )
 
 type (
 	AcceptClauseLike          = ast.AcceptClauseLike
-	ActionLike                = ast.ActionLike
 	AdditionalArgumentLike    = ast.AdditionalArgumentLike
 	AdditionalAssociationLike = ast.AdditionalAssociationLike
 	AdditionalIndexLike       = ast.AdditionalIndexLike
 	AdditionalStatementLike   = ast.AdditionalStatementLike
 	AdditionalValueLike       = ast.AdditionalValueLike
-	AndLike                   = ast.AndLike
 	AnnotatedAssociationLike  = ast.AnnotatedAssociationLike
 	AnnotatedStatementLike    = ast.AnnotatedStatementLike
 	AnnotatedValueLike        = ast.AnnotatedValueLike
@@ -218,15 +208,13 @@ type (
 	InverseLike               = ast.InverseLike
 	InversionLike             = ast.InversionLike
 	InvocationLike            = ast.InvocationLike
-	IorLike                   = ast.IorLike
-	IsLike                    = ast.IsLike
 	ItemLike                  = ast.ItemLike
+	LegalNoticeLike           = ast.LegalNoticeLike
 	LetClauseLike             = ast.LetClauseLike
 	LogicalLike               = ast.LogicalLike
 	MagnitudeLike             = ast.MagnitudeLike
 	MainClauseLike            = ast.MainClauseLike
 	MatchHandlerLike          = ast.MatchHandlerLike
-	MatchesLike               = ast.MatchesLike
 	MessageLike               = ast.MessageLike
 	MessagingLike             = ast.MessagingLike
 	MethodLike                = ast.MethodLike
@@ -238,11 +226,9 @@ type (
 	NoStatementsLike          = ast.NoStatementsLike
 	NoValuesLike              = ast.NoValuesLike
 	NotarizeClauseLike        = ast.NotarizeClauseLike
-	NoticeLike                = ast.NoticeLike
 	NumericalLike             = ast.NumericalLike
 	OnClauseLike              = ast.OnClauseLike
 	OperationLike             = ast.OperationLike
-	OperatorLike              = ast.OperatorLike
 	ParametersLike            = ast.ParametersLike
 	PlusEqualLike             = ast.PlusEqualLike
 	PostClauseLike            = ast.PostClauseLike
@@ -258,7 +244,6 @@ type (
 	ResultLike                = ast.ResultLike
 	RetrieveClauseLike        = ast.RetrieveClauseLike
 	ReturnClauseLike          = ast.ReturnClauseLike
-	SanLike                   = ast.SanLike
 	SaveClauseLike            = ast.SaveClauseLike
 	SelectClauseLike          = ast.SelectClauseLike
 	SequenceLike              = ast.SequenceLike
@@ -275,7 +260,6 @@ type (
 	VariableLike              = ast.VariableLike
 	WhileClauseLike           = ast.WhileClauseLike
 	WithClauseLike            = ast.WithClauseLike
-	XorLike                   = ast.XorLike
 )
 
 // Grammar
@@ -286,25 +270,16 @@ type (
 
 const (
 	ErrorToken       = gra.ErrorToken
-	AmpersandToken   = gra.AmpersandToken
 	AngleToken       = gra.AngleToken
-	ArrowToken       = gra.ArrowToken
 	BinaryToken      = gra.BinaryToken
 	BooleanToken     = gra.BooleanToken
 	BytecodeToken    = gra.BytecodeToken
-	CaretToken       = gra.CaretToken
 	CitationToken    = gra.CitationToken
 	CommentToken     = gra.CommentToken
-	DashToken        = gra.DashToken
 	DelimiterToken   = gra.DelimiterToken
-	DotToken         = gra.DotToken
-	DoubleToken      = gra.DoubleToken
 	DurationToken    = gra.DurationToken
-	EqualToken       = gra.EqualToken
 	IdentifierToken  = gra.IdentifierToken
-	LessToken        = gra.LessToken
 	MomentToken      = gra.MomentToken
-	MoreToken        = gra.MoreToken
 	NameToken        = gra.NameToken
 	NarrativeToken   = gra.NarrativeToken
 	NewlineToken     = gra.NewlineToken
@@ -312,13 +287,10 @@ const (
 	NumberToken      = gra.NumberToken
 	PatternToken     = gra.PatternToken
 	PercentageToken  = gra.PercentageToken
-	PlusToken        = gra.PlusToken
 	ProbabilityToken = gra.ProbabilityToken
 	QuoteToken       = gra.QuoteToken
 	ResourceToken    = gra.ResourceToken
-	SlashToken       = gra.SlashToken
 	SpaceToken       = gra.SpaceToken
-	StarToken        = gra.StarToken
 	SymbolToken      = gra.SymbolToken
 	TagToken         = gra.TagToken
 	VersionToken     = gra.VersionToken
@@ -357,22 +329,12 @@ func AcceptClauseClass() AcceptClauseClassLike {
 }
 
 func AcceptClause(
+	delimiter string,
 	message ast.MessageLike,
 ) AcceptClauseLike {
 	return AcceptClauseClass().AcceptClause(
+		delimiter,
 		message,
-	)
-}
-
-func ActionClass() ActionClassLike {
-	return ast.ActionClass()
-}
-
-func Action(
-	any_ any,
-) ActionLike {
-	return ActionClass().Action(
-		any_,
 	)
 }
 
@@ -381,9 +343,11 @@ func AdditionalArgumentClass() AdditionalArgumentClassLike {
 }
 
 func AdditionalArgument(
+	delimiter string,
 	argument ast.ArgumentLike,
 ) AdditionalArgumentLike {
 	return AdditionalArgumentClass().AdditionalArgument(
+		delimiter,
 		argument,
 	)
 }
@@ -393,9 +357,11 @@ func AdditionalAssociationClass() AdditionalAssociationClassLike {
 }
 
 func AdditionalAssociation(
+	delimiter string,
 	association ast.AssociationLike,
 ) AdditionalAssociationLike {
 	return AdditionalAssociationClass().AdditionalAssociation(
+		delimiter,
 		association,
 	)
 }
@@ -405,9 +371,11 @@ func AdditionalIndexClass() AdditionalIndexClassLike {
 }
 
 func AdditionalIndex(
+	delimiter string,
 	index ast.IndexLike,
 ) AdditionalIndexLike {
 	return AdditionalIndexClass().AdditionalIndex(
+		delimiter,
 		index,
 	)
 }
@@ -417,9 +385,11 @@ func AdditionalStatementClass() AdditionalStatementClassLike {
 }
 
 func AdditionalStatement(
+	delimiter string,
 	statement ast.StatementLike,
 ) AdditionalStatementLike {
 	return AdditionalStatementClass().AdditionalStatement(
+		delimiter,
 		statement,
 	)
 }
@@ -429,19 +399,13 @@ func AdditionalValueClass() AdditionalValueClassLike {
 }
 
 func AdditionalValue(
+	delimiter string,
 	component ast.ComponentLike,
 ) AdditionalValueLike {
 	return AdditionalValueClass().AdditionalValue(
+		delimiter,
 		component,
 	)
-}
-
-func AndClass() AndClassLike {
-	return ast.AndClass()
-}
-
-func And() AndLike {
-	return AndClass().And()
 }
 
 func AnnotatedAssociationClass() AnnotatedAssociationClassLike {
@@ -528,10 +492,12 @@ func AssociationClass() AssociationClassLike {
 
 func Association(
 	primitive ast.PrimitiveLike,
+	delimiter string,
 	component ast.ComponentLike,
 ) AssociationLike {
 	return AssociationClass().Association(
 		primitive,
+		delimiter,
 		component,
 	)
 }
@@ -541,9 +507,13 @@ func AtLevelClass() AtLevelClassLike {
 }
 
 func AtLevel(
+	delimiter1 string,
+	delimiter2 string,
 	expression ast.ExpressionLike,
 ) AtLevelLike {
 	return AtLevelClass().AtLevel(
+		delimiter1,
+		delimiter2,
 		expression,
 	)
 }
@@ -588,8 +558,14 @@ func BreakClauseClass() BreakClauseClassLike {
 	return ast.BreakClauseClass()
 }
 
-func BreakClause() BreakClauseLike {
-	return BreakClauseClass().BreakClause()
+func BreakClause(
+	delimiter1 string,
+	delimiter2 string,
+) BreakClauseLike {
+	return BreakClauseClass().BreakClause(
+		delimiter1,
+		delimiter2,
+	)
 }
 
 func CheckoutClauseClass() CheckoutClauseClassLike {
@@ -597,13 +573,17 @@ func CheckoutClauseClass() CheckoutClauseClassLike {
 }
 
 func CheckoutClause(
+	delimiter1 string,
 	recipient ast.RecipientLike,
 	optionalAtLevel ast.AtLevelLike,
+	delimiter2 string,
 	cited ast.CitedLike,
 ) CheckoutClauseLike {
 	return CheckoutClauseClass().CheckoutClause(
+		delimiter1,
 		recipient,
 		optionalAtLevel,
+		delimiter2,
 		cited,
 	)
 }
@@ -636,8 +616,12 @@ func ColonEqualClass() ColonEqualClassLike {
 	return ast.ColonEqualClass()
 }
 
-func ColonEqual() ColonEqualLike {
-	return ColonEqualClass().ColonEqual()
+func ColonEqual(
+	delimiter string,
+) ColonEqualLike {
+	return ColonEqualClass().ColonEqual(
+		delimiter,
+	)
 }
 
 func CommentLineClass() CommentLineClassLike {
@@ -657,9 +641,11 @@ func ComplementClass() ComplementClassLike {
 }
 
 func Complement(
+	delimiter string,
 	logical ast.LogicalLike,
 ) ComplementLike {
 	return ComplementClass().Complement(
+		delimiter,
 		logical,
 	)
 }
@@ -694,24 +680,38 @@ func ContinueClauseClass() ContinueClauseClassLike {
 	return ast.ContinueClauseClass()
 }
 
-func ContinueClause() ContinueClauseLike {
-	return ContinueClauseClass().ContinueClause()
+func ContinueClause(
+	delimiter1 string,
+	delimiter2 string,
+) ContinueClauseLike {
+	return ContinueClauseClass().ContinueClause(
+		delimiter1,
+		delimiter2,
+	)
 }
 
 func DashEqualClass() DashEqualClassLike {
 	return ast.DashEqualClass()
 }
 
-func DashEqual() DashEqualLike {
-	return DashEqualClass().DashEqual()
+func DashEqual(
+	delimiter string,
+) DashEqualLike {
+	return DashEqualClass().DashEqual(
+		delimiter,
+	)
 }
 
 func DefaultEqualClass() DefaultEqualClassLike {
 	return ast.DefaultEqualClass()
 }
 
-func DefaultEqual() DefaultEqualLike {
-	return DefaultEqualClass().DefaultEqual()
+func DefaultEqual(
+	delimiter string,
+) DefaultEqualLike {
+	return DefaultEqualClass().DefaultEqual(
+		delimiter,
+	)
 }
 
 func DiscardClauseClass() DiscardClauseClassLike {
@@ -719,9 +719,11 @@ func DiscardClauseClass() DiscardClauseClassLike {
 }
 
 func DiscardClause(
+	delimiter string,
 	draft ast.DraftLike,
 ) DiscardClauseLike {
 	return DiscardClauseClass().DiscardClause(
+		delimiter,
 		draft,
 	)
 }
@@ -731,9 +733,11 @@ func DoClauseClass() DoClauseClassLike {
 }
 
 func DoClause(
+	delimiter string,
 	invocation ast.InvocationLike,
 ) DoClauseLike {
 	return DoClauseClass().DoClause(
+		delimiter,
 		invocation,
 	)
 }
@@ -743,11 +747,11 @@ func DocumentClass() DocumentClassLike {
 }
 
 func Document(
-	optionalNotice ast.NoticeLike,
+	optionalLegalNotice ast.LegalNoticeLike,
 	component ast.ComponentLike,
 ) DocumentLike {
 	return DocumentClass().Document(
-		optionalNotice,
+		optionalLegalNotice,
 		component,
 	)
 }
@@ -816,8 +820,12 @@ func ExclusiveClass() ExclusiveClassLike {
 	return ast.ExclusiveClass()
 }
 
-func Exclusive() ExclusiveLike {
-	return ExclusiveClass().Exclusive()
+func Exclusive(
+	delimiter string,
+) ExclusiveLike {
+	return ExclusiveClass().Exclusive(
+		delimiter,
+	)
 }
 
 func ExclusiveRangeClass() ExclusiveRangeClassLike {
@@ -825,12 +833,16 @@ func ExclusiveRangeClass() ExclusiveRangeClassLike {
 }
 
 func ExclusiveRange(
+	delimiter1 string,
 	primitive1 ast.PrimitiveLike,
+	delimiter2 string,
 	primitive2 ast.PrimitiveLike,
 	bracket ast.BracketLike,
 ) ExclusiveRangeLike {
 	return ExclusiveRangeClass().ExclusiveRange(
+		delimiter1,
 		primitive1,
+		delimiter2,
 		primitive2,
 		bracket,
 	)
@@ -880,11 +892,15 @@ func FunctionClass() FunctionClassLike {
 
 func Function(
 	identifier string,
+	delimiter1 string,
 	optionalArguments ast.ArgumentsLike,
+	delimiter2 string,
 ) FunctionLike {
 	return FunctionClass().Function(
 		identifier,
+		delimiter1,
 		optionalArguments,
+		delimiter2,
 	)
 }
 
@@ -893,11 +909,15 @@ func IfClauseClass() IfClauseClassLike {
 }
 
 func IfClause(
+	delimiter1 string,
 	condition ast.ConditionLike,
+	delimiter2 string,
 	procedure ast.ProcedureLike,
 ) IfClauseLike {
 	return IfClauseClass().IfClause(
+		delimiter1,
 		condition,
+		delimiter2,
 		procedure,
 	)
 }
@@ -906,8 +926,12 @@ func InclusiveClass() InclusiveClassLike {
 	return ast.InclusiveClass()
 }
 
-func Inclusive() InclusiveLike {
-	return InclusiveClass().Inclusive()
+func Inclusive(
+	delimiter string,
+) InclusiveLike {
+	return InclusiveClass().Inclusive(
+		delimiter,
+	)
 }
 
 func InclusiveRangeClass() InclusiveRangeClassLike {
@@ -915,12 +939,16 @@ func InclusiveRangeClass() InclusiveRangeClassLike {
 }
 
 func InclusiveRange(
+	delimiter1 string,
 	primitive1 ast.PrimitiveLike,
+	delimiter2 string,
 	primitive2 ast.PrimitiveLike,
 	bracket ast.BracketLike,
 ) InclusiveRangeLike {
 	return InclusiveRangeClass().InclusiveRange(
+		delimiter1,
 		primitive1,
+		delimiter2,
 		primitive2,
 		bracket,
 	)
@@ -981,12 +1009,16 @@ func InlineAttributesClass() InlineAttributesClassLike {
 }
 
 func InlineAttributes(
+	delimiter1 string,
 	association ast.AssociationLike,
 	additionalAssociations col.Sequential[ast.AdditionalAssociationLike],
+	delimiter2 string,
 ) InlineAttributesLike {
 	return InlineAttributesClass().InlineAttributes(
+		delimiter1,
 		association,
 		additionalAssociations,
+		delimiter2,
 	)
 }
 
@@ -995,12 +1027,16 @@ func InlineParametersClass() InlineParametersClassLike {
 }
 
 func InlineParameters(
+	delimiter1 string,
 	association ast.AssociationLike,
 	additionalAssociations col.Sequential[ast.AdditionalAssociationLike],
+	delimiter2 string,
 ) InlineParametersLike {
 	return InlineParametersClass().InlineParameters(
+		delimiter1,
 		association,
 		additionalAssociations,
+		delimiter2,
 	)
 }
 
@@ -1009,12 +1045,16 @@ func InlineStatementsClass() InlineStatementsClassLike {
 }
 
 func InlineStatements(
+	delimiter1 string,
 	statement ast.StatementLike,
 	additionalStatements col.Sequential[ast.AdditionalStatementLike],
+	delimiter2 string,
 ) InlineStatementsLike {
 	return InlineStatementsClass().InlineStatements(
+		delimiter1,
 		statement,
 		additionalStatements,
+		delimiter2,
 	)
 }
 
@@ -1023,12 +1063,16 @@ func InlineValuesClass() InlineValuesClassLike {
 }
 
 func InlineValues(
+	delimiter1 string,
 	component ast.ComponentLike,
 	additionalValues col.Sequential[ast.AdditionalValueLike],
+	delimiter2 string,
 ) InlineValuesLike {
 	return InlineValuesClass().InlineValues(
+		delimiter1,
 		component,
 		additionalValues,
+		delimiter2,
 	)
 }
 
@@ -1070,22 +1114,6 @@ func Invocation(
 	)
 }
 
-func IorClass() IorClassLike {
-	return ast.IorClass()
-}
-
-func Ior() IorLike {
-	return IorClass().Ior()
-}
-
-func IsClass() IsClassLike {
-	return ast.IsClass()
-}
-
-func Is() IsLike {
-	return IsClass().Is()
-}
-
 func ItemClass() ItemClassLike {
 	return ast.ItemClass()
 }
@@ -1098,16 +1126,30 @@ func Item(
 	)
 }
 
+func LegalNoticeClass() LegalNoticeClassLike {
+	return ast.LegalNoticeClass()
+}
+
+func LegalNotice(
+	comment string,
+) LegalNoticeLike {
+	return LegalNoticeClass().LegalNotice(
+		comment,
+	)
+}
+
 func LetClauseClass() LetClauseClassLike {
 	return ast.LetClauseClass()
 }
 
 func LetClause(
+	delimiter string,
 	recipient ast.RecipientLike,
 	assignment ast.AssignmentLike,
 	expression ast.ExpressionLike,
 ) LetClauseLike {
 	return LetClauseClass().LetClause(
+		delimiter,
 		recipient,
 		assignment,
 		expression,
@@ -1131,10 +1173,14 @@ func MagnitudeClass() MagnitudeClassLike {
 }
 
 func Magnitude(
+	delimiter1 string,
 	numerical ast.NumericalLike,
+	delimiter2 string,
 ) MagnitudeLike {
 	return MagnitudeClass().Magnitude(
+		delimiter1,
 		numerical,
+		delimiter2,
 	)
 }
 
@@ -1155,21 +1201,17 @@ func MatchHandlerClass() MatchHandlerClassLike {
 }
 
 func MatchHandler(
+	delimiter1 string,
 	template ast.TemplateLike,
+	delimiter2 string,
 	procedure ast.ProcedureLike,
 ) MatchHandlerLike {
 	return MatchHandlerClass().MatchHandler(
+		delimiter1,
 		template,
+		delimiter2,
 		procedure,
 	)
-}
-
-func MatchesClass() MatchesClassLike {
-	return ast.MatchesClass()
-}
-
-func Matches() MatchesLike {
-	return MatchesClass().Matches()
 }
 
 func MessageClass() MessageClassLike {
@@ -1204,13 +1246,17 @@ func Method(
 	identifier1 string,
 	blocking ast.BlockingLike,
 	identifier2 string,
+	delimiter1 string,
 	optionalArguments ast.ArgumentsLike,
+	delimiter2 string,
 ) MethodLike {
 	return MethodClass().Method(
 		identifier1,
 		blocking,
 		identifier2,
+		delimiter1,
 		optionalArguments,
+		delimiter2,
 	)
 }
 
@@ -1219,12 +1265,16 @@ func MultilineAttributesClass() MultilineAttributesClassLike {
 }
 
 func MultilineAttributes(
+	delimiter1 string,
 	newline string,
 	annotatedAssociations col.Sequential[ast.AnnotatedAssociationLike],
+	delimiter2 string,
 ) MultilineAttributesLike {
 	return MultilineAttributesClass().MultilineAttributes(
+		delimiter1,
 		newline,
 		annotatedAssociations,
+		delimiter2,
 	)
 }
 
@@ -1233,12 +1283,16 @@ func MultilineParametersClass() MultilineParametersClassLike {
 }
 
 func MultilineParameters(
+	delimiter1 string,
 	newline string,
 	annotatedAssociations col.Sequential[ast.AnnotatedAssociationLike],
+	delimiter2 string,
 ) MultilineParametersLike {
 	return MultilineParametersClass().MultilineParameters(
+		delimiter1,
 		newline,
 		annotatedAssociations,
+		delimiter2,
 	)
 }
 
@@ -1247,12 +1301,16 @@ func MultilineStatementsClass() MultilineStatementsClassLike {
 }
 
 func MultilineStatements(
+	delimiter1 string,
 	newline string,
 	annotatedStatements col.Sequential[ast.AnnotatedStatementLike],
+	delimiter2 string,
 ) MultilineStatementsLike {
 	return MultilineStatementsClass().MultilineStatements(
+		delimiter1,
 		newline,
 		annotatedStatements,
+		delimiter2,
 	)
 }
 
@@ -1261,12 +1319,16 @@ func MultilineValuesClass() MultilineValuesClassLike {
 }
 
 func MultilineValues(
+	delimiter1 string,
 	newline string,
 	annotatedValues col.Sequential[ast.AnnotatedValueLike],
+	delimiter2 string,
 ) MultilineValuesLike {
 	return MultilineValuesClass().MultilineValues(
+		delimiter1,
 		newline,
 		annotatedValues,
+		delimiter2,
 	)
 }
 
@@ -1274,24 +1336,44 @@ func NoAttributesClass() NoAttributesClassLike {
 	return ast.NoAttributesClass()
 }
 
-func NoAttributes() NoAttributesLike {
-	return NoAttributesClass().NoAttributes()
+func NoAttributes(
+	delimiter1 string,
+	delimiter2 string,
+	delimiter3 string,
+) NoAttributesLike {
+	return NoAttributesClass().NoAttributes(
+		delimiter1,
+		delimiter2,
+		delimiter3,
+	)
 }
 
 func NoStatementsClass() NoStatementsClassLike {
 	return ast.NoStatementsClass()
 }
 
-func NoStatements() NoStatementsLike {
-	return NoStatementsClass().NoStatements()
+func NoStatements(
+	delimiter1 string,
+	delimiter2 string,
+) NoStatementsLike {
+	return NoStatementsClass().NoStatements(
+		delimiter1,
+		delimiter2,
+	)
 }
 
 func NoValuesClass() NoValuesClassLike {
 	return ast.NoValuesClass()
 }
 
-func NoValues() NoValuesLike {
-	return NoValuesClass().NoValues()
+func NoValues(
+	delimiter1 string,
+	delimiter2 string,
+) NoValuesLike {
+	return NoValuesClass().NoValues(
+		delimiter1,
+		delimiter2,
+	)
 }
 
 func NotarizeClauseClass() NotarizeClauseClassLike {
@@ -1299,26 +1381,16 @@ func NotarizeClauseClass() NotarizeClauseClassLike {
 }
 
 func NotarizeClause(
+	delimiter1 string,
 	draft ast.DraftLike,
+	delimiter2 string,
 	cited ast.CitedLike,
 ) NotarizeClauseLike {
 	return NotarizeClauseClass().NotarizeClause(
+		delimiter1,
 		draft,
+		delimiter2,
 		cited,
-	)
-}
-
-func NoticeClass() NoticeClassLike {
-	return ast.NoticeClass()
-}
-
-func Notice(
-	comment string,
-	newline string,
-) NoticeLike {
-	return NoticeClass().Notice(
-		comment,
-		newline,
 	)
 }
 
@@ -1339,10 +1411,12 @@ func OnClauseClass() OnClauseClassLike {
 }
 
 func OnClause(
+	delimiter string,
 	failure ast.FailureLike,
 	matchHandlers col.Sequential[ast.MatchHandlerLike],
 ) OnClauseLike {
 	return OnClauseClass().OnClause(
+		delimiter,
 		failure,
 		matchHandlers,
 	)
@@ -1356,18 +1430,6 @@ func Operation(
 	any_ any,
 ) OperationLike {
 	return OperationClass().Operation(
-		any_,
-	)
-}
-
-func OperatorClass() OperatorClassLike {
-	return ast.OperatorClass()
-}
-
-func Operator(
-	any_ any,
-) OperatorLike {
-	return OperatorClass().Operator(
 		any_,
 	)
 }
@@ -1388,8 +1450,12 @@ func PlusEqualClass() PlusEqualClassLike {
 	return ast.PlusEqualClass()
 }
 
-func PlusEqual() PlusEqualLike {
-	return PlusEqualClass().PlusEqual()
+func PlusEqual(
+	delimiter string,
+) PlusEqualLike {
+	return PlusEqualClass().PlusEqual(
+		delimiter,
+	)
 }
 
 func PostClauseClass() PostClauseClassLike {
@@ -1397,11 +1463,15 @@ func PostClauseClass() PostClauseClassLike {
 }
 
 func PostClause(
+	delimiter1 string,
 	message ast.MessageLike,
+	delimiter2 string,
 	bag ast.BagLike,
 ) PostClauseLike {
 	return PostClauseClass().PostClause(
+		delimiter1,
 		message,
+		delimiter2,
 		bag,
 	)
 }
@@ -1411,10 +1481,14 @@ func PrecedenceClass() PrecedenceClassLike {
 }
 
 func Precedence(
+	delimiter1 string,
 	expression ast.ExpressionLike,
+	delimiter2 string,
 ) PrecedenceLike {
 	return PrecedenceClass().Precedence(
+		delimiter1,
 		expression,
+		delimiter2,
 	)
 }
 
@@ -1423,11 +1497,11 @@ func PredicateClass() PredicateClassLike {
 }
 
 func Predicate(
-	action ast.ActionLike,
+	operation ast.OperationLike,
 	expression ast.ExpressionLike,
 ) PredicateLike {
 	return PredicateClass().Predicate(
-		action,
+		operation,
 		expression,
 	)
 }
@@ -1461,9 +1535,11 @@ func PublishClauseClass() PublishClauseClassLike {
 }
 
 func PublishClause(
+	delimiter string,
 	event ast.EventLike,
 ) PublishClauseLike {
 	return PublishClauseClass().PublishClause(
+		delimiter,
 		event,
 	)
 }
@@ -1485,9 +1561,11 @@ func ReferentClass() ReferentClassLike {
 }
 
 func Referent(
+	delimiter string,
 	indirect ast.IndirectLike,
 ) ReferentLike {
 	return ReferentClass().Referent(
+		delimiter,
 		indirect,
 	)
 }
@@ -1497,9 +1575,11 @@ func RejectClauseClass() RejectClauseClassLike {
 }
 
 func RejectClause(
+	delimiter string,
 	message ast.MessageLike,
 ) RejectClauseLike {
 	return RejectClauseClass().RejectClause(
+		delimiter,
 		message,
 	)
 }
@@ -1533,11 +1613,15 @@ func RetrieveClauseClass() RetrieveClauseClassLike {
 }
 
 func RetrieveClause(
+	delimiter1 string,
 	recipient ast.RecipientLike,
+	delimiter2 string,
 	bag ast.BagLike,
 ) RetrieveClauseLike {
 	return RetrieveClauseClass().RetrieveClause(
+		delimiter1,
 		recipient,
+		delimiter2,
 		bag,
 	)
 }
@@ -1547,19 +1631,13 @@ func ReturnClauseClass() ReturnClauseClassLike {
 }
 
 func ReturnClause(
+	delimiter string,
 	result ast.ResultLike,
 ) ReturnClauseLike {
 	return ReturnClauseClass().ReturnClause(
+		delimiter,
 		result,
 	)
-}
-
-func SanClass() SanClassLike {
-	return ast.SanClass()
-}
-
-func San() SanLike {
-	return SanClass().San()
 }
 
 func SaveClauseClass() SaveClauseClassLike {
@@ -1567,11 +1645,15 @@ func SaveClauseClass() SaveClauseClassLike {
 }
 
 func SaveClause(
+	delimiter1 string,
 	draft ast.DraftLike,
+	delimiter2 string,
 	cited ast.CitedLike,
 ) SaveClauseLike {
 	return SaveClauseClass().SaveClause(
+		delimiter1,
 		draft,
+		delimiter2,
 		cited,
 	)
 }
@@ -1581,10 +1663,12 @@ func SelectClauseClass() SelectClauseClassLike {
 }
 
 func SelectClause(
+	delimiter string,
 	target ast.TargetLike,
 	matchHandlers col.Sequential[ast.MatchHandlerLike],
 ) SelectClauseLike {
 	return SelectClauseClass().SelectClause(
+		delimiter,
 		target,
 		matchHandlers,
 	)
@@ -1606,16 +1690,24 @@ func SlashEqualClass() SlashEqualClassLike {
 	return ast.SlashEqualClass()
 }
 
-func SlashEqual() SlashEqualLike {
-	return SlashEqualClass().SlashEqual()
+func SlashEqual(
+	delimiter string,
+) SlashEqualLike {
+	return SlashEqualClass().SlashEqual(
+		delimiter,
+	)
 }
 
 func StarEqualClass() StarEqualClassLike {
 	return ast.StarEqualClass()
 }
 
-func StarEqual() StarEqualLike {
-	return StarEqualClass().StarEqual()
+func StarEqual(
+	delimiter string,
+) StarEqualLike {
+	return StarEqualClass().StarEqual(
+		delimiter,
+	)
 }
 
 func StatementClass() StatementClassLike {
@@ -1664,11 +1756,15 @@ func SubcomponentClass() SubcomponentClassLike {
 
 func Subcomponent(
 	identifier string,
+	delimiter1 string,
 	indices ast.IndicesLike,
+	delimiter2 string,
 ) SubcomponentLike {
 	return SubcomponentClass().Subcomponent(
 		identifier,
+		delimiter1,
 		indices,
+		delimiter2,
 	)
 }
 
@@ -1713,9 +1809,11 @@ func ThrowClauseClass() ThrowClauseClassLike {
 }
 
 func ThrowClause(
+	delimiter string,
 	exception ast.ExceptionLike,
 ) ThrowClauseLike {
 	return ThrowClauseClass().ThrowClause(
+		delimiter,
 		exception,
 	)
 }
@@ -1737,11 +1835,15 @@ func WhileClauseClass() WhileClauseClassLike {
 }
 
 func WhileClause(
+	delimiter1 string,
 	condition ast.ConditionLike,
+	delimiter2 string,
 	procedure ast.ProcedureLike,
 ) WhileClauseLike {
 	return WhileClauseClass().WhileClause(
+		delimiter1,
 		condition,
+		delimiter2,
 		procedure,
 	)
 }
@@ -1751,23 +1853,23 @@ func WithClauseClass() WithClauseClassLike {
 }
 
 func WithClause(
+	delimiter1 string,
+	delimiter2 string,
 	item ast.ItemLike,
+	delimiter3 string,
 	sequence ast.SequenceLike,
+	delimiter4 string,
 	procedure ast.ProcedureLike,
 ) WithClauseLike {
 	return WithClauseClass().WithClause(
+		delimiter1,
+		delimiter2,
 		item,
+		delimiter3,
 		sequence,
+		delimiter4,
 		procedure,
 	)
-}
-
-func XorClass() XorClassLike {
-	return ast.XorClass()
-}
-
-func Xor() XorLike {
-	return XorClass().Xor()
 }
 
 // Grammar

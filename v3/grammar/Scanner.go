@@ -214,18 +214,6 @@ loop:
 		case v.foundToken(TagToken):
 		case v.foundToken(VersionToken):
 		case v.foundToken(IdentifierToken):
-		case v.foundToken(DotToken):
-		case v.foundToken(ArrowToken):
-		case v.foundToken(PlusToken):
-		case v.foundToken(DashToken):
-		case v.foundToken(StarToken):
-		case v.foundToken(DoubleToken):
-		case v.foundToken(SlashToken):
-		case v.foundToken(CaretToken):
-		case v.foundToken(AmpersandToken):
-		case v.foundToken(LessToken):
-		case v.foundToken(EqualToken):
-		case v.foundToken(MoreToken):
 		default:
 			v.foundError()
 			break loop
@@ -266,25 +254,16 @@ var scannerClassReference_ = &scannerClass_{
 		map[TokenType]string{
 			// Define identifiers for each type of token.
 			ErrorToken:       "error",
-			AmpersandToken:   "ampersand",
 			AngleToken:       "angle",
-			ArrowToken:       "arrow",
 			BinaryToken:      "binary",
 			BooleanToken:     "boolean",
 			BytecodeToken:    "bytecode",
-			CaretToken:       "caret",
 			CitationToken:    "citation",
 			CommentToken:     "comment",
-			DashToken:        "dash",
 			DelimiterToken:   "delimiter",
-			DotToken:         "dot",
-			DoubleToken:      "double",
 			DurationToken:    "duration",
-			EqualToken:       "equal",
 			IdentifierToken:  "identifier",
-			LessToken:        "less",
 			MomentToken:      "moment",
-			MoreToken:        "more",
 			NameToken:        "name",
 			NarrativeToken:   "narrative",
 			NewlineToken:     "newline",
@@ -292,13 +271,10 @@ var scannerClassReference_ = &scannerClass_{
 			NumberToken:      "number",
 			PatternToken:     "pattern",
 			PercentageToken:  "percentage",
-			PlusToken:        "plus",
 			ProbabilityToken: "probability",
 			QuoteToken:       "quote",
 			ResourceToken:    "resource",
-			SlashToken:       "slash",
 			SpaceToken:       "space",
-			StarToken:        "star",
 			SymbolToken:      "symbol",
 			TagToken:         "tag",
 			VersionToken:     "version",
@@ -307,25 +283,16 @@ var scannerClassReference_ = &scannerClass_{
 	matchers_: col.CatalogFromMap[TokenType, *reg.Regexp](
 		map[TokenType]*reg.Regexp{
 			// Define pattern matchers for each type of token.
-			AmpersandToken:   reg.MustCompile("^" + ampersand_),
 			AngleToken:       reg.MustCompile("^" + angle_),
-			ArrowToken:       reg.MustCompile("^" + arrow_),
 			BinaryToken:      reg.MustCompile("^" + binary_),
 			BooleanToken:     reg.MustCompile("^" + boolean_),
 			BytecodeToken:    reg.MustCompile("^" + bytecode_),
-			CaretToken:       reg.MustCompile("^" + caret_),
 			CitationToken:    reg.MustCompile("^" + citation_),
 			CommentToken:     reg.MustCompile("^" + comment_),
-			DashToken:        reg.MustCompile("^" + dash_),
 			DelimiterToken:   reg.MustCompile("^" + delimiter_),
-			DotToken:         reg.MustCompile("^" + dot_),
-			DoubleToken:      reg.MustCompile("^" + double_),
 			DurationToken:    reg.MustCompile("^" + duration_),
-			EqualToken:       reg.MustCompile("^" + equal_),
 			IdentifierToken:  reg.MustCompile("^" + identifier_),
-			LessToken:        reg.MustCompile("^" + less_),
 			MomentToken:      reg.MustCompile("^" + moment_),
-			MoreToken:        reg.MustCompile("^" + more_),
 			NameToken:        reg.MustCompile("^" + name_),
 			NarrativeToken:   reg.MustCompile("^" + narrative_),
 			NewlineToken:     reg.MustCompile("^" + newline_),
@@ -333,13 +300,10 @@ var scannerClassReference_ = &scannerClass_{
 			NumberToken:      reg.MustCompile("^" + number_),
 			PatternToken:     reg.MustCompile("^" + pattern_),
 			PercentageToken:  reg.MustCompile("^" + percentage_),
-			PlusToken:        reg.MustCompile("^" + plus_),
 			ProbabilityToken: reg.MustCompile("^" + probability_),
 			QuoteToken:       reg.MustCompile("^" + quote_),
 			ResourceToken:    reg.MustCompile("^" + resource_),
-			SlashToken:       reg.MustCompile("^" + slash_),
 			SpaceToken:       reg.MustCompile("^" + space_),
-			StarToken:        reg.MustCompile("^" + star_),
 			SymbolToken:      reg.MustCompile("^" + symbol_),
 			TagToken:         reg.MustCompile("^" + tag_),
 			VersionToken:     reg.MustCompile("^" + version_),
@@ -349,16 +313,15 @@ var scannerClassReference_ = &scannerClass_{
 
 // Private Constants
 
-/*
-NOTE:
-These private constants define the regular expression sub-patterns that make up
-the intrinsic types and token types.  Unfortunately there is no way to make them
-private to the scanner class since they must be TRUE Go constants to be used in
-this way.  We append an underscore to each name to lessen the chance of a name
-collision with other private Go class constants in this package.
-*/
+// NOTE:
+// These private constants define the regular expression sub-patterns that make
+// up the intrinsic types and token types.  Unfortunately there is no way to
+// make them private to the scanner class since they must be TRUE Go constants
+// to be used in this way.  We append an underscore to each name to lessen the
+// chance of a name collision with other private Go class constants in this
+// package.
 const (
-	// Define the regular expression patterns for each intrinsic type.
+	// Define the regular expressions for each intrinsic type.
 	any_     = "." // This does NOT include newline characters.
 	control_ = "\\p{Cc}"
 	digit_   = "\\p{Nd}"
@@ -366,8 +329,8 @@ const (
 	lower_   = "\\p{Ll}"
 	upper_   = "\\p{Lu}"
 
-	// Define the regular expression patterns for each token type.
-	delimiter_    = "(?:xor|with|while|to|throw|select|save|san|return|retrieve|reject|publish|post|on|notarize|not|matching|matches|loop|level|let|is|ior|in|if|from|each|do|discard|continue|checkout|break|at|as|and|accept|\\}|\\||\\{|\\]|\\[|\\?=|\\.\\.|\\+=|\\*=|\\)|\\(|@|;|:=|:|/=|-=|,)"
+	// Define the regular expressions for each token type.
+	delimiter_    = "(?:÷|xor|with|while|to|throw|select|save|san|return|retrieve|reject|publish|post|on|notarize|not|matching|matches|loop|level|let|is|ior|in|if|from|each|do|discard|continue|checkout|break|at|as|and|accept|\\}|\\||\\{|\\^|\\]|\\[|\\?=|\\.\\.|\\.|\\+=|\\+|\\*=|\\*|\\)|\\(|@|>>|==|<<|<-|;|:=|:|/=|/|-=|-|,|&|%)"
 	newline_      = "(?:" + eol_ + ")"
 	space_        = "(?:[ \\t]+)"
 	alpha_        = "(?:[A-Za-z])"
@@ -435,16 +398,4 @@ const (
 	weeks_        = "(?:(?:" + timespan_ + ")W)"
 	year_         = "(?:0|(?:" + ordinal_ + "))"
 	years_        = "(?:(?:" + timespan_ + ")Y)"
-	dot_          = "(?:\\.)"
-	arrow_        = "(?:<-)"
-	plus_         = "(?:\\+)"
-	dash_         = "(?:-)"
-	star_         = "(?:\\*)"
-	double_       = "(?://)"
-	slash_        = "(?:/)"
-	caret_        = "(?:\\^)"
-	ampersand_    = "(?:&)"
-	less_         = "(?:<)"
-	equal_        = "(?:=)"
-	more_         = "(?:>)"
 )

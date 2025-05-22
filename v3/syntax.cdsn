@@ -22,9 +22,9 @@ For more information on CDSN see the wiki at:
 │                               RULE DEFINITIONS                               │
 └──────────────────────────────────────────────────────────────────────────────┘
 <!
-$Document: Notice? Component
+$Document: LegalNotice? Component
 
-$Notice: comment newline
+$LegalNotice: comment
 
 $Component: Entity Parameters?
 
@@ -199,8 +199,8 @@ $Argument: identifier
 $Method: identifier Blocking identifier "(" Arguments? ")"
 
 $Blocking:
-    dot
-    arrow
+    "."
+    "<-"
 
 $Subcomponent: identifier "[" Indices "]"
 
@@ -308,43 +308,25 @@ $Subject:
     Method
     Variable  ! This must be last since others also begin with an identifier.
 
-$Predicate: Action Expression
-
-$Action:
-    Operator
-    Operation
-
-$Operator:
-    plus
-    dash
-    star
-    slash
-    double
-    caret
-    ampersand
-    less
-    equal
-    more
+$Predicate: Operation Expression
 
 $Operation:
-    Is
-    Matches
-    And
-    San
-    Ior
-    Xor
-
-$Is: "is"
-
-$Matches: "matches"
-
-$And: "and"
-
-$San: "san"
-
-$Ior: "ior"
-
-$Xor: "xor"
+    "+"
+    "-"
+    "*"
+    "÷"
+    "%"
+    "^"
+    "&"
+    "<<"
+    "=="
+    ">>"
+	"is"
+	"matches"
+	"and"
+	"san"
+	"ior"
+	"xor"
 
 $Precedence: "(" Expression ")"
 
@@ -373,9 +355,9 @@ $Logical:
 $Inversion: Inverse Numerical
 
 $Inverse:
-    dash
-    slash
-    star
+    "-"
+    "/"
+    "*"
 
 $Numerical:
     Component
@@ -524,28 +506,4 @@ $weeks: timespan 'W'
 $year: '0' | ordinal
 
 $years: timespan 'Y'
-
-$dot: '.'
-
-$arrow: "<-"
-
-$plus: '+'
-
-$dash: '-'
-
-$star: '*'
-
-$double: "//"
-
-$slash: '/'
-
-$caret: '^'
-
-$ampersand: '&'
-
-$less: '<'
-
-$equal: '='
-
-$more: '>'
 

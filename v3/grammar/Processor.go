@@ -50,18 +50,8 @@ func (v *processor_) GetClass() ProcessorClassLike {
 
 // Methodical Methods
 
-func (v *processor_) ProcessAmpersand(
-	ampersand string,
-) {
-}
-
 func (v *processor_) ProcessAngle(
 	angle string,
-) {
-}
-
-func (v *processor_) ProcessArrow(
-	arrow string,
 ) {
 }
 
@@ -80,11 +70,6 @@ func (v *processor_) ProcessBytecode(
 ) {
 }
 
-func (v *processor_) ProcessCaret(
-	caret string,
-) {
-}
-
 func (v *processor_) ProcessCitation(
 	citation string,
 ) {
@@ -95,18 +80,8 @@ func (v *processor_) ProcessComment(
 ) {
 }
 
-func (v *processor_) ProcessDash(
-	dash string,
-) {
-}
-
-func (v *processor_) ProcessDot(
-	dot string,
-) {
-}
-
-func (v *processor_) ProcessDouble(
-	double string,
+func (v *processor_) ProcessDelimiter(
+	delimiter string,
 ) {
 }
 
@@ -115,28 +90,13 @@ func (v *processor_) ProcessDuration(
 ) {
 }
 
-func (v *processor_) ProcessEqual(
-	equal string,
-) {
-}
-
 func (v *processor_) ProcessIdentifier(
 	identifier string,
 ) {
 }
 
-func (v *processor_) ProcessLess(
-	less string,
-) {
-}
-
 func (v *processor_) ProcessMoment(
 	moment string,
-) {
-}
-
-func (v *processor_) ProcessMore(
-	more string,
 ) {
 }
 
@@ -175,11 +135,6 @@ func (v *processor_) ProcessPercentage(
 ) {
 }
 
-func (v *processor_) ProcessPlus(
-	plus string,
-) {
-}
-
 func (v *processor_) ProcessProbability(
 	probability string,
 ) {
@@ -195,18 +150,8 @@ func (v *processor_) ProcessResource(
 ) {
 }
 
-func (v *processor_) ProcessSlash(
-	slash string,
-) {
-}
-
 func (v *processor_) ProcessSpace(
 	space string,
-) {
-}
-
-func (v *processor_) ProcessStar(
-	star string,
 ) {
 }
 
@@ -227,6 +172,8 @@ func (v *processor_) ProcessVersion(
 
 func (v *processor_) PreprocessAcceptClause(
 	acceptClause ast.AcceptClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -237,28 +184,15 @@ func (v *processor_) ProcessAcceptClauseSlot(
 
 func (v *processor_) PostprocessAcceptClause(
 	acceptClause ast.AcceptClauseLike,
-) {
-}
-
-func (v *processor_) PreprocessAction(
-	action ast.ActionLike,
-) {
-}
-
-func (v *processor_) ProcessActionSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessAction(
-	action ast.ActionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAdditionalArgument(
 	additionalArgument ast.AdditionalArgumentLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -269,15 +203,15 @@ func (v *processor_) ProcessAdditionalArgumentSlot(
 
 func (v *processor_) PostprocessAdditionalArgument(
 	additionalArgument ast.AdditionalArgumentLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAdditionalAssociation(
 	additionalAssociation ast.AdditionalAssociationLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -288,15 +222,15 @@ func (v *processor_) ProcessAdditionalAssociationSlot(
 
 func (v *processor_) PostprocessAdditionalAssociation(
 	additionalAssociation ast.AdditionalAssociationLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAdditionalIndex(
 	additionalIndex ast.AdditionalIndexLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -307,15 +241,15 @@ func (v *processor_) ProcessAdditionalIndexSlot(
 
 func (v *processor_) PostprocessAdditionalIndex(
 	additionalIndex ast.AdditionalIndexLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAdditionalStatement(
 	additionalStatement ast.AdditionalStatementLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -326,15 +260,15 @@ func (v *processor_) ProcessAdditionalStatementSlot(
 
 func (v *processor_) PostprocessAdditionalStatement(
 	additionalStatement ast.AdditionalStatementLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAdditionalValue(
 	additionalValue ast.AdditionalValueLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -345,30 +279,15 @@ func (v *processor_) ProcessAdditionalValueSlot(
 
 func (v *processor_) PostprocessAdditionalValue(
 	additionalValue ast.AdditionalValueLike,
-	index uint,
-	size uint,
-) {
-}
-
-func (v *processor_) PreprocessAnd(
-	and ast.AndLike,
-) {
-}
-
-func (v *processor_) ProcessAndSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessAnd(
-	and ast.AndLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAnnotatedAssociation(
 	annotatedAssociation ast.AnnotatedAssociationLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -379,15 +298,15 @@ func (v *processor_) ProcessAnnotatedAssociationSlot(
 
 func (v *processor_) PostprocessAnnotatedAssociation(
 	annotatedAssociation ast.AnnotatedAssociationLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAnnotatedStatement(
 	annotatedStatement ast.AnnotatedStatementLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -398,15 +317,15 @@ func (v *processor_) ProcessAnnotatedStatementSlot(
 
 func (v *processor_) PostprocessAnnotatedStatement(
 	annotatedStatement ast.AnnotatedStatementLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAnnotatedValue(
 	annotatedValue ast.AnnotatedValueLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -417,13 +336,15 @@ func (v *processor_) ProcessAnnotatedValueSlot(
 
 func (v *processor_) PostprocessAnnotatedValue(
 	annotatedValue ast.AnnotatedValueLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessArgument(
 	argument ast.ArgumentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -434,11 +355,15 @@ func (v *processor_) ProcessArgumentSlot(
 
 func (v *processor_) PostprocessArgument(
 	argument ast.ArgumentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessArguments(
 	arguments ast.ArgumentsLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -449,11 +374,15 @@ func (v *processor_) ProcessArgumentsSlot(
 
 func (v *processor_) PostprocessArguments(
 	arguments ast.ArgumentsLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAssignment(
 	assignment ast.AssignmentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -464,11 +393,15 @@ func (v *processor_) ProcessAssignmentSlot(
 
 func (v *processor_) PostprocessAssignment(
 	assignment ast.AssignmentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAssociation(
 	association ast.AssociationLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -479,11 +412,15 @@ func (v *processor_) ProcessAssociationSlot(
 
 func (v *processor_) PostprocessAssociation(
 	association ast.AssociationLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessAtLevel(
 	atLevel ast.AtLevelLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -494,11 +431,15 @@ func (v *processor_) ProcessAtLevelSlot(
 
 func (v *processor_) PostprocessAtLevel(
 	atLevel ast.AtLevelLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessBag(
 	bag ast.BagLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -509,11 +450,15 @@ func (v *processor_) ProcessBagSlot(
 
 func (v *processor_) PostprocessBag(
 	bag ast.BagLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessBlocking(
 	blocking ast.BlockingLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -524,11 +469,15 @@ func (v *processor_) ProcessBlockingSlot(
 
 func (v *processor_) PostprocessBlocking(
 	blocking ast.BlockingLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessBracket(
 	bracket ast.BracketLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -539,11 +488,15 @@ func (v *processor_) ProcessBracketSlot(
 
 func (v *processor_) PostprocessBracket(
 	bracket ast.BracketLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessBreakClause(
 	breakClause ast.BreakClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -554,11 +507,15 @@ func (v *processor_) ProcessBreakClauseSlot(
 
 func (v *processor_) PostprocessBreakClause(
 	breakClause ast.BreakClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessCheckoutClause(
 	checkoutClause ast.CheckoutClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -569,11 +526,15 @@ func (v *processor_) ProcessCheckoutClauseSlot(
 
 func (v *processor_) PostprocessCheckoutClause(
 	checkoutClause ast.CheckoutClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessCited(
 	cited ast.CitedLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -584,11 +545,15 @@ func (v *processor_) ProcessCitedSlot(
 
 func (v *processor_) PostprocessCited(
 	cited ast.CitedLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessCollection(
 	collection ast.CollectionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -599,11 +564,15 @@ func (v *processor_) ProcessCollectionSlot(
 
 func (v *processor_) PostprocessCollection(
 	collection ast.CollectionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessColonEqual(
 	colonEqual ast.ColonEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -614,11 +583,15 @@ func (v *processor_) ProcessColonEqualSlot(
 
 func (v *processor_) PostprocessColonEqual(
 	colonEqual ast.ColonEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessCommentLine(
 	commentLine ast.CommentLineLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -629,11 +602,15 @@ func (v *processor_) ProcessCommentLineSlot(
 
 func (v *processor_) PostprocessCommentLine(
 	commentLine ast.CommentLineLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessComplement(
 	complement ast.ComplementLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -644,11 +621,15 @@ func (v *processor_) ProcessComplementSlot(
 
 func (v *processor_) PostprocessComplement(
 	complement ast.ComplementLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessComponent(
 	component ast.ComponentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -659,11 +640,15 @@ func (v *processor_) ProcessComponentSlot(
 
 func (v *processor_) PostprocessComponent(
 	component ast.ComponentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessCondition(
 	condition ast.ConditionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -674,11 +659,15 @@ func (v *processor_) ProcessConditionSlot(
 
 func (v *processor_) PostprocessCondition(
 	condition ast.ConditionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessContinueClause(
 	continueClause ast.ContinueClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -689,11 +678,15 @@ func (v *processor_) ProcessContinueClauseSlot(
 
 func (v *processor_) PostprocessContinueClause(
 	continueClause ast.ContinueClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessDashEqual(
 	dashEqual ast.DashEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -704,11 +697,15 @@ func (v *processor_) ProcessDashEqualSlot(
 
 func (v *processor_) PostprocessDashEqual(
 	dashEqual ast.DashEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessDefaultEqual(
 	defaultEqual ast.DefaultEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -719,11 +716,15 @@ func (v *processor_) ProcessDefaultEqualSlot(
 
 func (v *processor_) PostprocessDefaultEqual(
 	defaultEqual ast.DefaultEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessDiscardClause(
 	discardClause ast.DiscardClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -734,11 +735,15 @@ func (v *processor_) ProcessDiscardClauseSlot(
 
 func (v *processor_) PostprocessDiscardClause(
 	discardClause ast.DiscardClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessDoClause(
 	doClause ast.DoClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -749,11 +754,15 @@ func (v *processor_) ProcessDoClauseSlot(
 
 func (v *processor_) PostprocessDoClause(
 	doClause ast.DoClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessDocument(
 	document ast.DocumentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -764,11 +773,15 @@ func (v *processor_) ProcessDocumentSlot(
 
 func (v *processor_) PostprocessDocument(
 	document ast.DocumentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessDraft(
 	draft ast.DraftLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -779,11 +792,15 @@ func (v *processor_) ProcessDraftSlot(
 
 func (v *processor_) PostprocessDraft(
 	draft ast.DraftLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessElement(
 	element ast.ElementLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -794,11 +811,15 @@ func (v *processor_) ProcessElementSlot(
 
 func (v *processor_) PostprocessElement(
 	element ast.ElementLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessEntity(
 	entity ast.EntityLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -809,11 +830,15 @@ func (v *processor_) ProcessEntitySlot(
 
 func (v *processor_) PostprocessEntity(
 	entity ast.EntityLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessEvent(
 	event ast.EventLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -824,11 +849,15 @@ func (v *processor_) ProcessEventSlot(
 
 func (v *processor_) PostprocessEvent(
 	event ast.EventLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessException(
 	exception ast.ExceptionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -839,11 +868,15 @@ func (v *processor_) ProcessExceptionSlot(
 
 func (v *processor_) PostprocessException(
 	exception ast.ExceptionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessExclusive(
 	exclusive ast.ExclusiveLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -854,11 +887,15 @@ func (v *processor_) ProcessExclusiveSlot(
 
 func (v *processor_) PostprocessExclusive(
 	exclusive ast.ExclusiveLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessExclusiveRange(
 	exclusiveRange ast.ExclusiveRangeLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -869,11 +906,15 @@ func (v *processor_) ProcessExclusiveRangeSlot(
 
 func (v *processor_) PostprocessExclusiveRange(
 	exclusiveRange ast.ExclusiveRangeLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessExpression(
 	expression ast.ExpressionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -884,11 +925,15 @@ func (v *processor_) ProcessExpressionSlot(
 
 func (v *processor_) PostprocessExpression(
 	expression ast.ExpressionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessFailure(
 	failure ast.FailureLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -899,11 +944,15 @@ func (v *processor_) ProcessFailureSlot(
 
 func (v *processor_) PostprocessFailure(
 	failure ast.FailureLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessFlow(
 	flow ast.FlowLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -914,11 +963,15 @@ func (v *processor_) ProcessFlowSlot(
 
 func (v *processor_) PostprocessFlow(
 	flow ast.FlowLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessFunction(
 	function ast.FunctionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -929,11 +982,15 @@ func (v *processor_) ProcessFunctionSlot(
 
 func (v *processor_) PostprocessFunction(
 	function ast.FunctionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessIfClause(
 	ifClause ast.IfClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -944,11 +1001,15 @@ func (v *processor_) ProcessIfClauseSlot(
 
 func (v *processor_) PostprocessIfClause(
 	ifClause ast.IfClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessInclusive(
 	inclusive ast.InclusiveLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -959,11 +1020,15 @@ func (v *processor_) ProcessInclusiveSlot(
 
 func (v *processor_) PostprocessInclusive(
 	inclusive ast.InclusiveLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessInclusiveRange(
 	inclusiveRange ast.InclusiveRangeLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -974,11 +1039,15 @@ func (v *processor_) ProcessInclusiveRangeSlot(
 
 func (v *processor_) PostprocessInclusiveRange(
 	inclusiveRange ast.InclusiveRangeLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessIndex(
 	index ast.IndexLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -989,11 +1058,15 @@ func (v *processor_) ProcessIndexSlot(
 
 func (v *processor_) PostprocessIndex(
 	index ast.IndexLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessIndices(
 	indices ast.IndicesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1004,11 +1077,15 @@ func (v *processor_) ProcessIndicesSlot(
 
 func (v *processor_) PostprocessIndices(
 	indices ast.IndicesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessIndirect(
 	indirect ast.IndirectLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1019,11 +1096,15 @@ func (v *processor_) ProcessIndirectSlot(
 
 func (v *processor_) PostprocessIndirect(
 	indirect ast.IndirectLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessInduction(
 	induction ast.InductionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1034,11 +1115,15 @@ func (v *processor_) ProcessInductionSlot(
 
 func (v *processor_) PostprocessInduction(
 	induction ast.InductionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessInlineAttributes(
 	inlineAttributes ast.InlineAttributesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1049,11 +1134,15 @@ func (v *processor_) ProcessInlineAttributesSlot(
 
 func (v *processor_) PostprocessInlineAttributes(
 	inlineAttributes ast.InlineAttributesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessInlineParameters(
 	inlineParameters ast.InlineParametersLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1064,11 +1153,15 @@ func (v *processor_) ProcessInlineParametersSlot(
 
 func (v *processor_) PostprocessInlineParameters(
 	inlineParameters ast.InlineParametersLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessInlineStatements(
 	inlineStatements ast.InlineStatementsLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1079,11 +1172,15 @@ func (v *processor_) ProcessInlineStatementsSlot(
 
 func (v *processor_) PostprocessInlineStatements(
 	inlineStatements ast.InlineStatementsLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessInlineValues(
 	inlineValues ast.InlineValuesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1094,11 +1191,15 @@ func (v *processor_) ProcessInlineValuesSlot(
 
 func (v *processor_) PostprocessInlineValues(
 	inlineValues ast.InlineValuesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessInverse(
 	inverse ast.InverseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1109,11 +1210,15 @@ func (v *processor_) ProcessInverseSlot(
 
 func (v *processor_) PostprocessInverse(
 	inverse ast.InverseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessInversion(
 	inversion ast.InversionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1124,11 +1229,15 @@ func (v *processor_) ProcessInversionSlot(
 
 func (v *processor_) PostprocessInversion(
 	inversion ast.InversionLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessInvocation(
 	invocation ast.InvocationLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1139,41 +1248,15 @@ func (v *processor_) ProcessInvocationSlot(
 
 func (v *processor_) PostprocessInvocation(
 	invocation ast.InvocationLike,
-) {
-}
-
-func (v *processor_) PreprocessIor(
-	ior ast.IorLike,
-) {
-}
-
-func (v *processor_) ProcessIorSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessIor(
-	ior ast.IorLike,
-) {
-}
-
-func (v *processor_) PreprocessIs(
-	is ast.IsLike,
-) {
-}
-
-func (v *processor_) ProcessIsSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessIs(
-	is ast.IsLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessItem(
 	item ast.ItemLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1184,11 +1267,34 @@ func (v *processor_) ProcessItemSlot(
 
 func (v *processor_) PostprocessItem(
 	item ast.ItemLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessLegalNotice(
+	legalNotice ast.LegalNoticeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessLegalNoticeSlot(
+	slot uint,
+) {
+}
+
+func (v *processor_) PostprocessLegalNotice(
+	legalNotice ast.LegalNoticeLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessLetClause(
 	letClause ast.LetClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1199,11 +1305,15 @@ func (v *processor_) ProcessLetClauseSlot(
 
 func (v *processor_) PostprocessLetClause(
 	letClause ast.LetClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessLogical(
 	logical ast.LogicalLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1214,11 +1324,15 @@ func (v *processor_) ProcessLogicalSlot(
 
 func (v *processor_) PostprocessLogical(
 	logical ast.LogicalLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessMagnitude(
 	magnitude ast.MagnitudeLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1229,11 +1343,15 @@ func (v *processor_) ProcessMagnitudeSlot(
 
 func (v *processor_) PostprocessMagnitude(
 	magnitude ast.MagnitudeLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessMainClause(
 	mainClause ast.MainClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1244,13 +1362,15 @@ func (v *processor_) ProcessMainClauseSlot(
 
 func (v *processor_) PostprocessMainClause(
 	mainClause ast.MainClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessMatchHandler(
 	matchHandler ast.MatchHandlerLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1261,28 +1381,15 @@ func (v *processor_) ProcessMatchHandlerSlot(
 
 func (v *processor_) PostprocessMatchHandler(
 	matchHandler ast.MatchHandlerLike,
-	index uint,
-	size uint,
-) {
-}
-
-func (v *processor_) PreprocessMatches(
-	matches ast.MatchesLike,
-) {
-}
-
-func (v *processor_) ProcessMatchesSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessMatches(
-	matches ast.MatchesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessMessage(
 	message ast.MessageLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1293,11 +1400,15 @@ func (v *processor_) ProcessMessageSlot(
 
 func (v *processor_) PostprocessMessage(
 	message ast.MessageLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessMessaging(
 	messaging ast.MessagingLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1308,11 +1419,15 @@ func (v *processor_) ProcessMessagingSlot(
 
 func (v *processor_) PostprocessMessaging(
 	messaging ast.MessagingLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessMethod(
 	method ast.MethodLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1323,11 +1438,15 @@ func (v *processor_) ProcessMethodSlot(
 
 func (v *processor_) PostprocessMethod(
 	method ast.MethodLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessMultilineAttributes(
 	multilineAttributes ast.MultilineAttributesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1338,11 +1457,15 @@ func (v *processor_) ProcessMultilineAttributesSlot(
 
 func (v *processor_) PostprocessMultilineAttributes(
 	multilineAttributes ast.MultilineAttributesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessMultilineParameters(
 	multilineParameters ast.MultilineParametersLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1353,11 +1476,15 @@ func (v *processor_) ProcessMultilineParametersSlot(
 
 func (v *processor_) PostprocessMultilineParameters(
 	multilineParameters ast.MultilineParametersLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessMultilineStatements(
 	multilineStatements ast.MultilineStatementsLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1368,11 +1495,15 @@ func (v *processor_) ProcessMultilineStatementsSlot(
 
 func (v *processor_) PostprocessMultilineStatements(
 	multilineStatements ast.MultilineStatementsLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessMultilineValues(
 	multilineValues ast.MultilineValuesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1383,11 +1514,15 @@ func (v *processor_) ProcessMultilineValuesSlot(
 
 func (v *processor_) PostprocessMultilineValues(
 	multilineValues ast.MultilineValuesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessNoAttributes(
 	noAttributes ast.NoAttributesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1398,11 +1533,15 @@ func (v *processor_) ProcessNoAttributesSlot(
 
 func (v *processor_) PostprocessNoAttributes(
 	noAttributes ast.NoAttributesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessNoStatements(
 	noStatements ast.NoStatementsLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1413,11 +1552,15 @@ func (v *processor_) ProcessNoStatementsSlot(
 
 func (v *processor_) PostprocessNoStatements(
 	noStatements ast.NoStatementsLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessNoValues(
 	noValues ast.NoValuesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1428,11 +1571,15 @@ func (v *processor_) ProcessNoValuesSlot(
 
 func (v *processor_) PostprocessNoValues(
 	noValues ast.NoValuesLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessNotarizeClause(
 	notarizeClause ast.NotarizeClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1443,26 +1590,15 @@ func (v *processor_) ProcessNotarizeClauseSlot(
 
 func (v *processor_) PostprocessNotarizeClause(
 	notarizeClause ast.NotarizeClauseLike,
-) {
-}
-
-func (v *processor_) PreprocessNotice(
-	notice ast.NoticeLike,
-) {
-}
-
-func (v *processor_) ProcessNoticeSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessNotice(
-	notice ast.NoticeLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessNumerical(
 	numerical ast.NumericalLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1473,11 +1609,15 @@ func (v *processor_) ProcessNumericalSlot(
 
 func (v *processor_) PostprocessNumerical(
 	numerical ast.NumericalLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessOnClause(
 	onClause ast.OnClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1488,11 +1628,15 @@ func (v *processor_) ProcessOnClauseSlot(
 
 func (v *processor_) PostprocessOnClause(
 	onClause ast.OnClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessOperation(
 	operation ast.OperationLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1503,26 +1647,15 @@ func (v *processor_) ProcessOperationSlot(
 
 func (v *processor_) PostprocessOperation(
 	operation ast.OperationLike,
-) {
-}
-
-func (v *processor_) PreprocessOperator(
-	operator ast.OperatorLike,
-) {
-}
-
-func (v *processor_) ProcessOperatorSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessOperator(
-	operator ast.OperatorLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessParameters(
 	parameters ast.ParametersLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1533,11 +1666,15 @@ func (v *processor_) ProcessParametersSlot(
 
 func (v *processor_) PostprocessParameters(
 	parameters ast.ParametersLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessPlusEqual(
 	plusEqual ast.PlusEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1548,11 +1685,15 @@ func (v *processor_) ProcessPlusEqualSlot(
 
 func (v *processor_) PostprocessPlusEqual(
 	plusEqual ast.PlusEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessPostClause(
 	postClause ast.PostClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1563,11 +1704,15 @@ func (v *processor_) ProcessPostClauseSlot(
 
 func (v *processor_) PostprocessPostClause(
 	postClause ast.PostClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessPrecedence(
 	precedence ast.PrecedenceLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1578,13 +1723,15 @@ func (v *processor_) ProcessPrecedenceSlot(
 
 func (v *processor_) PostprocessPrecedence(
 	precedence ast.PrecedenceLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessPredicate(
 	predicate ast.PredicateLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1595,13 +1742,15 @@ func (v *processor_) ProcessPredicateSlot(
 
 func (v *processor_) PostprocessPredicate(
 	predicate ast.PredicateLike,
-	index uint,
-	size uint,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessPrimitive(
 	primitive ast.PrimitiveLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1612,11 +1761,15 @@ func (v *processor_) ProcessPrimitiveSlot(
 
 func (v *processor_) PostprocessPrimitive(
 	primitive ast.PrimitiveLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessProcedure(
 	procedure ast.ProcedureLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1627,11 +1780,15 @@ func (v *processor_) ProcessProcedureSlot(
 
 func (v *processor_) PostprocessProcedure(
 	procedure ast.ProcedureLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessPublishClause(
 	publishClause ast.PublishClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1642,11 +1799,15 @@ func (v *processor_) ProcessPublishClauseSlot(
 
 func (v *processor_) PostprocessPublishClause(
 	publishClause ast.PublishClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessRecipient(
 	recipient ast.RecipientLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1657,11 +1818,15 @@ func (v *processor_) ProcessRecipientSlot(
 
 func (v *processor_) PostprocessRecipient(
 	recipient ast.RecipientLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessReferent(
 	referent ast.ReferentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1672,11 +1837,15 @@ func (v *processor_) ProcessReferentSlot(
 
 func (v *processor_) PostprocessReferent(
 	referent ast.ReferentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessRejectClause(
 	rejectClause ast.RejectClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1687,11 +1856,15 @@ func (v *processor_) ProcessRejectClauseSlot(
 
 func (v *processor_) PostprocessRejectClause(
 	rejectClause ast.RejectClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessRepository(
 	repository ast.RepositoryLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1702,11 +1875,15 @@ func (v *processor_) ProcessRepositorySlot(
 
 func (v *processor_) PostprocessRepository(
 	repository ast.RepositoryLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessResult(
 	result ast.ResultLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1717,11 +1894,15 @@ func (v *processor_) ProcessResultSlot(
 
 func (v *processor_) PostprocessResult(
 	result ast.ResultLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessRetrieveClause(
 	retrieveClause ast.RetrieveClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1732,11 +1913,15 @@ func (v *processor_) ProcessRetrieveClauseSlot(
 
 func (v *processor_) PostprocessRetrieveClause(
 	retrieveClause ast.RetrieveClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessReturnClause(
 	returnClause ast.ReturnClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1747,26 +1932,15 @@ func (v *processor_) ProcessReturnClauseSlot(
 
 func (v *processor_) PostprocessReturnClause(
 	returnClause ast.ReturnClauseLike,
-) {
-}
-
-func (v *processor_) PreprocessSan(
-	san ast.SanLike,
-) {
-}
-
-func (v *processor_) ProcessSanSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessSan(
-	san ast.SanLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessSaveClause(
 	saveClause ast.SaveClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1777,11 +1951,15 @@ func (v *processor_) ProcessSaveClauseSlot(
 
 func (v *processor_) PostprocessSaveClause(
 	saveClause ast.SaveClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessSelectClause(
 	selectClause ast.SelectClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1792,11 +1970,15 @@ func (v *processor_) ProcessSelectClauseSlot(
 
 func (v *processor_) PostprocessSelectClause(
 	selectClause ast.SelectClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessSequence(
 	sequence ast.SequenceLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1807,11 +1989,15 @@ func (v *processor_) ProcessSequenceSlot(
 
 func (v *processor_) PostprocessSequence(
 	sequence ast.SequenceLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessSlashEqual(
 	slashEqual ast.SlashEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1822,11 +2008,15 @@ func (v *processor_) ProcessSlashEqualSlot(
 
 func (v *processor_) PostprocessSlashEqual(
 	slashEqual ast.SlashEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessStarEqual(
 	starEqual ast.StarEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1837,11 +2027,15 @@ func (v *processor_) ProcessStarEqualSlot(
 
 func (v *processor_) PostprocessStarEqual(
 	starEqual ast.StarEqualLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessStatement(
 	statement ast.StatementLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1852,11 +2046,15 @@ func (v *processor_) ProcessStatementSlot(
 
 func (v *processor_) PostprocessStatement(
 	statement ast.StatementLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessStatementLine(
 	statementLine ast.StatementLineLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1867,11 +2065,15 @@ func (v *processor_) ProcessStatementLineSlot(
 
 func (v *processor_) PostprocessStatementLine(
 	statementLine ast.StatementLineLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessString(
 	string_ ast.StringLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1882,11 +2084,15 @@ func (v *processor_) ProcessStringSlot(
 
 func (v *processor_) PostprocessString(
 	string_ ast.StringLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessSubcomponent(
 	subcomponent ast.SubcomponentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1897,11 +2103,15 @@ func (v *processor_) ProcessSubcomponentSlot(
 
 func (v *processor_) PostprocessSubcomponent(
 	subcomponent ast.SubcomponentLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessSubject(
 	subject ast.SubjectLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1912,11 +2122,15 @@ func (v *processor_) ProcessSubjectSlot(
 
 func (v *processor_) PostprocessSubject(
 	subject ast.SubjectLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessTarget(
 	target ast.TargetLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1927,11 +2141,15 @@ func (v *processor_) ProcessTargetSlot(
 
 func (v *processor_) PostprocessTarget(
 	target ast.TargetLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessTemplate(
 	template ast.TemplateLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1942,11 +2160,15 @@ func (v *processor_) ProcessTemplateSlot(
 
 func (v *processor_) PostprocessTemplate(
 	template ast.TemplateLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessThrowClause(
 	throwClause ast.ThrowClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1957,11 +2179,15 @@ func (v *processor_) ProcessThrowClauseSlot(
 
 func (v *processor_) PostprocessThrowClause(
 	throwClause ast.ThrowClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessVariable(
 	variable ast.VariableLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1972,11 +2198,15 @@ func (v *processor_) ProcessVariableSlot(
 
 func (v *processor_) PostprocessVariable(
 	variable ast.VariableLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessWhileClause(
 	whileClause ast.WhileClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -1987,11 +2217,15 @@ func (v *processor_) ProcessWhileClauseSlot(
 
 func (v *processor_) PostprocessWhileClause(
 	whileClause ast.WhileClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
 func (v *processor_) PreprocessWithClause(
 	withClause ast.WithClauseLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
@@ -2002,21 +2236,8 @@ func (v *processor_) ProcessWithClauseSlot(
 
 func (v *processor_) PostprocessWithClause(
 	withClause ast.WithClauseLike,
-) {
-}
-
-func (v *processor_) PreprocessXor(
-	xor ast.XorLike,
-) {
-}
-
-func (v *processor_) ProcessXorSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessXor(
-	xor ast.XorLike,
+	index_ uint,
+	count_ uint,
 ) {
 }
 
