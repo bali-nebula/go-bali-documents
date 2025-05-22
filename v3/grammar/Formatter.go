@@ -221,23 +221,6 @@ func (v *formatter_) ProcessAcceptClauseSlot(
 	}
 }
 
-func (v *formatter_) PreprocessAction(
-	action ast.ActionLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessActionSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
 func (v *formatter_) PreprocessAdditionalArgument(
 	additionalArgument ast.AdditionalArgumentLike,
 	index_ uint,
@@ -315,23 +298,6 @@ func (v *formatter_) PreprocessAdditionalValue(
 }
 
 func (v *formatter_) ProcessAdditionalValueSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessAnd(
-	and ast.AndLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessAndSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -1207,40 +1173,6 @@ func (v *formatter_) ProcessInvocationSlot(
 	}
 }
 
-func (v *formatter_) PreprocessIor(
-	ior ast.IorLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessIorSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessIs(
-	is ast.IsLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessIsSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
 func (v *formatter_) PreprocessItem(
 	item ast.ItemLike,
 	index_ uint,
@@ -1352,23 +1284,6 @@ func (v *formatter_) PreprocessMatchHandler(
 }
 
 func (v *formatter_) ProcessMatchHandlerSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessMatches(
-	matches ast.MatchesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessMatchesSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -1607,23 +1522,6 @@ func (v *formatter_) PreprocessOperation(
 }
 
 func (v *formatter_) ProcessOperationSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessOperator(
-	operator ast.OperatorLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessOperatorSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -1879,23 +1777,6 @@ func (v *formatter_) PreprocessReturnClause(
 }
 
 func (v *formatter_) ProcessReturnClauseSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessSan(
-	san ast.SanLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessSanSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -2176,24 +2057,7 @@ func (v *formatter_) ProcessWithClauseSlot(
 	}
 }
 
-func (v *formatter_) PreprocessXor(
-	xor ast.XorLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessXorSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-const _indentation = "    "
+const _indentation = "\t"
 
 // PROTECTED INTERFACE
 
