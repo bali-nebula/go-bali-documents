@@ -345,14 +345,6 @@ func (v *validator_) PreprocessBlocking(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessBracket(
-	bracket ast.BracketLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
 func (v *validator_) PreprocessBreakClause(
 	breakClause ast.BreakClauseLike,
 	index_ uint,
@@ -505,14 +497,6 @@ func (v *validator_) PreprocessException(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessExclusiveRange(
-	exclusiveRange ast.ExclusiveRangeLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
 func (v *validator_) PreprocessExpression(
 	expression ast.ExpressionLike,
 	index_ uint,
@@ -555,14 +539,6 @@ func (v *validator_) PreprocessHandler(
 
 func (v *validator_) PreprocessIfClause(
 	ifClause ast.IfClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessInclusiveRange(
-	inclusiveRange ast.InclusiveRangeLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -625,8 +601,8 @@ func (v *validator_) PreprocessItem(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessLegalNotice(
-	legalNotice ast.LegalNoticeLike,
+func (v *validator_) PreprocessLeftBracket(
+	leftBracket ast.LeftBracketLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -785,6 +761,14 @@ func (v *validator_) PreprocessPublishClause(
 	// TBD - Add any validation checks.
 }
 
+func (v *validator_) PreprocessRange(
+	range_ ast.RangeLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
 func (v *validator_) PreprocessRecipient(
 	recipient ast.RecipientLike,
 	index_ uint,
@@ -835,6 +819,14 @@ func (v *validator_) PreprocessRetrieveClause(
 
 func (v *validator_) PreprocessReturnClause(
 	returnClause ast.ReturnClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
+func (v *validator_) PreprocessRightBracket(
+	rightBracket ast.RightBracketLike,
 	index_ uint,
 	count_ uint,
 ) {

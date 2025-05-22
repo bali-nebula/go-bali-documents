@@ -22,9 +22,9 @@ For more information on CDSN see the wiki at:
 │                               RULE DEFINITIONS                               │
 └──────────────────────────────────────────────────────────────────────────────┘
 <!
-$Document: LegalNotice? Component
+$Document: Annotation? Component
 
-$LegalNotice: comment
+$Annotation: comment
 
 $Component: Entity Parameters? note?
 
@@ -65,17 +65,18 @@ $String:
     version
 
 $Collection:
-    InclusiveRange
-    ExclusiveRange
+    Range
     Attributes
     Values  ! Must be after ranges and attributes.
     Empty
 
-$InclusiveRange: "[" Primitive ".." Primitive Bracket
+$Range: LeftBracket Primitive ".." Primitive RightBracket
 
-$ExclusiveRange: "(" Primitive ".." Primitive Bracket
+$LeftBracket:
+    "["
+    "("
 
-$Bracket:
+$RightBracket:
     "]"
     ")"
 
@@ -90,8 +91,6 @@ $Procedure: "{" Code* "}"
 $Code:
     Annotation
     Statement
-
-$Annotation: comment
 
 $Statement: MainClause OnClause? note?
 

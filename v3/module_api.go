@@ -49,7 +49,6 @@ type (
 	AttributesClassLike     = ast.AttributesClassLike
 	BagClassLike            = ast.BagClassLike
 	BlockingClassLike       = ast.BlockingClassLike
-	BracketClassLike        = ast.BracketClassLike
 	BreakClauseClassLike    = ast.BreakClauseClassLike
 	CheckoutClauseClassLike = ast.CheckoutClauseClassLike
 	CitedClassLike          = ast.CitedClassLike
@@ -69,14 +68,12 @@ type (
 	EntityClassLike         = ast.EntityClassLike
 	EventClassLike          = ast.EventClassLike
 	ExceptionClassLike      = ast.ExceptionClassLike
-	ExclusiveRangeClassLike = ast.ExclusiveRangeClassLike
 	ExpressionClassLike     = ast.ExpressionClassLike
 	FailureClassLike        = ast.FailureClassLike
 	FlowClassLike           = ast.FlowClassLike
 	FunctionClassLike       = ast.FunctionClassLike
 	HandlerClassLike        = ast.HandlerClassLike
 	IfClauseClassLike       = ast.IfClauseClassLike
-	InclusiveRangeClassLike = ast.InclusiveRangeClassLike
 	IndexClassLike          = ast.IndexClassLike
 	IndirectClassLike       = ast.IndirectClassLike
 	InductionClassLike      = ast.InductionClassLike
@@ -84,7 +81,7 @@ type (
 	InversionClassLike      = ast.InversionClassLike
 	InvocationClassLike     = ast.InvocationClassLike
 	ItemClassLike           = ast.ItemClassLike
-	LegalNoticeClassLike    = ast.LegalNoticeClassLike
+	LeftBracketClassLike    = ast.LeftBracketClassLike
 	LetClauseClassLike      = ast.LetClauseClassLike
 	LogicClassLike          = ast.LogicClassLike
 	LogicalClassLike        = ast.LogicalClassLike
@@ -104,6 +101,7 @@ type (
 	PrimitiveClassLike      = ast.PrimitiveClassLike
 	ProcedureClassLike      = ast.ProcedureClassLike
 	PublishClauseClassLike  = ast.PublishClauseClassLike
+	RangeClassLike          = ast.RangeClassLike
 	RecipientClassLike      = ast.RecipientClassLike
 	ReferentClassLike       = ast.ReferentClassLike
 	RejectClauseClassLike   = ast.RejectClauseClassLike
@@ -111,6 +109,7 @@ type (
 	ResultClassLike         = ast.ResultClassLike
 	RetrieveClauseClassLike = ast.RetrieveClauseClassLike
 	ReturnClauseClassLike   = ast.ReturnClauseClassLike
+	RightBracketClassLike   = ast.RightBracketClassLike
 	SaveClauseClassLike     = ast.SaveClauseClassLike
 	SelectClauseClassLike   = ast.SelectClauseClassLike
 	SequenceClassLike       = ast.SequenceClassLike
@@ -139,7 +138,6 @@ type (
 	AttributesLike     = ast.AttributesLike
 	BagLike            = ast.BagLike
 	BlockingLike       = ast.BlockingLike
-	BracketLike        = ast.BracketLike
 	BreakClauseLike    = ast.BreakClauseLike
 	CheckoutClauseLike = ast.CheckoutClauseLike
 	CitedLike          = ast.CitedLike
@@ -159,14 +157,12 @@ type (
 	EntityLike         = ast.EntityLike
 	EventLike          = ast.EventLike
 	ExceptionLike      = ast.ExceptionLike
-	ExclusiveRangeLike = ast.ExclusiveRangeLike
 	ExpressionLike     = ast.ExpressionLike
 	FailureLike        = ast.FailureLike
 	FlowLike           = ast.FlowLike
 	FunctionLike       = ast.FunctionLike
 	HandlerLike        = ast.HandlerLike
 	IfClauseLike       = ast.IfClauseLike
-	InclusiveRangeLike = ast.InclusiveRangeLike
 	IndexLike          = ast.IndexLike
 	IndirectLike       = ast.IndirectLike
 	InductionLike      = ast.InductionLike
@@ -174,7 +170,7 @@ type (
 	InversionLike      = ast.InversionLike
 	InvocationLike     = ast.InvocationLike
 	ItemLike           = ast.ItemLike
-	LegalNoticeLike    = ast.LegalNoticeLike
+	LeftBracketLike    = ast.LeftBracketLike
 	LetClauseLike      = ast.LetClauseLike
 	LogicLike          = ast.LogicLike
 	LogicalLike        = ast.LogicalLike
@@ -194,6 +190,7 @@ type (
 	PrimitiveLike      = ast.PrimitiveLike
 	ProcedureLike      = ast.ProcedureLike
 	PublishClauseLike  = ast.PublishClauseLike
+	RangeLike          = ast.RangeLike
 	RecipientLike      = ast.RecipientLike
 	ReferentLike       = ast.ReferentLike
 	RejectClauseLike   = ast.RejectClauseLike
@@ -201,6 +198,7 @@ type (
 	ResultLike         = ast.ResultLike
 	RetrieveClauseLike = ast.RetrieveClauseLike
 	ReturnClauseLike   = ast.ReturnClauseLike
+	RightBracketLike   = ast.RightBracketLike
 	SaveClauseLike     = ast.SaveClauseLike
 	SelectClauseLike   = ast.SelectClauseLike
 	SequenceLike       = ast.SequenceLike
@@ -425,18 +423,6 @@ func Blocking(
 	)
 }
 
-func BracketClass() BracketClassLike {
-	return ast.BracketClass()
-}
-
-func Bracket(
-	any_ any,
-) BracketLike {
-	return BracketClass().Bracket(
-		any_,
-	)
-}
-
 func BreakClauseClass() BreakClauseClassLike {
 	return ast.BreakClauseClass()
 }
@@ -608,11 +594,11 @@ func DocumentClass() DocumentClassLike {
 }
 
 func Document(
-	optionalLegalNotice ast.LegalNoticeLike,
+	optionalAnnotation ast.AnnotationLike,
 	component ast.ComponentLike,
 ) DocumentLike {
 	return DocumentClass().Document(
-		optionalLegalNotice,
+		optionalAnnotation,
 		component,
 	)
 }
@@ -690,26 +676,6 @@ func Exception(
 ) ExceptionLike {
 	return ExceptionClass().Exception(
 		expression,
-	)
-}
-
-func ExclusiveRangeClass() ExclusiveRangeClassLike {
-	return ast.ExclusiveRangeClass()
-}
-
-func ExclusiveRange(
-	delimiter1 string,
-	primitive1 ast.PrimitiveLike,
-	delimiter2 string,
-	primitive2 ast.PrimitiveLike,
-	bracket ast.BracketLike,
-) ExclusiveRangeLike {
-	return ExclusiveRangeClass().ExclusiveRange(
-		delimiter1,
-		primitive1,
-		delimiter2,
-		primitive2,
-		bracket,
 	)
 }
 
@@ -805,26 +771,6 @@ func IfClause(
 	)
 }
 
-func InclusiveRangeClass() InclusiveRangeClassLike {
-	return ast.InclusiveRangeClass()
-}
-
-func InclusiveRange(
-	delimiter1 string,
-	primitive1 ast.PrimitiveLike,
-	delimiter2 string,
-	primitive2 ast.PrimitiveLike,
-	bracket ast.BracketLike,
-) InclusiveRangeLike {
-	return InclusiveRangeClass().InclusiveRange(
-		delimiter1,
-		primitive1,
-		delimiter2,
-		primitive2,
-		bracket,
-	)
-}
-
 func IndexClass() IndexClassLike {
 	return ast.IndexClass()
 }
@@ -911,15 +857,15 @@ func Item(
 	)
 }
 
-func LegalNoticeClass() LegalNoticeClassLike {
-	return ast.LegalNoticeClass()
+func LeftBracketClass() LeftBracketClassLike {
+	return ast.LeftBracketClass()
 }
 
-func LegalNotice(
-	comment string,
-) LegalNoticeLike {
-	return LegalNoticeClass().LegalNotice(
-		comment,
+func LeftBracket(
+	any_ any,
+) LeftBracketLike {
+	return LeftBracketClass().LeftBracket(
+		any_,
 	)
 }
 
@@ -1203,6 +1149,26 @@ func PublishClause(
 	)
 }
 
+func RangeClass() RangeClassLike {
+	return ast.RangeClass()
+}
+
+func Range(
+	leftBracket ast.LeftBracketLike,
+	primitive1 ast.PrimitiveLike,
+	delimiter string,
+	primitive2 ast.PrimitiveLike,
+	rightBracket ast.RightBracketLike,
+) RangeLike {
+	return RangeClass().Range(
+		leftBracket,
+		primitive1,
+		delimiter,
+		primitive2,
+		rightBracket,
+	)
+}
+
 func RecipientClass() RecipientClassLike {
 	return ast.RecipientClass()
 }
@@ -1296,6 +1262,18 @@ func ReturnClause(
 	return ReturnClauseClass().ReturnClause(
 		delimiter,
 		result,
+	)
+}
+
+func RightBracketClass() RightBracketClassLike {
+	return ast.RightBracketClass()
+}
+
+func RightBracket(
+	any_ any,
+) RightBracketLike {
+	return RightBracketClass().RightBracket(
+		any_,
 	)
 }
 

@@ -440,23 +440,6 @@ func (v *formatter_) ProcessBlockingSlot(
 	}
 }
 
-func (v *formatter_) PreprocessBracket(
-	bracket ast.BracketLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessBracketSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
 func (v *formatter_) PreprocessBreakClause(
 	breakClause ast.BreakClauseLike,
 	index_ uint,
@@ -780,23 +763,6 @@ func (v *formatter_) ProcessExceptionSlot(
 	}
 }
 
-func (v *formatter_) PreprocessExclusiveRange(
-	exclusiveRange ast.ExclusiveRangeLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessExclusiveRangeSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
 func (v *formatter_) PreprocessExpression(
 	expression ast.ExpressionLike,
 	index_ uint,
@@ -891,23 +857,6 @@ func (v *formatter_) PreprocessIfClause(
 }
 
 func (v *formatter_) ProcessIfClauseSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessInclusiveRange(
-	inclusiveRange ast.InclusiveRangeLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessInclusiveRangeSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -1035,15 +984,15 @@ func (v *formatter_) ProcessItemSlot(
 	}
 }
 
-func (v *formatter_) PreprocessLegalNotice(
-	legalNotice ast.LegalNoticeLike,
+func (v *formatter_) PreprocessLeftBracket(
+	leftBracket ast.LeftBracketLike,
 	index_ uint,
 	count_ uint,
 ) {
 	// TBD - Add formatting of the rule.
 }
 
-func (v *formatter_) ProcessLegalNoticeSlot(
+func (v *formatter_) ProcessLeftBracketSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -1375,6 +1324,23 @@ func (v *formatter_) ProcessPublishClauseSlot(
 	}
 }
 
+func (v *formatter_) PreprocessRange(
+	range_ ast.RangeLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessRangeSlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
 func (v *formatter_) PreprocessRecipient(
 	recipient ast.RecipientLike,
 	index_ uint,
@@ -1486,6 +1452,23 @@ func (v *formatter_) PreprocessReturnClause(
 }
 
 func (v *formatter_) ProcessReturnClauseSlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
+func (v *formatter_) PreprocessRightBracket(
+	rightBracket ast.RightBracketLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessRightBracketSlot(
 	slot uint,
 ) {
 	switch slot {

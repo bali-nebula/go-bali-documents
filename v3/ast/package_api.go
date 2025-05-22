@@ -173,18 +173,6 @@ type BlockingClassLike interface {
 }
 
 /*
-BracketClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete bracket-like class.
-*/
-type BracketClassLike interface {
-	// Constructor Methods
-	Bracket(
-		any_ any,
-	) BracketLike
-}
-
-/*
 BreakClauseClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete break-clause-like class.
@@ -347,7 +335,7 @@ supported by each concrete document-like class.
 type DocumentClassLike interface {
 	// Constructor Methods
 	Document(
-		optionalLegalNotice LegalNoticeLike,
+		optionalAnnotation AnnotationLike,
 		component ComponentLike,
 	) DocumentLike
 }
@@ -424,22 +412,6 @@ type ExceptionClassLike interface {
 	Exception(
 		expression ExpressionLike,
 	) ExceptionLike
-}
-
-/*
-ExclusiveRangeClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete exclusive-range-like class.
-*/
-type ExclusiveRangeClassLike interface {
-	// Constructor Methods
-	ExclusiveRange(
-		delimiter1 string,
-		primitive1 PrimitiveLike,
-		delimiter2 string,
-		primitive2 PrimitiveLike,
-		bracket BracketLike,
-	) ExclusiveRangeLike
 }
 
 /*
@@ -522,22 +494,6 @@ type IfClauseClassLike interface {
 		delimiter2 string,
 		procedure ProcedureLike,
 	) IfClauseLike
-}
-
-/*
-InclusiveRangeClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete inclusive-range-like class.
-*/
-type InclusiveRangeClassLike interface {
-	// Constructor Methods
-	InclusiveRange(
-		delimiter1 string,
-		primitive1 PrimitiveLike,
-		delimiter2 string,
-		primitive2 PrimitiveLike,
-		bracket BracketLike,
-	) InclusiveRangeLike
 }
 
 /*
@@ -626,15 +582,15 @@ type ItemClassLike interface {
 }
 
 /*
-LegalNoticeClassLike is a class interface that declares the
+LeftBracketClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete legal-notice-like class.
+supported by each concrete left-bracket-like class.
 */
-type LegalNoticeClassLike interface {
+type LeftBracketClassLike interface {
 	// Constructor Methods
-	LegalNotice(
-		comment string,
-	) LegalNoticeLike
+	LeftBracket(
+		any_ any,
+	) LeftBracketLike
 }
 
 /*
@@ -892,6 +848,22 @@ type PublishClauseClassLike interface {
 }
 
 /*
+RangeClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete range-like class.
+*/
+type RangeClassLike interface {
+	// Constructor Methods
+	Range(
+		leftBracket LeftBracketLike,
+		primitive1 PrimitiveLike,
+		delimiter string,
+		primitive2 PrimitiveLike,
+		rightBracket RightBracketLike,
+	) RangeLike
+}
+
+/*
 RecipientClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete recipient-like class.
@@ -979,6 +951,18 @@ type ReturnClauseClassLike interface {
 		delimiter string,
 		result ResultLike,
 	) ReturnClauseLike
+}
+
+/*
+RightBracketClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete right-bracket-like class.
+*/
+type RightBracketClassLike interface {
+	// Constructor Methods
+	RightBracket(
+		any_ any,
+	) RightBracketLike
 }
 
 /*
@@ -1323,19 +1307,6 @@ type BlockingLike interface {
 }
 
 /*
-BracketLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete bracket-like class.
-*/
-type BracketLike interface {
-	// Principal Methods
-	GetClass() BracketClassLike
-
-	// Attribute Methods
-	GetAny() any
-}
-
-/*
 BreakClauseLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete break-clause-like class.
@@ -1512,7 +1483,7 @@ type DocumentLike interface {
 	GetClass() DocumentClassLike
 
 	// Attribute Methods
-	GetOptionalLegalNotice() LegalNoticeLike
+	GetOptionalAnnotation() AnnotationLike
 	GetComponent() ComponentLike
 }
 
@@ -1594,23 +1565,6 @@ type ExceptionLike interface {
 
 	// Attribute Methods
 	GetExpression() ExpressionLike
-}
-
-/*
-ExclusiveRangeLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete exclusive-range-like class.
-*/
-type ExclusiveRangeLike interface {
-	// Principal Methods
-	GetClass() ExclusiveRangeClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetPrimitive1() PrimitiveLike
-	GetDelimiter2() string
-	GetPrimitive2() PrimitiveLike
-	GetBracket() BracketLike
 }
 
 /*
@@ -1699,23 +1653,6 @@ type IfClauseLike interface {
 	GetCondition() ConditionLike
 	GetDelimiter2() string
 	GetProcedure() ProcedureLike
-}
-
-/*
-InclusiveRangeLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete inclusive-range-like class.
-*/
-type InclusiveRangeLike interface {
-	// Principal Methods
-	GetClass() InclusiveRangeClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetPrimitive1() PrimitiveLike
-	GetDelimiter2() string
-	GetPrimitive2() PrimitiveLike
-	GetBracket() BracketLike
 }
 
 /*
@@ -1811,16 +1748,16 @@ type ItemLike interface {
 }
 
 /*
-LegalNoticeLike is an instance interface that declares the
+LeftBracketLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete legal-notice-like class.
+by each instance of a concrete left-bracket-like class.
 */
-type LegalNoticeLike interface {
+type LeftBracketLike interface {
 	// Principal Methods
-	GetClass() LegalNoticeClassLike
+	GetClass() LeftBracketClassLike
 
 	// Attribute Methods
-	GetComment() string
+	GetAny() any
 }
 
 /*
@@ -2097,6 +2034,23 @@ type PublishClauseLike interface {
 }
 
 /*
+RangeLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete range-like class.
+*/
+type RangeLike interface {
+	// Principal Methods
+	GetClass() RangeClassLike
+
+	// Attribute Methods
+	GetLeftBracket() LeftBracketLike
+	GetPrimitive1() PrimitiveLike
+	GetDelimiter() string
+	GetPrimitive2() PrimitiveLike
+	GetRightBracket() RightBracketLike
+}
+
+/*
 RecipientLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete recipient-like class.
@@ -2191,6 +2145,19 @@ type ReturnClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetResult() ResultLike
+}
+
+/*
+RightBracketLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete right-bracket-like class.
+*/
+type RightBracketLike interface {
+	// Principal Methods
+	GetClass() RightBracketClassLike
+
+	// Attribute Methods
+	GetAny() any
 }
 
 /*

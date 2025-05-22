@@ -535,19 +535,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessBracket(
-		bracket ast.BracketLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessBracketSlot(
-		slot uint,
-	)
-	PostprocessBracket(
-		bracket ast.BracketLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessBreakClause(
 		breakClause ast.BreakClauseLike,
 		index_ uint,
@@ -795,19 +782,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessExclusiveRange(
-		exclusiveRange ast.ExclusiveRangeLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessExclusiveRangeSlot(
-		slot uint,
-	)
-	PostprocessExclusiveRange(
-		exclusiveRange ast.ExclusiveRangeLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessExpression(
 		expression ast.ExpressionLike,
 		index_ uint,
@@ -883,19 +857,6 @@ type Methodical interface {
 	)
 	PostprocessIfClause(
 		ifClause ast.IfClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessInclusiveRange(
-		inclusiveRange ast.InclusiveRangeLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessInclusiveRangeSlot(
-		slot uint,
-	)
-	PostprocessInclusiveRange(
-		inclusiveRange ast.InclusiveRangeLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -990,16 +951,16 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessLegalNotice(
-		legalNotice ast.LegalNoticeLike,
+	PreprocessLeftBracket(
+		leftBracket ast.LeftBracketLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessLegalNoticeSlot(
+	ProcessLeftBracketSlot(
 		slot uint,
 	)
-	PostprocessLegalNotice(
-		legalNotice ast.LegalNoticeLike,
+	PostprocessLeftBracket(
+		leftBracket ast.LeftBracketLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -1250,6 +1211,19 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessRange(
+		range_ ast.RangeLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessRangeSlot(
+		slot uint,
+	)
+	PostprocessRange(
+		range_ ast.RangeLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessRecipient(
 		recipient ast.RecipientLike,
 		index_ uint,
@@ -1338,6 +1312,19 @@ type Methodical interface {
 	)
 	PostprocessReturnClause(
 		returnClause ast.ReturnClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessRightBracket(
+		rightBracket ast.RightBracketLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessRightBracketSlot(
+		slot uint,
+	)
+	PostprocessRightBracket(
+		rightBracket ast.RightBracketLike,
 		index_ uint,
 		count_ uint,
 	)

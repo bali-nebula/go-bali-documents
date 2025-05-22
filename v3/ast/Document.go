@@ -34,7 +34,7 @@ func DocumentClass() DocumentClassLike {
 // Constructor Methods
 
 func (c *documentClass_) Document(
-	optionalLegalNotice LegalNoticeLike,
+	optionalAnnotation AnnotationLike,
 	component ComponentLike,
 ) DocumentLike {
 	if uti.IsUndefined(component) {
@@ -42,8 +42,8 @@ func (c *documentClass_) Document(
 	}
 	var instance = &document_{
 		// Initialize the instance attributes.
-		optionalLegalNotice_: optionalLegalNotice,
-		component_:           component,
+		optionalAnnotation_: optionalAnnotation,
+		component_:          component,
 	}
 	return instance
 }
@@ -58,8 +58,8 @@ func (v *document_) GetClass() DocumentClassLike {
 
 // Attribute Methods
 
-func (v *document_) GetOptionalLegalNotice() LegalNoticeLike {
-	return v.optionalLegalNotice_
+func (v *document_) GetOptionalAnnotation() AnnotationLike {
+	return v.optionalAnnotation_
 }
 
 func (v *document_) GetComponent() ComponentLike {
@@ -72,8 +72,8 @@ func (v *document_) GetComponent() ComponentLike {
 
 type document_ struct {
 	// Declare the instance attributes.
-	optionalLegalNotice_ LegalNoticeLike
-	component_           ComponentLike
+	optionalAnnotation_ AnnotationLike
+	component_          ComponentLike
 }
 
 // Class Structure

@@ -415,25 +415,6 @@ func (v *processor_) PostprocessBlocking(
 ) {
 }
 
-func (v *processor_) PreprocessBracket(
-	bracket ast.BracketLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessBracketSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessBracket(
-	bracket ast.BracketLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
 func (v *processor_) PreprocessBreakClause(
 	breakClause ast.BreakClauseLike,
 	index_ uint,
@@ -795,25 +776,6 @@ func (v *processor_) PostprocessException(
 ) {
 }
 
-func (v *processor_) PreprocessExclusiveRange(
-	exclusiveRange ast.ExclusiveRangeLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessExclusiveRangeSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessExclusiveRange(
-	exclusiveRange ast.ExclusiveRangeLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
 func (v *processor_) PreprocessExpression(
 	expression ast.ExpressionLike,
 	index_ uint,
@@ -923,25 +885,6 @@ func (v *processor_) ProcessIfClauseSlot(
 
 func (v *processor_) PostprocessIfClause(
 	ifClause ast.IfClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PreprocessInclusiveRange(
-	inclusiveRange ast.InclusiveRangeLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessInclusiveRangeSlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessInclusiveRange(
-	inclusiveRange ast.InclusiveRangeLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -1080,20 +1023,20 @@ func (v *processor_) PostprocessItem(
 ) {
 }
 
-func (v *processor_) PreprocessLegalNotice(
-	legalNotice ast.LegalNoticeLike,
+func (v *processor_) PreprocessLeftBracket(
+	leftBracket ast.LeftBracketLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessLegalNoticeSlot(
+func (v *processor_) ProcessLeftBracketSlot(
 	slot uint,
 ) {
 }
 
-func (v *processor_) PostprocessLegalNotice(
-	legalNotice ast.LegalNoticeLike,
+func (v *processor_) PostprocessLeftBracket(
+	leftBracket ast.LeftBracketLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -1460,6 +1403,25 @@ func (v *processor_) PostprocessPublishClause(
 ) {
 }
 
+func (v *processor_) PreprocessRange(
+	range_ ast.RangeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessRangeSlot(
+	slot uint,
+) {
+}
+
+func (v *processor_) PostprocessRange(
+	range_ ast.RangeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessRecipient(
 	recipient ast.RecipientLike,
 	index_ uint,
@@ -1588,6 +1550,25 @@ func (v *processor_) ProcessReturnClauseSlot(
 
 func (v *processor_) PostprocessReturnClause(
 	returnClause ast.ReturnClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessRightBracket(
+	rightBracket ast.RightBracketLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessRightBracketSlot(
+	slot uint,
+) {
+}
+
+func (v *processor_) PostprocessRightBracket(
+	rightBracket ast.RightBracketLike,
 	index_ uint,
 	count_ uint,
 ) {

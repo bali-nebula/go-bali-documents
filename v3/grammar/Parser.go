@@ -590,33 +590,6 @@ func (v *parser_) parseBlocking() (
 	return
 }
 
-func (v *parser_) parseBracket() (
-	bracket ast.BracketLike,
-	token TokenLike,
-	ok bool,
-) {
-	var delimiter string
-
-	// Attempt to parse a single "]" delimiter.
-	delimiter, token, ok = v.parseDelimiter("]")
-	if ok {
-		// Found a single "]" delimiter.
-		bracket = ast.BracketClass().Bracket(delimiter)
-		return
-	}
-
-	// Attempt to parse a single ")" delimiter.
-	delimiter, token, ok = v.parseDelimiter(")")
-	if ok {
-		// Found a single ")" delimiter.
-		bracket = ast.BracketClass().Bracket(delimiter)
-		return
-	}
-
-	// This is not a single Bracket rule.
-	return
-}
-
 func (v *parser_) parseBreakClause() (
 	breakClause ast.BreakClauseLike,
 	token TokenLike,
@@ -831,21 +804,12 @@ func (v *parser_) parseCollection() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single InclusiveRange Collection.
-	var inclusiveRange ast.InclusiveRangeLike
-	inclusiveRange, token, ok = v.parseInclusiveRange()
+	// Attempt to parse a single Range Collection.
+	var range_ ast.RangeLike
+	range_, token, ok = v.parseRange()
 	if ok {
-		// Found a single InclusiveRange Collection.
-		collection = ast.CollectionClass().Collection(inclusiveRange)
-		return
-	}
-
-	// Attempt to parse a single ExclusiveRange Collection.
-	var exclusiveRange ast.ExclusiveRangeLike
-	exclusiveRange, token, ok = v.parseExclusiveRange()
-	if ok {
-		// Found a single ExclusiveRange Collection.
-		collection = ast.CollectionClass().Collection(exclusiveRange)
+		// Found a single Range Collection.
+		collection = ast.CollectionClass().Collection(range_)
 		return
 	}
 
@@ -1217,9 +1181,9 @@ func (v *parser_) parseDocument() (
 ) {
 	var tokens = col.List[TokenLike]()
 
-	// Attempt to parse an optional LegalNotice rule.
-	var optionalLegalNotice ast.LegalNoticeLike
-	optionalLegalNotice, _, ok = v.parseLegalNotice()
+	// Attempt to parse an optional Annotation rule.
+	var optionalAnnotation ast.AnnotationLike
+	optionalAnnotation, _, ok = v.parseAnnotation()
 	if ok {
 		// No additional put backs allowed at this point.
 		tokens = nil
@@ -1246,7 +1210,7 @@ func (v *parser_) parseDocument() (
 	ok = true
 	v.remove(tokens)
 	document = ast.DocumentClass().Document(
-		optionalLegalNotice,
+		optionalAnnotation,
 		component,
 	)
 	return
@@ -1558,119 +1522,6 @@ func (v *parser_) parseException() (
 	ok = true
 	v.remove(tokens)
 	exception = ast.ExceptionClass().Exception(expression)
-	return
-}
-
-func (v *parser_) parseExclusiveRange() (
-	exclusiveRange ast.ExclusiveRangeLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single "(" literal.
-	var delimiter1 string
-	delimiter1, token, ok = v.parseDelimiter("(")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single ExclusiveRange rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$ExclusiveRange", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Attempt to parse a single Primitive rule.
-	var primitive1 ast.PrimitiveLike
-	primitive1, token, ok = v.parsePrimitive()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Primitive rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$ExclusiveRange", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single ".." literal.
-	var delimiter2 string
-	delimiter2, token, ok = v.parseDelimiter("..")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single ExclusiveRange rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$ExclusiveRange", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Attempt to parse a single Primitive rule.
-	var primitive2 ast.PrimitiveLike
-	primitive2, token, ok = v.parsePrimitive()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Primitive rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$ExclusiveRange", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single Bracket rule.
-	var bracket ast.BracketLike
-	bracket, token, ok = v.parseBracket()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Bracket rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$ExclusiveRange", token)
-		panic(message)
-	}
-
-	// Found a single ExclusiveRange rule.
-	ok = true
-	v.remove(tokens)
-	exclusiveRange = ast.ExclusiveRangeClass().ExclusiveRange(
-		delimiter1,
-		primitive1,
-		delimiter2,
-		primitive2,
-		bracket,
-	)
 	return
 }
 
@@ -2124,119 +1975,6 @@ func (v *parser_) parseIfClause() (
 	return
 }
 
-func (v *parser_) parseInclusiveRange() (
-	inclusiveRange ast.InclusiveRangeLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single "[" literal.
-	var delimiter1 string
-	delimiter1, token, ok = v.parseDelimiter("[")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single InclusiveRange rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$InclusiveRange", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Attempt to parse a single Primitive rule.
-	var primitive1 ast.PrimitiveLike
-	primitive1, token, ok = v.parsePrimitive()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Primitive rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$InclusiveRange", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single ".." literal.
-	var delimiter2 string
-	delimiter2, token, ok = v.parseDelimiter("..")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single InclusiveRange rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$InclusiveRange", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Attempt to parse a single Primitive rule.
-	var primitive2 ast.PrimitiveLike
-	primitive2, token, ok = v.parsePrimitive()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Primitive rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$InclusiveRange", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single Bracket rule.
-	var bracket ast.BracketLike
-	bracket, token, ok = v.parseBracket()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Bracket rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$InclusiveRange", token)
-		panic(message)
-	}
-
-	// Found a single InclusiveRange rule.
-	ok = true
-	v.remove(tokens)
-	inclusiveRange = ast.InclusiveRangeClass().InclusiveRange(
-		delimiter1,
-		primitive1,
-		delimiter2,
-		primitive2,
-		bracket,
-	)
-	return
-}
-
 func (v *parser_) parseIndex() (
 	index ast.IndexLike,
 	token TokenLike,
@@ -2502,35 +2240,30 @@ func (v *parser_) parseItem() (
 	return
 }
 
-func (v *parser_) parseLegalNotice() (
-	legalNotice ast.LegalNoticeLike,
+func (v *parser_) parseLeftBracket() (
+	leftBracket ast.LeftBracketLike,
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var delimiter string
 
-	// Attempt to parse a single comment token.
-	var comment string
-	comment, token, ok = v.parseToken(CommentToken)
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single comment token.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$LegalNotice", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
+	// Attempt to parse a single "[" delimiter.
+	delimiter, token, ok = v.parseDelimiter("[")
+	if ok {
+		// Found a single "[" delimiter.
+		leftBracket = ast.LeftBracketClass().LeftBracket(delimiter)
+		return
 	}
 
-	// Found a single LegalNotice rule.
-	ok = true
-	v.remove(tokens)
-	legalNotice = ast.LegalNoticeClass().LegalNotice(comment)
+	// Attempt to parse a single "(" delimiter.
+	delimiter, token, ok = v.parseDelimiter("(")
+	if ok {
+		// Found a single "(" delimiter.
+		leftBracket = ast.LeftBracketClass().LeftBracket(delimiter)
+		return
+	}
+
+	// This is not a single LeftBracket rule.
 	return
 }
 
@@ -3842,6 +3575,120 @@ func (v *parser_) parsePublishClause() (
 	return
 }
 
+func (v *parser_) parseRange() (
+	range_ ast.RangeLike,
+	token TokenLike,
+	ok bool,
+) {
+	var tokens = col.List[TokenLike]()
+
+	// Attempt to parse a single LeftBracket rule.
+	var leftBracket ast.LeftBracketLike
+	leftBracket, token, ok = v.parseLeftBracket()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single LeftBracket rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Range", token)
+		panic(message)
+	}
+
+	// Attempt to parse a single Primitive rule.
+	var primitive1 ast.PrimitiveLike
+	primitive1, token, ok = v.parsePrimitive()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single Primitive rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Range", token)
+		panic(message)
+	}
+
+	// Attempt to parse a single ".." literal.
+	var delimiter string
+	delimiter, token, ok = v.parseDelimiter("..")
+	if !ok {
+		if uti.IsDefined(tokens) {
+			// This is not a single Range rule.
+			v.putBack(tokens)
+			return
+		} else {
+			// Found a syntax error.
+			var message = v.formatError("$Range", token)
+			panic(message)
+		}
+	}
+	if uti.IsDefined(tokens) {
+		tokens.AppendValue(token)
+	}
+
+	// Attempt to parse a single Primitive rule.
+	var primitive2 ast.PrimitiveLike
+	primitive2, token, ok = v.parsePrimitive()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single Primitive rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Range", token)
+		panic(message)
+	}
+
+	// Attempt to parse a single RightBracket rule.
+	var rightBracket ast.RightBracketLike
+	rightBracket, token, ok = v.parseRightBracket()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single RightBracket rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Range", token)
+		panic(message)
+	}
+
+	// Found a single Range rule.
+	ok = true
+	v.remove(tokens)
+	range_ = ast.RangeClass().Range(
+		leftBracket,
+		primitive1,
+		delimiter,
+		primitive2,
+		rightBracket,
+	)
+	return
+}
+
 func (v *parser_) parseRecipient() (
 	recipient ast.RecipientLike,
 	token TokenLike,
@@ -4187,6 +4034,33 @@ func (v *parser_) parseReturnClause() (
 		delimiter,
 		result,
 	)
+	return
+}
+
+func (v *parser_) parseRightBracket() (
+	rightBracket ast.RightBracketLike,
+	token TokenLike,
+	ok bool,
+) {
+	var delimiter string
+
+	// Attempt to parse a single "]" delimiter.
+	delimiter, token, ok = v.parseDelimiter("]")
+	if ok {
+		// Found a single "]" delimiter.
+		rightBracket = ast.RightBracketClass().RightBracket(delimiter)
+		return
+	}
+
+	// Attempt to parse a single ")" delimiter.
+	delimiter, token, ok = v.parseDelimiter(")")
+	if ok {
+		// Found a single ")" delimiter.
+		rightBracket = ast.RightBracketClass().RightBracket(delimiter)
+		return
+	}
+
+	// This is not a single RightBracket rule.
 	return
 }
 
@@ -5406,9 +5280,9 @@ var parserClassReference_ = &parserClass_{
 	// Initialize the class constants.
 	syntax_: col.CatalogFromMap[string, string](
 		map[string]string{
-			"$Document":    `LegalNotice? Component`,
-			"$LegalNotice": `comment`,
-			"$Component":   `Entity Parameters? note?`,
+			"$Document":   `Annotation? Component`,
+			"$Annotation": `comment`,
+			"$Component":  `Entity Parameters? note?`,
 			"$Entity": `
     Element
     String
@@ -5440,14 +5314,15 @@ var parserClassReference_ = &parserClass_{
     tag
     version`,
 			"$Collection": `
-    InclusiveRange
-    ExclusiveRange
+    Range
     Attributes
     Values  ! Must be after ranges and attributes.
     Empty`,
-			"$InclusiveRange": `"[" Primitive ".." Primitive Bracket`,
-			"$ExclusiveRange": `"(" Primitive ".." Primitive Bracket`,
-			"$Bracket": `
+			"$Range": `LeftBracket Primitive ".." Primitive RightBracket`,
+			"$LeftBracket": `
+    "["
+    "("`,
+			"$RightBracket": `
     "]"
     ")"`,
 			"$Attributes": `"[" Association+ "]"`,
@@ -5457,8 +5332,7 @@ var parserClassReference_ = &parserClass_{
 			"$Code": `
     Annotation
     Statement`,
-			"$Annotation": `comment`,
-			"$Statement":  `MainClause OnClause? note?`,
+			"$Statement": `MainClause OnClause? note?`,
 			"$MainClause": `
     Flow
     Induction
