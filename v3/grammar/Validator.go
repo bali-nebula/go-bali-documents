@@ -273,64 +273,8 @@ func (v *validator_) PreprocessAcceptClause(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessAdditionalArgument(
-	additionalArgument ast.AdditionalArgumentLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessAdditionalAssociation(
-	additionalAssociation ast.AdditionalAssociationLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessAdditionalIndex(
-	additionalIndex ast.AdditionalIndexLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessAdditionalStatement(
-	additionalStatement ast.AdditionalStatementLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessAdditionalValue(
-	additionalValue ast.AdditionalValueLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessAnnotatedAssociation(
-	annotatedAssociation ast.AnnotatedAssociationLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessAnnotatedStatement(
-	annotatedStatement ast.AnnotatedStatementLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessAnnotatedValue(
-	annotatedValue ast.AnnotatedValueLike,
+func (v *validator_) PreprocessAnnotation(
+	annotation ast.AnnotationLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -339,14 +283,6 @@ func (v *validator_) PreprocessAnnotatedValue(
 
 func (v *validator_) PreprocessArgument(
 	argument ast.ArgumentLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessArguments(
-	arguments ast.ArgumentsLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -379,6 +315,14 @@ func (v *validator_) PreprocessAssociation(
 
 func (v *validator_) PreprocessAtLevel(
 	atLevel ast.AtLevelLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
+func (v *validator_) PreprocessAttributes(
+	attributes ast.AttributesLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -433,16 +377,16 @@ func (v *validator_) PreprocessCited(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessCollection(
-	collection ast.CollectionLike,
+func (v *validator_) PreprocessCode(
+	code ast.CodeLike,
 	index_ uint,
 	count_ uint,
 ) {
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessCommentLine(
-	commentLine ast.CommentLineLike,
+func (v *validator_) PreprocessCollection(
+	collection ast.CollectionLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -529,6 +473,14 @@ func (v *validator_) PreprocessElement(
 	// TBD - Add any validation checks.
 }
 
+func (v *validator_) PreprocessEmpty(
+	empty ast.EmptyLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
 func (v *validator_) PreprocessEntity(
 	entity ast.EntityLike,
 	index_ uint,
@@ -547,14 +499,6 @@ func (v *validator_) PreprocessEvent(
 
 func (v *validator_) PreprocessException(
 	exception ast.ExceptionLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessExclusive(
-	exclusive ast.ExclusiveLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -601,16 +545,16 @@ func (v *validator_) PreprocessFunction(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessIfClause(
-	ifClause ast.IfClauseLike,
+func (v *validator_) PreprocessHandler(
+	handler ast.HandlerLike,
 	index_ uint,
 	count_ uint,
 ) {
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessInclusive(
-	inclusive ast.InclusiveLike,
+func (v *validator_) PreprocessIfClause(
+	ifClause ast.IfClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -633,14 +577,6 @@ func (v *validator_) PreprocessIndex(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessIndices(
-	indices ast.IndicesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
 func (v *validator_) PreprocessIndirect(
 	indirect ast.IndirectLike,
 	index_ uint,
@@ -651,38 +587,6 @@ func (v *validator_) PreprocessIndirect(
 
 func (v *validator_) PreprocessInduction(
 	induction ast.InductionLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessInlineAttributes(
-	inlineAttributes ast.InlineAttributesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessInlineParameters(
-	inlineParameters ast.InlineParametersLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessInlineStatements(
-	inlineStatements ast.InlineStatementsLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessInlineValues(
-	inlineValues ast.InlineValuesLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -769,14 +673,6 @@ func (v *validator_) PreprocessMainClause(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessMatchHandler(
-	matchHandler ast.MatchHandlerLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
 func (v *validator_) PreprocessMessage(
 	message ast.MessageLike,
 	index_ uint,
@@ -795,62 +691,6 @@ func (v *validator_) PreprocessMessaging(
 
 func (v *validator_) PreprocessMethod(
 	method ast.MethodLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessMultilineAttributes(
-	multilineAttributes ast.MultilineAttributesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessMultilineParameters(
-	multilineParameters ast.MultilineParametersLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessMultilineStatements(
-	multilineStatements ast.MultilineStatementsLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessMultilineValues(
-	multilineValues ast.MultilineValuesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessNoAttributes(
-	noAttributes ast.NoAttributesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessNoStatements(
-	noStatements ast.NoStatementsLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessNoValues(
-	noValues ast.NoValuesLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -1033,14 +873,6 @@ func (v *validator_) PreprocessStatement(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessStatementLine(
-	statementLine ast.StatementLineLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
 func (v *validator_) PreprocessString(
 	string_ ast.StringLike,
 	index_ uint,
@@ -1091,6 +923,14 @@ func (v *validator_) PreprocessTextual(
 
 func (v *validator_) PreprocessThrowClause(
 	throwClause ast.ThrowClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
+func (v *validator_) PreprocessValues(
+	values ast.ValuesLike,
 	index_ uint,
 	count_ uint,
 ) {

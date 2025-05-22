@@ -34,14 +34,14 @@ func IndexClass() IndexClassLike {
 // Constructor Methods
 
 func (c *indexClass_) Index(
-	expression ExpressionLike,
+	any_ any,
 ) IndexLike {
-	if uti.IsUndefined(expression) {
-		panic("The \"expression\" attribute is required by this class.")
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
 	var instance = &index_{
 		// Initialize the instance attributes.
-		expression_: expression,
+		any_: any_,
 	}
 	return instance
 }
@@ -56,8 +56,8 @@ func (v *index_) GetClass() IndexClassLike {
 
 // Attribute Methods
 
-func (v *index_) GetExpression() ExpressionLike {
-	return v.expression_
+func (v *index_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
@@ -66,7 +66,7 @@ func (v *index_) GetExpression() ExpressionLike {
 
 type index_ struct {
 	// Declare the instance attributes.
-	expression_ ExpressionLike
+	any_ any
 }
 
 // Class Structure

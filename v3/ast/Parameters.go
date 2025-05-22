@@ -20,6 +20,7 @@
 package ast
 
 import (
+	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -34,14 +35,24 @@ func ParametersClass() ParametersClassLike {
 // Constructor Methods
 
 func (c *parametersClass_) Parameters(
-	any_ any,
+	delimiter1 string,
+	associations col.Sequential[AssociationLike],
+	delimiter2 string,
 ) ParametersLike {
-	if uti.IsUndefined(any_) {
-		panic("The \"any\" attribute is required by this class.")
+	if uti.IsUndefined(delimiter1) {
+		panic("The \"delimiter1\" attribute is required by this class.")
+	}
+	if uti.IsUndefined(associations) {
+		panic("The \"associations\" attribute is required by this class.")
+	}
+	if uti.IsUndefined(delimiter2) {
+		panic("The \"delimiter2\" attribute is required by this class.")
 	}
 	var instance = &parameters_{
 		// Initialize the instance attributes.
-		any_: any_,
+		delimiter1_:   delimiter1,
+		associations_: associations,
+		delimiter2_:   delimiter2,
 	}
 	return instance
 }
@@ -56,8 +67,16 @@ func (v *parameters_) GetClass() ParametersClassLike {
 
 // Attribute Methods
 
-func (v *parameters_) GetAny() any {
-	return v.any_
+func (v *parameters_) GetDelimiter1() string {
+	return v.delimiter1_
+}
+
+func (v *parameters_) GetAssociations() col.Sequential[AssociationLike] {
+	return v.associations_
+}
+
+func (v *parameters_) GetDelimiter2() string {
+	return v.delimiter2_
 }
 
 // PROTECTED INTERFACE
@@ -66,7 +85,9 @@ func (v *parameters_) GetAny() any {
 
 type parameters_ struct {
 	// Declare the instance attributes.
-	any_ any
+	delimiter1_   string
+	associations_ col.Sequential[AssociationLike]
+	delimiter2_   string
 }
 
 // Class Structure

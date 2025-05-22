@@ -27,21 +27,31 @@ import (
 
 // Access Function
 
-func AnnotatedStatementClass() AnnotatedStatementClassLike {
-	return annotatedStatementClass()
+func EmptyClass() EmptyClassLike {
+	return emptyClass()
 }
 
 // Constructor Methods
 
-func (c *annotatedStatementClass_) AnnotatedStatement(
-	any_ any,
-) AnnotatedStatementLike {
-	if uti.IsUndefined(any_) {
-		panic("The \"any\" attribute is required by this class.")
+func (c *emptyClass_) Empty(
+	delimiter1 string,
+	delimiter2 string,
+	delimiter3 string,
+) EmptyLike {
+	if uti.IsUndefined(delimiter1) {
+		panic("The \"delimiter1\" attribute is required by this class.")
 	}
-	var instance = &annotatedStatement_{
+	if uti.IsUndefined(delimiter2) {
+		panic("The \"delimiter2\" attribute is required by this class.")
+	}
+	if uti.IsUndefined(delimiter3) {
+		panic("The \"delimiter3\" attribute is required by this class.")
+	}
+	var instance = &empty_{
 		// Initialize the instance attributes.
-		any_: any_,
+		delimiter1_: delimiter1,
+		delimiter2_: delimiter2,
+		delimiter3_: delimiter3,
 	}
 	return instance
 }
@@ -50,37 +60,47 @@ func (c *annotatedStatementClass_) AnnotatedStatement(
 
 // Principal Methods
 
-func (v *annotatedStatement_) GetClass() AnnotatedStatementClassLike {
-	return annotatedStatementClass()
+func (v *empty_) GetClass() EmptyClassLike {
+	return emptyClass()
 }
 
 // Attribute Methods
 
-func (v *annotatedStatement_) GetAny() any {
-	return v.any_
+func (v *empty_) GetDelimiter1() string {
+	return v.delimiter1_
+}
+
+func (v *empty_) GetDelimiter2() string {
+	return v.delimiter2_
+}
+
+func (v *empty_) GetDelimiter3() string {
+	return v.delimiter3_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type annotatedStatement_ struct {
+type empty_ struct {
 	// Declare the instance attributes.
-	any_ any
+	delimiter1_ string
+	delimiter2_ string
+	delimiter3_ string
 }
 
 // Class Structure
 
-type annotatedStatementClass_ struct {
+type emptyClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func annotatedStatementClass() *annotatedStatementClass_ {
-	return annotatedStatementClassReference_
+func emptyClass() *emptyClass_ {
+	return emptyClassReference_
 }
 
-var annotatedStatementClassReference_ = &annotatedStatementClass_{
+var emptyClassReference_ = &emptyClass_{
 	// Initialize the class constants.
 }

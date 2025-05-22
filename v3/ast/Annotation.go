@@ -20,7 +20,6 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -28,36 +27,21 @@ import (
 
 // Access Function
 
-func MultilineValuesClass() MultilineValuesClassLike {
-	return multilineValuesClass()
+func AnnotationClass() AnnotationClassLike {
+	return annotationClass()
 }
 
 // Constructor Methods
 
-func (c *multilineValuesClass_) MultilineValues(
-	delimiter1 string,
-	newline string,
-	annotatedValues col.Sequential[AnnotatedValueLike],
-	delimiter2 string,
-) MultilineValuesLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
+func (c *annotationClass_) Annotation(
+	comment string,
+) AnnotationLike {
+	if uti.IsUndefined(comment) {
+		panic("The \"comment\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(newline) {
-		panic("The \"newline\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(annotatedValues) {
-		panic("The \"annotatedValues\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
-	}
-	var instance = &multilineValues_{
+	var instance = &annotation_{
 		// Initialize the instance attributes.
-		delimiter1_:      delimiter1,
-		newline_:         newline,
-		annotatedValues_: annotatedValues,
-		delimiter2_:      delimiter2,
+		comment_: comment,
 	}
 	return instance
 }
@@ -66,52 +50,37 @@ func (c *multilineValuesClass_) MultilineValues(
 
 // Principal Methods
 
-func (v *multilineValues_) GetClass() MultilineValuesClassLike {
-	return multilineValuesClass()
+func (v *annotation_) GetClass() AnnotationClassLike {
+	return annotationClass()
 }
 
 // Attribute Methods
 
-func (v *multilineValues_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *multilineValues_) GetNewline() string {
-	return v.newline_
-}
-
-func (v *multilineValues_) GetAnnotatedValues() col.Sequential[AnnotatedValueLike] {
-	return v.annotatedValues_
-}
-
-func (v *multilineValues_) GetDelimiter2() string {
-	return v.delimiter2_
+func (v *annotation_) GetComment() string {
+	return v.comment_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type multilineValues_ struct {
+type annotation_ struct {
 	// Declare the instance attributes.
-	delimiter1_      string
-	newline_         string
-	annotatedValues_ col.Sequential[AnnotatedValueLike]
-	delimiter2_      string
+	comment_ string
 }
 
 // Class Structure
 
-type multilineValuesClass_ struct {
+type annotationClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func multilineValuesClass() *multilineValuesClass_ {
-	return multilineValuesClassReference_
+func annotationClass() *annotationClass_ {
+	return annotationClassReference_
 }
 
-var multilineValuesClassReference_ = &multilineValuesClass_{
+var annotationClassReference_ = &annotationClass_{
 	// Initialize the class constants.
 }

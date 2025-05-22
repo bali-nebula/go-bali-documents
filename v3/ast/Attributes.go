@@ -20,6 +20,7 @@
 package ast
 
 import (
+	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -27,31 +28,31 @@ import (
 
 // Access Function
 
-func NoAttributesClass() NoAttributesClassLike {
-	return noAttributesClass()
+func AttributesClass() AttributesClassLike {
+	return attributesClass()
 }
 
 // Constructor Methods
 
-func (c *noAttributesClass_) NoAttributes(
+func (c *attributesClass_) Attributes(
 	delimiter1 string,
+	associations col.Sequential[AssociationLike],
 	delimiter2 string,
-	delimiter3 string,
-) NoAttributesLike {
+) AttributesLike {
 	if uti.IsUndefined(delimiter1) {
 		panic("The \"delimiter1\" attribute is required by this class.")
+	}
+	if uti.IsUndefined(associations) {
+		panic("The \"associations\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(delimiter2) {
 		panic("The \"delimiter2\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(delimiter3) {
-		panic("The \"delimiter3\" attribute is required by this class.")
-	}
-	var instance = &noAttributes_{
+	var instance = &attributes_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		delimiter2_: delimiter2,
-		delimiter3_: delimiter3,
+		delimiter1_:   delimiter1,
+		associations_: associations,
+		delimiter2_:   delimiter2,
 	}
 	return instance
 }
@@ -60,47 +61,47 @@ func (c *noAttributesClass_) NoAttributes(
 
 // Principal Methods
 
-func (v *noAttributes_) GetClass() NoAttributesClassLike {
-	return noAttributesClass()
+func (v *attributes_) GetClass() AttributesClassLike {
+	return attributesClass()
 }
 
 // Attribute Methods
 
-func (v *noAttributes_) GetDelimiter1() string {
+func (v *attributes_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *noAttributes_) GetDelimiter2() string {
-	return v.delimiter2_
+func (v *attributes_) GetAssociations() col.Sequential[AssociationLike] {
+	return v.associations_
 }
 
-func (v *noAttributes_) GetDelimiter3() string {
-	return v.delimiter3_
+func (v *attributes_) GetDelimiter2() string {
+	return v.delimiter2_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type noAttributes_ struct {
+type attributes_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	delimiter2_ string
-	delimiter3_ string
+	delimiter1_   string
+	associations_ col.Sequential[AssociationLike]
+	delimiter2_   string
 }
 
 // Class Structure
 
-type noAttributesClass_ struct {
+type attributesClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func noAttributesClass() *noAttributesClass_ {
-	return noAttributesClassReference_
+func attributesClass() *attributesClass_ {
+	return attributesClassReference_
 }
 
-var noAttributesClassReference_ = &noAttributesClass_{
+var attributesClassReference_ = &attributesClass_{
 	// Initialize the class constants.
 }

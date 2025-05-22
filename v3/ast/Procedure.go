@@ -20,6 +20,7 @@
 package ast
 
 import (
+	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -34,14 +35,24 @@ func ProcedureClass() ProcedureClassLike {
 // Constructor Methods
 
 func (c *procedureClass_) Procedure(
-	any_ any,
+	delimiter1 string,
+	codes col.Sequential[CodeLike],
+	delimiter2 string,
 ) ProcedureLike {
-	if uti.IsUndefined(any_) {
-		panic("The \"any\" attribute is required by this class.")
+	if uti.IsUndefined(delimiter1) {
+		panic("The \"delimiter1\" attribute is required by this class.")
+	}
+	if uti.IsUndefined(codes) {
+		panic("The \"codes\" attribute is required by this class.")
+	}
+	if uti.IsUndefined(delimiter2) {
+		panic("The \"delimiter2\" attribute is required by this class.")
 	}
 	var instance = &procedure_{
 		// Initialize the instance attributes.
-		any_: any_,
+		delimiter1_: delimiter1,
+		codes_:      codes,
+		delimiter2_: delimiter2,
 	}
 	return instance
 }
@@ -56,8 +67,16 @@ func (v *procedure_) GetClass() ProcedureClassLike {
 
 // Attribute Methods
 
-func (v *procedure_) GetAny() any {
-	return v.any_
+func (v *procedure_) GetDelimiter1() string {
+	return v.delimiter1_
+}
+
+func (v *procedure_) GetCodes() col.Sequential[CodeLike] {
+	return v.codes_
+}
+
+func (v *procedure_) GetDelimiter2() string {
+	return v.delimiter2_
 }
 
 // PROTECTED INTERFACE
@@ -66,7 +85,9 @@ func (v *procedure_) GetAny() any {
 
 type procedure_ struct {
 	// Declare the instance attributes.
-	any_ any
+	delimiter1_ string
+	codes_      col.Sequential[CodeLike]
+	delimiter2_ string
 }
 
 // Class Structure

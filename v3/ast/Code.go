@@ -20,7 +20,6 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -28,36 +27,21 @@ import (
 
 // Access Function
 
-func InlineStatementsClass() InlineStatementsClassLike {
-	return inlineStatementsClass()
+func CodeClass() CodeClassLike {
+	return codeClass()
 }
 
 // Constructor Methods
 
-func (c *inlineStatementsClass_) InlineStatements(
-	delimiter1 string,
-	statement StatementLike,
-	additionalStatements col.Sequential[AdditionalStatementLike],
-	delimiter2 string,
-) InlineStatementsLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
+func (c *codeClass_) Code(
+	any_ any,
+) CodeLike {
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(statement) {
-		panic("The \"statement\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(additionalStatements) {
-		panic("The \"additionalStatements\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
-	}
-	var instance = &inlineStatements_{
+	var instance = &code_{
 		// Initialize the instance attributes.
-		delimiter1_:           delimiter1,
-		statement_:            statement,
-		additionalStatements_: additionalStatements,
-		delimiter2_:           delimiter2,
+		any_: any_,
 	}
 	return instance
 }
@@ -66,52 +50,37 @@ func (c *inlineStatementsClass_) InlineStatements(
 
 // Principal Methods
 
-func (v *inlineStatements_) GetClass() InlineStatementsClassLike {
-	return inlineStatementsClass()
+func (v *code_) GetClass() CodeClassLike {
+	return codeClass()
 }
 
 // Attribute Methods
 
-func (v *inlineStatements_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *inlineStatements_) GetStatement() StatementLike {
-	return v.statement_
-}
-
-func (v *inlineStatements_) GetAdditionalStatements() col.Sequential[AdditionalStatementLike] {
-	return v.additionalStatements_
-}
-
-func (v *inlineStatements_) GetDelimiter2() string {
-	return v.delimiter2_
+func (v *code_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type inlineStatements_ struct {
+type code_ struct {
 	// Declare the instance attributes.
-	delimiter1_           string
-	statement_            StatementLike
-	additionalStatements_ col.Sequential[AdditionalStatementLike]
-	delimiter2_           string
+	any_ any
 }
 
 // Class Structure
 
-type inlineStatementsClass_ struct {
+type codeClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func inlineStatementsClass() *inlineStatementsClass_ {
-	return inlineStatementsClassReference_
+func codeClass() *codeClass_ {
+	return codeClassReference_
 }
 
-var inlineStatementsClassReference_ = &inlineStatementsClass_{
+var codeClassReference_ = &codeClass_{
 	// Initialize the class constants.
 }

@@ -26,7 +26,7 @@ $Document: LegalNotice? Component
 
 $LegalNotice: comment
 
-$Component: Entity Parameters?
+$Component: Entity Parameters? note?
 
 $Entity:
     Element
@@ -34,17 +34,7 @@ $Entity:
     Collection
     Procedure
 
-$Parameters:
-    MultilineParameters
-    InlineParameters
-
-$MultilineParameters: "(" newline AnnotatedAssociation+ ")"
-
-$AnnotatedAssociation: Association note?
-
-$InlineParameters: "(" Association AdditionalAssociation* ")"
-
-$AdditionalAssociation: "," Association
+$Parameters: "(" Association* ")"
 
 $Association: Primitive ":" Component
 
@@ -75,65 +65,35 @@ $String:
     version
 
 $Collection:
-    MultilineAttributes
-    MultilineValues
-    InclusiveRange  ! Must be after the multiline rules.
+    InclusiveRange
     ExclusiveRange
-    InlineAttributes
-    InlineValues  ! Must be after the ranges and inline attributes.
-    NoAttributes
-    NoValues
+    Attributes
+    Values  ! Must be after ranges and attributes.
+    Empty
 
 $InclusiveRange: "[" Primitive ".." Primitive Bracket
 
 $ExclusiveRange: "(" Primitive ".." Primitive Bracket
 
 $Bracket:
-    Inclusive
-    Exclusive
+    "]"
+    ")"
 
-$Inclusive: "]"
+$Attributes: "[" Association+ "]"
 
-$Exclusive: ")"
+$Values: "[" Component* "]"
 
-$NoAttributes: "[" ":" "]"
+$Empty: "[" ":" "]"
 
-$InlineAttributes: "[" Association AdditionalAssociation* "]"
+$Procedure: "{" Code* "}"
 
-$MultilineAttributes: "[" newline AnnotatedAssociation+ "]"
+$Code:
+    Annotation
+    Statement
 
-$NoValues: "[" "]"
+$Annotation: comment
 
-$InlineValues: "[" Component AdditionalValue* "]"
-
-$AdditionalValue: "," Component
-
-$MultilineValues: "[" newline AnnotatedValue+ "]"
-
-$AnnotatedValue: Component note?
-
-$Procedure:
-    MultilineStatements
-    InlineStatements
-    NoStatements
-
-$MultilineStatements: "{" newline AnnotatedStatement* "}"
-
-$AnnotatedStatement:
-    CommentLine
-    StatementLine
-
-$CommentLine: comment
-
-$StatementLine: Statement note?
-
-$InlineStatements: "{" Statement AdditionalStatement* "}"
-
-$AdditionalStatement: ";" Statement
-
-$NoStatements: "{" "}"
-
-$Statement: MainClause OnClause?
+$Statement: MainClause OnClause? note?
 
 $MainClause:
     Flow
@@ -141,9 +101,9 @@ $MainClause:
     Messaging
     Repository
 
-$OnClause: "on" Failure MatchHandler+
+$OnClause: "on" Failure Handler+
 
-$MatchHandler: "matching" Template "do" Procedure
+$Handler: "matching" Template "do" Procedure
 
 $Failure: symbol
 
@@ -180,7 +140,7 @@ $IfClause: "if" Condition "do" Procedure
 
 $Condition: Expression
 
-$SelectClause: "select" Target MatchHandler+
+$SelectClause: "select" Target Handler+
 
 $Target:
     Function
@@ -188,29 +148,25 @@ $Target:
     Subcomponent
     Variable  ! This must be last since others also begin with an identifier.
 
-$Function: identifier "(" Arguments? ")"
+$Function: identifier "(" Argument* ")"
 
-$Arguments: Argument AdditionalArgument*
+$Argument:
+	Variable
+    Primitive
 
-$AdditionalArgument: "," Argument
+$Variable: identifier
 
-$Argument: identifier
-
-$Method: identifier Blocking identifier "(" Arguments? ")"
+$Method: identifier Blocking identifier "(" Argument* ")"
 
 $Blocking:
     dot
 	arrow
 
-$Subcomponent: identifier "[" Indices "]"
+$Subcomponent: identifier "[" Index+ "]"
 
-$Indices: Index AdditionalIndex*
-
-$AdditionalIndex: "," Index
-
-$Index: Expression
-
-$Variable: identifier
+$Index:
+	Variable
+    Primitive
 
 $WhileClause: "while" Condition "do" Procedure
 

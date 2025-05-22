@@ -20,6 +20,7 @@
 package ast
 
 import (
+	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -36,7 +37,7 @@ func SubcomponentClass() SubcomponentClassLike {
 func (c *subcomponentClass_) Subcomponent(
 	identifier string,
 	delimiter1 string,
-	indices IndicesLike,
+	indexes col.Sequential[IndexLike],
 	delimiter2 string,
 ) SubcomponentLike {
 	if uti.IsUndefined(identifier) {
@@ -45,8 +46,8 @@ func (c *subcomponentClass_) Subcomponent(
 	if uti.IsUndefined(delimiter1) {
 		panic("The \"delimiter1\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(indices) {
-		panic("The \"indices\" attribute is required by this class.")
+	if uti.IsUndefined(indexes) {
+		panic("The \"indexes\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(delimiter2) {
 		panic("The \"delimiter2\" attribute is required by this class.")
@@ -55,7 +56,7 @@ func (c *subcomponentClass_) Subcomponent(
 		// Initialize the instance attributes.
 		identifier_: identifier,
 		delimiter1_: delimiter1,
-		indices_:    indices,
+		indexes_:    indexes,
 		delimiter2_: delimiter2,
 	}
 	return instance
@@ -79,8 +80,8 @@ func (v *subcomponent_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *subcomponent_) GetIndices() IndicesLike {
-	return v.indices_
+func (v *subcomponent_) GetIndexes() col.Sequential[IndexLike] {
+	return v.indexes_
 }
 
 func (v *subcomponent_) GetDelimiter2() string {
@@ -95,7 +96,7 @@ type subcomponent_ struct {
 	// Declare the instance attributes.
 	identifier_ string
 	delimiter1_ string
-	indices_    IndicesLike
+	indexes_    col.Sequential[IndexLike]
 	delimiter2_ string
 }
 

@@ -37,7 +37,7 @@ func OnClauseClass() OnClauseClassLike {
 func (c *onClauseClass_) OnClause(
 	delimiter string,
 	failure FailureLike,
-	matchHandlers col.Sequential[MatchHandlerLike],
+	handlers col.Sequential[HandlerLike],
 ) OnClauseLike {
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
@@ -45,14 +45,14 @@ func (c *onClauseClass_) OnClause(
 	if uti.IsUndefined(failure) {
 		panic("The \"failure\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(matchHandlers) {
-		panic("The \"matchHandlers\" attribute is required by this class.")
+	if uti.IsUndefined(handlers) {
+		panic("The \"handlers\" attribute is required by this class.")
 	}
 	var instance = &onClause_{
 		// Initialize the instance attributes.
-		delimiter_:     delimiter,
-		failure_:       failure,
-		matchHandlers_: matchHandlers,
+		delimiter_: delimiter,
+		failure_:   failure,
+		handlers_:  handlers,
 	}
 	return instance
 }
@@ -75,8 +75,8 @@ func (v *onClause_) GetFailure() FailureLike {
 	return v.failure_
 }
 
-func (v *onClause_) GetMatchHandlers() col.Sequential[MatchHandlerLike] {
-	return v.matchHandlers_
+func (v *onClause_) GetHandlers() col.Sequential[HandlerLike] {
+	return v.handlers_
 }
 
 // PROTECTED INTERFACE
@@ -85,9 +85,9 @@ func (v *onClause_) GetMatchHandlers() col.Sequential[MatchHandlerLike] {
 
 type onClause_ struct {
 	// Declare the instance attributes.
-	delimiter_     string
-	failure_       FailureLike
-	matchHandlers_ col.Sequential[MatchHandlerLike]
+	delimiter_ string
+	failure_   FailureLike
+	handlers_  col.Sequential[HandlerLike]
 }
 
 // Class Structure

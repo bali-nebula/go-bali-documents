@@ -97,237 +97,41 @@ func (v *visitor_) visitAcceptClause(
 	)
 }
 
-func (v *visitor_) visitAdditionalArgument(
-	additionalArgument ast.AdditionalArgumentLike,
+func (v *visitor_) visitAnnotation(
+	annotation ast.AnnotationLike,
 ) {
-	var delimiter = additionalArgument.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessAdditionalArgumentSlot(1)
-
-	var argument = additionalArgument.GetArgument()
-	v.processor_.PreprocessArgument(
-		argument,
-		1,
-		1,
-	)
-	v.visitArgument(argument)
-	v.processor_.PostprocessArgument(
-		argument,
-		1,
-		1,
-	)
-}
-
-func (v *visitor_) visitAdditionalAssociation(
-	additionalAssociation ast.AdditionalAssociationLike,
-) {
-	var delimiter = additionalAssociation.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessAdditionalAssociationSlot(1)
-
-	var association = additionalAssociation.GetAssociation()
-	v.processor_.PreprocessAssociation(
-		association,
-		1,
-		1,
-	)
-	v.visitAssociation(association)
-	v.processor_.PostprocessAssociation(
-		association,
-		1,
-		1,
-	)
-}
-
-func (v *visitor_) visitAdditionalIndex(
-	additionalIndex ast.AdditionalIndexLike,
-) {
-	var delimiter = additionalIndex.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessAdditionalIndexSlot(1)
-
-	var index = additionalIndex.GetIndex()
-	v.processor_.PreprocessIndex(
-		index,
-		1,
-		1,
-	)
-	v.visitIndex(index)
-	v.processor_.PostprocessIndex(
-		index,
-		1,
-		1,
-	)
-}
-
-func (v *visitor_) visitAdditionalStatement(
-	additionalStatement ast.AdditionalStatementLike,
-) {
-	var delimiter = additionalStatement.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessAdditionalStatementSlot(1)
-
-	var statement = additionalStatement.GetStatement()
-	v.processor_.PreprocessStatement(
-		statement,
-		1,
-		1,
-	)
-	v.visitStatement(statement)
-	v.processor_.PostprocessStatement(
-		statement,
-		1,
-		1,
-	)
-}
-
-func (v *visitor_) visitAdditionalValue(
-	additionalValue ast.AdditionalValueLike,
-) {
-	var delimiter = additionalValue.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessAdditionalValueSlot(1)
-
-	var component = additionalValue.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
-		1,
-		1,
-	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
-		1,
-		1,
-	)
-}
-
-func (v *visitor_) visitAnnotatedAssociation(
-	annotatedAssociation ast.AnnotatedAssociationLike,
-) {
-	var association = annotatedAssociation.GetAssociation()
-	v.processor_.PreprocessAssociation(
-		association,
-		1,
-		1,
-	)
-	v.visitAssociation(association)
-	v.processor_.PostprocessAssociation(
-		association,
-		1,
-		1,
-	)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessAnnotatedAssociationSlot(1)
-
-	var optionalNote = annotatedAssociation.GetOptionalNote()
-	if uti.IsDefined(optionalNote) {
-		v.processor_.ProcessNote(optionalNote)
-	}
-}
-
-func (v *visitor_) visitAnnotatedStatement(
-	annotatedStatement ast.AnnotatedStatementLike,
-) {
-	// Visit the possible annotatedStatement rule types.
-	switch actual := annotatedStatement.GetAny().(type) {
-	case ast.CommentLineLike:
-		v.processor_.PreprocessCommentLine(
-			actual,
-			1,
-			1,
-		)
-		v.visitCommentLine(actual)
-		v.processor_.PostprocessCommentLine(
-			actual,
-			1,
-			1,
-		)
-	case ast.StatementLineLike:
-		v.processor_.PreprocessStatementLine(
-			actual,
-			1,
-			1,
-		)
-		v.visitStatementLine(actual)
-		v.processor_.PostprocessStatementLine(
-			actual,
-			1,
-			1,
-		)
-	}
-}
-
-func (v *visitor_) visitAnnotatedValue(
-	annotatedValue ast.AnnotatedValueLike,
-) {
-	var component = annotatedValue.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
-		1,
-		1,
-	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
-		1,
-		1,
-	)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessAnnotatedValueSlot(1)
-
-	var optionalNote = annotatedValue.GetOptionalNote()
-	if uti.IsDefined(optionalNote) {
-		v.processor_.ProcessNote(optionalNote)
-	}
+	var comment = annotation.GetComment()
+	v.processor_.ProcessComment(comment)
 }
 
 func (v *visitor_) visitArgument(
 	argument ast.ArgumentLike,
 ) {
-	var identifier = argument.GetIdentifier()
-	v.processor_.ProcessIdentifier(identifier)
-}
-
-func (v *visitor_) visitArguments(
-	arguments ast.ArgumentsLike,
-) {
-	var argument = arguments.GetArgument()
-	v.processor_.PreprocessArgument(
-		argument,
-		1,
-		1,
-	)
-	v.visitArgument(argument)
-	v.processor_.PostprocessArgument(
-		argument,
-		1,
-		1,
-	)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessArgumentsSlot(1)
-
-	var additionalArgumentsIndex uint
-	var additionalArguments = arguments.GetAdditionalArguments().GetIterator()
-	var additionalArgumentsCount = uint(additionalArguments.GetSize())
-	for additionalArguments.HasNext() {
-		additionalArgumentsIndex++
-		var rule = additionalArguments.GetNext()
-		v.processor_.PreprocessAdditionalArgument(
-			rule,
-			additionalArgumentsIndex,
-			additionalArgumentsCount,
+	// Visit the possible argument rule types.
+	switch actual := argument.GetAny().(type) {
+	case ast.VariableLike:
+		v.processor_.PreprocessVariable(
+			actual,
+			1,
+			1,
 		)
-		v.visitAdditionalArgument(rule)
-		v.processor_.PostprocessAdditionalArgument(
-			rule,
-			additionalArgumentsIndex,
-			additionalArgumentsCount,
+		v.visitVariable(actual)
+		v.processor_.PostprocessVariable(
+			actual,
+			1,
+			1,
+		)
+	case ast.PrimitiveLike:
+		v.processor_.PreprocessPrimitive(
+			actual,
+			1,
+			1,
+		)
+		v.visitPrimitive(actual)
+		v.processor_.PostprocessPrimitive(
+			actual,
+			1,
+			1,
 		)
 	}
 }
@@ -438,6 +242,39 @@ func (v *visitor_) visitAtLevel(
 	)
 }
 
+func (v *visitor_) visitAttributes(
+	attributes ast.AttributesLike,
+) {
+	var delimiter1 = attributes.GetDelimiter1()
+	v.processor_.ProcessDelimiter(delimiter1)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessAttributesSlot(1)
+
+	var associationsIndex uint
+	var associations = attributes.GetAssociations().GetIterator()
+	var associationsCount = uint(associations.GetSize())
+	for associations.HasNext() {
+		associationsIndex++
+		var rule = associations.GetNext()
+		v.processor_.PreprocessAssociation(
+			rule,
+			associationsIndex,
+			associationsCount,
+		)
+		v.visitAssociation(rule)
+		v.processor_.PostprocessAssociation(
+			rule,
+			associationsIndex,
+			associationsCount,
+		)
+	}
+	// Visit slot 2 between terms.
+	v.processor_.ProcessAttributesSlot(2)
+
+	var delimiter2 = attributes.GetDelimiter2()
+	v.processor_.ProcessDelimiter(delimiter2)
+}
+
 func (v *visitor_) visitBag(
 	bag ast.BagLike,
 ) {
@@ -471,32 +308,13 @@ func (v *visitor_) visitBlocking(
 func (v *visitor_) visitBracket(
 	bracket ast.BracketLike,
 ) {
-	// Visit the possible bracket rule types.
-	switch actual := bracket.GetAny().(type) {
-	case ast.InclusiveLike:
-		v.processor_.PreprocessInclusive(
-			actual,
-			1,
-			1,
-		)
-		v.visitInclusive(actual)
-		v.processor_.PostprocessInclusive(
-			actual,
-			1,
-			1,
-		)
-	case ast.ExclusiveLike:
-		v.processor_.PreprocessExclusive(
-			actual,
-			1,
-			1,
-		)
-		v.visitExclusive(actual)
-		v.processor_.PostprocessExclusive(
-			actual,
-			1,
-			1,
-		)
+	// Visit the possible bracket literal values.
+	var actual = bracket.GetAny().(string)
+	switch actual {
+	case "]":
+		v.processor_.ProcessDelimiter("]")
+	case ")":
+		v.processor_.ProcessDelimiter(")")
 	}
 }
 
@@ -588,35 +406,43 @@ func (v *visitor_) visitCited(
 	)
 }
 
+func (v *visitor_) visitCode(
+	code ast.CodeLike,
+) {
+	// Visit the possible code rule types.
+	switch actual := code.GetAny().(type) {
+	case ast.AnnotationLike:
+		v.processor_.PreprocessAnnotation(
+			actual,
+			1,
+			1,
+		)
+		v.visitAnnotation(actual)
+		v.processor_.PostprocessAnnotation(
+			actual,
+			1,
+			1,
+		)
+	case ast.StatementLike:
+		v.processor_.PreprocessStatement(
+			actual,
+			1,
+			1,
+		)
+		v.visitStatement(actual)
+		v.processor_.PostprocessStatement(
+			actual,
+			1,
+			1,
+		)
+	}
+}
+
 func (v *visitor_) visitCollection(
 	collection ast.CollectionLike,
 ) {
 	// Visit the possible collection rule types.
 	switch actual := collection.GetAny().(type) {
-	case ast.MultilineAttributesLike:
-		v.processor_.PreprocessMultilineAttributes(
-			actual,
-			1,
-			1,
-		)
-		v.visitMultilineAttributes(actual)
-		v.processor_.PostprocessMultilineAttributes(
-			actual,
-			1,
-			1,
-		)
-	case ast.MultilineValuesLike:
-		v.processor_.PreprocessMultilineValues(
-			actual,
-			1,
-			1,
-		)
-		v.visitMultilineValues(actual)
-		v.processor_.PostprocessMultilineValues(
-			actual,
-			1,
-			1,
-		)
 	case ast.InclusiveRangeLike:
 		v.processor_.PreprocessInclusiveRange(
 			actual,
@@ -641,62 +467,43 @@ func (v *visitor_) visitCollection(
 			1,
 			1,
 		)
-	case ast.InlineAttributesLike:
-		v.processor_.PreprocessInlineAttributes(
+	case ast.AttributesLike:
+		v.processor_.PreprocessAttributes(
 			actual,
 			1,
 			1,
 		)
-		v.visitInlineAttributes(actual)
-		v.processor_.PostprocessInlineAttributes(
+		v.visitAttributes(actual)
+		v.processor_.PostprocessAttributes(
 			actual,
 			1,
 			1,
 		)
-	case ast.InlineValuesLike:
-		v.processor_.PreprocessInlineValues(
+	case ast.ValuesLike:
+		v.processor_.PreprocessValues(
 			actual,
 			1,
 			1,
 		)
-		v.visitInlineValues(actual)
-		v.processor_.PostprocessInlineValues(
+		v.visitValues(actual)
+		v.processor_.PostprocessValues(
 			actual,
 			1,
 			1,
 		)
-	case ast.NoAttributesLike:
-		v.processor_.PreprocessNoAttributes(
+	case ast.EmptyLike:
+		v.processor_.PreprocessEmpty(
 			actual,
 			1,
 			1,
 		)
-		v.visitNoAttributes(actual)
-		v.processor_.PostprocessNoAttributes(
-			actual,
-			1,
-			1,
-		)
-	case ast.NoValuesLike:
-		v.processor_.PreprocessNoValues(
-			actual,
-			1,
-			1,
-		)
-		v.visitNoValues(actual)
-		v.processor_.PostprocessNoValues(
+		v.visitEmpty(actual)
+		v.processor_.PostprocessEmpty(
 			actual,
 			1,
 			1,
 		)
 	}
-}
-
-func (v *visitor_) visitCommentLine(
-	commentLine ast.CommentLineLike,
-) {
-	var comment = commentLine.GetComment()
-	v.processor_.ProcessComment(comment)
 }
 
 func (v *visitor_) visitComparison(
@@ -767,6 +574,13 @@ func (v *visitor_) visitComponent(
 			1,
 			1,
 		)
+	}
+	// Visit slot 2 between terms.
+	v.processor_.ProcessComponentSlot(2)
+
+	var optionalNote = component.GetOptionalNote()
+	if uti.IsDefined(optionalNote) {
+		v.processor_.ProcessNote(optionalNote)
 	}
 }
 
@@ -923,6 +737,23 @@ func (v *visitor_) visitElement(
 	}
 }
 
+func (v *visitor_) visitEmpty(
+	empty ast.EmptyLike,
+) {
+	var delimiter1 = empty.GetDelimiter1()
+	v.processor_.ProcessDelimiter(delimiter1)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessEmptySlot(1)
+
+	var delimiter2 = empty.GetDelimiter2()
+	v.processor_.ProcessDelimiter(delimiter2)
+	// Visit slot 2 between terms.
+	v.processor_.ProcessEmptySlot(2)
+
+	var delimiter3 = empty.GetDelimiter3()
+	v.processor_.ProcessDelimiter(delimiter3)
+}
+
 func (v *visitor_) visitEntity(
 	entity ast.EntityLike,
 ) {
@@ -1011,13 +842,6 @@ func (v *visitor_) visitException(
 		1,
 		1,
 	)
-}
-
-func (v *visitor_) visitExclusive(
-	exclusive ast.ExclusiveLike,
-) {
-	var delimiter = exclusive.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
 }
 
 func (v *visitor_) visitExclusiveRange(
@@ -1239,18 +1063,22 @@ func (v *visitor_) visitFunction(
 	// Visit slot 2 between terms.
 	v.processor_.ProcessFunctionSlot(2)
 
-	var optionalArguments = function.GetOptionalArguments()
-	if uti.IsDefined(optionalArguments) {
-		v.processor_.PreprocessArguments(
-			optionalArguments,
-			1,
-			1,
+	var argumentsIndex uint
+	var arguments = function.GetArguments().GetIterator()
+	var argumentsCount = uint(arguments.GetSize())
+	for arguments.HasNext() {
+		argumentsIndex++
+		var rule = arguments.GetNext()
+		v.processor_.PreprocessArgument(
+			rule,
+			argumentsIndex,
+			argumentsCount,
 		)
-		v.visitArguments(optionalArguments)
-		v.processor_.PostprocessArguments(
-			optionalArguments,
-			1,
-			1,
+		v.visitArgument(rule)
+		v.processor_.PostprocessArgument(
+			rule,
+			argumentsIndex,
+			argumentsCount,
 		)
 	}
 	// Visit slot 3 between terms.
@@ -1258,6 +1086,48 @@ func (v *visitor_) visitFunction(
 
 	var delimiter2 = function.GetDelimiter2()
 	v.processor_.ProcessDelimiter(delimiter2)
+}
+
+func (v *visitor_) visitHandler(
+	handler ast.HandlerLike,
+) {
+	var delimiter1 = handler.GetDelimiter1()
+	v.processor_.ProcessDelimiter(delimiter1)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessHandlerSlot(1)
+
+	var template = handler.GetTemplate()
+	v.processor_.PreprocessTemplate(
+		template,
+		1,
+		1,
+	)
+	v.visitTemplate(template)
+	v.processor_.PostprocessTemplate(
+		template,
+		1,
+		1,
+	)
+	// Visit slot 2 between terms.
+	v.processor_.ProcessHandlerSlot(2)
+
+	var delimiter2 = handler.GetDelimiter2()
+	v.processor_.ProcessDelimiter(delimiter2)
+	// Visit slot 3 between terms.
+	v.processor_.ProcessHandlerSlot(3)
+
+	var procedure = handler.GetProcedure()
+	v.processor_.PreprocessProcedure(
+		procedure,
+		1,
+		1,
+	)
+	v.visitProcedure(procedure)
+	v.processor_.PostprocessProcedure(
+		procedure,
+		1,
+		1,
+	)
 }
 
 func (v *visitor_) visitIfClause(
@@ -1300,13 +1170,6 @@ func (v *visitor_) visitIfClause(
 		1,
 		1,
 	)
-}
-
-func (v *visitor_) visitInclusive(
-	inclusive ast.InclusiveLike,
-) {
-	var delimiter = inclusive.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
 }
 
 func (v *visitor_) visitInclusiveRange(
@@ -1369,54 +1232,31 @@ func (v *visitor_) visitInclusiveRange(
 func (v *visitor_) visitIndex(
 	index ast.IndexLike,
 ) {
-	var expression = index.GetExpression()
-	v.processor_.PreprocessExpression(
-		expression,
-		1,
-		1,
-	)
-	v.visitExpression(expression)
-	v.processor_.PostprocessExpression(
-		expression,
-		1,
-		1,
-	)
-}
-
-func (v *visitor_) visitIndices(
-	indices ast.IndicesLike,
-) {
-	var index = indices.GetIndex()
-	v.processor_.PreprocessIndex(
-		index,
-		1,
-		1,
-	)
-	v.visitIndex(index)
-	v.processor_.PostprocessIndex(
-		index,
-		1,
-		1,
-	)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessIndicesSlot(1)
-
-	var additionalIndexesIndex uint
-	var additionalIndexes = indices.GetAdditionalIndexes().GetIterator()
-	var additionalIndexesCount = uint(additionalIndexes.GetSize())
-	for additionalIndexes.HasNext() {
-		additionalIndexesIndex++
-		var rule = additionalIndexes.GetNext()
-		v.processor_.PreprocessAdditionalIndex(
-			rule,
-			additionalIndexesIndex,
-			additionalIndexesCount,
+	// Visit the possible index rule types.
+	switch actual := index.GetAny().(type) {
+	case ast.VariableLike:
+		v.processor_.PreprocessVariable(
+			actual,
+			1,
+			1,
 		)
-		v.visitAdditionalIndex(rule)
-		v.processor_.PostprocessAdditionalIndex(
-			rule,
-			additionalIndexesIndex,
-			additionalIndexesCount,
+		v.visitVariable(actual)
+		v.processor_.PostprocessVariable(
+			actual,
+			1,
+			1,
+		)
+	case ast.PrimitiveLike:
+		v.processor_.PreprocessPrimitive(
+			actual,
+			1,
+			1,
+		)
+		v.visitPrimitive(actual)
+		v.processor_.PostprocessPrimitive(
+			actual,
+			1,
+			1,
 		)
 	}
 }
@@ -1531,198 +1371,6 @@ func (v *visitor_) visitInduction(
 			1,
 		)
 	}
-}
-
-func (v *visitor_) visitInlineAttributes(
-	inlineAttributes ast.InlineAttributesLike,
-) {
-	var delimiter1 = inlineAttributes.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessInlineAttributesSlot(1)
-
-	var association = inlineAttributes.GetAssociation()
-	v.processor_.PreprocessAssociation(
-		association,
-		1,
-		1,
-	)
-	v.visitAssociation(association)
-	v.processor_.PostprocessAssociation(
-		association,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessInlineAttributesSlot(2)
-
-	var additionalAssociationsIndex uint
-	var additionalAssociations = inlineAttributes.GetAdditionalAssociations().GetIterator()
-	var additionalAssociationsCount = uint(additionalAssociations.GetSize())
-	for additionalAssociations.HasNext() {
-		additionalAssociationsIndex++
-		var rule = additionalAssociations.GetNext()
-		v.processor_.PreprocessAdditionalAssociation(
-			rule,
-			additionalAssociationsIndex,
-			additionalAssociationsCount,
-		)
-		v.visitAdditionalAssociation(rule)
-		v.processor_.PostprocessAdditionalAssociation(
-			rule,
-			additionalAssociationsIndex,
-			additionalAssociationsCount,
-		)
-	}
-	// Visit slot 3 between terms.
-	v.processor_.ProcessInlineAttributesSlot(3)
-
-	var delimiter2 = inlineAttributes.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitInlineParameters(
-	inlineParameters ast.InlineParametersLike,
-) {
-	var delimiter1 = inlineParameters.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessInlineParametersSlot(1)
-
-	var association = inlineParameters.GetAssociation()
-	v.processor_.PreprocessAssociation(
-		association,
-		1,
-		1,
-	)
-	v.visitAssociation(association)
-	v.processor_.PostprocessAssociation(
-		association,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessInlineParametersSlot(2)
-
-	var additionalAssociationsIndex uint
-	var additionalAssociations = inlineParameters.GetAdditionalAssociations().GetIterator()
-	var additionalAssociationsCount = uint(additionalAssociations.GetSize())
-	for additionalAssociations.HasNext() {
-		additionalAssociationsIndex++
-		var rule = additionalAssociations.GetNext()
-		v.processor_.PreprocessAdditionalAssociation(
-			rule,
-			additionalAssociationsIndex,
-			additionalAssociationsCount,
-		)
-		v.visitAdditionalAssociation(rule)
-		v.processor_.PostprocessAdditionalAssociation(
-			rule,
-			additionalAssociationsIndex,
-			additionalAssociationsCount,
-		)
-	}
-	// Visit slot 3 between terms.
-	v.processor_.ProcessInlineParametersSlot(3)
-
-	var delimiter2 = inlineParameters.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitInlineStatements(
-	inlineStatements ast.InlineStatementsLike,
-) {
-	var delimiter1 = inlineStatements.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessInlineStatementsSlot(1)
-
-	var statement = inlineStatements.GetStatement()
-	v.processor_.PreprocessStatement(
-		statement,
-		1,
-		1,
-	)
-	v.visitStatement(statement)
-	v.processor_.PostprocessStatement(
-		statement,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessInlineStatementsSlot(2)
-
-	var additionalStatementsIndex uint
-	var additionalStatements = inlineStatements.GetAdditionalStatements().GetIterator()
-	var additionalStatementsCount = uint(additionalStatements.GetSize())
-	for additionalStatements.HasNext() {
-		additionalStatementsIndex++
-		var rule = additionalStatements.GetNext()
-		v.processor_.PreprocessAdditionalStatement(
-			rule,
-			additionalStatementsIndex,
-			additionalStatementsCount,
-		)
-		v.visitAdditionalStatement(rule)
-		v.processor_.PostprocessAdditionalStatement(
-			rule,
-			additionalStatementsIndex,
-			additionalStatementsCount,
-		)
-	}
-	// Visit slot 3 between terms.
-	v.processor_.ProcessInlineStatementsSlot(3)
-
-	var delimiter2 = inlineStatements.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitInlineValues(
-	inlineValues ast.InlineValuesLike,
-) {
-	var delimiter1 = inlineValues.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessInlineValuesSlot(1)
-
-	var component = inlineValues.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
-		1,
-		1,
-	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessInlineValuesSlot(2)
-
-	var additionalValuesIndex uint
-	var additionalValues = inlineValues.GetAdditionalValues().GetIterator()
-	var additionalValuesCount = uint(additionalValues.GetSize())
-	for additionalValues.HasNext() {
-		additionalValuesIndex++
-		var rule = additionalValues.GetNext()
-		v.processor_.PreprocessAdditionalValue(
-			rule,
-			additionalValuesIndex,
-			additionalValuesCount,
-		)
-		v.visitAdditionalValue(rule)
-		v.processor_.PostprocessAdditionalValue(
-			rule,
-			additionalValuesIndex,
-			additionalValuesCount,
-		)
-	}
-	// Visit slot 3 between terms.
-	v.processor_.ProcessInlineValuesSlot(3)
-
-	var delimiter2 = inlineValues.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitInverse(
@@ -2074,48 +1722,6 @@ func (v *visitor_) visitMainClause(
 	}
 }
 
-func (v *visitor_) visitMatchHandler(
-	matchHandler ast.MatchHandlerLike,
-) {
-	var delimiter1 = matchHandler.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessMatchHandlerSlot(1)
-
-	var template = matchHandler.GetTemplate()
-	v.processor_.PreprocessTemplate(
-		template,
-		1,
-		1,
-	)
-	v.visitTemplate(template)
-	v.processor_.PostprocessTemplate(
-		template,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessMatchHandlerSlot(2)
-
-	var delimiter2 = matchHandler.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessMatchHandlerSlot(3)
-
-	var procedure = matchHandler.GetProcedure()
-	v.processor_.PreprocessProcedure(
-		procedure,
-		1,
-		1,
-	)
-	v.visitProcedure(procedure)
-	v.processor_.PostprocessProcedure(
-		procedure,
-		1,
-		1,
-	)
-}
-
 func (v *visitor_) visitMessage(
 	message ast.MessageLike,
 ) {
@@ -2234,217 +1840,28 @@ func (v *visitor_) visitMethod(
 	// Visit slot 4 between terms.
 	v.processor_.ProcessMethodSlot(4)
 
-	var optionalArguments = method.GetOptionalArguments()
-	if uti.IsDefined(optionalArguments) {
-		v.processor_.PreprocessArguments(
-			optionalArguments,
-			1,
-			1,
+	var argumentsIndex uint
+	var arguments = method.GetArguments().GetIterator()
+	var argumentsCount = uint(arguments.GetSize())
+	for arguments.HasNext() {
+		argumentsIndex++
+		var rule = arguments.GetNext()
+		v.processor_.PreprocessArgument(
+			rule,
+			argumentsIndex,
+			argumentsCount,
 		)
-		v.visitArguments(optionalArguments)
-		v.processor_.PostprocessArguments(
-			optionalArguments,
-			1,
-			1,
+		v.visitArgument(rule)
+		v.processor_.PostprocessArgument(
+			rule,
+			argumentsIndex,
+			argumentsCount,
 		)
 	}
 	// Visit slot 5 between terms.
 	v.processor_.ProcessMethodSlot(5)
 
 	var delimiter2 = method.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitMultilineAttributes(
-	multilineAttributes ast.MultilineAttributesLike,
-) {
-	var delimiter1 = multilineAttributes.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessMultilineAttributesSlot(1)
-
-	var newline = multilineAttributes.GetNewline()
-	v.processor_.ProcessNewline(newline)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessMultilineAttributesSlot(2)
-
-	var annotatedAssociationsIndex uint
-	var annotatedAssociations = multilineAttributes.GetAnnotatedAssociations().GetIterator()
-	var annotatedAssociationsCount = uint(annotatedAssociations.GetSize())
-	for annotatedAssociations.HasNext() {
-		annotatedAssociationsIndex++
-		var rule = annotatedAssociations.GetNext()
-		v.processor_.PreprocessAnnotatedAssociation(
-			rule,
-			annotatedAssociationsIndex,
-			annotatedAssociationsCount,
-		)
-		v.visitAnnotatedAssociation(rule)
-		v.processor_.PostprocessAnnotatedAssociation(
-			rule,
-			annotatedAssociationsIndex,
-			annotatedAssociationsCount,
-		)
-	}
-	// Visit slot 3 between terms.
-	v.processor_.ProcessMultilineAttributesSlot(3)
-
-	var delimiter2 = multilineAttributes.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitMultilineParameters(
-	multilineParameters ast.MultilineParametersLike,
-) {
-	var delimiter1 = multilineParameters.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessMultilineParametersSlot(1)
-
-	var newline = multilineParameters.GetNewline()
-	v.processor_.ProcessNewline(newline)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessMultilineParametersSlot(2)
-
-	var annotatedAssociationsIndex uint
-	var annotatedAssociations = multilineParameters.GetAnnotatedAssociations().GetIterator()
-	var annotatedAssociationsCount = uint(annotatedAssociations.GetSize())
-	for annotatedAssociations.HasNext() {
-		annotatedAssociationsIndex++
-		var rule = annotatedAssociations.GetNext()
-		v.processor_.PreprocessAnnotatedAssociation(
-			rule,
-			annotatedAssociationsIndex,
-			annotatedAssociationsCount,
-		)
-		v.visitAnnotatedAssociation(rule)
-		v.processor_.PostprocessAnnotatedAssociation(
-			rule,
-			annotatedAssociationsIndex,
-			annotatedAssociationsCount,
-		)
-	}
-	// Visit slot 3 between terms.
-	v.processor_.ProcessMultilineParametersSlot(3)
-
-	var delimiter2 = multilineParameters.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitMultilineStatements(
-	multilineStatements ast.MultilineStatementsLike,
-) {
-	var delimiter1 = multilineStatements.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessMultilineStatementsSlot(1)
-
-	var newline = multilineStatements.GetNewline()
-	v.processor_.ProcessNewline(newline)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessMultilineStatementsSlot(2)
-
-	var annotatedStatementsIndex uint
-	var annotatedStatements = multilineStatements.GetAnnotatedStatements().GetIterator()
-	var annotatedStatementsCount = uint(annotatedStatements.GetSize())
-	for annotatedStatements.HasNext() {
-		annotatedStatementsIndex++
-		var rule = annotatedStatements.GetNext()
-		v.processor_.PreprocessAnnotatedStatement(
-			rule,
-			annotatedStatementsIndex,
-			annotatedStatementsCount,
-		)
-		v.visitAnnotatedStatement(rule)
-		v.processor_.PostprocessAnnotatedStatement(
-			rule,
-			annotatedStatementsIndex,
-			annotatedStatementsCount,
-		)
-	}
-	// Visit slot 3 between terms.
-	v.processor_.ProcessMultilineStatementsSlot(3)
-
-	var delimiter2 = multilineStatements.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitMultilineValues(
-	multilineValues ast.MultilineValuesLike,
-) {
-	var delimiter1 = multilineValues.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessMultilineValuesSlot(1)
-
-	var newline = multilineValues.GetNewline()
-	v.processor_.ProcessNewline(newline)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessMultilineValuesSlot(2)
-
-	var annotatedValuesIndex uint
-	var annotatedValues = multilineValues.GetAnnotatedValues().GetIterator()
-	var annotatedValuesCount = uint(annotatedValues.GetSize())
-	for annotatedValues.HasNext() {
-		annotatedValuesIndex++
-		var rule = annotatedValues.GetNext()
-		v.processor_.PreprocessAnnotatedValue(
-			rule,
-			annotatedValuesIndex,
-			annotatedValuesCount,
-		)
-		v.visitAnnotatedValue(rule)
-		v.processor_.PostprocessAnnotatedValue(
-			rule,
-			annotatedValuesIndex,
-			annotatedValuesCount,
-		)
-	}
-	// Visit slot 3 between terms.
-	v.processor_.ProcessMultilineValuesSlot(3)
-
-	var delimiter2 = multilineValues.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitNoAttributes(
-	noAttributes ast.NoAttributesLike,
-) {
-	var delimiter1 = noAttributes.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessNoAttributesSlot(1)
-
-	var delimiter2 = noAttributes.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessNoAttributesSlot(2)
-
-	var delimiter3 = noAttributes.GetDelimiter3()
-	v.processor_.ProcessDelimiter(delimiter3)
-}
-
-func (v *visitor_) visitNoStatements(
-	noStatements ast.NoStatementsLike,
-) {
-	var delimiter1 = noStatements.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessNoStatementsSlot(1)
-
-	var delimiter2 = noStatements.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitNoValues(
-	noValues ast.NoValuesLike,
-) {
-	var delimiter1 = noValues.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessNoValuesSlot(1)
-
-	var delimiter2 = noValues.GetDelimiter2()
 	v.processor_.ProcessDelimiter(delimiter2)
 }
 
@@ -2629,22 +2046,22 @@ func (v *visitor_) visitOnClause(
 	// Visit slot 2 between terms.
 	v.processor_.ProcessOnClauseSlot(2)
 
-	var matchHandlersIndex uint
-	var matchHandlers = onClause.GetMatchHandlers().GetIterator()
-	var matchHandlersCount = uint(matchHandlers.GetSize())
-	for matchHandlers.HasNext() {
-		matchHandlersIndex++
-		var rule = matchHandlers.GetNext()
-		v.processor_.PreprocessMatchHandler(
+	var handlersIndex uint
+	var handlers = onClause.GetHandlers().GetIterator()
+	var handlersCount = uint(handlers.GetSize())
+	for handlers.HasNext() {
+		handlersIndex++
+		var rule = handlers.GetNext()
+		v.processor_.PreprocessHandler(
 			rule,
-			matchHandlersIndex,
-			matchHandlersCount,
+			handlersIndex,
+			handlersCount,
 		)
-		v.visitMatchHandler(rule)
-		v.processor_.PostprocessMatchHandler(
+		v.visitHandler(rule)
+		v.processor_.PostprocessHandler(
 			rule,
-			matchHandlersIndex,
-			matchHandlersCount,
+			handlersIndex,
+			handlersCount,
 		)
 	}
 }
@@ -2708,33 +2125,34 @@ func (v *visitor_) visitOperation(
 func (v *visitor_) visitParameters(
 	parameters ast.ParametersLike,
 ) {
-	// Visit the possible parameters rule types.
-	switch actual := parameters.GetAny().(type) {
-	case ast.MultilineParametersLike:
-		v.processor_.PreprocessMultilineParameters(
-			actual,
-			1,
-			1,
+	var delimiter1 = parameters.GetDelimiter1()
+	v.processor_.ProcessDelimiter(delimiter1)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessParametersSlot(1)
+
+	var associationsIndex uint
+	var associations = parameters.GetAssociations().GetIterator()
+	var associationsCount = uint(associations.GetSize())
+	for associations.HasNext() {
+		associationsIndex++
+		var rule = associations.GetNext()
+		v.processor_.PreprocessAssociation(
+			rule,
+			associationsIndex,
+			associationsCount,
 		)
-		v.visitMultilineParameters(actual)
-		v.processor_.PostprocessMultilineParameters(
-			actual,
-			1,
-			1,
-		)
-	case ast.InlineParametersLike:
-		v.processor_.PreprocessInlineParameters(
-			actual,
-			1,
-			1,
-		)
-		v.visitInlineParameters(actual)
-		v.processor_.PostprocessInlineParameters(
-			actual,
-			1,
-			1,
+		v.visitAssociation(rule)
+		v.processor_.PostprocessAssociation(
+			rule,
+			associationsIndex,
+			associationsCount,
 		)
 	}
+	// Visit slot 2 between terms.
+	v.processor_.ProcessParametersSlot(2)
+
+	var delimiter2 = parameters.GetDelimiter2()
+	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitPostClause(
@@ -2873,45 +2291,34 @@ func (v *visitor_) visitPrimitive(
 func (v *visitor_) visitProcedure(
 	procedure ast.ProcedureLike,
 ) {
-	// Visit the possible procedure rule types.
-	switch actual := procedure.GetAny().(type) {
-	case ast.MultilineStatementsLike:
-		v.processor_.PreprocessMultilineStatements(
-			actual,
-			1,
-			1,
+	var delimiter1 = procedure.GetDelimiter1()
+	v.processor_.ProcessDelimiter(delimiter1)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessProcedureSlot(1)
+
+	var codesIndex uint
+	var codes = procedure.GetCodes().GetIterator()
+	var codesCount = uint(codes.GetSize())
+	for codes.HasNext() {
+		codesIndex++
+		var rule = codes.GetNext()
+		v.processor_.PreprocessCode(
+			rule,
+			codesIndex,
+			codesCount,
 		)
-		v.visitMultilineStatements(actual)
-		v.processor_.PostprocessMultilineStatements(
-			actual,
-			1,
-			1,
-		)
-	case ast.InlineStatementsLike:
-		v.processor_.PreprocessInlineStatements(
-			actual,
-			1,
-			1,
-		)
-		v.visitInlineStatements(actual)
-		v.processor_.PostprocessInlineStatements(
-			actual,
-			1,
-			1,
-		)
-	case ast.NoStatementsLike:
-		v.processor_.PreprocessNoStatements(
-			actual,
-			1,
-			1,
-		)
-		v.visitNoStatements(actual)
-		v.processor_.PostprocessNoStatements(
-			actual,
-			1,
-			1,
+		v.visitCode(rule)
+		v.processor_.PostprocessCode(
+			rule,
+			codesIndex,
+			codesCount,
 		)
 	}
+	// Visit slot 2 between terms.
+	v.processor_.ProcessProcedureSlot(2)
+
+	var delimiter2 = procedure.GetDelimiter2()
+	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitPublishClause(
@@ -3214,22 +2621,22 @@ func (v *visitor_) visitSelectClause(
 	// Visit slot 2 between terms.
 	v.processor_.ProcessSelectClauseSlot(2)
 
-	var matchHandlersIndex uint
-	var matchHandlers = selectClause.GetMatchHandlers().GetIterator()
-	var matchHandlersCount = uint(matchHandlers.GetSize())
-	for matchHandlers.HasNext() {
-		matchHandlersIndex++
-		var rule = matchHandlers.GetNext()
-		v.processor_.PreprocessMatchHandler(
+	var handlersIndex uint
+	var handlers = selectClause.GetHandlers().GetIterator()
+	var handlersCount = uint(handlers.GetSize())
+	for handlers.HasNext() {
+		handlersIndex++
+		var rule = handlers.GetNext()
+		v.processor_.PreprocessHandler(
 			rule,
-			matchHandlersIndex,
-			matchHandlersCount,
+			handlersIndex,
+			handlersCount,
 		)
-		v.visitMatchHandler(rule)
-		v.processor_.PostprocessMatchHandler(
+		v.visitHandler(rule)
+		v.processor_.PostprocessHandler(
 			rule,
-			matchHandlersIndex,
-			matchHandlersCount,
+			handlersIndex,
+			handlersCount,
 		)
 	}
 }
@@ -3283,27 +2690,10 @@ func (v *visitor_) visitStatement(
 			1,
 		)
 	}
-}
+	// Visit slot 2 between terms.
+	v.processor_.ProcessStatementSlot(2)
 
-func (v *visitor_) visitStatementLine(
-	statementLine ast.StatementLineLike,
-) {
-	var statement = statementLine.GetStatement()
-	v.processor_.PreprocessStatement(
-		statement,
-		1,
-		1,
-	)
-	v.visitStatement(statement)
-	v.processor_.PostprocessStatement(
-		statement,
-		1,
-		1,
-	)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessStatementLineSlot(1)
-
-	var optionalNote = statementLine.GetOptionalNote()
+	var optionalNote = statement.GetOptionalNote()
 	if uti.IsDefined(optionalNote) {
 		v.processor_.ProcessNote(optionalNote)
 	}
@@ -3347,18 +2737,24 @@ func (v *visitor_) visitSubcomponent(
 	// Visit slot 2 between terms.
 	v.processor_.ProcessSubcomponentSlot(2)
 
-	var indices = subcomponent.GetIndices()
-	v.processor_.PreprocessIndices(
-		indices,
-		1,
-		1,
-	)
-	v.visitIndices(indices)
-	v.processor_.PostprocessIndices(
-		indices,
-		1,
-		1,
-	)
+	var indexesIndex uint
+	var indexes = subcomponent.GetIndexes().GetIterator()
+	var indexesCount = uint(indexes.GetSize())
+	for indexes.HasNext() {
+		indexesIndex++
+		var rule = indexes.GetNext()
+		v.processor_.PreprocessIndex(
+			rule,
+			indexesIndex,
+			indexesCount,
+		)
+		v.visitIndex(rule)
+		v.processor_.PostprocessIndex(
+			rule,
+			indexesIndex,
+			indexesCount,
+		)
+	}
 	// Visit slot 3 between terms.
 	v.processor_.ProcessSubcomponentSlot(3)
 
@@ -3602,6 +2998,39 @@ func (v *visitor_) visitThrowClause(
 		1,
 		1,
 	)
+}
+
+func (v *visitor_) visitValues(
+	values ast.ValuesLike,
+) {
+	var delimiter1 = values.GetDelimiter1()
+	v.processor_.ProcessDelimiter(delimiter1)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessValuesSlot(1)
+
+	var componentsIndex uint
+	var components = values.GetComponents().GetIterator()
+	var componentsCount = uint(components.GetSize())
+	for components.HasNext() {
+		componentsIndex++
+		var rule = components.GetNext()
+		v.processor_.PreprocessComponent(
+			rule,
+			componentsIndex,
+			componentsCount,
+		)
+		v.visitComponent(rule)
+		v.processor_.PostprocessComponent(
+			rule,
+			componentsIndex,
+			componentsCount,
+		)
+	}
+	// Visit slot 2 between terms.
+	v.processor_.ProcessValuesSlot(2)
+
+	var delimiter2 = values.GetDelimiter2()
+	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitVariable(

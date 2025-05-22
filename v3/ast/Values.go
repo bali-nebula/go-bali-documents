@@ -20,6 +20,7 @@
 package ast
 
 import (
+	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -27,26 +28,31 @@ import (
 
 // Access Function
 
-func AdditionalArgumentClass() AdditionalArgumentClassLike {
-	return additionalArgumentClass()
+func ValuesClass() ValuesClassLike {
+	return valuesClass()
 }
 
 // Constructor Methods
 
-func (c *additionalArgumentClass_) AdditionalArgument(
-	delimiter string,
-	argument ArgumentLike,
-) AdditionalArgumentLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
+func (c *valuesClass_) Values(
+	delimiter1 string,
+	components col.Sequential[ComponentLike],
+	delimiter2 string,
+) ValuesLike {
+	if uti.IsUndefined(delimiter1) {
+		panic("The \"delimiter1\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(argument) {
-		panic("The \"argument\" attribute is required by this class.")
+	if uti.IsUndefined(components) {
+		panic("The \"components\" attribute is required by this class.")
 	}
-	var instance = &additionalArgument_{
+	if uti.IsUndefined(delimiter2) {
+		panic("The \"delimiter2\" attribute is required by this class.")
+	}
+	var instance = &values_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
-		argument_:  argument,
+		delimiter1_: delimiter1,
+		components_: components,
+		delimiter2_: delimiter2,
 	}
 	return instance
 }
@@ -55,42 +61,47 @@ func (c *additionalArgumentClass_) AdditionalArgument(
 
 // Principal Methods
 
-func (v *additionalArgument_) GetClass() AdditionalArgumentClassLike {
-	return additionalArgumentClass()
+func (v *values_) GetClass() ValuesClassLike {
+	return valuesClass()
 }
 
 // Attribute Methods
 
-func (v *additionalArgument_) GetDelimiter() string {
-	return v.delimiter_
+func (v *values_) GetDelimiter1() string {
+	return v.delimiter1_
 }
 
-func (v *additionalArgument_) GetArgument() ArgumentLike {
-	return v.argument_
+func (v *values_) GetComponents() col.Sequential[ComponentLike] {
+	return v.components_
+}
+
+func (v *values_) GetDelimiter2() string {
+	return v.delimiter2_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type additionalArgument_ struct {
+type values_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
-	argument_  ArgumentLike
+	delimiter1_ string
+	components_ col.Sequential[ComponentLike]
+	delimiter2_ string
 }
 
 // Class Structure
 
-type additionalArgumentClass_ struct {
+type valuesClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func additionalArgumentClass() *additionalArgumentClass_ {
-	return additionalArgumentClassReference_
+func valuesClass() *valuesClass_ {
+	return valuesClassReference_
 }
 
-var additionalArgumentClassReference_ = &additionalArgumentClass_{
+var valuesClassReference_ = &valuesClass_{
 	// Initialize the class constants.
 }

@@ -1,6 +1,6 @@
 {
     let $foo := ~π($units: $radians)
-    let $foo := sum(a, b)
+    let $foo := sum(a b)
     let $foo := foo<-bar(x)
     let $foo := |z|
     let $foo := -/*z
@@ -17,7 +17,7 @@
     let $foo := @reference
     let $foo := list.addValue(value)
     let $foo := remote<-notify(event)
-    let $foo := customer[42, $address, $province]
+    let $foo := customer[42 $address $province]
     let $foo := a & b & c
     let $foo := a < b and b = c san d > e ior e is f xor f matches g
 }

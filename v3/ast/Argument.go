@@ -34,14 +34,14 @@ func ArgumentClass() ArgumentClassLike {
 // Constructor Methods
 
 func (c *argumentClass_) Argument(
-	identifier string,
+	any_ any,
 ) ArgumentLike {
-	if uti.IsUndefined(identifier) {
-		panic("The \"identifier\" attribute is required by this class.")
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
 	var instance = &argument_{
 		// Initialize the instance attributes.
-		identifier_: identifier,
+		any_: any_,
 	}
 	return instance
 }
@@ -56,8 +56,8 @@ func (v *argument_) GetClass() ArgumentClassLike {
 
 // Attribute Methods
 
-func (v *argument_) GetIdentifier() string {
-	return v.identifier_
+func (v *argument_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
@@ -66,7 +66,7 @@ func (v *argument_) GetIdentifier() string {
 
 type argument_ struct {
 	// Declare the instance attributes.
-	identifier_ string
+	any_ any
 }
 
 // Class Structure

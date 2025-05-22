@@ -20,7 +20,6 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -28,36 +27,36 @@ import (
 
 // Access Function
 
-func MultilineParametersClass() MultilineParametersClassLike {
-	return multilineParametersClass()
+func HandlerClass() HandlerClassLike {
+	return handlerClass()
 }
 
 // Constructor Methods
 
-func (c *multilineParametersClass_) MultilineParameters(
+func (c *handlerClass_) Handler(
 	delimiter1 string,
-	newline string,
-	annotatedAssociations col.Sequential[AnnotatedAssociationLike],
+	template TemplateLike,
 	delimiter2 string,
-) MultilineParametersLike {
+	procedure ProcedureLike,
+) HandlerLike {
 	if uti.IsUndefined(delimiter1) {
 		panic("The \"delimiter1\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(newline) {
-		panic("The \"newline\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(annotatedAssociations) {
-		panic("The \"annotatedAssociations\" attribute is required by this class.")
+	if uti.IsUndefined(template) {
+		panic("The \"template\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(delimiter2) {
 		panic("The \"delimiter2\" attribute is required by this class.")
 	}
-	var instance = &multilineParameters_{
+	if uti.IsUndefined(procedure) {
+		panic("The \"procedure\" attribute is required by this class.")
+	}
+	var instance = &handler_{
 		// Initialize the instance attributes.
-		delimiter1_:            delimiter1,
-		newline_:               newline,
-		annotatedAssociations_: annotatedAssociations,
-		delimiter2_:            delimiter2,
+		delimiter1_: delimiter1,
+		template_:   template,
+		delimiter2_: delimiter2,
+		procedure_:  procedure,
 	}
 	return instance
 }
@@ -66,52 +65,52 @@ func (c *multilineParametersClass_) MultilineParameters(
 
 // Principal Methods
 
-func (v *multilineParameters_) GetClass() MultilineParametersClassLike {
-	return multilineParametersClass()
+func (v *handler_) GetClass() HandlerClassLike {
+	return handlerClass()
 }
 
 // Attribute Methods
 
-func (v *multilineParameters_) GetDelimiter1() string {
+func (v *handler_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *multilineParameters_) GetNewline() string {
-	return v.newline_
+func (v *handler_) GetTemplate() TemplateLike {
+	return v.template_
 }
 
-func (v *multilineParameters_) GetAnnotatedAssociations() col.Sequential[AnnotatedAssociationLike] {
-	return v.annotatedAssociations_
-}
-
-func (v *multilineParameters_) GetDelimiter2() string {
+func (v *handler_) GetDelimiter2() string {
 	return v.delimiter2_
+}
+
+func (v *handler_) GetProcedure() ProcedureLike {
+	return v.procedure_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type multilineParameters_ struct {
+type handler_ struct {
 	// Declare the instance attributes.
-	delimiter1_            string
-	newline_               string
-	annotatedAssociations_ col.Sequential[AnnotatedAssociationLike]
-	delimiter2_            string
+	delimiter1_ string
+	template_   TemplateLike
+	delimiter2_ string
+	procedure_  ProcedureLike
 }
 
 // Class Structure
 
-type multilineParametersClass_ struct {
+type handlerClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func multilineParametersClass() *multilineParametersClass_ {
-	return multilineParametersClassReference_
+func handlerClass() *handlerClass_ {
+	return handlerClassReference_
 }
 
-var multilineParametersClassReference_ = &multilineParametersClass_{
+var handlerClassReference_ = &handlerClass_{
 	// Initialize the class constants.
 }

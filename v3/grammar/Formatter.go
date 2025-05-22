@@ -287,134 +287,15 @@ func (v *formatter_) ProcessAcceptClauseSlot(
 	}
 }
 
-func (v *formatter_) PreprocessAdditionalArgument(
-	additionalArgument ast.AdditionalArgumentLike,
+func (v *formatter_) PreprocessAnnotation(
+	annotation ast.AnnotationLike,
 	index_ uint,
 	count_ uint,
 ) {
 	// TBD - Add formatting of the rule.
 }
 
-func (v *formatter_) ProcessAdditionalArgumentSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessAdditionalAssociation(
-	additionalAssociation ast.AdditionalAssociationLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessAdditionalAssociationSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessAdditionalIndex(
-	additionalIndex ast.AdditionalIndexLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessAdditionalIndexSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessAdditionalStatement(
-	additionalStatement ast.AdditionalStatementLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessAdditionalStatementSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessAdditionalValue(
-	additionalValue ast.AdditionalValueLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessAdditionalValueSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessAnnotatedAssociation(
-	annotatedAssociation ast.AnnotatedAssociationLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessAnnotatedAssociationSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessAnnotatedStatement(
-	annotatedStatement ast.AnnotatedStatementLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessAnnotatedStatementSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessAnnotatedValue(
-	annotatedValue ast.AnnotatedValueLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessAnnotatedValueSlot(
+func (v *formatter_) ProcessAnnotationSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -432,23 +313,6 @@ func (v *formatter_) PreprocessArgument(
 }
 
 func (v *formatter_) ProcessArgumentSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessArguments(
-	arguments ast.ArgumentsLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessArgumentsSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -517,6 +381,23 @@ func (v *formatter_) PreprocessAtLevel(
 }
 
 func (v *formatter_) ProcessAtLevelSlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
+func (v *formatter_) PreprocessAttributes(
+	attributes ast.AttributesLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessAttributesSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -627,6 +508,23 @@ func (v *formatter_) ProcessCitedSlot(
 	}
 }
 
+func (v *formatter_) PreprocessCode(
+	code ast.CodeLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessCodeSlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
 func (v *formatter_) PreprocessCollection(
 	collection ast.CollectionLike,
 	index_ uint,
@@ -636,23 +534,6 @@ func (v *formatter_) PreprocessCollection(
 }
 
 func (v *formatter_) ProcessCollectionSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessCommentLine(
-	commentLine ast.CommentLineLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessCommentLineSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -831,6 +712,23 @@ func (v *formatter_) ProcessElementSlot(
 	}
 }
 
+func (v *formatter_) PreprocessEmpty(
+	empty ast.EmptyLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessEmptySlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
 func (v *formatter_) PreprocessEntity(
 	entity ast.EntityLike,
 	index_ uint,
@@ -874,23 +772,6 @@ func (v *formatter_) PreprocessException(
 }
 
 func (v *formatter_) ProcessExceptionSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessExclusive(
-	exclusive ast.ExclusiveLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessExclusiveSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -984,6 +865,23 @@ func (v *formatter_) ProcessFunctionSlot(
 	}
 }
 
+func (v *formatter_) PreprocessHandler(
+	handler ast.HandlerLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessHandlerSlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
 func (v *formatter_) PreprocessIfClause(
 	ifClause ast.IfClauseLike,
 	index_ uint,
@@ -993,23 +891,6 @@ func (v *formatter_) PreprocessIfClause(
 }
 
 func (v *formatter_) ProcessIfClauseSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessInclusive(
-	inclusive ast.InclusiveLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessInclusiveSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -1052,23 +933,6 @@ func (v *formatter_) ProcessIndexSlot(
 	}
 }
 
-func (v *formatter_) PreprocessIndices(
-	indices ast.IndicesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessIndicesSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
 func (v *formatter_) PreprocessIndirect(
 	indirect ast.IndirectLike,
 	index_ uint,
@@ -1095,74 +959,6 @@ func (v *formatter_) PreprocessInduction(
 }
 
 func (v *formatter_) ProcessInductionSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessInlineAttributes(
-	inlineAttributes ast.InlineAttributesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessInlineAttributesSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessInlineParameters(
-	inlineParameters ast.InlineParametersLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessInlineParametersSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessInlineStatements(
-	inlineStatements ast.InlineStatementsLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessInlineStatementsSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessInlineValues(
-	inlineValues ast.InlineValuesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessInlineValuesSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -1341,23 +1137,6 @@ func (v *formatter_) ProcessMainClauseSlot(
 	}
 }
 
-func (v *formatter_) PreprocessMatchHandler(
-	matchHandler ast.MatchHandlerLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessMatchHandlerSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
 func (v *formatter_) PreprocessMessage(
 	message ast.MessageLike,
 	index_ uint,
@@ -1401,125 +1180,6 @@ func (v *formatter_) PreprocessMethod(
 }
 
 func (v *formatter_) ProcessMethodSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessMultilineAttributes(
-	multilineAttributes ast.MultilineAttributesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessMultilineAttributesSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessMultilineParameters(
-	multilineParameters ast.MultilineParametersLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessMultilineParametersSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessMultilineStatements(
-	multilineStatements ast.MultilineStatementsLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessMultilineStatementsSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessMultilineValues(
-	multilineValues ast.MultilineValuesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessMultilineValuesSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessNoAttributes(
-	noAttributes ast.NoAttributesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessNoAttributesSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessNoStatements(
-	noStatements ast.NoStatementsLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessNoStatementsSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
-func (v *formatter_) PreprocessNoValues(
-	noValues ast.NoValuesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessNoValuesSlot(
 	slot uint,
 ) {
 	switch slot {
@@ -1902,23 +1562,6 @@ func (v *formatter_) ProcessStatementSlot(
 	}
 }
 
-func (v *formatter_) PreprocessStatementLine(
-	statementLine ast.StatementLineLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) ProcessStatementLineSlot(
-	slot uint,
-) {
-	switch slot {
-	default:
-		v.appendString(" ")
-	}
-}
-
 func (v *formatter_) PreprocessString(
 	string_ ast.StringLike,
 	index_ uint,
@@ -2030,6 +1673,23 @@ func (v *formatter_) PreprocessThrowClause(
 }
 
 func (v *formatter_) ProcessThrowClauseSlot(
+	slot uint,
+) {
+	switch slot {
+	default:
+		v.appendString(" ")
+	}
+}
+
+func (v *formatter_) PreprocessValues(
+	values ast.ValuesLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) ProcessValuesSlot(
 	slot uint,
 ) {
 	switch slot {

@@ -418,107 +418,16 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessAdditionalArgument(
-		additionalArgument ast.AdditionalArgumentLike,
+	PreprocessAnnotation(
+		annotation ast.AnnotationLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessAdditionalArgumentSlot(
+	ProcessAnnotationSlot(
 		slot uint,
 	)
-	PostprocessAdditionalArgument(
-		additionalArgument ast.AdditionalArgumentLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessAdditionalAssociation(
-		additionalAssociation ast.AdditionalAssociationLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessAdditionalAssociationSlot(
-		slot uint,
-	)
-	PostprocessAdditionalAssociation(
-		additionalAssociation ast.AdditionalAssociationLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessAdditionalIndex(
-		additionalIndex ast.AdditionalIndexLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessAdditionalIndexSlot(
-		slot uint,
-	)
-	PostprocessAdditionalIndex(
-		additionalIndex ast.AdditionalIndexLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessAdditionalStatement(
-		additionalStatement ast.AdditionalStatementLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessAdditionalStatementSlot(
-		slot uint,
-	)
-	PostprocessAdditionalStatement(
-		additionalStatement ast.AdditionalStatementLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessAdditionalValue(
-		additionalValue ast.AdditionalValueLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessAdditionalValueSlot(
-		slot uint,
-	)
-	PostprocessAdditionalValue(
-		additionalValue ast.AdditionalValueLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessAnnotatedAssociation(
-		annotatedAssociation ast.AnnotatedAssociationLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessAnnotatedAssociationSlot(
-		slot uint,
-	)
-	PostprocessAnnotatedAssociation(
-		annotatedAssociation ast.AnnotatedAssociationLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessAnnotatedStatement(
-		annotatedStatement ast.AnnotatedStatementLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessAnnotatedStatementSlot(
-		slot uint,
-	)
-	PostprocessAnnotatedStatement(
-		annotatedStatement ast.AnnotatedStatementLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessAnnotatedValue(
-		annotatedValue ast.AnnotatedValueLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessAnnotatedValueSlot(
-		slot uint,
-	)
-	PostprocessAnnotatedValue(
-		annotatedValue ast.AnnotatedValueLike,
+	PostprocessAnnotation(
+		annotation ast.AnnotationLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -532,19 +441,6 @@ type Methodical interface {
 	)
 	PostprocessArgument(
 		argument ast.ArgumentLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessArguments(
-		arguments ast.ArgumentsLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessArgumentsSlot(
-		slot uint,
-	)
-	PostprocessArguments(
-		arguments ast.ArgumentsLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -597,6 +493,19 @@ type Methodical interface {
 	)
 	PostprocessAtLevel(
 		atLevel ast.AtLevelLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessAttributes(
+		attributes ast.AttributesLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessAttributesSlot(
+		slot uint,
+	)
+	PostprocessAttributes(
+		attributes ast.AttributesLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -678,6 +587,19 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessCode(
+		code ast.CodeLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessCodeSlot(
+		slot uint,
+	)
+	PostprocessCode(
+		code ast.CodeLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessCollection(
 		collection ast.CollectionLike,
 		index_ uint,
@@ -688,19 +610,6 @@ type Methodical interface {
 	)
 	PostprocessCollection(
 		collection ast.CollectionLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessCommentLine(
-		commentLine ast.CommentLineLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessCommentLineSlot(
-		slot uint,
-	)
-	PostprocessCommentLine(
-		commentLine ast.CommentLineLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -834,6 +743,19 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessEmpty(
+		empty ast.EmptyLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessEmptySlot(
+		slot uint,
+	)
+	PostprocessEmpty(
+		empty ast.EmptyLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessEntity(
 		entity ast.EntityLike,
 		index_ uint,
@@ -870,19 +792,6 @@ type Methodical interface {
 	)
 	PostprocessException(
 		exception ast.ExceptionLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessExclusive(
-		exclusive ast.ExclusiveLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessExclusiveSlot(
-		slot uint,
-	)
-	PostprocessExclusive(
-		exclusive ast.ExclusiveLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -951,6 +860,19 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessHandler(
+		handler ast.HandlerLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessHandlerSlot(
+		slot uint,
+	)
+	PostprocessHandler(
+		handler ast.HandlerLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessIfClause(
 		ifClause ast.IfClauseLike,
 		index_ uint,
@@ -961,19 +883,6 @@ type Methodical interface {
 	)
 	PostprocessIfClause(
 		ifClause ast.IfClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessInclusive(
-		inclusive ast.InclusiveLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessInclusiveSlot(
-		slot uint,
-	)
-	PostprocessInclusive(
-		inclusive ast.InclusiveLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -1003,19 +912,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessIndices(
-		indices ast.IndicesLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessIndicesSlot(
-		slot uint,
-	)
-	PostprocessIndices(
-		indices ast.IndicesLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessIndirect(
 		indirect ast.IndirectLike,
 		index_ uint,
@@ -1039,58 +935,6 @@ type Methodical interface {
 	)
 	PostprocessInduction(
 		induction ast.InductionLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessInlineAttributes(
-		inlineAttributes ast.InlineAttributesLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessInlineAttributesSlot(
-		slot uint,
-	)
-	PostprocessInlineAttributes(
-		inlineAttributes ast.InlineAttributesLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessInlineParameters(
-		inlineParameters ast.InlineParametersLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessInlineParametersSlot(
-		slot uint,
-	)
-	PostprocessInlineParameters(
-		inlineParameters ast.InlineParametersLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessInlineStatements(
-		inlineStatements ast.InlineStatementsLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessInlineStatementsSlot(
-		slot uint,
-	)
-	PostprocessInlineStatements(
-		inlineStatements ast.InlineStatementsLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessInlineValues(
-		inlineValues ast.InlineValuesLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessInlineValuesSlot(
-		slot uint,
-	)
-	PostprocessInlineValues(
-		inlineValues ast.InlineValuesLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -1224,19 +1068,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessMatchHandler(
-		matchHandler ast.MatchHandlerLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessMatchHandlerSlot(
-		slot uint,
-	)
-	PostprocessMatchHandler(
-		matchHandler ast.MatchHandlerLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessMessage(
 		message ast.MessageLike,
 		index_ uint,
@@ -1273,97 +1104,6 @@ type Methodical interface {
 	)
 	PostprocessMethod(
 		method ast.MethodLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessMultilineAttributes(
-		multilineAttributes ast.MultilineAttributesLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessMultilineAttributesSlot(
-		slot uint,
-	)
-	PostprocessMultilineAttributes(
-		multilineAttributes ast.MultilineAttributesLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessMultilineParameters(
-		multilineParameters ast.MultilineParametersLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessMultilineParametersSlot(
-		slot uint,
-	)
-	PostprocessMultilineParameters(
-		multilineParameters ast.MultilineParametersLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessMultilineStatements(
-		multilineStatements ast.MultilineStatementsLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessMultilineStatementsSlot(
-		slot uint,
-	)
-	PostprocessMultilineStatements(
-		multilineStatements ast.MultilineStatementsLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessMultilineValues(
-		multilineValues ast.MultilineValuesLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessMultilineValuesSlot(
-		slot uint,
-	)
-	PostprocessMultilineValues(
-		multilineValues ast.MultilineValuesLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessNoAttributes(
-		noAttributes ast.NoAttributesLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessNoAttributesSlot(
-		slot uint,
-	)
-	PostprocessNoAttributes(
-		noAttributes ast.NoAttributesLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessNoStatements(
-		noStatements ast.NoStatementsLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessNoStatementsSlot(
-		slot uint,
-	)
-	PostprocessNoStatements(
-		noStatements ast.NoStatementsLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessNoValues(
-		noValues ast.NoValuesLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessNoValuesSlot(
-		slot uint,
-	)
-	PostprocessNoValues(
-		noValues ast.NoValuesLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -1653,19 +1393,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessStatementLine(
-		statementLine ast.StatementLineLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessStatementLineSlot(
-		slot uint,
-	)
-	PostprocessStatementLine(
-		statementLine ast.StatementLineLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessString(
 		string_ ast.StringLike,
 		index_ uint,
@@ -1754,6 +1481,19 @@ type Methodical interface {
 	)
 	PostprocessThrowClause(
 		throwClause ast.ThrowClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessValues(
+		values ast.ValuesLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessValuesSlot(
+		slot uint,
+	)
+	PostprocessValues(
+		values ast.ValuesLike,
 		index_ uint,
 		count_ uint,
 	)

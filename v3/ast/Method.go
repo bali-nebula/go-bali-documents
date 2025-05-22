@@ -20,6 +20,7 @@
 package ast
 
 import (
+	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -38,7 +39,7 @@ func (c *methodClass_) Method(
 	blocking BlockingLike,
 	identifier2 string,
 	delimiter1 string,
-	optionalArguments ArgumentsLike,
+	arguments col.Sequential[ArgumentLike],
 	delimiter2 string,
 ) MethodLike {
 	if uti.IsUndefined(identifier1) {
@@ -53,17 +54,20 @@ func (c *methodClass_) Method(
 	if uti.IsUndefined(delimiter1) {
 		panic("The \"delimiter1\" attribute is required by this class.")
 	}
+	if uti.IsUndefined(arguments) {
+		panic("The \"arguments\" attribute is required by this class.")
+	}
 	if uti.IsUndefined(delimiter2) {
 		panic("The \"delimiter2\" attribute is required by this class.")
 	}
 	var instance = &method_{
 		// Initialize the instance attributes.
-		identifier1_:       identifier1,
-		blocking_:          blocking,
-		identifier2_:       identifier2,
-		delimiter1_:        delimiter1,
-		optionalArguments_: optionalArguments,
-		delimiter2_:        delimiter2,
+		identifier1_: identifier1,
+		blocking_:    blocking,
+		identifier2_: identifier2,
+		delimiter1_:  delimiter1,
+		arguments_:   arguments,
+		delimiter2_:  delimiter2,
 	}
 	return instance
 }
@@ -94,8 +98,8 @@ func (v *method_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *method_) GetOptionalArguments() ArgumentsLike {
-	return v.optionalArguments_
+func (v *method_) GetArguments() col.Sequential[ArgumentLike] {
+	return v.arguments_
 }
 
 func (v *method_) GetDelimiter2() string {
@@ -108,12 +112,12 @@ func (v *method_) GetDelimiter2() string {
 
 type method_ struct {
 	// Declare the instance attributes.
-	identifier1_       string
-	blocking_          BlockingLike
-	identifier2_       string
-	delimiter1_        string
-	optionalArguments_ ArgumentsLike
-	delimiter2_        string
+	identifier1_ string
+	blocking_    BlockingLike
+	identifier2_ string
+	delimiter1_  string
+	arguments_   col.Sequential[ArgumentLike]
+	delimiter2_  string
 }
 
 // Class Structure

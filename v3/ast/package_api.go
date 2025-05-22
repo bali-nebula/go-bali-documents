@@ -59,106 +59,15 @@ type AcceptClauseClassLike interface {
 }
 
 /*
-AdditionalArgumentClassLike is a class interface that declares the
+AnnotationClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete additional-argument-like class.
+supported by each concrete annotation-like class.
 */
-type AdditionalArgumentClassLike interface {
+type AnnotationClassLike interface {
 	// Constructor Methods
-	AdditionalArgument(
-		delimiter string,
-		argument ArgumentLike,
-	) AdditionalArgumentLike
-}
-
-/*
-AdditionalAssociationClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete additional-association-like class.
-*/
-type AdditionalAssociationClassLike interface {
-	// Constructor Methods
-	AdditionalAssociation(
-		delimiter string,
-		association AssociationLike,
-	) AdditionalAssociationLike
-}
-
-/*
-AdditionalIndexClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete additional-index-like class.
-*/
-type AdditionalIndexClassLike interface {
-	// Constructor Methods
-	AdditionalIndex(
-		delimiter string,
-		index IndexLike,
-	) AdditionalIndexLike
-}
-
-/*
-AdditionalStatementClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete additional-statement-like class.
-*/
-type AdditionalStatementClassLike interface {
-	// Constructor Methods
-	AdditionalStatement(
-		delimiter string,
-		statement StatementLike,
-	) AdditionalStatementLike
-}
-
-/*
-AdditionalValueClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete additional-value-like class.
-*/
-type AdditionalValueClassLike interface {
-	// Constructor Methods
-	AdditionalValue(
-		delimiter string,
-		component ComponentLike,
-	) AdditionalValueLike
-}
-
-/*
-AnnotatedAssociationClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete annotated-association-like class.
-*/
-type AnnotatedAssociationClassLike interface {
-	// Constructor Methods
-	AnnotatedAssociation(
-		association AssociationLike,
-		optionalNote string,
-	) AnnotatedAssociationLike
-}
-
-/*
-AnnotatedStatementClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete annotated-statement-like class.
-*/
-type AnnotatedStatementClassLike interface {
-	// Constructor Methods
-	AnnotatedStatement(
-		any_ any,
-	) AnnotatedStatementLike
-}
-
-/*
-AnnotatedValueClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete annotated-value-like class.
-*/
-type AnnotatedValueClassLike interface {
-	// Constructor Methods
-	AnnotatedValue(
-		component ComponentLike,
-		optionalNote string,
-	) AnnotatedValueLike
+	Annotation(
+		comment string,
+	) AnnotationLike
 }
 
 /*
@@ -169,21 +78,8 @@ supported by each concrete argument-like class.
 type ArgumentClassLike interface {
 	// Constructor Methods
 	Argument(
-		identifier string,
+		any_ any,
 	) ArgumentLike
-}
-
-/*
-ArgumentsClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete arguments-like class.
-*/
-type ArgumentsClassLike interface {
-	// Constructor Methods
-	Arguments(
-		argument ArgumentLike,
-		additionalArguments col.Sequential[AdditionalArgumentLike],
-	) ArgumentsLike
 }
 
 /*
@@ -236,6 +132,20 @@ type AtLevelClassLike interface {
 		delimiter2 string,
 		expression ExpressionLike,
 	) AtLevelLike
+}
+
+/*
+AttributesClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete attributes-like class.
+*/
+type AttributesClassLike interface {
+	// Constructor Methods
+	Attributes(
+		delimiter1 string,
+		associations col.Sequential[AssociationLike],
+		delimiter2 string,
+	) AttributesLike
 }
 
 /*
@@ -316,6 +226,18 @@ type CitedClassLike interface {
 }
 
 /*
+CodeClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete code-like class.
+*/
+type CodeClassLike interface {
+	// Constructor Methods
+	Code(
+		any_ any,
+	) CodeLike
+}
+
+/*
 CollectionClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete collection-like class.
@@ -325,18 +247,6 @@ type CollectionClassLike interface {
 	Collection(
 		any_ any,
 	) CollectionLike
-}
-
-/*
-CommentLineClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete comment-line-like class.
-*/
-type CommentLineClassLike interface {
-	// Constructor Methods
-	CommentLine(
-		comment string,
-	) CommentLineLike
 }
 
 /*
@@ -374,6 +284,7 @@ type ComponentClassLike interface {
 	Component(
 		entity EntityLike,
 		optionalParameters ParametersLike,
+		optionalNote string,
 	) ComponentLike
 }
 
@@ -466,6 +377,20 @@ type ElementClassLike interface {
 }
 
 /*
+EmptyClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete empty-like class.
+*/
+type EmptyClassLike interface {
+	// Constructor Methods
+	Empty(
+		delimiter1 string,
+		delimiter2 string,
+		delimiter3 string,
+	) EmptyLike
+}
+
+/*
 EntityClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete entity-like class.
@@ -499,18 +424,6 @@ type ExceptionClassLike interface {
 	Exception(
 		expression ExpressionLike,
 	) ExceptionLike
-}
-
-/*
-ExclusiveClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete exclusive-like class.
-*/
-type ExclusiveClassLike interface {
-	// Constructor Methods
-	Exclusive(
-		delimiter string,
-	) ExclusiveLike
 }
 
 /*
@@ -576,9 +489,24 @@ type FunctionClassLike interface {
 	Function(
 		identifier string,
 		delimiter1 string,
-		optionalArguments ArgumentsLike,
+		arguments col.Sequential[ArgumentLike],
 		delimiter2 string,
 	) FunctionLike
+}
+
+/*
+HandlerClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete handler-like class.
+*/
+type HandlerClassLike interface {
+	// Constructor Methods
+	Handler(
+		delimiter1 string,
+		template TemplateLike,
+		delimiter2 string,
+		procedure ProcedureLike,
+	) HandlerLike
 }
 
 /*
@@ -594,18 +522,6 @@ type IfClauseClassLike interface {
 		delimiter2 string,
 		procedure ProcedureLike,
 	) IfClauseLike
-}
-
-/*
-InclusiveClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete inclusive-like class.
-*/
-type InclusiveClassLike interface {
-	// Constructor Methods
-	Inclusive(
-		delimiter string,
-	) InclusiveLike
 }
 
 /*
@@ -632,21 +548,8 @@ supported by each concrete index-like class.
 type IndexClassLike interface {
 	// Constructor Methods
 	Index(
-		expression ExpressionLike,
+		any_ any,
 	) IndexLike
-}
-
-/*
-IndicesClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete indices-like class.
-*/
-type IndicesClassLike interface {
-	// Constructor Methods
-	Indices(
-		index IndexLike,
-		additionalIndexes col.Sequential[AdditionalIndexLike],
-	) IndicesLike
 }
 
 /*
@@ -671,66 +574,6 @@ type InductionClassLike interface {
 	Induction(
 		any_ any,
 	) InductionLike
-}
-
-/*
-InlineAttributesClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete inline-attributes-like class.
-*/
-type InlineAttributesClassLike interface {
-	// Constructor Methods
-	InlineAttributes(
-		delimiter1 string,
-		association AssociationLike,
-		additionalAssociations col.Sequential[AdditionalAssociationLike],
-		delimiter2 string,
-	) InlineAttributesLike
-}
-
-/*
-InlineParametersClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete inline-parameters-like class.
-*/
-type InlineParametersClassLike interface {
-	// Constructor Methods
-	InlineParameters(
-		delimiter1 string,
-		association AssociationLike,
-		additionalAssociations col.Sequential[AdditionalAssociationLike],
-		delimiter2 string,
-	) InlineParametersLike
-}
-
-/*
-InlineStatementsClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete inline-statements-like class.
-*/
-type InlineStatementsClassLike interface {
-	// Constructor Methods
-	InlineStatements(
-		delimiter1 string,
-		statement StatementLike,
-		additionalStatements col.Sequential[AdditionalStatementLike],
-		delimiter2 string,
-	) InlineStatementsLike
-}
-
-/*
-InlineValuesClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete inline-values-like class.
-*/
-type InlineValuesClassLike interface {
-	// Constructor Methods
-	InlineValues(
-		delimiter1 string,
-		component ComponentLike,
-		additionalValues col.Sequential[AdditionalValueLike],
-		delimiter2 string,
-	) InlineValuesLike
 }
 
 /*
@@ -860,21 +703,6 @@ type MainClauseClassLike interface {
 }
 
 /*
-MatchHandlerClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete match-handler-like class.
-*/
-type MatchHandlerClassLike interface {
-	// Constructor Methods
-	MatchHandler(
-		delimiter1 string,
-		template TemplateLike,
-		delimiter2 string,
-		procedure ProcedureLike,
-	) MatchHandlerLike
-}
-
-/*
 MessageClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete message-like class.
@@ -910,109 +738,9 @@ type MethodClassLike interface {
 		blocking BlockingLike,
 		identifier2 string,
 		delimiter1 string,
-		optionalArguments ArgumentsLike,
+		arguments col.Sequential[ArgumentLike],
 		delimiter2 string,
 	) MethodLike
-}
-
-/*
-MultilineAttributesClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete multiline-attributes-like class.
-*/
-type MultilineAttributesClassLike interface {
-	// Constructor Methods
-	MultilineAttributes(
-		delimiter1 string,
-		newline string,
-		annotatedAssociations col.Sequential[AnnotatedAssociationLike],
-		delimiter2 string,
-	) MultilineAttributesLike
-}
-
-/*
-MultilineParametersClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete multiline-parameters-like class.
-*/
-type MultilineParametersClassLike interface {
-	// Constructor Methods
-	MultilineParameters(
-		delimiter1 string,
-		newline string,
-		annotatedAssociations col.Sequential[AnnotatedAssociationLike],
-		delimiter2 string,
-	) MultilineParametersLike
-}
-
-/*
-MultilineStatementsClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete multiline-statements-like class.
-*/
-type MultilineStatementsClassLike interface {
-	// Constructor Methods
-	MultilineStatements(
-		delimiter1 string,
-		newline string,
-		annotatedStatements col.Sequential[AnnotatedStatementLike],
-		delimiter2 string,
-	) MultilineStatementsLike
-}
-
-/*
-MultilineValuesClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete multiline-values-like class.
-*/
-type MultilineValuesClassLike interface {
-	// Constructor Methods
-	MultilineValues(
-		delimiter1 string,
-		newline string,
-		annotatedValues col.Sequential[AnnotatedValueLike],
-		delimiter2 string,
-	) MultilineValuesLike
-}
-
-/*
-NoAttributesClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete no-attributes-like class.
-*/
-type NoAttributesClassLike interface {
-	// Constructor Methods
-	NoAttributes(
-		delimiter1 string,
-		delimiter2 string,
-		delimiter3 string,
-	) NoAttributesLike
-}
-
-/*
-NoStatementsClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete no-statements-like class.
-*/
-type NoStatementsClassLike interface {
-	// Constructor Methods
-	NoStatements(
-		delimiter1 string,
-		delimiter2 string,
-	) NoStatementsLike
-}
-
-/*
-NoValuesClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete no-values-like class.
-*/
-type NoValuesClassLike interface {
-	// Constructor Methods
-	NoValues(
-		delimiter1 string,
-		delimiter2 string,
-	) NoValuesLike
 }
 
 /*
@@ -1052,7 +780,7 @@ type OnClauseClassLike interface {
 	OnClause(
 		delimiter string,
 		failure FailureLike,
-		matchHandlers col.Sequential[MatchHandlerLike],
+		handlers col.Sequential[HandlerLike],
 	) OnClauseLike
 }
 
@@ -1076,7 +804,9 @@ supported by each concrete parameters-like class.
 type ParametersClassLike interface {
 	// Constructor Methods
 	Parameters(
-		any_ any,
+		delimiter1 string,
+		associations col.Sequential[AssociationLike],
+		delimiter2 string,
 	) ParametersLike
 }
 
@@ -1142,7 +872,9 @@ supported by each concrete procedure-like class.
 type ProcedureClassLike interface {
 	// Constructor Methods
 	Procedure(
-		any_ any,
+		delimiter1 string,
+		codes col.Sequential[CodeLike],
+		delimiter2 string,
 	) ProcedureLike
 }
 
@@ -1274,7 +1006,7 @@ type SelectClauseClassLike interface {
 	SelectClause(
 		delimiter string,
 		target TargetLike,
-		matchHandlers col.Sequential[MatchHandlerLike],
+		handlers col.Sequential[HandlerLike],
 	) SelectClauseLike
 }
 
@@ -1300,20 +1032,8 @@ type StatementClassLike interface {
 	Statement(
 		mainClause MainClauseLike,
 		optionalOnClause OnClauseLike,
-	) StatementLike
-}
-
-/*
-StatementLineClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete statement-line-like class.
-*/
-type StatementLineClassLike interface {
-	// Constructor Methods
-	StatementLine(
-		statement StatementLike,
 		optionalNote string,
-	) StatementLineLike
+	) StatementLike
 }
 
 /*
@@ -1338,7 +1058,7 @@ type SubcomponentClassLike interface {
 	Subcomponent(
 		identifier string,
 		delimiter1 string,
-		indices IndicesLike,
+		indexes col.Sequential[IndexLike],
 		delimiter2 string,
 	) SubcomponentLike
 }
@@ -1405,6 +1125,20 @@ type ThrowClauseClassLike interface {
 }
 
 /*
+ValuesClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete values-like class.
+*/
+type ValuesClassLike interface {
+	// Constructor Methods
+	Values(
+		delimiter1 string,
+		components col.Sequential[ComponentLike],
+		delimiter2 string,
+	) ValuesLike
+}
+
+/*
 VariableClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete variable-like class.
@@ -1466,114 +1200,16 @@ type AcceptClauseLike interface {
 }
 
 /*
-AdditionalArgumentLike is an instance interface that declares the
+AnnotationLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete additional-argument-like class.
+by each instance of a concrete annotation-like class.
 */
-type AdditionalArgumentLike interface {
+type AnnotationLike interface {
 	// Principal Methods
-	GetClass() AdditionalArgumentClassLike
+	GetClass() AnnotationClassLike
 
 	// Attribute Methods
-	GetDelimiter() string
-	GetArgument() ArgumentLike
-}
-
-/*
-AdditionalAssociationLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete additional-association-like class.
-*/
-type AdditionalAssociationLike interface {
-	// Principal Methods
-	GetClass() AdditionalAssociationClassLike
-
-	// Attribute Methods
-	GetDelimiter() string
-	GetAssociation() AssociationLike
-}
-
-/*
-AdditionalIndexLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete additional-index-like class.
-*/
-type AdditionalIndexLike interface {
-	// Principal Methods
-	GetClass() AdditionalIndexClassLike
-
-	// Attribute Methods
-	GetDelimiter() string
-	GetIndex() IndexLike
-}
-
-/*
-AdditionalStatementLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete additional-statement-like class.
-*/
-type AdditionalStatementLike interface {
-	// Principal Methods
-	GetClass() AdditionalStatementClassLike
-
-	// Attribute Methods
-	GetDelimiter() string
-	GetStatement() StatementLike
-}
-
-/*
-AdditionalValueLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete additional-value-like class.
-*/
-type AdditionalValueLike interface {
-	// Principal Methods
-	GetClass() AdditionalValueClassLike
-
-	// Attribute Methods
-	GetDelimiter() string
-	GetComponent() ComponentLike
-}
-
-/*
-AnnotatedAssociationLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete annotated-association-like class.
-*/
-type AnnotatedAssociationLike interface {
-	// Principal Methods
-	GetClass() AnnotatedAssociationClassLike
-
-	// Attribute Methods
-	GetAssociation() AssociationLike
-	GetOptionalNote() string
-}
-
-/*
-AnnotatedStatementLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete annotated-statement-like class.
-*/
-type AnnotatedStatementLike interface {
-	// Principal Methods
-	GetClass() AnnotatedStatementClassLike
-
-	// Attribute Methods
-	GetAny() any
-}
-
-/*
-AnnotatedValueLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete annotated-value-like class.
-*/
-type AnnotatedValueLike interface {
-	// Principal Methods
-	GetClass() AnnotatedValueClassLike
-
-	// Attribute Methods
-	GetComponent() ComponentLike
-	GetOptionalNote() string
+	GetComment() string
 }
 
 /*
@@ -1586,21 +1222,7 @@ type ArgumentLike interface {
 	GetClass() ArgumentClassLike
 
 	// Attribute Methods
-	GetIdentifier() string
-}
-
-/*
-ArgumentsLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete arguments-like class.
-*/
-type ArgumentsLike interface {
-	// Principal Methods
-	GetClass() ArgumentsClassLike
-
-	// Attribute Methods
-	GetArgument() ArgumentLike
-	GetAdditionalArguments() col.Sequential[AdditionalArgumentLike]
+	GetAny() any
 }
 
 /*
@@ -1657,6 +1279,21 @@ type AtLevelLike interface {
 	GetDelimiter1() string
 	GetDelimiter2() string
 	GetExpression() ExpressionLike
+}
+
+/*
+AttributesLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete attributes-like class.
+*/
+type AttributesLike interface {
+	// Principal Methods
+	GetClass() AttributesClassLike
+
+	// Attribute Methods
+	GetDelimiter1() string
+	GetAssociations() col.Sequential[AssociationLike]
+	GetDelimiter2() string
 }
 
 /*
@@ -1743,6 +1380,19 @@ type CitedLike interface {
 }
 
 /*
+CodeLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete code-like class.
+*/
+type CodeLike interface {
+	// Principal Methods
+	GetClass() CodeClassLike
+
+	// Attribute Methods
+	GetAny() any
+}
+
+/*
 CollectionLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete collection-like class.
@@ -1753,19 +1403,6 @@ type CollectionLike interface {
 
 	// Attribute Methods
 	GetAny() any
-}
-
-/*
-CommentLineLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete comment-line-like class.
-*/
-type CommentLineLike interface {
-	// Principal Methods
-	GetClass() CommentLineClassLike
-
-	// Attribute Methods
-	GetComment() string
 }
 
 /*
@@ -1807,6 +1444,7 @@ type ComponentLike interface {
 	// Attribute Methods
 	GetEntity() EntityLike
 	GetOptionalParameters() ParametersLike
+	GetOptionalNote() string
 }
 
 /*
@@ -1905,6 +1543,21 @@ type ElementLike interface {
 }
 
 /*
+EmptyLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete empty-like class.
+*/
+type EmptyLike interface {
+	// Principal Methods
+	GetClass() EmptyClassLike
+
+	// Attribute Methods
+	GetDelimiter1() string
+	GetDelimiter2() string
+	GetDelimiter3() string
+}
+
+/*
 EntityLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete entity-like class.
@@ -1941,19 +1594,6 @@ type ExceptionLike interface {
 
 	// Attribute Methods
 	GetExpression() ExpressionLike
-}
-
-/*
-ExclusiveLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete exclusive-like class.
-*/
-type ExclusiveLike interface {
-	// Principal Methods
-	GetClass() ExclusiveClassLike
-
-	// Attribute Methods
-	GetDelimiter() string
 }
 
 /*
@@ -2025,8 +1665,24 @@ type FunctionLike interface {
 	// Attribute Methods
 	GetIdentifier() string
 	GetDelimiter1() string
-	GetOptionalArguments() ArgumentsLike
+	GetArguments() col.Sequential[ArgumentLike]
 	GetDelimiter2() string
+}
+
+/*
+HandlerLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete handler-like class.
+*/
+type HandlerLike interface {
+	// Principal Methods
+	GetClass() HandlerClassLike
+
+	// Attribute Methods
+	GetDelimiter1() string
+	GetTemplate() TemplateLike
+	GetDelimiter2() string
+	GetProcedure() ProcedureLike
 }
 
 /*
@@ -2043,19 +1699,6 @@ type IfClauseLike interface {
 	GetCondition() ConditionLike
 	GetDelimiter2() string
 	GetProcedure() ProcedureLike
-}
-
-/*
-InclusiveLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete inclusive-like class.
-*/
-type InclusiveLike interface {
-	// Principal Methods
-	GetClass() InclusiveClassLike
-
-	// Attribute Methods
-	GetDelimiter() string
 }
 
 /*
@@ -2085,21 +1728,7 @@ type IndexLike interface {
 	GetClass() IndexClassLike
 
 	// Attribute Methods
-	GetExpression() ExpressionLike
-}
-
-/*
-IndicesLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete indices-like class.
-*/
-type IndicesLike interface {
-	// Principal Methods
-	GetClass() IndicesClassLike
-
-	// Attribute Methods
-	GetIndex() IndexLike
-	GetAdditionalIndexes() col.Sequential[AdditionalIndexLike]
+	GetAny() any
 }
 
 /*
@@ -2126,70 +1755,6 @@ type InductionLike interface {
 
 	// Attribute Methods
 	GetAny() any
-}
-
-/*
-InlineAttributesLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete inline-attributes-like class.
-*/
-type InlineAttributesLike interface {
-	// Principal Methods
-	GetClass() InlineAttributesClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetAssociation() AssociationLike
-	GetAdditionalAssociations() col.Sequential[AdditionalAssociationLike]
-	GetDelimiter2() string
-}
-
-/*
-InlineParametersLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete inline-parameters-like class.
-*/
-type InlineParametersLike interface {
-	// Principal Methods
-	GetClass() InlineParametersClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetAssociation() AssociationLike
-	GetAdditionalAssociations() col.Sequential[AdditionalAssociationLike]
-	GetDelimiter2() string
-}
-
-/*
-InlineStatementsLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete inline-statements-like class.
-*/
-type InlineStatementsLike interface {
-	// Principal Methods
-	GetClass() InlineStatementsClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetStatement() StatementLike
-	GetAdditionalStatements() col.Sequential[AdditionalStatementLike]
-	GetDelimiter2() string
-}
-
-/*
-InlineValuesLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete inline-values-like class.
-*/
-type InlineValuesLike interface {
-	// Principal Methods
-	GetClass() InlineValuesClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetComponent() ComponentLike
-	GetAdditionalValues() col.Sequential[AdditionalValueLike]
-	GetDelimiter2() string
 }
 
 /*
@@ -2329,22 +1894,6 @@ type MainClauseLike interface {
 }
 
 /*
-MatchHandlerLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete match-handler-like class.
-*/
-type MatchHandlerLike interface {
-	// Principal Methods
-	GetClass() MatchHandlerClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetTemplate() TemplateLike
-	GetDelimiter2() string
-	GetProcedure() ProcedureLike
-}
-
-/*
 MessageLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete message-like class.
@@ -2384,114 +1933,7 @@ type MethodLike interface {
 	GetBlocking() BlockingLike
 	GetIdentifier2() string
 	GetDelimiter1() string
-	GetOptionalArguments() ArgumentsLike
-	GetDelimiter2() string
-}
-
-/*
-MultilineAttributesLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete multiline-attributes-like class.
-*/
-type MultilineAttributesLike interface {
-	// Principal Methods
-	GetClass() MultilineAttributesClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetNewline() string
-	GetAnnotatedAssociations() col.Sequential[AnnotatedAssociationLike]
-	GetDelimiter2() string
-}
-
-/*
-MultilineParametersLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete multiline-parameters-like class.
-*/
-type MultilineParametersLike interface {
-	// Principal Methods
-	GetClass() MultilineParametersClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetNewline() string
-	GetAnnotatedAssociations() col.Sequential[AnnotatedAssociationLike]
-	GetDelimiter2() string
-}
-
-/*
-MultilineStatementsLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete multiline-statements-like class.
-*/
-type MultilineStatementsLike interface {
-	// Principal Methods
-	GetClass() MultilineStatementsClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetNewline() string
-	GetAnnotatedStatements() col.Sequential[AnnotatedStatementLike]
-	GetDelimiter2() string
-}
-
-/*
-MultilineValuesLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete multiline-values-like class.
-*/
-type MultilineValuesLike interface {
-	// Principal Methods
-	GetClass() MultilineValuesClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetNewline() string
-	GetAnnotatedValues() col.Sequential[AnnotatedValueLike]
-	GetDelimiter2() string
-}
-
-/*
-NoAttributesLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete no-attributes-like class.
-*/
-type NoAttributesLike interface {
-	// Principal Methods
-	GetClass() NoAttributesClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetDelimiter2() string
-	GetDelimiter3() string
-}
-
-/*
-NoStatementsLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete no-statements-like class.
-*/
-type NoStatementsLike interface {
-	// Principal Methods
-	GetClass() NoStatementsClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
-	GetDelimiter2() string
-}
-
-/*
-NoValuesLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete no-values-like class.
-*/
-type NoValuesLike interface {
-	// Principal Methods
-	GetClass() NoValuesClassLike
-
-	// Attribute Methods
-	GetDelimiter1() string
+	GetArguments() col.Sequential[ArgumentLike]
 	GetDelimiter2() string
 }
 
@@ -2536,7 +1978,7 @@ type OnClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetFailure() FailureLike
-	GetMatchHandlers() col.Sequential[MatchHandlerLike]
+	GetHandlers() col.Sequential[HandlerLike]
 }
 
 /*
@@ -2562,7 +2004,9 @@ type ParametersLike interface {
 	GetClass() ParametersClassLike
 
 	// Attribute Methods
-	GetAny() any
+	GetDelimiter1() string
+	GetAssociations() col.Sequential[AssociationLike]
+	GetDelimiter2() string
 }
 
 /*
@@ -2633,7 +2077,9 @@ type ProcedureLike interface {
 	GetClass() ProcedureClassLike
 
 	// Attribute Methods
-	GetAny() any
+	GetDelimiter1() string
+	GetCodes() col.Sequential[CodeLike]
+	GetDelimiter2() string
 }
 
 /*
@@ -2775,7 +2221,7 @@ type SelectClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetTarget() TargetLike
-	GetMatchHandlers() col.Sequential[MatchHandlerLike]
+	GetHandlers() col.Sequential[HandlerLike]
 }
 
 /*
@@ -2803,19 +2249,6 @@ type StatementLike interface {
 	// Attribute Methods
 	GetMainClause() MainClauseLike
 	GetOptionalOnClause() OnClauseLike
-}
-
-/*
-StatementLineLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete statement-line-like class.
-*/
-type StatementLineLike interface {
-	// Principal Methods
-	GetClass() StatementLineClassLike
-
-	// Attribute Methods
-	GetStatement() StatementLike
 	GetOptionalNote() string
 }
 
@@ -2844,7 +2277,7 @@ type SubcomponentLike interface {
 	// Attribute Methods
 	GetIdentifier() string
 	GetDelimiter1() string
-	GetIndices() IndicesLike
+	GetIndexes() col.Sequential[IndexLike]
 	GetDelimiter2() string
 }
 
@@ -2912,6 +2345,21 @@ type ThrowClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetException() ExceptionLike
+}
+
+/*
+ValuesLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete values-like class.
+*/
+type ValuesLike interface {
+	// Principal Methods
+	GetClass() ValuesClassLike
+
+	// Attribute Methods
+	GetDelimiter1() string
+	GetComponents() col.Sequential[ComponentLike]
+	GetDelimiter2() string
 }
 
 /*
