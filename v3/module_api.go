@@ -66,6 +66,7 @@ type (
 	ElementClassLike        = ast.ElementClassLike
 	EmptyClassLike          = ast.EmptyClassLike
 	EntityClassLike         = ast.EntityClassLike
+	EntryClassLike          = ast.EntryClassLike
 	EventClassLike          = ast.EventClassLike
 	ExceptionClassLike      = ast.ExceptionClassLike
 	ExpressionClassLike     = ast.ExpressionClassLike
@@ -80,7 +81,8 @@ type (
 	InverseClassLike        = ast.InverseClassLike
 	InversionClassLike      = ast.InversionClassLike
 	InvocationClassLike     = ast.InvocationClassLike
-	ItemClassLike           = ast.ItemClassLike
+	ItemsClassLike          = ast.ItemsClassLike
+	KeyClassLike            = ast.KeyClassLike
 	LeftBracketClassLike    = ast.LeftBracketClassLike
 	LetClauseClassLike      = ast.LetClauseClassLike
 	LogicClassLike          = ast.LogicClassLike
@@ -121,7 +123,7 @@ type (
 	TemplateClassLike       = ast.TemplateClassLike
 	TextualClassLike        = ast.TextualClassLike
 	ThrowClauseClassLike    = ast.ThrowClauseClassLike
-	ValuesClassLike         = ast.ValuesClassLike
+	ValueClassLike          = ast.ValueClassLike
 	VariableClassLike       = ast.VariableClassLike
 	WhileClauseClassLike    = ast.WhileClauseClassLike
 	WithClauseClassLike     = ast.WithClauseClassLike
@@ -155,6 +157,7 @@ type (
 	ElementLike        = ast.ElementLike
 	EmptyLike          = ast.EmptyLike
 	EntityLike         = ast.EntityLike
+	EntryLike          = ast.EntryLike
 	EventLike          = ast.EventLike
 	ExceptionLike      = ast.ExceptionLike
 	ExpressionLike     = ast.ExpressionLike
@@ -169,7 +172,8 @@ type (
 	InverseLike        = ast.InverseLike
 	InversionLike      = ast.InversionLike
 	InvocationLike     = ast.InvocationLike
-	ItemLike           = ast.ItemLike
+	ItemsLike          = ast.ItemsLike
+	KeyLike            = ast.KeyLike
 	LeftBracketLike    = ast.LeftBracketLike
 	LetClauseLike      = ast.LetClauseLike
 	LogicLike          = ast.LogicLike
@@ -210,7 +214,7 @@ type (
 	TemplateLike       = ast.TemplateLike
 	TextualLike        = ast.TextualLike
 	ThrowClauseLike    = ast.ThrowClauseLike
-	ValuesLike         = ast.ValuesLike
+	ValueLike          = ast.ValueLike
 	VariableLike       = ast.VariableLike
 	WhileClauseLike    = ast.WhileClauseLike
 	WithClauseLike     = ast.WithClauseLike
@@ -356,14 +360,14 @@ func AssociationClass() AssociationClassLike {
 }
 
 func Association(
-	primitive ast.PrimitiveLike,
+	key ast.KeyLike,
 	delimiter string,
-	component ast.ComponentLike,
+	entry ast.EntryLike,
 ) AssociationLike {
 	return AssociationClass().Association(
-		primitive,
+		key,
 		delimiter,
-		component,
+		entry,
 	)
 }
 
@@ -655,6 +659,18 @@ func Entity(
 	)
 }
 
+func EntryClass() EntryClassLike {
+	return ast.EntryClass()
+}
+
+func Entry(
+	component ast.ComponentLike,
+) EntryLike {
+	return EntryClass().Entry(
+		component,
+	)
+}
+
 func EventClass() EventClassLike {
 	return ast.EventClass()
 }
@@ -845,15 +861,31 @@ func Invocation(
 	)
 }
 
-func ItemClass() ItemClassLike {
-	return ast.ItemClass()
+func ItemsClass() ItemsClassLike {
+	return ast.ItemsClass()
 }
 
-func Item(
-	symbol string,
-) ItemLike {
-	return ItemClass().Item(
-		symbol,
+func Items(
+	delimiter1 string,
+	entries col.Sequential[ast.EntryLike],
+	delimiter2 string,
+) ItemsLike {
+	return ItemsClass().Items(
+		delimiter1,
+		entries,
+		delimiter2,
+	)
+}
+
+func KeyClass() KeyClassLike {
+	return ast.KeyClass()
+}
+
+func Key(
+	primitive ast.PrimitiveLike,
+) KeyLike {
+	return KeyClass().Key(
+		primitive,
 	)
 }
 
@@ -1431,19 +1463,15 @@ func ThrowClause(
 	)
 }
 
-func ValuesClass() ValuesClassLike {
-	return ast.ValuesClass()
+func ValueClass() ValueClassLike {
+	return ast.ValueClass()
 }
 
-func Values(
-	delimiter1 string,
-	components col.Sequential[ast.ComponentLike],
-	delimiter2 string,
-) ValuesLike {
-	return ValuesClass().Values(
-		delimiter1,
-		components,
-		delimiter2,
+func Value(
+	identifier string,
+) ValueLike {
+	return ValueClass().Value(
+		identifier,
 	)
 }
 
@@ -1452,10 +1480,10 @@ func VariableClass() VariableClassLike {
 }
 
 func Variable(
-	identifier string,
+	symbol string,
 ) VariableLike {
 	return VariableClass().Variable(
-		identifier,
+		symbol,
 	)
 }
 
@@ -1484,7 +1512,7 @@ func WithClauseClass() WithClauseClassLike {
 func WithClause(
 	delimiter1 string,
 	delimiter2 string,
-	item ast.ItemLike,
+	variable ast.VariableLike,
 	delimiter3 string,
 	sequence ast.SequenceLike,
 	delimiter4 string,
@@ -1493,7 +1521,7 @@ func WithClause(
 	return WithClauseClass().WithClause(
 		delimiter1,
 		delimiter2,
-		item,
+		variable,
 		delimiter3,
 		sequence,
 		delimiter4,

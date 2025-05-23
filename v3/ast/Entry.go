@@ -20,7 +20,6 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -28,31 +27,21 @@ import (
 
 // Access Function
 
-func ValuesClass() ValuesClassLike {
-	return valuesClass()
+func EntryClass() EntryClassLike {
+	return entryClass()
 }
 
 // Constructor Methods
 
-func (c *valuesClass_) Values(
-	delimiter1 string,
-	components col.Sequential[ComponentLike],
-	delimiter2 string,
-) ValuesLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
+func (c *entryClass_) Entry(
+	component ComponentLike,
+) EntryLike {
+	if uti.IsUndefined(component) {
+		panic("The \"component\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(components) {
-		panic("The \"components\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
-	}
-	var instance = &values_{
+	var instance = &entry_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		components_: components,
-		delimiter2_: delimiter2,
+		component_: component,
 	}
 	return instance
 }
@@ -61,47 +50,37 @@ func (c *valuesClass_) Values(
 
 // Principal Methods
 
-func (v *values_) GetClass() ValuesClassLike {
-	return valuesClass()
+func (v *entry_) GetClass() EntryClassLike {
+	return entryClass()
 }
 
 // Attribute Methods
 
-func (v *values_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *values_) GetComponents() col.Sequential[ComponentLike] {
-	return v.components_
-}
-
-func (v *values_) GetDelimiter2() string {
-	return v.delimiter2_
+func (v *entry_) GetComponent() ComponentLike {
+	return v.component_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type values_ struct {
+type entry_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	components_ col.Sequential[ComponentLike]
-	delimiter2_ string
+	component_ ComponentLike
 }
 
 // Class Structure
 
-type valuesClass_ struct {
+type entryClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func valuesClass() *valuesClass_ {
-	return valuesClassReference_
+func entryClass() *entryClass_ {
+	return entryClassReference_
 }
 
-var valuesClassReference_ = &valuesClass_{
+var entryClassReference_ = &entryClass_{
 	// Initialize the class constants.
 }

@@ -20,6 +20,7 @@
 package ast
 
 import (
+	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -27,21 +28,31 @@ import (
 
 // Access Function
 
-func ItemClass() ItemClassLike {
-	return itemClass()
+func ItemsClass() ItemsClassLike {
+	return itemsClass()
 }
 
 // Constructor Methods
 
-func (c *itemClass_) Item(
-	symbol string,
-) ItemLike {
-	if uti.IsUndefined(symbol) {
-		panic("The \"symbol\" attribute is required by this class.")
+func (c *itemsClass_) Items(
+	delimiter1 string,
+	entries col.Sequential[EntryLike],
+	delimiter2 string,
+) ItemsLike {
+	if uti.IsUndefined(delimiter1) {
+		panic("The \"delimiter1\" attribute is required by this class.")
 	}
-	var instance = &item_{
+	if uti.IsUndefined(entries) {
+		panic("The \"entries\" attribute is required by this class.")
+	}
+	if uti.IsUndefined(delimiter2) {
+		panic("The \"delimiter2\" attribute is required by this class.")
+	}
+	var instance = &items_{
 		// Initialize the instance attributes.
-		symbol_: symbol,
+		delimiter1_: delimiter1,
+		entries_:    entries,
+		delimiter2_: delimiter2,
 	}
 	return instance
 }
@@ -50,37 +61,47 @@ func (c *itemClass_) Item(
 
 // Principal Methods
 
-func (v *item_) GetClass() ItemClassLike {
-	return itemClass()
+func (v *items_) GetClass() ItemsClassLike {
+	return itemsClass()
 }
 
 // Attribute Methods
 
-func (v *item_) GetSymbol() string {
-	return v.symbol_
+func (v *items_) GetDelimiter1() string {
+	return v.delimiter1_
+}
+
+func (v *items_) GetEntries() col.Sequential[EntryLike] {
+	return v.entries_
+}
+
+func (v *items_) GetDelimiter2() string {
+	return v.delimiter2_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type item_ struct {
+type items_ struct {
 	// Declare the instance attributes.
-	symbol_ string
+	delimiter1_ string
+	entries_    col.Sequential[EntryLike]
+	delimiter2_ string
 }
 
 // Class Structure
 
-type itemClass_ struct {
+type itemsClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func itemClass() *itemClass_ {
-	return itemClassReference_
+func itemsClass() *itemsClass_ {
+	return itemsClassReference_
 }
 
-var itemClassReference_ = &itemClass_{
+var itemsClassReference_ = &itemsClass_{
 	// Initialize the class constants.
 }

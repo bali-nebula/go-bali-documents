@@ -114,9 +114,9 @@ supported by each concrete association-like class.
 type AssociationClassLike interface {
 	// Constructor Methods
 	Association(
-		primitive PrimitiveLike,
+		key KeyLike,
 		delimiter string,
-		component ComponentLike,
+		entry EntryLike,
 	) AssociationLike
 }
 
@@ -391,6 +391,18 @@ type EntityClassLike interface {
 }
 
 /*
+EntryClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete entry-like class.
+*/
+type EntryClassLike interface {
+	// Constructor Methods
+	Entry(
+		component ComponentLike,
+	) EntryLike
+}
+
+/*
 EventClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete event-like class.
@@ -570,15 +582,29 @@ type InvocationClassLike interface {
 }
 
 /*
-ItemClassLike is a class interface that declares the
+ItemsClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete item-like class.
+supported by each concrete items-like class.
 */
-type ItemClassLike interface {
+type ItemsClassLike interface {
 	// Constructor Methods
-	Item(
-		symbol string,
-	) ItemLike
+	Items(
+		delimiter1 string,
+		entries col.Sequential[EntryLike],
+		delimiter2 string,
+	) ItemsLike
+}
+
+/*
+KeyClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete key-like class.
+*/
+type KeyClassLike interface {
+	// Constructor Methods
+	Key(
+		primitive PrimitiveLike,
+	) KeyLike
 }
 
 /*
@@ -1109,17 +1135,15 @@ type ThrowClauseClassLike interface {
 }
 
 /*
-ValuesClassLike is a class interface that declares the
+ValueClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete values-like class.
+supported by each concrete value-like class.
 */
-type ValuesClassLike interface {
+type ValueClassLike interface {
 	// Constructor Methods
-	Values(
-		delimiter1 string,
-		components col.Sequential[ComponentLike],
-		delimiter2 string,
-	) ValuesLike
+	Value(
+		identifier string,
+	) ValueLike
 }
 
 /*
@@ -1130,7 +1154,7 @@ supported by each concrete variable-like class.
 type VariableClassLike interface {
 	// Constructor Methods
 	Variable(
-		identifier string,
+		symbol string,
 	) VariableLike
 }
 
@@ -1159,7 +1183,7 @@ type WithClauseClassLike interface {
 	WithClause(
 		delimiter1 string,
 		delimiter2 string,
-		item ItemLike,
+		variable VariableLike,
 		delimiter3 string,
 		sequence SequenceLike,
 		delimiter4 string,
@@ -1245,9 +1269,9 @@ type AssociationLike interface {
 	GetClass() AssociationClassLike
 
 	// Attribute Methods
-	GetPrimitive() PrimitiveLike
+	GetKey() KeyLike
 	GetDelimiter() string
-	GetComponent() ComponentLike
+	GetEntry() EntryLike
 }
 
 /*
@@ -1542,6 +1566,19 @@ type EntityLike interface {
 }
 
 /*
+EntryLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete entry-like class.
+*/
+type EntryLike interface {
+	// Principal Methods
+	GetClass() EntryClassLike
+
+	// Attribute Methods
+	GetComponent() ComponentLike
+}
+
+/*
 EventLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete event-like class.
@@ -1735,16 +1772,31 @@ type InvocationLike interface {
 }
 
 /*
-ItemLike is an instance interface that declares the
+ItemsLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete item-like class.
+by each instance of a concrete items-like class.
 */
-type ItemLike interface {
+type ItemsLike interface {
 	// Principal Methods
-	GetClass() ItemClassLike
+	GetClass() ItemsClassLike
 
 	// Attribute Methods
-	GetSymbol() string
+	GetDelimiter1() string
+	GetEntries() col.Sequential[EntryLike]
+	GetDelimiter2() string
+}
+
+/*
+KeyLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete key-like class.
+*/
+type KeyLike interface {
+	// Principal Methods
+	GetClass() KeyClassLike
+
+	// Attribute Methods
+	GetPrimitive() PrimitiveLike
 }
 
 /*
@@ -2315,18 +2367,16 @@ type ThrowClauseLike interface {
 }
 
 /*
-ValuesLike is an instance interface that declares the
+ValueLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete values-like class.
+by each instance of a concrete value-like class.
 */
-type ValuesLike interface {
+type ValueLike interface {
 	// Principal Methods
-	GetClass() ValuesClassLike
+	GetClass() ValueClassLike
 
 	// Attribute Methods
-	GetDelimiter1() string
-	GetComponents() col.Sequential[ComponentLike]
-	GetDelimiter2() string
+	GetIdentifier() string
 }
 
 /*
@@ -2339,7 +2389,7 @@ type VariableLike interface {
 	GetClass() VariableClassLike
 
 	// Attribute Methods
-	GetIdentifier() string
+	GetSymbol() string
 }
 
 /*
@@ -2370,7 +2420,7 @@ type WithClauseLike interface {
 	// Attribute Methods
 	GetDelimiter1() string
 	GetDelimiter2() string
-	GetItem() ItemLike
+	GetVariable() VariableLike
 	GetDelimiter3() string
 	GetSequence() SequenceLike
 	GetDelimiter4() string

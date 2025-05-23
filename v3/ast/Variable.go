@@ -34,14 +34,14 @@ func VariableClass() VariableClassLike {
 // Constructor Methods
 
 func (c *variableClass_) Variable(
-	identifier string,
+	symbol string,
 ) VariableLike {
-	if uti.IsUndefined(identifier) {
-		panic("The \"identifier\" attribute is required by this class.")
+	if uti.IsUndefined(symbol) {
+		panic("The \"symbol\" attribute is required by this class.")
 	}
 	var instance = &variable_{
 		// Initialize the instance attributes.
-		identifier_: identifier,
+		symbol_: symbol,
 	}
 	return instance
 }
@@ -56,8 +56,8 @@ func (v *variable_) GetClass() VariableClassLike {
 
 // Attribute Methods
 
-func (v *variable_) GetIdentifier() string {
-	return v.identifier_
+func (v *variable_) GetSymbol() string {
+	return v.symbol_
 }
 
 // PROTECTED INTERFACE
@@ -66,7 +66,7 @@ func (v *variable_) GetIdentifier() string {
 
 type variable_ struct {
 	// Declare the instance attributes.
-	identifier_ string
+	symbol_ string
 }
 
 // Class Structure

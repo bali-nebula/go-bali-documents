@@ -756,6 +756,19 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessEntry(
+		entry ast.EntryLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessEntrySlot(
+		slot uint,
+	)
+	PostprocessEntry(
+		entry ast.EntryLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessEvent(
 		event ast.EventLike,
 		index_ uint,
@@ -938,16 +951,29 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessItem(
-		item ast.ItemLike,
+	PreprocessItems(
+		items ast.ItemsLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessItemSlot(
+	ProcessItemsSlot(
 		slot uint,
 	)
-	PostprocessItem(
-		item ast.ItemLike,
+	PostprocessItems(
+		items ast.ItemsLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessKey(
+		key ast.KeyLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessKeySlot(
+		slot uint,
+	)
+	PostprocessKey(
+		key ast.KeyLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -1471,16 +1497,16 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessValues(
-		values ast.ValuesLike,
+	PreprocessValue(
+		value ast.ValueLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessValuesSlot(
+	ProcessValueSlot(
 		slot uint,
 	)
-	PostprocessValues(
-		values ast.ValuesLike,
+	PostprocessValue(
+		value ast.ValueLike,
 		index_ uint,
 		count_ uint,
 	)

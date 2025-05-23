@@ -165,12 +165,12 @@ func (v *parser_) parseArgument() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Variable Argument.
-	var variable ast.VariableLike
-	variable, token, ok = v.parseVariable()
+	// Attempt to parse a single Value Argument.
+	var value ast.ValueLike
+	value, token, ok = v.parseValue()
 	if ok {
-		// Found a single Variable Argument.
-		argument = ast.ArgumentClass().Argument(variable)
+		// Found a single Value Argument.
+		argument = ast.ArgumentClass().Argument(value)
 		return
 	}
 
@@ -316,17 +316,15 @@ func (v *parser_) parseAssociation() (
 ) {
 	var tokens = col.List[TokenLike]()
 
-	// Attempt to parse a single Primitive rule.
-	var primitive ast.PrimitiveLike
-	primitive, token, ok = v.parsePrimitive()
+	// Attempt to parse a single Key rule.
+	var key ast.KeyLike
+	key, token, ok = v.parseKey()
 	switch {
 	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
+		// No additional put backs allowed at this point.
+		tokens = nil
 	case uti.IsDefined(tokens):
-		// This is not a single Primitive rule.
+		// This is not a single Key rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -353,15 +351,15 @@ func (v *parser_) parseAssociation() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse a single Component rule.
-	var component ast.ComponentLike
-	component, token, ok = v.parseComponent()
+	// Attempt to parse a single Entry rule.
+	var entry ast.EntryLike
+	entry, token, ok = v.parseEntry()
 	switch {
 	case ok:
 		// No additional put backs allowed at this point.
 		tokens = nil
 	case uti.IsDefined(tokens):
-		// This is not a single Component rule.
+		// This is not a single Entry rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -374,9 +372,9 @@ func (v *parser_) parseAssociation() (
 	ok = true
 	v.remove(tokens)
 	association = ast.AssociationClass().Association(
-		primitive,
+		key,
 		delimiter,
-		component,
+		entry,
 	)
 	return
 }
@@ -822,12 +820,12 @@ func (v *parser_) parseCollection() (
 		return
 	}
 
-	// Attempt to parse a single Values Collection.
-	var values ast.ValuesLike
-	values, token, ok = v.parseValues()
+	// Attempt to parse a single Items Collection.
+	var items ast.ItemsLike
+	items, token, ok = v.parseItems()
 	if ok {
-		// Found a single Values Collection.
-		collection = ast.CollectionClass().Collection(values)
+		// Found a single Items Collection.
+		collection = ast.CollectionClass().Collection(items)
 		return
 	}
 
@@ -1463,6 +1461,37 @@ func (v *parser_) parseEntity() (
 	return
 }
 
+func (v *parser_) parseEntry() (
+	entry ast.EntryLike,
+	token TokenLike,
+	ok bool,
+) {
+	var tokens = col.List[TokenLike]()
+
+	// Attempt to parse a single Component rule.
+	var component ast.ComponentLike
+	component, token, ok = v.parseComponent()
+	switch {
+	case ok:
+		// No additional put backs allowed at this point.
+		tokens = nil
+	case uti.IsDefined(tokens):
+		// This is not a single Component rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Entry", token)
+		panic(message)
+	}
+
+	// Found a single Entry rule.
+	ok = true
+	v.remove(tokens)
+	entry = ast.EntryClass().Entry(component)
+	return
+}
+
 func (v *parser_) parseEvent() (
 	event ast.EventLike,
 	token TokenLike,
@@ -1980,12 +2009,12 @@ func (v *parser_) parseIndex() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Variable Index.
-	var variable ast.VariableLike
-	variable, token, ok = v.parseVariable()
+	// Attempt to parse a single Value Index.
+	var value ast.ValueLike
+	value, token, ok = v.parseValue()
 	if ok {
-		// Found a single Variable Index.
-		index = ast.IndexClass().Index(variable)
+		// Found a single Value Index.
+		index = ast.IndexClass().Index(value)
 		return
 	}
 
@@ -2052,12 +2081,12 @@ func (v *parser_) parseIndirect() (
 		return
 	}
 
-	// Attempt to parse a single Variable Indirect.
-	var variable ast.VariableLike
-	variable, token, ok = v.parseVariable()
+	// Attempt to parse a single Value Indirect.
+	var value ast.ValueLike
+	value, token, ok = v.parseValue()
 	if ok {
-		// Found a single Variable Indirect.
-		indirect = ast.IndirectClass().Indirect(variable)
+		// Found a single Value Indirect.
+		indirect = ast.IndirectClass().Indirect(value)
 		return
 	}
 
@@ -2208,24 +2237,24 @@ func (v *parser_) parseInvocation() (
 	return
 }
 
-func (v *parser_) parseItem() (
-	item ast.ItemLike,
+func (v *parser_) parseItems() (
+	items ast.ItemsLike,
 	token TokenLike,
 	ok bool,
 ) {
 	var tokens = col.List[TokenLike]()
 
-	// Attempt to parse a single symbol token.
-	var symbol string
-	symbol, token, ok = v.parseToken(SymbolToken)
+	// Attempt to parse a single "[" literal.
+	var delimiter1 string
+	delimiter1, token, ok = v.parseDelimiter("[")
 	if !ok {
 		if uti.IsDefined(tokens) {
-			// This is not a single symbol token.
+			// This is not a single Items rule.
 			v.putBack(tokens)
 			return
 		} else {
 			// Found a syntax error.
-			var message = v.formatError("$Item", token)
+			var message = v.formatError("$Items", token)
 			panic(message)
 		}
 	}
@@ -2233,10 +2262,91 @@ func (v *parser_) parseItem() (
 		tokens.AppendValue(token)
 	}
 
-	// Found a single Item rule.
+	// Attempt to parse multiple Entry rules.
+	var entries = col.List[ast.EntryLike]()
+entriesLoop:
+	for count_ := 0; count_ < mat.MaxInt; count_++ {
+		var entry ast.EntryLike
+		entry, token, ok = v.parseEntry()
+		if !ok {
+			switch {
+			case count_ >= 0:
+				break entriesLoop
+			case uti.IsDefined(tokens):
+				// This is not multiple Entry rules.
+				v.putBack(tokens)
+				return
+			default:
+				// Found a syntax error.
+				var message = v.formatError("$Items", token)
+				message += "0 or more Entry rules are required."
+				panic(message)
+			}
+		}
+		// No additional put backs allowed at this point.
+		tokens = nil
+		entries.AppendValue(entry)
+	}
+
+	// Attempt to parse a single "]" literal.
+	var delimiter2 string
+	delimiter2, token, ok = v.parseDelimiter("]")
+	if !ok {
+		if uti.IsDefined(tokens) {
+			// This is not a single Items rule.
+			v.putBack(tokens)
+			return
+		} else {
+			// Found a syntax error.
+			var message = v.formatError("$Items", token)
+			panic(message)
+		}
+	}
+	if uti.IsDefined(tokens) {
+		tokens.AppendValue(token)
+	}
+
+	// Found a single Items rule.
 	ok = true
 	v.remove(tokens)
-	item = ast.ItemClass().Item(symbol)
+	items = ast.ItemsClass().Items(
+		delimiter1,
+		entries,
+		delimiter2,
+	)
+	return
+}
+
+func (v *parser_) parseKey() (
+	key ast.KeyLike,
+	token TokenLike,
+	ok bool,
+) {
+	var tokens = col.List[TokenLike]()
+
+	// Attempt to parse a single Primitive rule.
+	var primitive ast.PrimitiveLike
+	primitive, token, ok = v.parsePrimitive()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single Primitive rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Key", token)
+		panic(message)
+	}
+
+	// Found a single Key rule.
+	ok = true
+	v.remove(tokens)
+	key = ast.KeyClass().Key(primitive)
 	return
 }
 
@@ -2468,12 +2578,12 @@ func (v *parser_) parseLogical() (
 		return
 	}
 
-	// Attempt to parse a single Variable Logical.
-	var variable ast.VariableLike
-	variable, token, ok = v.parseVariable()
+	// Attempt to parse a single Value Logical.
+	var value ast.ValueLike
+	value, token, ok = v.parseValue()
 	if ok {
-		// Found a single Variable Logical.
-		logical = ast.LogicalClass().Logical(variable)
+		// Found a single Value Logical.
+		logical = ast.LogicalClass().Logical(value)
 		return
 	}
 
@@ -2986,12 +3096,12 @@ func (v *parser_) parseNumerical() (
 		return
 	}
 
-	// Attempt to parse a single Variable Numerical.
-	var variable ast.VariableLike
-	variable, token, ok = v.parseVariable()
+	// Attempt to parse a single Value Numerical.
+	var value ast.ValueLike
+	value, token, ok = v.parseValue()
 	if ok {
-		// Found a single Variable Numerical.
-		numerical = ast.NumericalClass().Numerical(variable)
+		// Found a single Value Numerical.
+		numerical = ast.NumericalClass().Numerical(value)
 		return
 	}
 
@@ -3694,12 +3804,12 @@ func (v *parser_) parseRecipient() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Item Recipient.
-	var item ast.ItemLike
-	item, token, ok = v.parseItem()
+	// Attempt to parse a single Variable Recipient.
+	var variable ast.VariableLike
+	variable, token, ok = v.parseVariable()
 	if ok {
-		// Found a single Item Recipient.
-		recipient = ast.RecipientClass().Recipient(item)
+		// Found a single Variable Recipient.
+		recipient = ast.RecipientClass().Recipient(variable)
 		return
 	}
 
@@ -4583,12 +4693,12 @@ func (v *parser_) parseSubject() (
 		return
 	}
 
-	// Attempt to parse a single Variable Subject.
-	var variable ast.VariableLike
-	variable, token, ok = v.parseVariable()
+	// Attempt to parse a single Value Subject.
+	var value ast.ValueLike
+	value, token, ok = v.parseValue()
 	if ok {
-		// Found a single Variable Subject.
-		subject = ast.SubjectClass().Subject(variable)
+		// Found a single Value Subject.
+		subject = ast.SubjectClass().Subject(value)
 		return
 	}
 
@@ -4628,12 +4738,12 @@ func (v *parser_) parseTarget() (
 		return
 	}
 
-	// Attempt to parse a single Variable Target.
-	var variable ast.VariableLike
-	variable, token, ok = v.parseVariable()
+	// Attempt to parse a single Value Target.
+	var value ast.ValueLike
+	value, token, ok = v.parseValue()
 	if ok {
-		// Found a single Variable Target.
-		target = ast.TargetClass().Target(variable)
+		// Found a single Value Target.
+		target = ast.TargetClass().Target(value)
 		return
 	}
 
@@ -4759,88 +4869,8 @@ func (v *parser_) parseThrowClause() (
 	return
 }
 
-func (v *parser_) parseValues() (
-	values ast.ValuesLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single "[" literal.
-	var delimiter1 string
-	delimiter1, token, ok = v.parseDelimiter("[")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Values rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Values", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Attempt to parse multiple Component rules.
-	var components = col.List[ast.ComponentLike]()
-componentsLoop:
-	for count_ := 0; count_ < mat.MaxInt; count_++ {
-		var component ast.ComponentLike
-		component, token, ok = v.parseComponent()
-		if !ok {
-			switch {
-			case count_ >= 0:
-				break componentsLoop
-			case uti.IsDefined(tokens):
-				// This is not multiple Component rules.
-				v.putBack(tokens)
-				return
-			default:
-				// Found a syntax error.
-				var message = v.formatError("$Values", token)
-				message += "0 or more Component rules are required."
-				panic(message)
-			}
-		}
-		// No additional put backs allowed at this point.
-		tokens = nil
-		components.AppendValue(component)
-	}
-
-	// Attempt to parse a single "]" literal.
-	var delimiter2 string
-	delimiter2, token, ok = v.parseDelimiter("]")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Values rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Values", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Found a single Values rule.
-	ok = true
-	v.remove(tokens)
-	values = ast.ValuesClass().Values(
-		delimiter1,
-		components,
-		delimiter2,
-	)
-	return
-}
-
-func (v *parser_) parseVariable() (
-	variable ast.VariableLike,
+func (v *parser_) parseValue() (
+	value ast.ValueLike,
 	token TokenLike,
 	ok bool,
 ) {
@@ -4856,6 +4886,38 @@ func (v *parser_) parseVariable() (
 			return
 		} else {
 			// Found a syntax error.
+			var message = v.formatError("$Value", token)
+			panic(message)
+		}
+	}
+	if uti.IsDefined(tokens) {
+		tokens.AppendValue(token)
+	}
+
+	// Found a single Value rule.
+	ok = true
+	v.remove(tokens)
+	value = ast.ValueClass().Value(identifier)
+	return
+}
+
+func (v *parser_) parseVariable() (
+	variable ast.VariableLike,
+	token TokenLike,
+	ok bool,
+) {
+	var tokens = col.List[TokenLike]()
+
+	// Attempt to parse a single symbol token.
+	var symbol string
+	symbol, token, ok = v.parseToken(SymbolToken)
+	if !ok {
+		if uti.IsDefined(tokens) {
+			// This is not a single symbol token.
+			v.putBack(tokens)
+			return
+		} else {
+			// Found a syntax error.
 			var message = v.formatError("$Variable", token)
 			panic(message)
 		}
@@ -4867,7 +4929,7 @@ func (v *parser_) parseVariable() (
 	// Found a single Variable rule.
 	ok = true
 	v.remove(tokens)
-	variable = ast.VariableClass().Variable(identifier)
+	variable = ast.VariableClass().Variable(symbol)
 	return
 }
 
@@ -5003,15 +5065,15 @@ func (v *parser_) parseWithClause() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse a single Item rule.
-	var item ast.ItemLike
-	item, token, ok = v.parseItem()
+	// Attempt to parse a single Variable rule.
+	var variable ast.VariableLike
+	variable, token, ok = v.parseVariable()
 	switch {
 	case ok:
 		// No additional put backs allowed at this point.
 		tokens = nil
 	case uti.IsDefined(tokens):
-		// This is not a single Item rule.
+		// This is not a single Variable rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -5096,7 +5158,7 @@ func (v *parser_) parseWithClause() (
 	withClause = ast.WithClauseClass().WithClause(
 		delimiter1,
 		delimiter2,
-		item,
+		variable,
 		delimiter3,
 		sequence,
 		delimiter4,
@@ -5289,7 +5351,9 @@ var parserClassReference_ = &parserClass_{
     Collection
     Procedure`,
 			"$Parameters":  `"(" Association* ")"`,
-			"$Association": `Primitive ":" Component`,
+			"$Association": `Key ":" Entry`,
+			"$Key":         `Primitive`,
+			"$Entry":       `Component`,
 			"$Primitive": `
     Element
     String`,
@@ -5316,7 +5380,7 @@ var parserClassReference_ = &parserClass_{
 			"$Collection": `
     Range
     Attributes
-    Values  ! Must be after ranges and attributes.
+    Items  ! Must be after ranges and attributes.
     Empty`,
 			"$Range": `LeftBracket Primitive ".." Primitive RightBracket`,
 			"$LeftBracket": `
@@ -5326,7 +5390,7 @@ var parserClassReference_ = &parserClass_{
     "]"
     ")"`,
 			"$Attributes": `"[" Association+ "]"`,
-			"$Values":     `"[" Component* "]"`,
+			"$Items":      `"[" Entry* "]"`,
 			"$Empty":      `"[" ":" "]"`,
 			"$Procedure":  `"{" Code* "}"`,
 			"$Code": `
@@ -5372,23 +5436,23 @@ var parserClassReference_ = &parserClass_{
     Function
     Method
     Subcomponent
-    Variable  ! This must be last since others also begin with an identifier.`,
+    Value  ! This must be last since others also begin with an identifier.`,
 			"$Function": `identifier "(" Argument* ")"`,
 			"$Argument": `
-    Variable
+    Value
     Primitive`,
-			"$Variable": `identifier`,
-			"$Method":   `identifier Blocking identifier "(" Argument* ")"`,
+			"$Value":  `identifier`,
+			"$Method": `identifier Blocking identifier "(" Argument* ")"`,
 			"$Blocking": `
     dot
     arrow`,
 			"$Subcomponent": `identifier "[" Index+ "]"`,
 			"$Index": `
-    Variable
+    Value
     Primitive`,
 			"$WhileClause":    `"while" Condition "do" Procedure`,
-			"$WithClause":     `"with" "each" Item "in" Sequence "do" Procedure`,
-			"$Item":           `symbol`,
+			"$WithClause":     `"with" "each" Variable "in" Sequence "do" Procedure`,
+			"$Variable":       `symbol`,
 			"$Sequence":       `Expression`,
 			"$ContinueClause": `"continue" "loop"`,
 			"$BreakClause":    `"break" "loop"`,
@@ -5409,7 +5473,7 @@ var parserClassReference_ = &parserClass_{
     "*="
     "/="`,
 			"$Recipient": `
-    Item
+    Variable
     Subcomponent`,
 			"$PostClause":     `"post" Message "to" Bag`,
 			"$Message":        `Expression`,
@@ -5437,7 +5501,7 @@ var parserClassReference_ = &parserClass_{
     Magnitude
     Function
     Method
-    Variable  ! This must be last since others also begin with an identifier.`,
+    Value  ! This must be last since others also begin with an identifier.`,
 			"$Predicate": `Operation Expression`,
 			"$Operation": `
     Textual
@@ -5472,7 +5536,7 @@ var parserClassReference_ = &parserClass_{
     Referent
     Function
     Method
-    Variable  ! This must be last since others also begin with an identifier.`,
+    Value  ! This must be last since others also begin with an identifier.`,
 			"$Complement": `"not" Logical`,
 			"$Logical": `
     Component
@@ -5482,7 +5546,7 @@ var parserClassReference_ = &parserClass_{
     Complement
     Function
     Method
-    Variable  ! This must be last since others also begin with an identifier.`,
+    Value  ! This must be last since others also begin with an identifier.`,
 			"$Inversion": `Inverse Numerical`,
 			"$Inverse": `
     minus
@@ -5497,7 +5561,7 @@ var parserClassReference_ = &parserClass_{
     Magnitude
     Function
     Method
-    Variable  ! This must be last since others also begin with an identifier.`,
+    Value  ! This must be last since others also begin with an identifier.`,
 			"$Magnitude": `"|" Numerical "|"`,
 		},
 	),

@@ -27,31 +27,21 @@ import (
 
 // Access Function
 
-func AssociationClass() AssociationClassLike {
-	return associationClass()
+func ValueClass() ValueClassLike {
+	return valueClass()
 }
 
 // Constructor Methods
 
-func (c *associationClass_) Association(
-	key KeyLike,
-	delimiter string,
-	entry EntryLike,
-) AssociationLike {
-	if uti.IsUndefined(key) {
-		panic("The \"key\" attribute is required by this class.")
+func (c *valueClass_) Value(
+	identifier string,
+) ValueLike {
+	if uti.IsUndefined(identifier) {
+		panic("The \"identifier\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(entry) {
-		panic("The \"entry\" attribute is required by this class.")
-	}
-	var instance = &association_{
+	var instance = &value_{
 		// Initialize the instance attributes.
-		key_:       key,
-		delimiter_: delimiter,
-		entry_:     entry,
+		identifier_: identifier,
 	}
 	return instance
 }
@@ -60,47 +50,37 @@ func (c *associationClass_) Association(
 
 // Principal Methods
 
-func (v *association_) GetClass() AssociationClassLike {
-	return associationClass()
+func (v *value_) GetClass() ValueClassLike {
+	return valueClass()
 }
 
 // Attribute Methods
 
-func (v *association_) GetKey() KeyLike {
-	return v.key_
-}
-
-func (v *association_) GetDelimiter() string {
-	return v.delimiter_
-}
-
-func (v *association_) GetEntry() EntryLike {
-	return v.entry_
+func (v *value_) GetIdentifier() string {
+	return v.identifier_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type association_ struct {
+type value_ struct {
 	// Declare the instance attributes.
-	key_       KeyLike
-	delimiter_ string
-	entry_     EntryLike
+	identifier_ string
 }
 
 // Class Structure
 
-type associationClass_ struct {
+type valueClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func associationClass() *associationClass_ {
-	return associationClassReference_
+func valueClass() *valueClass_ {
+	return valueClassReference_
 }
 
-var associationClassReference_ = &associationClass_{
+var valueClassReference_ = &valueClass_{
 	// Initialize the class constants.
 }

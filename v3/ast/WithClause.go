@@ -36,7 +36,7 @@ func WithClauseClass() WithClauseClassLike {
 func (c *withClauseClass_) WithClause(
 	delimiter1 string,
 	delimiter2 string,
-	item ItemLike,
+	variable VariableLike,
 	delimiter3 string,
 	sequence SequenceLike,
 	delimiter4 string,
@@ -48,8 +48,8 @@ func (c *withClauseClass_) WithClause(
 	if uti.IsUndefined(delimiter2) {
 		panic("The \"delimiter2\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(item) {
-		panic("The \"item\" attribute is required by this class.")
+	if uti.IsUndefined(variable) {
+		panic("The \"variable\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(delimiter3) {
 		panic("The \"delimiter3\" attribute is required by this class.")
@@ -67,7 +67,7 @@ func (c *withClauseClass_) WithClause(
 		// Initialize the instance attributes.
 		delimiter1_: delimiter1,
 		delimiter2_: delimiter2,
-		item_:       item,
+		variable_:   variable,
 		delimiter3_: delimiter3,
 		sequence_:   sequence,
 		delimiter4_: delimiter4,
@@ -94,8 +94,8 @@ func (v *withClause_) GetDelimiter2() string {
 	return v.delimiter2_
 }
 
-func (v *withClause_) GetItem() ItemLike {
-	return v.item_
+func (v *withClause_) GetVariable() VariableLike {
+	return v.variable_
 }
 
 func (v *withClause_) GetDelimiter3() string {
@@ -122,7 +122,7 @@ type withClause_ struct {
 	// Declare the instance attributes.
 	delimiter1_ string
 	delimiter2_ string
-	item_       ItemLike
+	variable_   VariableLike
 	delimiter3_ string
 	sequence_   SequenceLike
 	delimiter4_ string

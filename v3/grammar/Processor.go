@@ -738,6 +738,25 @@ func (v *processor_) PostprocessEntity(
 ) {
 }
 
+func (v *processor_) PreprocessEntry(
+	entry ast.EntryLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessEntrySlot(
+	slot uint,
+) {
+}
+
+func (v *processor_) PostprocessEntry(
+	entry ast.EntryLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessEvent(
 	event ast.EventLike,
 	index_ uint,
@@ -1004,20 +1023,39 @@ func (v *processor_) PostprocessInvocation(
 ) {
 }
 
-func (v *processor_) PreprocessItem(
-	item ast.ItemLike,
+func (v *processor_) PreprocessItems(
+	items ast.ItemsLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessItemSlot(
+func (v *processor_) ProcessItemsSlot(
 	slot uint,
 ) {
 }
 
-func (v *processor_) PostprocessItem(
-	item ast.ItemLike,
+func (v *processor_) PostprocessItems(
+	items ast.ItemsLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessKey(
+	key ast.KeyLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessKeySlot(
+	slot uint,
+) {
+}
+
+func (v *processor_) PostprocessKey(
+	key ast.KeyLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -1783,20 +1821,20 @@ func (v *processor_) PostprocessThrowClause(
 ) {
 }
 
-func (v *processor_) PreprocessValues(
-	values ast.ValuesLike,
+func (v *processor_) PreprocessValue(
+	value ast.ValueLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessValuesSlot(
+func (v *processor_) ProcessValueSlot(
 	slot uint,
 ) {
 }
 
-func (v *processor_) PostprocessValues(
-	values ast.ValuesLike,
+func (v *processor_) PostprocessValue(
+	value ast.ValueLike,
 	index_ uint,
 	count_ uint,
 ) {

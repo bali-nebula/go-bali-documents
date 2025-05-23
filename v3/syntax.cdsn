@@ -36,7 +36,11 @@ $Entity:
 
 $Parameters: "(" Association* ")"
 
-$Association: Primitive ":" Component
+$Association: Key ":" Entry
+
+$Key: Primitive
+
+$Entry: Component
 
 $Primitive:
     Element
@@ -67,7 +71,7 @@ $String:
 $Collection:
     Range
     Attributes
-    Values  ! Must be after ranges and attributes.
+    Items  ! Must be after ranges and attributes.
     Empty
 
 $Range: LeftBracket Primitive ".." Primitive RightBracket
@@ -82,7 +86,7 @@ $RightBracket:
 
 $Attributes: "[" Association+ "]"
 
-$Values: "[" Component* "]"
+$Items: "[" Entry* "]"
 
 $Empty: "[" ":" "]"
 
@@ -145,15 +149,15 @@ $Target:
     Function
     Method
     Subcomponent
-    Variable  ! This must be last since others also begin with an identifier.
+    Value  ! This must be last since others also begin with an identifier.
 
 $Function: identifier "(" Argument* ")"
 
 $Argument:
-	Variable
+	Value
     Primitive
 
-$Variable: identifier
+$Value: identifier
 
 $Method: identifier Blocking identifier "(" Argument* ")"
 
@@ -164,14 +168,14 @@ $Blocking:
 $Subcomponent: identifier "[" Index+ "]"
 
 $Index:
-	Variable
+	Value
     Primitive
 
 $WhileClause: "while" Condition "do" Procedure
 
-$WithClause: "with" "each" Item "in" Sequence "do" Procedure
+$WithClause: "with" "each" Variable "in" Sequence "do" Procedure
 
-$Item: symbol
+$Variable: symbol
 
 $Sequence: Expression
 
@@ -204,7 +208,7 @@ $Assignment:
 "/="
 
 $Recipient:
-    Item
+    Variable
     Subcomponent
 
 $PostClause: "post" Message "to" Bag
@@ -249,7 +253,7 @@ $Subject:
     Magnitude
     Function
     Method
-    Variable  ! This must be last since others also begin with an identifier.
+    Value  ! This must be last since others also begin with an identifier.
 
 $Predicate: Operation Expression
 
@@ -293,7 +297,7 @@ $Indirect:
     Referent
     Function
     Method
-    Variable  ! This must be last since others also begin with an identifier.
+    Value  ! This must be last since others also begin with an identifier.
 
 $Complement: "not" Logical
 
@@ -305,7 +309,7 @@ $Logical:
     Complement
     Function
     Method
-    Variable  ! This must be last since others also begin with an identifier.
+    Value  ! This must be last since others also begin with an identifier.
 
 $Inversion: Inverse Numerical
 
@@ -323,7 +327,7 @@ $Numerical:
     Magnitude
     Function
     Method
-    Variable  ! This must be last since others also begin with an identifier.
+    Value  ! This must be last since others also begin with an identifier.
 
 $Magnitude: "|" Numerical "|"
 

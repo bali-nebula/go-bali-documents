@@ -481,6 +481,14 @@ func (v *validator_) PreprocessEntity(
 	// TBD - Add any validation checks.
 }
 
+func (v *validator_) PreprocessEntry(
+	entry ast.EntryLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
 func (v *validator_) PreprocessEvent(
 	event ast.EventLike,
 	index_ uint,
@@ -593,8 +601,16 @@ func (v *validator_) PreprocessInvocation(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessItem(
-	item ast.ItemLike,
+func (v *validator_) PreprocessItems(
+	items ast.ItemsLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
+func (v *validator_) PreprocessKey(
+	key ast.KeyLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -921,8 +937,8 @@ func (v *validator_) PreprocessThrowClause(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessValues(
-	values ast.ValuesLike,
+func (v *validator_) PreprocessValue(
+	value ast.ValueLike,
 	index_ uint,
 	count_ uint,
 ) {

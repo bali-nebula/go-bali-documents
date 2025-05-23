@@ -27,31 +27,21 @@ import (
 
 // Access Function
 
-func AssociationClass() AssociationClassLike {
-	return associationClass()
+func KeyClass() KeyClassLike {
+	return keyClass()
 }
 
 // Constructor Methods
 
-func (c *associationClass_) Association(
-	key KeyLike,
-	delimiter string,
-	entry EntryLike,
-) AssociationLike {
-	if uti.IsUndefined(key) {
-		panic("The \"key\" attribute is required by this class.")
+func (c *keyClass_) Key(
+	primitive PrimitiveLike,
+) KeyLike {
+	if uti.IsUndefined(primitive) {
+		panic("The \"primitive\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(entry) {
-		panic("The \"entry\" attribute is required by this class.")
-	}
-	var instance = &association_{
+	var instance = &key_{
 		// Initialize the instance attributes.
-		key_:       key,
-		delimiter_: delimiter,
-		entry_:     entry,
+		primitive_: primitive,
 	}
 	return instance
 }
@@ -60,47 +50,37 @@ func (c *associationClass_) Association(
 
 // Principal Methods
 
-func (v *association_) GetClass() AssociationClassLike {
-	return associationClass()
+func (v *key_) GetClass() KeyClassLike {
+	return keyClass()
 }
 
 // Attribute Methods
 
-func (v *association_) GetKey() KeyLike {
-	return v.key_
-}
-
-func (v *association_) GetDelimiter() string {
-	return v.delimiter_
-}
-
-func (v *association_) GetEntry() EntryLike {
-	return v.entry_
+func (v *key_) GetPrimitive() PrimitiveLike {
+	return v.primitive_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type association_ struct {
+type key_ struct {
 	// Declare the instance attributes.
-	key_       KeyLike
-	delimiter_ string
-	entry_     EntryLike
+	primitive_ PrimitiveLike
 }
 
 // Class Structure
 
-type associationClass_ struct {
+type keyClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func associationClass() *associationClass_ {
-	return associationClassReference_
+func keyClass() *keyClass_ {
+	return keyClassReference_
 }
 
-var associationClassReference_ = &associationClass_{
+var keyClassReference_ = &keyClass_{
 	// Initialize the class constants.
 }

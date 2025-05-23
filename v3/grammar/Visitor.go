@@ -109,14 +109,14 @@ func (v *visitor_) visitArgument(
 ) {
 	// Visit the possible argument rule types.
 	switch actual := argument.GetAny().(type) {
-	case ast.VariableLike:
-		v.processor_.PreprocessVariable(
+	case ast.ValueLike:
+		v.processor_.PreprocessValue(
 			actual,
 			1,
 			1,
 		)
-		v.visitVariable(actual)
-		v.processor_.PostprocessVariable(
+		v.visitValue(actual)
+		v.processor_.PostprocessValue(
 			actual,
 			1,
 			1,
@@ -181,15 +181,15 @@ func (v *visitor_) visitAssignment(
 func (v *visitor_) visitAssociation(
 	association ast.AssociationLike,
 ) {
-	var primitive = association.GetPrimitive()
-	v.processor_.PreprocessPrimitive(
-		primitive,
+	var key = association.GetKey()
+	v.processor_.PreprocessKey(
+		key,
 		1,
 		1,
 	)
-	v.visitPrimitive(primitive)
-	v.processor_.PostprocessPrimitive(
-		primitive,
+	v.visitKey(key)
+	v.processor_.PostprocessKey(
+		key,
 		1,
 		1,
 	)
@@ -201,15 +201,15 @@ func (v *visitor_) visitAssociation(
 	// Visit slot 2 between terms.
 	v.processor_.ProcessAssociationSlot(2)
 
-	var component = association.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
+	var entry = association.GetEntry()
+	v.processor_.PreprocessEntry(
+		entry,
 		1,
 		1,
 	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
+	v.visitEntry(entry)
+	v.processor_.PostprocessEntry(
+		entry,
 		1,
 		1,
 	)
@@ -454,14 +454,14 @@ func (v *visitor_) visitCollection(
 			1,
 			1,
 		)
-	case ast.ValuesLike:
-		v.processor_.PreprocessValues(
+	case ast.ItemsLike:
+		v.processor_.PreprocessItems(
 			actual,
 			1,
 			1,
 		)
-		v.visitValues(actual)
-		v.processor_.PostprocessValues(
+		v.visitItems(actual)
+		v.processor_.PostprocessItems(
 			actual,
 			1,
 			1,
@@ -785,6 +785,23 @@ func (v *visitor_) visitEntity(
 	}
 }
 
+func (v *visitor_) visitEntry(
+	entry ast.EntryLike,
+) {
+	var component = entry.GetComponent()
+	v.processor_.PreprocessComponent(
+		component,
+		1,
+		1,
+	)
+	v.visitComponent(component)
+	v.processor_.PostprocessComponent(
+		component,
+		1,
+		1,
+	)
+}
+
 func (v *visitor_) visitEvent(
 	event ast.EventLike,
 ) {
@@ -1095,14 +1112,14 @@ func (v *visitor_) visitIndex(
 ) {
 	// Visit the possible index rule types.
 	switch actual := index.GetAny().(type) {
-	case ast.VariableLike:
-		v.processor_.PreprocessVariable(
+	case ast.ValueLike:
+		v.processor_.PreprocessValue(
 			actual,
 			1,
 			1,
 		)
-		v.visitVariable(actual)
-		v.processor_.PostprocessVariable(
+		v.visitValue(actual)
+		v.processor_.PostprocessValue(
 			actual,
 			1,
 			1,
@@ -1187,14 +1204,14 @@ func (v *visitor_) visitIndirect(
 			1,
 			1,
 		)
-	case ast.VariableLike:
-		v.processor_.PreprocessVariable(
+	case ast.ValueLike:
+		v.processor_.PreprocessValue(
 			actual,
 			1,
 			1,
 		)
-		v.visitVariable(actual)
-		v.processor_.PostprocessVariable(
+		v.visitValue(actual)
+		v.processor_.PostprocessValue(
 			actual,
 			1,
 			1,
@@ -1313,11 +1330,54 @@ func (v *visitor_) visitInvocation(
 	}
 }
 
-func (v *visitor_) visitItem(
-	item ast.ItemLike,
+func (v *visitor_) visitItems(
+	items ast.ItemsLike,
 ) {
-	var symbol = item.GetSymbol()
-	v.processor_.ProcessSymbol(symbol)
+	var delimiter1 = items.GetDelimiter1()
+	v.processor_.ProcessDelimiter(delimiter1)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessItemsSlot(1)
+
+	var entriesIndex uint
+	var entries = items.GetEntries().GetIterator()
+	var entriesCount = uint(entries.GetSize())
+	for entries.HasNext() {
+		entriesIndex++
+		var rule = entries.GetNext()
+		v.processor_.PreprocessEntry(
+			rule,
+			entriesIndex,
+			entriesCount,
+		)
+		v.visitEntry(rule)
+		v.processor_.PostprocessEntry(
+			rule,
+			entriesIndex,
+			entriesCount,
+		)
+	}
+	// Visit slot 2 between terms.
+	v.processor_.ProcessItemsSlot(2)
+
+	var delimiter2 = items.GetDelimiter2()
+	v.processor_.ProcessDelimiter(delimiter2)
+}
+
+func (v *visitor_) visitKey(
+	key ast.KeyLike,
+) {
+	var primitive = key.GetPrimitive()
+	v.processor_.PreprocessPrimitive(
+		primitive,
+		1,
+		1,
+	)
+	v.visitPrimitive(primitive)
+	v.processor_.PostprocessPrimitive(
+		primitive,
+		1,
+		1,
+	)
 }
 
 func (v *visitor_) visitLeftBracket(
@@ -1491,14 +1551,14 @@ func (v *visitor_) visitLogical(
 			1,
 			1,
 		)
-	case ast.VariableLike:
-		v.processor_.PreprocessVariable(
+	case ast.ValueLike:
+		v.processor_.PreprocessValue(
 			actual,
 			1,
 			1,
 		)
-		v.visitVariable(actual)
-		v.processor_.PostprocessVariable(
+		v.visitValue(actual)
+		v.processor_.PostprocessValue(
 			actual,
 			1,
 			1,
@@ -1875,14 +1935,14 @@ func (v *visitor_) visitNumerical(
 			1,
 			1,
 		)
-	case ast.VariableLike:
-		v.processor_.PreprocessVariable(
+	case ast.ValueLike:
+		v.processor_.PreprocessValue(
 			actual,
 			1,
 			1,
 		)
-		v.visitVariable(actual)
-		v.processor_.PostprocessVariable(
+		v.visitValue(actual)
+		v.processor_.PostprocessValue(
 			actual,
 			1,
 			1,
@@ -2282,14 +2342,14 @@ func (v *visitor_) visitRecipient(
 ) {
 	// Visit the possible recipient rule types.
 	switch actual := recipient.GetAny().(type) {
-	case ast.ItemLike:
-		v.processor_.PreprocessItem(
+	case ast.VariableLike:
+		v.processor_.PreprocessVariable(
 			actual,
 			1,
 			1,
 		)
-		v.visitItem(actual)
-		v.processor_.PostprocessItem(
+		v.visitVariable(actual)
+		v.processor_.PostprocessVariable(
 			actual,
 			1,
 			1,
@@ -2822,14 +2882,14 @@ func (v *visitor_) visitSubject(
 			1,
 			1,
 		)
-	case ast.VariableLike:
-		v.processor_.PreprocessVariable(
+	case ast.ValueLike:
+		v.processor_.PreprocessValue(
 			actual,
 			1,
 			1,
 		)
-		v.visitVariable(actual)
-		v.processor_.PostprocessVariable(
+		v.visitValue(actual)
+		v.processor_.PostprocessValue(
 			actual,
 			1,
 			1,
@@ -2878,14 +2938,14 @@ func (v *visitor_) visitTarget(
 			1,
 			1,
 		)
-	case ast.VariableLike:
-		v.processor_.PreprocessVariable(
+	case ast.ValueLike:
+		v.processor_.PreprocessValue(
 			actual,
 			1,
 			1,
 		)
-		v.visitVariable(actual)
-		v.processor_.PostprocessVariable(
+		v.visitValue(actual)
+		v.processor_.PostprocessValue(
 			actual,
 			1,
 			1,
@@ -2947,44 +3007,18 @@ func (v *visitor_) visitThrowClause(
 	)
 }
 
-func (v *visitor_) visitValues(
-	values ast.ValuesLike,
+func (v *visitor_) visitValue(
+	value ast.ValueLike,
 ) {
-	var delimiter1 = values.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessValuesSlot(1)
-
-	var componentsIndex uint
-	var components = values.GetComponents().GetIterator()
-	var componentsCount = uint(components.GetSize())
-	for components.HasNext() {
-		componentsIndex++
-		var rule = components.GetNext()
-		v.processor_.PreprocessComponent(
-			rule,
-			componentsIndex,
-			componentsCount,
-		)
-		v.visitComponent(rule)
-		v.processor_.PostprocessComponent(
-			rule,
-			componentsIndex,
-			componentsCount,
-		)
-	}
-	// Visit slot 2 between terms.
-	v.processor_.ProcessValuesSlot(2)
-
-	var delimiter2 = values.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
+	var identifier = value.GetIdentifier()
+	v.processor_.ProcessIdentifier(identifier)
 }
 
 func (v *visitor_) visitVariable(
 	variable ast.VariableLike,
 ) {
-	var identifier = variable.GetIdentifier()
-	v.processor_.ProcessIdentifier(identifier)
+	var symbol = variable.GetSymbol()
+	v.processor_.ProcessSymbol(symbol)
 }
 
 func (v *visitor_) visitWhileClause(
@@ -3042,15 +3076,15 @@ func (v *visitor_) visitWithClause(
 	// Visit slot 2 between terms.
 	v.processor_.ProcessWithClauseSlot(2)
 
-	var item = withClause.GetItem()
-	v.processor_.PreprocessItem(
-		item,
+	var variable = withClause.GetVariable()
+	v.processor_.PreprocessVariable(
+		variable,
 		1,
 		1,
 	)
-	v.visitItem(item)
-	v.processor_.PostprocessItem(
-		item,
+	v.visitVariable(variable)
+	v.processor_.PostprocessVariable(
+		variable,
 		1,
 		1,
 	)
