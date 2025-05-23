@@ -657,16 +657,16 @@ func (v *visitor_) visitDoClause(
 func (v *visitor_) visitDocument(
 	document ast.DocumentLike,
 ) {
-	var optionalAnnotation = document.GetOptionalAnnotation()
-	if uti.IsDefined(optionalAnnotation) {
-		v.processor_.PreprocessAnnotation(
-			optionalAnnotation,
+	var optionalHeader = document.GetOptionalHeader()
+	if uti.IsDefined(optionalHeader) {
+		v.processor_.PreprocessHeader(
+			optionalHeader,
 			1,
 			1,
 		)
-		v.visitAnnotation(optionalAnnotation)
-		v.processor_.PostprocessAnnotation(
-			optionalAnnotation,
+		v.visitHeader(optionalHeader)
+		v.processor_.PostprocessHeader(
+			optionalHeader,
 			1,
 			1,
 		)
@@ -1049,55 +1049,11 @@ func (v *visitor_) visitFunction(
 	v.processor_.ProcessDelimiter(delimiter2)
 }
 
-func (v *visitor_) visitHandler(
-	handler ast.HandlerLike,
+func (v *visitor_) visitHeader(
+	header ast.HeaderLike,
 ) {
-	var delimiter1 = handler.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessHandlerSlot(
-		handler,
-		1,
-	)
-
-	var template = handler.GetTemplate()
-	v.processor_.PreprocessTemplate(
-		template,
-		1,
-		1,
-	)
-	v.visitTemplate(template)
-	v.processor_.PostprocessTemplate(
-		template,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessHandlerSlot(
-		handler,
-		2,
-	)
-
-	var delimiter2 = handler.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessHandlerSlot(
-		handler,
-		3,
-	)
-
-	var procedure = handler.GetProcedure()
-	v.processor_.PreprocessProcedure(
-		procedure,
-		1,
-		1,
-	)
-	v.visitProcedure(procedure)
-	v.processor_.PostprocessProcedure(
-		procedure,
-		1,
-		1,
-	)
+	var comment = header.GetComment()
+	v.processor_.ProcessComment(comment)
 }
 
 func (v *visitor_) visitIfClause(
@@ -1732,6 +1688,57 @@ func (v *visitor_) visitMainClause(
 	}
 }
 
+func (v *visitor_) visitMatchingClause(
+	matchingClause ast.MatchingClauseLike,
+) {
+	var delimiter1 = matchingClause.GetDelimiter1()
+	v.processor_.ProcessDelimiter(delimiter1)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessMatchingClauseSlot(
+		matchingClause,
+		1,
+	)
+
+	var template = matchingClause.GetTemplate()
+	v.processor_.PreprocessTemplate(
+		template,
+		1,
+		1,
+	)
+	v.visitTemplate(template)
+	v.processor_.PostprocessTemplate(
+		template,
+		1,
+		1,
+	)
+	// Visit slot 2 between terms.
+	v.processor_.ProcessMatchingClauseSlot(
+		matchingClause,
+		2,
+	)
+
+	var delimiter2 = matchingClause.GetDelimiter2()
+	v.processor_.ProcessDelimiter(delimiter2)
+	// Visit slot 3 between terms.
+	v.processor_.ProcessMatchingClauseSlot(
+		matchingClause,
+		3,
+	)
+
+	var procedure = matchingClause.GetProcedure()
+	v.processor_.PreprocessProcedure(
+		procedure,
+		1,
+		1,
+	)
+	v.visitProcedure(procedure)
+	v.processor_.PostprocessProcedure(
+		procedure,
+		1,
+		1,
+	)
+}
+
 func (v *visitor_) visitMessage(
 	message ast.MessageLike,
 ) {
@@ -2086,22 +2093,22 @@ func (v *visitor_) visitOnClause(
 		2,
 	)
 
-	var handlersIndex uint
-	var handlers = onClause.GetHandlers().GetIterator()
-	var handlersCount = uint(handlers.GetSize())
-	for handlers.HasNext() {
-		handlersIndex++
-		var rule = handlers.GetNext()
-		v.processor_.PreprocessHandler(
+	var matchingClausesIndex uint
+	var matchingClauses = onClause.GetMatchingClauses().GetIterator()
+	var matchingClausesCount = uint(matchingClauses.GetSize())
+	for matchingClauses.HasNext() {
+		matchingClausesIndex++
+		var rule = matchingClauses.GetNext()
+		v.processor_.PreprocessMatchingClause(
 			rule,
-			handlersIndex,
-			handlersCount,
+			matchingClausesIndex,
+			matchingClausesCount,
 		)
-		v.visitHandler(rule)
-		v.processor_.PostprocessHandler(
+		v.visitMatchingClause(rule)
+		v.processor_.PostprocessMatchingClause(
 			rule,
-			handlersIndex,
-			handlersCount,
+			matchingClausesIndex,
+			matchingClausesCount,
 		)
 	}
 }
@@ -2819,22 +2826,22 @@ func (v *visitor_) visitSelectClause(
 		2,
 	)
 
-	var handlersIndex uint
-	var handlers = selectClause.GetHandlers().GetIterator()
-	var handlersCount = uint(handlers.GetSize())
-	for handlers.HasNext() {
-		handlersIndex++
-		var rule = handlers.GetNext()
-		v.processor_.PreprocessHandler(
+	var matchingClausesIndex uint
+	var matchingClauses = selectClause.GetMatchingClauses().GetIterator()
+	var matchingClausesCount = uint(matchingClauses.GetSize())
+	for matchingClauses.HasNext() {
+		matchingClausesIndex++
+		var rule = matchingClauses.GetNext()
+		v.processor_.PreprocessMatchingClause(
 			rule,
-			handlersIndex,
-			handlersCount,
+			matchingClausesIndex,
+			matchingClausesCount,
 		)
-		v.visitHandler(rule)
-		v.processor_.PostprocessHandler(
+		v.visitMatchingClause(rule)
+		v.processor_.PostprocessMatchingClause(
 			rule,
-			handlersIndex,
-			handlersCount,
+			matchingClausesIndex,
+			matchingClausesCount,
 		)
 	}
 }

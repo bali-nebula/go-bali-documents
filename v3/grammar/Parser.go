@@ -1154,9 +1154,9 @@ func (v *parser_) parseDocument() (
 ) {
 	var tokens = col.List[TokenLike]()
 
-	// Attempt to parse an optional Annotation rule.
-	var optionalAnnotation ast.AnnotationLike
-	optionalAnnotation, _, ok = v.parseAnnotation()
+	// Attempt to parse an optional Header rule.
+	var optionalHeader ast.HeaderLike
+	optionalHeader, _, ok = v.parseHeader()
 	if ok {
 		// No additional put backs allowed at this point.
 		tokens = nil
@@ -1183,7 +1183,7 @@ func (v *parser_) parseDocument() (
 	ok = true
 	v.remove(tokens)
 	document = ast.DocumentClass().Document(
-		optionalAnnotation,
+		optionalHeader,
 		component,
 	)
 	return
@@ -1770,24 +1770,24 @@ argumentsLoop:
 	return
 }
 
-func (v *parser_) parseHandler() (
-	handler ast.HandlerLike,
+func (v *parser_) parseHeader() (
+	header ast.HeaderLike,
 	token TokenLike,
 	ok bool,
 ) {
 	var tokens = col.List[TokenLike]()
 
-	// Attempt to parse a single "matching" literal.
-	var delimiter1 string
-	delimiter1, token, ok = v.parseDelimiter("matching")
+	// Attempt to parse a single comment token.
+	var comment string
+	comment, token, ok = v.parseToken(CommentToken)
 	if !ok {
 		if uti.IsDefined(tokens) {
-			// This is not a single Handler rule.
+			// This is not a single comment token.
 			v.putBack(tokens)
 			return
 		} else {
 			// Found a syntax error.
-			var message = v.formatError("$Handler", token)
+			var message = v.formatError("$Header", token)
 			panic(message)
 		}
 	}
@@ -1795,67 +1795,10 @@ func (v *parser_) parseHandler() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse a single Template rule.
-	var template ast.TemplateLike
-	template, token, ok = v.parseTemplate()
-	switch {
-	case ok:
-		// No additional put backs allowed at this point.
-		tokens = nil
-	case uti.IsDefined(tokens):
-		// This is not a single Template rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Handler", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single "do" literal.
-	var delimiter2 string
-	delimiter2, token, ok = v.parseDelimiter("do")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Handler rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Handler", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Attempt to parse a single Procedure rule.
-	var procedure ast.ProcedureLike
-	procedure, token, ok = v.parseProcedure()
-	switch {
-	case ok:
-		// No additional put backs allowed at this point.
-		tokens = nil
-	case uti.IsDefined(tokens):
-		// This is not a single Procedure rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Handler", token)
-		panic(message)
-	}
-
-	// Found a single Handler rule.
+	// Found a single Header rule.
 	ok = true
 	v.remove(tokens)
-	handler = ast.HandlerClass().Handler(
-		delimiter1,
-		template,
-		delimiter2,
-		procedure,
-	)
+	header = ast.HeaderClass().Header(comment)
 	return
 }
 
@@ -2645,6 +2588,95 @@ func (v *parser_) parseMainClause() (
 	return
 }
 
+func (v *parser_) parseMatchingClause() (
+	matchingClause ast.MatchingClauseLike,
+	token TokenLike,
+	ok bool,
+) {
+	var tokens = col.List[TokenLike]()
+
+	// Attempt to parse a single "matching" literal.
+	var delimiter1 string
+	delimiter1, token, ok = v.parseDelimiter("matching")
+	if !ok {
+		if uti.IsDefined(tokens) {
+			// This is not a single MatchingClause rule.
+			v.putBack(tokens)
+			return
+		} else {
+			// Found a syntax error.
+			var message = v.formatError("$MatchingClause", token)
+			panic(message)
+		}
+	}
+	if uti.IsDefined(tokens) {
+		tokens.AppendValue(token)
+	}
+
+	// Attempt to parse a single Template rule.
+	var template ast.TemplateLike
+	template, token, ok = v.parseTemplate()
+	switch {
+	case ok:
+		// No additional put backs allowed at this point.
+		tokens = nil
+	case uti.IsDefined(tokens):
+		// This is not a single Template rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$MatchingClause", token)
+		panic(message)
+	}
+
+	// Attempt to parse a single "do" literal.
+	var delimiter2 string
+	delimiter2, token, ok = v.parseDelimiter("do")
+	if !ok {
+		if uti.IsDefined(tokens) {
+			// This is not a single MatchingClause rule.
+			v.putBack(tokens)
+			return
+		} else {
+			// Found a syntax error.
+			var message = v.formatError("$MatchingClause", token)
+			panic(message)
+		}
+	}
+	if uti.IsDefined(tokens) {
+		tokens.AppendValue(token)
+	}
+
+	// Attempt to parse a single Procedure rule.
+	var procedure ast.ProcedureLike
+	procedure, token, ok = v.parseProcedure()
+	switch {
+	case ok:
+		// No additional put backs allowed at this point.
+		tokens = nil
+	case uti.IsDefined(tokens):
+		// This is not a single Procedure rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$MatchingClause", token)
+		panic(message)
+	}
+
+	// Found a single MatchingClause rule.
+	ok = true
+	v.remove(tokens)
+	matchingClause = ast.MatchingClauseClass().MatchingClause(
+		delimiter1,
+		template,
+		delimiter2,
+		procedure,
+	)
+	return
+}
+
 func (v *parser_) parseMessage() (
 	message ast.MessageLike,
 	token TokenLike,
@@ -3089,30 +3121,30 @@ func (v *parser_) parseOnClause() (
 		panic(message)
 	}
 
-	// Attempt to parse multiple Handler rules.
-	var handlers = col.List[ast.HandlerLike]()
-handlersLoop:
+	// Attempt to parse multiple MatchingClause rules.
+	var matchingClauses = col.List[ast.MatchingClauseLike]()
+matchingClausesLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
-		var handler ast.HandlerLike
-		handler, token, ok = v.parseHandler()
+		var matchingClause ast.MatchingClauseLike
+		matchingClause, token, ok = v.parseMatchingClause()
 		if !ok {
 			switch {
 			case count_ >= 1:
-				break handlersLoop
+				break matchingClausesLoop
 			case uti.IsDefined(tokens):
-				// This is not multiple Handler rules.
+				// This is not multiple MatchingClause rules.
 				v.putBack(tokens)
 				return
 			default:
 				// Found a syntax error.
 				var message = v.formatError("$OnClause", token)
-				message += "1 or more Handler rules are required."
+				message += "1 or more MatchingClause rules are required."
 				panic(message)
 			}
 		}
 		// No additional put backs allowed at this point.
 		tokens = nil
-		handlers.AppendValue(handler)
+		matchingClauses.AppendValue(matchingClause)
 	}
 
 	// Found a single OnClause rule.
@@ -3121,7 +3153,7 @@ handlersLoop:
 	onClause = ast.OnClauseClass().OnClause(
 		delimiter,
 		failure,
-		handlers,
+		matchingClauses,
 	)
 	return
 }
@@ -4243,30 +4275,30 @@ func (v *parser_) parseSelectClause() (
 		panic(message)
 	}
 
-	// Attempt to parse multiple Handler rules.
-	var handlers = col.List[ast.HandlerLike]()
-handlersLoop:
+	// Attempt to parse multiple MatchingClause rules.
+	var matchingClauses = col.List[ast.MatchingClauseLike]()
+matchingClausesLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
-		var handler ast.HandlerLike
-		handler, token, ok = v.parseHandler()
+		var matchingClause ast.MatchingClauseLike
+		matchingClause, token, ok = v.parseMatchingClause()
 		if !ok {
 			switch {
 			case count_ >= 1:
-				break handlersLoop
+				break matchingClausesLoop
 			case uti.IsDefined(tokens):
-				// This is not multiple Handler rules.
+				// This is not multiple MatchingClause rules.
 				v.putBack(tokens)
 				return
 			default:
 				// Found a syntax error.
 				var message = v.formatError("$SelectClause", token)
-				message += "1 or more Handler rules are required."
+				message += "1 or more MatchingClause rules are required."
 				panic(message)
 			}
 		}
 		// No additional put backs allowed at this point.
 		tokens = nil
-		handlers.AppendValue(handler)
+		matchingClauses.AppendValue(matchingClause)
 	}
 
 	// Found a single SelectClause rule.
@@ -4275,7 +4307,7 @@ handlersLoop:
 	selectClause = ast.SelectClauseClass().SelectClause(
 		delimiter,
 		target,
-		handlers,
+		matchingClauses,
 	)
 	return
 }
@@ -5280,9 +5312,9 @@ var parserClassReference_ = &parserClass_{
 	// Initialize the class constants.
 	syntax_: col.CatalogFromMap[string, string](
 		map[string]string{
-			"$Document":   `Annotation? Component`,
-			"$Annotation": `comment`,
-			"$Component":  `Entity Parameters? note?`,
+			"$Document":  `Header? Component`,
+			"$Header":    `comment`,
+			"$Component": `Entity Parameters? note?`,
 			"$Entity": `
     Element
     String
@@ -5332,16 +5364,17 @@ var parserClassReference_ = &parserClass_{
 			"$Line": `
     Annotation
     Statement`,
-			"$Statement": `MainClause OnClause? note?`,
+			"$Annotation": `comment`,
+			"$Statement":  `MainClause OnClause? note?`,
 			"$MainClause": `
     Flow
     Induction
     Messaging
     Repository`,
-			"$OnClause": `"on" Failure Handler+`,
-			"$Handler":  `"matching" Template "do" Procedure`,
-			"$Failure":  `symbol`,
-			"$Template": `Expression`,
+			"$OnClause":       `"on" Failure MatchingClause+`,
+			"$MatchingClause": `"matching" Template "do" Procedure`,
+			"$Failure":        `symbol`,
+			"$Template":       `Expression`,
 			"$Flow": `
     IfClause
     SelectClause
@@ -5367,7 +5400,7 @@ var parserClassReference_ = &parserClass_{
     NotarizeClause`,
 			"$IfClause":     `"if" Condition "do" Procedure`,
 			"$Condition":    `Expression`,
-			"$SelectClause": `"select" Target Handler+`,
+			"$SelectClause": `"select" Target MatchingClause+`,
 			"$Target": `
     Function
     Method

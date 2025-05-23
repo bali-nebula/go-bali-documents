@@ -27,18 +27,18 @@ import (
 
 // Access Function
 
-func HandlerClass() HandlerClassLike {
-	return handlerClass()
+func MatchingClauseClass() MatchingClauseClassLike {
+	return matchingClauseClass()
 }
 
 // Constructor Methods
 
-func (c *handlerClass_) Handler(
+func (c *matchingClauseClass_) MatchingClause(
 	delimiter1 string,
 	template TemplateLike,
 	delimiter2 string,
 	procedure ProcedureLike,
-) HandlerLike {
+) MatchingClauseLike {
 	if uti.IsUndefined(delimiter1) {
 		panic("The \"delimiter1\" attribute is required by this class.")
 	}
@@ -51,7 +51,7 @@ func (c *handlerClass_) Handler(
 	if uti.IsUndefined(procedure) {
 		panic("The \"procedure\" attribute is required by this class.")
 	}
-	var instance = &handler_{
+	var instance = &matchingClause_{
 		// Initialize the instance attributes.
 		delimiter1_: delimiter1,
 		template_:   template,
@@ -65,25 +65,25 @@ func (c *handlerClass_) Handler(
 
 // Principal Methods
 
-func (v *handler_) GetClass() HandlerClassLike {
-	return handlerClass()
+func (v *matchingClause_) GetClass() MatchingClauseClassLike {
+	return matchingClauseClass()
 }
 
 // Attribute Methods
 
-func (v *handler_) GetDelimiter1() string {
+func (v *matchingClause_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *handler_) GetTemplate() TemplateLike {
+func (v *matchingClause_) GetTemplate() TemplateLike {
 	return v.template_
 }
 
-func (v *handler_) GetDelimiter2() string {
+func (v *matchingClause_) GetDelimiter2() string {
 	return v.delimiter2_
 }
 
-func (v *handler_) GetProcedure() ProcedureLike {
+func (v *matchingClause_) GetProcedure() ProcedureLike {
 	return v.procedure_
 }
 
@@ -91,7 +91,7 @@ func (v *handler_) GetProcedure() ProcedureLike {
 
 // Instance Structure
 
-type handler_ struct {
+type matchingClause_ struct {
 	// Declare the instance attributes.
 	delimiter1_ string
 	template_   TemplateLike
@@ -101,16 +101,16 @@ type handler_ struct {
 
 // Class Structure
 
-type handlerClass_ struct {
+type matchingClauseClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func handlerClass() *handlerClass_ {
-	return handlerClassReference_
+func matchingClauseClass() *matchingClauseClass_ {
+	return matchingClauseClassReference_
 }
 
-var handlerClassReference_ = &handlerClass_{
+var matchingClauseClassReference_ = &matchingClauseClass_{
 	// Initialize the class constants.
 }

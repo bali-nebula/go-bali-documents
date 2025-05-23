@@ -20,7 +20,6 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -28,31 +27,21 @@ import (
 
 // Access Function
 
-func OnClauseClass() OnClauseClassLike {
-	return onClauseClass()
+func HeaderClass() HeaderClassLike {
+	return headerClass()
 }
 
 // Constructor Methods
 
-func (c *onClauseClass_) OnClause(
-	delimiter string,
-	failure FailureLike,
-	matchingClauses col.Sequential[MatchingClauseLike],
-) OnClauseLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
+func (c *headerClass_) Header(
+	comment string,
+) HeaderLike {
+	if uti.IsUndefined(comment) {
+		panic("The \"comment\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(failure) {
-		panic("The \"failure\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(matchingClauses) {
-		panic("The \"matchingClauses\" attribute is required by this class.")
-	}
-	var instance = &onClause_{
+	var instance = &header_{
 		// Initialize the instance attributes.
-		delimiter_:       delimiter,
-		failure_:         failure,
-		matchingClauses_: matchingClauses,
+		comment_: comment,
 	}
 	return instance
 }
@@ -61,47 +50,37 @@ func (c *onClauseClass_) OnClause(
 
 // Principal Methods
 
-func (v *onClause_) GetClass() OnClauseClassLike {
-	return onClauseClass()
+func (v *header_) GetClass() HeaderClassLike {
+	return headerClass()
 }
 
 // Attribute Methods
 
-func (v *onClause_) GetDelimiter() string {
-	return v.delimiter_
-}
-
-func (v *onClause_) GetFailure() FailureLike {
-	return v.failure_
-}
-
-func (v *onClause_) GetMatchingClauses() col.Sequential[MatchingClauseLike] {
-	return v.matchingClauses_
+func (v *header_) GetComment() string {
+	return v.comment_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type onClause_ struct {
+type header_ struct {
 	// Declare the instance attributes.
-	delimiter_       string
-	failure_         FailureLike
-	matchingClauses_ col.Sequential[MatchingClauseLike]
+	comment_ string
 }
 
 // Class Structure
 
-type onClauseClass_ struct {
+type headerClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func onClauseClass() *onClauseClass_ {
-	return onClauseClassReference_
+func headerClass() *headerClass_ {
+	return headerClassReference_
 }
 
-var onClauseClassReference_ = &onClauseClass_{
+var headerClassReference_ = &headerClass_{
 	// Initialize the class constants.
 }

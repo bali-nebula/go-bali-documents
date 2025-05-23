@@ -71,7 +71,7 @@ type (
 	FailureClassLike        = ast.FailureClassLike
 	FlowClassLike           = ast.FlowClassLike
 	FunctionClassLike       = ast.FunctionClassLike
-	HandlerClassLike        = ast.HandlerClassLike
+	HeaderClassLike         = ast.HeaderClassLike
 	IfClauseClassLike       = ast.IfClauseClassLike
 	IndexClassLike          = ast.IndexClassLike
 	IndirectClassLike       = ast.IndirectClassLike
@@ -87,6 +87,7 @@ type (
 	LogicalClassLike        = ast.LogicalClassLike
 	MagnitudeClassLike      = ast.MagnitudeClassLike
 	MainClauseClassLike     = ast.MainClauseClassLike
+	MatchingClauseClassLike = ast.MatchingClauseClassLike
 	MessageClassLike        = ast.MessageClassLike
 	MessagingClassLike      = ast.MessagingClassLike
 	MethodClassLike         = ast.MethodClassLike
@@ -160,7 +161,7 @@ type (
 	FailureLike        = ast.FailureLike
 	FlowLike           = ast.FlowLike
 	FunctionLike       = ast.FunctionLike
-	HandlerLike        = ast.HandlerLike
+	HeaderLike         = ast.HeaderLike
 	IfClauseLike       = ast.IfClauseLike
 	IndexLike          = ast.IndexLike
 	IndirectLike       = ast.IndirectLike
@@ -176,6 +177,7 @@ type (
 	LogicalLike        = ast.LogicalLike
 	MagnitudeLike      = ast.MagnitudeLike
 	MainClauseLike     = ast.MainClauseLike
+	MatchingClauseLike = ast.MatchingClauseLike
 	MessageLike        = ast.MessageLike
 	MessagingLike      = ast.MessagingLike
 	MethodLike         = ast.MethodLike
@@ -582,11 +584,11 @@ func DocumentClass() DocumentClassLike {
 }
 
 func Document(
-	optionalAnnotation ast.AnnotationLike,
+	optionalHeader ast.HeaderLike,
 	component ast.ComponentLike,
 ) DocumentLike {
 	return DocumentClass().Document(
-		optionalAnnotation,
+		optionalHeader,
 		component,
 	)
 }
@@ -723,21 +725,15 @@ func Function(
 	)
 }
 
-func HandlerClass() HandlerClassLike {
-	return ast.HandlerClass()
+func HeaderClass() HeaderClassLike {
+	return ast.HeaderClass()
 }
 
-func Handler(
-	delimiter1 string,
-	template ast.TemplateLike,
-	delimiter2 string,
-	procedure ast.ProcedureLike,
-) HandlerLike {
-	return HandlerClass().Handler(
-		delimiter1,
-		template,
-		delimiter2,
-		procedure,
+func Header(
+	comment string,
+) HeaderLike {
+	return HeaderClass().Header(
+		comment,
 	)
 }
 
@@ -943,6 +939,24 @@ func MainClause(
 	)
 }
 
+func MatchingClauseClass() MatchingClauseClassLike {
+	return ast.MatchingClauseClass()
+}
+
+func MatchingClause(
+	delimiter1 string,
+	template ast.TemplateLike,
+	delimiter2 string,
+	procedure ast.ProcedureLike,
+) MatchingClauseLike {
+	return MatchingClauseClass().MatchingClause(
+		delimiter1,
+		template,
+		delimiter2,
+		procedure,
+	)
+}
+
 func MessageClass() MessageClassLike {
 	return ast.MessageClass()
 }
@@ -1026,12 +1040,12 @@ func OnClauseClass() OnClauseClassLike {
 func OnClause(
 	delimiter string,
 	failure ast.FailureLike,
-	handlers col.Sequential[ast.HandlerLike],
+	matchingClauses col.Sequential[ast.MatchingClauseLike],
 ) OnClauseLike {
 	return OnClauseClass().OnClause(
 		delimiter,
 		failure,
-		handlers,
+		matchingClauses,
 	)
 }
 
@@ -1306,12 +1320,12 @@ func SelectClauseClass() SelectClauseClassLike {
 func SelectClause(
 	delimiter string,
 	target ast.TargetLike,
-	handlers col.Sequential[ast.HandlerLike],
+	matchingClauses col.Sequential[ast.MatchingClauseLike],
 ) SelectClauseLike {
 	return SelectClauseClass().SelectClause(
 		delimiter,
 		target,
-		handlers,
+		matchingClauses,
 	)
 }
 

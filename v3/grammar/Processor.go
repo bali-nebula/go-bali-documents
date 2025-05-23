@@ -865,22 +865,22 @@ func (v *processor_) ProcessFunctionSlot(
 ) {
 }
 
-func (v *processor_) PreprocessHandler(
-	handler ast.HandlerLike,
+func (v *processor_) PreprocessHeader(
+	header ast.HeaderLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessHandler(
-	handler ast.HandlerLike,
+func (v *processor_) PostprocessHeader(
+	header ast.HeaderLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessHandlerSlot(
-	handler ast.HandlerLike,
+func (v *processor_) ProcessHeaderSlot(
+	header ast.HeaderLike,
 	slot_ uint,
 ) {
 }
@@ -1181,6 +1181,26 @@ func (v *processor_) PostprocessMainClause(
 
 func (v *processor_) ProcessMainClauseSlot(
 	mainClause ast.MainClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PreprocessMatchingClause(
+	matchingClause ast.MatchingClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessMatchingClause(
+	matchingClause ast.MatchingClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessMatchingClauseSlot(
+	matchingClause ast.MatchingClauseLike,
 	slot_ uint,
 ) {
 }

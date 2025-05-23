@@ -22,9 +22,9 @@ For more information on CDSN see the wiki at:
 │                               RULE DEFINITIONS                               │
 └──────────────────────────────────────────────────────────────────────────────┘
 <!
-$Document: Annotation? Component
+$Document: Header? Component
 
-$Annotation: comment
+$Header: comment
 
 $Component: Entity Parameters? note?
 
@@ -92,6 +92,8 @@ $Line:
     Annotation
     Statement
 
+$Annotation: comment
+
 $Statement: MainClause OnClause? note?
 
 $MainClause:
@@ -100,9 +102,9 @@ $MainClause:
     Messaging
     Repository
 
-$OnClause: "on" Failure Handler+
+$OnClause: "on" Failure MatchingClause+
 
-$Handler: "matching" Template "do" Procedure
+$MatchingClause: "matching" Template "do" Procedure
 
 $Failure: symbol
 
@@ -139,7 +141,7 @@ $IfClause: "if" Condition "do" Procedure
 
 $Condition: Expression
 
-$SelectClause: "select" Target Handler+
+$SelectClause: "select" Target MatchingClause+
 
 $Target:
     Function

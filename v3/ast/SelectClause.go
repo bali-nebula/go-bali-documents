@@ -37,7 +37,7 @@ func SelectClauseClass() SelectClauseClassLike {
 func (c *selectClauseClass_) SelectClause(
 	delimiter string,
 	target TargetLike,
-	handlers col.Sequential[HandlerLike],
+	matchingClauses col.Sequential[MatchingClauseLike],
 ) SelectClauseLike {
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
@@ -45,14 +45,14 @@ func (c *selectClauseClass_) SelectClause(
 	if uti.IsUndefined(target) {
 		panic("The \"target\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(handlers) {
-		panic("The \"handlers\" attribute is required by this class.")
+	if uti.IsUndefined(matchingClauses) {
+		panic("The \"matchingClauses\" attribute is required by this class.")
 	}
 	var instance = &selectClause_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
-		target_:    target,
-		handlers_:  handlers,
+		delimiter_:       delimiter,
+		target_:          target,
+		matchingClauses_: matchingClauses,
 	}
 	return instance
 }
@@ -75,8 +75,8 @@ func (v *selectClause_) GetTarget() TargetLike {
 	return v.target_
 }
 
-func (v *selectClause_) GetHandlers() col.Sequential[HandlerLike] {
-	return v.handlers_
+func (v *selectClause_) GetMatchingClauses() col.Sequential[MatchingClauseLike] {
+	return v.matchingClauses_
 }
 
 // PROTECTED INTERFACE
@@ -85,9 +85,9 @@ func (v *selectClause_) GetHandlers() col.Sequential[HandlerLike] {
 
 type selectClause_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
-	target_    TargetLike
-	handlers_  col.Sequential[HandlerLike]
+	delimiter_       string
+	target_          TargetLike
+	matchingClauses_ col.Sequential[MatchingClauseLike]
 }
 
 // Class Structure

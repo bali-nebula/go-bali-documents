@@ -323,7 +323,7 @@ supported by each concrete document-like class.
 type DocumentClassLike interface {
 	// Constructor Methods
 	Document(
-		optionalAnnotation AnnotationLike,
+		optionalHeader HeaderLike,
 		component ComponentLike,
 	) DocumentLike
 }
@@ -455,18 +455,15 @@ type FunctionClassLike interface {
 }
 
 /*
-HandlerClassLike is a class interface that declares the
+HeaderClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete handler-like class.
+supported by each concrete header-like class.
 */
-type HandlerClassLike interface {
+type HeaderClassLike interface {
 	// Constructor Methods
-	Handler(
-		delimiter1 string,
-		template TemplateLike,
-		delimiter2 string,
-		procedure ProcedureLike,
-	) HandlerLike
+	Header(
+		comment string,
+	) HeaderLike
 }
 
 /*
@@ -661,6 +658,21 @@ type MainClauseClassLike interface {
 }
 
 /*
+MatchingClauseClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete matching-clause-like class.
+*/
+type MatchingClauseClassLike interface {
+	// Constructor Methods
+	MatchingClause(
+		delimiter1 string,
+		template TemplateLike,
+		delimiter2 string,
+		procedure ProcedureLike,
+	) MatchingClauseLike
+}
+
+/*
 MessageClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete message-like class.
@@ -738,7 +750,7 @@ type OnClauseClassLike interface {
 	OnClause(
 		delimiter string,
 		failure FailureLike,
-		handlers col.Sequential[HandlerLike],
+		matchingClauses col.Sequential[MatchingClauseLike],
 	) OnClauseLike
 }
 
@@ -992,7 +1004,7 @@ type SelectClauseClassLike interface {
 	SelectClause(
 		delimiter string,
 		target TargetLike,
-		handlers col.Sequential[HandlerLike],
+		matchingClauses col.Sequential[MatchingClauseLike],
 	) SelectClauseLike
 }
 
@@ -1470,7 +1482,7 @@ type DocumentLike interface {
 	GetClass() DocumentClassLike
 
 	// Attribute Methods
-	GetOptionalAnnotation() AnnotationLike
+	GetOptionalHeader() HeaderLike
 	GetComponent() ComponentLike
 }
 
@@ -1611,19 +1623,16 @@ type FunctionLike interface {
 }
 
 /*
-HandlerLike is an instance interface that declares the
+HeaderLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete handler-like class.
+by each instance of a concrete header-like class.
 */
-type HandlerLike interface {
+type HeaderLike interface {
 	// Principal Methods
-	GetClass() HandlerClassLike
+	GetClass() HeaderClassLike
 
 	// Attribute Methods
-	GetDelimiter1() string
-	GetTemplate() TemplateLike
-	GetDelimiter2() string
-	GetProcedure() ProcedureLike
+	GetComment() string
 }
 
 /*
@@ -1833,6 +1842,22 @@ type MainClauseLike interface {
 }
 
 /*
+MatchingClauseLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete matching-clause-like class.
+*/
+type MatchingClauseLike interface {
+	// Principal Methods
+	GetClass() MatchingClauseClassLike
+
+	// Attribute Methods
+	GetDelimiter1() string
+	GetTemplate() TemplateLike
+	GetDelimiter2() string
+	GetProcedure() ProcedureLike
+}
+
+/*
 MessageLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete message-like class.
@@ -1917,7 +1942,7 @@ type OnClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetFailure() FailureLike
-	GetHandlers() col.Sequential[HandlerLike]
+	GetMatchingClauses() col.Sequential[MatchingClauseLike]
 }
 
 /*
@@ -2190,7 +2215,7 @@ type SelectClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetTarget() TargetLike
-	GetHandlers() col.Sequential[HandlerLike]
+	GetMatchingClauses() col.Sequential[MatchingClauseLike]
 }
 
 /*

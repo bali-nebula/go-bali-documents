@@ -853,18 +853,18 @@ type Methodical interface {
 		function ast.FunctionLike,
 		slot_ uint,
 	)
-	PreprocessHandler(
-		handler ast.HandlerLike,
+	PreprocessHeader(
+		header ast.HeaderLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessHandler(
-		handler ast.HandlerLike,
+	PostprocessHeader(
+		header ast.HeaderLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessHandlerSlot(
-		handler ast.HandlerLike,
+	ProcessHeaderSlot(
+		header ast.HeaderLike,
 		slot_ uint,
 	)
 	PreprocessIfClause(
@@ -1075,6 +1075,20 @@ type Methodical interface {
 	)
 	ProcessMainClauseSlot(
 		mainClause ast.MainClauseLike,
+		slot_ uint,
+	)
+	PreprocessMatchingClause(
+		matchingClause ast.MatchingClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessMatchingClause(
+		matchingClause ast.MatchingClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessMatchingClauseSlot(
+		matchingClause ast.MatchingClauseLike,
 		slot_ uint,
 	)
 	PreprocessMessage(
