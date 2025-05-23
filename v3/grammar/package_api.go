@@ -410,1130 +410,1217 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	ProcessAcceptClauseSlot(
-		slot uint,
-	)
 	PostprocessAcceptClause(
 		acceptClause ast.AcceptClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessAcceptClauseSlot(
+		acceptClause ast.AcceptClauseLike,
+		slot_ uint,
 	)
 	PreprocessAnnotation(
 		annotation ast.AnnotationLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessAnnotationSlot(
-		slot uint,
-	)
 	PostprocessAnnotation(
 		annotation ast.AnnotationLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessAnnotationSlot(
+		annotation ast.AnnotationLike,
+		slot_ uint,
 	)
 	PreprocessArgument(
 		argument ast.ArgumentLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessArgumentSlot(
-		slot uint,
-	)
 	PostprocessArgument(
 		argument ast.ArgumentLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessArgumentSlot(
+		argument ast.ArgumentLike,
+		slot_ uint,
 	)
 	PreprocessArithmetic(
 		arithmetic ast.ArithmeticLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessArithmeticSlot(
-		slot uint,
-	)
 	PostprocessArithmetic(
 		arithmetic ast.ArithmeticLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessArithmeticSlot(
+		arithmetic ast.ArithmeticLike,
+		slot_ uint,
 	)
 	PreprocessAssignment(
 		assignment ast.AssignmentLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessAssignmentSlot(
-		slot uint,
-	)
 	PostprocessAssignment(
 		assignment ast.AssignmentLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessAssignmentSlot(
+		assignment ast.AssignmentLike,
+		slot_ uint,
 	)
 	PreprocessAssociation(
 		association ast.AssociationLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessAssociationSlot(
-		slot uint,
-	)
 	PostprocessAssociation(
 		association ast.AssociationLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessAssociationSlot(
+		association ast.AssociationLike,
+		slot_ uint,
 	)
 	PreprocessAtLevel(
 		atLevel ast.AtLevelLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessAtLevelSlot(
-		slot uint,
-	)
 	PostprocessAtLevel(
 		atLevel ast.AtLevelLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessAtLevelSlot(
+		atLevel ast.AtLevelLike,
+		slot_ uint,
 	)
 	PreprocessAttributes(
 		attributes ast.AttributesLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessAttributesSlot(
-		slot uint,
-	)
 	PostprocessAttributes(
 		attributes ast.AttributesLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessAttributesSlot(
+		attributes ast.AttributesLike,
+		slot_ uint,
 	)
 	PreprocessBag(
 		bag ast.BagLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessBagSlot(
-		slot uint,
-	)
 	PostprocessBag(
 		bag ast.BagLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessBagSlot(
+		bag ast.BagLike,
+		slot_ uint,
 	)
 	PreprocessBlocking(
 		blocking ast.BlockingLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessBlockingSlot(
-		slot uint,
-	)
 	PostprocessBlocking(
 		blocking ast.BlockingLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessBlockingSlot(
+		blocking ast.BlockingLike,
+		slot_ uint,
 	)
 	PreprocessBreakClause(
 		breakClause ast.BreakClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessBreakClauseSlot(
-		slot uint,
-	)
 	PostprocessBreakClause(
 		breakClause ast.BreakClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessBreakClauseSlot(
+		breakClause ast.BreakClauseLike,
+		slot_ uint,
 	)
 	PreprocessCheckoutClause(
 		checkoutClause ast.CheckoutClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessCheckoutClauseSlot(
-		slot uint,
-	)
 	PostprocessCheckoutClause(
 		checkoutClause ast.CheckoutClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessCheckoutClauseSlot(
+		checkoutClause ast.CheckoutClauseLike,
+		slot_ uint,
 	)
 	PreprocessCited(
 		cited ast.CitedLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessCitedSlot(
-		slot uint,
-	)
 	PostprocessCited(
 		cited ast.CitedLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessCitedSlot(
+		cited ast.CitedLike,
+		slot_ uint,
 	)
 	PreprocessCode(
 		code ast.CodeLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessCodeSlot(
-		slot uint,
-	)
 	PostprocessCode(
 		code ast.CodeLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessCodeSlot(
+		code ast.CodeLike,
+		slot_ uint,
 	)
 	PreprocessCollection(
 		collection ast.CollectionLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessCollectionSlot(
-		slot uint,
-	)
 	PostprocessCollection(
 		collection ast.CollectionLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessCollectionSlot(
+		collection ast.CollectionLike,
+		slot_ uint,
 	)
 	PreprocessComparison(
 		comparison ast.ComparisonLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessComparisonSlot(
-		slot uint,
-	)
 	PostprocessComparison(
 		comparison ast.ComparisonLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessComparisonSlot(
+		comparison ast.ComparisonLike,
+		slot_ uint,
 	)
 	PreprocessComplement(
 		complement ast.ComplementLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessComplementSlot(
-		slot uint,
-	)
 	PostprocessComplement(
 		complement ast.ComplementLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessComplementSlot(
+		complement ast.ComplementLike,
+		slot_ uint,
 	)
 	PreprocessComponent(
 		component ast.ComponentLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessComponentSlot(
-		slot uint,
-	)
 	PostprocessComponent(
 		component ast.ComponentLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessComponentSlot(
+		component ast.ComponentLike,
+		slot_ uint,
 	)
 	PreprocessCondition(
 		condition ast.ConditionLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessConditionSlot(
-		slot uint,
-	)
 	PostprocessCondition(
 		condition ast.ConditionLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessConditionSlot(
+		condition ast.ConditionLike,
+		slot_ uint,
 	)
 	PreprocessContinueClause(
 		continueClause ast.ContinueClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessContinueClauseSlot(
-		slot uint,
-	)
 	PostprocessContinueClause(
 		continueClause ast.ContinueClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessContinueClauseSlot(
+		continueClause ast.ContinueClauseLike,
+		slot_ uint,
 	)
 	PreprocessDiscardClause(
 		discardClause ast.DiscardClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessDiscardClauseSlot(
-		slot uint,
-	)
 	PostprocessDiscardClause(
 		discardClause ast.DiscardClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessDiscardClauseSlot(
+		discardClause ast.DiscardClauseLike,
+		slot_ uint,
 	)
 	PreprocessDoClause(
 		doClause ast.DoClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessDoClauseSlot(
-		slot uint,
-	)
 	PostprocessDoClause(
 		doClause ast.DoClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessDoClauseSlot(
+		doClause ast.DoClauseLike,
+		slot_ uint,
 	)
 	PreprocessDocument(
 		document ast.DocumentLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessDocumentSlot(
-		slot uint,
-	)
 	PostprocessDocument(
 		document ast.DocumentLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessDocumentSlot(
+		document ast.DocumentLike,
+		slot_ uint,
 	)
 	PreprocessDraft(
 		draft ast.DraftLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessDraftSlot(
-		slot uint,
-	)
 	PostprocessDraft(
 		draft ast.DraftLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessDraftSlot(
+		draft ast.DraftLike,
+		slot_ uint,
 	)
 	PreprocessElement(
 		element ast.ElementLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessElementSlot(
-		slot uint,
-	)
 	PostprocessElement(
 		element ast.ElementLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessElementSlot(
+		element ast.ElementLike,
+		slot_ uint,
 	)
 	PreprocessEmpty(
 		empty ast.EmptyLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessEmptySlot(
-		slot uint,
-	)
 	PostprocessEmpty(
 		empty ast.EmptyLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessEmptySlot(
+		empty ast.EmptyLike,
+		slot_ uint,
 	)
 	PreprocessEntity(
 		entity ast.EntityLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessEntitySlot(
-		slot uint,
-	)
 	PostprocessEntity(
 		entity ast.EntityLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessEntitySlot(
+		entity ast.EntityLike,
+		slot_ uint,
 	)
 	PreprocessEntry(
 		entry ast.EntryLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessEntrySlot(
-		slot uint,
-	)
 	PostprocessEntry(
 		entry ast.EntryLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessEntrySlot(
+		entry ast.EntryLike,
+		slot_ uint,
 	)
 	PreprocessEvent(
 		event ast.EventLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessEventSlot(
-		slot uint,
-	)
 	PostprocessEvent(
 		event ast.EventLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessEventSlot(
+		event ast.EventLike,
+		slot_ uint,
 	)
 	PreprocessException(
 		exception ast.ExceptionLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessExceptionSlot(
-		slot uint,
-	)
 	PostprocessException(
 		exception ast.ExceptionLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessExceptionSlot(
+		exception ast.ExceptionLike,
+		slot_ uint,
 	)
 	PreprocessExpression(
 		expression ast.ExpressionLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessExpressionSlot(
-		slot uint,
-	)
 	PostprocessExpression(
 		expression ast.ExpressionLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessExpressionSlot(
+		expression ast.ExpressionLike,
+		slot_ uint,
 	)
 	PreprocessFailure(
 		failure ast.FailureLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessFailureSlot(
-		slot uint,
-	)
 	PostprocessFailure(
 		failure ast.FailureLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessFailureSlot(
+		failure ast.FailureLike,
+		slot_ uint,
 	)
 	PreprocessFlow(
 		flow ast.FlowLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessFlowSlot(
-		slot uint,
-	)
 	PostprocessFlow(
 		flow ast.FlowLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessFlowSlot(
+		flow ast.FlowLike,
+		slot_ uint,
 	)
 	PreprocessFunction(
 		function ast.FunctionLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessFunctionSlot(
-		slot uint,
-	)
 	PostprocessFunction(
 		function ast.FunctionLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessFunctionSlot(
+		function ast.FunctionLike,
+		slot_ uint,
 	)
 	PreprocessHandler(
 		handler ast.HandlerLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessHandlerSlot(
-		slot uint,
-	)
 	PostprocessHandler(
 		handler ast.HandlerLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessHandlerSlot(
+		handler ast.HandlerLike,
+		slot_ uint,
 	)
 	PreprocessIfClause(
 		ifClause ast.IfClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessIfClauseSlot(
-		slot uint,
-	)
 	PostprocessIfClause(
 		ifClause ast.IfClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessIfClauseSlot(
+		ifClause ast.IfClauseLike,
+		slot_ uint,
 	)
 	PreprocessIndex(
 		index ast.IndexLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessIndexSlot(
-		slot uint,
-	)
 	PostprocessIndex(
 		index ast.IndexLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessIndexSlot(
+		index ast.IndexLike,
+		slot_ uint,
 	)
 	PreprocessIndirect(
 		indirect ast.IndirectLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessIndirectSlot(
-		slot uint,
-	)
 	PostprocessIndirect(
 		indirect ast.IndirectLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessIndirectSlot(
+		indirect ast.IndirectLike,
+		slot_ uint,
 	)
 	PreprocessInduction(
 		induction ast.InductionLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessInductionSlot(
-		slot uint,
-	)
 	PostprocessInduction(
 		induction ast.InductionLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessInductionSlot(
+		induction ast.InductionLike,
+		slot_ uint,
 	)
 	PreprocessInverse(
 		inverse ast.InverseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessInverseSlot(
-		slot uint,
-	)
 	PostprocessInverse(
 		inverse ast.InverseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessInverseSlot(
+		inverse ast.InverseLike,
+		slot_ uint,
 	)
 	PreprocessInversion(
 		inversion ast.InversionLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessInversionSlot(
-		slot uint,
-	)
 	PostprocessInversion(
 		inversion ast.InversionLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessInversionSlot(
+		inversion ast.InversionLike,
+		slot_ uint,
 	)
 	PreprocessInvocation(
 		invocation ast.InvocationLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessInvocationSlot(
-		slot uint,
-	)
 	PostprocessInvocation(
 		invocation ast.InvocationLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessInvocationSlot(
+		invocation ast.InvocationLike,
+		slot_ uint,
 	)
 	PreprocessItems(
 		items ast.ItemsLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessItemsSlot(
-		slot uint,
-	)
 	PostprocessItems(
 		items ast.ItemsLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessItemsSlot(
+		items ast.ItemsLike,
+		slot_ uint,
 	)
 	PreprocessLeftBracket(
 		leftBracket ast.LeftBracketLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessLeftBracketSlot(
-		slot uint,
-	)
 	PostprocessLeftBracket(
 		leftBracket ast.LeftBracketLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessLeftBracketSlot(
+		leftBracket ast.LeftBracketLike,
+		slot_ uint,
 	)
 	PreprocessLetClause(
 		letClause ast.LetClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessLetClauseSlot(
-		slot uint,
-	)
 	PostprocessLetClause(
 		letClause ast.LetClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessLetClauseSlot(
+		letClause ast.LetClauseLike,
+		slot_ uint,
 	)
 	PreprocessLogic(
 		logic ast.LogicLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessLogicSlot(
-		slot uint,
-	)
 	PostprocessLogic(
 		logic ast.LogicLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessLogicSlot(
+		logic ast.LogicLike,
+		slot_ uint,
 	)
 	PreprocessLogical(
 		logical ast.LogicalLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessLogicalSlot(
-		slot uint,
-	)
 	PostprocessLogical(
 		logical ast.LogicalLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessLogicalSlot(
+		logical ast.LogicalLike,
+		slot_ uint,
 	)
 	PreprocessMagnitude(
 		magnitude ast.MagnitudeLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessMagnitudeSlot(
-		slot uint,
-	)
 	PostprocessMagnitude(
 		magnitude ast.MagnitudeLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessMagnitudeSlot(
+		magnitude ast.MagnitudeLike,
+		slot_ uint,
 	)
 	PreprocessMainClause(
 		mainClause ast.MainClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessMainClauseSlot(
-		slot uint,
-	)
 	PostprocessMainClause(
 		mainClause ast.MainClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessMainClauseSlot(
+		mainClause ast.MainClauseLike,
+		slot_ uint,
 	)
 	PreprocessMessage(
 		message ast.MessageLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessMessageSlot(
-		slot uint,
-	)
 	PostprocessMessage(
 		message ast.MessageLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessMessageSlot(
+		message ast.MessageLike,
+		slot_ uint,
 	)
 	PreprocessMessaging(
 		messaging ast.MessagingLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessMessagingSlot(
-		slot uint,
-	)
 	PostprocessMessaging(
 		messaging ast.MessagingLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessMessagingSlot(
+		messaging ast.MessagingLike,
+		slot_ uint,
 	)
 	PreprocessMethod(
 		method ast.MethodLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessMethodSlot(
-		slot uint,
-	)
 	PostprocessMethod(
 		method ast.MethodLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessMethodSlot(
+		method ast.MethodLike,
+		slot_ uint,
 	)
 	PreprocessNotarizeClause(
 		notarizeClause ast.NotarizeClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessNotarizeClauseSlot(
-		slot uint,
-	)
 	PostprocessNotarizeClause(
 		notarizeClause ast.NotarizeClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessNotarizeClauseSlot(
+		notarizeClause ast.NotarizeClauseLike,
+		slot_ uint,
 	)
 	PreprocessNumerical(
 		numerical ast.NumericalLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessNumericalSlot(
-		slot uint,
-	)
 	PostprocessNumerical(
 		numerical ast.NumericalLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessNumericalSlot(
+		numerical ast.NumericalLike,
+		slot_ uint,
 	)
 	PreprocessOnClause(
 		onClause ast.OnClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessOnClauseSlot(
-		slot uint,
-	)
 	PostprocessOnClause(
 		onClause ast.OnClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessOnClauseSlot(
+		onClause ast.OnClauseLike,
+		slot_ uint,
 	)
 	PreprocessOperation(
 		operation ast.OperationLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessOperationSlot(
-		slot uint,
-	)
 	PostprocessOperation(
 		operation ast.OperationLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessOperationSlot(
+		operation ast.OperationLike,
+		slot_ uint,
 	)
 	PreprocessParameters(
 		parameters ast.ParametersLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessParametersSlot(
-		slot uint,
-	)
 	PostprocessParameters(
 		parameters ast.ParametersLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessParametersSlot(
+		parameters ast.ParametersLike,
+		slot_ uint,
 	)
 	PreprocessPostClause(
 		postClause ast.PostClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessPostClauseSlot(
-		slot uint,
-	)
 	PostprocessPostClause(
 		postClause ast.PostClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessPostClauseSlot(
+		postClause ast.PostClauseLike,
+		slot_ uint,
 	)
 	PreprocessPrecedence(
 		precedence ast.PrecedenceLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessPrecedenceSlot(
-		slot uint,
-	)
 	PostprocessPrecedence(
 		precedence ast.PrecedenceLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessPrecedenceSlot(
+		precedence ast.PrecedenceLike,
+		slot_ uint,
 	)
 	PreprocessPredicate(
 		predicate ast.PredicateLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessPredicateSlot(
-		slot uint,
-	)
 	PostprocessPredicate(
 		predicate ast.PredicateLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessPredicateSlot(
+		predicate ast.PredicateLike,
+		slot_ uint,
 	)
 	PreprocessPrimitive(
 		primitive ast.PrimitiveLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessPrimitiveSlot(
-		slot uint,
-	)
 	PostprocessPrimitive(
 		primitive ast.PrimitiveLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessPrimitiveSlot(
+		primitive ast.PrimitiveLike,
+		slot_ uint,
 	)
 	PreprocessProcedure(
 		procedure ast.ProcedureLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessProcedureSlot(
-		slot uint,
-	)
 	PostprocessProcedure(
 		procedure ast.ProcedureLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessProcedureSlot(
+		procedure ast.ProcedureLike,
+		slot_ uint,
 	)
 	PreprocessPublishClause(
 		publishClause ast.PublishClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessPublishClauseSlot(
-		slot uint,
-	)
 	PostprocessPublishClause(
 		publishClause ast.PublishClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessPublishClauseSlot(
+		publishClause ast.PublishClauseLike,
+		slot_ uint,
 	)
 	PreprocessRange(
 		range_ ast.RangeLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessRangeSlot(
-		slot uint,
-	)
 	PostprocessRange(
 		range_ ast.RangeLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessRangeSlot(
+		range_ ast.RangeLike,
+		slot_ uint,
 	)
 	PreprocessRecipient(
 		recipient ast.RecipientLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessRecipientSlot(
-		slot uint,
-	)
 	PostprocessRecipient(
 		recipient ast.RecipientLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessRecipientSlot(
+		recipient ast.RecipientLike,
+		slot_ uint,
 	)
 	PreprocessReferent(
 		referent ast.ReferentLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessReferentSlot(
-		slot uint,
-	)
 	PostprocessReferent(
 		referent ast.ReferentLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessReferentSlot(
+		referent ast.ReferentLike,
+		slot_ uint,
 	)
 	PreprocessRejectClause(
 		rejectClause ast.RejectClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessRejectClauseSlot(
-		slot uint,
-	)
 	PostprocessRejectClause(
 		rejectClause ast.RejectClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessRejectClauseSlot(
+		rejectClause ast.RejectClauseLike,
+		slot_ uint,
 	)
 	PreprocessRepository(
 		repository ast.RepositoryLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessRepositorySlot(
-		slot uint,
-	)
 	PostprocessRepository(
 		repository ast.RepositoryLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessRepositorySlot(
+		repository ast.RepositoryLike,
+		slot_ uint,
 	)
 	PreprocessResult(
 		result ast.ResultLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessResultSlot(
-		slot uint,
-	)
 	PostprocessResult(
 		result ast.ResultLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessResultSlot(
+		result ast.ResultLike,
+		slot_ uint,
 	)
 	PreprocessRetrieveClause(
 		retrieveClause ast.RetrieveClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessRetrieveClauseSlot(
-		slot uint,
-	)
 	PostprocessRetrieveClause(
 		retrieveClause ast.RetrieveClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessRetrieveClauseSlot(
+		retrieveClause ast.RetrieveClauseLike,
+		slot_ uint,
 	)
 	PreprocessReturnClause(
 		returnClause ast.ReturnClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessReturnClauseSlot(
-		slot uint,
-	)
 	PostprocessReturnClause(
 		returnClause ast.ReturnClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessReturnClauseSlot(
+		returnClause ast.ReturnClauseLike,
+		slot_ uint,
 	)
 	PreprocessRightBracket(
 		rightBracket ast.RightBracketLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessRightBracketSlot(
-		slot uint,
-	)
 	PostprocessRightBracket(
 		rightBracket ast.RightBracketLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessRightBracketSlot(
+		rightBracket ast.RightBracketLike,
+		slot_ uint,
 	)
 	PreprocessSaveClause(
 		saveClause ast.SaveClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessSaveClauseSlot(
-		slot uint,
-	)
 	PostprocessSaveClause(
 		saveClause ast.SaveClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessSaveClauseSlot(
+		saveClause ast.SaveClauseLike,
+		slot_ uint,
 	)
 	PreprocessSelectClause(
 		selectClause ast.SelectClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessSelectClauseSlot(
-		slot uint,
-	)
 	PostprocessSelectClause(
 		selectClause ast.SelectClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessSelectClauseSlot(
+		selectClause ast.SelectClauseLike,
+		slot_ uint,
 	)
 	PreprocessSequence(
 		sequence ast.SequenceLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessSequenceSlot(
-		slot uint,
-	)
 	PostprocessSequence(
 		sequence ast.SequenceLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessSequenceSlot(
+		sequence ast.SequenceLike,
+		slot_ uint,
 	)
 	PreprocessStatement(
 		statement ast.StatementLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessStatementSlot(
-		slot uint,
-	)
 	PostprocessStatement(
 		statement ast.StatementLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessStatementSlot(
+		statement ast.StatementLike,
+		slot_ uint,
 	)
 	PreprocessString(
 		string_ ast.StringLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessStringSlot(
-		slot uint,
-	)
 	PostprocessString(
 		string_ ast.StringLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessStringSlot(
+		string_ ast.StringLike,
+		slot_ uint,
 	)
 	PreprocessSubcomponent(
 		subcomponent ast.SubcomponentLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessSubcomponentSlot(
-		slot uint,
-	)
 	PostprocessSubcomponent(
 		subcomponent ast.SubcomponentLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessSubcomponentSlot(
+		subcomponent ast.SubcomponentLike,
+		slot_ uint,
 	)
 	PreprocessSubject(
 		subject ast.SubjectLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessSubjectSlot(
-		slot uint,
-	)
 	PostprocessSubject(
 		subject ast.SubjectLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessSubjectSlot(
+		subject ast.SubjectLike,
+		slot_ uint,
 	)
 	PreprocessTarget(
 		target ast.TargetLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessTargetSlot(
-		slot uint,
-	)
 	PostprocessTarget(
 		target ast.TargetLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessTargetSlot(
+		target ast.TargetLike,
+		slot_ uint,
 	)
 	PreprocessTemplate(
 		template ast.TemplateLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessTemplateSlot(
-		slot uint,
-	)
 	PostprocessTemplate(
 		template ast.TemplateLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessTemplateSlot(
+		template ast.TemplateLike,
+		slot_ uint,
 	)
 	PreprocessTextual(
 		textual ast.TextualLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessTextualSlot(
-		slot uint,
-	)
 	PostprocessTextual(
 		textual ast.TextualLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessTextualSlot(
+		textual ast.TextualLike,
+		slot_ uint,
 	)
 	PreprocessThrowClause(
 		throwClause ast.ThrowClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessThrowClauseSlot(
-		slot uint,
-	)
 	PostprocessThrowClause(
 		throwClause ast.ThrowClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessThrowClauseSlot(
+		throwClause ast.ThrowClauseLike,
+		slot_ uint,
 	)
 	PreprocessValue(
 		value ast.ValueLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessValueSlot(
-		slot uint,
-	)
 	PostprocessValue(
 		value ast.ValueLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessValueSlot(
+		value ast.ValueLike,
+		slot_ uint,
 	)
 	PreprocessVariable(
 		variable ast.VariableLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessVariableSlot(
-		slot uint,
-	)
 	PostprocessVariable(
 		variable ast.VariableLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessVariableSlot(
+		variable ast.VariableLike,
+		slot_ uint,
 	)
 	PreprocessWhileClause(
 		whileClause ast.WhileClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessWhileClauseSlot(
-		slot uint,
-	)
 	PostprocessWhileClause(
 		whileClause ast.WhileClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessWhileClauseSlot(
+		whileClause ast.WhileClauseLike,
+		slot_ uint,
 	)
 	PreprocessWithClause(
 		withClause ast.WithClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessWithClauseSlot(
-		slot uint,
-	)
 	PostprocessWithClause(
 		withClause ast.WithClauseLike,
 		index_ uint,
 		count_ uint,
+	)
+	ProcessWithClauseSlot(
+		withClause ast.WithClauseLike,
+		slot_ uint,
 	)
 }

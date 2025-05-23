@@ -1,7 +1,7 @@
 [
-    [ ]
+    []
     [:]
-    [[ ]]
+    [[]]
     [[:]]
     [~0..~τ]
     [~P0W..~P3Y)
@@ -52,7 +52,7 @@
         $a: [$array]
         $b: [$foo: "bar"]
     ]
-    [ ]($type: /bali/collections/Set@v1)
+    []($type: /bali/collections/Set@v1)
     [:]($type: /bali/collections/Catalog@v1)
     [$foobar]($type: /bali/collections/List@v1)
     [
