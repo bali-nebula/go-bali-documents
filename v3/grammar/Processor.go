@@ -485,26 +485,6 @@ func (v *processor_) ProcessCitedSlot(
 ) {
 }
 
-func (v *processor_) PreprocessCode(
-	code ast.CodeLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessCode(
-	code ast.CodeLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessCodeSlot(
-	code ast.CodeLike,
-	slot_ uint,
-) {
-}
-
 func (v *processor_) PreprocessCollection(
 	collection ast.CollectionLike,
 	index_ uint,
@@ -761,26 +741,6 @@ func (v *processor_) PostprocessEntity(
 
 func (v *processor_) ProcessEntitySlot(
 	entity ast.EntityLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PreprocessEntry(
-	entry ast.EntryLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessEntry(
-	entry ast.EntryLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessEntrySlot(
-	entry ast.EntryLike,
 	slot_ uint,
 ) {
 }
@@ -1121,6 +1081,26 @@ func (v *processor_) PostprocessLetClause(
 
 func (v *processor_) ProcessLetClauseSlot(
 	letClause ast.LetClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PreprocessLine(
+	line ast.LineLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessLine(
+	line ast.LineLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessLineSlot(
+	line ast.LineLike,
 	slot_ uint,
 ) {
 }

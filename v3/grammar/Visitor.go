@@ -429,38 +429,6 @@ func (v *visitor_) visitCited(
 	)
 }
 
-func (v *visitor_) visitCode(
-	code ast.CodeLike,
-) {
-	// Visit the possible code rule types.
-	switch actual := code.GetAny().(type) {
-	case ast.AnnotationLike:
-		v.processor_.PreprocessAnnotation(
-			actual,
-			1,
-			1,
-		)
-		v.visitAnnotation(actual)
-		v.processor_.PostprocessAnnotation(
-			actual,
-			1,
-			1,
-		)
-	case ast.StatementLike:
-		v.processor_.PreprocessStatement(
-			actual,
-			1,
-			1,
-		)
-		v.visitStatement(actual)
-		v.processor_.PostprocessStatement(
-			actual,
-			1,
-			1,
-		)
-	}
-}
-
 func (v *visitor_) visitCollection(
 	collection ast.CollectionLike,
 ) {
@@ -846,23 +814,6 @@ func (v *visitor_) visitEntity(
 			1,
 		)
 	}
-}
-
-func (v *visitor_) visitEntry(
-	entry ast.EntryLike,
-) {
-	var component = entry.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
-		1,
-		1,
-	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
-		1,
-		1,
-	)
 }
 
 func (v *visitor_) visitEvent(
@@ -1437,22 +1388,22 @@ func (v *visitor_) visitItems(
 		1,
 	)
 
-	var entriesIndex uint
-	var entries = items.GetEntries().GetIterator()
-	var entriesCount = uint(entries.GetSize())
-	for entries.HasNext() {
-		entriesIndex++
-		var rule = entries.GetNext()
-		v.processor_.PreprocessEntry(
+	var componentsIndex uint
+	var components = items.GetComponents().GetIterator()
+	var componentsCount = uint(components.GetSize())
+	for components.HasNext() {
+		componentsIndex++
+		var rule = components.GetNext()
+		v.processor_.PreprocessComponent(
 			rule,
-			entriesIndex,
-			entriesCount,
+			componentsIndex,
+			componentsCount,
 		)
-		v.visitEntry(rule)
-		v.processor_.PostprocessEntry(
+		v.visitComponent(rule)
+		v.processor_.PostprocessComponent(
 			rule,
-			entriesIndex,
-			entriesCount,
+			componentsIndex,
+			componentsCount,
 		)
 	}
 	// Visit slot 2 between terms.
@@ -1537,6 +1488,38 @@ func (v *visitor_) visitLetClause(
 		1,
 		1,
 	)
+}
+
+func (v *visitor_) visitLine(
+	line ast.LineLike,
+) {
+	// Visit the possible line rule types.
+	switch actual := line.GetAny().(type) {
+	case ast.AnnotationLike:
+		v.processor_.PreprocessAnnotation(
+			actual,
+			1,
+			1,
+		)
+		v.visitAnnotation(actual)
+		v.processor_.PostprocessAnnotation(
+			actual,
+			1,
+			1,
+		)
+	case ast.StatementLike:
+		v.processor_.PreprocessStatement(
+			actual,
+			1,
+			1,
+		)
+		v.visitStatement(actual)
+		v.processor_.PostprocessStatement(
+			actual,
+			1,
+			1,
+		)
+	}
 }
 
 func (v *visitor_) visitLogic(
@@ -2380,22 +2363,22 @@ func (v *visitor_) visitProcedure(
 		1,
 	)
 
-	var codesIndex uint
-	var codes = procedure.GetCodes().GetIterator()
-	var codesCount = uint(codes.GetSize())
-	for codes.HasNext() {
-		codesIndex++
-		var rule = codes.GetNext()
-		v.processor_.PreprocessCode(
+	var linesIndex uint
+	var lines = procedure.GetLines().GetIterator()
+	var linesCount = uint(lines.GetSize())
+	for lines.HasNext() {
+		linesIndex++
+		var rule = lines.GetNext()
+		v.processor_.PreprocessLine(
 			rule,
-			codesIndex,
-			codesCount,
+			linesIndex,
+			linesCount,
 		)
-		v.visitCode(rule)
-		v.processor_.PostprocessCode(
+		v.visitLine(rule)
+		v.processor_.PostprocessLine(
 			rule,
-			codesIndex,
-			codesCount,
+			linesIndex,
+			linesCount,
 		)
 	}
 	// Visit slot 2 between terms.

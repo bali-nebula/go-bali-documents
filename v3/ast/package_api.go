@@ -214,18 +214,6 @@ type CitedClassLike interface {
 }
 
 /*
-CodeClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete code-like class.
-*/
-type CodeClassLike interface {
-	// Constructor Methods
-	Code(
-		any_ any,
-	) CodeLike
-}
-
-/*
 CollectionClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete collection-like class.
@@ -388,18 +376,6 @@ type EntityClassLike interface {
 	Entity(
 		any_ any,
 	) EntityLike
-}
-
-/*
-EntryClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete entry-like class.
-*/
-type EntryClassLike interface {
-	// Constructor Methods
-	Entry(
-		component ComponentLike,
-	) EntryLike
 }
 
 /*
@@ -590,7 +566,7 @@ type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
 		delimiter1 string,
-		entries col.Sequential[EntryLike],
+		components col.Sequential[ComponentLike],
 		delimiter2 string,
 	) ItemsLike
 }
@@ -620,6 +596,18 @@ type LetClauseClassLike interface {
 		assignment AssignmentLike,
 		expression ExpressionLike,
 	) LetClauseLike
+}
+
+/*
+LineClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete line-like class.
+*/
+type LineClassLike interface {
+	// Constructor Methods
+	Line(
+		any_ any,
+	) LineLike
 }
 
 /*
@@ -843,7 +831,7 @@ type ProcedureClassLike interface {
 	// Constructor Methods
 	Procedure(
 		delimiter1 string,
-		codes col.Sequential[CodeLike],
+		lines col.Sequential[LineLike],
 		delimiter2 string,
 	) ProcedureLike
 }
@@ -1363,19 +1351,6 @@ type CitedLike interface {
 }
 
 /*
-CodeLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete code-like class.
-*/
-type CodeLike interface {
-	// Principal Methods
-	GetClass() CodeClassLike
-
-	// Attribute Methods
-	GetAny() any
-}
-
-/*
 CollectionLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete collection-like class.
@@ -1551,19 +1526,6 @@ type EntityLike interface {
 
 	// Attribute Methods
 	GetAny() any
-}
-
-/*
-EntryLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete entry-like class.
-*/
-type EntryLike interface {
-	// Principal Methods
-	GetClass() EntryClassLike
-
-	// Attribute Methods
-	GetComponent() ComponentLike
 }
 
 /*
@@ -1770,7 +1732,7 @@ type ItemsLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetEntries() col.Sequential[EntryLike]
+	GetComponents() col.Sequential[ComponentLike]
 	GetDelimiter2() string
 }
 
@@ -1801,6 +1763,19 @@ type LetClauseLike interface {
 	GetRecipient() RecipientLike
 	GetAssignment() AssignmentLike
 	GetExpression() ExpressionLike
+}
+
+/*
+LineLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete line-like class.
+*/
+type LineLike interface {
+	// Principal Methods
+	GetClass() LineClassLike
+
+	// Attribute Methods
+	GetAny() any
 }
 
 /*
@@ -2042,7 +2017,7 @@ type ProcedureLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetCodes() col.Sequential[CodeLike]
+	GetLines() col.Sequential[LineLike]
 	GetDelimiter2() string
 }
 

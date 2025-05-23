@@ -27,21 +27,21 @@ import (
 
 // Access Function
 
-func EntryClass() EntryClassLike {
-	return entryClass()
+func LineClass() LineClassLike {
+	return lineClass()
 }
 
 // Constructor Methods
 
-func (c *entryClass_) Entry(
-	component ComponentLike,
-) EntryLike {
-	if uti.IsUndefined(component) {
-		panic("The \"component\" attribute is required by this class.")
+func (c *lineClass_) Line(
+	any_ any,
+) LineLike {
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &entry_{
+	var instance = &line_{
 		// Initialize the instance attributes.
-		component_: component,
+		any_: any_,
 	}
 	return instance
 }
@@ -50,37 +50,37 @@ func (c *entryClass_) Entry(
 
 // Principal Methods
 
-func (v *entry_) GetClass() EntryClassLike {
-	return entryClass()
+func (v *line_) GetClass() LineClassLike {
+	return lineClass()
 }
 
 // Attribute Methods
 
-func (v *entry_) GetComponent() ComponentLike {
-	return v.component_
+func (v *line_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
 
 // Instance Structure
 
-type entry_ struct {
+type line_ struct {
 	// Declare the instance attributes.
-	component_ ComponentLike
+	any_ any
 }
 
 // Class Structure
 
-type entryClass_ struct {
+type lineClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func entryClass() *entryClass_ {
-	return entryClassReference_
+func lineClass() *lineClass_ {
+	return lineClassReference_
 }
 
-var entryClassReference_ = &entryClass_{
+var lineClassReference_ = &lineClass_{
 	// Initialize the class constants.
 }

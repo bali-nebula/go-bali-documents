@@ -587,20 +587,6 @@ type Methodical interface {
 		cited ast.CitedLike,
 		slot_ uint,
 	)
-	PreprocessCode(
-		code ast.CodeLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessCode(
-		code ast.CodeLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessCodeSlot(
-		code ast.CodeLike,
-		slot_ uint,
-	)
 	PreprocessCollection(
 		collection ast.CollectionLike,
 		index_ uint,
@@ -781,20 +767,6 @@ type Methodical interface {
 	)
 	ProcessEntitySlot(
 		entity ast.EntityLike,
-		slot_ uint,
-	)
-	PreprocessEntry(
-		entry ast.EntryLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessEntry(
-		entry ast.EntryLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessEntrySlot(
-		entry ast.EntryLike,
 		slot_ uint,
 	)
 	PreprocessEvent(
@@ -1033,6 +1005,20 @@ type Methodical interface {
 	)
 	ProcessLetClauseSlot(
 		letClause ast.LetClauseLike,
+		slot_ uint,
+	)
+	PreprocessLine(
+		line ast.LineLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessLine(
+		line ast.LineLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessLineSlot(
+		line ast.LineLike,
 		slot_ uint,
 	)
 	PreprocessLogic(

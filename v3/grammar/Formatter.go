@@ -331,26 +331,6 @@ func (v *formatter_) ProcessAssignmentSlot(
 	}
 }
 
-func (v *formatter_) PreprocessAssociation(
-	association ast.AssociationLike,
-	index_ uint,
-	count_ uint,
-) {
-	if count_ > 1 {
-		v.appendNewline()
-	}
-}
-
-func (v *formatter_) PostprocessAssociation(
-	association ast.AssociationLike,
-	index_ uint,
-	count_ uint,
-) {
-	if index_ == count_ && count_ > 1 {
-		v.appendNewline()
-	}
-}
-
 func (v *formatter_) ProcessAssociationSlot(
 	association ast.AssociationLike,
 	slot_ uint,
@@ -377,6 +357,10 @@ func (v *formatter_) ProcessAttributesSlot(
 		v.depth_++
 	case 2:
 		v.depth_--
+		var associations = attributes.GetAssociations()
+		if associations.GetSize() > 1 {
+			v.appendNewline()
+		}
 	}
 }
 
@@ -420,14 +404,12 @@ func (v *formatter_) PreprocessCited(
 	// TBD - Add formatting of the rule.
 }
 
-func (v *formatter_) PreprocessCode(
-	code ast.CodeLike,
+func (v *formatter_) PreprocessLine(
+	line ast.LineLike,
 	index_ uint,
 	count_ uint,
 ) {
-	if count_ > 0 {
-		v.appendNewline()
-	}
+	v.appendNewline()
 }
 
 func (v *formatter_) PreprocessComparison(
@@ -492,35 +474,6 @@ func (v *formatter_) PreprocessDraft(
 	count_ uint,
 ) {
 	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) PreprocessEntry(
-	entry ast.EntryLike,
-	index_ uint,
-	count_ uint,
-) {
-	if count_ > 1 {
-		v.appendNewline()
-	}
-}
-
-func (v *formatter_) PostprocessEntry(
-	entry ast.EntryLike,
-	index_ uint,
-	count_ uint,
-) {
-	if index_ == count_ && count_ > 1 {
-		v.appendNewline()
-	}
-}
-
-func (v *formatter_) ProcessEntrySlot(
-	entry ast.EntryLike,
-	slot_ uint,
-) {
-	if slot_ == 1 {
-		v.appendString(" ")
-	}
 }
 
 func (v *formatter_) PreprocessEvent(
@@ -644,6 +597,10 @@ func (v *formatter_) ProcessItemsSlot(
 		v.depth_++
 	case 2:
 		v.depth_--
+		var components = items.GetComponents()
+		if components.GetSize() > 1 {
+			v.appendNewline()
+		}
 	}
 }
 
@@ -762,6 +719,10 @@ func (v *formatter_) ProcessParametersSlot(
 		v.depth_++
 	case 2:
 		v.depth_--
+		var associations = parameters.GetAssociations()
+		if associations.GetSize() > 1 {
+			v.appendNewline()
+		}
 	}
 }
 
@@ -798,6 +759,10 @@ func (v *formatter_) ProcessProcedureSlot(
 		v.depth_++
 	case 2:
 		v.depth_--
+		var lines = procedure.GetLines()
+		if lines.GetSize() > 1 {
+			v.appendNewline()
+		}
 	}
 }
 

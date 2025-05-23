@@ -52,7 +52,6 @@ type (
 	BreakClauseClassLike    = ast.BreakClauseClassLike
 	CheckoutClauseClassLike = ast.CheckoutClauseClassLike
 	CitedClassLike          = ast.CitedClassLike
-	CodeClassLike           = ast.CodeClassLike
 	CollectionClassLike     = ast.CollectionClassLike
 	ComparisonClassLike     = ast.ComparisonClassLike
 	ComplementClassLike     = ast.ComplementClassLike
@@ -66,7 +65,6 @@ type (
 	ElementClassLike        = ast.ElementClassLike
 	EmptyClassLike          = ast.EmptyClassLike
 	EntityClassLike         = ast.EntityClassLike
-	EntryClassLike          = ast.EntryClassLike
 	EventClassLike          = ast.EventClassLike
 	ExceptionClassLike      = ast.ExceptionClassLike
 	ExpressionClassLike     = ast.ExpressionClassLike
@@ -84,6 +82,7 @@ type (
 	ItemsClassLike          = ast.ItemsClassLike
 	LeftBracketClassLike    = ast.LeftBracketClassLike
 	LetClauseClassLike      = ast.LetClauseClassLike
+	LineClassLike           = ast.LineClassLike
 	LogicClassLike          = ast.LogicClassLike
 	LogicalClassLike        = ast.LogicalClassLike
 	MagnitudeClassLike      = ast.MagnitudeClassLike
@@ -142,7 +141,6 @@ type (
 	BreakClauseLike    = ast.BreakClauseLike
 	CheckoutClauseLike = ast.CheckoutClauseLike
 	CitedLike          = ast.CitedLike
-	CodeLike           = ast.CodeLike
 	CollectionLike     = ast.CollectionLike
 	ComparisonLike     = ast.ComparisonLike
 	ComplementLike     = ast.ComplementLike
@@ -156,7 +154,6 @@ type (
 	ElementLike        = ast.ElementLike
 	EmptyLike          = ast.EmptyLike
 	EntityLike         = ast.EntityLike
-	EntryLike          = ast.EntryLike
 	EventLike          = ast.EventLike
 	ExceptionLike      = ast.ExceptionLike
 	ExpressionLike     = ast.ExpressionLike
@@ -174,6 +171,7 @@ type (
 	ItemsLike          = ast.ItemsLike
 	LeftBracketLike    = ast.LeftBracketLike
 	LetClauseLike      = ast.LetClauseLike
+	LineLike           = ast.LineLike
 	LogicLike          = ast.LogicLike
 	LogicalLike        = ast.LogicalLike
 	MagnitudeLike      = ast.MagnitudeLike
@@ -471,18 +469,6 @@ func Cited(
 	)
 }
 
-func CodeClass() CodeClassLike {
-	return ast.CodeClass()
-}
-
-func Code(
-	any_ any,
-) CodeLike {
-	return CodeClass().Code(
-		any_,
-	)
-}
-
 func CollectionClass() CollectionClassLike {
 	return ast.CollectionClass()
 }
@@ -654,18 +640,6 @@ func Entity(
 ) EntityLike {
 	return EntityClass().Entity(
 		any_,
-	)
-}
-
-func EntryClass() EntryClassLike {
-	return ast.EntryClass()
-}
-
-func Entry(
-	component ast.ComponentLike,
-) EntryLike {
-	return EntryClass().Entry(
-		component,
 	)
 }
 
@@ -865,12 +839,12 @@ func ItemsClass() ItemsClassLike {
 
 func Items(
 	delimiter1 string,
-	entries col.Sequential[ast.EntryLike],
+	components col.Sequential[ast.ComponentLike],
 	delimiter2 string,
 ) ItemsLike {
 	return ItemsClass().Items(
 		delimiter1,
-		entries,
+		components,
 		delimiter2,
 	)
 }
@@ -902,6 +876,18 @@ func LetClause(
 		recipient,
 		assignment,
 		expression,
+	)
+}
+
+func LineClass() LineClassLike {
+	return ast.LineClass()
+}
+
+func Line(
+	any_ any,
+) LineLike {
+	return LineClass().Line(
+		any_,
 	)
 }
 
@@ -1143,12 +1129,12 @@ func ProcedureClass() ProcedureClassLike {
 
 func Procedure(
 	delimiter1 string,
-	codes col.Sequential[ast.CodeLike],
+	lines col.Sequential[ast.LineLike],
 	delimiter2 string,
 ) ProcedureLike {
 	return ProcedureClass().Procedure(
 		delimiter1,
-		codes,
+		lines,
 		delimiter2,
 	)
 }

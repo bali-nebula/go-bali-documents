@@ -369,14 +369,6 @@ func (v *validator_) PreprocessCited(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessCode(
-	code ast.CodeLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
 func (v *validator_) PreprocessCollection(
 	collection ast.CollectionLike,
 	index_ uint,
@@ -475,14 +467,6 @@ func (v *validator_) PreprocessEmpty(
 
 func (v *validator_) PreprocessEntity(
 	entity ast.EntityLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
-func (v *validator_) PreprocessEntry(
-	entry ast.EntryLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -619,6 +603,14 @@ func (v *validator_) PreprocessLeftBracket(
 
 func (v *validator_) PreprocessLetClause(
 	letClause ast.LetClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add any validation checks.
+}
+
+func (v *validator_) PreprocessLine(
+	line ast.LineLike,
 	index_ uint,
 	count_ uint,
 ) {

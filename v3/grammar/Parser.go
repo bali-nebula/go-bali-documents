@@ -772,33 +772,6 @@ func (v *parser_) parseCited() (
 	return
 }
 
-func (v *parser_) parseCode() (
-	code ast.CodeLike,
-	token TokenLike,
-	ok bool,
-) {
-	// Attempt to parse a single Annotation Code.
-	var annotation ast.AnnotationLike
-	annotation, token, ok = v.parseAnnotation()
-	if ok {
-		// Found a single Annotation Code.
-		code = ast.CodeClass().Code(annotation)
-		return
-	}
-
-	// Attempt to parse a single Statement Code.
-	var statement ast.StatementLike
-	statement, token, ok = v.parseStatement()
-	if ok {
-		// Found a single Statement Code.
-		code = ast.CodeClass().Code(statement)
-		return
-	}
-
-	// This is not a single Code rule.
-	return
-}
-
 func (v *parser_) parseCollection() (
 	collection ast.CollectionLike,
 	token TokenLike,
@@ -1460,37 +1433,6 @@ func (v *parser_) parseEntity() (
 	}
 
 	// This is not a single Entity rule.
-	return
-}
-
-func (v *parser_) parseEntry() (
-	entry ast.EntryLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single Component rule.
-	var component ast.ComponentLike
-	component, token, ok = v.parseComponent()
-	switch {
-	case ok:
-		// No additional put backs allowed at this point.
-		tokens = nil
-	case uti.IsDefined(tokens):
-		// This is not a single Component rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Entry", token)
-		panic(message)
-	}
-
-	// Found a single Entry rule.
-	ok = true
-	v.remove(tokens)
-	entry = ast.EntryClass().Entry(component)
 	return
 }
 
@@ -2264,30 +2206,30 @@ func (v *parser_) parseItems() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse multiple Entry rules.
-	var entries = col.List[ast.EntryLike]()
-entriesLoop:
+	// Attempt to parse multiple Component rules.
+	var components = col.List[ast.ComponentLike]()
+componentsLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
-		var entry ast.EntryLike
-		entry, token, ok = v.parseEntry()
+		var component ast.ComponentLike
+		component, token, ok = v.parseComponent()
 		if !ok {
 			switch {
 			case count_ >= 0:
-				break entriesLoop
+				break componentsLoop
 			case uti.IsDefined(tokens):
-				// This is not multiple Entry rules.
+				// This is not multiple Component rules.
 				v.putBack(tokens)
 				return
 			default:
 				// Found a syntax error.
 				var message = v.formatError("$Items", token)
-				message += "0 or more Entry rules are required."
+				message += "0 or more Component rules are required."
 				panic(message)
 			}
 		}
 		// No additional put backs allowed at this point.
 		tokens = nil
-		entries.AppendValue(entry)
+		components.AppendValue(component)
 	}
 
 	// Attempt to parse a single "]" literal.
@@ -2313,7 +2255,7 @@ entriesLoop:
 	v.remove(tokens)
 	items = ast.ItemsClass().Items(
 		delimiter1,
-		entries,
+		components,
 		delimiter2,
 	)
 	return
@@ -2433,6 +2375,33 @@ func (v *parser_) parseLetClause() (
 		assignment,
 		expression,
 	)
+	return
+}
+
+func (v *parser_) parseLine() (
+	line ast.LineLike,
+	token TokenLike,
+	ok bool,
+) {
+	// Attempt to parse a single Annotation Line.
+	var annotation ast.AnnotationLike
+	annotation, token, ok = v.parseAnnotation()
+	if ok {
+		// Found a single Annotation Line.
+		line = ast.LineClass().Line(annotation)
+		return
+	}
+
+	// Attempt to parse a single Statement Line.
+	var statement ast.StatementLike
+	statement, token, ok = v.parseStatement()
+	if ok {
+		// Found a single Statement Line.
+		line = ast.LineClass().Line(statement)
+		return
+	}
+
+	// This is not a single Line rule.
 	return
 }
 
@@ -3547,30 +3516,30 @@ func (v *parser_) parseProcedure() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse multiple Code rules.
-	var codes = col.List[ast.CodeLike]()
-codesLoop:
+	// Attempt to parse multiple Line rules.
+	var lines = col.List[ast.LineLike]()
+linesLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
-		var code ast.CodeLike
-		code, token, ok = v.parseCode()
+		var line ast.LineLike
+		line, token, ok = v.parseLine()
 		if !ok {
 			switch {
 			case count_ >= 0:
-				break codesLoop
+				break linesLoop
 			case uti.IsDefined(tokens):
-				// This is not multiple Code rules.
+				// This is not multiple Line rules.
 				v.putBack(tokens)
 				return
 			default:
 				// Found a syntax error.
 				var message = v.formatError("$Procedure", token)
-				message += "0 or more Code rules are required."
+				message += "0 or more Line rules are required."
 				panic(message)
 			}
 		}
 		// No additional put backs allowed at this point.
 		tokens = nil
-		codes.AppendValue(code)
+		lines.AppendValue(line)
 	}
 
 	// Attempt to parse a single "}" literal.
@@ -3596,7 +3565,7 @@ codesLoop:
 	v.remove(tokens)
 	procedure = ast.ProcedureClass().Procedure(
 		delimiter1,
-		codes,
+		lines,
 		delimiter2,
 	)
 	return
@@ -5357,11 +5326,10 @@ var parserClassReference_ = &parserClass_{
     "]"
     ")"`,
 			"$Attributes": `"[" Association+ "]"`,
-			"$Items":      `"[" Entry* "]"`,
-			"$Entry":      `Component`,
+			"$Items":      `"[" Component* "]"`,
 			"$Empty":      `"[" ":" "]"`,
-			"$Procedure":  `"{" Code* "}"`,
-			"$Code": `
+			"$Procedure":  `"{" Line* "}"`,
+			"$Line": `
     Annotation
     Statement`,
 			"$Statement": `MainClause OnClause? note?`,

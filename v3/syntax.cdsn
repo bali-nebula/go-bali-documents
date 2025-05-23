@@ -82,15 +82,13 @@ $RightBracket:
 
 $Attributes: "[" Association+ "]"
 
-$Items: "[" Entry* "]"
-
-$Entry: Component
+$Items: "[" Component* "]"
 
 $Empty: "[" ":" "]"
 
-$Procedure: "{" Code* "}"
+$Procedure: "{" Line* "}"
 
-$Code:
+$Line:
     Annotation
     Statement
 
