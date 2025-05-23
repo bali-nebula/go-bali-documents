@@ -292,7 +292,9 @@ func (v *formatter_) PreprocessArgument(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add formatting of the rule.
+	if count_ > 1 {
+		v.appendNewline()
+	}
 }
 
 func (v *formatter_) PreprocessArithmetic(
@@ -328,6 +330,16 @@ func (v *formatter_) ProcessAssignmentSlot(
 	switch slot_ {
 	default:
 		v.appendString(" ")
+	}
+}
+
+func (v *formatter_) PreprocessAssociation(
+	association ast.AssociationLike,
+	index_ uint,
+	count_ uint,
+) {
+	if count_ > 1 {
+		v.appendNewline()
 	}
 }
 
@@ -402,6 +414,16 @@ func (v *formatter_) PreprocessCited(
 	count_ uint,
 ) {
 	// TBD - Add formatting of the rule.
+}
+
+func (v *formatter_) PreprocessComponent(
+	component ast.ComponentLike,
+	index_ uint,
+	count_ uint,
+) {
+	if count_ > 1 {
+		v.appendNewline()
+	}
 }
 
 func (v *formatter_) PreprocessLine(
@@ -492,14 +514,6 @@ func (v *formatter_) PreprocessException(
 	// TBD - Add formatting of the rule.
 }
 
-func (v *formatter_) PreprocessExpression(
-	expression ast.ExpressionLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
 func (v *formatter_) PreprocessFailure(
 	failure ast.FailureLike,
 	index_ uint,
@@ -516,12 +530,27 @@ func (v *formatter_) PreprocessFlow(
 	// TBD - Add formatting of the rule.
 }
 
-func (v *formatter_) PreprocessFunction(
+func (v *formatter_) ProcessFunctionSlot(
 	function ast.FunctionLike,
-	index_ uint,
-	count_ uint,
+	slot_ uint,
 ) {
-	// TBD - Add formatting of the rule.
+	switch slot_ {
+	case 2:
+		v.depth_++
+	case 3:
+		v.depth_--
+		var arguments = function.GetArguments()
+		switch arguments.GetSize() {
+		case 0:
+			// This is an empty argument list.
+			v.appendString(" ")
+		case 1:
+			// This has a single argument.
+		default:
+			// This has multple line items.
+			v.appendNewline()
+		}
+	}
 }
 
 func (v *formatter_) PreprocessHandler(
@@ -545,19 +574,13 @@ func (v *formatter_) PreprocessIndex(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add formatting of the rule.
+	if count_ > 1 {
+		v.appendNewline()
+	}
 }
 
 func (v *formatter_) PreprocessIndirect(
 	indirect ast.IndirectLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
-func (v *formatter_) PreprocessInduction(
-	induction ast.InductionLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -598,18 +621,24 @@ func (v *formatter_) ProcessItemsSlot(
 	case 2:
 		v.depth_--
 		var components = items.GetComponents()
-		if components.GetSize() > 1 {
+		switch components.GetSize() {
+		case 0:
+			// This is an empty item collection.
+			v.appendString(" ")
+		case 1:
+			// This has a single, inline item.
+		default:
+			// This has multple line items.
 			v.appendNewline()
 		}
 	}
 }
 
-func (v *formatter_) PreprocessLetClause(
+func (v *formatter_) ProcessLetClauseSlot(
 	letClause ast.LetClauseLike,
-	index_ uint,
-	count_ uint,
+	slot_ uint,
 ) {
-	// TBD - Add formatting of the rule.
+	v.appendString(" ")
 }
 
 func (v *formatter_) PreprocessLogic(
@@ -636,14 +665,6 @@ func (v *formatter_) PreprocessMagnitude(
 	// TBD - Add formatting of the rule.
 }
 
-func (v *formatter_) PreprocessMainClause(
-	mainClause ast.MainClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add formatting of the rule.
-}
-
 func (v *formatter_) PreprocessMessage(
 	message ast.MessageLike,
 	index_ uint,
@@ -660,12 +681,27 @@ func (v *formatter_) PreprocessMessaging(
 	// TBD - Add formatting of the rule.
 }
 
-func (v *formatter_) PreprocessMethod(
+func (v *formatter_) ProcessMethodSlot(
 	method ast.MethodLike,
-	index_ uint,
-	count_ uint,
+	slot_ uint,
 ) {
-	// TBD - Add formatting of the rule.
+	switch slot_ {
+	case 4:
+		v.depth_++
+	case 5:
+		v.depth_--
+		var arguments = method.GetArguments()
+		switch arguments.GetSize() {
+		case 0:
+			// This is an empty argument list.
+			v.appendString(" ")
+		case 1:
+			// This has a single argument.
+		default:
+			// This has multple line items.
+			v.appendNewline()
+		}
+	}
 }
 
 func (v *formatter_) PreprocessNotarizeClause(
@@ -747,7 +783,14 @@ func (v *formatter_) PreprocessPredicate(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add formatting of the rule.
+	v.appendString(" ")
+}
+
+func (v *formatter_) ProcessPredicateSlot(
+	predicate ast.PredicateLike,
+	slot_ uint,
+) {
+	v.appendString(" ")
 }
 
 func (v *formatter_) ProcessProcedureSlot(
@@ -854,20 +897,32 @@ func (v *formatter_) PreprocessSequence(
 	// TBD - Add formatting of the rule.
 }
 
-func (v *formatter_) PreprocessStatement(
+func (v *formatter_) PostprocessStatement(
 	statement ast.StatementLike,
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add formatting of the rule.
+	v.appendNewline()
 }
 
-func (v *formatter_) PreprocessSubcomponent(
+func (v *formatter_) ProcessSubcomponentSlot(
 	subcomponent ast.SubcomponentLike,
-	index_ uint,
-	count_ uint,
+	slot_ uint,
 ) {
-	// TBD - Add formatting of the rule.
+	switch slot_ {
+	case 2:
+		v.depth_++
+	case 3:
+		v.depth_--
+		var indexes = subcomponent.GetIndexes()
+		switch indexes.GetSize() {
+		case 1:
+			// This has a single, inline index.
+		default:
+			// This has multple line indexes.
+			v.appendNewline()
+		}
+	}
 }
 
 func (v *formatter_) PreprocessSubject(

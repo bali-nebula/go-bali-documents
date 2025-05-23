@@ -150,7 +150,7 @@ $Target:
 $Function: identifier "(" Argument* ")"
 
 $Argument:
-	Value
+    Value
     Primitive
 
 $Value: identifier
@@ -159,12 +159,12 @@ $Method: identifier Blocking identifier "(" Argument* ")"
 
 $Blocking:
     dot
-	arrow
+    arrow
 
 $Subcomponent: identifier "[" Index+ "]"
 
 $Index:
-	Value
+    Value
     Primitive
 
 $WhileClause: "while" Condition "do" Procedure
@@ -196,12 +196,12 @@ $Invocation:
 $LetClause: "let" Recipient Assignment Expression
 
 $Assignment:
-":="
-"?="
-"+="
-"-="
-"*="
-"/="
+    ":="
+    "?="
+    "+="
+    "-="
+    "*="
+    "/="
 
 $Recipient:
     Variable
@@ -255,9 +255,9 @@ $Predicate: Operation Expression
 
 $Operation:
     Textual
-	Logic
-	Arithmetic
-	Comparison
+    Logic
+    Arithmetic
+    Comparison
 
 $Textual:
     "&"
@@ -265,23 +265,23 @@ $Textual:
     "matches"
 
 $Logic:
-	"and"
-	"san"
-	"ior"
-	"xor"
+    "and"
+    "san"
+    "ior"
+    "xor"
 
 $Arithmetic:
     plus
-	minus
-	star
-	slash
-	percent
-	caret
+    minus
+    star
+    slash
+    percent
+    caret
 
 $Comparison:
     less
-	equal
-	more
+    equal
+    more
 
 $Precedence: "(" Expression ")"
 
@@ -462,6 +462,8 @@ $years: timespan 'Y'
 
 $identifier: letter (letter | DIGIT)*  ! Must be after all alphanumeric expressions.
 
+$arrow: "<-"
+
 $less: "<"
 
 $equal: "="
@@ -481,6 +483,4 @@ $percent: "%"
 $caret: "^"
 
 $dot: "."
-
-$arrow: "<-"
 

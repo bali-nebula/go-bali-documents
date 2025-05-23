@@ -214,6 +214,7 @@ loop:
 		case v.foundToken(TagToken):
 		case v.foundToken(VersionToken):
 		case v.foundToken(IdentifierToken):
+		case v.foundToken(ArrowToken):
 		case v.foundToken(LessToken):
 		case v.foundToken(EqualToken):
 		case v.foundToken(MoreToken):
@@ -224,7 +225,6 @@ loop:
 		case v.foundToken(PercentToken):
 		case v.foundToken(CaretToken):
 		case v.foundToken(DotToken):
-		case v.foundToken(ArrowToken):
 		default:
 			v.foundError()
 			break loop
@@ -431,6 +431,7 @@ const (
 	year_         = "(?:0|(?:" + ordinal_ + "))"
 	years_        = "(?:(?:" + timespan_ + ")Y)"
 	identifier_   = "(?:(?:" + letter_ + ")((?:" + letter_ + ")|" + digit_ + ")*)"
+	arrow_        = "(?:<-)"
 	less_         = "(?:<)"
 	equal_        = "(?:=)"
 	more_         = "(?:>)"
@@ -441,5 +442,4 @@ const (
 	percent_      = "(?:%)"
 	caret_        = "(?:\\^)"
 	dot_          = "(?:\\.)"
-	arrow_        = "(?:<-)"
 )
