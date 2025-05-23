@@ -82,7 +82,6 @@ type (
 	InversionClassLike      = ast.InversionClassLike
 	InvocationClassLike     = ast.InvocationClassLike
 	ItemsClassLike          = ast.ItemsClassLike
-	KeyClassLike            = ast.KeyClassLike
 	LeftBracketClassLike    = ast.LeftBracketClassLike
 	LetClauseClassLike      = ast.LetClauseClassLike
 	LogicClassLike          = ast.LogicClassLike
@@ -173,7 +172,6 @@ type (
 	InversionLike      = ast.InversionLike
 	InvocationLike     = ast.InvocationLike
 	ItemsLike          = ast.ItemsLike
-	KeyLike            = ast.KeyLike
 	LeftBracketLike    = ast.LeftBracketLike
 	LetClauseLike      = ast.LetClauseLike
 	LogicLike          = ast.LogicLike
@@ -360,14 +358,14 @@ func AssociationClass() AssociationClassLike {
 }
 
 func Association(
-	key ast.KeyLike,
+	primitive ast.PrimitiveLike,
 	delimiter string,
-	entry ast.EntryLike,
+	component ast.ComponentLike,
 ) AssociationLike {
 	return AssociationClass().Association(
-		key,
+		primitive,
 		delimiter,
-		entry,
+		component,
 	)
 }
 
@@ -874,18 +872,6 @@ func Items(
 		delimiter1,
 		entries,
 		delimiter2,
-	)
-}
-
-func KeyClass() KeyClassLike {
-	return ast.KeyClass()
-}
-
-func Key(
-	primitive ast.PrimitiveLike,
-) KeyLike {
-	return KeyClass().Key(
-		primitive,
 	)
 }
 

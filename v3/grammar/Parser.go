@@ -316,15 +316,17 @@ func (v *parser_) parseAssociation() (
 ) {
 	var tokens = col.List[TokenLike]()
 
-	// Attempt to parse a single Key rule.
-	var key ast.KeyLike
-	key, token, ok = v.parseKey()
+	// Attempt to parse a single Primitive rule.
+	var primitive ast.PrimitiveLike
+	primitive, token, ok = v.parsePrimitive()
 	switch {
 	case ok:
-		// No additional put backs allowed at this point.
-		tokens = nil
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
 	case uti.IsDefined(tokens):
-		// This is not a single Key rule.
+		// This is not a single Primitive rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -351,15 +353,15 @@ func (v *parser_) parseAssociation() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse a single Entry rule.
-	var entry ast.EntryLike
-	entry, token, ok = v.parseEntry()
+	// Attempt to parse a single Component rule.
+	var component ast.ComponentLike
+	component, token, ok = v.parseComponent()
 	switch {
 	case ok:
 		// No additional put backs allowed at this point.
 		tokens = nil
 	case uti.IsDefined(tokens):
-		// This is not a single Entry rule.
+		// This is not a single Component rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -372,9 +374,9 @@ func (v *parser_) parseAssociation() (
 	ok = true
 	v.remove(tokens)
 	association = ast.AssociationClass().Association(
-		key,
+		primitive,
 		delimiter,
-		entry,
+		component,
 	)
 	return
 }
@@ -2314,39 +2316,6 @@ entriesLoop:
 		entries,
 		delimiter2,
 	)
-	return
-}
-
-func (v *parser_) parseKey() (
-	key ast.KeyLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single Primitive rule.
-	var primitive ast.PrimitiveLike
-	primitive, token, ok = v.parsePrimitive()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Primitive rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Key", token)
-		panic(message)
-	}
-
-	// Found a single Key rule.
-	ok = true
-	v.remove(tokens)
-	key = ast.KeyClass().Key(primitive)
 	return
 }
 
@@ -5351,9 +5320,7 @@ var parserClassReference_ = &parserClass_{
     Collection
     Procedure`,
 			"$Parameters":  `"(" Association* ")"`,
-			"$Association": `Key ":" Entry`,
-			"$Key":         `Primitive`,
-			"$Entry":       `Component`,
+			"$Association": `Primitive ":" Component`,
 			"$Primitive": `
     Element
     String`,
@@ -5391,6 +5358,7 @@ var parserClassReference_ = &parserClass_{
     ")"`,
 			"$Attributes": `"[" Association+ "]"`,
 			"$Items":      `"[" Entry* "]"`,
+			"$Entry":      `Component`,
 			"$Empty":      `"[" ":" "]"`,
 			"$Procedure":  `"{" Code* "}"`,
 			"$Code": `

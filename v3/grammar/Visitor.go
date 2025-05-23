@@ -181,15 +181,15 @@ func (v *visitor_) visitAssignment(
 func (v *visitor_) visitAssociation(
 	association ast.AssociationLike,
 ) {
-	var key = association.GetKey()
-	v.processor_.PreprocessKey(
-		key,
+	var primitive = association.GetPrimitive()
+	v.processor_.PreprocessPrimitive(
+		primitive,
 		1,
 		1,
 	)
-	v.visitKey(key)
-	v.processor_.PostprocessKey(
-		key,
+	v.visitPrimitive(primitive)
+	v.processor_.PostprocessPrimitive(
+		primitive,
 		1,
 		1,
 	)
@@ -201,15 +201,15 @@ func (v *visitor_) visitAssociation(
 	// Visit slot 2 between terms.
 	v.processor_.ProcessAssociationSlot(2)
 
-	var entry = association.GetEntry()
-	v.processor_.PreprocessEntry(
-		entry,
+	var component = association.GetComponent()
+	v.processor_.PreprocessComponent(
+		component,
 		1,
 		1,
 	)
-	v.visitEntry(entry)
-	v.processor_.PostprocessEntry(
-		entry,
+	v.visitComponent(component)
+	v.processor_.PostprocessComponent(
+		component,
 		1,
 		1,
 	)
@@ -1361,23 +1361,6 @@ func (v *visitor_) visitItems(
 
 	var delimiter2 = items.GetDelimiter2()
 	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitKey(
-	key ast.KeyLike,
-) {
-	var primitive = key.GetPrimitive()
-	v.processor_.PreprocessPrimitive(
-		primitive,
-		1,
-		1,
-	)
-	v.visitPrimitive(primitive)
-	v.processor_.PostprocessPrimitive(
-		primitive,
-		1,
-		1,
-	)
 }
 
 func (v *visitor_) visitLeftBracket(

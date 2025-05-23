@@ -609,14 +609,6 @@ func (v *validator_) PreprocessItems(
 	// TBD - Add any validation checks.
 }
 
-func (v *validator_) PreprocessKey(
-	key ast.KeyLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add any validation checks.
-}
-
 func (v *validator_) PreprocessLeftBracket(
 	leftBracket ast.LeftBracketLike,
 	index_ uint,

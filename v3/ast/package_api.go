@@ -114,9 +114,9 @@ supported by each concrete association-like class.
 type AssociationClassLike interface {
 	// Constructor Methods
 	Association(
-		key KeyLike,
+		primitive PrimitiveLike,
 		delimiter string,
-		entry EntryLike,
+		component ComponentLike,
 	) AssociationLike
 }
 
@@ -593,18 +593,6 @@ type ItemsClassLike interface {
 		entries col.Sequential[EntryLike],
 		delimiter2 string,
 	) ItemsLike
-}
-
-/*
-KeyClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete key-like class.
-*/
-type KeyClassLike interface {
-	// Constructor Methods
-	Key(
-		primitive PrimitiveLike,
-	) KeyLike
 }
 
 /*
@@ -1269,9 +1257,9 @@ type AssociationLike interface {
 	GetClass() AssociationClassLike
 
 	// Attribute Methods
-	GetKey() KeyLike
+	GetPrimitive() PrimitiveLike
 	GetDelimiter() string
-	GetEntry() EntryLike
+	GetComponent() ComponentLike
 }
 
 /*
@@ -1784,19 +1772,6 @@ type ItemsLike interface {
 	GetDelimiter1() string
 	GetEntries() col.Sequential[EntryLike]
 	GetDelimiter2() string
-}
-
-/*
-KeyLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete key-like class.
-*/
-type KeyLike interface {
-	// Principal Methods
-	GetClass() KeyClassLike
-
-	// Attribute Methods
-	GetPrimitive() PrimitiveLike
 }
 
 /*

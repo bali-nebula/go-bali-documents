@@ -1042,25 +1042,6 @@ func (v *processor_) PostprocessItems(
 ) {
 }
 
-func (v *processor_) PreprocessKey(
-	key ast.KeyLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessKeySlot(
-	slot uint,
-) {
-}
-
-func (v *processor_) PostprocessKey(
-	key ast.KeyLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
 func (v *processor_) PreprocessLeftBracket(
 	leftBracket ast.LeftBracketLike,
 	index_ uint,

@@ -964,19 +964,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessKey(
-		key ast.KeyLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessKeySlot(
-		slot uint,
-	)
-	PostprocessKey(
-		key ast.KeyLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessLeftBracket(
 		leftBracket ast.LeftBracketLike,
 		index_ uint,
