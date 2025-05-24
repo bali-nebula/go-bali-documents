@@ -357,8 +357,6 @@ $block: ' '* base64{1..60} EOL
 
 $boolean: "false" | "true"
 
-$bytecode: "'" (instruction (' ' instruction)*)+ "'"
-
 $character: escape | '\' '"' | ~['"' CONTROL]
 
 $citation: name '@' version
@@ -382,6 +380,8 @@ $fraction: '.' base10+
 $fragment: ~['>' CONTROL]*
 
 $glyph: "'" (escape | ~[CONTROL]) "'"
+
+$bytecode: "'" (instruction (' ' instruction)*)? "'"  ! Must be after glyph.
 
 $hour: (['0'..'1'] ['0'..'9']) | ('2' ['0'..'3'])
 
