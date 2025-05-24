@@ -1261,6 +1261,15 @@ func (v *parser_) parseElement() (
 		return
 	}
 
+	// Attempt to parse a single glyph Element.
+	var glyph string
+	glyph, token, ok = v.parseToken(GlyphToken)
+	if ok {
+		// Found a single glyph Element.
+		element = ast.ElementClass().Element(glyph)
+		return
+	}
+
 	// Attempt to parse a single moment Element.
 	var moment string
 	moment, token, ok = v.parseToken(MomentToken)
@@ -5330,6 +5339,7 @@ var parserClassReference_ = &parserClass_{
     boolean
     citation
     duration
+    glyph
     moment
     number
     pattern

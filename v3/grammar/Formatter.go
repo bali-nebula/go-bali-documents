@@ -132,6 +132,12 @@ func (v *formatter_) ProcessEqual(
 	v.appendString(equal)
 }
 
+func (v *formatter_) ProcessGlyph(
+	glyph string,
+) {
+	v.appendString(glyph)
+}
+
 func (v *formatter_) ProcessIdentifier(
 	identifier string,
 ) {

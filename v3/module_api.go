@@ -238,6 +238,7 @@ const (
 	DotToken         = gra.DotToken
 	DurationToken    = gra.DurationToken
 	EqualToken       = gra.EqualToken
+	GlyphToken       = gra.GlyphToken
 	IdentifierToken  = gra.IdentifierToken
 	LessToken        = gra.LessToken
 	MinusToken       = gra.MinusToken

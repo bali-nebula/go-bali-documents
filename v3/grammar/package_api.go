@@ -67,6 +67,7 @@ const (
 	DotToken
 	DurationToken
 	EqualToken
+	GlyphToken
 	IdentifierToken
 	LessToken
 	MinusToken
@@ -335,6 +336,9 @@ type Methodical interface {
 	)
 	ProcessEqual(
 		equal string,
+	)
+	ProcessGlyph(
+		glyph string,
 	)
 	ProcessIdentifier(
 		identifier string,

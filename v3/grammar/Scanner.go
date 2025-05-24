@@ -200,6 +200,7 @@ loop:
 		case v.foundToken(CitationToken):
 		case v.foundToken(CommentToken):
 		case v.foundToken(DurationToken):
+		case v.foundToken(GlyphToken):
 		case v.foundToken(MomentToken):
 		case v.foundToken(NameToken):
 		case v.foundToken(NarrativeToken):
@@ -277,6 +278,7 @@ var scannerClassReference_ = &scannerClass_{
 			DotToken:         "dot",
 			DurationToken:    "duration",
 			EqualToken:       "equal",
+			GlyphToken:       "glyph",
 			IdentifierToken:  "identifier",
 			LessToken:        "less",
 			MinusToken:       "minus",
@@ -317,6 +319,7 @@ var scannerClassReference_ = &scannerClass_{
 			DotToken:         reg.MustCompile("^" + dot_),
 			DurationToken:    reg.MustCompile("^" + duration_),
 			EqualToken:       reg.MustCompile("^" + equal_),
+			GlyphToken:       reg.MustCompile("^" + glyph_),
 			IdentifierToken:  reg.MustCompile("^" + identifier_),
 			LessToken:        reg.MustCompile("^" + less_),
 			MinusToken:       reg.MustCompile("^" + minus_),
@@ -377,18 +380,19 @@ const (
 	binary_       = "(?:'>(" + eol_ + "(?:" + block_ + ")+)? *<')"
 	block_        = "(?: *(?:" + base64_ + "){1,60}" + eol_ + ")"
 	boolean_      = "(?:false|true)"
-	bytecode_     = "(?:'((?:" + instruction_ + ")( (?:" + instruction_ + "))*)*')"
-	character_    = "(?:(?:" + escape_ + ")|[^\"" + control_ + "])"
+	bytecode_     = "(?:'((?:" + instruction_ + ")( (?:" + instruction_ + "))*)+')"
+	character_    = "(?:(?:" + escape_ + ")|\\\\\"|[^\"" + control_ + "])"
 	citation_     = "(?:(?:" + name_ + ")@(?:" + version_ + "))"
 	comment_      = "(?:!>" + eol_ + "(" + any_ + "|" + eol_ + ")*?" + eol_ + " *<!)"
 	day_          = "(?:([0-2][1-9])|(3[0-1]))"
 	days_         = "(?:(?:" + timespan_ + ")D)"
 	duration_     = "(?:~(?:" + sign_ + ")?P((?:" + weeks_ + ")|((?:" + years_ + ")?(?:" + months_ + ")?(?:" + days_ + ")?(T(?:" + hours_ + ")?(?:" + minutes_ + ")?(?:" + seconds_ + ")?)?)))"
-	escape_       = "(?:\\\\((?:" + unicode_ + ")|[abfnrtv\"\\\\]))"
+	escape_       = "(?:\\\\((?:" + unicode_ + ")|[abfnrtv\\\\]))"
 	exponent_     = "(?:E(?:" + sign_ + ")?(?:" + ordinal_ + "))"
 	float_        = "(?:(?:" + sign_ + ")?(?:" + amplitude_ + "))"
 	fraction_     = "(?:\\.(?:" + base10_ + ")+)"
 	fragment_     = "(?:[^>" + control_ + "]*)"
+	glyph_        = "(?:'((?:" + escape_ + ")|[^" + control_ + "])')"
 	hour_         = "(?:([0-1][0-9])|(2[0-3]))"
 	hours_        = "(?:(?:" + timespan_ + ")H)"
 	imaginary_    = "(?:(?:" + sign_ + ")?(?:" + amplitude_ + ")i)"

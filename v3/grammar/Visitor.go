@@ -722,6 +722,8 @@ func (v *visitor_) visitElement(
 		v.processor_.ProcessCitation(actual)
 	case ScannerClass().MatchesType(actual, DurationToken):
 		v.processor_.ProcessDuration(actual)
+	case ScannerClass().MatchesType(actual, GlyphToken):
+		v.processor_.ProcessGlyph(actual)
 	case ScannerClass().MatchesType(actual, MomentToken):
 		v.processor_.ProcessMoment(actual)
 	case ScannerClass().MatchesType(actual, NumberToken):

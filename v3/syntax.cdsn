@@ -47,6 +47,7 @@ $Element:
     boolean
     citation
     duration
+    glyph
     moment
     number
     pattern
@@ -356,9 +357,9 @@ $block: ' '* base64{1..60} EOL
 
 $boolean: "false" | "true"
 
-$bytecode: "'" (instruction (' ' instruction)*)* "'"
+$bytecode: "'" (instruction (' ' instruction)*)+ "'"
 
-$character: escape | ~['"' CONTROL]
+$character: escape | '\' '"' | ~['"' CONTROL]
 
 $citation: name '@' version
 
@@ -370,7 +371,7 @@ $days: timespan 'D'
 
 $duration: '~' sign? 'P' (weeks | (years? months? days? ('T' hours? minutes? seconds?)?))
 
-$escape: '\' (unicode | ['a' 'b' 'f' 'n' 'r' 't' 'v' '"' '\'])
+$escape: '\' (unicode | ['a' 'b' 'f' 'n' 'r' 't' 'v' '\'])
 
 $exponent: 'E' sign? ordinal
 
@@ -379,6 +380,8 @@ $float: sign? amplitude
 $fraction: '.' base10+
 
 $fragment: ~['>' CONTROL]*
+
+$glyph: "'" (escape | ~[CONTROL]) "'"
 
 $hour: (['0'..'1'] ['0'..'9']) | ('2' ['0'..'3'])
 

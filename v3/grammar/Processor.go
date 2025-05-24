@@ -110,6 +110,11 @@ func (v *processor_) ProcessEqual(
 ) {
 }
 
+func (v *processor_) ProcessGlyph(
+	glyph string,
+) {
+}
+
 func (v *processor_) ProcessIdentifier(
 	identifier string,
 ) {
