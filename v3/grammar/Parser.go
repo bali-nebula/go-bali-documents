@@ -786,6 +786,15 @@ func (v *parser_) parseCollection() (
 		return
 	}
 
+	// Attempt to parse a single Empty Collection.
+	var empty ast.EmptyLike
+	empty, token, ok = v.parseEmpty()
+	if ok {
+		// Found a single Empty Collection.
+		collection = ast.CollectionClass().Collection(empty)
+		return
+	}
+
 	// Attempt to parse a single Attributes Collection.
 	var attributes ast.AttributesLike
 	attributes, token, ok = v.parseAttributes()
@@ -801,15 +810,6 @@ func (v *parser_) parseCollection() (
 	if ok {
 		// Found a single Items Collection.
 		collection = ast.CollectionClass().Collection(items)
-		return
-	}
-
-	// Attempt to parse a single Empty Collection.
-	var empty ast.EmptyLike
-	empty, token, ok = v.parseEmpty()
-	if ok {
-		// Found a single Empty Collection.
-		collection = ast.CollectionClass().Collection(empty)
 		return
 	}
 
@@ -5347,9 +5347,9 @@ var parserClassReference_ = &parserClass_{
     version`,
 			"$Collection": `
     Range
+    Empty
     Attributes
-    Items  ! Must be after ranges and attributes.
-    Empty`,
+    Items  ! Must be after ranges and attributes.`,
 			"$Range": `LeftBracket Primitive ".." Primitive RightBracket`,
 			"$LeftBracket": `
     "["
@@ -5357,9 +5357,9 @@ var parserClassReference_ = &parserClass_{
 			"$RightBracket": `
     "]"
     ")"`,
+			"$Empty":      `"[" ":" "]"`,
 			"$Attributes": `"[" Association+ "]"`,
 			"$Items":      `"[" Component* "]"`,
-			"$Empty":      `"[" ":" "]"`,
 			"$Procedure":  `"{" Line* "}"`,
 			"$Line": `
     Annotation

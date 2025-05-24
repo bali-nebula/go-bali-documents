@@ -66,9 +66,9 @@ $String:
 
 $Collection:
     Range
+    Empty
     Attributes
     Items  ! Must be after ranges and attributes.
-    Empty
 
 $Range: LeftBracket Primitive ".." Primitive RightBracket
 
@@ -80,11 +80,11 @@ $RightBracket:
     "]"
     ")"
 
+$Empty: "[" ":" "]"
+
 $Attributes: "[" Association+ "]"
 
 $Items: "[" Component* "]"
-
-$Empty: "[" ":" "]"
 
 $Procedure: "{" Line* "}"
 

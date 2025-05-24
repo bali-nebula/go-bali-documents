@@ -301,20 +301,14 @@ func (v *formatter_) ProcessArithmeticSlot(
 	arithmetic ast.ArithmeticLike,
 	slot_ uint,
 ) {
-	switch slot_ {
-	default:
-		v.appendString(" ")
-	}
+	v.appendString(" ")
 }
 
 func (v *formatter_) ProcessAssignmentSlot(
 	assignment ast.AssignmentLike,
 	slot_ uint,
 ) {
-	switch slot_ {
-	default:
-		v.appendString(" ")
-	}
+	v.appendString(" ")
 }
 
 func (v *formatter_) PreprocessAssociation(

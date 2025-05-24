@@ -446,6 +446,18 @@ func (v *visitor_) visitCollection(
 			1,
 			1,
 		)
+	case ast.EmptyLike:
+		v.processor_.PreprocessEmpty(
+			actual,
+			1,
+			1,
+		)
+		v.visitEmpty(actual)
+		v.processor_.PostprocessEmpty(
+			actual,
+			1,
+			1,
+		)
 	case ast.AttributesLike:
 		v.processor_.PreprocessAttributes(
 			actual,
@@ -466,18 +478,6 @@ func (v *visitor_) visitCollection(
 		)
 		v.visitItems(actual)
 		v.processor_.PostprocessItems(
-			actual,
-			1,
-			1,
-		)
-	case ast.EmptyLike:
-		v.processor_.PreprocessEmpty(
-			actual,
-			1,
-			1,
-		)
-		v.visitEmpty(actual)
-		v.processor_.PostprocessEmpty(
 			actual,
 			1,
 			1,
