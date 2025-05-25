@@ -37,7 +37,7 @@ func OnClauseClass() OnClauseClassLike {
 func (c *onClauseClass_) OnClause(
 	delimiter string,
 	failure FailureLike,
-	matchingClauses col.Sequential[MatchingClauseLike],
+	matchingClauses col.ListLike[MatchingClauseLike],
 ) OnClauseLike {
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
@@ -75,7 +75,7 @@ func (v *onClause_) GetFailure() FailureLike {
 	return v.failure_
 }
 
-func (v *onClause_) GetMatchingClauses() col.Sequential[MatchingClauseLike] {
+func (v *onClause_) GetMatchingClauses() col.ListLike[MatchingClauseLike] {
 	return v.matchingClauses_
 }
 
@@ -87,7 +87,7 @@ type onClause_ struct {
 	// Declare the instance attributes.
 	delimiter_       string
 	failure_         FailureLike
-	matchingClauses_ col.Sequential[MatchingClauseLike]
+	matchingClauses_ col.ListLike[MatchingClauseLike]
 }
 
 // Class Structure

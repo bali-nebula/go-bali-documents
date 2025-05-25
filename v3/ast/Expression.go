@@ -36,7 +36,7 @@ func ExpressionClass() ExpressionClassLike {
 
 func (c *expressionClass_) Expression(
 	subject SubjectLike,
-	predicates col.Sequential[PredicateLike],
+	predicates col.ListLike[PredicateLike],
 ) ExpressionLike {
 	if uti.IsUndefined(subject) {
 		panic("The \"subject\" attribute is required by this class.")
@@ -66,7 +66,7 @@ func (v *expression_) GetSubject() SubjectLike {
 	return v.subject_
 }
 
-func (v *expression_) GetPredicates() col.Sequential[PredicateLike] {
+func (v *expression_) GetPredicates() col.ListLike[PredicateLike] {
 	return v.predicates_
 }
 
@@ -77,7 +77,7 @@ func (v *expression_) GetPredicates() col.Sequential[PredicateLike] {
 type expression_ struct {
 	// Declare the instance attributes.
 	subject_    SubjectLike
-	predicates_ col.Sequential[PredicateLike]
+	predicates_ col.ListLike[PredicateLike]
 }
 
 // Class Structure

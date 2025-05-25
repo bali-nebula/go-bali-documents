@@ -779,14 +779,14 @@ func (v *visitor_) visitEntity(
 			1,
 			1,
 		)
-	case ast.StringLike:
-		v.processor_.PreprocessString(
+	case ast.SeriesLike:
+		v.processor_.PreprocessSeries(
 			actual,
 			1,
 			1,
 		)
-		v.visitString(actual)
-		v.processor_.PostprocessString(
+		v.visitSeries(actual)
+		v.processor_.PostprocessSeries(
 			actual,
 			1,
 			1,
@@ -2346,14 +2346,14 @@ func (v *visitor_) visitPrimitive(
 			1,
 			1,
 		)
-	case ast.StringLike:
-		v.processor_.PreprocessString(
+	case ast.SeriesLike:
+		v.processor_.PreprocessSeries(
 			actual,
 			1,
 			1,
 		)
-		v.visitString(actual)
-		v.processor_.PostprocessString(
+		v.visitSeries(actual)
+		v.processor_.PostprocessSeries(
 			actual,
 			1,
 			1,
@@ -2865,6 +2865,31 @@ func (v *visitor_) visitSequence(
 	)
 }
 
+func (v *visitor_) visitSeries(
+	series ast.SeriesLike,
+) {
+	// Visit the possible series expression types.
+	var actual = series.GetAny().(string)
+	switch {
+	case ScannerClass().MatchesType(actual, BinaryToken):
+		v.processor_.ProcessBinary(actual)
+	case ScannerClass().MatchesType(actual, BytecodeToken):
+		v.processor_.ProcessBytecode(actual)
+	case ScannerClass().MatchesType(actual, NameToken):
+		v.processor_.ProcessName(actual)
+	case ScannerClass().MatchesType(actual, NarrativeToken):
+		v.processor_.ProcessNarrative(actual)
+	case ScannerClass().MatchesType(actual, QuoteToken):
+		v.processor_.ProcessQuote(actual)
+	case ScannerClass().MatchesType(actual, SymbolToken):
+		v.processor_.ProcessSymbol(actual)
+	case ScannerClass().MatchesType(actual, TagToken):
+		v.processor_.ProcessTag(actual)
+	case ScannerClass().MatchesType(actual, VersionToken):
+		v.processor_.ProcessVersion(actual)
+	}
+}
+
 func (v *visitor_) visitStatement(
 	statement ast.StatementLike,
 ) {
@@ -2909,31 +2934,6 @@ func (v *visitor_) visitStatement(
 	var optionalNote = statement.GetOptionalNote()
 	if uti.IsDefined(optionalNote) {
 		v.processor_.ProcessNote(optionalNote)
-	}
-}
-
-func (v *visitor_) visitString(
-	string_ ast.StringLike,
-) {
-	// Visit the possible string expression types.
-	var actual = string_.GetAny().(string)
-	switch {
-	case ScannerClass().MatchesType(actual, BinaryToken):
-		v.processor_.ProcessBinary(actual)
-	case ScannerClass().MatchesType(actual, BytecodeToken):
-		v.processor_.ProcessBytecode(actual)
-	case ScannerClass().MatchesType(actual, NameToken):
-		v.processor_.ProcessName(actual)
-	case ScannerClass().MatchesType(actual, NarrativeToken):
-		v.processor_.ProcessNarrative(actual)
-	case ScannerClass().MatchesType(actual, QuoteToken):
-		v.processor_.ProcessQuote(actual)
-	case ScannerClass().MatchesType(actual, SymbolToken):
-		v.processor_.ProcessSymbol(actual)
-	case ScannerClass().MatchesType(actual, TagToken):
-		v.processor_.ProcessTag(actual)
-	case ScannerClass().MatchesType(actual, VersionToken):
-		v.processor_.ProcessVersion(actual)
 	}
 }
 

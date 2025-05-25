@@ -36,7 +36,7 @@ func ItemsClass() ItemsClassLike {
 
 func (c *itemsClass_) Items(
 	delimiter1 string,
-	components col.Sequential[ComponentLike],
+	components col.ListLike[ComponentLike],
 	delimiter2 string,
 ) ItemsLike {
 	if uti.IsUndefined(delimiter1) {
@@ -71,7 +71,7 @@ func (v *items_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *items_) GetComponents() col.Sequential[ComponentLike] {
+func (v *items_) GetComponents() col.ListLike[ComponentLike] {
 	return v.components_
 }
 
@@ -86,7 +86,7 @@ func (v *items_) GetDelimiter2() string {
 type items_ struct {
 	// Declare the instance attributes.
 	delimiter1_ string
-	components_ col.Sequential[ComponentLike]
+	components_ col.ListLike[ComponentLike]
 	delimiter2_ string
 }
 

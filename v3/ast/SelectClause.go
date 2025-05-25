@@ -37,7 +37,7 @@ func SelectClauseClass() SelectClauseClassLike {
 func (c *selectClauseClass_) SelectClause(
 	delimiter string,
 	target TargetLike,
-	matchingClauses col.Sequential[MatchingClauseLike],
+	matchingClauses col.ListLike[MatchingClauseLike],
 ) SelectClauseLike {
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
@@ -75,7 +75,7 @@ func (v *selectClause_) GetTarget() TargetLike {
 	return v.target_
 }
 
-func (v *selectClause_) GetMatchingClauses() col.Sequential[MatchingClauseLike] {
+func (v *selectClause_) GetMatchingClauses() col.ListLike[MatchingClauseLike] {
 	return v.matchingClauses_
 }
 
@@ -87,7 +87,7 @@ type selectClause_ struct {
 	// Declare the instance attributes.
 	delimiter_       string
 	target_          TargetLike
-	matchingClauses_ col.Sequential[MatchingClauseLike]
+	matchingClauses_ col.ListLike[MatchingClauseLike]
 }
 
 // Class Structure

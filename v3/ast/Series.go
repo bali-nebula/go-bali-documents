@@ -27,19 +27,19 @@ import (
 
 // Access Function
 
-func StringClass() StringClassLike {
-	return stringClass()
+func SeriesClass() SeriesClassLike {
+	return seriesClass()
 }
 
 // Constructor Methods
 
-func (c *stringClass_) String(
+func (c *seriesClass_) Series(
 	any_ any,
-) StringLike {
+) SeriesLike {
 	if uti.IsUndefined(any_) {
 		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &string_{
+	var instance = &series_{
 		// Initialize the instance attributes.
 		any_: any_,
 	}
@@ -50,13 +50,13 @@ func (c *stringClass_) String(
 
 // Principal Methods
 
-func (v *string_) GetClass() StringClassLike {
-	return stringClass()
+func (v *series_) GetClass() SeriesClassLike {
+	return seriesClass()
 }
 
 // Attribute Methods
 
-func (v *string_) GetAny() any {
+func (v *series_) GetAny() any {
 	return v.any_
 }
 
@@ -64,23 +64,23 @@ func (v *string_) GetAny() any {
 
 // Instance Structure
 
-type string_ struct {
+type series_ struct {
 	// Declare the instance attributes.
 	any_ any
 }
 
 // Class Structure
 
-type stringClass_ struct {
+type seriesClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func stringClass() *stringClass_ {
-	return stringClassReference_
+func seriesClass() *seriesClass_ {
+	return seriesClassReference_
 }
 
-var stringClassReference_ = &stringClass_{
+var seriesClassReference_ = &seriesClass_{
 	// Initialize the class constants.
 }

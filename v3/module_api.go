@@ -114,8 +114,8 @@ type (
 	SaveClauseClassLike     = ast.SaveClauseClassLike
 	SelectClauseClassLike   = ast.SelectClauseClassLike
 	SequenceClassLike       = ast.SequenceClassLike
+	SeriesClassLike         = ast.SeriesClassLike
 	StatementClassLike      = ast.StatementClassLike
-	StringClassLike         = ast.StringClassLike
 	SubcomponentClassLike   = ast.SubcomponentClassLike
 	SubjectClassLike        = ast.SubjectClassLike
 	TargetClassLike         = ast.TargetClassLike
@@ -204,8 +204,8 @@ type (
 	SaveClauseLike     = ast.SaveClauseLike
 	SelectClauseLike   = ast.SelectClauseLike
 	SequenceLike       = ast.SequenceLike
+	SeriesLike         = ast.SeriesLike
 	StatementLike      = ast.StatementLike
-	StringLike         = ast.StringLike
 	SubcomponentLike   = ast.SubcomponentLike
 	SubjectLike        = ast.SubjectLike
 	TargetLike         = ast.TargetLike
@@ -392,7 +392,7 @@ func AttributesClass() AttributesClassLike {
 
 func Attributes(
 	delimiter1 string,
-	associations col.Sequential[ast.AssociationLike],
+	associations col.ListLike[ast.AssociationLike],
 	delimiter2 string,
 ) AttributesLike {
 	return AttributesClass().Attributes(
@@ -676,7 +676,7 @@ func ExpressionClass() ExpressionClassLike {
 
 func Expression(
 	subject ast.SubjectLike,
-	predicates col.Sequential[ast.PredicateLike],
+	predicates col.ListLike[ast.PredicateLike],
 ) ExpressionLike {
 	return ExpressionClass().Expression(
 		subject,
@@ -715,7 +715,7 @@ func FunctionClass() FunctionClassLike {
 func Function(
 	identifier string,
 	delimiter1 string,
-	arguments col.Sequential[ast.ArgumentLike],
+	arguments col.ListLike[ast.ArgumentLike],
 	delimiter2 string,
 ) FunctionLike {
 	return FunctionClass().Function(
@@ -836,7 +836,7 @@ func ItemsClass() ItemsClassLike {
 
 func Items(
 	delimiter1 string,
-	components col.Sequential[ast.ComponentLike],
+	components col.ListLike[ast.ComponentLike],
 	delimiter2 string,
 ) ItemsLike {
 	return ItemsClass().Items(
@@ -991,7 +991,7 @@ func Method(
 	blocking ast.BlockingLike,
 	identifier2 string,
 	delimiter1 string,
-	arguments col.Sequential[ast.ArgumentLike],
+	arguments col.ListLike[ast.ArgumentLike],
 	delimiter2 string,
 ) MethodLike {
 	return MethodClass().Method(
@@ -1041,7 +1041,7 @@ func OnClauseClass() OnClauseClassLike {
 func OnClause(
 	delimiter string,
 	failure ast.FailureLike,
-	matchingClauses col.Sequential[ast.MatchingClauseLike],
+	matchingClauses col.ListLike[ast.MatchingClauseLike],
 ) OnClauseLike {
 	return OnClauseClass().OnClause(
 		delimiter,
@@ -1068,7 +1068,7 @@ func ParametersClass() ParametersClassLike {
 
 func Parameters(
 	delimiter1 string,
-	associations col.Sequential[ast.AssociationLike],
+	associations col.ListLike[ast.AssociationLike],
 	delimiter2 string,
 ) ParametersLike {
 	return ParametersClass().Parameters(
@@ -1144,7 +1144,7 @@ func ProcedureClass() ProcedureClassLike {
 
 func Procedure(
 	delimiter1 string,
-	lines col.Sequential[ast.LineLike],
+	lines col.ListLike[ast.LineLike],
 	delimiter2 string,
 ) ProcedureLike {
 	return ProcedureClass().Procedure(
@@ -1321,7 +1321,7 @@ func SelectClauseClass() SelectClauseClassLike {
 func SelectClause(
 	delimiter string,
 	target ast.TargetLike,
-	matchingClauses col.Sequential[ast.MatchingClauseLike],
+	matchingClauses col.ListLike[ast.MatchingClauseLike],
 ) SelectClauseLike {
 	return SelectClauseClass().SelectClause(
 		delimiter,
@@ -1342,6 +1342,18 @@ func Sequence(
 	)
 }
 
+func SeriesClass() SeriesClassLike {
+	return ast.SeriesClass()
+}
+
+func Series(
+	any_ any,
+) SeriesLike {
+	return SeriesClass().Series(
+		any_,
+	)
+}
+
 func StatementClass() StatementClassLike {
 	return ast.StatementClass()
 }
@@ -1358,18 +1370,6 @@ func Statement(
 	)
 }
 
-func StringClass() StringClassLike {
-	return ast.StringClass()
-}
-
-func String(
-	any_ any,
-) StringLike {
-	return StringClass().String(
-		any_,
-	)
-}
-
 func SubcomponentClass() SubcomponentClassLike {
 	return ast.SubcomponentClass()
 }
@@ -1377,7 +1377,7 @@ func SubcomponentClass() SubcomponentClassLike {
 func Subcomponent(
 	identifier string,
 	delimiter1 string,
-	indexes col.Sequential[ast.IndexLike],
+	indexes col.ListLike[ast.IndexLike],
 	delimiter2 string,
 ) SubcomponentLike {
 	return SubcomponentClass().Subcomponent(

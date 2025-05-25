@@ -36,7 +36,7 @@ func AttributesClass() AttributesClassLike {
 
 func (c *attributesClass_) Attributes(
 	delimiter1 string,
-	associations col.Sequential[AssociationLike],
+	associations col.ListLike[AssociationLike],
 	delimiter2 string,
 ) AttributesLike {
 	if uti.IsUndefined(delimiter1) {
@@ -71,7 +71,7 @@ func (v *attributes_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *attributes_) GetAssociations() col.Sequential[AssociationLike] {
+func (v *attributes_) GetAssociations() col.ListLike[AssociationLike] {
 	return v.associations_
 }
 
@@ -86,7 +86,7 @@ func (v *attributes_) GetDelimiter2() string {
 type attributes_ struct {
 	// Declare the instance attributes.
 	delimiter1_   string
-	associations_ col.Sequential[AssociationLike]
+	associations_ col.ListLike[AssociationLike]
 	delimiter2_   string
 }
 

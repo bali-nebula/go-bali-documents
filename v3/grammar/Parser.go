@@ -1414,12 +1414,12 @@ func (v *parser_) parseEntity() (
 		return
 	}
 
-	// Attempt to parse a single String Entity.
-	var string_ ast.StringLike
-	string_, token, ok = v.parseString()
+	// Attempt to parse a single Series Entity.
+	var series ast.SeriesLike
+	series, token, ok = v.parseSeries()
 	if ok {
-		// Found a single String Entity.
-		entity = ast.EntityClass().Entity(string_)
+		// Found a single Series Entity.
+		entity = ast.EntityClass().Entity(series)
 		return
 	}
 
@@ -3519,12 +3519,12 @@ func (v *parser_) parsePrimitive() (
 		return
 	}
 
-	// Attempt to parse a single String Primitive.
-	var string_ ast.StringLike
-	string_, token, ok = v.parseString()
+	// Attempt to parse a single Series Primitive.
+	var series ast.SeriesLike
+	series, token, ok = v.parseSeries()
 	if ok {
-		// Found a single String Primitive.
-		primitive = ast.PrimitiveClass().Primitive(string_)
+		// Found a single Series Primitive.
+		primitive = ast.PrimitiveClass().Primitive(series)
 		return
 	}
 
@@ -4352,6 +4352,87 @@ func (v *parser_) parseSequence() (
 	return
 }
 
+func (v *parser_) parseSeries() (
+	series ast.SeriesLike,
+	token TokenLike,
+	ok bool,
+) {
+	// Attempt to parse a single binary Series.
+	var binary string
+	binary, token, ok = v.parseToken(BinaryToken)
+	if ok {
+		// Found a single binary Series.
+		series = ast.SeriesClass().Series(binary)
+		return
+	}
+
+	// Attempt to parse a single bytecode Series.
+	var bytecode string
+	bytecode, token, ok = v.parseToken(BytecodeToken)
+	if ok {
+		// Found a single bytecode Series.
+		series = ast.SeriesClass().Series(bytecode)
+		return
+	}
+
+	// Attempt to parse a single name Series.
+	var name string
+	name, token, ok = v.parseToken(NameToken)
+	if ok {
+		// Found a single name Series.
+		series = ast.SeriesClass().Series(name)
+		return
+	}
+
+	// Attempt to parse a single narrative Series.
+	var narrative string
+	narrative, token, ok = v.parseToken(NarrativeToken)
+	if ok {
+		// Found a single narrative Series.
+		series = ast.SeriesClass().Series(narrative)
+		return
+	}
+
+	// Attempt to parse a single quote Series.
+	var quote string
+	quote, token, ok = v.parseToken(QuoteToken)
+	if ok {
+		// Found a single quote Series.
+		series = ast.SeriesClass().Series(quote)
+		return
+	}
+
+	// Attempt to parse a single symbol Series.
+	var symbol string
+	symbol, token, ok = v.parseToken(SymbolToken)
+	if ok {
+		// Found a single symbol Series.
+		series = ast.SeriesClass().Series(symbol)
+		return
+	}
+
+	// Attempt to parse a single tag Series.
+	var tag string
+	tag, token, ok = v.parseToken(TagToken)
+	if ok {
+		// Found a single tag Series.
+		series = ast.SeriesClass().Series(tag)
+		return
+	}
+
+	// Attempt to parse a single version Series.
+	var version string
+	version, token, ok = v.parseToken(VersionToken)
+	if ok {
+		// Found a single version Series.
+		series = ast.SeriesClass().Series(version)
+		return
+	}
+
+	// This is not a single Series rule.
+	return
+}
+
 func (v *parser_) parseStatement() (
 	statement ast.StatementLike,
 	token TokenLike,
@@ -4403,87 +4484,6 @@ func (v *parser_) parseStatement() (
 		optionalOnClause,
 		optionalNote,
 	)
-	return
-}
-
-func (v *parser_) parseString() (
-	string_ ast.StringLike,
-	token TokenLike,
-	ok bool,
-) {
-	// Attempt to parse a single binary String.
-	var binary string
-	binary, token, ok = v.parseToken(BinaryToken)
-	if ok {
-		// Found a single binary String.
-		string_ = ast.StringClass().String(binary)
-		return
-	}
-
-	// Attempt to parse a single bytecode String.
-	var bytecode string
-	bytecode, token, ok = v.parseToken(BytecodeToken)
-	if ok {
-		// Found a single bytecode String.
-		string_ = ast.StringClass().String(bytecode)
-		return
-	}
-
-	// Attempt to parse a single name String.
-	var name string
-	name, token, ok = v.parseToken(NameToken)
-	if ok {
-		// Found a single name String.
-		string_ = ast.StringClass().String(name)
-		return
-	}
-
-	// Attempt to parse a single narrative String.
-	var narrative string
-	narrative, token, ok = v.parseToken(NarrativeToken)
-	if ok {
-		// Found a single narrative String.
-		string_ = ast.StringClass().String(narrative)
-		return
-	}
-
-	// Attempt to parse a single quote String.
-	var quote string
-	quote, token, ok = v.parseToken(QuoteToken)
-	if ok {
-		// Found a single quote String.
-		string_ = ast.StringClass().String(quote)
-		return
-	}
-
-	// Attempt to parse a single symbol String.
-	var symbol string
-	symbol, token, ok = v.parseToken(SymbolToken)
-	if ok {
-		// Found a single symbol String.
-		string_ = ast.StringClass().String(symbol)
-		return
-	}
-
-	// Attempt to parse a single tag String.
-	var tag string
-	tag, token, ok = v.parseToken(TagToken)
-	if ok {
-		// Found a single tag String.
-		string_ = ast.StringClass().String(tag)
-		return
-	}
-
-	// Attempt to parse a single version String.
-	var version string
-	version, token, ok = v.parseToken(VersionToken)
-	if ok {
-		// Found a single version String.
-		string_ = ast.StringClass().String(version)
-		return
-	}
-
-	// This is not a single String rule.
 	return
 }
 
@@ -5326,14 +5326,14 @@ var parserClassReference_ = &parserClass_{
 			"$Component": `Entity Parameters? note?`,
 			"$Entity": `
     Element
-    String
+    Series
     Collection
     Procedure`,
 			"$Parameters":  `"(" Association* ")"`,
 			"$Association": `Primitive ":" Component`,
 			"$Primitive": `
     Element
-    String`,
+    Series`,
 			"$Element": `
     angle
     boolean
@@ -5346,7 +5346,7 @@ var parserClassReference_ = &parserClass_{
     percentage
     probability
     resource`,
-			"$String": `
+			"$Series": `
     binary
     bytecode
     name

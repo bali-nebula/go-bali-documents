@@ -39,7 +39,7 @@ func (c *methodClass_) Method(
 	blocking BlockingLike,
 	identifier2 string,
 	delimiter1 string,
-	arguments col.Sequential[ArgumentLike],
+	arguments col.ListLike[ArgumentLike],
 	delimiter2 string,
 ) MethodLike {
 	if uti.IsUndefined(identifier1) {
@@ -98,7 +98,7 @@ func (v *method_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *method_) GetArguments() col.Sequential[ArgumentLike] {
+func (v *method_) GetArguments() col.ListLike[ArgumentLike] {
 	return v.arguments_
 }
 
@@ -116,7 +116,7 @@ type method_ struct {
 	blocking_    BlockingLike
 	identifier2_ string
 	delimiter1_  string
-	arguments_   col.Sequential[ArgumentLike]
+	arguments_   col.ListLike[ArgumentLike]
 	delimiter2_  string
 }
 

@@ -143,7 +143,7 @@ type AttributesClassLike interface {
 	// Constructor Methods
 	Attributes(
 		delimiter1 string,
-		associations col.Sequential[AssociationLike],
+		associations col.ListLike[AssociationLike],
 		delimiter2 string,
 	) AttributesLike
 }
@@ -411,7 +411,7 @@ type ExpressionClassLike interface {
 	// Constructor Methods
 	Expression(
 		subject SubjectLike,
-		predicates col.Sequential[PredicateLike],
+		predicates col.ListLike[PredicateLike],
 	) ExpressionLike
 }
 
@@ -449,7 +449,7 @@ type FunctionClassLike interface {
 	Function(
 		identifier string,
 		delimiter1 string,
-		arguments col.Sequential[ArgumentLike],
+		arguments col.ListLike[ArgumentLike],
 		delimiter2 string,
 	) FunctionLike
 }
@@ -563,7 +563,7 @@ type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
 		delimiter1 string,
-		components col.Sequential[ComponentLike],
+		components col.ListLike[ComponentLike],
 		delimiter2 string,
 	) ItemsLike
 }
@@ -708,7 +708,7 @@ type MethodClassLike interface {
 		blocking BlockingLike,
 		identifier2 string,
 		delimiter1 string,
-		arguments col.Sequential[ArgumentLike],
+		arguments col.ListLike[ArgumentLike],
 		delimiter2 string,
 	) MethodLike
 }
@@ -750,7 +750,7 @@ type OnClauseClassLike interface {
 	OnClause(
 		delimiter string,
 		failure FailureLike,
-		matchingClauses col.Sequential[MatchingClauseLike],
+		matchingClauses col.ListLike[MatchingClauseLike],
 	) OnClauseLike
 }
 
@@ -775,7 +775,7 @@ type ParametersClassLike interface {
 	// Constructor Methods
 	Parameters(
 		delimiter1 string,
-		associations col.Sequential[AssociationLike],
+		associations col.ListLike[AssociationLike],
 		delimiter2 string,
 	) ParametersLike
 }
@@ -843,7 +843,7 @@ type ProcedureClassLike interface {
 	// Constructor Methods
 	Procedure(
 		delimiter1 string,
-		lines col.Sequential[LineLike],
+		lines col.ListLike[LineLike],
 		delimiter2 string,
 	) ProcedureLike
 }
@@ -1004,7 +1004,7 @@ type SelectClauseClassLike interface {
 	SelectClause(
 		delimiter string,
 		target TargetLike,
-		matchingClauses col.Sequential[MatchingClauseLike],
+		matchingClauses col.ListLike[MatchingClauseLike],
 	) SelectClauseLike
 }
 
@@ -1018,6 +1018,18 @@ type SequenceClassLike interface {
 	Sequence(
 		expression ExpressionLike,
 	) SequenceLike
+}
+
+/*
+SeriesClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete series-like class.
+*/
+type SeriesClassLike interface {
+	// Constructor Methods
+	Series(
+		any_ any,
+	) SeriesLike
 }
 
 /*
@@ -1035,18 +1047,6 @@ type StatementClassLike interface {
 }
 
 /*
-StringClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete string-like class.
-*/
-type StringClassLike interface {
-	// Constructor Methods
-	String(
-		any_ any,
-	) StringLike
-}
-
-/*
 SubcomponentClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete subcomponent-like class.
@@ -1056,7 +1056,7 @@ type SubcomponentClassLike interface {
 	Subcomponent(
 		identifier string,
 		delimiter1 string,
-		indexes col.Sequential[IndexLike],
+		indexes col.ListLike[IndexLike],
 		delimiter2 string,
 	) SubcomponentLike
 }
@@ -1288,7 +1288,7 @@ type AttributesLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetAssociations() col.Sequential[AssociationLike]
+	GetAssociations() col.ListLike[AssociationLike]
 	GetDelimiter2() string
 }
 
@@ -1577,7 +1577,7 @@ type ExpressionLike interface {
 
 	// Attribute Methods
 	GetSubject() SubjectLike
-	GetPredicates() col.Sequential[PredicateLike]
+	GetPredicates() col.ListLike[PredicateLike]
 }
 
 /*
@@ -1618,7 +1618,7 @@ type FunctionLike interface {
 	// Attribute Methods
 	GetIdentifier() string
 	GetDelimiter1() string
-	GetArguments() col.Sequential[ArgumentLike]
+	GetArguments() col.ListLike[ArgumentLike]
 	GetDelimiter2() string
 }
 
@@ -1741,7 +1741,7 @@ type ItemsLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetComponents() col.Sequential[ComponentLike]
+	GetComponents() col.ListLike[ComponentLike]
 	GetDelimiter2() string
 }
 
@@ -1897,7 +1897,7 @@ type MethodLike interface {
 	GetBlocking() BlockingLike
 	GetIdentifier2() string
 	GetDelimiter1() string
-	GetArguments() col.Sequential[ArgumentLike]
+	GetArguments() col.ListLike[ArgumentLike]
 	GetDelimiter2() string
 }
 
@@ -1942,7 +1942,7 @@ type OnClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetFailure() FailureLike
-	GetMatchingClauses() col.Sequential[MatchingClauseLike]
+	GetMatchingClauses() col.ListLike[MatchingClauseLike]
 }
 
 /*
@@ -1969,7 +1969,7 @@ type ParametersLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetAssociations() col.Sequential[AssociationLike]
+	GetAssociations() col.ListLike[AssociationLike]
 	GetDelimiter2() string
 }
 
@@ -2042,7 +2042,7 @@ type ProcedureLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetLines() col.Sequential[LineLike]
+	GetLines() col.ListLike[LineLike]
 	GetDelimiter2() string
 }
 
@@ -2215,7 +2215,7 @@ type SelectClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetTarget() TargetLike
-	GetMatchingClauses() col.Sequential[MatchingClauseLike]
+	GetMatchingClauses() col.ListLike[MatchingClauseLike]
 }
 
 /*
@@ -2229,6 +2229,19 @@ type SequenceLike interface {
 
 	// Attribute Methods
 	GetExpression() ExpressionLike
+}
+
+/*
+SeriesLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete series-like class.
+*/
+type SeriesLike interface {
+	// Principal Methods
+	GetClass() SeriesClassLike
+
+	// Attribute Methods
+	GetAny() any
 }
 
 /*
@@ -2247,19 +2260,6 @@ type StatementLike interface {
 }
 
 /*
-StringLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete string-like class.
-*/
-type StringLike interface {
-	// Principal Methods
-	GetClass() StringClassLike
-
-	// Attribute Methods
-	GetAny() any
-}
-
-/*
 SubcomponentLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete subcomponent-like class.
@@ -2271,7 +2271,7 @@ type SubcomponentLike interface {
 	// Attribute Methods
 	GetIdentifier() string
 	GetDelimiter1() string
-	GetIndexes() col.Sequential[IndexLike]
+	GetIndexes() col.ListLike[IndexLike]
 	GetDelimiter2() string
 }
 

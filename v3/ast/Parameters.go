@@ -36,7 +36,7 @@ func ParametersClass() ParametersClassLike {
 
 func (c *parametersClass_) Parameters(
 	delimiter1 string,
-	associations col.Sequential[AssociationLike],
+	associations col.ListLike[AssociationLike],
 	delimiter2 string,
 ) ParametersLike {
 	if uti.IsUndefined(delimiter1) {
@@ -71,7 +71,7 @@ func (v *parameters_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *parameters_) GetAssociations() col.Sequential[AssociationLike] {
+func (v *parameters_) GetAssociations() col.ListLike[AssociationLike] {
 	return v.associations_
 }
 
@@ -86,7 +86,7 @@ func (v *parameters_) GetDelimiter2() string {
 type parameters_ struct {
 	// Declare the instance attributes.
 	delimiter1_   string
-	associations_ col.Sequential[AssociationLike]
+	associations_ col.ListLike[AssociationLike]
 	delimiter2_   string
 }
 
