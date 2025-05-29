@@ -339,7 +339,7 @@ $alpha: ['A'..'Z' 'a'..'z']
 
 $alphanumeric: alpha | base10
 
-$angle: '~' ('0' | amplitude | "pi" | 'π' | "tau" | 'τ')
+$angle: '~' ('0' | amplitude)
 
 $authority: ~['/' CONTROL]+
 
@@ -395,7 +395,9 @@ $instruction: base16{4}
 
 $letter: LOWER | UPPER
 
-$amplitude: ('0' fraction | ordinal fraction?) exponent?
+$amplitude: ('0' fraction | ordinal fraction? | transcendental) exponent?
+
+$transcendental: "e" | "pi" | 'π' | "tau" | 'τ' | "phi" | 'φ'
 
 $minute: ['0'..'5'] ['0'..'9']
 
