@@ -151,7 +151,7 @@ func (v *scanner_) foundToken(
 	var token = []rune(match)
 	var length = uint(len(token))
 	var previous = token[length-1]
-	if tokenType == DelimiterToken && uint(len(v.runes_)) > v.next_+length {
+	if uint(len(v.runes_)) > v.next_+length {
 		var next = v.runes_[v.next_+length]
 		if (uni.IsLetter(previous) || uni.IsNumber(previous)) &&
 			(uni.IsLetter(next) || uni.IsNumber(next) || next == '_') {
@@ -196,11 +196,11 @@ loop:
 		case v.foundToken(AngleToken):
 		case v.foundToken(BinaryToken):
 		case v.foundToken(BooleanToken):
+		case v.foundToken(GlyphToken):
+		case v.foundToken(BytecodeToken):
 		case v.foundToken(CitationToken):
 		case v.foundToken(CommentToken):
 		case v.foundToken(DurationToken):
-		case v.foundToken(GlyphToken):
-		case v.foundToken(BytecodeToken):
 		case v.foundToken(MomentToken):
 		case v.foundToken(NameToken):
 		case v.foundToken(NarrativeToken):
@@ -380,6 +380,8 @@ const (
 	binary_       = "(?:'>(" + eol_ + "(?:" + block_ + ")+)? *<')"
 	block_        = "(?: *(?:" + base64_ + "){1,60}" + eol_ + ")"
 	boolean_      = "(?:false|true)"
+	glyph_        = "(?:'((?:" + escape_ + ")|[^" + control_ + "])')"
+	bytecode_     = "(?:'((?:" + instruction_ + ")( (?:" + instruction_ + "))*)?')"
 	character_    = "(?:(?:" + escape_ + ")|\\\\\"|[^\"" + control_ + "])"
 	citation_     = "(?:(?:" + name_ + ")@(?:" + version_ + "))"
 	comment_      = "(?:!>" + eol_ + "(" + any_ + "|" + eol_ + ")*?" + eol_ + " *<!)"
@@ -391,8 +393,6 @@ const (
 	float_        = "(?:(?:" + sign_ + ")?(?:" + amplitude_ + "))"
 	fraction_     = "(?:\\.(?:" + base10_ + ")+)"
 	fragment_     = "(?:[^>" + control_ + "]*)"
-	glyph_        = "(?:'((?:" + escape_ + ")|[^" + control_ + "])')"
-	bytecode_     = "(?:'((?:" + instruction_ + ")( (?:" + instruction_ + "))*)?')"
 	hour_         = "(?:([0-1][0-9])|(2[0-3]))"
 	hours_        = "(?:(?:" + timespan_ + ")H)"
 	imaginary_    = "(?:(?:" + sign_ + ")?(?:" + amplitude_ + ")i)"
