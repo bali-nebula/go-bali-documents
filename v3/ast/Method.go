@@ -36,7 +36,7 @@ func MethodClass() MethodClassLike {
 
 func (c *methodClass_) Method(
 	identifier1 string,
-	blocking BlockingLike,
+	invoke InvokeLike,
 	identifier2 string,
 	delimiter1 string,
 	arguments col.ListLike[ArgumentLike],
@@ -45,8 +45,8 @@ func (c *methodClass_) Method(
 	if uti.IsUndefined(identifier1) {
 		panic("The \"identifier1\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(blocking) {
-		panic("The \"blocking\" attribute is required by this class.")
+	if uti.IsUndefined(invoke) {
+		panic("The \"invoke\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(identifier2) {
 		panic("The \"identifier2\" attribute is required by this class.")
@@ -63,7 +63,7 @@ func (c *methodClass_) Method(
 	var instance = &method_{
 		// Initialize the instance attributes.
 		identifier1_: identifier1,
-		blocking_:    blocking,
+		invoke_:      invoke,
 		identifier2_: identifier2,
 		delimiter1_:  delimiter1,
 		arguments_:   arguments,
@@ -86,8 +86,8 @@ func (v *method_) GetIdentifier1() string {
 	return v.identifier1_
 }
 
-func (v *method_) GetBlocking() BlockingLike {
-	return v.blocking_
+func (v *method_) GetInvoke() InvokeLike {
+	return v.invoke_
 }
 
 func (v *method_) GetIdentifier2() string {
@@ -113,7 +113,7 @@ func (v *method_) GetDelimiter2() string {
 type method_ struct {
 	// Declare the instance attributes.
 	identifier1_ string
-	blocking_    BlockingLike
+	invoke_      InvokeLike
 	identifier2_ string
 	delimiter1_  string
 	arguments_   col.ListLike[ArgumentLike]

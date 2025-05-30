@@ -313,19 +313,6 @@ func (v *visitor_) visitBag(
 	)
 }
 
-func (v *visitor_) visitBlocking(
-	blocking ast.BlockingLike,
-) {
-	// Visit the possible blocking expression types.
-	var actual = blocking.GetAny().(string)
-	switch {
-	case ScannerClass().MatchesType(actual, DotToken):
-		v.processor_.ProcessDot(actual)
-	case ScannerClass().MatchesType(actual, ArrowToken):
-		v.processor_.ProcessArrow(actual)
-	}
-}
-
 func (v *visitor_) visitBreakClause(
 	breakClause ast.BreakClauseLike,
 ) {
@@ -1335,6 +1322,19 @@ func (v *visitor_) visitInvocation(
 	}
 }
 
+func (v *visitor_) visitInvoke(
+	invoke ast.InvokeLike,
+) {
+	// Visit the possible invoke expression types.
+	var actual = invoke.GetAny().(string)
+	switch {
+	case ScannerClass().MatchesType(actual, SynchronousToken):
+		v.processor_.ProcessSynchronous(actual)
+	case ScannerClass().MatchesType(actual, AsynchronousToken):
+		v.processor_.ProcessAsynchronous(actual)
+	}
+}
+
 func (v *visitor_) visitItems(
 	items ast.ItemsLike,
 ) {
@@ -1837,15 +1837,15 @@ func (v *visitor_) visitMethod(
 		1,
 	)
 
-	var blocking = method.GetBlocking()
-	v.processor_.PreprocessBlocking(
-		blocking,
+	var invoke = method.GetInvoke()
+	v.processor_.PreprocessInvoke(
+		invoke,
 		1,
 		1,
 	)
-	v.visitBlocking(blocking)
-	v.processor_.PostprocessBlocking(
-		blocking,
+	v.visitInvoke(invoke)
+	v.processor_.PostprocessInvoke(
+		invoke,
 		1,
 		1,
 	)

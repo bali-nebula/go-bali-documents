@@ -56,7 +56,7 @@ type TokenType uint8
 const (
 	ErrorToken TokenType = iota
 	AngleToken
-	ArrowToken
+	AsynchronousToken
 	BinaryToken
 	BooleanToken
 	BytecodeToken
@@ -64,7 +64,6 @@ const (
 	CitationToken
 	CommentToken
 	DelimiterToken
-	DotToken
 	DurationToken
 	EqualToken
 	GlyphToken
@@ -89,6 +88,7 @@ const (
 	SpaceToken
 	StarToken
 	SymbolToken
+	SynchronousToken
 	TagToken
 	VersionToken
 )
@@ -304,8 +304,8 @@ type Methodical interface {
 	ProcessAngle(
 		angle string,
 	)
-	ProcessArrow(
-		arrow string,
+	ProcessAsynchronous(
+		asynchronous string,
 	)
 	ProcessBinary(
 		binary string,
@@ -327,9 +327,6 @@ type Methodical interface {
 	)
 	ProcessDelimiter(
 		delimiter string,
-	)
-	ProcessDot(
-		dot string,
 	)
 	ProcessDuration(
 		duration string,
@@ -402,6 +399,9 @@ type Methodical interface {
 	)
 	ProcessSymbol(
 		symbol string,
+	)
+	ProcessSynchronous(
+		synchronous string,
 	)
 	ProcessTag(
 		tag string,
@@ -533,20 +533,6 @@ type Methodical interface {
 	)
 	ProcessBagSlot(
 		bag ast.BagLike,
-		slot_ uint,
-	)
-	PreprocessBlocking(
-		blocking ast.BlockingLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessBlocking(
-		blocking ast.BlockingLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessBlockingSlot(
-		blocking ast.BlockingLike,
 		slot_ uint,
 	)
 	PreprocessBreakClause(
@@ -967,6 +953,20 @@ type Methodical interface {
 	)
 	ProcessInvocationSlot(
 		invocation ast.InvocationLike,
+		slot_ uint,
+	)
+	PreprocessInvoke(
+		invoke ast.InvokeLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessInvoke(
+		invoke ast.InvokeLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessInvokeSlot(
+		invoke ast.InvokeLike,
 		slot_ uint,
 	)
 	PreprocessItems(

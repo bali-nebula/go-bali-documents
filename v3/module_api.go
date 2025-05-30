@@ -48,7 +48,6 @@ type (
 	AtLevelClassLike        = ast.AtLevelClassLike
 	AttributesClassLike     = ast.AttributesClassLike
 	BagClassLike            = ast.BagClassLike
-	BlockingClassLike       = ast.BlockingClassLike
 	BreakClauseClassLike    = ast.BreakClauseClassLike
 	CheckoutClauseClassLike = ast.CheckoutClauseClassLike
 	CitedClassLike          = ast.CitedClassLike
@@ -79,6 +78,7 @@ type (
 	InverseClassLike        = ast.InverseClassLike
 	InversionClassLike      = ast.InversionClassLike
 	InvocationClassLike     = ast.InvocationClassLike
+	InvokeClassLike         = ast.InvokeClassLike
 	ItemsClassLike          = ast.ItemsClassLike
 	LeftBracketClassLike    = ast.LeftBracketClassLike
 	LetClauseClassLike      = ast.LetClauseClassLike
@@ -138,7 +138,6 @@ type (
 	AtLevelLike        = ast.AtLevelLike
 	AttributesLike     = ast.AttributesLike
 	BagLike            = ast.BagLike
-	BlockingLike       = ast.BlockingLike
 	BreakClauseLike    = ast.BreakClauseLike
 	CheckoutClauseLike = ast.CheckoutClauseLike
 	CitedLike          = ast.CitedLike
@@ -169,6 +168,7 @@ type (
 	InverseLike        = ast.InverseLike
 	InversionLike      = ast.InversionLike
 	InvocationLike     = ast.InvocationLike
+	InvokeLike         = ast.InvokeLike
 	ItemsLike          = ast.ItemsLike
 	LeftBracketLike    = ast.LeftBracketLike
 	LetClauseLike      = ast.LetClauseLike
@@ -225,43 +225,43 @@ type (
 )
 
 const (
-	ErrorToken       = gra.ErrorToken
-	AngleToken       = gra.AngleToken
-	ArrowToken       = gra.ArrowToken
-	BinaryToken      = gra.BinaryToken
-	BooleanToken     = gra.BooleanToken
-	BytecodeToken    = gra.BytecodeToken
-	CaretToken       = gra.CaretToken
-	CitationToken    = gra.CitationToken
-	CommentToken     = gra.CommentToken
-	DelimiterToken   = gra.DelimiterToken
-	DotToken         = gra.DotToken
-	DurationToken    = gra.DurationToken
-	EqualToken       = gra.EqualToken
-	GlyphToken       = gra.GlyphToken
-	IdentifierToken  = gra.IdentifierToken
-	LessToken        = gra.LessToken
-	MinusToken       = gra.MinusToken
-	MomentToken      = gra.MomentToken
-	MoreToken        = gra.MoreToken
-	NameToken        = gra.NameToken
-	NarrativeToken   = gra.NarrativeToken
-	NewlineToken     = gra.NewlineToken
-	NoteToken        = gra.NoteToken
-	NumberToken      = gra.NumberToken
-	PatternToken     = gra.PatternToken
-	PercentToken     = gra.PercentToken
-	PercentageToken  = gra.PercentageToken
-	PlusToken        = gra.PlusToken
-	ProbabilityToken = gra.ProbabilityToken
-	QuoteToken       = gra.QuoteToken
-	ResourceToken    = gra.ResourceToken
-	SlashToken       = gra.SlashToken
-	SpaceToken       = gra.SpaceToken
-	StarToken        = gra.StarToken
-	SymbolToken      = gra.SymbolToken
-	TagToken         = gra.TagToken
-	VersionToken     = gra.VersionToken
+	ErrorToken        = gra.ErrorToken
+	AngleToken        = gra.AngleToken
+	AsynchronousToken = gra.AsynchronousToken
+	BinaryToken       = gra.BinaryToken
+	BooleanToken      = gra.BooleanToken
+	BytecodeToken     = gra.BytecodeToken
+	CaretToken        = gra.CaretToken
+	CitationToken     = gra.CitationToken
+	CommentToken      = gra.CommentToken
+	DelimiterToken    = gra.DelimiterToken
+	DurationToken     = gra.DurationToken
+	EqualToken        = gra.EqualToken
+	GlyphToken        = gra.GlyphToken
+	IdentifierToken   = gra.IdentifierToken
+	LessToken         = gra.LessToken
+	MinusToken        = gra.MinusToken
+	MomentToken       = gra.MomentToken
+	MoreToken         = gra.MoreToken
+	NameToken         = gra.NameToken
+	NarrativeToken    = gra.NarrativeToken
+	NewlineToken      = gra.NewlineToken
+	NoteToken         = gra.NoteToken
+	NumberToken       = gra.NumberToken
+	PatternToken      = gra.PatternToken
+	PercentToken      = gra.PercentToken
+	PercentageToken   = gra.PercentageToken
+	PlusToken         = gra.PlusToken
+	ProbabilityToken  = gra.ProbabilityToken
+	QuoteToken        = gra.QuoteToken
+	ResourceToken     = gra.ResourceToken
+	SlashToken        = gra.SlashToken
+	SpaceToken        = gra.SpaceToken
+	StarToken         = gra.StarToken
+	SymbolToken       = gra.SymbolToken
+	SynchronousToken  = gra.SynchronousToken
+	TagToken          = gra.TagToken
+	VersionToken      = gra.VersionToken
 )
 
 type (
@@ -411,18 +411,6 @@ func Bag(
 ) BagLike {
 	return BagClass().Bag(
 		expression,
-	)
-}
-
-func BlockingClass() BlockingClassLike {
-	return ast.BlockingClass()
-}
-
-func Blocking(
-	any_ any,
-) BlockingLike {
-	return BlockingClass().Blocking(
-		any_,
 	)
 }
 
@@ -830,6 +818,18 @@ func Invocation(
 	)
 }
 
+func InvokeClass() InvokeClassLike {
+	return ast.InvokeClass()
+}
+
+func Invoke(
+	any_ any,
+) InvokeLike {
+	return InvokeClass().Invoke(
+		any_,
+	)
+}
+
 func ItemsClass() ItemsClassLike {
 	return ast.ItemsClass()
 }
@@ -988,7 +988,7 @@ func MethodClass() MethodClassLike {
 
 func Method(
 	identifier1 string,
-	blocking ast.BlockingLike,
+	invoke ast.InvokeLike,
 	identifier2 string,
 	delimiter1 string,
 	arguments col.ListLike[ast.ArgumentLike],
@@ -996,7 +996,7 @@ func Method(
 ) MethodLike {
 	return MethodClass().Method(
 		identifier1,
-		blocking,
+		invoke,
 		identifier2,
 		delimiter1,
 		arguments,

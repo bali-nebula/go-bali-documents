@@ -161,18 +161,6 @@ type BagClassLike interface {
 }
 
 /*
-BlockingClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete blocking-like class.
-*/
-type BlockingClassLike interface {
-	// Constructor Methods
-	Blocking(
-		any_ any,
-	) BlockingLike
-}
-
-/*
 BreakClauseClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete break-clause-like class.
@@ -555,6 +543,18 @@ type InvocationClassLike interface {
 }
 
 /*
+InvokeClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete invoke-like class.
+*/
+type InvokeClassLike interface {
+	// Constructor Methods
+	Invoke(
+		any_ any,
+	) InvokeLike
+}
+
+/*
 ItemsClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete items-like class.
@@ -705,7 +705,7 @@ type MethodClassLike interface {
 	// Constructor Methods
 	Method(
 		identifier1 string,
-		blocking BlockingLike,
+		invoke InvokeLike,
 		identifier2 string,
 		delimiter1 string,
 		arguments col.ListLike[ArgumentLike],
@@ -1306,19 +1306,6 @@ type BagLike interface {
 }
 
 /*
-BlockingLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete blocking-like class.
-*/
-type BlockingLike interface {
-	// Principal Methods
-	GetClass() BlockingClassLike
-
-	// Attribute Methods
-	GetAny() any
-}
-
-/*
 BreakClauseLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete break-clause-like class.
@@ -1731,6 +1718,19 @@ type InvocationLike interface {
 }
 
 /*
+InvokeLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete invoke-like class.
+*/
+type InvokeLike interface {
+	// Principal Methods
+	GetClass() InvokeClassLike
+
+	// Attribute Methods
+	GetAny() any
+}
+
+/*
 ItemsLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete items-like class.
@@ -1894,7 +1894,7 @@ type MethodLike interface {
 
 	// Attribute Methods
 	GetIdentifier1() string
-	GetBlocking() BlockingLike
+	GetInvoke() InvokeLike
 	GetIdentifier2() string
 	GetDelimiter1() string
 	GetArguments() col.ListLike[ArgumentLike]

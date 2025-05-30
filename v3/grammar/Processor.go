@@ -55,8 +55,8 @@ func (v *processor_) ProcessAngle(
 ) {
 }
 
-func (v *processor_) ProcessArrow(
-	arrow string,
+func (v *processor_) ProcessAsynchronous(
+	asynchronous string,
 ) {
 }
 
@@ -92,11 +92,6 @@ func (v *processor_) ProcessComment(
 
 func (v *processor_) ProcessDelimiter(
 	delimiter string,
-) {
-}
-
-func (v *processor_) ProcessDot(
-	dot string,
 ) {
 }
 
@@ -217,6 +212,11 @@ func (v *processor_) ProcessStar(
 
 func (v *processor_) ProcessSymbol(
 	symbol string,
+) {
+}
+
+func (v *processor_) ProcessSynchronous(
+	synchronous string,
 ) {
 }
 
@@ -406,26 +406,6 @@ func (v *processor_) PostprocessBag(
 
 func (v *processor_) ProcessBagSlot(
 	bag ast.BagLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PreprocessBlocking(
-	blocking ast.BlockingLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessBlocking(
-	blocking ast.BlockingLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessBlockingSlot(
-	blocking ast.BlockingLike,
 	slot_ uint,
 ) {
 }
@@ -1026,6 +1006,26 @@ func (v *processor_) PostprocessInvocation(
 
 func (v *processor_) ProcessInvocationSlot(
 	invocation ast.InvocationLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PreprocessInvoke(
+	invoke ast.InvokeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessInvoke(
+	invoke ast.InvokeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessInvokeSlot(
+	invoke ast.InvokeLike,
 	slot_ uint,
 ) {
 }

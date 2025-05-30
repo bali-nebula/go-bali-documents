@@ -27,19 +27,19 @@ import (
 
 // Access Function
 
-func BlockingClass() BlockingClassLike {
-	return blockingClass()
+func InvokeClass() InvokeClassLike {
+	return invokeClass()
 }
 
 // Constructor Methods
 
-func (c *blockingClass_) Blocking(
+func (c *invokeClass_) Invoke(
 	any_ any,
-) BlockingLike {
+) InvokeLike {
 	if uti.IsUndefined(any_) {
 		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &blocking_{
+	var instance = &invoke_{
 		// Initialize the instance attributes.
 		any_: any_,
 	}
@@ -50,13 +50,13 @@ func (c *blockingClass_) Blocking(
 
 // Principal Methods
 
-func (v *blocking_) GetClass() BlockingClassLike {
-	return blockingClass()
+func (v *invoke_) GetClass() InvokeClassLike {
+	return invokeClass()
 }
 
 // Attribute Methods
 
-func (v *blocking_) GetAny() any {
+func (v *invoke_) GetAny() any {
 	return v.any_
 }
 
@@ -64,23 +64,23 @@ func (v *blocking_) GetAny() any {
 
 // Instance Structure
 
-type blocking_ struct {
+type invoke_ struct {
 	// Declare the instance attributes.
 	any_ any
 }
 
 // Class Structure
 
-type blockingClass_ struct {
+type invokeClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func blockingClass() *blockingClass_ {
-	return blockingClassReference_
+func invokeClass() *invokeClass_ {
+	return invokeClassReference_
 }
 
-var blockingClassReference_ = &blockingClass_{
+var invokeClassReference_ = &invokeClass_{
 	// Initialize the class constants.
 }

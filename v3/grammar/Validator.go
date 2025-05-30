@@ -67,10 +67,10 @@ func (v *validator_) ProcessAngle(
 	v.validateToken(angle, AngleToken)
 }
 
-func (v *validator_) ProcessArrow(
+func (v *validator_) ProcessAsynchronous(
 	arrow string,
 ) {
-	v.validateToken(arrow, ArrowToken)
+	v.validateToken(arrow, AsynchronousToken)
 }
 
 func (v *validator_) ProcessBinary(
@@ -107,12 +107,6 @@ func (v *validator_) ProcessComment(
 	comment string,
 ) {
 	v.validateToken(comment, CommentToken)
-}
-
-func (v *validator_) ProcessDot(
-	dot string,
-) {
-	v.validateToken(dot, DotToken)
 }
 
 func (v *validator_) ProcessDuration(
@@ -251,6 +245,12 @@ func (v *validator_) ProcessSymbol(
 	symbol string,
 ) {
 	v.validateToken(symbol, SymbolToken)
+}
+
+func (v *validator_) ProcessSynchronous(
+	dot string,
+) {
+	v.validateToken(dot, SynchronousToken)
 }
 
 func (v *validator_) ProcessTag(

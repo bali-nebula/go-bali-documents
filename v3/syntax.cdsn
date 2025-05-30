@@ -158,11 +158,11 @@ $Argument:
 
 $Value: identifier
 
-$Method: identifier Blocking identifier "(" Argument* ")"
+$Method: identifier Invoke identifier "(" Argument* ")"
 
-$Blocking:
-    dot
-    arrow
+$Invoke:
+    synchronous
+    asynchronous
 
 $Subcomponent: identifier "[" Index+ "]"
 
@@ -335,13 +335,77 @@ $Magnitude: "|" Numerical "|"
 │                            EXPRESSION DEFINITIONS                            │
 └──────────────────────────────────────────────────────────────────────────────┘
 <!
-$alpha: ['A'..'Z' 'a'..'z']
+$angle: '~' ('0' | amplitude)
+
+$binary: "'>" (EOL block+)? ' '* "<'"
+
+$boolean: "false" | "true"
+
+$glyph: "'" (escape | ~[CONTROL]) "'"  ! Must be declared before bytecode.
+
+$bytecode: "'" (instruction (' ' instruction)*)? "'"
+
+$citation: name '@' version
+
+$comment: "!>" EOL (ANY | EOL)* EOL ' '* "<!"  ! Chooses the shortest match.
+
+$duration: '~' sign? 'P' (weeks | (years? months? days? ('T' hours? minutes? seconds?)?))
+
+$moment: '<' sign? year ('-' month ('-' day ('T' hour (':' minute (':' second fraction?)?)?)?)?)? '>'
+
+$name: ('/' identifier)+
+
+$narrative: '"' '>' EOL (ANY | EOL)* EOL ' '* '<' '"'  ! Chooses the shortest match.
+
+$note: "! " ~[CONTROL]*
+
+$pattern: "none" | regex | "any"
+
+$percentage: real '%'
+
+$probability: 'p' ('0' fraction? | "1")
+
+$number: polar | rectangular | imaginary | real  ! Must be after other numerics.
+
+$quote: '"' character* '"'
+
+$resource: '<' scheme ':' ("//" authority)? '/' path ('?' query)? ('#' fragment)? '>'
+
+$symbol: '$' identifier
+
+$tag: '#' base32+
+
+$version: 'v' ordinal ('.' ordinal)*
+
+$identifier: letter (letter | DIGIT)*  ! Must be after all alphanumeric expressions.
+
+$synchronous: "<-"
+
+$asynchronous: "<~"
+
+$less: '<'
+
+$equal: '='
+
+$more: '>'
+
+$plus: '+'
+
+$minus: '-'
+
+$star: '*'
+
+$slash: '/'
+
+$percent: '%'
+
+$caret: '^'  ! This is the last of the token patterns.
+
+$alpha: ['A'..'Z' 'a'..'z']  ! This is the first of the subexpression patterns.
 
 $alphanumeric: alpha | base10
 
 $amplitude: ('0' fraction | ordinal fraction? | transcendental) exponent?
-
-$angle: '~' ('0' | amplitude)
 
 $authority: ~['/' CONTROL]+
 
@@ -353,27 +417,13 @@ $base32: base10 | ['A'..'D' 'F'..'H' 'J'..'N' 'P'..'T' 'V'..'Z']
 
 $base64: alphanumeric | ['+' '/']
 
-$binary: "'>" (EOL block+)? ' '* "<'"
-
 $block: ' '* base64{1..60} EOL
 
-$boolean: "false" | "true"
-
-$glyph: "'" (escape | ~[CONTROL]) "'"  ! Must be declared before bytecode.
-
-$bytecode: "'" (instruction (' ' instruction)*)? "'"
-
 $character: escape | '\' '"' | ~['"' CONTROL]
-
-$citation: name '@' version
-
-$comment: "!>" EOL (ANY | EOL)* EOL ' '* "<!"  ! Chooses the shortest match.
 
 $day: (['0'..'2'] ['1'..'9']) | ('3' ['0'..'1'])
 
 $days: timespan 'D'
-
-$duration: '~' sign? 'P' (weeks | (years? months? days? ('T' hours? minutes? seconds?)?))
 
 $escape: '\' (unicode | ['a' 'b' 'f' 'n' 'r' 't' 'v' '\'])
 
@@ -401,43 +451,23 @@ $minute: ['0'..'5'] ['0'..'9']
 
 $minutes: timespan 'M'
 
-$moment: '<' sign? year ('-' month ('-' day ('T' hour (':' minute (':' second fraction?)?)?)?)?)? '>'
-
 $month: ('0' ['1'..'9']) | ('1' ['0'..'2'])
 
 $months: timespan 'M'
-
-$name: ('/' identifier)+
-
-$narrative: '"' '>' EOL (ANY | EOL)* EOL ' '* '<' '"'  ! Chooses the shortest match.
-
-$note: "! " ~[CONTROL]*
 
 $ordinal: ['1'..'9'] base10*
 
 $path: ~['?' '#' '>' CONTROL]*
 
-$pattern: "none" | regex | "any"
-
-$percentage: real '%'
-
-$probability: fraction | "one"
-
 $polar: amplitude "e^" angle? 'i'
 
 $query: ~['#' '>' CONTROL]*
-
-$quote: '"' character* '"'
 
 $real: '0' | float | infinity | undefined
 
 $rectangular: float sign float? 'i'
 
-$number: polar | rectangular | imaginary | real  ! Must be after other numerics.
-
 $regex: '"' character+ '"' '?'
-
-$resource: '<' scheme ':' ("//" authority)? '/' path ('?' query)? ('#' fragment)? '>'
 
 $scheme: alpha (alphanumeric | '+' | '-' | '.')*
 
@@ -447,10 +477,6 @@ $seconds: timespan 'S'
 
 $sign: '+' | '-'
 
-$symbol: '$' identifier
-
-$tag: '#' base32+
-
 $timespan: '0' | (ordinal fraction?)
 
 $transcendental: "e" | "pi" | 'π' | "tau" | 'τ' | "phi" | 'φ'
@@ -459,35 +485,9 @@ $undefined: "undefined"
 
 $unicode: ('u' base16{4}) | ('U' base16{8})
 
-$version: 'v' ordinal ('.' ordinal)*
-
 $weeks: timespan 'W'
 
 $year: '0' | ordinal
 
 $years: timespan 'Y'
-
-$identifier: letter (letter | DIGIT)*  ! Must be after all alphanumeric expressions.
-
-$arrow: "<-"
-
-$less: "<"
-
-$equal: "="
-
-$more: ">"
-
-$plus: "+"
-
-$minus: "-"
-
-$star: "*"
-
-$slash: "/"
-
-$percent: "%"
-
-$caret: "^"
-
-$dot: "."
 

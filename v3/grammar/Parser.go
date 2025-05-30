@@ -563,33 +563,6 @@ func (v *parser_) parseBag() (
 	return
 }
 
-func (v *parser_) parseBlocking() (
-	blocking ast.BlockingLike,
-	token TokenLike,
-	ok bool,
-) {
-	// Attempt to parse a single dot Blocking.
-	var dot string
-	dot, token, ok = v.parseToken(DotToken)
-	if ok {
-		// Found a single dot Blocking.
-		blocking = ast.BlockingClass().Blocking(dot)
-		return
-	}
-
-	// Attempt to parse a single arrow Blocking.
-	var arrow string
-	arrow, token, ok = v.parseToken(ArrowToken)
-	if ok {
-		// Found a single arrow Blocking.
-		blocking = ast.BlockingClass().Blocking(arrow)
-		return
-	}
-
-	// This is not a single Blocking rule.
-	return
-}
-
 func (v *parser_) parseBreakClause() (
 	breakClause ast.BreakClauseLike,
 	token TokenLike,
@@ -2133,6 +2106,33 @@ func (v *parser_) parseInvocation() (
 	return
 }
 
+func (v *parser_) parseInvoke() (
+	invoke ast.InvokeLike,
+	token TokenLike,
+	ok bool,
+) {
+	// Attempt to parse a single synchronous Invoke.
+	var synchronous string
+	synchronous, token, ok = v.parseToken(SynchronousToken)
+	if ok {
+		// Found a single synchronous Invoke.
+		invoke = ast.InvokeClass().Invoke(synchronous)
+		return
+	}
+
+	// Attempt to parse a single asynchronous Invoke.
+	var asynchronous string
+	asynchronous, token, ok = v.parseToken(AsynchronousToken)
+	if ok {
+		// Found a single asynchronous Invoke.
+		invoke = ast.InvokeClass().Invoke(asynchronous)
+		return
+	}
+
+	// This is not a single Invoke rule.
+	return
+}
+
 func (v *parser_) parseItems() (
 	items ast.ItemsLike,
 	token TokenLike,
@@ -2796,9 +2796,9 @@ func (v *parser_) parseMethod() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse a single Blocking rule.
-	var blocking ast.BlockingLike
-	blocking, token, ok = v.parseBlocking()
+	// Attempt to parse a single Invoke rule.
+	var invoke ast.InvokeLike
+	invoke, token, ok = v.parseInvoke()
 	switch {
 	case ok:
 		// Found a multiexpression token.
@@ -2806,7 +2806,7 @@ func (v *parser_) parseMethod() (
 			tokens.AppendValue(token)
 		}
 	case uti.IsDefined(tokens):
-		// This is not a single Blocking rule.
+		// This is not a single Invoke rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -2900,7 +2900,7 @@ argumentsLoop:
 	v.remove(tokens)
 	method = ast.MethodClass().Method(
 		identifier1,
-		blocking,
+		invoke,
 		identifier2,
 		delimiter1,
 		arguments,
@@ -5421,10 +5421,10 @@ var parserClassReference_ = &parserClass_{
     Value
     Primitive`,
 			"$Value":  `identifier`,
-			"$Method": `identifier Blocking identifier "(" Argument* ")"`,
-			"$Blocking": `
-    dot
-    arrow`,
+			"$Method": `identifier Invoke identifier "(" Argument* ")"`,
+			"$Invoke": `
+    synchronous
+    asynchronous`,
 			"$Subcomponent": `identifier "[" Index+ "]"`,
 			"$Index": `
     Value

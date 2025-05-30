@@ -16,8 +16,8 @@
     let $foo := p and q
     let $foo := not (p and q) ior (p ior not q) xor (p san q)
     let $foo := @reference
-    let $foo := list.addValue(ex)
-    let $foo := remote<-notify(event)
+    let $foo := list<-addValue(ex)
+    let $foo := remote<~notify(event)
     let $foo := customer[42 $address $province]
     let $foo := a & b & c
     let $foo := a < b and b = c san d > e ior e is f xor f matches g

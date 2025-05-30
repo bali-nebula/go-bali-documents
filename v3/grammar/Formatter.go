@@ -66,10 +66,10 @@ func (v *formatter_) ProcessAngle(
 	v.appendString(angle)
 }
 
-func (v *formatter_) ProcessArrow(
-	arrow string,
+func (v *formatter_) ProcessAsynchronous(
+	asynchronous string,
 ) {
-	v.appendString(arrow)
+	v.appendString(asynchronous)
 }
 
 func (v *formatter_) ProcessBinary(
@@ -112,12 +112,6 @@ func (v *formatter_) ProcessDelimiter(
 	delimiter string,
 ) {
 	v.appendString(delimiter)
-}
-
-func (v *formatter_) ProcessDot(
-	dot string,
-) {
-	v.appendString(dot)
 }
 
 func (v *formatter_) ProcessDuration(
@@ -263,6 +257,12 @@ func (v *formatter_) ProcessSymbol(
 	symbol string,
 ) {
 	v.appendString(symbol)
+}
+
+func (v *formatter_) ProcessSynchronous(
+	synchronous string,
+) {
+	v.appendString(synchronous)
 }
 
 func (v *formatter_) ProcessTag(
