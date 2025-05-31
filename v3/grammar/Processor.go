@@ -90,6 +90,11 @@ func (v *processor_) ProcessComment(
 ) {
 }
 
+func (v *processor_) ProcessDash(
+	dash string,
+) {
+}
+
 func (v *processor_) ProcessDelimiter(
 	delimiter string,
 ) {
@@ -120,8 +125,8 @@ func (v *processor_) ProcessLess(
 ) {
 }
 
-func (v *processor_) ProcessMinus(
-	minus string,
+func (v *processor_) ProcessModulo(
+	modulo string,
 ) {
 }
 
@@ -162,11 +167,6 @@ func (v *processor_) ProcessNumber(
 
 func (v *processor_) ProcessPattern(
 	pattern string,
-) {
-}
-
-func (v *processor_) ProcessPercent(
-	percent string,
 ) {
 }
 

@@ -196,11 +196,14 @@ loop:
 		case v.foundToken(AngleToken):
 		case v.foundToken(BinaryToken):
 		case v.foundToken(BooleanToken):
+		case v.foundToken(CaretToken):
 		case v.foundToken(GlyphToken):
 		case v.foundToken(BytecodeToken):
 		case v.foundToken(CitationToken):
 		case v.foundToken(CommentToken):
 		case v.foundToken(DurationToken):
+		case v.foundToken(EqualToken):
+		case v.foundToken(ModuloToken):
 		case v.foundToken(MomentToken):
 		case v.foundToken(NameToken):
 		case v.foundToken(NarrativeToken):
@@ -208,8 +211,8 @@ loop:
 		case v.foundToken(PatternToken):
 		case v.foundToken(PercentageToken):
 		case v.foundToken(ProbabilityToken):
-		case v.foundToken(NumberToken):
 		case v.foundToken(QuoteToken):
+		case v.foundToken(NumberToken):
 		case v.foundToken(ResourceToken):
 		case v.foundToken(SymbolToken):
 		case v.foundToken(TagToken):
@@ -218,14 +221,11 @@ loop:
 		case v.foundToken(SynchronousToken):
 		case v.foundToken(AsynchronousToken):
 		case v.foundToken(LessToken):
-		case v.foundToken(EqualToken):
 		case v.foundToken(MoreToken):
 		case v.foundToken(PlusToken):
-		case v.foundToken(MinusToken):
+		case v.foundToken(DashToken):
 		case v.foundToken(StarToken):
 		case v.foundToken(SlashToken):
-		case v.foundToken(PercentToken):
-		case v.foundToken(CaretToken):
 		default:
 			v.foundError()
 			break loop
@@ -274,13 +274,14 @@ var scannerClassReference_ = &scannerClass_{
 			CaretToken:        "caret",
 			CitationToken:     "citation",
 			CommentToken:      "comment",
+			DashToken:         "dash",
 			DelimiterToken:    "delimiter",
 			DurationToken:     "duration",
 			EqualToken:        "equal",
 			GlyphToken:        "glyph",
 			IdentifierToken:   "identifier",
 			LessToken:         "less",
-			MinusToken:        "minus",
+			ModuloToken:       "modulo",
 			MomentToken:       "moment",
 			MoreToken:         "more",
 			NameToken:         "name",
@@ -289,7 +290,6 @@ var scannerClassReference_ = &scannerClass_{
 			NoteToken:         "note",
 			NumberToken:       "number",
 			PatternToken:      "pattern",
-			PercentToken:      "percent",
 			PercentageToken:   "percentage",
 			PlusToken:         "plus",
 			ProbabilityToken:  "probability",
@@ -315,13 +315,14 @@ var scannerClassReference_ = &scannerClass_{
 			CaretToken:        reg.MustCompile("^" + caret_),
 			CitationToken:     reg.MustCompile("^" + citation_),
 			CommentToken:      reg.MustCompile("^" + comment_),
+			DashToken:         reg.MustCompile("^" + dash_),
 			DelimiterToken:    reg.MustCompile("^" + delimiter_),
 			DurationToken:     reg.MustCompile("^" + duration_),
 			EqualToken:        reg.MustCompile("^" + equal_),
 			GlyphToken:        reg.MustCompile("^" + glyph_),
 			IdentifierToken:   reg.MustCompile("^" + identifier_),
 			LessToken:         reg.MustCompile("^" + less_),
-			MinusToken:        reg.MustCompile("^" + minus_),
+			ModuloToken:       reg.MustCompile("^" + modulo_),
 			MomentToken:       reg.MustCompile("^" + moment_),
 			MoreToken:         reg.MustCompile("^" + more_),
 			NameToken:         reg.MustCompile("^" + name_),
@@ -330,7 +331,6 @@ var scannerClassReference_ = &scannerClass_{
 			NoteToken:         reg.MustCompile("^" + note_),
 			NumberToken:       reg.MustCompile("^" + number_),
 			PatternToken:      reg.MustCompile("^" + pattern_),
-			PercentToken:      reg.MustCompile("^" + percent_),
 			PercentageToken:   reg.MustCompile("^" + percentage_),
 			PlusToken:         reg.MustCompile("^" + plus_),
 			ProbabilityToken:  reg.MustCompile("^" + probability_),
@@ -384,6 +384,7 @@ const (
 	character_      = "(?:(?:" + escape_ + ")|\\\\\"|[^\"" + control_ + "])"
 	citation_       = "(?:(?:" + name_ + ")@(?:" + version_ + "))"
 	comment_        = "(?:!>" + eol_ + "(" + any_ + "|" + eol_ + ")*?" + eol_ + " *<!)"
+	dash_           = "(?:-)"
 	day_            = "(?:([0-2][1-9])|(3[0-1]))"
 	days_           = "(?:(?:" + timespan_ + ")D)"
 	delimiter_      = "(?:xor|with|while|to|throw|select|save|san|return|retrieve|reject|publish|post|on|notarize|not|matching|matches|loop|level|let|is|ior|in|if|from|each|do|discard|continue|checkout|break|at|as|and|accept|\\}|\\||\\{|\\]|\\[|\\?=|\\.\\.|\\+=|\\*=|\\)|\\(|@|:=|:|/=|-=|&)"
@@ -403,9 +404,9 @@ const (
 	instruction_    = "(?:(?:" + base16_ + "){4})"
 	less_           = "(?:<)"
 	letter_         = "(?:" + lower_ + "|" + upper_ + ")"
-	minus_          = "(?:-)"
 	minute_         = "(?:[0-5][0-9])"
 	minutes_        = "(?:(?:" + timespan_ + ")M)"
+	modulo_         = "(?:%)"
 	moment_         = "(?:<(?:" + sign_ + ")?(?:" + year_ + ")(-(?:" + month_ + ")(-(?:" + day_ + ")(T(?:" + hour_ + ")(:(?:" + minute_ + ")(:(?:" + second_ + ")(?:" + fraction_ + ")?)?)?)?)?)?>)"
 	month_          = "(?:(0[1-9])|(1[0-2]))"
 	months_         = "(?:(?:" + timespan_ + ")M)"
@@ -418,10 +419,9 @@ const (
 	ordinal_        = "(?:[1-9](?:" + base10_ + ")*)"
 	path_           = "(?:[^\\?#>" + control_ + "]*)"
 	pattern_        = "(?:none|(?:" + regex_ + ")|any)"
-	percent_        = "(?:%)"
 	percentage_     = "(?:(?:" + real_ + ")%)"
 	plus_           = "(?:\\+)"
-	polar_          = "(?:(?:" + amplitude_ + ")e\\^(?:" + angle_ + ")?i)"
+	polar_          = "(?:(?:" + amplitude_ + ")e\\^(~(0|(?:" + amplitude_ + ")))?i)"
 	probability_    = "(?:p(0(?:" + fraction_ + ")?|1))"
 	query_          = "(?:[^#>" + control_ + "]*)"
 	quote_          = "(?:\"(?:" + character_ + ")*\")"

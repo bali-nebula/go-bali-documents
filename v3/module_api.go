@@ -234,13 +234,14 @@ const (
 	CaretToken        = gra.CaretToken
 	CitationToken     = gra.CitationToken
 	CommentToken      = gra.CommentToken
+	DashToken         = gra.DashToken
 	DelimiterToken    = gra.DelimiterToken
 	DurationToken     = gra.DurationToken
 	EqualToken        = gra.EqualToken
 	GlyphToken        = gra.GlyphToken
 	IdentifierToken   = gra.IdentifierToken
 	LessToken         = gra.LessToken
-	MinusToken        = gra.MinusToken
+	ModuloToken       = gra.ModuloToken
 	MomentToken       = gra.MomentToken
 	MoreToken         = gra.MoreToken
 	NameToken         = gra.NameToken
@@ -249,7 +250,6 @@ const (
 	NoteToken         = gra.NoteToken
 	NumberToken       = gra.NumberToken
 	PatternToken      = gra.PatternToken
-	PercentToken      = gra.PercentToken
 	PercentageToken   = gra.PercentageToken
 	PlusToken         = gra.PlusToken
 	ProbabilityToken  = gra.ProbabilityToken

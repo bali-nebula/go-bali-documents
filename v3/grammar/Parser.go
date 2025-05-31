@@ -201,12 +201,12 @@ func (v *parser_) parseArithmetic() (
 		return
 	}
 
-	// Attempt to parse a single minus Arithmetic.
-	var minus string
-	minus, token, ok = v.parseToken(MinusToken)
+	// Attempt to parse a single dash Arithmetic.
+	var dash string
+	dash, token, ok = v.parseToken(DashToken)
 	if ok {
-		// Found a single minus Arithmetic.
-		arithmetic = ast.ArithmeticClass().Arithmetic(minus)
+		// Found a single dash Arithmetic.
+		arithmetic = ast.ArithmeticClass().Arithmetic(dash)
 		return
 	}
 
@@ -228,12 +228,12 @@ func (v *parser_) parseArithmetic() (
 		return
 	}
 
-	// Attempt to parse a single percent Arithmetic.
-	var percent string
-	percent, token, ok = v.parseToken(PercentToken)
+	// Attempt to parse a single modulo Arithmetic.
+	var modulo string
+	modulo, token, ok = v.parseToken(ModuloToken)
 	if ok {
-		// Found a single percent Arithmetic.
-		arithmetic = ast.ArithmeticClass().Arithmetic(percent)
+		// Found a single modulo Arithmetic.
+		arithmetic = ast.ArithmeticClass().Arithmetic(modulo)
 		return
 	}
 
@@ -1995,12 +1995,12 @@ func (v *parser_) parseInverse() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single minus Inverse.
-	var minus string
-	minus, token, ok = v.parseToken(MinusToken)
+	// Attempt to parse a single dash Inverse.
+	var dash string
+	dash, token, ok = v.parseToken(DashToken)
 	if ok {
-		// Found a single minus Inverse.
-		inverse = ast.InverseClass().Inverse(minus)
+		// Found a single dash Inverse.
+		inverse = ast.InverseClass().Inverse(dash)
 		return
 	}
 
@@ -5498,10 +5498,10 @@ var parserClassReference_ = &parserClass_{
     "xor"`,
 			"$Arithmetic": `
     plus
-    minus
+    dash
     star
     slash
-    percent
+    modulo
     caret`,
 			"$Comparison": `
     less
@@ -5528,7 +5528,7 @@ var parserClassReference_ = &parserClass_{
     Value  ! This must be last since others also begin with an identifier.`,
 			"$Inversion": `Inverse Numerical`,
 			"$Inverse": `
-    minus
+    dash
     slash
     star`,
 			"$Numerical": `

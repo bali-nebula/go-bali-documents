@@ -63,13 +63,14 @@ const (
 	CaretToken
 	CitationToken
 	CommentToken
+	DashToken
 	DelimiterToken
 	DurationToken
 	EqualToken
 	GlyphToken
 	IdentifierToken
 	LessToken
-	MinusToken
+	ModuloToken
 	MomentToken
 	MoreToken
 	NameToken
@@ -78,7 +79,6 @@ const (
 	NoteToken
 	NumberToken
 	PatternToken
-	PercentToken
 	PercentageToken
 	PlusToken
 	ProbabilityToken
@@ -325,6 +325,9 @@ type Methodical interface {
 	ProcessComment(
 		comment string,
 	)
+	ProcessDash(
+		dash string,
+	)
 	ProcessDelimiter(
 		delimiter string,
 	)
@@ -343,8 +346,8 @@ type Methodical interface {
 	ProcessLess(
 		less string,
 	)
-	ProcessMinus(
-		minus string,
+	ProcessModulo(
+		modulo string,
 	)
 	ProcessMoment(
 		moment string,
@@ -369,9 +372,6 @@ type Methodical interface {
 	)
 	ProcessPattern(
 		pattern string,
-	)
-	ProcessPercent(
-		percent string,
 	)
 	ProcessPercentage(
 		percentage string,

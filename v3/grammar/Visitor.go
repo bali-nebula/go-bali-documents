@@ -147,14 +147,14 @@ func (v *visitor_) visitArithmetic(
 	switch {
 	case ScannerClass().MatchesType(actual, PlusToken):
 		v.processor_.ProcessPlus(actual)
-	case ScannerClass().MatchesType(actual, MinusToken):
-		v.processor_.ProcessMinus(actual)
+	case ScannerClass().MatchesType(actual, DashToken):
+		v.processor_.ProcessDash(actual)
 	case ScannerClass().MatchesType(actual, StarToken):
 		v.processor_.ProcessStar(actual)
 	case ScannerClass().MatchesType(actual, SlashToken):
 		v.processor_.ProcessSlash(actual)
-	case ScannerClass().MatchesType(actual, PercentToken):
-		v.processor_.ProcessPercent(actual)
+	case ScannerClass().MatchesType(actual, ModuloToken):
+		v.processor_.ProcessModulo(actual)
 	case ScannerClass().MatchesType(actual, CaretToken):
 		v.processor_.ProcessCaret(actual)
 	}
@@ -1246,8 +1246,8 @@ func (v *visitor_) visitInverse(
 	// Visit the possible inverse expression types.
 	var actual = inverse.GetAny().(string)
 	switch {
-	case ScannerClass().MatchesType(actual, MinusToken):
-		v.processor_.ProcessMinus(actual)
+	case ScannerClass().MatchesType(actual, DashToken):
+		v.processor_.ProcessDash(actual)
 	case ScannerClass().MatchesType(actual, SlashToken):
 		v.processor_.ProcessSlash(actual)
 	case ScannerClass().MatchesType(actual, StarToken):

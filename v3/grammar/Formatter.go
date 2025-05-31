@@ -108,6 +108,12 @@ func (v *formatter_) ProcessComment(
 	v.appendString(comment)
 }
 
+func (v *formatter_) ProcessDash(
+	dash string,
+) {
+	v.appendString(dash)
+}
+
 func (v *formatter_) ProcessDelimiter(
 	delimiter string,
 ) {
@@ -144,10 +150,10 @@ func (v *formatter_) ProcessLess(
 	v.appendString(less)
 }
 
-func (v *formatter_) ProcessMinus(
-	minus string,
+func (v *formatter_) ProcessModulo(
+	modulo string,
 ) {
-	v.appendString(minus)
+	v.appendString(modulo)
 }
 
 func (v *formatter_) ProcessMoment(
@@ -197,12 +203,6 @@ func (v *formatter_) ProcessPattern(
 	pattern string,
 ) {
 	v.appendString(pattern)
-}
-
-func (v *formatter_) ProcessPercent(
-	percent string,
-) {
-	v.appendString(percent)
 }
 
 func (v *formatter_) ProcessPercentage(

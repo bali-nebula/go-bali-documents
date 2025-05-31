@@ -109,6 +109,12 @@ func (v *validator_) ProcessComment(
 	v.validateToken(comment, CommentToken)
 }
 
+func (v *validator_) ProcessDash(
+	dash string,
+) {
+	v.validateToken(dash, DashToken)
+}
+
 func (v *validator_) ProcessDuration(
 	duration string,
 ) {
@@ -133,10 +139,10 @@ func (v *validator_) ProcessLess(
 	v.validateToken(less, LessToken)
 }
 
-func (v *validator_) ProcessMinus(
-	minus string,
+func (v *validator_) ProcessModulo(
+	modulo string,
 ) {
-	v.validateToken(minus, MinusToken)
+	v.validateToken(modulo, ModuloToken)
 }
 
 func (v *validator_) ProcessMoment(
@@ -185,12 +191,6 @@ func (v *validator_) ProcessPattern(
 	pattern string,
 ) {
 	v.validateToken(pattern, PatternToken)
-}
-
-func (v *validator_) ProcessPercent(
-	percent string,
-) {
-	v.validateToken(percent, PercentToken)
 }
 
 func (v *validator_) ProcessPercentage(
