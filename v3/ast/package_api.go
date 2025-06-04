@@ -349,8 +349,8 @@ type EmptyClassLike interface {
 	// Constructor Methods
 	Empty(
 		delimiter1 string,
+		optionalDelimiter string,
 		delimiter2 string,
-		delimiter3 string,
 	) EmptyLike
 }
 
@@ -1510,8 +1510,8 @@ type EmptyLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
+	GetOptionalDelimiter() string
 	GetDelimiter2() string
-	GetDelimiter3() string
 }
 
 /*

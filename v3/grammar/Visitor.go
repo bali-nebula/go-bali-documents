@@ -421,18 +421,6 @@ func (v *visitor_) visitCollection(
 ) {
 	// Visit the possible collection rule types.
 	switch actual := collection.GetAny().(type) {
-	case ast.RangeLike:
-		v.processor_.PreprocessRange(
-			actual,
-			1,
-			1,
-		)
-		v.visitRange(actual)
-		v.processor_.PostprocessRange(
-			actual,
-			1,
-			1,
-		)
 	case ast.EmptyLike:
 		v.processor_.PreprocessEmpty(
 			actual,
@@ -441,6 +429,18 @@ func (v *visitor_) visitCollection(
 		)
 		v.visitEmpty(actual)
 		v.processor_.PostprocessEmpty(
+			actual,
+			1,
+			1,
+		)
+	case ast.RangeLike:
+		v.processor_.PreprocessRange(
+			actual,
+			1,
+			1,
+		)
+		v.visitRange(actual)
+		v.processor_.PostprocessRange(
 			actual,
 			1,
 			1,
@@ -715,8 +715,6 @@ func (v *visitor_) visitElement(
 		v.processor_.ProcessMoment(actual)
 	case ScannerClass().MatchesType(actual, NumberToken):
 		v.processor_.ProcessNumber(actual)
-	case ScannerClass().MatchesType(actual, PatternToken):
-		v.processor_.ProcessPattern(actual)
 	case ScannerClass().MatchesType(actual, PercentageToken):
 		v.processor_.ProcessPercentage(actual)
 	case ScannerClass().MatchesType(actual, ProbabilityToken):
@@ -737,16 +735,18 @@ func (v *visitor_) visitEmpty(
 		1,
 	)
 
-	var delimiter2 = empty.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
+	var optionalDelimiter = empty.GetOptionalDelimiter()
+	if uti.IsDefined(optionalDelimiter) {
+		v.processor_.ProcessDelimiter(optionalDelimiter)
+	}
 	// Visit slot 2 between terms.
 	v.processor_.ProcessEmptySlot(
 		empty,
 		2,
 	)
 
-	var delimiter3 = empty.GetDelimiter3()
-	v.processor_.ProcessDelimiter(delimiter3)
+	var delimiter2 = empty.GetDelimiter2()
+	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitEntity(
@@ -2879,6 +2879,8 @@ func (v *visitor_) visitSeries(
 		v.processor_.ProcessName(actual)
 	case ScannerClass().MatchesType(actual, NarrativeToken):
 		v.processor_.ProcessNarrative(actual)
+	case ScannerClass().MatchesType(actual, PatternToken):
+		v.processor_.ProcessPattern(actual)
 	case ScannerClass().MatchesType(actual, QuoteToken):
 		v.processor_.ProcessQuote(actual)
 	case ScannerClass().MatchesType(actual, SymbolToken):

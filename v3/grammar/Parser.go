@@ -750,21 +750,21 @@ func (v *parser_) parseCollection() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Range Collection.
-	var range_ ast.RangeLike
-	range_, token, ok = v.parseRange()
-	if ok {
-		// Found a single Range Collection.
-		collection = ast.CollectionClass().Collection(range_)
-		return
-	}
-
 	// Attempt to parse a single Empty Collection.
 	var empty ast.EmptyLike
 	empty, token, ok = v.parseEmpty()
 	if ok {
 		// Found a single Empty Collection.
 		collection = ast.CollectionClass().Collection(empty)
+		return
+	}
+
+	// Attempt to parse a single Range Collection.
+	var range_ ast.RangeLike
+	range_, token, ok = v.parseRange()
+	if ok {
+		// Found a single Range Collection.
+		collection = ast.CollectionClass().Collection(range_)
 		return
 	}
 
@@ -1261,15 +1261,6 @@ func (v *parser_) parseElement() (
 		return
 	}
 
-	// Attempt to parse a single pattern Element.
-	var pattern string
-	pattern, token, ok = v.parseToken(PatternToken)
-	if ok {
-		// Found a single pattern Element.
-		element = ast.ElementClass().Element(pattern)
-		return
-	}
-
 	// Attempt to parse a single percentage Element.
 	var percentage string
 	percentage, token, ok = v.parseToken(PercentageToken)
@@ -1326,27 +1317,20 @@ func (v *parser_) parseEmpty() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse a single ":" literal.
-	var delimiter2 string
-	delimiter2, token, ok = v.parseDelimiter(":")
-	if !ok {
+	// Attempt to parse an optional ":" literal.
+	var optionalDelimiter string
+	optionalDelimiter, token, ok = v.parseDelimiter(":")
+	if ok {
 		if uti.IsDefined(tokens) {
-			// This is not a single Empty rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Empty", token)
-			panic(message)
+			tokens.AppendValue(token)
 		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
+	} else {
+		optionalDelimiter = "" // Reset this to undefined.
 	}
 
 	// Attempt to parse a single "]" literal.
-	var delimiter3 string
-	delimiter3, token, ok = v.parseDelimiter("]")
+	var delimiter2 string
+	delimiter2, token, ok = v.parseDelimiter("]")
 	if !ok {
 		if uti.IsDefined(tokens) {
 			// This is not a single Empty rule.
@@ -1367,8 +1351,8 @@ func (v *parser_) parseEmpty() (
 	v.remove(tokens)
 	empty = ast.EmptyClass().Empty(
 		delimiter1,
+		optionalDelimiter,
 		delimiter2,
-		delimiter3,
 	)
 	return
 }
@@ -2166,7 +2150,7 @@ componentsLoop:
 		component, token, ok = v.parseComponent()
 		if !ok {
 			switch {
-			case count_ >= 0:
+			case count_ >= 1:
 				break componentsLoop
 			case uti.IsDefined(tokens):
 				// This is not multiple Component rules.
@@ -2175,7 +2159,7 @@ componentsLoop:
 			default:
 				// Found a syntax error.
 				var message = v.formatError("$Items", token)
-				message += "0 or more Component rules are required."
+				message += "1 or more Component rules are required."
 				panic(message)
 			}
 		}
@@ -4393,6 +4377,15 @@ func (v *parser_) parseSeries() (
 		return
 	}
 
+	// Attempt to parse a single pattern Series.
+	var pattern string
+	pattern, token, ok = v.parseToken(PatternToken)
+	if ok {
+		// Found a single pattern Series.
+		series = ast.SeriesClass().Series(pattern)
+		return
+	}
+
 	// Attempt to parse a single quote Series.
 	var quote string
 	quote, token, ok = v.parseToken(QuoteToken)
@@ -5342,7 +5335,6 @@ var parserClassReference_ = &parserClass_{
     glyph
     moment
     number
-    pattern
     percentage
     probability
     resource`,
@@ -5351,15 +5343,17 @@ var parserClassReference_ = &parserClass_{
     bytecode
     name
     narrative
+    pattern
     quote
     symbol
     tag
     version`,
 			"$Collection": `
-    Range
     Empty
+    Range
     Attributes
     Items  ! Must be after ranges and attributes.`,
+			"$Empty": `"[" ":"? "]"`,
 			"$Range": `LeftBracket Primitive ".." Primitive RightBracket`,
 			"$LeftBracket": `
     "["
@@ -5367,9 +5361,8 @@ var parserClassReference_ = &parserClass_{
 			"$RightBracket": `
     "]"
     ")"`,
-			"$Empty":      `"[" ":" "]"`,
 			"$Attributes": `"[" Association+ "]"`,
-			"$Items":      `"[" Component* "]"`,
+			"$Items":      `"[" Component+ "]"`,
 			"$Procedure":  `"{" Line* "}"`,
 			"$Line": `
     Annotation

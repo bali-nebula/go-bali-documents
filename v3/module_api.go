@@ -612,13 +612,13 @@ func EmptyClass() EmptyClassLike {
 
 func Empty(
 	delimiter1 string,
+	optionalDelimiter string,
 	delimiter2 string,
-	delimiter3 string,
 ) EmptyLike {
 	return EmptyClass().Empty(
 		delimiter1,
+		optionalDelimiter,
 		delimiter2,
-		delimiter3,
 	)
 }
 

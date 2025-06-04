@@ -21,6 +21,7 @@ package grammar
 
 import (
 	ast "github.com/bali-nebula/go-bali-documents/v3/ast"
+	uti "github.com/craterdog/go-missing-utilities/v7"
 	sts "strings"
 )
 
@@ -430,6 +431,16 @@ func (v *formatter_) PostprocessDocument(
 	v.appendNewline()
 }
 
+func (v *formatter_) ProcessEmptySlot(
+	empty ast.EmptyLike,
+	slot_ uint,
+) {
+	var colon = empty.GetOptionalDelimiter()
+	if uti.IsUndefined(colon) && slot_ == 1 {
+		v.appendString(" ")
+	}
+}
+
 func (v *formatter_) PostprocessHeader(
 	header ast.HeaderLike,
 	index_ uint,
@@ -465,14 +476,7 @@ func (v *formatter_) ProcessItemsSlot(
 	case 2:
 		v.depth_--
 		var components = items.GetComponents()
-		switch components.GetSize() {
-		case 0:
-			// This is an empty item collection.
-			v.appendString(" ")
-		case 1:
-			// This has a single, inline item.
-		default:
-			// This has multple line items.
+		if components.GetSize() > 1 {
 			v.appendNewline()
 		}
 	}
