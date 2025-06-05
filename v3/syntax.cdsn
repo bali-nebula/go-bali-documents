@@ -337,9 +337,7 @@ $Magnitude: "|" Numerical "|"
 <!
 $angle: '~' ('0' | AMPLITUDE)
 
-$binary: "'>" (EOL block+)? ' '* "<'"
-
-$block: ' '* BASE64{1..60} EOL
+$binary: "'>" (EOL BLOCK+)? ' '* "<'"
 
 $boolean: "false" | "true"
 
@@ -423,6 +421,8 @@ $BASE16: BASE10 | ['a'..'f']
 $BASE32: BASE10 | ['A'..'D' 'F'..'H' 'J'..'N' 'P'..'T' 'V'..'Z']
 
 $BASE64: ALPHANUMERIC | ['+' '/']
+
+$BLOCK: ' '* BASE64{1..60} EOL
 
 $CHARACTER: ESCAPE | '\' '"' | ~['"' CONTROL]
 
