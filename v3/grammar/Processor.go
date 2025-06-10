@@ -1770,22 +1770,22 @@ func (v *processor_) ProcessStatementSlot(
 ) {
 }
 
-func (v *processor_) PreprocessSubcomponent(
-	subcomponent ast.SubcomponentLike,
+func (v *processor_) PreprocessSubentity(
+	subentity ast.SubentityLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessSubcomponent(
-	subcomponent ast.SubcomponentLike,
+func (v *processor_) PostprocessSubentity(
+	subentity ast.SubentityLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessSubcomponentSlot(
-	subcomponent ast.SubcomponentLike,
+func (v *processor_) ProcessSubentitySlot(
+	subentity ast.SubentityLike,
 	slot_ uint,
 ) {
 }

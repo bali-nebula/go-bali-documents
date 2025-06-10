@@ -20,7 +20,7 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
+	com "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -36,7 +36,7 @@ func ExpressionClass() ExpressionClassLike {
 
 func (c *expressionClass_) Expression(
 	subject SubjectLike,
-	predicates col.ListLike[PredicateLike],
+	predicates com.ListLike[PredicateLike],
 ) ExpressionLike {
 	if uti.IsUndefined(subject) {
 		panic("The \"subject\" attribute is required by this class.")
@@ -66,7 +66,7 @@ func (v *expression_) GetSubject() SubjectLike {
 	return v.subject_
 }
 
-func (v *expression_) GetPredicates() col.ListLike[PredicateLike] {
+func (v *expression_) GetPredicates() com.ListLike[PredicateLike] {
 	return v.predicates_
 }
 
@@ -77,7 +77,7 @@ func (v *expression_) GetPredicates() col.ListLike[PredicateLike] {
 type expression_ struct {
 	// Declare the instance attributes.
 	subject_    SubjectLike
-	predicates_ col.ListLike[PredicateLike]
+	predicates_ com.ListLike[PredicateLike]
 }
 
 // Class Structure

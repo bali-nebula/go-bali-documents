@@ -385,16 +385,6 @@ func (v *formatter_) ProcessCheckoutClauseSlot(
 	}
 }
 
-func (v *formatter_) PreprocessComponent(
-	component ast.ComponentLike,
-	index_ uint,
-	count_ uint,
-) {
-	if count_ > 1 {
-		v.appendNewline()
-	}
-}
-
 func (v *formatter_) ProcessComplementSlot(
 	complement ast.ComplementLike,
 	slot_ uint,
@@ -441,6 +431,16 @@ func (v *formatter_) ProcessEmptySlot(
 	}
 }
 
+func (v *formatter_) PreprocessEntity(
+	entity ast.EntityLike,
+	index_ uint,
+	count_ uint,
+) {
+	if count_ > 1 {
+		v.appendNewline()
+	}
+}
+
 func (v *formatter_) PostprocessHeader(
 	header ast.HeaderLike,
 	index_ uint,
@@ -475,8 +475,8 @@ func (v *formatter_) ProcessItemsSlot(
 		v.depth_++
 	case 2:
 		v.depth_--
-		var components = items.GetComponents()
-		if components.GetSize() > 1 {
+		var entities = items.GetEntities()
+		if entities.GetSize() > 1 {
 			v.appendNewline()
 		}
 	}

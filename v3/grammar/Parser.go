@@ -22,7 +22,7 @@ package grammar
 import (
 	fmt "fmt"
 	ast "github.com/bali-nebula/go-bali-documents/v3/ast"
-	col "github.com/craterdog/go-collection-framework/v7"
+	com "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 	mat "math"
 	sts "strings"
@@ -57,8 +57,8 @@ func (v *parser_) ParseSource(
 	source string,
 ) ast.DocumentLike {
 	v.source_ = sts.ReplaceAll(source, "\t", "    ")
-	v.tokens_ = col.Queue[TokenLike]()
-	v.next_ = col.Stack[TokenLike]()
+	v.tokens_ = com.Queue[TokenLike]()
+	v.next_ = com.Stack[TokenLike]()
 
 	// The scanner runs in a separate Go routine.
 	ScannerClass().Scanner(v.source_, v.tokens_)
@@ -81,7 +81,7 @@ func (v *parser_) parseAcceptClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "accept" literal.
 	var delimiter string
@@ -133,7 +133,7 @@ func (v *parser_) parseAnnotation() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single comment token.
 	var comment string
@@ -314,7 +314,7 @@ func (v *parser_) parseAssociation() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Primitive rule.
 	var primitive ast.PrimitiveLike
@@ -353,15 +353,15 @@ func (v *parser_) parseAssociation() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse a single Component rule.
-	var component ast.ComponentLike
-	component, token, ok = v.parseComponent()
+	// Attempt to parse a single Entity rule.
+	var entity ast.EntityLike
+	entity, token, ok = v.parseEntity()
 	switch {
 	case ok:
 		// No additional put backs allowed at this point.
 		tokens = nil
 	case uti.IsDefined(tokens):
-		// This is not a single Component rule.
+		// This is not a single Entity rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -376,7 +376,7 @@ func (v *parser_) parseAssociation() (
 	association = ast.AssociationClass().Association(
 		primitive,
 		delimiter,
-		component,
+		entity,
 	)
 	return
 }
@@ -386,7 +386,7 @@ func (v *parser_) parseAtLevel() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "at" literal.
 	var delimiter1 string
@@ -457,7 +457,7 @@ func (v *parser_) parseAttributes() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "[" literal.
 	var delimiter1 string
@@ -478,7 +478,7 @@ func (v *parser_) parseAttributes() (
 	}
 
 	// Attempt to parse multiple Association rules.
-	var associations = col.List[ast.AssociationLike]()
+	var associations = com.List[ast.AssociationLike]()
 associationsLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
 		var association ast.AssociationLike
@@ -537,7 +537,7 @@ func (v *parser_) parseBag() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -568,7 +568,7 @@ func (v *parser_) parseBreakClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "break" literal.
 	var delimiter1 string
@@ -621,7 +621,7 @@ func (v *parser_) parseCheckoutClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "checkout" literal.
 	var delimiter1 string
@@ -719,7 +719,7 @@ func (v *parser_) parseCited() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -831,7 +831,7 @@ func (v *parser_) parseComplement() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "not" literal.
 	var delimiter string
@@ -883,52 +883,43 @@ func (v *parser_) parseComponent() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
-
-	// Attempt to parse a single Entity rule.
-	var entity ast.EntityLike
-	entity, token, ok = v.parseEntity()
-	switch {
-	case ok:
-		// No additional put backs allowed at this point.
-		tokens = nil
-	case uti.IsDefined(tokens):
-		// This is not a single Entity rule.
-		v.putBack(tokens)
+	// Attempt to parse a single Element Component.
+	var element ast.ElementLike
+	element, token, ok = v.parseElement()
+	if ok {
+		// Found a single Element Component.
+		component = ast.ComponentClass().Component(element)
 		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Component", token)
-		panic(message)
 	}
 
-	// Attempt to parse an optional Parameters rule.
-	var optionalParameters ast.ParametersLike
-	optionalParameters, _, ok = v.parseParameters()
+	// Attempt to parse a single Series Component.
+	var series ast.SeriesLike
+	series, token, ok = v.parseSeries()
 	if ok {
-		// No additional put backs allowed at this point.
-		tokens = nil
+		// Found a single Series Component.
+		component = ast.ComponentClass().Component(series)
+		return
 	}
 
-	// Attempt to parse an optional note token.
-	var optionalNote string
-	optionalNote, token, ok = v.parseToken(NoteToken)
+	// Attempt to parse a single Collection Component.
+	var collection ast.CollectionLike
+	collection, token, ok = v.parseCollection()
 	if ok {
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	} else {
-		optionalNote = "" // Reset this to undefined.
+		// Found a single Collection Component.
+		component = ast.ComponentClass().Component(collection)
+		return
 	}
 
-	// Found a single Component rule.
-	ok = true
-	v.remove(tokens)
-	component = ast.ComponentClass().Component(
-		entity,
-		optionalParameters,
-		optionalNote,
-	)
+	// Attempt to parse a single Procedure Component.
+	var procedure ast.ProcedureLike
+	procedure, token, ok = v.parseProcedure()
+	if ok {
+		// Found a single Procedure Component.
+		component = ast.ComponentClass().Component(procedure)
+		return
+	}
+
+	// This is not a single Component rule.
 	return
 }
 
@@ -937,7 +928,7 @@ func (v *parser_) parseCondition() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -968,7 +959,7 @@ func (v *parser_) parseContinueClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "continue" literal.
 	var delimiter1 string
@@ -1021,7 +1012,7 @@ func (v *parser_) parseDiscardClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "discard" literal.
 	var delimiter string
@@ -1073,7 +1064,7 @@ func (v *parser_) parseDoClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "do" literal.
 	var delimiter string
@@ -1125,7 +1116,7 @@ func (v *parser_) parseDocument() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse an optional Header rule.
 	var optionalHeader ast.HeaderLike
@@ -1135,15 +1126,15 @@ func (v *parser_) parseDocument() (
 		tokens = nil
 	}
 
-	// Attempt to parse a single Component rule.
-	var component ast.ComponentLike
-	component, token, ok = v.parseComponent()
+	// Attempt to parse a single Entity rule.
+	var entity ast.EntityLike
+	entity, token, ok = v.parseEntity()
 	switch {
 	case ok:
 		// No additional put backs allowed at this point.
 		tokens = nil
 	case uti.IsDefined(tokens):
-		// This is not a single Component rule.
+		// This is not a single Entity rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -1157,7 +1148,7 @@ func (v *parser_) parseDocument() (
 	v.remove(tokens)
 	document = ast.DocumentClass().Document(
 		optionalHeader,
-		component,
+		entity,
 	)
 	return
 }
@@ -1167,7 +1158,7 @@ func (v *parser_) parseDraft() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -1297,7 +1288,7 @@ func (v *parser_) parseEmpty() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "[" literal.
 	var delimiter1 string
@@ -1362,43 +1353,52 @@ func (v *parser_) parseEntity() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Element Entity.
-	var element ast.ElementLike
-	element, token, ok = v.parseElement()
-	if ok {
-		// Found a single Element Entity.
-		entity = ast.EntityClass().Entity(element)
+	var tokens = com.List[TokenLike]()
+
+	// Attempt to parse a single Component rule.
+	var component ast.ComponentLike
+	component, token, ok = v.parseComponent()
+	switch {
+	case ok:
+		// No additional put backs allowed at this point.
+		tokens = nil
+	case uti.IsDefined(tokens):
+		// This is not a single Component rule.
+		v.putBack(tokens)
 		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Entity", token)
+		panic(message)
 	}
 
-	// Attempt to parse a single Series Entity.
-	var series ast.SeriesLike
-	series, token, ok = v.parseSeries()
+	// Attempt to parse an optional Parameters rule.
+	var optionalParameters ast.ParametersLike
+	optionalParameters, _, ok = v.parseParameters()
 	if ok {
-		// Found a single Series Entity.
-		entity = ast.EntityClass().Entity(series)
-		return
+		// No additional put backs allowed at this point.
+		tokens = nil
 	}
 
-	// Attempt to parse a single Collection Entity.
-	var collection ast.CollectionLike
-	collection, token, ok = v.parseCollection()
+	// Attempt to parse an optional note token.
+	var optionalNote string
+	optionalNote, token, ok = v.parseToken(NoteToken)
 	if ok {
-		// Found a single Collection Entity.
-		entity = ast.EntityClass().Entity(collection)
-		return
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	} else {
+		optionalNote = "" // Reset this to undefined.
 	}
 
-	// Attempt to parse a single Procedure Entity.
-	var procedure ast.ProcedureLike
-	procedure, token, ok = v.parseProcedure()
-	if ok {
-		// Found a single Procedure Entity.
-		entity = ast.EntityClass().Entity(procedure)
-		return
-	}
-
-	// This is not a single Entity rule.
+	// Found a single Entity rule.
+	ok = true
+	v.remove(tokens)
+	entity = ast.EntityClass().Entity(
+		component,
+		optionalParameters,
+		optionalNote,
+	)
 	return
 }
 
@@ -1407,7 +1407,7 @@ func (v *parser_) parseEvent() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -1438,7 +1438,7 @@ func (v *parser_) parseException() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -1469,7 +1469,7 @@ func (v *parser_) parseExpression() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Subject rule.
 	var subject ast.SubjectLike
@@ -1489,7 +1489,7 @@ func (v *parser_) parseExpression() (
 	}
 
 	// Attempt to parse multiple Predicate rules.
-	var predicates = col.List[ast.PredicateLike]()
+	var predicates = com.List[ast.PredicateLike]()
 predicatesLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
 		var predicate ast.PredicateLike
@@ -1529,7 +1529,7 @@ func (v *parser_) parseFailure() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single symbol token.
 	var symbol string
@@ -1642,7 +1642,7 @@ func (v *parser_) parseFunction() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single identifier token.
 	var identifier string
@@ -1681,7 +1681,7 @@ func (v *parser_) parseFunction() (
 	}
 
 	// Attempt to parse multiple Argument rules.
-	var arguments = col.List[ast.ArgumentLike]()
+	var arguments = com.List[ast.ArgumentLike]()
 argumentsLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
 		var argument ast.ArgumentLike
@@ -1741,7 +1741,7 @@ func (v *parser_) parseHeader() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single comment token.
 	var comment string
@@ -1773,7 +1773,7 @@ func (v *parser_) parseIfClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "if" literal.
 	var delimiter1 string
@@ -1889,21 +1889,21 @@ func (v *parser_) parseIndirect() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Component Indirect.
-	var component ast.ComponentLike
-	component, token, ok = v.parseComponent()
+	// Attempt to parse a single Entity Indirect.
+	var entity ast.EntityLike
+	entity, token, ok = v.parseEntity()
 	if ok {
-		// Found a single Component Indirect.
-		indirect = ast.IndirectClass().Indirect(component)
+		// Found a single Entity Indirect.
+		indirect = ast.IndirectClass().Indirect(entity)
 		return
 	}
 
-	// Attempt to parse a single Subcomponent Indirect.
-	var subcomponent ast.SubcomponentLike
-	subcomponent, token, ok = v.parseSubcomponent()
+	// Attempt to parse a single Subentity Indirect.
+	var subentity ast.SubentityLike
+	subentity, token, ok = v.parseSubentity()
 	if ok {
-		// Found a single Subcomponent Indirect.
-		indirect = ast.IndirectClass().Indirect(subcomponent)
+		// Found a single Subentity Indirect.
+		indirect = ast.IndirectClass().Indirect(subentity)
 		return
 	}
 
@@ -2015,7 +2015,7 @@ func (v *parser_) parseInversion() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Inverse rule.
 	var inverse ast.InverseLike
@@ -2122,7 +2122,7 @@ func (v *parser_) parseItems() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "[" literal.
 	var delimiter1 string
@@ -2142,30 +2142,30 @@ func (v *parser_) parseItems() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse multiple Component rules.
-	var components = col.List[ast.ComponentLike]()
-componentsLoop:
+	// Attempt to parse multiple Entity rules.
+	var entities = com.List[ast.EntityLike]()
+entitiesLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
-		var component ast.ComponentLike
-		component, token, ok = v.parseComponent()
+		var entity ast.EntityLike
+		entity, token, ok = v.parseEntity()
 		if !ok {
 			switch {
 			case count_ >= 1:
-				break componentsLoop
+				break entitiesLoop
 			case uti.IsDefined(tokens):
-				// This is not multiple Component rules.
+				// This is not multiple Entity rules.
 				v.putBack(tokens)
 				return
 			default:
 				// Found a syntax error.
 				var message = v.formatError("$Items", token)
-				message += "1 or more Component rules are required."
+				message += "1 or more Entity rules are required."
 				panic(message)
 			}
 		}
 		// No additional put backs allowed at this point.
 		tokens = nil
-		components.AppendValue(component)
+		entities.AppendValue(entity)
 	}
 
 	// Attempt to parse a single "]" literal.
@@ -2191,7 +2191,7 @@ componentsLoop:
 	v.remove(tokens)
 	items = ast.ItemsClass().Items(
 		delimiter1,
-		components,
+		entities,
 		delimiter2,
 	)
 	return
@@ -2229,7 +2229,7 @@ func (v *parser_) parseLetClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "let" literal.
 	var delimiter string
@@ -2389,21 +2389,21 @@ func (v *parser_) parseLogical() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Component Logical.
-	var component ast.ComponentLike
-	component, token, ok = v.parseComponent()
+	// Attempt to parse a single Entity Logical.
+	var entity ast.EntityLike
+	entity, token, ok = v.parseEntity()
 	if ok {
-		// Found a single Component Logical.
-		logical = ast.LogicalClass().Logical(component)
+		// Found a single Entity Logical.
+		logical = ast.LogicalClass().Logical(entity)
 		return
 	}
 
-	// Attempt to parse a single Subcomponent Logical.
-	var subcomponent ast.SubcomponentLike
-	subcomponent, token, ok = v.parseSubcomponent()
+	// Attempt to parse a single Subentity Logical.
+	var subentity ast.SubentityLike
+	subentity, token, ok = v.parseSubentity()
 	if ok {
-		// Found a single Subcomponent Logical.
-		logical = ast.LogicalClass().Logical(subcomponent)
+		// Found a single Subentity Logical.
+		logical = ast.LogicalClass().Logical(subentity)
 		return
 	}
 
@@ -2470,7 +2470,7 @@ func (v *parser_) parseMagnitude() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "|" literal.
 	var delimiter1 string
@@ -2586,7 +2586,7 @@ func (v *parser_) parseMatchingClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "matching" literal.
 	var delimiter1 string
@@ -2675,7 +2675,7 @@ func (v *parser_) parseMessage() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -2760,7 +2760,7 @@ func (v *parser_) parseMethod() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single identifier token.
 	var identifier1 string
@@ -2836,7 +2836,7 @@ func (v *parser_) parseMethod() (
 	}
 
 	// Attempt to parse multiple Argument rules.
-	var arguments = col.List[ast.ArgumentLike]()
+	var arguments = com.List[ast.ArgumentLike]()
 argumentsLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
 		var argument ast.ArgumentLike
@@ -2898,7 +2898,7 @@ func (v *parser_) parseNotarizeClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "notarize" literal.
 	var delimiter1 string
@@ -2987,21 +2987,21 @@ func (v *parser_) parseNumerical() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Component Numerical.
-	var component ast.ComponentLike
-	component, token, ok = v.parseComponent()
+	// Attempt to parse a single Entity Numerical.
+	var entity ast.EntityLike
+	entity, token, ok = v.parseEntity()
 	if ok {
-		// Found a single Component Numerical.
-		numerical = ast.NumericalClass().Numerical(component)
+		// Found a single Entity Numerical.
+		numerical = ast.NumericalClass().Numerical(entity)
 		return
 	}
 
-	// Attempt to parse a single Subcomponent Numerical.
-	var subcomponent ast.SubcomponentLike
-	subcomponent, token, ok = v.parseSubcomponent()
+	// Attempt to parse a single Subentity Numerical.
+	var subentity ast.SubentityLike
+	subentity, token, ok = v.parseSubentity()
 	if ok {
-		// Found a single Subcomponent Numerical.
-		numerical = ast.NumericalClass().Numerical(subcomponent)
+		// Found a single Subentity Numerical.
+		numerical = ast.NumericalClass().Numerical(subentity)
 		return
 	}
 
@@ -3077,7 +3077,7 @@ func (v *parser_) parseOnClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "on" literal.
 	var delimiter string
@@ -3115,7 +3115,7 @@ func (v *parser_) parseOnClause() (
 	}
 
 	// Attempt to parse multiple MatchingClause rules.
-	var matchingClauses = col.List[ast.MatchingClauseLike]()
+	var matchingClauses = com.List[ast.MatchingClauseLike]()
 matchingClausesLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
 		var matchingClause ast.MatchingClauseLike
@@ -3201,7 +3201,7 @@ func (v *parser_) parseParameters() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "(" literal.
 	var delimiter1 string
@@ -3222,7 +3222,7 @@ func (v *parser_) parseParameters() (
 	}
 
 	// Attempt to parse multiple Association rules.
-	var associations = col.List[ast.AssociationLike]()
+	var associations = com.List[ast.AssociationLike]()
 associationsLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
 		var association ast.AssociationLike
@@ -3281,7 +3281,7 @@ func (v *parser_) parsePostClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "post" literal.
 	var delimiter1 string
@@ -3370,7 +3370,7 @@ func (v *parser_) parsePrecedence() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "(" literal.
 	var delimiter1 string
@@ -3441,7 +3441,7 @@ func (v *parser_) parsePredicate() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Operation rule.
 	var operation ast.OperationLike
@@ -3521,7 +3521,7 @@ func (v *parser_) parseProcedure() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "{" literal.
 	var delimiter1 string
@@ -3542,7 +3542,7 @@ func (v *parser_) parseProcedure() (
 	}
 
 	// Attempt to parse multiple Line rules.
-	var lines = col.List[ast.LineLike]()
+	var lines = com.List[ast.LineLike]()
 linesLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
 		var line ast.LineLike
@@ -3601,7 +3601,7 @@ func (v *parser_) parsePublishClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "publish" literal.
 	var delimiter string
@@ -3653,7 +3653,7 @@ func (v *parser_) parseRange() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single LeftBracket rule.
 	var leftBracket ast.LeftBracketLike
@@ -3776,12 +3776,12 @@ func (v *parser_) parseRecipient() (
 		return
 	}
 
-	// Attempt to parse a single Subcomponent Recipient.
-	var subcomponent ast.SubcomponentLike
-	subcomponent, token, ok = v.parseSubcomponent()
+	// Attempt to parse a single Subentity Recipient.
+	var subentity ast.SubentityLike
+	subentity, token, ok = v.parseSubentity()
 	if ok {
-		// Found a single Subcomponent Recipient.
-		recipient = ast.RecipientClass().Recipient(subcomponent)
+		// Found a single Subentity Recipient.
+		recipient = ast.RecipientClass().Recipient(subentity)
 		return
 	}
 
@@ -3794,7 +3794,7 @@ func (v *parser_) parseReferent() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "@" literal.
 	var delimiter string
@@ -3846,7 +3846,7 @@ func (v *parser_) parseRejectClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "reject" literal.
 	var delimiter string
@@ -3943,7 +3943,7 @@ func (v *parser_) parseResult() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -3974,7 +3974,7 @@ func (v *parser_) parseRetrieveClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "retrieve" literal.
 	var delimiter1 string
@@ -4063,7 +4063,7 @@ func (v *parser_) parseReturnClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "return" literal.
 	var delimiter string
@@ -4142,7 +4142,7 @@ func (v *parser_) parseSaveClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "save" literal.
 	var delimiter1 string
@@ -4231,7 +4231,7 @@ func (v *parser_) parseSelectClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "select" literal.
 	var delimiter string
@@ -4269,7 +4269,7 @@ func (v *parser_) parseSelectClause() (
 	}
 
 	// Attempt to parse multiple MatchingClause rules.
-	var matchingClauses = col.List[ast.MatchingClauseLike]()
+	var matchingClauses = com.List[ast.MatchingClauseLike]()
 matchingClausesLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
 		var matchingClause ast.MatchingClauseLike
@@ -4310,7 +4310,7 @@ func (v *parser_) parseSequence() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -4431,7 +4431,7 @@ func (v *parser_) parseStatement() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single MainClause rule.
 	var mainClause ast.MainClauseLike
@@ -4480,12 +4480,12 @@ func (v *parser_) parseStatement() (
 	return
 }
 
-func (v *parser_) parseSubcomponent() (
-	subcomponent ast.SubcomponentLike,
+func (v *parser_) parseSubentity() (
+	subentity ast.SubentityLike,
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single identifier token.
 	var identifier string
@@ -4497,7 +4497,7 @@ func (v *parser_) parseSubcomponent() (
 			return
 		} else {
 			// Found a syntax error.
-			var message = v.formatError("$Subcomponent", token)
+			var message = v.formatError("$Subentity", token)
 			panic(message)
 		}
 	}
@@ -4510,12 +4510,12 @@ func (v *parser_) parseSubcomponent() (
 	delimiter1, token, ok = v.parseDelimiter("[")
 	if !ok {
 		if uti.IsDefined(tokens) {
-			// This is not a single Subcomponent rule.
+			// This is not a single Subentity rule.
 			v.putBack(tokens)
 			return
 		} else {
 			// Found a syntax error.
-			var message = v.formatError("$Subcomponent", token)
+			var message = v.formatError("$Subentity", token)
 			panic(message)
 		}
 	}
@@ -4524,7 +4524,7 @@ func (v *parser_) parseSubcomponent() (
 	}
 
 	// Attempt to parse multiple Index rules.
-	var indexes = col.List[ast.IndexLike]()
+	var indexes = com.List[ast.IndexLike]()
 indexesLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
 		var index ast.IndexLike
@@ -4539,7 +4539,7 @@ indexesLoop:
 				return
 			default:
 				// Found a syntax error.
-				var message = v.formatError("$Subcomponent", token)
+				var message = v.formatError("$Subentity", token)
 				message += "1 or more Index rules are required."
 				panic(message)
 			}
@@ -4554,12 +4554,12 @@ indexesLoop:
 	delimiter2, token, ok = v.parseDelimiter("]")
 	if !ok {
 		if uti.IsDefined(tokens) {
-			// This is not a single Subcomponent rule.
+			// This is not a single Subentity rule.
 			v.putBack(tokens)
 			return
 		} else {
 			// Found a syntax error.
-			var message = v.formatError("$Subcomponent", token)
+			var message = v.formatError("$Subentity", token)
 			panic(message)
 		}
 	}
@@ -4567,10 +4567,10 @@ indexesLoop:
 		tokens.AppendValue(token)
 	}
 
-	// Found a single Subcomponent rule.
+	// Found a single Subentity rule.
 	ok = true
 	v.remove(tokens)
-	subcomponent = ast.SubcomponentClass().Subcomponent(
+	subentity = ast.SubentityClass().Subentity(
 		identifier,
 		delimiter1,
 		indexes,
@@ -4584,21 +4584,21 @@ func (v *parser_) parseSubject() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Component Subject.
-	var component ast.ComponentLike
-	component, token, ok = v.parseComponent()
+	// Attempt to parse a single Entity Subject.
+	var entity ast.EntityLike
+	entity, token, ok = v.parseEntity()
 	if ok {
-		// Found a single Component Subject.
-		subject = ast.SubjectClass().Subject(component)
+		// Found a single Entity Subject.
+		subject = ast.SubjectClass().Subject(entity)
 		return
 	}
 
-	// Attempt to parse a single Subcomponent Subject.
-	var subcomponent ast.SubcomponentLike
-	subcomponent, token, ok = v.parseSubcomponent()
+	// Attempt to parse a single Subentity Subject.
+	var subentity ast.SubentityLike
+	subentity, token, ok = v.parseSubentity()
 	if ok {
-		// Found a single Subcomponent Subject.
-		subject = ast.SubjectClass().Subject(subcomponent)
+		// Found a single Subentity Subject.
+		subject = ast.SubjectClass().Subject(subentity)
 		return
 	}
 
@@ -4701,12 +4701,12 @@ func (v *parser_) parseTarget() (
 		return
 	}
 
-	// Attempt to parse a single Subcomponent Target.
-	var subcomponent ast.SubcomponentLike
-	subcomponent, token, ok = v.parseSubcomponent()
+	// Attempt to parse a single Subentity Target.
+	var subentity ast.SubentityLike
+	subentity, token, ok = v.parseSubentity()
 	if ok {
-		// Found a single Subcomponent Target.
-		target = ast.TargetClass().Target(subcomponent)
+		// Found a single Subentity Target.
+		target = ast.TargetClass().Target(subentity)
 		return
 	}
 
@@ -4728,7 +4728,7 @@ func (v *parser_) parseTemplate() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single Expression rule.
 	var expression ast.ExpressionLike
@@ -4794,7 +4794,7 @@ func (v *parser_) parseThrowClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "throw" literal.
 	var delimiter string
@@ -4846,7 +4846,7 @@ func (v *parser_) parseValue() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single identifier token.
 	var identifier string
@@ -4878,7 +4878,7 @@ func (v *parser_) parseVariable() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single symbol token.
 	var symbol string
@@ -4910,7 +4910,7 @@ func (v *parser_) parseWhileClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "while" literal.
 	var delimiter1 string
@@ -4999,7 +4999,7 @@ func (v *parser_) parseWithClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 
 	// Attempt to parse a single "with" literal.
 	var delimiter1 string
@@ -5169,7 +5169,7 @@ func (v *parser_) parseToken(
 	ok bool,
 ) {
 	// Attempt to parse a specific token type.
-	var tokens = col.List[TokenLike]()
+	var tokens = com.List[TokenLike]()
 	token = v.getNextToken()
 	for token != nil {
 		tokens.AppendValue(token)
@@ -5270,7 +5270,7 @@ func (v *parser_) getNextToken() TokenLike {
 }
 
 func (v *parser_) putBack(
-	tokens col.Sequential[TokenLike],
+	tokens com.Sequential[TokenLike],
 ) {
 	var iterator = tokens.GetIterator()
 	for iterator.ToEnd(); iterator.HasPrevious(); {
@@ -5284,7 +5284,7 @@ func (v *parser_) putBack(
 // generated parser code.  The generated code must call this method is some
 // cases to make it look that the tokens variable is being used somewhere.
 func (v *parser_) remove(
-	tokens col.Sequential[TokenLike],
+	tokens com.Sequential[TokenLike],
 ) {
 }
 
@@ -5293,15 +5293,15 @@ func (v *parser_) remove(
 type parser_ struct {
 	// Declare the instance attributes.
 	source_ string                   // The original source code.
-	tokens_ col.QueueLike[TokenLike] // A queue of unread tokens from the scanner.
-	next_   col.StackLike[TokenLike] // A stack of read, but unprocessed tokens.
+	tokens_ com.QueueLike[TokenLike] // A queue of unread tokens from the scanner.
+	next_   com.StackLike[TokenLike] // A stack of read, but unprocessed tokens.
 }
 
 // Class Structure
 
 type parserClass_ struct {
 	// Declare the class constants.
-	syntax_ col.CatalogLike[string, string]
+	syntax_ com.CatalogLike[string, string]
 }
 
 // Class Reference
@@ -5312,18 +5312,18 @@ func parserClass() *parserClass_ {
 
 var parserClassReference_ = &parserClass_{
 	// Initialize the class constants.
-	syntax_: col.CatalogFromMap[string, string](
+	syntax_: com.CatalogFromMap[string, string](
 		map[string]string{
-			"$Document":  `Header? Component`,
-			"$Header":    `comment`,
-			"$Component": `Entity Parameters? note?`,
-			"$Entity": `
+			"$Document": `Header? Entity`,
+			"$Header":   `comment`,
+			"$Entity":   `Component Parameters? note?`,
+			"$Component": `
     Element
     Series
     Collection
     Procedure`,
 			"$Parameters":  `"(" Association* ")"`,
-			"$Association": `Primitive ":" Component`,
+			"$Association": `Primitive ":" Entity`,
 			"$Primitive": `
     Element
     Series`,
@@ -5362,7 +5362,7 @@ var parserClassReference_ = &parserClass_{
     "]"
     ")"`,
 			"$Attributes": `"[" Association+ "]"`,
-			"$Items":      `"[" Component+ "]"`,
+			"$Items":      `"[" Entity+ "]"`,
 			"$Procedure":  `"{" Line* "}"`,
 			"$Line": `
     Annotation
@@ -5407,7 +5407,7 @@ var parserClassReference_ = &parserClass_{
 			"$Target": `
     Function
     Method
-    Subcomponent
+    Subentity
     Value  ! This must be last since others also begin with an identifier.`,
 			"$Function": `identifier "(" Argument* ")"`,
 			"$Argument": `
@@ -5418,7 +5418,7 @@ var parserClassReference_ = &parserClass_{
 			"$Invoke": `
     synchronous
     asynchronous`,
-			"$Subcomponent": `identifier "[" Index+ "]"`,
+			"$Subentity": `identifier "[" Index+ "]"`,
 			"$Index": `
     Value
     Primitive`,
@@ -5446,7 +5446,7 @@ var parserClassReference_ = &parserClass_{
     "/="`,
 			"$Recipient": `
     Variable
-    Subcomponent`,
+    Subentity`,
 			"$PostClause":     `"post" Message "to" Bag`,
 			"$Message":        `Expression`,
 			"$Bag":            `Expression`,
@@ -5464,8 +5464,8 @@ var parserClassReference_ = &parserClass_{
 			"$NotarizeClause": `"notarize" Draft "as" Cited`,
 			"$Expression":     `Subject Predicate*`,
 			"$Subject": `
-    Component
-    Subcomponent
+    Entity
+    Subentity
     Precedence
     Referent
     Complement
@@ -5503,16 +5503,16 @@ var parserClassReference_ = &parserClass_{
 			"$Precedence": `"(" Expression ")"`,
 			"$Referent":   `"@" Indirect`,
 			"$Indirect": `
-    Component
-    Subcomponent
+    Entity
+    Subentity
     Referent
     Function
     Method
     Value  ! This must be last since others also begin with an identifier.`,
 			"$Complement": `"not" Logical`,
 			"$Logical": `
-    Component
-    Subcomponent
+    Entity
+    Subentity
     Precedence
     Referent
     Complement
@@ -5525,8 +5525,8 @@ var parserClassReference_ = &parserClass_{
     slash
     star`,
 			"$Numerical": `
-    Component
-    Subcomponent
+    Entity
+    Subentity
     Precedence
     Referent
     Inversion

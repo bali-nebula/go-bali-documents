@@ -20,7 +20,7 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
+	com "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -37,7 +37,7 @@ func OnClauseClass() OnClauseClassLike {
 func (c *onClauseClass_) OnClause(
 	delimiter string,
 	failure FailureLike,
-	matchingClauses col.ListLike[MatchingClauseLike],
+	matchingClauses com.ListLike[MatchingClauseLike],
 ) OnClauseLike {
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
@@ -75,7 +75,7 @@ func (v *onClause_) GetFailure() FailureLike {
 	return v.failure_
 }
 
-func (v *onClause_) GetMatchingClauses() col.ListLike[MatchingClauseLike] {
+func (v *onClause_) GetMatchingClauses() com.ListLike[MatchingClauseLike] {
 	return v.matchingClauses_
 }
 
@@ -87,7 +87,7 @@ type onClause_ struct {
 	// Declare the instance attributes.
 	delimiter_       string
 	failure_         FailureLike
-	matchingClauses_ col.ListLike[MatchingClauseLike]
+	matchingClauses_ com.ListLike[MatchingClauseLike]
 }
 
 // Class Structure

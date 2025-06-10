@@ -42,7 +42,7 @@ package grammar
 
 import (
 	ast "github.com/bali-nebula/go-bali-documents/v3/ast"
-	col "github.com/craterdog/go-collection-framework/v7"
+	com "github.com/craterdog/go-component-framework/v7"
 )
 
 // TYPE DECLARATIONS
@@ -142,7 +142,7 @@ type ScannerClassLike interface {
 	// Constructor Methods
 	Scanner(
 		source string,
-		tokens col.QueueLike[TokenLike],
+		tokens com.QueueLike[TokenLike],
 	) ScannerLike
 
 	// Function Methods
@@ -1487,18 +1487,18 @@ type Methodical interface {
 		statement ast.StatementLike,
 		slot_ uint,
 	)
-	PreprocessSubcomponent(
-		subcomponent ast.SubcomponentLike,
+	PreprocessSubentity(
+		subentity ast.SubentityLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessSubcomponent(
-		subcomponent ast.SubcomponentLike,
+	PostprocessSubentity(
+		subentity ast.SubentityLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessSubcomponentSlot(
-		subcomponent ast.SubcomponentLike,
+	ProcessSubentitySlot(
+		subentity ast.SubentityLike,
 		slot_ uint,
 	)
 	PreprocessSubject(

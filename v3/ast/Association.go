@@ -36,7 +36,7 @@ func AssociationClass() AssociationClassLike {
 func (c *associationClass_) Association(
 	primitive PrimitiveLike,
 	delimiter string,
-	component ComponentLike,
+	entity EntityLike,
 ) AssociationLike {
 	if uti.IsUndefined(primitive) {
 		panic("The \"primitive\" attribute is required by this class.")
@@ -44,14 +44,14 @@ func (c *associationClass_) Association(
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(component) {
-		panic("The \"component\" attribute is required by this class.")
+	if uti.IsUndefined(entity) {
+		panic("The \"entity\" attribute is required by this class.")
 	}
 	var instance = &association_{
 		// Initialize the instance attributes.
 		primitive_: primitive,
 		delimiter_: delimiter,
-		component_: component,
+		entity_:    entity,
 	}
 	return instance
 }
@@ -74,8 +74,8 @@ func (v *association_) GetDelimiter() string {
 	return v.delimiter_
 }
 
-func (v *association_) GetComponent() ComponentLike {
-	return v.component_
+func (v *association_) GetEntity() EntityLike {
+	return v.entity_
 }
 
 // PROTECTED INTERFACE
@@ -86,7 +86,7 @@ type association_ struct {
 	// Declare the instance attributes.
 	primitive_ PrimitiveLike
 	delimiter_ string
-	component_ ComponentLike
+	entity_    EntityLike
 }
 
 // Class Structure

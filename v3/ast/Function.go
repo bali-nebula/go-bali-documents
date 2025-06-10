@@ -20,7 +20,7 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
+	com "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -37,7 +37,7 @@ func FunctionClass() FunctionClassLike {
 func (c *functionClass_) Function(
 	identifier string,
 	delimiter1 string,
-	arguments col.ListLike[ArgumentLike],
+	arguments com.ListLike[ArgumentLike],
 	delimiter2 string,
 ) FunctionLike {
 	if uti.IsUndefined(identifier) {
@@ -80,7 +80,7 @@ func (v *function_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *function_) GetArguments() col.ListLike[ArgumentLike] {
+func (v *function_) GetArguments() com.ListLike[ArgumentLike] {
 	return v.arguments_
 }
 
@@ -96,7 +96,7 @@ type function_ struct {
 	// Declare the instance attributes.
 	identifier_ string
 	delimiter1_ string
-	arguments_  col.ListLike[ArgumentLike]
+	arguments_  com.ListLike[ArgumentLike]
 	delimiter2_ string
 }
 

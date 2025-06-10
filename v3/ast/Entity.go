@@ -34,14 +34,18 @@ func EntityClass() EntityClassLike {
 // Constructor Methods
 
 func (c *entityClass_) Entity(
-	any_ any,
+	component ComponentLike,
+	optionalParameters ParametersLike,
+	optionalNote string,
 ) EntityLike {
-	if uti.IsUndefined(any_) {
-		panic("The \"any\" attribute is required by this class.")
+	if uti.IsUndefined(component) {
+		panic("The \"component\" attribute is required by this class.")
 	}
 	var instance = &entity_{
 		// Initialize the instance attributes.
-		any_: any_,
+		component_:          component,
+		optionalParameters_: optionalParameters,
+		optionalNote_:       optionalNote,
 	}
 	return instance
 }
@@ -56,8 +60,16 @@ func (v *entity_) GetClass() EntityClassLike {
 
 // Attribute Methods
 
-func (v *entity_) GetAny() any {
-	return v.any_
+func (v *entity_) GetComponent() ComponentLike {
+	return v.component_
+}
+
+func (v *entity_) GetOptionalParameters() ParametersLike {
+	return v.optionalParameters_
+}
+
+func (v *entity_) GetOptionalNote() string {
+	return v.optionalNote_
 }
 
 // PROTECTED INTERFACE
@@ -66,7 +78,9 @@ func (v *entity_) GetAny() any {
 
 type entity_ struct {
 	// Declare the instance attributes.
-	any_ any
+	component_          ComponentLike
+	optionalParameters_ ParametersLike
+	optionalNote_       string
 }
 
 // Class Structure

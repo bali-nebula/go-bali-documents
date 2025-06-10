@@ -35,15 +35,15 @@ func DocumentClass() DocumentClassLike {
 
 func (c *documentClass_) Document(
 	optionalHeader HeaderLike,
-	component ComponentLike,
+	entity EntityLike,
 ) DocumentLike {
-	if uti.IsUndefined(component) {
-		panic("The \"component\" attribute is required by this class.")
+	if uti.IsUndefined(entity) {
+		panic("The \"entity\" attribute is required by this class.")
 	}
 	var instance = &document_{
 		// Initialize the instance attributes.
 		optionalHeader_: optionalHeader,
-		component_:      component,
+		entity_:         entity,
 	}
 	return instance
 }
@@ -62,8 +62,8 @@ func (v *document_) GetOptionalHeader() HeaderLike {
 	return v.optionalHeader_
 }
 
-func (v *document_) GetComponent() ComponentLike {
-	return v.component_
+func (v *document_) GetEntity() EntityLike {
+	return v.entity_
 }
 
 // PROTECTED INTERFACE
@@ -73,7 +73,7 @@ func (v *document_) GetComponent() ComponentLike {
 type document_ struct {
 	// Declare the instance attributes.
 	optionalHeader_ HeaderLike
-	component_      ComponentLike
+	entity_         EntityLike
 }
 
 // Class Structure

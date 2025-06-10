@@ -20,7 +20,7 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
+	com "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -36,14 +36,14 @@ func ItemsClass() ItemsClassLike {
 
 func (c *itemsClass_) Items(
 	delimiter1 string,
-	components col.ListLike[ComponentLike],
+	entities com.ListLike[EntityLike],
 	delimiter2 string,
 ) ItemsLike {
 	if uti.IsUndefined(delimiter1) {
 		panic("The \"delimiter1\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(components) {
-		panic("The \"components\" attribute is required by this class.")
+	if uti.IsUndefined(entities) {
+		panic("The \"entities\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(delimiter2) {
 		panic("The \"delimiter2\" attribute is required by this class.")
@@ -51,7 +51,7 @@ func (c *itemsClass_) Items(
 	var instance = &items_{
 		// Initialize the instance attributes.
 		delimiter1_: delimiter1,
-		components_: components,
+		entities_:   entities,
 		delimiter2_: delimiter2,
 	}
 	return instance
@@ -71,8 +71,8 @@ func (v *items_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *items_) GetComponents() col.ListLike[ComponentLike] {
-	return v.components_
+func (v *items_) GetEntities() com.ListLike[EntityLike] {
+	return v.entities_
 }
 
 func (v *items_) GetDelimiter2() string {
@@ -86,7 +86,7 @@ func (v *items_) GetDelimiter2() string {
 type items_ struct {
 	// Declare the instance attributes.
 	delimiter1_ string
-	components_ col.ListLike[ComponentLike]
+	entities_   com.ListLike[EntityLike]
 	delimiter2_ string
 }
 

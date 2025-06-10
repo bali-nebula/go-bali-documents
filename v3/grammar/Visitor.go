@@ -210,15 +210,15 @@ func (v *visitor_) visitAssociation(
 		2,
 	)
 
-	var component = association.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
+	var entity = association.GetEntity()
+	v.processor_.PreprocessEntity(
+		entity,
 		1,
 		1,
 	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
+	v.visitEntity(entity)
+	v.processor_.PostprocessEntity(
+		entity,
 		1,
 		1,
 	)
@@ -515,47 +515,56 @@ func (v *visitor_) visitComplement(
 func (v *visitor_) visitComponent(
 	component ast.ComponentLike,
 ) {
-	var entity = component.GetEntity()
-	v.processor_.PreprocessEntity(
-		entity,
-		1,
-		1,
-	)
-	v.visitEntity(entity)
-	v.processor_.PostprocessEntity(
-		entity,
-		1,
-		1,
-	)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessComponentSlot(
-		component,
-		1,
-	)
-
-	var optionalParameters = component.GetOptionalParameters()
-	if uti.IsDefined(optionalParameters) {
-		v.processor_.PreprocessParameters(
-			optionalParameters,
+	// Visit the possible component rule types.
+	switch actual := component.GetAny().(type) {
+	case ast.ElementLike:
+		v.processor_.PreprocessElement(
+			actual,
 			1,
 			1,
 		)
-		v.visitParameters(optionalParameters)
-		v.processor_.PostprocessParameters(
-			optionalParameters,
+		v.visitElement(actual)
+		v.processor_.PostprocessElement(
+			actual,
 			1,
 			1,
 		)
-	}
-	// Visit slot 2 between terms.
-	v.processor_.ProcessComponentSlot(
-		component,
-		2,
-	)
-
-	var optionalNote = component.GetOptionalNote()
-	if uti.IsDefined(optionalNote) {
-		v.processor_.ProcessNote(optionalNote)
+	case ast.SeriesLike:
+		v.processor_.PreprocessSeries(
+			actual,
+			1,
+			1,
+		)
+		v.visitSeries(actual)
+		v.processor_.PostprocessSeries(
+			actual,
+			1,
+			1,
+		)
+	case ast.CollectionLike:
+		v.processor_.PreprocessCollection(
+			actual,
+			1,
+			1,
+		)
+		v.visitCollection(actual)
+		v.processor_.PostprocessCollection(
+			actual,
+			1,
+			1,
+		)
+	case ast.ProcedureLike:
+		v.processor_.PreprocessProcedure(
+			actual,
+			1,
+			1,
+		)
+		v.visitProcedure(actual)
+		v.processor_.PostprocessProcedure(
+			actual,
+			1,
+			1,
+		)
 	}
 }
 
@@ -664,15 +673,15 @@ func (v *visitor_) visitDocument(
 		1,
 	)
 
-	var component = document.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
+	var entity = document.GetEntity()
+	v.processor_.PreprocessEntity(
+		entity,
 		1,
 		1,
 	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
+	v.visitEntity(entity)
+	v.processor_.PostprocessEntity(
+		entity,
 		1,
 		1,
 	)
@@ -752,56 +761,47 @@ func (v *visitor_) visitEmpty(
 func (v *visitor_) visitEntity(
 	entity ast.EntityLike,
 ) {
-	// Visit the possible entity rule types.
-	switch actual := entity.GetAny().(type) {
-	case ast.ElementLike:
-		v.processor_.PreprocessElement(
-			actual,
+	var component = entity.GetComponent()
+	v.processor_.PreprocessComponent(
+		component,
+		1,
+		1,
+	)
+	v.visitComponent(component)
+	v.processor_.PostprocessComponent(
+		component,
+		1,
+		1,
+	)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessEntitySlot(
+		entity,
+		1,
+	)
+
+	var optionalParameters = entity.GetOptionalParameters()
+	if uti.IsDefined(optionalParameters) {
+		v.processor_.PreprocessParameters(
+			optionalParameters,
 			1,
 			1,
 		)
-		v.visitElement(actual)
-		v.processor_.PostprocessElement(
-			actual,
+		v.visitParameters(optionalParameters)
+		v.processor_.PostprocessParameters(
+			optionalParameters,
 			1,
 			1,
 		)
-	case ast.SeriesLike:
-		v.processor_.PreprocessSeries(
-			actual,
-			1,
-			1,
-		)
-		v.visitSeries(actual)
-		v.processor_.PostprocessSeries(
-			actual,
-			1,
-			1,
-		)
-	case ast.CollectionLike:
-		v.processor_.PreprocessCollection(
-			actual,
-			1,
-			1,
-		)
-		v.visitCollection(actual)
-		v.processor_.PostprocessCollection(
-			actual,
-			1,
-			1,
-		)
-	case ast.ProcedureLike:
-		v.processor_.PreprocessProcedure(
-			actual,
-			1,
-			1,
-		)
-		v.visitProcedure(actual)
-		v.processor_.PostprocessProcedure(
-			actual,
-			1,
-			1,
-		)
+	}
+	// Visit slot 2 between terms.
+	v.processor_.ProcessEntitySlot(
+		entity,
+		2,
+	)
+
+	var optionalNote = entity.GetOptionalNote()
+	if uti.IsDefined(optionalNote) {
+		v.processor_.ProcessNote(optionalNote)
 	}
 }
 
@@ -1133,26 +1133,26 @@ func (v *visitor_) visitIndirect(
 ) {
 	// Visit the possible indirect rule types.
 	switch actual := indirect.GetAny().(type) {
-	case ast.ComponentLike:
-		v.processor_.PreprocessComponent(
+	case ast.EntityLike:
+		v.processor_.PreprocessEntity(
 			actual,
 			1,
 			1,
 		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
+		v.visitEntity(actual)
+		v.processor_.PostprocessEntity(
 			actual,
 			1,
 			1,
 		)
-	case ast.SubcomponentLike:
-		v.processor_.PreprocessSubcomponent(
+	case ast.SubentityLike:
+		v.processor_.PreprocessSubentity(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubcomponent(actual)
-		v.processor_.PostprocessSubcomponent(
+		v.visitSubentity(actual)
+		v.processor_.PostprocessSubentity(
 			actual,
 			1,
 			1,
@@ -1346,22 +1346,22 @@ func (v *visitor_) visitItems(
 		1,
 	)
 
-	var componentsIndex uint
-	var components = items.GetComponents().GetIterator()
-	var componentsCount = uint(components.GetSize())
-	for components.HasNext() {
-		componentsIndex++
-		var rule = components.GetNext()
-		v.processor_.PreprocessComponent(
+	var entitiesIndex uint
+	var entities = items.GetEntities().GetIterator()
+	var entitiesCount = uint(entities.GetSize())
+	for entities.HasNext() {
+		entitiesIndex++
+		var rule = entities.GetNext()
+		v.processor_.PreprocessEntity(
 			rule,
-			componentsIndex,
-			componentsCount,
+			entitiesIndex,
+			entitiesCount,
 		)
-		v.visitComponent(rule)
-		v.processor_.PostprocessComponent(
+		v.visitEntity(rule)
+		v.processor_.PostprocessEntity(
 			rule,
-			componentsIndex,
-			componentsCount,
+			entitiesIndex,
+			entitiesCount,
 		)
 	}
 	// Visit slot 2 between terms.
@@ -1502,26 +1502,26 @@ func (v *visitor_) visitLogical(
 ) {
 	// Visit the possible logical rule types.
 	switch actual := logical.GetAny().(type) {
-	case ast.ComponentLike:
-		v.processor_.PreprocessComponent(
+	case ast.EntityLike:
+		v.processor_.PreprocessEntity(
 			actual,
 			1,
 			1,
 		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
+		v.visitEntity(actual)
+		v.processor_.PostprocessEntity(
 			actual,
 			1,
 			1,
 		)
-	case ast.SubcomponentLike:
-		v.processor_.PreprocessSubcomponent(
+	case ast.SubentityLike:
+		v.processor_.PreprocessSubentity(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubcomponent(actual)
-		v.processor_.PostprocessSubcomponent(
+		v.visitSubentity(actual)
+		v.processor_.PostprocessSubentity(
 			actual,
 			1,
 			1,
@@ -1955,26 +1955,26 @@ func (v *visitor_) visitNumerical(
 ) {
 	// Visit the possible numerical rule types.
 	switch actual := numerical.GetAny().(type) {
-	case ast.ComponentLike:
-		v.processor_.PreprocessComponent(
+	case ast.EntityLike:
+		v.processor_.PreprocessEntity(
 			actual,
 			1,
 			1,
 		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
+		v.visitEntity(actual)
+		v.processor_.PostprocessEntity(
 			actual,
 			1,
 			1,
 		)
-	case ast.SubcomponentLike:
-		v.processor_.PreprocessSubcomponent(
+	case ast.SubentityLike:
+		v.processor_.PreprocessSubentity(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubcomponent(actual)
-		v.processor_.PostprocessSubcomponent(
+		v.visitSubentity(actual)
+		v.processor_.PostprocessSubentity(
 			actual,
 			1,
 			1,
@@ -2521,14 +2521,14 @@ func (v *visitor_) visitRecipient(
 			1,
 			1,
 		)
-	case ast.SubcomponentLike:
-		v.processor_.PreprocessSubcomponent(
+	case ast.SubentityLike:
+		v.processor_.PreprocessSubentity(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubcomponent(actual)
-		v.processor_.PostprocessSubcomponent(
+		v.visitSubentity(actual)
+		v.processor_.PostprocessSubentity(
 			actual,
 			1,
 			1,
@@ -2939,27 +2939,27 @@ func (v *visitor_) visitStatement(
 	}
 }
 
-func (v *visitor_) visitSubcomponent(
-	subcomponent ast.SubcomponentLike,
+func (v *visitor_) visitSubentity(
+	subentity ast.SubentityLike,
 ) {
-	var identifier = subcomponent.GetIdentifier()
+	var identifier = subentity.GetIdentifier()
 	v.processor_.ProcessIdentifier(identifier)
 	// Visit slot 1 between terms.
-	v.processor_.ProcessSubcomponentSlot(
-		subcomponent,
+	v.processor_.ProcessSubentitySlot(
+		subentity,
 		1,
 	)
 
-	var delimiter1 = subcomponent.GetDelimiter1()
+	var delimiter1 = subentity.GetDelimiter1()
 	v.processor_.ProcessDelimiter(delimiter1)
 	// Visit slot 2 between terms.
-	v.processor_.ProcessSubcomponentSlot(
-		subcomponent,
+	v.processor_.ProcessSubentitySlot(
+		subentity,
 		2,
 	)
 
 	var indexesIndex uint
-	var indexes = subcomponent.GetIndexes().GetIterator()
+	var indexes = subentity.GetIndexes().GetIterator()
 	var indexesCount = uint(indexes.GetSize())
 	for indexes.HasNext() {
 		indexesIndex++
@@ -2977,12 +2977,12 @@ func (v *visitor_) visitSubcomponent(
 		)
 	}
 	// Visit slot 3 between terms.
-	v.processor_.ProcessSubcomponentSlot(
-		subcomponent,
+	v.processor_.ProcessSubentitySlot(
+		subentity,
 		3,
 	)
 
-	var delimiter2 = subcomponent.GetDelimiter2()
+	var delimiter2 = subentity.GetDelimiter2()
 	v.processor_.ProcessDelimiter(delimiter2)
 }
 
@@ -2991,26 +2991,26 @@ func (v *visitor_) visitSubject(
 ) {
 	// Visit the possible subject rule types.
 	switch actual := subject.GetAny().(type) {
-	case ast.ComponentLike:
-		v.processor_.PreprocessComponent(
+	case ast.EntityLike:
+		v.processor_.PreprocessEntity(
 			actual,
 			1,
 			1,
 		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
+		v.visitEntity(actual)
+		v.processor_.PostprocessEntity(
 			actual,
 			1,
 			1,
 		)
-	case ast.SubcomponentLike:
-		v.processor_.PreprocessSubcomponent(
+	case ast.SubentityLike:
+		v.processor_.PreprocessSubentity(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubcomponent(actual)
-		v.processor_.PostprocessSubcomponent(
+		v.visitSubentity(actual)
+		v.processor_.PostprocessSubentity(
 			actual,
 			1,
 			1,
@@ -3143,14 +3143,14 @@ func (v *visitor_) visitTarget(
 			1,
 			1,
 		)
-	case ast.SubcomponentLike:
-		v.processor_.PreprocessSubcomponent(
+	case ast.SubentityLike:
+		v.processor_.PreprocessSubentity(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubcomponent(actual)
-		v.processor_.PostprocessSubcomponent(
+		v.visitSubentity(actual)
+		v.processor_.PostprocessSubentity(
 			actual,
 			1,
 			1,

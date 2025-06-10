@@ -20,7 +20,7 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
+	com "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -28,18 +28,18 @@ import (
 
 // Access Function
 
-func SubcomponentClass() SubcomponentClassLike {
-	return subcomponentClass()
+func SubentityClass() SubentityClassLike {
+	return subentityClass()
 }
 
 // Constructor Methods
 
-func (c *subcomponentClass_) Subcomponent(
+func (c *subentityClass_) Subentity(
 	identifier string,
 	delimiter1 string,
-	indexes col.ListLike[IndexLike],
+	indexes com.ListLike[IndexLike],
 	delimiter2 string,
-) SubcomponentLike {
+) SubentityLike {
 	if uti.IsUndefined(identifier) {
 		panic("The \"identifier\" attribute is required by this class.")
 	}
@@ -52,7 +52,7 @@ func (c *subcomponentClass_) Subcomponent(
 	if uti.IsUndefined(delimiter2) {
 		panic("The \"delimiter2\" attribute is required by this class.")
 	}
-	var instance = &subcomponent_{
+	var instance = &subentity_{
 		// Initialize the instance attributes.
 		identifier_: identifier,
 		delimiter1_: delimiter1,
@@ -66,25 +66,25 @@ func (c *subcomponentClass_) Subcomponent(
 
 // Principal Methods
 
-func (v *subcomponent_) GetClass() SubcomponentClassLike {
-	return subcomponentClass()
+func (v *subentity_) GetClass() SubentityClassLike {
+	return subentityClass()
 }
 
 // Attribute Methods
 
-func (v *subcomponent_) GetIdentifier() string {
+func (v *subentity_) GetIdentifier() string {
 	return v.identifier_
 }
 
-func (v *subcomponent_) GetDelimiter1() string {
+func (v *subentity_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *subcomponent_) GetIndexes() col.ListLike[IndexLike] {
+func (v *subentity_) GetIndexes() com.ListLike[IndexLike] {
 	return v.indexes_
 }
 
-func (v *subcomponent_) GetDelimiter2() string {
+func (v *subentity_) GetDelimiter2() string {
 	return v.delimiter2_
 }
 
@@ -92,26 +92,26 @@ func (v *subcomponent_) GetDelimiter2() string {
 
 // Instance Structure
 
-type subcomponent_ struct {
+type subentity_ struct {
 	// Declare the instance attributes.
 	identifier_ string
 	delimiter1_ string
-	indexes_    col.ListLike[IndexLike]
+	indexes_    com.ListLike[IndexLike]
 	delimiter2_ string
 }
 
 // Class Structure
 
-type subcomponentClass_ struct {
+type subentityClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func subcomponentClass() *subcomponentClass_ {
-	return subcomponentClassReference_
+func subentityClass() *subentityClass_ {
+	return subentityClassReference_
 }
 
-var subcomponentClassReference_ = &subcomponentClass_{
+var subentityClassReference_ = &subentityClass_{
 	// Initialize the class constants.
 }

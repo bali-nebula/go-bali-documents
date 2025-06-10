@@ -20,7 +20,7 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
+	com "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -36,7 +36,7 @@ func ProcedureClass() ProcedureClassLike {
 
 func (c *procedureClass_) Procedure(
 	delimiter1 string,
-	lines col.ListLike[LineLike],
+	lines com.ListLike[LineLike],
 	delimiter2 string,
 ) ProcedureLike {
 	if uti.IsUndefined(delimiter1) {
@@ -71,7 +71,7 @@ func (v *procedure_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *procedure_) GetLines() col.ListLike[LineLike] {
+func (v *procedure_) GetLines() com.ListLike[LineLike] {
 	return v.lines_
 }
 
@@ -86,7 +86,7 @@ func (v *procedure_) GetDelimiter2() string {
 type procedure_ struct {
 	// Declare the instance attributes.
 	delimiter1_ string
-	lines_      col.ListLike[LineLike]
+	lines_      com.ListLike[LineLike]
 	delimiter2_ string
 }
 

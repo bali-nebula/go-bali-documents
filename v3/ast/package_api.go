@@ -36,7 +36,7 @@ on interfaces, not on each other.
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v7"
+	com "github.com/craterdog/go-component-framework/v7"
 )
 
 // TYPE DECLARATIONS
@@ -116,7 +116,7 @@ type AssociationClassLike interface {
 	Association(
 		primitive PrimitiveLike,
 		delimiter string,
-		component ComponentLike,
+		entity EntityLike,
 	) AssociationLike
 }
 
@@ -143,7 +143,7 @@ type AttributesClassLike interface {
 	// Constructor Methods
 	Attributes(
 		delimiter1 string,
-		associations col.ListLike[AssociationLike],
+		associations com.ListLike[AssociationLike],
 		delimiter2 string,
 	) AttributesLike
 }
@@ -246,9 +246,7 @@ supported by each concrete component-like class.
 type ComponentClassLike interface {
 	// Constructor Methods
 	Component(
-		entity EntityLike,
-		optionalParameters ParametersLike,
-		optionalNote string,
+		any_ any,
 	) ComponentLike
 }
 
@@ -312,7 +310,7 @@ type DocumentClassLike interface {
 	// Constructor Methods
 	Document(
 		optionalHeader HeaderLike,
-		component ComponentLike,
+		entity EntityLike,
 	) DocumentLike
 }
 
@@ -362,7 +360,9 @@ supported by each concrete entity-like class.
 type EntityClassLike interface {
 	// Constructor Methods
 	Entity(
-		any_ any,
+		component ComponentLike,
+		optionalParameters ParametersLike,
+		optionalNote string,
 	) EntityLike
 }
 
@@ -399,7 +399,7 @@ type ExpressionClassLike interface {
 	// Constructor Methods
 	Expression(
 		subject SubjectLike,
-		predicates col.ListLike[PredicateLike],
+		predicates com.ListLike[PredicateLike],
 	) ExpressionLike
 }
 
@@ -437,7 +437,7 @@ type FunctionClassLike interface {
 	Function(
 		identifier string,
 		delimiter1 string,
-		arguments col.ListLike[ArgumentLike],
+		arguments com.ListLike[ArgumentLike],
 		delimiter2 string,
 	) FunctionLike
 }
@@ -563,7 +563,7 @@ type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
 		delimiter1 string,
-		components col.ListLike[ComponentLike],
+		entities com.ListLike[EntityLike],
 		delimiter2 string,
 	) ItemsLike
 }
@@ -708,7 +708,7 @@ type MethodClassLike interface {
 		invoke InvokeLike,
 		identifier2 string,
 		delimiter1 string,
-		arguments col.ListLike[ArgumentLike],
+		arguments com.ListLike[ArgumentLike],
 		delimiter2 string,
 	) MethodLike
 }
@@ -750,7 +750,7 @@ type OnClauseClassLike interface {
 	OnClause(
 		delimiter string,
 		failure FailureLike,
-		matchingClauses col.ListLike[MatchingClauseLike],
+		matchingClauses com.ListLike[MatchingClauseLike],
 	) OnClauseLike
 }
 
@@ -775,7 +775,7 @@ type ParametersClassLike interface {
 	// Constructor Methods
 	Parameters(
 		delimiter1 string,
-		associations col.ListLike[AssociationLike],
+		associations com.ListLike[AssociationLike],
 		delimiter2 string,
 	) ParametersLike
 }
@@ -843,7 +843,7 @@ type ProcedureClassLike interface {
 	// Constructor Methods
 	Procedure(
 		delimiter1 string,
-		lines col.ListLike[LineLike],
+		lines com.ListLike[LineLike],
 		delimiter2 string,
 	) ProcedureLike
 }
@@ -1004,7 +1004,7 @@ type SelectClauseClassLike interface {
 	SelectClause(
 		delimiter string,
 		target TargetLike,
-		matchingClauses col.ListLike[MatchingClauseLike],
+		matchingClauses com.ListLike[MatchingClauseLike],
 	) SelectClauseLike
 }
 
@@ -1047,18 +1047,18 @@ type StatementClassLike interface {
 }
 
 /*
-SubcomponentClassLike is a class interface that declares the
+SubentityClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete subcomponent-like class.
+supported by each concrete subentity-like class.
 */
-type SubcomponentClassLike interface {
+type SubentityClassLike interface {
 	// Constructor Methods
-	Subcomponent(
+	Subentity(
 		identifier string,
 		delimiter1 string,
-		indexes col.ListLike[IndexLike],
+		indexes com.ListLike[IndexLike],
 		delimiter2 string,
-	) SubcomponentLike
+	) SubentityLike
 }
 
 /*
@@ -1259,7 +1259,7 @@ type AssociationLike interface {
 	// Attribute Methods
 	GetPrimitive() PrimitiveLike
 	GetDelimiter() string
-	GetComponent() ComponentLike
+	GetEntity() EntityLike
 }
 
 /*
@@ -1288,7 +1288,7 @@ type AttributesLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetAssociations() col.ListLike[AssociationLike]
+	GetAssociations() com.ListLike[AssociationLike]
 	GetDelimiter2() string
 }
 
@@ -1399,9 +1399,7 @@ type ComponentLike interface {
 	GetClass() ComponentClassLike
 
 	// Attribute Methods
-	GetEntity() EntityLike
-	GetOptionalParameters() ParametersLike
-	GetOptionalNote() string
+	GetAny() any
 }
 
 /*
@@ -1470,7 +1468,7 @@ type DocumentLike interface {
 
 	// Attribute Methods
 	GetOptionalHeader() HeaderLike
-	GetComponent() ComponentLike
+	GetEntity() EntityLike
 }
 
 /*
@@ -1524,7 +1522,9 @@ type EntityLike interface {
 	GetClass() EntityClassLike
 
 	// Attribute Methods
-	GetAny() any
+	GetComponent() ComponentLike
+	GetOptionalParameters() ParametersLike
+	GetOptionalNote() string
 }
 
 /*
@@ -1564,7 +1564,7 @@ type ExpressionLike interface {
 
 	// Attribute Methods
 	GetSubject() SubjectLike
-	GetPredicates() col.ListLike[PredicateLike]
+	GetPredicates() com.ListLike[PredicateLike]
 }
 
 /*
@@ -1605,7 +1605,7 @@ type FunctionLike interface {
 	// Attribute Methods
 	GetIdentifier() string
 	GetDelimiter1() string
-	GetArguments() col.ListLike[ArgumentLike]
+	GetArguments() com.ListLike[ArgumentLike]
 	GetDelimiter2() string
 }
 
@@ -1741,7 +1741,7 @@ type ItemsLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetComponents() col.ListLike[ComponentLike]
+	GetEntities() com.ListLike[EntityLike]
 	GetDelimiter2() string
 }
 
@@ -1897,7 +1897,7 @@ type MethodLike interface {
 	GetInvoke() InvokeLike
 	GetIdentifier2() string
 	GetDelimiter1() string
-	GetArguments() col.ListLike[ArgumentLike]
+	GetArguments() com.ListLike[ArgumentLike]
 	GetDelimiter2() string
 }
 
@@ -1942,7 +1942,7 @@ type OnClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetFailure() FailureLike
-	GetMatchingClauses() col.ListLike[MatchingClauseLike]
+	GetMatchingClauses() com.ListLike[MatchingClauseLike]
 }
 
 /*
@@ -1969,7 +1969,7 @@ type ParametersLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetAssociations() col.ListLike[AssociationLike]
+	GetAssociations() com.ListLike[AssociationLike]
 	GetDelimiter2() string
 }
 
@@ -2042,7 +2042,7 @@ type ProcedureLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetLines() col.ListLike[LineLike]
+	GetLines() com.ListLike[LineLike]
 	GetDelimiter2() string
 }
 
@@ -2215,7 +2215,7 @@ type SelectClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetTarget() TargetLike
-	GetMatchingClauses() col.ListLike[MatchingClauseLike]
+	GetMatchingClauses() com.ListLike[MatchingClauseLike]
 }
 
 /*
@@ -2260,18 +2260,18 @@ type StatementLike interface {
 }
 
 /*
-SubcomponentLike is an instance interface that declares the
+SubentityLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete subcomponent-like class.
+by each instance of a concrete subentity-like class.
 */
-type SubcomponentLike interface {
+type SubentityLike interface {
 	// Principal Methods
-	GetClass() SubcomponentClassLike
+	GetClass() SubentityClassLike
 
 	// Attribute Methods
 	GetIdentifier() string
 	GetDelimiter1() string
-	GetIndexes() col.ListLike[IndexLike]
+	GetIndexes() com.ListLike[IndexLike]
 	GetDelimiter2() string
 }
 
