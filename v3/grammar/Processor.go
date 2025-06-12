@@ -1730,26 +1730,6 @@ func (v *processor_) ProcessSequenceSlot(
 ) {
 }
 
-func (v *processor_) PreprocessSeries(
-	series ast.SeriesLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessSeries(
-	series ast.SeriesLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessSeriesSlot(
-	series ast.SeriesLike,
-	slot_ uint,
-) {
-}
-
 func (v *processor_) PreprocessStatement(
 	statement ast.StatementLike,
 	index_ uint,
@@ -1766,6 +1746,26 @@ func (v *processor_) PostprocessStatement(
 
 func (v *processor_) ProcessStatementSlot(
 	statement ast.StatementLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PreprocessString(
+	string_ ast.StringLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessString(
+	string_ ast.StringLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessStringSlot(
+	string_ ast.StringLike,
 	slot_ uint,
 ) {
 }

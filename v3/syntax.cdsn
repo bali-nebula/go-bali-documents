@@ -30,7 +30,7 @@ $Entity: Component Parameters? note?
 
 $Component:
     Element
-    Series
+    String
     Collection
     Procedure
 
@@ -40,7 +40,7 @@ $Association: Primitive ":" Entity
 
 $Primitive:
     Element
-    Series
+    String
 
 $Element:
     angle
@@ -54,7 +54,7 @@ $Element:
     probability
     resource
 
-$Series:
+$String:
     binary
     bytecode
     name
