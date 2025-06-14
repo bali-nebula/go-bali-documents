@@ -21,9 +21,9 @@
     '1a2b'
     '1a2b 3c4d'
     '1a2b 3c4d 5e6f'
-    /bali
-    /bali/abstractions
-    /bali/abstractions/Sequential
+    /bali-nebula
+    /bali-nebula/abstractions
+    /bali-nebula/abstractions/Sequential
     "> <"
     ">
           This is a multiline
@@ -37,7 +37,7 @@
     "This quote contains '\"'s."
     $symbol
     $A1
-    $foobar
+    $foo-bar
     #0
     #A
     #ABCD

@@ -397,7 +397,7 @@ const (
 	glyph_          = "(?:'((?:" + escape_ + ")|[^" + control_ + "])')"
 	hour_           = "(?:([0-1][0-9])|(2[0-3]))"
 	hours_          = "(?:(?:" + timespan_ + ")H)"
-	identifier_     = "(?:(?:" + letter_ + ")((?:" + letter_ + ")|" + digit_ + ")*)"
+	identifier_     = "(?:(?:" + letter_ + ")((?:" + letter_ + ")|" + digit_ + "|-)*)"
 	imaginary_      = "(?:(?:" + float_ + ")i)"
 	infinity_       = "(?:(?:" + sign_ + ")?(infinity|∞))"
 	instruction_    = "(?:(?:" + base16_ + "){4})"

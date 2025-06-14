@@ -383,7 +383,7 @@ $tag: '#' BASE32+
 
 $version: 'v' ORDINAL ('.' ORDINAL)*
 
-$identifier: LETTER (LETTER | DIGIT)*  ! Must be last alphanumeric expression.
+$identifier: LETTER (LETTER | DIGIT | '-')*  ! Must be last alphanumeric expression.
 
 $synchronous: "<-"  ! Must be after other expressions beginning with "<-".
 
