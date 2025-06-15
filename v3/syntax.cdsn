@@ -351,7 +351,7 @@ $citation: name '@' version
 
 $comment: "!>" (ANY | EOL)* "<!"  ! Chooses the shortest match.
 
-$duration: '~' SIGN? 'P' (WEEKS | (YEARS? MONTHS? DAYS? ('T' HOURS? MINUTES? SECONDS?)?))
+$duration: "~P" (WEEKS | (YEARS? MONTHS? DAYS? ('T' HOURS? MINUTES? SECONDS?)?))
 
 $equal: '='
 

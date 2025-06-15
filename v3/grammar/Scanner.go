@@ -387,7 +387,7 @@ const (
 	day_            = "(?:([0-2][1-9])|(3[0-1]))"
 	days_           = "(?:(?:" + timespan_ + ")D)"
 	delimiter_      = "(?:xor|with|while|to|throw|select|save|san|return|retrieve|reject|publish|post|on|notarize|not|matching|matches|loop|level|let|is|ior|in|if|from|each|do|discard|continue|checkout|break|at|as|and|accept|\\}|\\||\\{|\\]|\\[|\\?=|\\.\\.|\\+=|\\*=|\\)|\\(|@|:=|:|/=|-=|&)"
-	duration_       = "(?:~(?:" + sign_ + ")?P((?:" + weeks_ + ")|((?:" + years_ + ")?(?:" + months_ + ")?(?:" + days_ + ")?(T(?:" + hours_ + ")?(?:" + minutes_ + ")?(?:" + seconds_ + ")?)?)))"
+	duration_       = "(?:~P((?:" + weeks_ + ")|((?:" + years_ + ")?(?:" + months_ + ")?(?:" + days_ + ")?(T(?:" + hours_ + ")?(?:" + minutes_ + ")?(?:" + seconds_ + ")?)?)))"
 	equal_          = "(?:=)"
 	escape_         = "(?:\\\\((?:" + unicode_ + ")|[abfnrtv\\\\]))"
 	exponent_       = "(?:E(?:" + sign_ + ")?(?:" + ordinal_ + "))"

@@ -9,19 +9,19 @@
     /foo@v1
     /foo/bar@v1.2.3
     ~P0W
-    ~-P13W
+    ~P13W
     ~P1Y
     ~P2M
     ~P2M3D
     ~P2M3DT5M
     ~P2M3DT5M6S
-    ~-P1Y2M3DT4H5M6.789S
+    ~P1Y2M3DT4H5M6.789S
     ~P12Y3M4DT5H6M7.890S
-    ~-P12Y3M4D
+    ~P12Y3M4D
     ~P3M4DT5H6M
-    ~-PT6M7.890S
+    ~PT6M7.890S
     ~P12YT6M7.890S
-    ~-P12Y4DT5H6M7S
+    ~P12Y4DT5H6M7S
     <0>
     <1>
     <-1>
