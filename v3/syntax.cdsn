@@ -480,7 +480,7 @@ $SECONDS: TIMESPAN 'S'
 
 $SIGN: '+' | '-'
 
-$SPACE: ' '
+$SPACE: ' '+
 
 $TIMESPAN: '0' | (ORDINAL FRACTION?)
 

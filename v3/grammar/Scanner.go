@@ -433,7 +433,7 @@ const (
 	seconds_        = "(?:(?:" + timespan_ + ")S)"
 	sign_           = "(?:\\+|-)"
 	slash_          = "(?:/)"
-	space_          = "(?: )"
+	space_          = "(?: +)"
 	star_           = "(?:\\*)"
 	symbol_         = "(?:\\$(?:" + identifier_ + "))"
 	synchronous_    = "(?:<-)"
