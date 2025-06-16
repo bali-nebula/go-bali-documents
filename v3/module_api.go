@@ -67,6 +67,7 @@ type (
 	EventClassLike          = ast.EventClassLike
 	ExceptionClassLike      = ast.ExceptionClassLike
 	ExpressionClassLike     = ast.ExpressionClassLike
+	ExtentClassLike         = ast.ExtentClassLike
 	FailureClassLike        = ast.FailureClassLike
 	FlowClassLike           = ast.FlowClassLike
 	FunctionClassLike       = ast.FunctionClassLike
@@ -102,7 +103,6 @@ type (
 	PrimitiveClassLike      = ast.PrimitiveClassLike
 	ProcedureClassLike      = ast.ProcedureClassLike
 	PublishClauseClassLike  = ast.PublishClauseClassLike
-	RangeClassLike          = ast.RangeClassLike
 	RecipientClassLike      = ast.RecipientClassLike
 	ReferentClassLike       = ast.ReferentClassLike
 	RejectClauseClassLike   = ast.RejectClauseClassLike
@@ -157,6 +157,7 @@ type (
 	EventLike          = ast.EventLike
 	ExceptionLike      = ast.ExceptionLike
 	ExpressionLike     = ast.ExpressionLike
+	ExtentLike         = ast.ExtentLike
 	FailureLike        = ast.FailureLike
 	FlowLike           = ast.FlowLike
 	FunctionLike       = ast.FunctionLike
@@ -192,7 +193,6 @@ type (
 	PrimitiveLike      = ast.PrimitiveLike
 	ProcedureLike      = ast.ProcedureLike
 	PublishClauseLike  = ast.PublishClauseLike
-	RangeLike          = ast.RangeLike
 	RecipientLike      = ast.RecipientLike
 	ReferentLike       = ast.ReferentLike
 	RejectClauseLike   = ast.RejectClauseLike
@@ -669,6 +669,26 @@ func Expression(
 	return ExpressionClass().Expression(
 		subject,
 		predicates,
+	)
+}
+
+func ExtentClass() ExtentClassLike {
+	return ast.ExtentClass()
+}
+
+func Extent(
+	leftBracket ast.LeftBracketLike,
+	primitive1 ast.PrimitiveLike,
+	delimiter string,
+	primitive2 ast.PrimitiveLike,
+	rightBracket ast.RightBracketLike,
+) ExtentLike {
+	return ExtentClass().Extent(
+		leftBracket,
+		primitive1,
+		delimiter,
+		primitive2,
+		rightBracket,
 	)
 }
 
@@ -1165,26 +1185,6 @@ func PublishClause(
 	return PublishClauseClass().PublishClause(
 		delimiter,
 		event,
-	)
-}
-
-func RangeClass() RangeClassLike {
-	return ast.RangeClass()
-}
-
-func Range(
-	leftBracket ast.LeftBracketLike,
-	primitive1 ast.PrimitiveLike,
-	delimiter string,
-	primitive2 ast.PrimitiveLike,
-	rightBracket ast.RightBracketLike,
-) RangeLike {
-	return RangeClass().Range(
-		leftBracket,
-		primitive1,
-		delimiter,
-		primitive2,
-		rightBracket,
 	)
 }
 

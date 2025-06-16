@@ -53,6 +53,7 @@ $Element:
     percentage
     probability
     resource
+    symbol
 
 $String:
     binary
@@ -61,19 +62,18 @@ $String:
     narrative
     pattern
     quote
-    symbol
     tag
     version
 
 $Collection:
     Empty
-    Range
+    Extent
     Attributes
     Items  ! Must be after ranges and attributes.
 
 $Empty: "[" ":"? "]"
 
-$Range: LeftBracket Primitive ".." Primitive RightBracket
+$Extent: LeftBracket Primitive ".." Primitive RightBracket
 
 $LeftBracket:
     "["

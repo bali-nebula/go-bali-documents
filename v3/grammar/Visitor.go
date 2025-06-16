@@ -433,14 +433,14 @@ func (v *visitor_) visitCollection(
 			1,
 			1,
 		)
-	case ast.RangeLike:
-		v.processor_.PreprocessRange(
+	case ast.ExtentLike:
+		v.processor_.PreprocessExtent(
 			actual,
 			1,
 			1,
 		)
-		v.visitRange(actual)
-		v.processor_.PostprocessRange(
+		v.visitExtent(actual)
+		v.processor_.PostprocessExtent(
 			actual,
 			1,
 			1,
@@ -730,6 +730,8 @@ func (v *visitor_) visitElement(
 		v.processor_.ProcessProbability(actual)
 	case ScannerClass().MatchesType(actual, ResourceToken):
 		v.processor_.ProcessResource(actual)
+	case ScannerClass().MatchesType(actual, SymbolToken):
+		v.processor_.ProcessSymbol(actual)
 	}
 }
 
@@ -878,6 +880,85 @@ func (v *visitor_) visitExpression(
 			predicatesCount,
 		)
 	}
+}
+
+func (v *visitor_) visitExtent(
+	extent ast.ExtentLike,
+) {
+	var leftBracket = extent.GetLeftBracket()
+	v.processor_.PreprocessLeftBracket(
+		leftBracket,
+		1,
+		1,
+	)
+	v.visitLeftBracket(leftBracket)
+	v.processor_.PostprocessLeftBracket(
+		leftBracket,
+		1,
+		1,
+	)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessExtentSlot(
+		extent,
+		1,
+	)
+
+	var primitive1 = extent.GetPrimitive1()
+	v.processor_.PreprocessPrimitive(
+		primitive1,
+		1,
+		1,
+	)
+	v.visitPrimitive(primitive1)
+	v.processor_.PostprocessPrimitive(
+		primitive1,
+		1,
+		1,
+	)
+	// Visit slot 2 between terms.
+	v.processor_.ProcessExtentSlot(
+		extent,
+		2,
+	)
+
+	var delimiter = extent.GetDelimiter()
+	v.processor_.ProcessDelimiter(delimiter)
+	// Visit slot 3 between terms.
+	v.processor_.ProcessExtentSlot(
+		extent,
+		3,
+	)
+
+	var primitive2 = extent.GetPrimitive2()
+	v.processor_.PreprocessPrimitive(
+		primitive2,
+		1,
+		1,
+	)
+	v.visitPrimitive(primitive2)
+	v.processor_.PostprocessPrimitive(
+		primitive2,
+		1,
+		1,
+	)
+	// Visit slot 4 between terms.
+	v.processor_.ProcessExtentSlot(
+		extent,
+		4,
+	)
+
+	var rightBracket = extent.GetRightBracket()
+	v.processor_.PreprocessRightBracket(
+		rightBracket,
+		1,
+		1,
+	)
+	v.visitRightBracket(rightBracket)
+	v.processor_.PostprocessRightBracket(
+		rightBracket,
+		1,
+		1,
+	)
 }
 
 func (v *visitor_) visitFailure(
@@ -2425,85 +2506,6 @@ func (v *visitor_) visitPublishClause(
 	)
 }
 
-func (v *visitor_) visitRange(
-	range_ ast.RangeLike,
-) {
-	var leftBracket = range_.GetLeftBracket()
-	v.processor_.PreprocessLeftBracket(
-		leftBracket,
-		1,
-		1,
-	)
-	v.visitLeftBracket(leftBracket)
-	v.processor_.PostprocessLeftBracket(
-		leftBracket,
-		1,
-		1,
-	)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessRangeSlot(
-		range_,
-		1,
-	)
-
-	var primitive1 = range_.GetPrimitive1()
-	v.processor_.PreprocessPrimitive(
-		primitive1,
-		1,
-		1,
-	)
-	v.visitPrimitive(primitive1)
-	v.processor_.PostprocessPrimitive(
-		primitive1,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessRangeSlot(
-		range_,
-		2,
-	)
-
-	var delimiter = range_.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessRangeSlot(
-		range_,
-		3,
-	)
-
-	var primitive2 = range_.GetPrimitive2()
-	v.processor_.PreprocessPrimitive(
-		primitive2,
-		1,
-		1,
-	)
-	v.visitPrimitive(primitive2)
-	v.processor_.PostprocessPrimitive(
-		primitive2,
-		1,
-		1,
-	)
-	// Visit slot 4 between terms.
-	v.processor_.ProcessRangeSlot(
-		range_,
-		4,
-	)
-
-	var rightBracket = range_.GetRightBracket()
-	v.processor_.PreprocessRightBracket(
-		rightBracket,
-		1,
-		1,
-	)
-	v.visitRightBracket(rightBracket)
-	v.processor_.PostprocessRightBracket(
-		rightBracket,
-		1,
-		1,
-	)
-}
-
 func (v *visitor_) visitRecipient(
 	recipient ast.RecipientLike,
 ) {
@@ -2930,8 +2932,6 @@ func (v *visitor_) visitString(
 		v.processor_.ProcessPattern(actual)
 	case ScannerClass().MatchesType(actual, QuoteToken):
 		v.processor_.ProcessQuote(actual)
-	case ScannerClass().MatchesType(actual, SymbolToken):
-		v.processor_.ProcessSymbol(actual)
 	case ScannerClass().MatchesType(actual, TagToken):
 		v.processor_.ProcessTag(actual)
 	case ScannerClass().MatchesType(actual, VersionToken):

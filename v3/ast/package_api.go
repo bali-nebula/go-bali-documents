@@ -404,6 +404,22 @@ type ExpressionClassLike interface {
 }
 
 /*
+ExtentClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete extent-like class.
+*/
+type ExtentClassLike interface {
+	// Constructor Methods
+	Extent(
+		leftBracket LeftBracketLike,
+		primitive1 PrimitiveLike,
+		delimiter string,
+		primitive2 PrimitiveLike,
+		rightBracket RightBracketLike,
+	) ExtentLike
+}
+
+/*
 FailureClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete failure-like class.
@@ -859,22 +875,6 @@ type PublishClauseClassLike interface {
 		delimiter string,
 		event EventLike,
 	) PublishClauseLike
-}
-
-/*
-RangeClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete range-like class.
-*/
-type RangeClassLike interface {
-	// Constructor Methods
-	Range(
-		leftBracket LeftBracketLike,
-		primitive1 PrimitiveLike,
-		delimiter string,
-		primitive2 PrimitiveLike,
-		rightBracket RightBracketLike,
-	) RangeLike
 }
 
 /*
@@ -1568,6 +1568,23 @@ type ExpressionLike interface {
 }
 
 /*
+ExtentLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete extent-like class.
+*/
+type ExtentLike interface {
+	// Principal Methods
+	GetClass() ExtentClassLike
+
+	// Attribute Methods
+	GetLeftBracket() LeftBracketLike
+	GetPrimitive1() PrimitiveLike
+	GetDelimiter() string
+	GetPrimitive2() PrimitiveLike
+	GetRightBracket() RightBracketLike
+}
+
+/*
 FailureLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete failure-like class.
@@ -2058,23 +2075,6 @@ type PublishClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetEvent() EventLike
-}
-
-/*
-RangeLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete range-like class.
-*/
-type RangeLike interface {
-	// Principal Methods
-	GetClass() RangeClassLike
-
-	// Attribute Methods
-	GetLeftBracket() LeftBracketLike
-	GetPrimitive1() PrimitiveLike
-	GetDelimiter() string
-	GetPrimitive2() PrimitiveLike
-	GetRightBracket() RightBracketLike
 }
 
 /*

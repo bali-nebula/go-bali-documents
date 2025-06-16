@@ -801,6 +801,20 @@ type Methodical interface {
 		expression ast.ExpressionLike,
 		slot_ uint,
 	)
+	PreprocessExtent(
+		extent ast.ExtentLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessExtent(
+		extent ast.ExtentLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessExtentSlot(
+		extent ast.ExtentLike,
+		slot_ uint,
+	)
 	PreprocessFailure(
 		failure ast.FailureLike,
 		index_ uint,
@@ -1289,20 +1303,6 @@ type Methodical interface {
 	)
 	ProcessPublishClauseSlot(
 		publishClause ast.PublishClauseLike,
-		slot_ uint,
-	)
-	PreprocessRange(
-		range_ ast.RangeLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessRange(
-		range_ ast.RangeLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessRangeSlot(
-		range_ ast.RangeLike,
 		slot_ uint,
 	)
 	PreprocessRecipient(

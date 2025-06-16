@@ -27,19 +27,19 @@ import (
 
 // Access Function
 
-func RangeClass() RangeClassLike {
-	return rangeClass()
+func ExtentClass() ExtentClassLike {
+	return extentClass()
 }
 
 // Constructor Methods
 
-func (c *rangeClass_) Range(
+func (c *extentClass_) Extent(
 	leftBracket LeftBracketLike,
 	primitive1 PrimitiveLike,
 	delimiter string,
 	primitive2 PrimitiveLike,
 	rightBracket RightBracketLike,
-) RangeLike {
+) ExtentLike {
 	if uti.IsUndefined(leftBracket) {
 		panic("The \"leftBracket\" attribute is required by this class.")
 	}
@@ -55,7 +55,7 @@ func (c *rangeClass_) Range(
 	if uti.IsUndefined(rightBracket) {
 		panic("The \"rightBracket\" attribute is required by this class.")
 	}
-	var instance = &range_{
+	var instance = &extent_{
 		// Initialize the instance attributes.
 		leftBracket_:  leftBracket,
 		primitive1_:   primitive1,
@@ -70,29 +70,29 @@ func (c *rangeClass_) Range(
 
 // Principal Methods
 
-func (v *range_) GetClass() RangeClassLike {
-	return rangeClass()
+func (v *extent_) GetClass() ExtentClassLike {
+	return extentClass()
 }
 
 // Attribute Methods
 
-func (v *range_) GetLeftBracket() LeftBracketLike {
+func (v *extent_) GetLeftBracket() LeftBracketLike {
 	return v.leftBracket_
 }
 
-func (v *range_) GetPrimitive1() PrimitiveLike {
+func (v *extent_) GetPrimitive1() PrimitiveLike {
 	return v.primitive1_
 }
 
-func (v *range_) GetDelimiter() string {
+func (v *extent_) GetDelimiter() string {
 	return v.delimiter_
 }
 
-func (v *range_) GetPrimitive2() PrimitiveLike {
+func (v *extent_) GetPrimitive2() PrimitiveLike {
 	return v.primitive2_
 }
 
-func (v *range_) GetRightBracket() RightBracketLike {
+func (v *extent_) GetRightBracket() RightBracketLike {
 	return v.rightBracket_
 }
 
@@ -100,7 +100,7 @@ func (v *range_) GetRightBracket() RightBracketLike {
 
 // Instance Structure
 
-type range_ struct {
+type extent_ struct {
 	// Declare the instance attributes.
 	leftBracket_  LeftBracketLike
 	primitive1_   PrimitiveLike
@@ -111,16 +111,16 @@ type range_ struct {
 
 // Class Structure
 
-type rangeClass_ struct {
+type extentClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func rangeClass() *rangeClass_ {
-	return rangeClassReference_
+func extentClass() *extentClass_ {
+	return extentClassReference_
 }
 
-var rangeClassReference_ = &rangeClass_{
+var extentClassReference_ = &extentClass_{
 	// Initialize the class constants.
 }
