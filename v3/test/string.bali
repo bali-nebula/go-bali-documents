@@ -38,10 +38,8 @@
     $symbol
     $A1
     $foo-bar
-    #0
-    #A
-    #ABCD
-    #A3GHK57Z
+    #0123456789ABC
+    #0123456789ABCDFGHJKLMNPQRSTVWXYZ
     v1
     v1.2
     v1.2.3

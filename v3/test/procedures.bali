@@ -73,7 +73,7 @@
     post messages[last] to bag
     publish [
         $type: $messagePosted
-        $messageId: #ABCD
+        $messageId: #0123456789ABC
     ]
     reject message
     retrieve $message from bag on $error matching any do {

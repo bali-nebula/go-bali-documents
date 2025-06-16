@@ -437,7 +437,7 @@ const (
 	star_           = "(?:\\*)"
 	symbol_         = "(?:\\$(?:" + identifier_ + "))"
 	synchronous_    = "(?:<-)"
-	tag_            = "(?:#(?:" + base32_ + ")+)"
+	tag_            = "(?:#(?:" + base32_ + "){13,})"
 	timespan_       = "(?:0|((?:" + ordinal_ + ")(?:" + fraction_ + ")?))"
 	transcendental_ = "(?:e|pi|π|tau|τ|phi|φ)"
 	undefined_      = "(?:undefined)"

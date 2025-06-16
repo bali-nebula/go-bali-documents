@@ -379,7 +379,7 @@ $resource: '<' SCHEME ':' ("//" AUTHORITY)? '/' PATH ('?' QUERY)? ('#' FRAGMENT)
 
 $symbol: '$' identifier
 
-$tag: '#' BASE32+
+$tag: '#' BASE32{13..}
 
 $version: 'v' ORDINAL ('.' ORDINAL)*
 
