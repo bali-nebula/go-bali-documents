@@ -27,19 +27,19 @@ import (
 
 // Access Function
 
-func ExtentClass() ExtentClassLike {
-	return extentClass()
+func IntervalClass() IntervalClassLike {
+	return intervalClass()
 }
 
 // Constructor Methods
 
-func (c *extentClass_) Extent(
+func (c *intervalClass_) Interval(
 	leftBracket LeftBracketLike,
 	primitive1 PrimitiveLike,
 	delimiter string,
 	primitive2 PrimitiveLike,
 	rightBracket RightBracketLike,
-) ExtentLike {
+) IntervalLike {
 	if uti.IsUndefined(leftBracket) {
 		panic("The \"leftBracket\" attribute is required by this class.")
 	}
@@ -55,7 +55,7 @@ func (c *extentClass_) Extent(
 	if uti.IsUndefined(rightBracket) {
 		panic("The \"rightBracket\" attribute is required by this class.")
 	}
-	var instance = &extent_{
+	var instance = &interval_{
 		// Initialize the instance attributes.
 		leftBracket_:  leftBracket,
 		primitive1_:   primitive1,
@@ -70,29 +70,29 @@ func (c *extentClass_) Extent(
 
 // Principal Methods
 
-func (v *extent_) GetClass() ExtentClassLike {
-	return extentClass()
+func (v *interval_) GetClass() IntervalClassLike {
+	return intervalClass()
 }
 
 // Attribute Methods
 
-func (v *extent_) GetLeftBracket() LeftBracketLike {
+func (v *interval_) GetLeftBracket() LeftBracketLike {
 	return v.leftBracket_
 }
 
-func (v *extent_) GetPrimitive1() PrimitiveLike {
+func (v *interval_) GetPrimitive1() PrimitiveLike {
 	return v.primitive1_
 }
 
-func (v *extent_) GetDelimiter() string {
+func (v *interval_) GetDelimiter() string {
 	return v.delimiter_
 }
 
-func (v *extent_) GetPrimitive2() PrimitiveLike {
+func (v *interval_) GetPrimitive2() PrimitiveLike {
 	return v.primitive2_
 }
 
-func (v *extent_) GetRightBracket() RightBracketLike {
+func (v *interval_) GetRightBracket() RightBracketLike {
 	return v.rightBracket_
 }
 
@@ -100,7 +100,7 @@ func (v *extent_) GetRightBracket() RightBracketLike {
 
 // Instance Structure
 
-type extent_ struct {
+type interval_ struct {
 	// Declare the instance attributes.
 	leftBracket_  LeftBracketLike
 	primitive1_   PrimitiveLike
@@ -111,16 +111,16 @@ type extent_ struct {
 
 // Class Structure
 
-type extentClass_ struct {
+type intervalClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func extentClass() *extentClass_ {
-	return extentClassReference_
+func intervalClass() *intervalClass_ {
+	return intervalClassReference_
 }
 
-var extentClassReference_ = &extentClass_{
+var intervalClassReference_ = &intervalClass_{
 	// Initialize the class constants.
 }

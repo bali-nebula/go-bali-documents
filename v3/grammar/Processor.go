@@ -790,26 +790,6 @@ func (v *processor_) ProcessExpressionSlot(
 ) {
 }
 
-func (v *processor_) PreprocessExtent(
-	extent ast.ExtentLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessExtent(
-	extent ast.ExtentLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessExtentSlot(
-	extent ast.ExtentLike,
-	slot_ uint,
-) {
-}
-
 func (v *processor_) PreprocessFailure(
 	failure ast.FailureLike,
 	index_ uint,
@@ -966,6 +946,26 @@ func (v *processor_) PostprocessInduction(
 
 func (v *processor_) ProcessInductionSlot(
 	induction ast.InductionLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PreprocessInterval(
+	interval ast.IntervalLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessInterval(
+	interval ast.IntervalLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessIntervalSlot(
+	interval ast.IntervalLike,
 	slot_ uint,
 ) {
 }

@@ -801,20 +801,6 @@ type Methodical interface {
 		expression ast.ExpressionLike,
 		slot_ uint,
 	)
-	PreprocessExtent(
-		extent ast.ExtentLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessExtent(
-		extent ast.ExtentLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessExtentSlot(
-		extent ast.ExtentLike,
-		slot_ uint,
-	)
 	PreprocessFailure(
 		failure ast.FailureLike,
 		index_ uint,
@@ -925,6 +911,20 @@ type Methodical interface {
 	)
 	ProcessInductionSlot(
 		induction ast.InductionLike,
+		slot_ uint,
+	)
+	PreprocessInterval(
+		interval ast.IntervalLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessInterval(
+		interval ast.IntervalLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessIntervalSlot(
+		interval ast.IntervalLike,
 		slot_ uint,
 	)
 	PreprocessInverse(

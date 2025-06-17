@@ -759,12 +759,12 @@ func (v *parser_) parseCollection() (
 		return
 	}
 
-	// Attempt to parse a single Extent Collection.
-	var extent ast.ExtentLike
-	extent, token, ok = v.parseExtent()
+	// Attempt to parse a single Interval Collection.
+	var interval ast.IntervalLike
+	interval, token, ok = v.parseInterval()
 	if ok {
-		// Found a single Extent Collection.
-		collection = ast.CollectionClass().Collection(extent)
+		// Found a single Interval Collection.
+		collection = ast.CollectionClass().Collection(interval)
 		return
 	}
 
@@ -1533,120 +1533,6 @@ predicatesLoop:
 	return
 }
 
-func (v *parser_) parseExtent() (
-	extent ast.ExtentLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = com.List[TokenLike]()
-
-	// Attempt to parse a single LeftBracket rule.
-	var leftBracket ast.LeftBracketLike
-	leftBracket, token, ok = v.parseLeftBracket()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single LeftBracket rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Extent", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single Primitive rule.
-	var primitive1 ast.PrimitiveLike
-	primitive1, token, ok = v.parsePrimitive()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Primitive rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Extent", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single ".." literal.
-	var delimiter string
-	delimiter, token, ok = v.parseDelimiter("..")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Extent rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Extent", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Attempt to parse a single Primitive rule.
-	var primitive2 ast.PrimitiveLike
-	primitive2, token, ok = v.parsePrimitive()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Primitive rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Extent", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single RightBracket rule.
-	var rightBracket ast.RightBracketLike
-	rightBracket, token, ok = v.parseRightBracket()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single RightBracket rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Extent", token)
-		panic(message)
-	}
-
-	// Found a single Extent rule.
-	ok = true
-	v.remove(tokens)
-	extent = ast.ExtentClass().Extent(
-		leftBracket,
-		primitive1,
-		delimiter,
-		primitive2,
-		rightBracket,
-	)
-	return
-}
-
 func (v *parser_) parseFailure() (
 	failure ast.FailureLike,
 	token TokenLike,
@@ -2094,6 +1980,120 @@ func (v *parser_) parseInduction() (
 	}
 
 	// This is not a single Induction rule.
+	return
+}
+
+func (v *parser_) parseInterval() (
+	interval ast.IntervalLike,
+	token TokenLike,
+	ok bool,
+) {
+	var tokens = com.List[TokenLike]()
+
+	// Attempt to parse a single LeftBracket rule.
+	var leftBracket ast.LeftBracketLike
+	leftBracket, token, ok = v.parseLeftBracket()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single LeftBracket rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Interval", token)
+		panic(message)
+	}
+
+	// Attempt to parse a single Primitive rule.
+	var primitive1 ast.PrimitiveLike
+	primitive1, token, ok = v.parsePrimitive()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single Primitive rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Interval", token)
+		panic(message)
+	}
+
+	// Attempt to parse a single ".." literal.
+	var delimiter string
+	delimiter, token, ok = v.parseDelimiter("..")
+	if !ok {
+		if uti.IsDefined(tokens) {
+			// This is not a single Interval rule.
+			v.putBack(tokens)
+			return
+		} else {
+			// Found a syntax error.
+			var message = v.formatError("$Interval", token)
+			panic(message)
+		}
+	}
+	if uti.IsDefined(tokens) {
+		tokens.AppendValue(token)
+	}
+
+	// Attempt to parse a single Primitive rule.
+	var primitive2 ast.PrimitiveLike
+	primitive2, token, ok = v.parsePrimitive()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single Primitive rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Interval", token)
+		panic(message)
+	}
+
+	// Attempt to parse a single RightBracket rule.
+	var rightBracket ast.RightBracketLike
+	rightBracket, token, ok = v.parseRightBracket()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single RightBracket rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Interval", token)
+		panic(message)
+	}
+
+	// Found a single Interval rule.
+	ok = true
+	v.remove(tokens)
+	interval = ast.IntervalClass().Interval(
+		leftBracket,
+		primitive1,
+		delimiter,
+		primitive2,
+		rightBracket,
+	)
 	return
 }
 
@@ -5350,11 +5350,11 @@ var parserClassReference_ = &parserClass_{
     version`,
 			"$Collection": `
     Empty
-    Extent
+    Interval
     Attributes
     Items  ! Must be after ranges and attributes.`,
-			"$Empty":  `"[" ":"? "]"`,
-			"$Extent": `LeftBracket Primitive ".." Primitive RightBracket`,
+			"$Empty":    `"[" ":"? "]"`,
+			"$Interval": `LeftBracket Primitive ".." Primitive RightBracket`,
 			"$LeftBracket": `
     "["
     "("`,

@@ -67,7 +67,6 @@ type (
 	EventClassLike          = ast.EventClassLike
 	ExceptionClassLike      = ast.ExceptionClassLike
 	ExpressionClassLike     = ast.ExpressionClassLike
-	ExtentClassLike         = ast.ExtentClassLike
 	FailureClassLike        = ast.FailureClassLike
 	FlowClassLike           = ast.FlowClassLike
 	FunctionClassLike       = ast.FunctionClassLike
@@ -76,6 +75,7 @@ type (
 	IndexClassLike          = ast.IndexClassLike
 	IndirectClassLike       = ast.IndirectClassLike
 	InductionClassLike      = ast.InductionClassLike
+	IntervalClassLike       = ast.IntervalClassLike
 	InverseClassLike        = ast.InverseClassLike
 	InversionClassLike      = ast.InversionClassLike
 	InvocationClassLike     = ast.InvocationClassLike
@@ -157,7 +157,6 @@ type (
 	EventLike          = ast.EventLike
 	ExceptionLike      = ast.ExceptionLike
 	ExpressionLike     = ast.ExpressionLike
-	ExtentLike         = ast.ExtentLike
 	FailureLike        = ast.FailureLike
 	FlowLike           = ast.FlowLike
 	FunctionLike       = ast.FunctionLike
@@ -166,6 +165,7 @@ type (
 	IndexLike          = ast.IndexLike
 	IndirectLike       = ast.IndirectLike
 	InductionLike      = ast.InductionLike
+	IntervalLike       = ast.IntervalLike
 	InverseLike        = ast.InverseLike
 	InversionLike      = ast.InversionLike
 	InvocationLike     = ast.InvocationLike
@@ -672,26 +672,6 @@ func Expression(
 	)
 }
 
-func ExtentClass() ExtentClassLike {
-	return ast.ExtentClass()
-}
-
-func Extent(
-	leftBracket ast.LeftBracketLike,
-	primitive1 ast.PrimitiveLike,
-	delimiter string,
-	primitive2 ast.PrimitiveLike,
-	rightBracket ast.RightBracketLike,
-) ExtentLike {
-	return ExtentClass().Extent(
-		leftBracket,
-		primitive1,
-		delimiter,
-		primitive2,
-		rightBracket,
-	)
-}
-
 func FailureClass() FailureClassLike {
 	return ast.FailureClass()
 }
@@ -797,6 +777,26 @@ func Induction(
 ) InductionLike {
 	return InductionClass().Induction(
 		any_,
+	)
+}
+
+func IntervalClass() IntervalClassLike {
+	return ast.IntervalClass()
+}
+
+func Interval(
+	leftBracket ast.LeftBracketLike,
+	primitive1 ast.PrimitiveLike,
+	delimiter string,
+	primitive2 ast.PrimitiveLike,
+	rightBracket ast.RightBracketLike,
+) IntervalLike {
+	return IntervalClass().Interval(
+		leftBracket,
+		primitive1,
+		delimiter,
+		primitive2,
+		rightBracket,
 	)
 }
 

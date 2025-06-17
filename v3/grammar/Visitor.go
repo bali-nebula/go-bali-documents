@@ -433,14 +433,14 @@ func (v *visitor_) visitCollection(
 			1,
 			1,
 		)
-	case ast.ExtentLike:
-		v.processor_.PreprocessExtent(
+	case ast.IntervalLike:
+		v.processor_.PreprocessInterval(
 			actual,
 			1,
 			1,
 		)
-		v.visitExtent(actual)
-		v.processor_.PostprocessExtent(
+		v.visitInterval(actual)
+		v.processor_.PostprocessInterval(
 			actual,
 			1,
 			1,
@@ -882,85 +882,6 @@ func (v *visitor_) visitExpression(
 	}
 }
 
-func (v *visitor_) visitExtent(
-	extent ast.ExtentLike,
-) {
-	var leftBracket = extent.GetLeftBracket()
-	v.processor_.PreprocessLeftBracket(
-		leftBracket,
-		1,
-		1,
-	)
-	v.visitLeftBracket(leftBracket)
-	v.processor_.PostprocessLeftBracket(
-		leftBracket,
-		1,
-		1,
-	)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessExtentSlot(
-		extent,
-		1,
-	)
-
-	var primitive1 = extent.GetPrimitive1()
-	v.processor_.PreprocessPrimitive(
-		primitive1,
-		1,
-		1,
-	)
-	v.visitPrimitive(primitive1)
-	v.processor_.PostprocessPrimitive(
-		primitive1,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessExtentSlot(
-		extent,
-		2,
-	)
-
-	var delimiter = extent.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessExtentSlot(
-		extent,
-		3,
-	)
-
-	var primitive2 = extent.GetPrimitive2()
-	v.processor_.PreprocessPrimitive(
-		primitive2,
-		1,
-		1,
-	)
-	v.visitPrimitive(primitive2)
-	v.processor_.PostprocessPrimitive(
-		primitive2,
-		1,
-		1,
-	)
-	// Visit slot 4 between terms.
-	v.processor_.ProcessExtentSlot(
-		extent,
-		4,
-	)
-
-	var rightBracket = extent.GetRightBracket()
-	v.processor_.PreprocessRightBracket(
-		rightBracket,
-		1,
-		1,
-	)
-	v.visitRightBracket(rightBracket)
-	v.processor_.PostprocessRightBracket(
-		rightBracket,
-		1,
-		1,
-	)
-}
-
 func (v *visitor_) visitFailure(
 	failure ast.FailureLike,
 ) {
@@ -1319,6 +1240,85 @@ func (v *visitor_) visitInduction(
 			1,
 		)
 	}
+}
+
+func (v *visitor_) visitInterval(
+	interval ast.IntervalLike,
+) {
+	var leftBracket = interval.GetLeftBracket()
+	v.processor_.PreprocessLeftBracket(
+		leftBracket,
+		1,
+		1,
+	)
+	v.visitLeftBracket(leftBracket)
+	v.processor_.PostprocessLeftBracket(
+		leftBracket,
+		1,
+		1,
+	)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessIntervalSlot(
+		interval,
+		1,
+	)
+
+	var primitive1 = interval.GetPrimitive1()
+	v.processor_.PreprocessPrimitive(
+		primitive1,
+		1,
+		1,
+	)
+	v.visitPrimitive(primitive1)
+	v.processor_.PostprocessPrimitive(
+		primitive1,
+		1,
+		1,
+	)
+	// Visit slot 2 between terms.
+	v.processor_.ProcessIntervalSlot(
+		interval,
+		2,
+	)
+
+	var delimiter = interval.GetDelimiter()
+	v.processor_.ProcessDelimiter(delimiter)
+	// Visit slot 3 between terms.
+	v.processor_.ProcessIntervalSlot(
+		interval,
+		3,
+	)
+
+	var primitive2 = interval.GetPrimitive2()
+	v.processor_.PreprocessPrimitive(
+		primitive2,
+		1,
+		1,
+	)
+	v.visitPrimitive(primitive2)
+	v.processor_.PostprocessPrimitive(
+		primitive2,
+		1,
+		1,
+	)
+	// Visit slot 4 between terms.
+	v.processor_.ProcessIntervalSlot(
+		interval,
+		4,
+	)
+
+	var rightBracket = interval.GetRightBracket()
+	v.processor_.PreprocessRightBracket(
+		rightBracket,
+		1,
+		1,
+	)
+	v.visitRightBracket(rightBracket)
+	v.processor_.PostprocessRightBracket(
+		rightBracket,
+		1,
+		1,
+	)
 }
 
 func (v *visitor_) visitInverse(

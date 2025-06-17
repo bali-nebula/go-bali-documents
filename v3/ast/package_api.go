@@ -404,22 +404,6 @@ type ExpressionClassLike interface {
 }
 
 /*
-ExtentClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete extent-like class.
-*/
-type ExtentClassLike interface {
-	// Constructor Methods
-	Extent(
-		leftBracket LeftBracketLike,
-		primitive1 PrimitiveLike,
-		delimiter string,
-		primitive2 PrimitiveLike,
-		rightBracket RightBracketLike,
-	) ExtentLike
-}
-
-/*
 FailureClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete failure-like class.
@@ -519,6 +503,22 @@ type InductionClassLike interface {
 	Induction(
 		any_ any,
 	) InductionLike
+}
+
+/*
+IntervalClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete interval-like class.
+*/
+type IntervalClassLike interface {
+	// Constructor Methods
+	Interval(
+		leftBracket LeftBracketLike,
+		primitive1 PrimitiveLike,
+		delimiter string,
+		primitive2 PrimitiveLike,
+		rightBracket RightBracketLike,
+	) IntervalLike
 }
 
 /*
@@ -1568,23 +1568,6 @@ type ExpressionLike interface {
 }
 
 /*
-ExtentLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete extent-like class.
-*/
-type ExtentLike interface {
-	// Principal Methods
-	GetClass() ExtentClassLike
-
-	// Attribute Methods
-	GetLeftBracket() LeftBracketLike
-	GetPrimitive1() PrimitiveLike
-	GetDelimiter() string
-	GetPrimitive2() PrimitiveLike
-	GetRightBracket() RightBracketLike
-}
-
-/*
 FailureLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete failure-like class.
@@ -1692,6 +1675,23 @@ type InductionLike interface {
 
 	// Attribute Methods
 	GetAny() any
+}
+
+/*
+IntervalLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete interval-like class.
+*/
+type IntervalLike interface {
+	// Principal Methods
+	GetClass() IntervalClassLike
+
+	// Attribute Methods
+	GetLeftBracket() LeftBracketLike
+	GetPrimitive1() PrimitiveLike
+	GetDelimiter() string
+	GetPrimitive2() PrimitiveLike
+	GetRightBracket() RightBracketLike
 }
 
 /*
