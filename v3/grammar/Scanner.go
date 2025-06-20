@@ -194,12 +194,11 @@ loop:
 		case v.foundToken(NewlineToken):
 		case v.foundToken(SpaceToken):
 		case v.foundToken(AngleToken):
+		case v.foundToken(GlyphToken):
 		case v.foundToken(BinaryToken):
 		case v.foundToken(BooleanToken):
-		case v.foundToken(CaretToken):
-		case v.foundToken(GlyphToken):
 		case v.foundToken(BytecodeToken):
-		case v.foundToken(CitationToken):
+		case v.foundToken(CaretToken):
 		case v.foundToken(CommentToken):
 		case v.foundToken(DurationToken):
 		case v.foundToken(EqualToken):
@@ -272,7 +271,6 @@ var scannerClassReference_ = &scannerClass_{
 			BooleanToken:      "boolean",
 			BytecodeToken:     "bytecode",
 			CaretToken:        "caret",
-			CitationToken:     "citation",
 			CommentToken:      "comment",
 			DashToken:         "dash",
 			DelimiterToken:    "delimiter",
@@ -313,7 +311,6 @@ var scannerClassReference_ = &scannerClass_{
 			BooleanToken:      reg.MustCompile("^" + boolean_),
 			BytecodeToken:     reg.MustCompile("^" + bytecode_),
 			CaretToken:        reg.MustCompile("^" + caret_),
-			CitationToken:     reg.MustCompile("^" + citation_),
 			CommentToken:      reg.MustCompile("^" + comment_),
 			DashToken:         reg.MustCompile("^" + dash_),
 			DelimiterToken:    reg.MustCompile("^" + delimiter_),
@@ -376,13 +373,12 @@ const (
 	base16_         = "(?:(?:" + base10_ + ")|[a-f])"
 	base32_         = "(?:(?:" + base10_ + ")|[A-DF-HJ-NP-TV-Z])"
 	base64_         = "(?:(?:" + alphanumeric_ + ")|[\\+/])"
-	binary_         = "(?:'>((?:" + base64_ + ")|(?:" + space_ + ")|" + eol_ + ")*<')"
+	binary_         = "(?:'(" + eol_ + "((?:" + space_ + ")*(?:" + base64_ + "){2,60}" + eol_ + ")+(?:" + space_ + ")*)?')"
 	boolean_        = "(?:false|true)"
-	bytecode_       = "(?:'(?:" + instruction_ + ")((?:" + space_ + ")(?:" + instruction_ + "))*')"
+	bytecode_       = "(?:'" + eol_ + "((?:" + space_ + ")*(?:" + instruction_ + "){1,12}" + eol_ + ")+(?:" + space_ + ")*')"
 	caret_          = "(?:\\^)"
 	character_      = "(?:(?:" + escape_ + ")|\\\\\"|[^\"" + control_ + "])"
-	citation_       = "(?:(?:" + name_ + ")@(?:" + version_ + "))"
-	comment_        = "(?:!>(" + any_ + "|" + eol_ + ")*?<!)"
+	comment_        = "(?:!" + eol_ + "(" + any_ + "|" + eol_ + ")+?" + eol_ + "(?:" + space_ + ")*!)"
 	dash_           = "(?:-)"
 	day_            = "(?:([0-2][1-9])|(3[0-1]))"
 	days_           = "(?:(?:" + timespan_ + ")D)"
@@ -400,7 +396,7 @@ const (
 	identifier_     = "(?:(?:" + letter_ + ")((?:" + letter_ + ")|" + digit_ + "|-)*)"
 	imaginary_      = "(?:(?:" + float_ + ")i)"
 	infinity_       = "(?:(?:" + sign_ + ")?(infinity|∞))"
-	instruction_    = "(?:(?:" + base16_ + "){4})"
+	instruction_    = "(?:-(?:" + base16_ + "){4})"
 	less_           = "(?:<)"
 	letter_         = "(?:" + lower_ + "|" + upper_ + ")"
 	minute_         = "(?:[0-5][0-9])"
@@ -411,7 +407,7 @@ const (
 	months_         = "(?:(?:" + timespan_ + ")M)"
 	more_           = "(?:>)"
 	name_           = "(?:(/(?:" + identifier_ + "))+)"
-	narrative_      = "(?:\">(" + any_ + "|" + eol_ + ")*?<\")"
+	narrative_      = "(?:\"" + eol_ + "(" + any_ + "|" + eol_ + ")+?" + eol_ + "(?:" + space_ + ")*\")"
 	newline_        = "(?:" + eol_ + ")"
 	note_           = "(?:! [^" + control_ + "]*)"
 	number_         = "(?:(?:" + polar_ + ")|(?:" + rectangular_ + ")|(?:" + imaginary_ + ")|(?:" + real_ + "))"

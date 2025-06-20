@@ -80,11 +80,6 @@ func (v *processor_) ProcessCaret(
 ) {
 }
 
-func (v *processor_) ProcessCitation(
-	citation string,
-) {
-}
-
 func (v *processor_) ProcessComment(
 	comment string,
 ) {

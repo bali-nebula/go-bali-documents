@@ -97,12 +97,6 @@ func (v *validator_) ProcessCaret(
 	v.validateToken(caret, CaretToken)
 }
 
-func (v *validator_) ProcessCitation(
-	citation string,
-) {
-	v.validateToken(citation, CitationToken)
-}
-
 func (v *validator_) ProcessComment(
 	comment string,
 ) {

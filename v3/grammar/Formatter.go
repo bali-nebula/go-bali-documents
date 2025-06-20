@@ -97,12 +97,6 @@ func (v *formatter_) ProcessCaret(
 	v.appendString(caret)
 }
 
-func (v *formatter_) ProcessCitation(
-	citation string,
-) {
-	v.appendString(citation)
-}
-
 func (v *formatter_) ProcessComment(
 	comment string,
 ) {

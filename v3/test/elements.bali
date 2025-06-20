@@ -6,8 +6,6 @@
     ~1.23456789E-10
     true
     false
-    /foo@v1
-    /foo/bar@v1.2.3
     ~P0W
     ~P13W
     ~P1Y
@@ -83,6 +81,8 @@
     p0.25
     p0.5
     p1
+    <bali:/foo@v1>
+    <bali:/foo/bar@v1.2.3>
     <https://google.com>
     <https://google.com/path>
     <https://google.com/path?foo=bar>

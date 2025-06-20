@@ -232,7 +232,6 @@ const (
 	BooleanToken      = gra.BooleanToken
 	BytecodeToken     = gra.BytecodeToken
 	CaretToken        = gra.CaretToken
-	CitationToken     = gra.CitationToken
 	CommentToken      = gra.CommentToken
 	DashToken         = gra.DashToken
 	DelimiterToken    = gra.DelimiterToken

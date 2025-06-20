@@ -727,8 +727,6 @@ func (v *visitor_) visitElement(
 		v.processor_.ProcessAngle(actual)
 	case ScannerClass().MatchesType(actual, BooleanToken):
 		v.processor_.ProcessBoolean(actual)
-	case ScannerClass().MatchesType(actual, CitationToken):
-		v.processor_.ProcessCitation(actual)
 	case ScannerClass().MatchesType(actual, DurationToken):
 		v.processor_.ProcessDuration(actual)
 	case ScannerClass().MatchesType(actual, GlyphToken):

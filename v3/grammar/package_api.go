@@ -61,7 +61,6 @@ const (
 	BooleanToken
 	BytecodeToken
 	CaretToken
-	CitationToken
 	CommentToken
 	DashToken
 	DelimiterToken
@@ -318,9 +317,6 @@ type Methodical interface {
 	)
 	ProcessCaret(
 		caret string,
-	)
-	ProcessCitation(
-		citation string,
 	)
 	ProcessComment(
 		comment string,

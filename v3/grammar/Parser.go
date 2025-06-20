@@ -1234,15 +1234,6 @@ func (v *parser_) parseElement() (
 		return
 	}
 
-	// Attempt to parse a single citation Element.
-	var citation string
-	citation, token, ok = v.parseToken(CitationToken)
-	if ok {
-		// Found a single citation Element.
-		element = ast.ElementClass().Element(citation)
-		return
-	}
-
 	// Attempt to parse a single duration Element.
 	var duration string
 	duration, token, ok = v.parseToken(DurationToken)
@@ -5330,7 +5321,6 @@ var parserClassReference_ = &parserClass_{
 			"$Element": `
     angle
     boolean
-    citation
     duration
     glyph
     moment
