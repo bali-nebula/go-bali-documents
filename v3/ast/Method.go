@@ -20,7 +20,7 @@
 package ast
 
 import (
-	com "github.com/craterdog/go-component-framework/v7"
+	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -39,7 +39,7 @@ func (c *methodClass_) Method(
 	invoke InvokeLike,
 	identifier2 string,
 	delimiter1 string,
-	arguments com.ListLike[ArgumentLike],
+	arguments fra.ListLike[ArgumentLike],
 	delimiter2 string,
 ) MethodLike {
 	if uti.IsUndefined(identifier1) {
@@ -98,7 +98,7 @@ func (v *method_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *method_) GetArguments() com.ListLike[ArgumentLike] {
+func (v *method_) GetArguments() fra.ListLike[ArgumentLike] {
 	return v.arguments_
 }
 
@@ -116,7 +116,7 @@ type method_ struct {
 	invoke_      InvokeLike
 	identifier2_ string
 	delimiter1_  string
-	arguments_   com.ListLike[ArgumentLike]
+	arguments_   fra.ListLike[ArgumentLike]
 	delimiter2_  string
 }
 

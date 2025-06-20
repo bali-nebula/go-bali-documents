@@ -20,7 +20,7 @@
 package ast
 
 import (
-	com "github.com/craterdog/go-component-framework/v7"
+	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -36,7 +36,7 @@ func ParametersClass() ParametersClassLike {
 
 func (c *parametersClass_) Parameters(
 	delimiter1 string,
-	associations com.ListLike[AssociationLike],
+	associations fra.ListLike[AssociationLike],
 	delimiter2 string,
 ) ParametersLike {
 	if uti.IsUndefined(delimiter1) {
@@ -71,7 +71,7 @@ func (v *parameters_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *parameters_) GetAssociations() com.ListLike[AssociationLike] {
+func (v *parameters_) GetAssociations() fra.ListLike[AssociationLike] {
 	return v.associations_
 }
 
@@ -86,7 +86,7 @@ func (v *parameters_) GetDelimiter2() string {
 type parameters_ struct {
 	// Declare the instance attributes.
 	delimiter1_   string
-	associations_ com.ListLike[AssociationLike]
+	associations_ fra.ListLike[AssociationLike]
 	delimiter2_   string
 }
 

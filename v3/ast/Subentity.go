@@ -20,7 +20,7 @@
 package ast
 
 import (
-	com "github.com/craterdog/go-component-framework/v7"
+	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -37,7 +37,7 @@ func SubentityClass() SubentityClassLike {
 func (c *subentityClass_) Subentity(
 	identifier string,
 	delimiter1 string,
-	indexes com.ListLike[IndexLike],
+	indexes fra.ListLike[IndexLike],
 	delimiter2 string,
 ) SubentityLike {
 	if uti.IsUndefined(identifier) {
@@ -80,7 +80,7 @@ func (v *subentity_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *subentity_) GetIndexes() com.ListLike[IndexLike] {
+func (v *subentity_) GetIndexes() fra.ListLike[IndexLike] {
 	return v.indexes_
 }
 
@@ -96,7 +96,7 @@ type subentity_ struct {
 	// Declare the instance attributes.
 	identifier_ string
 	delimiter1_ string
-	indexes_    com.ListLike[IndexLike]
+	indexes_    fra.ListLike[IndexLike]
 	delimiter2_ string
 }
 

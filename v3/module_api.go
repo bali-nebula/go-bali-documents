@@ -31,7 +31,7 @@ package module
 import (
 	ast "github.com/bali-nebula/go-bali-documents/v3/ast"
 	gra "github.com/bali-nebula/go-bali-documents/v3/grammar"
-	com "github.com/craterdog/go-component-framework/v7"
+	fra "github.com/craterdog/go-component-framework/v7"
 )
 
 // TYPE ALIASES
@@ -392,7 +392,7 @@ func AttributesClass() AttributesClassLike {
 
 func Attributes(
 	delimiter1 string,
-	associations com.ListLike[ast.AssociationLike],
+	associations fra.ListLike[ast.AssociationLike],
 	delimiter2 string,
 ) AttributesLike {
 	return AttributesClass().Attributes(
@@ -664,7 +664,7 @@ func ExpressionClass() ExpressionClassLike {
 
 func Expression(
 	subject ast.SubjectLike,
-	predicates com.ListLike[ast.PredicateLike],
+	predicates fra.ListLike[ast.PredicateLike],
 ) ExpressionLike {
 	return ExpressionClass().Expression(
 		subject,
@@ -703,7 +703,7 @@ func FunctionClass() FunctionClassLike {
 func Function(
 	identifier string,
 	delimiter1 string,
-	arguments com.ListLike[ast.ArgumentLike],
+	arguments fra.ListLike[ast.ArgumentLike],
 	delimiter2 string,
 ) FunctionLike {
 	return FunctionClass().Function(
@@ -856,7 +856,7 @@ func ItemsClass() ItemsClassLike {
 
 func Items(
 	delimiter1 string,
-	entities com.ListLike[ast.EntityLike],
+	entities fra.ListLike[ast.EntityLike],
 	delimiter2 string,
 ) ItemsLike {
 	return ItemsClass().Items(
@@ -1011,7 +1011,7 @@ func Method(
 	invoke ast.InvokeLike,
 	identifier2 string,
 	delimiter1 string,
-	arguments com.ListLike[ast.ArgumentLike],
+	arguments fra.ListLike[ast.ArgumentLike],
 	delimiter2 string,
 ) MethodLike {
 	return MethodClass().Method(
@@ -1061,7 +1061,7 @@ func OnClauseClass() OnClauseClassLike {
 func OnClause(
 	delimiter string,
 	failure ast.FailureLike,
-	matchingClauses com.ListLike[ast.MatchingClauseLike],
+	matchingClauses fra.ListLike[ast.MatchingClauseLike],
 ) OnClauseLike {
 	return OnClauseClass().OnClause(
 		delimiter,
@@ -1088,7 +1088,7 @@ func ParametersClass() ParametersClassLike {
 
 func Parameters(
 	delimiter1 string,
-	associations com.ListLike[ast.AssociationLike],
+	associations fra.ListLike[ast.AssociationLike],
 	delimiter2 string,
 ) ParametersLike {
 	return ParametersClass().Parameters(
@@ -1164,7 +1164,7 @@ func ProcedureClass() ProcedureClassLike {
 
 func Procedure(
 	delimiter1 string,
-	lines com.ListLike[ast.LineLike],
+	lines fra.ListLike[ast.LineLike],
 	delimiter2 string,
 ) ProcedureLike {
 	return ProcedureClass().Procedure(
@@ -1321,7 +1321,7 @@ func SelectClauseClass() SelectClauseClassLike {
 func SelectClause(
 	delimiter string,
 	target ast.TargetLike,
-	matchingClauses com.ListLike[ast.MatchingClauseLike],
+	matchingClauses fra.ListLike[ast.MatchingClauseLike],
 ) SelectClauseLike {
 	return SelectClauseClass().SelectClause(
 		delimiter,
@@ -1377,7 +1377,7 @@ func SubentityClass() SubentityClassLike {
 func Subentity(
 	identifier string,
 	delimiter1 string,
-	indexes com.ListLike[ast.IndexLike],
+	indexes fra.ListLike[ast.IndexLike],
 	delimiter2 string,
 ) SubentityLike {
 	return SubentityClass().Subentity(
@@ -1548,7 +1548,7 @@ func ScannerClass() ScannerClassLike {
 
 func Scanner(
 	source string,
-	tokens com.QueueLike[gra.TokenLike],
+	tokens fra.QueueLike[gra.TokenLike],
 ) ScannerLike {
 	return ScannerClass().Scanner(
 		source,

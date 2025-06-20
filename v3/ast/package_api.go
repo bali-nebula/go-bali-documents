@@ -36,7 +36,7 @@ on interfaces, not on each other.
 package ast
 
 import (
-	com "github.com/craterdog/go-component-framework/v7"
+	fra "github.com/craterdog/go-component-framework/v7"
 )
 
 // TYPE DECLARATIONS
@@ -143,7 +143,7 @@ type AttributesClassLike interface {
 	// Constructor Methods
 	Attributes(
 		delimiter1 string,
-		associations com.ListLike[AssociationLike],
+		associations fra.ListLike[AssociationLike],
 		delimiter2 string,
 	) AttributesLike
 }
@@ -399,7 +399,7 @@ type ExpressionClassLike interface {
 	// Constructor Methods
 	Expression(
 		subject SubjectLike,
-		predicates com.ListLike[PredicateLike],
+		predicates fra.ListLike[PredicateLike],
 	) ExpressionLike
 }
 
@@ -437,7 +437,7 @@ type FunctionClassLike interface {
 	Function(
 		identifier string,
 		delimiter1 string,
-		arguments com.ListLike[ArgumentLike],
+		arguments fra.ListLike[ArgumentLike],
 		delimiter2 string,
 	) FunctionLike
 }
@@ -579,7 +579,7 @@ type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
 		delimiter1 string,
-		entities com.ListLike[EntityLike],
+		entities fra.ListLike[EntityLike],
 		delimiter2 string,
 	) ItemsLike
 }
@@ -724,7 +724,7 @@ type MethodClassLike interface {
 		invoke InvokeLike,
 		identifier2 string,
 		delimiter1 string,
-		arguments com.ListLike[ArgumentLike],
+		arguments fra.ListLike[ArgumentLike],
 		delimiter2 string,
 	) MethodLike
 }
@@ -766,7 +766,7 @@ type OnClauseClassLike interface {
 	OnClause(
 		delimiter string,
 		failure FailureLike,
-		matchingClauses com.ListLike[MatchingClauseLike],
+		matchingClauses fra.ListLike[MatchingClauseLike],
 	) OnClauseLike
 }
 
@@ -791,7 +791,7 @@ type ParametersClassLike interface {
 	// Constructor Methods
 	Parameters(
 		delimiter1 string,
-		associations com.ListLike[AssociationLike],
+		associations fra.ListLike[AssociationLike],
 		delimiter2 string,
 	) ParametersLike
 }
@@ -859,7 +859,7 @@ type ProcedureClassLike interface {
 	// Constructor Methods
 	Procedure(
 		delimiter1 string,
-		lines com.ListLike[LineLike],
+		lines fra.ListLike[LineLike],
 		delimiter2 string,
 	) ProcedureLike
 }
@@ -1004,7 +1004,7 @@ type SelectClauseClassLike interface {
 	SelectClause(
 		delimiter string,
 		target TargetLike,
-		matchingClauses com.ListLike[MatchingClauseLike],
+		matchingClauses fra.ListLike[MatchingClauseLike],
 	) SelectClauseLike
 }
 
@@ -1056,7 +1056,7 @@ type SubentityClassLike interface {
 	Subentity(
 		identifier string,
 		delimiter1 string,
-		indexes com.ListLike[IndexLike],
+		indexes fra.ListLike[IndexLike],
 		delimiter2 string,
 	) SubentityLike
 }
@@ -1288,7 +1288,7 @@ type AttributesLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetAssociations() com.ListLike[AssociationLike]
+	GetAssociations() fra.ListLike[AssociationLike]
 	GetDelimiter2() string
 }
 
@@ -1564,7 +1564,7 @@ type ExpressionLike interface {
 
 	// Attribute Methods
 	GetSubject() SubjectLike
-	GetPredicates() com.ListLike[PredicateLike]
+	GetPredicates() fra.ListLike[PredicateLike]
 }
 
 /*
@@ -1605,7 +1605,7 @@ type FunctionLike interface {
 	// Attribute Methods
 	GetIdentifier() string
 	GetDelimiter1() string
-	GetArguments() com.ListLike[ArgumentLike]
+	GetArguments() fra.ListLike[ArgumentLike]
 	GetDelimiter2() string
 }
 
@@ -1758,7 +1758,7 @@ type ItemsLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetEntities() com.ListLike[EntityLike]
+	GetEntities() fra.ListLike[EntityLike]
 	GetDelimiter2() string
 }
 
@@ -1914,7 +1914,7 @@ type MethodLike interface {
 	GetInvoke() InvokeLike
 	GetIdentifier2() string
 	GetDelimiter1() string
-	GetArguments() com.ListLike[ArgumentLike]
+	GetArguments() fra.ListLike[ArgumentLike]
 	GetDelimiter2() string
 }
 
@@ -1959,7 +1959,7 @@ type OnClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetFailure() FailureLike
-	GetMatchingClauses() com.ListLike[MatchingClauseLike]
+	GetMatchingClauses() fra.ListLike[MatchingClauseLike]
 }
 
 /*
@@ -1986,7 +1986,7 @@ type ParametersLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetAssociations() com.ListLike[AssociationLike]
+	GetAssociations() fra.ListLike[AssociationLike]
 	GetDelimiter2() string
 }
 
@@ -2059,7 +2059,7 @@ type ProcedureLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetLines() com.ListLike[LineLike]
+	GetLines() fra.ListLike[LineLike]
 	GetDelimiter2() string
 }
 
@@ -2215,7 +2215,7 @@ type SelectClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetTarget() TargetLike
-	GetMatchingClauses() com.ListLike[MatchingClauseLike]
+	GetMatchingClauses() fra.ListLike[MatchingClauseLike]
 }
 
 /*
@@ -2271,7 +2271,7 @@ type SubentityLike interface {
 	// Attribute Methods
 	GetIdentifier() string
 	GetDelimiter1() string
-	GetIndexes() com.ListLike[IndexLike]
+	GetIndexes() fra.ListLike[IndexLike]
 	GetDelimiter2() string
 }
 

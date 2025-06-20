@@ -20,7 +20,7 @@
 package ast
 
 import (
-	com "github.com/craterdog/go-component-framework/v7"
+	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -37,7 +37,7 @@ func SelectClauseClass() SelectClauseClassLike {
 func (c *selectClauseClass_) SelectClause(
 	delimiter string,
 	target TargetLike,
-	matchingClauses com.ListLike[MatchingClauseLike],
+	matchingClauses fra.ListLike[MatchingClauseLike],
 ) SelectClauseLike {
 	if uti.IsUndefined(delimiter) {
 		panic("The \"delimiter\" attribute is required by this class.")
@@ -75,7 +75,7 @@ func (v *selectClause_) GetTarget() TargetLike {
 	return v.target_
 }
 
-func (v *selectClause_) GetMatchingClauses() com.ListLike[MatchingClauseLike] {
+func (v *selectClause_) GetMatchingClauses() fra.ListLike[MatchingClauseLike] {
 	return v.matchingClauses_
 }
 
@@ -87,7 +87,7 @@ type selectClause_ struct {
 	// Declare the instance attributes.
 	delimiter_       string
 	target_          TargetLike
-	matchingClauses_ com.ListLike[MatchingClauseLike]
+	matchingClauses_ fra.ListLike[MatchingClauseLike]
 }
 
 // Class Structure
