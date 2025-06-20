@@ -1,33 +1,33 @@
-!
+!>
     NOTICE
-!
+<!
 {
     if true do {
     }  ! This is a note.
     while ok do {
         accept messages[index]
 
-        !
+        !>
             COMMENTED OUT...
             if index > maximum do {
                 break loop
             }
-        !
+        <!
         continue loop
     }
 
-    !
+    !>
         This is a comment.
-    !
+    <!
     with each $index in [1..5] do {
         let array[index] += index
     }
 
-    !
+    !>
         This is a comment...
 
         with an empty line.
-    !
+    <!
     if flip() do {
         checkout $draft from <bali:/nebula/tests/Procedures@v1.2>
     }

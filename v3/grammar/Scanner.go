@@ -194,7 +194,6 @@ loop:
 		case v.foundToken(NewlineToken):
 		case v.foundToken(SpaceToken):
 		case v.foundToken(AngleToken):
-		case v.foundToken(GlyphToken):
 		case v.foundToken(BinaryToken):
 		case v.foundToken(BooleanToken):
 		case v.foundToken(BytecodeToken):
@@ -202,6 +201,7 @@ loop:
 		case v.foundToken(CommentToken):
 		case v.foundToken(DurationToken):
 		case v.foundToken(EqualToken):
+		case v.foundToken(GlyphToken):
 		case v.foundToken(ModuloToken):
 		case v.foundToken(MomentToken):
 		case v.foundToken(NameToken):
@@ -373,12 +373,12 @@ const (
 	base16_         = "(?:(?:" + base10_ + ")|[a-f])"
 	base32_         = "(?:(?:" + base10_ + ")|[A-DF-HJ-NP-TV-Z])"
 	base64_         = "(?:(?:" + alphanumeric_ + ")|[\\+/])"
-	binary_         = "(?:'(" + eol_ + "((?:" + space_ + ")*(?:" + base64_ + "){2,60}" + eol_ + ")+(?:" + space_ + ")*)?')"
+	binary_         = "(?:'>(" + eol_ + "((?:" + space_ + ")*(?:" + base64_ + "){2,60}" + eol_ + ")+(?:" + space_ + ")*)?<')"
 	boolean_        = "(?:false|true)"
-	bytecode_       = "(?:'" + eol_ + "((?:" + space_ + ")*(?:" + instruction_ + "){1,12}" + eol_ + ")+(?:" + space_ + ")*')"
+	bytecode_       = "(?:'>" + eol_ + "((?:" + space_ + ")*(?:" + instruction_ + "){1,12}" + eol_ + ")+(?:" + space_ + ")*<')"
 	caret_          = "(?:\\^)"
 	character_      = "(?:(?:" + escape_ + ")|\\\\\"|[^\"" + control_ + "])"
-	comment_        = "(?:!" + eol_ + "(" + any_ + "|" + eol_ + ")+?" + eol_ + "(?:" + space_ + ")*!)"
+	comment_        = "(?:!>" + eol_ + "(" + any_ + "|" + eol_ + ")+?" + eol_ + "(?:" + space_ + ")*<!)"
 	dash_           = "(?:-)"
 	day_            = "(?:([0-2][1-9])|(3[0-1]))"
 	days_           = "(?:(?:" + timespan_ + ")D)"
@@ -407,7 +407,7 @@ const (
 	months_         = "(?:(?:" + timespan_ + ")M)"
 	more_           = "(?:>)"
 	name_           = "(?:(/(?:" + identifier_ + "))+)"
-	narrative_      = "(?:\"" + eol_ + "(" + any_ + "|" + eol_ + ")+?" + eol_ + "(?:" + space_ + ")*\")"
+	narrative_      = "(?:\">" + eol_ + "(" + any_ + "|" + eol_ + ")+?" + eol_ + "(?:" + space_ + ")*<\")"
 	newline_        = "(?:" + eol_ + ")"
 	note_           = "(?:! [^" + control_ + "]*)"
 	number_         = "(?:(?:" + polar_ + ")|(?:" + rectangular_ + ")|(?:" + imaginary_ + ")|(?:" + real_ + "))"
