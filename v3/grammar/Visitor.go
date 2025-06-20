@@ -313,6 +313,19 @@ func (v *visitor_) visitBag(
 	)
 }
 
+func (v *visitor_) visitBra(
+	bra ast.BraLike,
+) {
+	// Visit the possible bra literal values.
+	var actual = bra.GetAny().(string)
+	switch actual {
+	case "[":
+		v.processor_.ProcessDelimiter("[")
+	case "(":
+		v.processor_.ProcessDelimiter("(")
+	}
+}
+
 func (v *visitor_) visitBreakClause(
 	breakClause ast.BreakClauseLike,
 ) {
@@ -1245,15 +1258,15 @@ func (v *visitor_) visitInduction(
 func (v *visitor_) visitInterval(
 	interval ast.IntervalLike,
 ) {
-	var leftBracket = interval.GetLeftBracket()
-	v.processor_.PreprocessLeftBracket(
-		leftBracket,
+	var bra = interval.GetBra()
+	v.processor_.PreprocessBra(
+		bra,
 		1,
 		1,
 	)
-	v.visitLeftBracket(leftBracket)
-	v.processor_.PostprocessLeftBracket(
-		leftBracket,
+	v.visitBra(bra)
+	v.processor_.PostprocessBra(
+		bra,
 		1,
 		1,
 	)
@@ -1307,15 +1320,15 @@ func (v *visitor_) visitInterval(
 		4,
 	)
 
-	var rightBracket = interval.GetRightBracket()
-	v.processor_.PreprocessRightBracket(
-		rightBracket,
+	var ket = interval.GetKet()
+	v.processor_.PreprocessKet(
+		ket,
 		1,
 		1,
 	)
-	v.visitRightBracket(rightBracket)
-	v.processor_.PostprocessRightBracket(
-		rightBracket,
+	v.visitKet(ket)
+	v.processor_.PostprocessKet(
+		ket,
 		1,
 		1,
 	)
@@ -1455,16 +1468,16 @@ func (v *visitor_) visitItems(
 	v.processor_.ProcessDelimiter(delimiter2)
 }
 
-func (v *visitor_) visitLeftBracket(
-	leftBracket ast.LeftBracketLike,
+func (v *visitor_) visitKet(
+	ket ast.KetLike,
 ) {
-	// Visit the possible leftBracket literal values.
-	var actual = leftBracket.GetAny().(string)
+	// Visit the possible ket literal values.
+	var actual = ket.GetAny().(string)
 	switch actual {
-	case "[":
-		v.processor_.ProcessDelimiter("[")
-	case "(":
-		v.processor_.ProcessDelimiter("(")
+	case "]":
+		v.processor_.ProcessDelimiter("]")
+	case ")":
+		v.processor_.ProcessDelimiter(")")
 	}
 }
 
@@ -2735,19 +2748,6 @@ func (v *visitor_) visitReturnClause(
 		1,
 		1,
 	)
-}
-
-func (v *visitor_) visitRightBracket(
-	rightBracket ast.RightBracketLike,
-) {
-	// Visit the possible rightBracket literal values.
-	var actual = rightBracket.GetAny().(string)
-	switch actual {
-	case "]":
-		v.processor_.ProcessDelimiter("]")
-	case ")":
-		v.processor_.ProcessDelimiter(")")
-	}
 }
 
 func (v *visitor_) visitSaveClause(

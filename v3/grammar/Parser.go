@@ -563,6 +563,33 @@ func (v *parser_) parseBag() (
 	return
 }
 
+func (v *parser_) parseBra() (
+	bra ast.BraLike,
+	token TokenLike,
+	ok bool,
+) {
+	var delimiter string
+
+	// Attempt to parse a single "[" delimiter.
+	delimiter, token, ok = v.parseDelimiter("[")
+	if ok {
+		// Found a single "[" delimiter.
+		bra = ast.BraClass().Bra(delimiter)
+		return
+	}
+
+	// Attempt to parse a single "(" delimiter.
+	delimiter, token, ok = v.parseDelimiter("(")
+	if ok {
+		// Found a single "(" delimiter.
+		bra = ast.BraClass().Bra(delimiter)
+		return
+	}
+
+	// This is not a single Bra rule.
+	return
+}
+
 func (v *parser_) parseBreakClause() (
 	breakClause ast.BreakClauseLike,
 	token TokenLike,
@@ -1990,9 +2017,9 @@ func (v *parser_) parseInterval() (
 ) {
 	var tokens = fra.List[TokenLike]()
 
-	// Attempt to parse a single LeftBracket rule.
-	var leftBracket ast.LeftBracketLike
-	leftBracket, token, ok = v.parseLeftBracket()
+	// Attempt to parse a single Bra rule.
+	var bra ast.BraLike
+	bra, token, ok = v.parseBra()
 	switch {
 	case ok:
 		// Found a multiexpression token.
@@ -2000,7 +2027,7 @@ func (v *parser_) parseInterval() (
 			tokens.AppendValue(token)
 		}
 	case uti.IsDefined(tokens):
-		// This is not a single LeftBracket rule.
+		// This is not a single Bra rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -2065,9 +2092,9 @@ func (v *parser_) parseInterval() (
 		panic(message)
 	}
 
-	// Attempt to parse a single RightBracket rule.
-	var rightBracket ast.RightBracketLike
-	rightBracket, token, ok = v.parseRightBracket()
+	// Attempt to parse a single Ket rule.
+	var ket ast.KetLike
+	ket, token, ok = v.parseKet()
 	switch {
 	case ok:
 		// Found a multiexpression token.
@@ -2075,7 +2102,7 @@ func (v *parser_) parseInterval() (
 			tokens.AppendValue(token)
 		}
 	case uti.IsDefined(tokens):
-		// This is not a single RightBracket rule.
+		// This is not a single Ket rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -2088,11 +2115,11 @@ func (v *parser_) parseInterval() (
 	ok = true
 	v.remove(tokens)
 	interval = ast.IntervalClass().Interval(
-		leftBracket,
+		bra,
 		primitive1,
 		delimiter,
 		primitive2,
-		rightBracket,
+		ket,
 	)
 	return
 }
@@ -2320,30 +2347,30 @@ entitiesLoop:
 	return
 }
 
-func (v *parser_) parseLeftBracket() (
-	leftBracket ast.LeftBracketLike,
+func (v *parser_) parseKet() (
+	ket ast.KetLike,
 	token TokenLike,
 	ok bool,
 ) {
 	var delimiter string
 
-	// Attempt to parse a single "[" delimiter.
-	delimiter, token, ok = v.parseDelimiter("[")
+	// Attempt to parse a single "]" delimiter.
+	delimiter, token, ok = v.parseDelimiter("]")
 	if ok {
-		// Found a single "[" delimiter.
-		leftBracket = ast.LeftBracketClass().LeftBracket(delimiter)
+		// Found a single "]" delimiter.
+		ket = ast.KetClass().Ket(delimiter)
 		return
 	}
 
-	// Attempt to parse a single "(" delimiter.
-	delimiter, token, ok = v.parseDelimiter("(")
+	// Attempt to parse a single ")" delimiter.
+	delimiter, token, ok = v.parseDelimiter(")")
 	if ok {
-		// Found a single "(" delimiter.
-		leftBracket = ast.LeftBracketClass().LeftBracket(delimiter)
+		// Found a single ")" delimiter.
+		ket = ast.KetClass().Ket(delimiter)
 		return
 	}
 
-	// This is not a single LeftBracket rule.
+	// This is not a single Ket rule.
 	return
 }
 
@@ -4119,33 +4146,6 @@ func (v *parser_) parseReturnClause() (
 	return
 }
 
-func (v *parser_) parseRightBracket() (
-	rightBracket ast.RightBracketLike,
-	token TokenLike,
-	ok bool,
-) {
-	var delimiter string
-
-	// Attempt to parse a single "]" delimiter.
-	delimiter, token, ok = v.parseDelimiter("]")
-	if ok {
-		// Found a single "]" delimiter.
-		rightBracket = ast.RightBracketClass().RightBracket(delimiter)
-		return
-	}
-
-	// Attempt to parse a single ")" delimiter.
-	delimiter, token, ok = v.parseDelimiter(")")
-	if ok {
-		// Found a single ")" delimiter.
-		rightBracket = ast.RightBracketClass().RightBracket(delimiter)
-		return
-	}
-
-	// This is not a single RightBracket rule.
-	return
-}
-
 func (v *parser_) parseSaveClause() (
 	saveClause ast.SaveClauseLike,
 	token TokenLike,
@@ -5354,11 +5354,11 @@ var parserClassReference_ = &parserClass_{
     Attributes
     Items  ! Must be after interval and attributes.`,
 			"$Empty":    `"[" ":"? "]"`,
-			"$Interval": `LeftBracket Primitive ".." Primitive RightBracket`,
-			"$LeftBracket": `
+			"$Interval": `Bra Primitive ".." Primitive Ket`,
+			"$Bra": `
     "["
     "("`,
-			"$RightBracket": `
+			"$Ket": `
     "]"
     ")"`,
 			"$Attributes": `"[" Association+ "]"`,

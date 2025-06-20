@@ -73,13 +73,13 @@ $Collection:
 
 $Empty: "[" ":"? "]"
 
-$Interval: LeftBracket Primitive ".." Primitive RightBracket
+$Interval: Bra Primitive ".." Primitive Ket
 
-$LeftBracket:
+$Bra:
     "["
     "("
 
-$RightBracket:
+$Ket:
     "]"
     ")"
 

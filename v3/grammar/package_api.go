@@ -535,6 +535,20 @@ type Methodical interface {
 		bag ast.BagLike,
 		slot_ uint,
 	)
+	PreprocessBra(
+		bra ast.BraLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessBra(
+		bra ast.BraLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessBraSlot(
+		bra ast.BraLike,
+		slot_ uint,
+	)
 	PreprocessBreakClause(
 		breakClause ast.BreakClauseLike,
 		index_ uint,
@@ -997,18 +1011,18 @@ type Methodical interface {
 		items ast.ItemsLike,
 		slot_ uint,
 	)
-	PreprocessLeftBracket(
-		leftBracket ast.LeftBracketLike,
+	PreprocessKet(
+		ket ast.KetLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessLeftBracket(
-		leftBracket ast.LeftBracketLike,
+	PostprocessKet(
+		ket ast.KetLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessLeftBracketSlot(
-		leftBracket ast.LeftBracketLike,
+	ProcessKetSlot(
+		ket ast.KetLike,
 		slot_ uint,
 	)
 	PreprocessLetClause(
@@ -1401,20 +1415,6 @@ type Methodical interface {
 	)
 	ProcessReturnClauseSlot(
 		returnClause ast.ReturnClauseLike,
-		slot_ uint,
-	)
-	PreprocessRightBracket(
-		rightBracket ast.RightBracketLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessRightBracket(
-		rightBracket ast.RightBracketLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessRightBracketSlot(
-		rightBracket ast.RightBracketLike,
 		slot_ uint,
 	)
 	PreprocessSaveClause(

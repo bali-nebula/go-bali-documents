@@ -410,6 +410,26 @@ func (v *processor_) ProcessBagSlot(
 ) {
 }
 
+func (v *processor_) PreprocessBra(
+	bra ast.BraLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessBra(
+	bra ast.BraLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessBraSlot(
+	bra ast.BraLike,
+	slot_ uint,
+) {
+}
+
 func (v *processor_) PreprocessBreakClause(
 	breakClause ast.BreakClauseLike,
 	index_ uint,
@@ -1070,22 +1090,22 @@ func (v *processor_) ProcessItemsSlot(
 ) {
 }
 
-func (v *processor_) PreprocessLeftBracket(
-	leftBracket ast.LeftBracketLike,
+func (v *processor_) PreprocessKet(
+	ket ast.KetLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessLeftBracket(
-	leftBracket ast.LeftBracketLike,
+func (v *processor_) PostprocessKet(
+	ket ast.KetLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessLeftBracketSlot(
-	leftBracket ast.LeftBracketLike,
+func (v *processor_) ProcessKetSlot(
+	ket ast.KetLike,
 	slot_ uint,
 ) {
 }
@@ -1646,26 +1666,6 @@ func (v *processor_) PostprocessReturnClause(
 
 func (v *processor_) ProcessReturnClauseSlot(
 	returnClause ast.ReturnClauseLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PreprocessRightBracket(
-	rightBracket ast.RightBracketLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessRightBracket(
-	rightBracket ast.RightBracketLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessRightBracketSlot(
-	rightBracket ast.RightBracketLike,
 	slot_ uint,
 ) {
 }

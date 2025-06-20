@@ -161,6 +161,18 @@ type BagClassLike interface {
 }
 
 /*
+BraClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete bra-like class.
+*/
+type BraClassLike interface {
+	// Constructor Methods
+	Bra(
+		any_ any,
+	) BraLike
+}
+
+/*
 BreakClauseClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete break-clause-like class.
@@ -513,11 +525,11 @@ supported by each concrete interval-like class.
 type IntervalClassLike interface {
 	// Constructor Methods
 	Interval(
-		leftBracket LeftBracketLike,
+		bra BraLike,
 		primitive1 PrimitiveLike,
 		delimiter string,
 		primitive2 PrimitiveLike,
-		rightBracket RightBracketLike,
+		ket KetLike,
 	) IntervalLike
 }
 
@@ -585,15 +597,15 @@ type ItemsClassLike interface {
 }
 
 /*
-LeftBracketClassLike is a class interface that declares the
+KetClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete left-bracket-like class.
+supported by each concrete ket-like class.
 */
-type LeftBracketClassLike interface {
+type KetClassLike interface {
 	// Constructor Methods
-	LeftBracket(
+	Ket(
 		any_ any,
-	) LeftBracketLike
+	) KetLike
 }
 
 /*
@@ -968,18 +980,6 @@ type ReturnClauseClassLike interface {
 }
 
 /*
-RightBracketClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete right-bracket-like class.
-*/
-type RightBracketClassLike interface {
-	// Constructor Methods
-	RightBracket(
-		any_ any,
-	) RightBracketLike
-}
-
-/*
 SaveClauseClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete save-clause-like class.
@@ -1303,6 +1303,19 @@ type BagLike interface {
 
 	// Attribute Methods
 	GetExpression() ExpressionLike
+}
+
+/*
+BraLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete bra-like class.
+*/
+type BraLike interface {
+	// Principal Methods
+	GetClass() BraClassLike
+
+	// Attribute Methods
+	GetAny() any
 }
 
 /*
@@ -1687,11 +1700,11 @@ type IntervalLike interface {
 	GetClass() IntervalClassLike
 
 	// Attribute Methods
-	GetLeftBracket() LeftBracketLike
+	GetBra() BraLike
 	GetPrimitive1() PrimitiveLike
 	GetDelimiter() string
 	GetPrimitive2() PrimitiveLike
-	GetRightBracket() RightBracketLike
+	GetKet() KetLike
 }
 
 /*
@@ -1763,13 +1776,13 @@ type ItemsLike interface {
 }
 
 /*
-LeftBracketLike is an instance interface that declares the
+KetLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete left-bracket-like class.
+by each instance of a concrete ket-like class.
 */
-type LeftBracketLike interface {
+type KetLike interface {
 	// Principal Methods
-	GetClass() LeftBracketClassLike
+	GetClass() KetClassLike
 
 	// Attribute Methods
 	GetAny() any
@@ -2172,19 +2185,6 @@ type ReturnClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetResult() ResultLike
-}
-
-/*
-RightBracketLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete right-bracket-like class.
-*/
-type RightBracketLike interface {
-	// Principal Methods
-	GetClass() RightBracketClassLike
-
-	// Attribute Methods
-	GetAny() any
 }
 
 /*

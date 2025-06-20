@@ -27,19 +27,19 @@ import (
 
 // Access Function
 
-func RightBracketClass() RightBracketClassLike {
-	return rightBracketClass()
+func BraClass() BraClassLike {
+	return braClass()
 }
 
 // Constructor Methods
 
-func (c *rightBracketClass_) RightBracket(
+func (c *braClass_) Bra(
 	any_ any,
-) RightBracketLike {
+) BraLike {
 	if uti.IsUndefined(any_) {
 		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &rightBracket_{
+	var instance = &bra_{
 		// Initialize the instance attributes.
 		any_: any_,
 	}
@@ -50,13 +50,13 @@ func (c *rightBracketClass_) RightBracket(
 
 // Principal Methods
 
-func (v *rightBracket_) GetClass() RightBracketClassLike {
-	return rightBracketClass()
+func (v *bra_) GetClass() BraClassLike {
+	return braClass()
 }
 
 // Attribute Methods
 
-func (v *rightBracket_) GetAny() any {
+func (v *bra_) GetAny() any {
 	return v.any_
 }
 
@@ -64,23 +64,23 @@ func (v *rightBracket_) GetAny() any {
 
 // Instance Structure
 
-type rightBracket_ struct {
+type bra_ struct {
 	// Declare the instance attributes.
 	any_ any
 }
 
 // Class Structure
 
-type rightBracketClass_ struct {
+type braClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func rightBracketClass() *rightBracketClass_ {
-	return rightBracketClassReference_
+func braClass() *braClass_ {
+	return braClassReference_
 }
 
-var rightBracketClassReference_ = &rightBracketClass_{
+var braClassReference_ = &braClass_{
 	// Initialize the class constants.
 }

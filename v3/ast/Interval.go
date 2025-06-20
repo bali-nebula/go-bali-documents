@@ -34,14 +34,14 @@ func IntervalClass() IntervalClassLike {
 // Constructor Methods
 
 func (c *intervalClass_) Interval(
-	leftBracket LeftBracketLike,
+	bra BraLike,
 	primitive1 PrimitiveLike,
 	delimiter string,
 	primitive2 PrimitiveLike,
-	rightBracket RightBracketLike,
+	ket KetLike,
 ) IntervalLike {
-	if uti.IsUndefined(leftBracket) {
-		panic("The \"leftBracket\" attribute is required by this class.")
+	if uti.IsUndefined(bra) {
+		panic("The \"bra\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(primitive1) {
 		panic("The \"primitive1\" attribute is required by this class.")
@@ -52,16 +52,16 @@ func (c *intervalClass_) Interval(
 	if uti.IsUndefined(primitive2) {
 		panic("The \"primitive2\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(rightBracket) {
-		panic("The \"rightBracket\" attribute is required by this class.")
+	if uti.IsUndefined(ket) {
+		panic("The \"ket\" attribute is required by this class.")
 	}
 	var instance = &interval_{
 		// Initialize the instance attributes.
-		leftBracket_:  leftBracket,
-		primitive1_:   primitive1,
-		delimiter_:    delimiter,
-		primitive2_:   primitive2,
-		rightBracket_: rightBracket,
+		bra_:        bra,
+		primitive1_: primitive1,
+		delimiter_:  delimiter,
+		primitive2_: primitive2,
+		ket_:        ket,
 	}
 	return instance
 }
@@ -76,8 +76,8 @@ func (v *interval_) GetClass() IntervalClassLike {
 
 // Attribute Methods
 
-func (v *interval_) GetLeftBracket() LeftBracketLike {
-	return v.leftBracket_
+func (v *interval_) GetBra() BraLike {
+	return v.bra_
 }
 
 func (v *interval_) GetPrimitive1() PrimitiveLike {
@@ -92,8 +92,8 @@ func (v *interval_) GetPrimitive2() PrimitiveLike {
 	return v.primitive2_
 }
 
-func (v *interval_) GetRightBracket() RightBracketLike {
-	return v.rightBracket_
+func (v *interval_) GetKet() KetLike {
+	return v.ket_
 }
 
 // PROTECTED INTERFACE
@@ -102,11 +102,11 @@ func (v *interval_) GetRightBracket() RightBracketLike {
 
 type interval_ struct {
 	// Declare the instance attributes.
-	leftBracket_  LeftBracketLike
-	primitive1_   PrimitiveLike
-	delimiter_    string
-	primitive2_   PrimitiveLike
-	rightBracket_ RightBracketLike
+	bra_        BraLike
+	primitive1_ PrimitiveLike
+	delimiter_  string
+	primitive2_ PrimitiveLike
+	ket_        KetLike
 }
 
 // Class Structure

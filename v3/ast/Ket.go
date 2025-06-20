@@ -27,19 +27,19 @@ import (
 
 // Access Function
 
-func LeftBracketClass() LeftBracketClassLike {
-	return leftBracketClass()
+func KetClass() KetClassLike {
+	return ketClass()
 }
 
 // Constructor Methods
 
-func (c *leftBracketClass_) LeftBracket(
+func (c *ketClass_) Ket(
 	any_ any,
-) LeftBracketLike {
+) KetLike {
 	if uti.IsUndefined(any_) {
 		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &leftBracket_{
+	var instance = &ket_{
 		// Initialize the instance attributes.
 		any_: any_,
 	}
@@ -50,13 +50,13 @@ func (c *leftBracketClass_) LeftBracket(
 
 // Principal Methods
 
-func (v *leftBracket_) GetClass() LeftBracketClassLike {
-	return leftBracketClass()
+func (v *ket_) GetClass() KetClassLike {
+	return ketClass()
 }
 
 // Attribute Methods
 
-func (v *leftBracket_) GetAny() any {
+func (v *ket_) GetAny() any {
 	return v.any_
 }
 
@@ -64,23 +64,23 @@ func (v *leftBracket_) GetAny() any {
 
 // Instance Structure
 
-type leftBracket_ struct {
+type ket_ struct {
 	// Declare the instance attributes.
 	any_ any
 }
 
 // Class Structure
 
-type leftBracketClass_ struct {
+type ketClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func leftBracketClass() *leftBracketClass_ {
-	return leftBracketClassReference_
+func ketClass() *ketClass_ {
+	return ketClassReference_
 }
 
-var leftBracketClassReference_ = &leftBracketClass_{
+var ketClassReference_ = &ketClass_{
 	// Initialize the class constants.
 }

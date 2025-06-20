@@ -48,6 +48,7 @@ type (
 	AtLevelClassLike        = ast.AtLevelClassLike
 	AttributesClassLike     = ast.AttributesClassLike
 	BagClassLike            = ast.BagClassLike
+	BraClassLike            = ast.BraClassLike
 	BreakClauseClassLike    = ast.BreakClauseClassLike
 	CheckoutClauseClassLike = ast.CheckoutClauseClassLike
 	CitedClassLike          = ast.CitedClassLike
@@ -81,7 +82,7 @@ type (
 	InvocationClassLike     = ast.InvocationClassLike
 	InvokeClassLike         = ast.InvokeClassLike
 	ItemsClassLike          = ast.ItemsClassLike
-	LeftBracketClassLike    = ast.LeftBracketClassLike
+	KetClassLike            = ast.KetClassLike
 	LetClauseClassLike      = ast.LetClauseClassLike
 	LineClassLike           = ast.LineClassLike
 	LogicClassLike          = ast.LogicClassLike
@@ -110,7 +111,6 @@ type (
 	ResultClassLike         = ast.ResultClassLike
 	RetrieveClauseClassLike = ast.RetrieveClauseClassLike
 	ReturnClauseClassLike   = ast.ReturnClauseClassLike
-	RightBracketClassLike   = ast.RightBracketClassLike
 	SaveClauseClassLike     = ast.SaveClauseClassLike
 	SelectClauseClassLike   = ast.SelectClauseClassLike
 	SequenceClassLike       = ast.SequenceClassLike
@@ -138,6 +138,7 @@ type (
 	AtLevelLike        = ast.AtLevelLike
 	AttributesLike     = ast.AttributesLike
 	BagLike            = ast.BagLike
+	BraLike            = ast.BraLike
 	BreakClauseLike    = ast.BreakClauseLike
 	CheckoutClauseLike = ast.CheckoutClauseLike
 	CitedLike          = ast.CitedLike
@@ -171,7 +172,7 @@ type (
 	InvocationLike     = ast.InvocationLike
 	InvokeLike         = ast.InvokeLike
 	ItemsLike          = ast.ItemsLike
-	LeftBracketLike    = ast.LeftBracketLike
+	KetLike            = ast.KetLike
 	LetClauseLike      = ast.LetClauseLike
 	LineLike           = ast.LineLike
 	LogicLike          = ast.LogicLike
@@ -200,7 +201,6 @@ type (
 	ResultLike         = ast.ResultLike
 	RetrieveClauseLike = ast.RetrieveClauseLike
 	ReturnClauseLike   = ast.ReturnClauseLike
-	RightBracketLike   = ast.RightBracketLike
 	SaveClauseLike     = ast.SaveClauseLike
 	SelectClauseLike   = ast.SelectClauseLike
 	SequenceLike       = ast.SequenceLike
@@ -411,6 +411,18 @@ func Bag(
 ) BagLike {
 	return BagClass().Bag(
 		expression,
+	)
+}
+
+func BraClass() BraClassLike {
+	return ast.BraClass()
+}
+
+func Bra(
+	any_ any,
+) BraLike {
+	return BraClass().Bra(
+		any_,
 	)
 }
 
@@ -785,18 +797,18 @@ func IntervalClass() IntervalClassLike {
 }
 
 func Interval(
-	leftBracket ast.LeftBracketLike,
+	bra ast.BraLike,
 	primitive1 ast.PrimitiveLike,
 	delimiter string,
 	primitive2 ast.PrimitiveLike,
-	rightBracket ast.RightBracketLike,
+	ket ast.KetLike,
 ) IntervalLike {
 	return IntervalClass().Interval(
-		leftBracket,
+		bra,
 		primitive1,
 		delimiter,
 		primitive2,
-		rightBracket,
+		ket,
 	)
 }
 
@@ -866,14 +878,14 @@ func Items(
 	)
 }
 
-func LeftBracketClass() LeftBracketClassLike {
-	return ast.LeftBracketClass()
+func KetClass() KetClassLike {
+	return ast.KetClass()
 }
 
-func LeftBracket(
+func Ket(
 	any_ any,
-) LeftBracketLike {
-	return LeftBracketClass().LeftBracket(
+) KetLike {
+	return KetClass().Ket(
 		any_,
 	)
 }
@@ -1281,18 +1293,6 @@ func ReturnClause(
 	return ReturnClauseClass().ReturnClause(
 		delimiter,
 		result,
-	)
-}
-
-func RightBracketClass() RightBracketClassLike {
-	return ast.RightBracketClass()
-}
-
-func RightBracket(
-	any_ any,
-) RightBracketLike {
-	return RightBracketClass().RightBracket(
-		any_,
 	)
 }
 
