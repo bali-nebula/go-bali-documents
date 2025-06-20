@@ -5352,7 +5352,7 @@ var parserClassReference_ = &parserClass_{
     Empty
     Interval
     Attributes
-    Items  ! Must be after ranges and attributes.`,
+    Items  ! Must be after interval and attributes.`,
 			"$Empty":    `"[" ":"? "]"`,
 			"$Interval": `LeftBracket Primitive ".." Primitive RightBracket`,
 			"$LeftBracket": `
