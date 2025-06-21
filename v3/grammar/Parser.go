@@ -353,15 +353,15 @@ func (v *parser_) parseAssociation() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse a single Entity rule.
-	var entity ast.EntityLike
-	entity, token, ok = v.parseEntity()
+	// Attempt to parse a single Document rule.
+	var document ast.DocumentLike
+	document, token, ok = v.parseDocument()
 	switch {
 	case ok:
 		// No additional put backs allowed at this point.
 		tokens = nil
 	case uti.IsDefined(tokens):
-		// This is not a single Entity rule.
+		// This is not a single Document rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -376,7 +376,7 @@ func (v *parser_) parseAssociation() (
 	association = ast.AssociationClass().Association(
 		primitive,
 		delimiter,
-		entity,
+		document,
 	)
 	return
 }
@@ -1145,23 +1145,15 @@ func (v *parser_) parseDocument() (
 ) {
 	var tokens = fra.List[TokenLike]()
 
-	// Attempt to parse an optional Header rule.
-	var optionalHeader ast.HeaderLike
-	optionalHeader, _, ok = v.parseHeader()
-	if ok {
-		// No additional put backs allowed at this point.
-		tokens = nil
-	}
-
-	// Attempt to parse a single Entity rule.
-	var entity ast.EntityLike
-	entity, token, ok = v.parseEntity()
+	// Attempt to parse a single Component rule.
+	var component ast.ComponentLike
+	component, token, ok = v.parseComponent()
 	switch {
 	case ok:
 		// No additional put backs allowed at this point.
 		tokens = nil
 	case uti.IsDefined(tokens):
-		// This is not a single Entity rule.
+		// This is not a single Component rule.
 		v.putBack(tokens)
 		return
 	default:
@@ -1170,12 +1162,32 @@ func (v *parser_) parseDocument() (
 		panic(message)
 	}
 
+	// Attempt to parse an optional Parameters rule.
+	var optionalParameters ast.ParametersLike
+	optionalParameters, _, ok = v.parseParameters()
+	if ok {
+		// No additional put backs allowed at this point.
+		tokens = nil
+	}
+
+	// Attempt to parse an optional note token.
+	var optionalNote string
+	optionalNote, token, ok = v.parseToken(NoteToken)
+	if ok {
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	} else {
+		optionalNote = "" // Reset this to undefined.
+	}
+
 	// Found a single Document rule.
 	ok = true
 	v.remove(tokens)
 	document = ast.DocumentClass().Document(
-		optionalHeader,
-		entity,
+		component,
+		optionalParameters,
+		optionalNote,
 	)
 	return
 }
@@ -1371,60 +1383,6 @@ func (v *parser_) parseEmpty() (
 		delimiter1,
 		optionalDelimiter,
 		delimiter2,
-	)
-	return
-}
-
-func (v *parser_) parseEntity() (
-	entity ast.EntityLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = fra.List[TokenLike]()
-
-	// Attempt to parse a single Component rule.
-	var component ast.ComponentLike
-	component, token, ok = v.parseComponent()
-	switch {
-	case ok:
-		// No additional put backs allowed at this point.
-		tokens = nil
-	case uti.IsDefined(tokens):
-		// This is not a single Component rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Entity", token)
-		panic(message)
-	}
-
-	// Attempt to parse an optional Parameters rule.
-	var optionalParameters ast.ParametersLike
-	optionalParameters, _, ok = v.parseParameters()
-	if ok {
-		// No additional put backs allowed at this point.
-		tokens = nil
-	}
-
-	// Attempt to parse an optional note token.
-	var optionalNote string
-	optionalNote, token, ok = v.parseToken(NoteToken)
-	if ok {
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	} else {
-		optionalNote = "" // Reset this to undefined.
-	}
-
-	// Found a single Entity rule.
-	ok = true
-	v.remove(tokens)
-	entity = ast.EntityClass().Entity(
-		component,
-		optionalParameters,
-		optionalNote,
 	)
 	return
 }
@@ -1763,38 +1721,6 @@ argumentsLoop:
 	return
 }
 
-func (v *parser_) parseHeader() (
-	header ast.HeaderLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = fra.List[TokenLike]()
-
-	// Attempt to parse a single comment token.
-	var comment string
-	comment, token, ok = v.parseToken(CommentToken)
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single comment token.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Header", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Found a single Header rule.
-	ok = true
-	v.remove(tokens)
-	header = ast.HeaderClass().Header(comment)
-	return
-}
-
 func (v *parser_) parseIfClause() (
 	ifClause ast.IfClauseLike,
 	token TokenLike,
@@ -1916,12 +1842,12 @@ func (v *parser_) parseIndirect() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Entity Indirect.
-	var entity ast.EntityLike
-	entity, token, ok = v.parseEntity()
+	// Attempt to parse a single Document Indirect.
+	var document ast.DocumentLike
+	document, token, ok = v.parseDocument()
 	if ok {
-		// Found a single Entity Indirect.
-		indirect = ast.IndirectClass().Indirect(entity)
+		// Found a single Document Indirect.
+		indirect = ast.IndirectClass().Indirect(document)
 		return
 	}
 
@@ -2283,30 +2209,30 @@ func (v *parser_) parseItems() (
 		tokens.AppendValue(token)
 	}
 
-	// Attempt to parse multiple Entity rules.
-	var entities = fra.List[ast.EntityLike]()
-entitiesLoop:
+	// Attempt to parse multiple Document rules.
+	var documents = fra.List[ast.DocumentLike]()
+documentsLoop:
 	for count_ := 0; count_ < mat.MaxInt; count_++ {
-		var entity ast.EntityLike
-		entity, token, ok = v.parseEntity()
+		var document ast.DocumentLike
+		document, token, ok = v.parseDocument()
 		if !ok {
 			switch {
 			case count_ >= 1:
-				break entitiesLoop
+				break documentsLoop
 			case uti.IsDefined(tokens):
-				// This is not multiple Entity rules.
+				// This is not multiple Document rules.
 				v.putBack(tokens)
 				return
 			default:
 				// Found a syntax error.
 				var message = v.formatError("$Items", token)
-				message += "1 or more Entity rules are required."
+				message += "1 or more Document rules are required."
 				panic(message)
 			}
 		}
 		// No additional put backs allowed at this point.
 		tokens = nil
-		entities.AppendValue(entity)
+		documents.AppendValue(document)
 	}
 
 	// Attempt to parse a single "]" literal.
@@ -2332,7 +2258,7 @@ entitiesLoop:
 	v.remove(tokens)
 	items = ast.ItemsClass().Items(
 		delimiter1,
-		entities,
+		documents,
 		delimiter2,
 	)
 	return
@@ -2530,12 +2456,12 @@ func (v *parser_) parseLogical() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Entity Logical.
-	var entity ast.EntityLike
-	entity, token, ok = v.parseEntity()
+	// Attempt to parse a single Document Logical.
+	var document ast.DocumentLike
+	document, token, ok = v.parseDocument()
 	if ok {
-		// Found a single Entity Logical.
-		logical = ast.LogicalClass().Logical(entity)
+		// Found a single Document Logical.
+		logical = ast.LogicalClass().Logical(document)
 		return
 	}
 
@@ -3128,12 +3054,12 @@ func (v *parser_) parseNumerical() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Entity Numerical.
-	var entity ast.EntityLike
-	entity, token, ok = v.parseEntity()
+	// Attempt to parse a single Document Numerical.
+	var document ast.DocumentLike
+	document, token, ok = v.parseDocument()
 	if ok {
-		// Found a single Entity Numerical.
-		numerical = ast.NumericalClass().Numerical(entity)
+		// Found a single Document Numerical.
+		numerical = ast.NumericalClass().Numerical(document)
 		return
 	}
 
@@ -4575,12 +4501,12 @@ func (v *parser_) parseSubject() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Entity Subject.
-	var entity ast.EntityLike
-	entity, token, ok = v.parseEntity()
+	// Attempt to parse a single Document Subject.
+	var document ast.DocumentLike
+	document, token, ok = v.parseDocument()
 	if ok {
-		// Found a single Entity Subject.
-		subject = ast.SubjectClass().Subject(entity)
+		// Found a single Document Subject.
+		subject = ast.SubjectClass().Subject(document)
 		return
 	}
 
@@ -5305,16 +5231,14 @@ var parserClassReference_ = &parserClass_{
 	// Initialize the class constants.
 	syntax_: fra.CatalogFromMap[string, string](
 		map[string]string{
-			"$Document": `Header? Entity`,
-			"$Header":   `comment`,
-			"$Entity":   `Component Parameters? note?`,
+			"$Document": `Component Parameters? note?`,
 			"$Component": `
     Element
     String
     Collection
     Procedure`,
 			"$Parameters":  `"(" Association* ")"`,
-			"$Association": `Primitive ":" Entity`,
+			"$Association": `Primitive ":" Document`,
 			"$Primitive": `
     Element
     String`,
@@ -5352,7 +5276,7 @@ var parserClassReference_ = &parserClass_{
     "]"
     ")"`,
 			"$Attributes": `"[" Association+ "]"`,
-			"$Items":      `"[" Entity+ "]"`,
+			"$Items":      `"[" Document+ "]"`,
 			"$Procedure":  `"{" Line* "}"`,
 			"$Line": `
     Annotation
@@ -5454,7 +5378,7 @@ var parserClassReference_ = &parserClass_{
 			"$NotarizeClause": `"notarize" Draft "as" Cited`,
 			"$Expression":     `Subject Predicate*`,
 			"$Subject": `
-    Entity
+    Document
     Subentity
     Precedence
     Referent
@@ -5493,7 +5417,7 @@ var parserClassReference_ = &parserClass_{
 			"$Precedence": `"(" Expression ")"`,
 			"$Referent":   `"@" Indirect`,
 			"$Indirect": `
-    Entity
+    Document
     Subentity
     Referent
     Function
@@ -5501,7 +5425,7 @@ var parserClassReference_ = &parserClass_{
     Value  ! This must be last since others also begin with an identifier.`,
 			"$Complement": `"not" Logical`,
 			"$Logical": `
-    Entity
+    Document
     Subentity
     Precedence
     Referent
@@ -5515,7 +5439,7 @@ var parserClassReference_ = &parserClass_{
     slash
     star`,
 			"$Numerical": `
-    Entity
+    Document
     Subentity
     Precedence
     Referent

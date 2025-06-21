@@ -210,15 +210,15 @@ func (v *visitor_) visitAssociation(
 		2,
 	)
 
-	var entity = association.GetEntity()
-	v.processor_.PreprocessEntity(
-		entity,
+	var document = association.GetDocument()
+	v.processor_.PreprocessDocument(
+		document,
 		1,
 		1,
 	)
-	v.visitEntity(entity)
-	v.processor_.PostprocessEntity(
-		entity,
+	v.visitDocument(document)
+	v.processor_.PostprocessDocument(
+		document,
 		1,
 		1,
 	)
@@ -666,38 +666,48 @@ func (v *visitor_) visitDoClause(
 func (v *visitor_) visitDocument(
 	document ast.DocumentLike,
 ) {
-	var optionalHeader = document.GetOptionalHeader()
-	if uti.IsDefined(optionalHeader) {
-		v.processor_.PreprocessHeader(
-			optionalHeader,
-			1,
-			1,
-		)
-		v.visitHeader(optionalHeader)
-		v.processor_.PostprocessHeader(
-			optionalHeader,
-			1,
-			1,
-		)
-	}
+	var component = document.GetComponent()
+	v.processor_.PreprocessComponent(
+		component,
+		1,
+		1,
+	)
+	v.visitComponent(component)
+	v.processor_.PostprocessComponent(
+		component,
+		1,
+		1,
+	)
 	// Visit slot 1 between terms.
 	v.processor_.ProcessDocumentSlot(
 		document,
 		1,
 	)
 
-	var entity = document.GetEntity()
-	v.processor_.PreprocessEntity(
-		entity,
-		1,
-		1,
+	var optionalParameters = document.GetOptionalParameters()
+	if uti.IsDefined(optionalParameters) {
+		v.processor_.PreprocessParameters(
+			optionalParameters,
+			1,
+			1,
+		)
+		v.visitParameters(optionalParameters)
+		v.processor_.PostprocessParameters(
+			optionalParameters,
+			1,
+			1,
+		)
+	}
+	// Visit slot 2 between terms.
+	v.processor_.ProcessDocumentSlot(
+		document,
+		2,
 	)
-	v.visitEntity(entity)
-	v.processor_.PostprocessEntity(
-		entity,
-		1,
-		1,
-	)
+
+	var optionalNote = document.GetOptionalNote()
+	if uti.IsDefined(optionalNote) {
+		v.processor_.ProcessNote(optionalNote)
+	}
 }
 
 func (v *visitor_) visitDraft(
@@ -769,53 +779,6 @@ func (v *visitor_) visitEmpty(
 
 	var delimiter2 = empty.GetDelimiter2()
 	v.processor_.ProcessDelimiter(delimiter2)
-}
-
-func (v *visitor_) visitEntity(
-	entity ast.EntityLike,
-) {
-	var component = entity.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
-		1,
-		1,
-	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
-		1,
-		1,
-	)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessEntitySlot(
-		entity,
-		1,
-	)
-
-	var optionalParameters = entity.GetOptionalParameters()
-	if uti.IsDefined(optionalParameters) {
-		v.processor_.PreprocessParameters(
-			optionalParameters,
-			1,
-			1,
-		)
-		v.visitParameters(optionalParameters)
-		v.processor_.PostprocessParameters(
-			optionalParameters,
-			1,
-			1,
-		)
-	}
-	// Visit slot 2 between terms.
-	v.processor_.ProcessEntitySlot(
-		entity,
-		2,
-	)
-
-	var optionalNote = entity.GetOptionalNote()
-	if uti.IsDefined(optionalNote) {
-		v.processor_.ProcessNote(optionalNote)
-	}
 }
 
 func (v *visitor_) visitEvent(
@@ -1051,13 +1014,6 @@ func (v *visitor_) visitFunction(
 	v.processor_.ProcessDelimiter(delimiter2)
 }
 
-func (v *visitor_) visitHeader(
-	header ast.HeaderLike,
-) {
-	var comment = header.GetComment()
-	v.processor_.ProcessComment(comment)
-}
-
 func (v *visitor_) visitIfClause(
 	ifClause ast.IfClauseLike,
 ) {
@@ -1146,14 +1102,14 @@ func (v *visitor_) visitIndirect(
 ) {
 	// Visit the possible indirect rule types.
 	switch actual := indirect.GetAny().(type) {
-	case ast.EntityLike:
-		v.processor_.PreprocessEntity(
+	case ast.DocumentLike:
+		v.processor_.PreprocessDocument(
 			actual,
 			1,
 			1,
 		)
-		v.visitEntity(actual)
-		v.processor_.PostprocessEntity(
+		v.visitDocument(actual)
+		v.processor_.PostprocessDocument(
 			actual,
 			1,
 			1,
@@ -1438,22 +1394,22 @@ func (v *visitor_) visitItems(
 		1,
 	)
 
-	var entitiesIndex uint
-	var entities = items.GetEntities().GetIterator()
-	var entitiesCount = uint(entities.GetSize())
-	for entities.HasNext() {
-		entitiesIndex++
-		var rule = entities.GetNext()
-		v.processor_.PreprocessEntity(
+	var documentsIndex uint
+	var documents = items.GetDocuments().GetIterator()
+	var documentsCount = uint(documents.GetSize())
+	for documents.HasNext() {
+		documentsIndex++
+		var rule = documents.GetNext()
+		v.processor_.PreprocessDocument(
 			rule,
-			entitiesIndex,
-			entitiesCount,
+			documentsIndex,
+			documentsCount,
 		)
-		v.visitEntity(rule)
-		v.processor_.PostprocessEntity(
+		v.visitDocument(rule)
+		v.processor_.PostprocessDocument(
 			rule,
-			entitiesIndex,
-			entitiesCount,
+			documentsIndex,
+			documentsCount,
 		)
 	}
 	// Visit slot 2 between terms.
@@ -1594,14 +1550,14 @@ func (v *visitor_) visitLogical(
 ) {
 	// Visit the possible logical rule types.
 	switch actual := logical.GetAny().(type) {
-	case ast.EntityLike:
-		v.processor_.PreprocessEntity(
+	case ast.DocumentLike:
+		v.processor_.PreprocessDocument(
 			actual,
 			1,
 			1,
 		)
-		v.visitEntity(actual)
-		v.processor_.PostprocessEntity(
+		v.visitDocument(actual)
+		v.processor_.PostprocessDocument(
 			actual,
 			1,
 			1,
@@ -2047,14 +2003,14 @@ func (v *visitor_) visitNumerical(
 ) {
 	// Visit the possible numerical rule types.
 	switch actual := numerical.GetAny().(type) {
-	case ast.EntityLike:
-		v.processor_.PreprocessEntity(
+	case ast.DocumentLike:
+		v.processor_.PreprocessDocument(
 			actual,
 			1,
 			1,
 		)
-		v.visitEntity(actual)
-		v.processor_.PostprocessEntity(
+		v.visitDocument(actual)
+		v.processor_.PostprocessDocument(
 			actual,
 			1,
 			1,
@@ -2989,14 +2945,14 @@ func (v *visitor_) visitSubject(
 ) {
 	// Visit the possible subject rule types.
 	switch actual := subject.GetAny().(type) {
-	case ast.EntityLike:
-		v.processor_.PreprocessEntity(
+	case ast.DocumentLike:
+		v.processor_.PreprocessDocument(
 			actual,
 			1,
 			1,
 		)
-		v.visitEntity(actual)
-		v.processor_.PostprocessEntity(
+		v.visitDocument(actual)
+		v.processor_.PostprocessDocument(
 			actual,
 			1,
 			1,

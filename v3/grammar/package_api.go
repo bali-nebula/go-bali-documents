@@ -755,20 +755,6 @@ type Methodical interface {
 		empty ast.EmptyLike,
 		slot_ uint,
 	)
-	PreprocessEntity(
-		entity ast.EntityLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessEntity(
-		entity ast.EntityLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessEntitySlot(
-		entity ast.EntityLike,
-		slot_ uint,
-	)
 	PreprocessEvent(
 		event ast.EventLike,
 		index_ uint,
@@ -851,20 +837,6 @@ type Methodical interface {
 	)
 	ProcessFunctionSlot(
 		function ast.FunctionLike,
-		slot_ uint,
-	)
-	PreprocessHeader(
-		header ast.HeaderLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessHeader(
-		header ast.HeaderLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessHeaderSlot(
-		header ast.HeaderLike,
 		slot_ uint,
 	)
 	PreprocessIfClause(

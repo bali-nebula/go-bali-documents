@@ -56,6 +56,7 @@ func (v *formatter_) GetClass() FormatterClassLike {
 
 func (v *formatter_) FormatDocument(document ast.DocumentLike) string {
 	v.visitor_.VisitDocument(document)
+	v.appendNewline()
 	return v.getResult()
 }
 
@@ -407,12 +408,14 @@ func (v *formatter_) ProcessDoClauseSlot(
 	v.appendString(" ")
 }
 
-func (v *formatter_) PostprocessDocument(
+func (v *formatter_) PreprocessDocument(
 	document ast.DocumentLike,
 	index_ uint,
 	count_ uint,
 ) {
-	v.appendNewline()
+	if count_ > 1 {
+		v.appendNewline()
+	}
 }
 
 func (v *formatter_) ProcessEmptySlot(
@@ -423,24 +426,6 @@ func (v *formatter_) ProcessEmptySlot(
 	if uti.IsUndefined(colon) && slot_ == 1 {
 		v.appendString(" ")
 	}
-}
-
-func (v *formatter_) PreprocessEntity(
-	entity ast.EntityLike,
-	index_ uint,
-	count_ uint,
-) {
-	if count_ > 1 {
-		v.appendNewline()
-	}
-}
-
-func (v *formatter_) PostprocessHeader(
-	header ast.HeaderLike,
-	index_ uint,
-	count_ uint,
-) {
-	v.appendNewline()
 }
 
 func (v *formatter_) ProcessIfClauseSlot(
@@ -469,8 +454,8 @@ func (v *formatter_) ProcessItemsSlot(
 		v.depth_++
 	case 2:
 		v.depth_--
-		var entities = items.GetEntities()
-		if entities.GetSize() > 1 {
+		var documents = items.GetDocuments()
+		if documents.GetSize() > 1 {
 			v.appendNewline()
 		}
 	}

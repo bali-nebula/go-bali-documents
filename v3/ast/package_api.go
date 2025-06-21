@@ -116,7 +116,7 @@ type AssociationClassLike interface {
 	Association(
 		primitive PrimitiveLike,
 		delimiter string,
-		entity EntityLike,
+		document DocumentLike,
 	) AssociationLike
 }
 
@@ -321,8 +321,9 @@ supported by each concrete document-like class.
 type DocumentClassLike interface {
 	// Constructor Methods
 	Document(
-		optionalHeader HeaderLike,
-		entity EntityLike,
+		component ComponentLike,
+		optionalParameters ParametersLike,
+		optionalNote string,
 	) DocumentLike
 }
 
@@ -362,20 +363,6 @@ type EmptyClassLike interface {
 		optionalDelimiter string,
 		delimiter2 string,
 	) EmptyLike
-}
-
-/*
-EntityClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete entity-like class.
-*/
-type EntityClassLike interface {
-	// Constructor Methods
-	Entity(
-		component ComponentLike,
-		optionalParameters ParametersLike,
-		optionalNote string,
-	) EntityLike
 }
 
 /*
@@ -452,18 +439,6 @@ type FunctionClassLike interface {
 		arguments fra.ListLike[ArgumentLike],
 		delimiter2 string,
 	) FunctionLike
-}
-
-/*
-HeaderClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete header-like class.
-*/
-type HeaderClassLike interface {
-	// Constructor Methods
-	Header(
-		comment string,
-	) HeaderLike
 }
 
 /*
@@ -591,7 +566,7 @@ type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
 		delimiter1 string,
-		entities fra.ListLike[EntityLike],
+		documents fra.ListLike[DocumentLike],
 		delimiter2 string,
 	) ItemsLike
 }
@@ -1259,7 +1234,7 @@ type AssociationLike interface {
 	// Attribute Methods
 	GetPrimitive() PrimitiveLike
 	GetDelimiter() string
-	GetEntity() EntityLike
+	GetDocument() DocumentLike
 }
 
 /*
@@ -1480,8 +1455,9 @@ type DocumentLike interface {
 	GetClass() DocumentClassLike
 
 	// Attribute Methods
-	GetOptionalHeader() HeaderLike
-	GetEntity() EntityLike
+	GetComponent() ComponentLike
+	GetOptionalParameters() ParametersLike
+	GetOptionalNote() string
 }
 
 /*
@@ -1523,21 +1499,6 @@ type EmptyLike interface {
 	GetDelimiter1() string
 	GetOptionalDelimiter() string
 	GetDelimiter2() string
-}
-
-/*
-EntityLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete entity-like class.
-*/
-type EntityLike interface {
-	// Principal Methods
-	GetClass() EntityClassLike
-
-	// Attribute Methods
-	GetComponent() ComponentLike
-	GetOptionalParameters() ParametersLike
-	GetOptionalNote() string
 }
 
 /*
@@ -1620,19 +1581,6 @@ type FunctionLike interface {
 	GetDelimiter1() string
 	GetArguments() fra.ListLike[ArgumentLike]
 	GetDelimiter2() string
-}
-
-/*
-HeaderLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete header-like class.
-*/
-type HeaderLike interface {
-	// Principal Methods
-	GetClass() HeaderClassLike
-
-	// Attribute Methods
-	GetComment() string
 }
 
 /*
@@ -1771,7 +1719,7 @@ type ItemsLike interface {
 
 	// Attribute Methods
 	GetDelimiter1() string
-	GetEntities() fra.ListLike[EntityLike]
+	GetDocuments() fra.ListLike[DocumentLike]
 	GetDelimiter2() string
 }
 

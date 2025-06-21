@@ -64,14 +64,12 @@ type (
 	DraftClassLike          = ast.DraftClassLike
 	ElementClassLike        = ast.ElementClassLike
 	EmptyClassLike          = ast.EmptyClassLike
-	EntityClassLike         = ast.EntityClassLike
 	EventClassLike          = ast.EventClassLike
 	ExceptionClassLike      = ast.ExceptionClassLike
 	ExpressionClassLike     = ast.ExpressionClassLike
 	FailureClassLike        = ast.FailureClassLike
 	FlowClassLike           = ast.FlowClassLike
 	FunctionClassLike       = ast.FunctionClassLike
-	HeaderClassLike         = ast.HeaderClassLike
 	IfClauseClassLike       = ast.IfClauseClassLike
 	IndexClassLike          = ast.IndexClassLike
 	IndirectClassLike       = ast.IndirectClassLike
@@ -154,14 +152,12 @@ type (
 	DraftLike          = ast.DraftLike
 	ElementLike        = ast.ElementLike
 	EmptyLike          = ast.EmptyLike
-	EntityLike         = ast.EntityLike
 	EventLike          = ast.EventLike
 	ExceptionLike      = ast.ExceptionLike
 	ExpressionLike     = ast.ExpressionLike
 	FailureLike        = ast.FailureLike
 	FlowLike           = ast.FlowLike
 	FunctionLike       = ast.FunctionLike
-	HeaderLike         = ast.HeaderLike
 	IfClauseLike       = ast.IfClauseLike
 	IndexLike          = ast.IndexLike
 	IndirectLike       = ast.IndirectLike
@@ -360,12 +356,12 @@ func AssociationClass() AssociationClassLike {
 func Association(
 	primitive ast.PrimitiveLike,
 	delimiter string,
-	entity ast.EntityLike,
+	document ast.DocumentLike,
 ) AssociationLike {
 	return AssociationClass().Association(
 		primitive,
 		delimiter,
-		entity,
+		document,
 	)
 }
 
@@ -580,12 +576,14 @@ func DocumentClass() DocumentClassLike {
 }
 
 func Document(
-	optionalHeader ast.HeaderLike,
-	entity ast.EntityLike,
+	component ast.ComponentLike,
+	optionalParameters ast.ParametersLike,
+	optionalNote string,
 ) DocumentLike {
 	return DocumentClass().Document(
-		optionalHeader,
-		entity,
+		component,
+		optionalParameters,
+		optionalNote,
 	)
 }
 
@@ -626,22 +624,6 @@ func Empty(
 		delimiter1,
 		optionalDelimiter,
 		delimiter2,
-	)
-}
-
-func EntityClass() EntityClassLike {
-	return ast.EntityClass()
-}
-
-func Entity(
-	component ast.ComponentLike,
-	optionalParameters ast.ParametersLike,
-	optionalNote string,
-) EntityLike {
-	return EntityClass().Entity(
-		component,
-		optionalParameters,
-		optionalNote,
 	)
 }
 
@@ -722,18 +704,6 @@ func Function(
 		delimiter1,
 		arguments,
 		delimiter2,
-	)
-}
-
-func HeaderClass() HeaderClassLike {
-	return ast.HeaderClass()
-}
-
-func Header(
-	comment string,
-) HeaderLike {
-	return HeaderClass().Header(
-		comment,
 	)
 }
 
@@ -867,12 +837,12 @@ func ItemsClass() ItemsClassLike {
 
 func Items(
 	delimiter1 string,
-	entities fra.ListLike[ast.EntityLike],
+	documents fra.ListLike[ast.DocumentLike],
 	delimiter2 string,
 ) ItemsLike {
 	return ItemsClass().Items(
 		delimiter1,
-		entities,
+		documents,
 		delimiter2,
 	)
 }

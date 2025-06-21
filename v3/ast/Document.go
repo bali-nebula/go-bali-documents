@@ -34,16 +34,18 @@ func DocumentClass() DocumentClassLike {
 // Constructor Methods
 
 func (c *documentClass_) Document(
-	optionalHeader HeaderLike,
-	entity EntityLike,
+	component ComponentLike,
+	optionalParameters ParametersLike,
+	optionalNote string,
 ) DocumentLike {
-	if uti.IsUndefined(entity) {
-		panic("The \"entity\" attribute is required by this class.")
+	if uti.IsUndefined(component) {
+		panic("The \"component\" attribute is required by this class.")
 	}
 	var instance = &document_{
 		// Initialize the instance attributes.
-		optionalHeader_: optionalHeader,
-		entity_:         entity,
+		component_:          component,
+		optionalParameters_: optionalParameters,
+		optionalNote_:       optionalNote,
 	}
 	return instance
 }
@@ -58,12 +60,16 @@ func (v *document_) GetClass() DocumentClassLike {
 
 // Attribute Methods
 
-func (v *document_) GetOptionalHeader() HeaderLike {
-	return v.optionalHeader_
+func (v *document_) GetComponent() ComponentLike {
+	return v.component_
 }
 
-func (v *document_) GetEntity() EntityLike {
-	return v.entity_
+func (v *document_) GetOptionalParameters() ParametersLike {
+	return v.optionalParameters_
+}
+
+func (v *document_) GetOptionalNote() string {
+	return v.optionalNote_
 }
 
 // PROTECTED INTERFACE
@@ -72,8 +78,9 @@ func (v *document_) GetEntity() EntityLike {
 
 type document_ struct {
 	// Declare the instance attributes.
-	optionalHeader_ HeaderLike
-	entity_         EntityLike
+	component_          ComponentLike
+	optionalParameters_ ParametersLike
+	optionalNote_       string
 }
 
 // Class Structure

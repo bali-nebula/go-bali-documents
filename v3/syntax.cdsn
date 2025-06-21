@@ -22,11 +22,7 @@ For more information on CDSN see the wiki at:
 │                               RULE DEFINITIONS                               │
 └──────────────────────────────────────────────────────────────────────────────┘
 <!
-$Document: Header? Entity
-
-$Header: comment
-
-$Entity: Component Parameters? note?
+$Document: Component Parameters? note?
 
 $Component:
     Element
@@ -36,7 +32,7 @@ $Component:
 
 $Parameters: "(" Association* ")"
 
-$Association: Primitive ":" Entity
+$Association: Primitive ":" Document
 
 $Primitive:
     Element
@@ -84,7 +80,7 @@ $Ket:
 
 $Attributes: "[" Association+ "]"
 
-$Items: "[" Entity+ "]"
+$Items: "[" Document+ "]"
 
 $Procedure: "{" Line* "}"
 
@@ -242,7 +238,7 @@ $NotarizeClause: "notarize" Draft "as" Cited
 $Expression: Subject Predicate*
 
 $Subject:
-    Entity
+    Document
     Subentity
     Precedence
     Referent
@@ -290,7 +286,7 @@ $Precedence: "(" Expression ")"
 $Referent: "@" Indirect
 
 $Indirect:
-    Entity
+    Document
     Subentity
     Referent
     Function
@@ -300,7 +296,7 @@ $Indirect:
 $Complement: "not" Logical
 
 $Logical:
-    Entity
+    Document
     Subentity
     Precedence
     Referent
@@ -317,7 +313,7 @@ $Inverse:
     star
 
 $Numerical:
-    Entity
+    Document
     Subentity
     Precedence
     Referent

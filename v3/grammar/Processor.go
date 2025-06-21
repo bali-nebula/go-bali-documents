@@ -725,26 +725,6 @@ func (v *processor_) ProcessEmptySlot(
 ) {
 }
 
-func (v *processor_) PreprocessEntity(
-	entity ast.EntityLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessEntity(
-	entity ast.EntityLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessEntitySlot(
-	entity ast.EntityLike,
-	slot_ uint,
-) {
-}
-
 func (v *processor_) PreprocessEvent(
 	event ast.EventLike,
 	index_ uint,
@@ -861,26 +841,6 @@ func (v *processor_) PostprocessFunction(
 
 func (v *processor_) ProcessFunctionSlot(
 	function ast.FunctionLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PreprocessHeader(
-	header ast.HeaderLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessHeader(
-	header ast.HeaderLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessHeaderSlot(
-	header ast.HeaderLike,
 	slot_ uint,
 ) {
 }
