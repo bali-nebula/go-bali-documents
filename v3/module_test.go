@@ -12,7 +12,7 @@ package module_test
 
 import (
 	fmt "fmt"
-	gra "github.com/bali-nebula/go-bali-documents/v3/grammar"
+	doc "github.com/bali-nebula/go-bali-documents/v3"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 	ass "github.com/stretchr/testify/assert"
 	osx "os"
@@ -23,9 +23,6 @@ import (
 const testDirectory = "./test/"
 
 func TestParsingRoundtrips(t *tes.T) {
-	var parser = gra.ParserClass().Parser()
-	var formatter = gra.FormatterClass().Formatter()
-
 	var files, err = osx.ReadDir(testDirectory)
 	if err != nil {
 		panic("Could not find the ./test directory.")
@@ -36,8 +33,8 @@ func TestParsingRoundtrips(t *tes.T) {
 		if sts.HasSuffix(filename, ".bali") {
 			fmt.Println(filename)
 			var source = uti.ReadFile(filename)
-			var document = parser.ParseSource(source)
-			var formatted = formatter.FormatDocument(document)
+			var document = doc.ParseSource(source)
+			var formatted = doc.FormatDocument(document)
 			ass.Equal(t, source, formatted)
 		}
 	}

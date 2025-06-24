@@ -1564,3 +1564,17 @@ func Visitor(
 }
 
 // GLOBAL FUNCTIONS
+
+func FormatDocument(
+	document DocumentLike,
+) string {
+	var formatter = Formatter()
+	return formatter.FormatDocument(document)
+}
+
+func ParseSource(
+	source string,
+) DocumentLike {
+	var parser = Parser()
+	return parser.ParseSource(source)
+}
