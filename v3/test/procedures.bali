@@ -22,7 +22,7 @@
 
     !>
         This is a comment...
-
+        
         with an empty line.
     <!
     if flip() do {

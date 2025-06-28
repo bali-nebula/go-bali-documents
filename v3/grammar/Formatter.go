@@ -77,6 +77,7 @@ func (v *formatter_) ProcessAsynchronous(
 func (v *formatter_) ProcessBinary(
 	binary string,
 ) {
+	binary = v.adjustIndentation(binary)
 	v.appendString(binary)
 }
 
@@ -89,6 +90,7 @@ func (v *formatter_) ProcessBoolean(
 func (v *formatter_) ProcessBytecode(
 	bytecode string,
 ) {
+	bytecode = v.adjustIndentation(bytecode)
 	v.appendString(bytecode)
 }
 
@@ -101,6 +103,7 @@ func (v *formatter_) ProcessCaret(
 func (v *formatter_) ProcessComment(
 	comment string,
 ) {
+	comment = v.adjustIndentation(comment)
 	v.appendString(comment)
 }
 
@@ -173,6 +176,7 @@ func (v *formatter_) ProcessName(
 func (v *formatter_) ProcessNarrative(
 	narrative string,
 ) {
+	narrative = v.adjustIndentation(narrative)
 	v.appendString(narrative)
 }
 
@@ -638,6 +642,37 @@ const _indentation = "    "
 // PROTECTED INTERFACE
 
 // Private Methods
+
+func (v *formatter_) adjustIndentation(
+	multiline string,
+) string {
+	// Calculate the current indentation level.
+	var indentation string
+	var count uint
+	for ; count < v.depth_; count++ {
+		indentation += "    "
+	}
+
+	// Adjust the indentation level in each line in the multiline string.
+	var lines = sts.Split(multiline, "\n")
+	var lastIndex = len(lines) - 1
+	var cut = len(lines[lastIndex]) - 2 // The previous indentation level.
+	for index, line := range lines {
+		if index > 0 {
+			// The first line is a two character delimiter that is never indented.
+			if len(line) < cut {
+				// This is a blank line that should still be indented.
+				lines[index] = indentation
+			} else {
+				// Replace previous indentation with the new one.
+				lines[index] = indentation + line[cut:]
+			}
+		}
+	}
+	multiline = sts.Join(lines, "\n")
+
+	return multiline
+}
 
 func (v *formatter_) appendNewline() {
 	var newline = "\n"
