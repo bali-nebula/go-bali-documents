@@ -36,7 +36,6 @@ func StatementClass() StatementClassLike {
 func (c *statementClass_) Statement(
 	mainClause MainClauseLike,
 	optionalOnClause OnClauseLike,
-	optionalNote string,
 ) StatementLike {
 	if uti.IsUndefined(mainClause) {
 		panic("The \"mainClause\" attribute is required by this class.")
@@ -45,7 +44,6 @@ func (c *statementClass_) Statement(
 		// Initialize the instance attributes.
 		mainClause_:       mainClause,
 		optionalOnClause_: optionalOnClause,
-		optionalNote_:     optionalNote,
 	}
 	return instance
 }
@@ -68,10 +66,6 @@ func (v *statement_) GetOptionalOnClause() OnClauseLike {
 	return v.optionalOnClause_
 }
 
-func (v *statement_) GetOptionalNote() string {
-	return v.optionalNote_
-}
-
 // PROTECTED INTERFACE
 
 // Instance Structure
@@ -80,7 +74,6 @@ type statement_ struct {
 	// Declare the instance attributes.
 	mainClause_       MainClauseLike
 	optionalOnClause_ OnClauseLike
-	optionalNote_     string
 }
 
 // Class Structure

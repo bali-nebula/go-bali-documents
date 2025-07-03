@@ -133,30 +133,25 @@ func (v *parser_) parseAnnotation() (
 	token TokenLike,
 	ok bool,
 ) {
-	var tokens = fra.List[TokenLike]()
-
-	// Attempt to parse a single comment token.
+	// Attempt to parse a single comment Annotation.
 	var comment string
 	comment, token, ok = v.parseToken(CommentToken)
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single comment token.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Annotation", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
+	if ok {
+		// Found a single comment Annotation.
+		annotation = ast.AnnotationClass().Annotation(comment)
+		return
 	}
 
-	// Found a single Annotation rule.
-	ok = true
-	v.remove(tokens)
-	annotation = ast.AnnotationClass().Annotation(comment)
+	// Attempt to parse a single note Annotation.
+	var note string
+	note, token, ok = v.parseToken(NoteToken)
+	if ok {
+		// Found a single note Annotation.
+		annotation = ast.AnnotationClass().Annotation(note)
+		return
+	}
+
+	// This is not a single Annotation rule.
 	return
 }
 
@@ -4294,24 +4289,12 @@ func (v *parser_) parseStatement() (
 		tokens = nil
 	}
 
-	// Attempt to parse an optional note token.
-	var optionalNote string
-	optionalNote, token, ok = v.parseToken(NoteToken)
-	if ok {
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	} else {
-		optionalNote = "" // Reset this to undefined.
-	}
-
 	// Found a single Statement rule.
 	ok = true
 	v.remove(tokens)
 	statement = ast.StatementClass().Statement(
 		mainClause,
 		optionalOnClause,
-		optionalNote,
 	)
 	return
 }
@@ -5281,8 +5264,10 @@ var parserClassReference_ = &parserClass_{
 			"$Line": `
     Annotation
     Statement`,
-			"$Annotation": `comment`,
-			"$Statement":  `MainClause OnClause? note?`,
+			"$Annotation": `
+    comment
+    note`,
+			"$Statement": `MainClause OnClause?`,
 			"$MainClause": `
     Flow
     Induction

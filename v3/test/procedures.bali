@@ -1,6 +1,8 @@
 {
     if true do {
-    }  ! This is a note.
+
+        ! This is a note.
+    }
     while ok do {
         accept messages[index]
 
@@ -50,6 +52,8 @@
         let attribute[$first 3] ?= undefined
     }
     do list<-addValue(value)
+
+    ! Check for empty list.
     if list<-isEmpty() and not (value = none) do {
         do list<-addValue(value)
     }

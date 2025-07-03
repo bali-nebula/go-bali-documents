@@ -34,14 +34,14 @@ func AnnotationClass() AnnotationClassLike {
 // Constructor Methods
 
 func (c *annotationClass_) Annotation(
-	comment string,
+	any_ any,
 ) AnnotationLike {
-	if uti.IsUndefined(comment) {
-		panic("The \"comment\" attribute is required by this class.")
+	if uti.IsUndefined(any_) {
+		panic("The \"any\" attribute is required by this class.")
 	}
 	var instance = &annotation_{
 		// Initialize the instance attributes.
-		comment_: comment,
+		any_: any_,
 	}
 	return instance
 }
@@ -56,8 +56,8 @@ func (v *annotation_) GetClass() AnnotationClassLike {
 
 // Attribute Methods
 
-func (v *annotation_) GetComment() string {
-	return v.comment_
+func (v *annotation_) GetAny() any {
+	return v.any_
 }
 
 // PROTECTED INTERFACE
@@ -66,7 +66,7 @@ func (v *annotation_) GetComment() string {
 
 type annotation_ struct {
 	// Declare the instance attributes.
-	comment_ string
+	any_ any
 }
 
 // Class Structure

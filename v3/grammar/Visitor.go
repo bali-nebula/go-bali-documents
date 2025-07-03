@@ -103,8 +103,14 @@ func (v *visitor_) visitAcceptClause(
 func (v *visitor_) visitAnnotation(
 	annotation ast.AnnotationLike,
 ) {
-	var comment = annotation.GetComment()
-	v.processor_.ProcessComment(comment)
+	// Visit the possible annotation expression types.
+	var actual = annotation.GetAny().(string)
+	switch {
+	case ScannerClass().MatchesType(actual, CommentToken):
+		v.processor_.ProcessComment(actual)
+	case ScannerClass().MatchesType(actual, NoteToken):
+		v.processor_.ProcessNote(actual)
+	}
 }
 
 func (v *visitor_) visitArgument(
@@ -2855,16 +2861,6 @@ func (v *visitor_) visitStatement(
 			1,
 			1,
 		)
-	}
-	// Visit slot 2 between terms.
-	v.processor_.ProcessStatementSlot(
-		statement,
-		2,
-	)
-
-	var optionalNote = statement.GetOptionalNote()
-	if uti.IsDefined(optionalNote) {
-		v.processor_.ProcessNote(optionalNote)
 	}
 }
 

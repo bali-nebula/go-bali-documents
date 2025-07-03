@@ -56,7 +56,6 @@ func (v *formatter_) GetClass() FormatterClassLike {
 
 func (v *formatter_) FormatDocument(document ast.DocumentLike) string {
 	v.visitor_.VisitDocument(document)
-	v.appendNewline()
 	return v.getResult()
 }
 
@@ -189,7 +188,6 @@ func (v *formatter_) ProcessNewline(
 func (v *formatter_) ProcessNote(
 	note string,
 ) {
-	v.appendString("  ")
 	v.appendString(note)
 }
 
@@ -418,6 +416,26 @@ func (v *formatter_) PreprocessDocument(
 	count_ uint,
 ) {
 	if count_ > 1 {
+		v.appendNewline()
+	}
+}
+
+func (v *formatter_) ProcessDocumentSlot(
+	document ast.DocumentLike,
+	slot_ uint,
+) {
+	var note = document.GetOptionalNote()
+	if uti.IsDefined(note) && slot_ == 2 {
+		v.appendString("  ")
+	}
+}
+
+func (v *formatter_) PostprocessDocument(
+	document ast.DocumentLike,
+	index_ uint,
+	count_ uint,
+) {
+	if v.depth_ == 0 {
 		v.appendNewline()
 	}
 }

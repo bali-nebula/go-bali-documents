@@ -306,10 +306,10 @@ func AnnotationClass() AnnotationClassLike {
 }
 
 func Annotation(
-	comment string,
+	any_ any,
 ) AnnotationLike {
 	return AnnotationClass().Annotation(
-		comment,
+		any_,
 	)
 }
 
@@ -1318,12 +1318,10 @@ func StatementClass() StatementClassLike {
 func Statement(
 	mainClause ast.MainClauseLike,
 	optionalOnClause ast.OnClauseLike,
-	optionalNote string,
 ) StatementLike {
 	return StatementClass().Statement(
 		mainClause,
 		optionalOnClause,
-		optionalNote,
 	)
 }
 

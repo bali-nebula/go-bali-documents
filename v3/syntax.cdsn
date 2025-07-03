@@ -88,9 +88,11 @@ $Line:
     Annotation
     Statement
 
-$Annotation: comment
+$Annotation:
+    comment
+    note
 
-$Statement: MainClause OnClause? note?
+$Statement: MainClause OnClause?
 
 $MainClause:
     Flow

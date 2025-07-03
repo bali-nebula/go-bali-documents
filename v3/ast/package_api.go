@@ -66,7 +66,7 @@ supported by each concrete annotation-like class.
 type AnnotationClassLike interface {
 	// Constructor Methods
 	Annotation(
-		comment string,
+		any_ any,
 	) AnnotationLike
 }
 
@@ -1005,7 +1005,6 @@ type StatementClassLike interface {
 	Statement(
 		mainClause MainClauseLike,
 		optionalOnClause OnClauseLike,
-		optionalNote string,
 	) StatementLike
 }
 
@@ -1180,7 +1179,7 @@ type AnnotationLike interface {
 	GetClass() AnnotationClassLike
 
 	// Attribute Methods
-	GetComment() string
+	GetAny() any
 }
 
 /*
@@ -2191,7 +2190,6 @@ type StatementLike interface {
 	// Attribute Methods
 	GetMainClause() MainClauseLike
 	GetOptionalOnClause() OnClauseLike
-	GetOptionalNote() string
 }
 
 /*
