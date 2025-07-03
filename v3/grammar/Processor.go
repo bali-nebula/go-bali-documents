@@ -925,26 +925,6 @@ func (v *processor_) ProcessInductionSlot(
 ) {
 }
 
-func (v *processor_) PreprocessInterval(
-	interval ast.IntervalLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessInterval(
-	interval ast.IntervalLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessIntervalSlot(
-	interval ast.IntervalLike,
-	slot_ uint,
-) {
-}
-
 func (v *processor_) PreprocessInverse(
 	inverse ast.InverseLike,
 	index_ uint,
@@ -1481,6 +1461,26 @@ func (v *processor_) PostprocessPublishClause(
 
 func (v *processor_) ProcessPublishClauseSlot(
 	publishClause ast.PublishClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PreprocessRange(
+	range_ ast.RangeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessRange(
+	range_ ast.RangeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessRangeSlot(
+	range_ ast.RangeLike,
 	slot_ uint,
 ) {
 }

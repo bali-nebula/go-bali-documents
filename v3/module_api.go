@@ -74,7 +74,6 @@ type (
 	IndexClassLike          = ast.IndexClassLike
 	IndirectClassLike       = ast.IndirectClassLike
 	InductionClassLike      = ast.InductionClassLike
-	IntervalClassLike       = ast.IntervalClassLike
 	InverseClassLike        = ast.InverseClassLike
 	InversionClassLike      = ast.InversionClassLike
 	InvocationClassLike     = ast.InvocationClassLike
@@ -102,6 +101,7 @@ type (
 	PrimitiveClassLike      = ast.PrimitiveClassLike
 	ProcedureClassLike      = ast.ProcedureClassLike
 	PublishClauseClassLike  = ast.PublishClauseClassLike
+	RangeClassLike          = ast.RangeClassLike
 	RecipientClassLike      = ast.RecipientClassLike
 	ReferentClassLike       = ast.ReferentClassLike
 	RejectClauseClassLike   = ast.RejectClauseClassLike
@@ -162,7 +162,6 @@ type (
 	IndexLike          = ast.IndexLike
 	IndirectLike       = ast.IndirectLike
 	InductionLike      = ast.InductionLike
-	IntervalLike       = ast.IntervalLike
 	InverseLike        = ast.InverseLike
 	InversionLike      = ast.InversionLike
 	InvocationLike     = ast.InvocationLike
@@ -190,6 +189,7 @@ type (
 	PrimitiveLike      = ast.PrimitiveLike
 	ProcedureLike      = ast.ProcedureLike
 	PublishClauseLike  = ast.PublishClauseLike
+	RangeLike          = ast.RangeLike
 	RecipientLike      = ast.RecipientLike
 	ReferentLike       = ast.ReferentLike
 	RejectClauseLike   = ast.RejectClauseLike
@@ -761,26 +761,6 @@ func Induction(
 	)
 }
 
-func IntervalClass() IntervalClassLike {
-	return ast.IntervalClass()
-}
-
-func Interval(
-	bra ast.BraLike,
-	primitive1 ast.PrimitiveLike,
-	delimiter string,
-	primitive2 ast.PrimitiveLike,
-	ket ast.KetLike,
-) IntervalLike {
-	return IntervalClass().Interval(
-		bra,
-		primitive1,
-		delimiter,
-		primitive2,
-		ket,
-	)
-}
-
 func InverseClass() InverseClassLike {
 	return ast.InverseClass()
 }
@@ -1166,6 +1146,26 @@ func PublishClause(
 	return PublishClauseClass().PublishClause(
 		delimiter,
 		event,
+	)
+}
+
+func RangeClass() RangeClassLike {
+	return ast.RangeClass()
+}
+
+func Range(
+	bra ast.BraLike,
+	primitive1 ast.PrimitiveLike,
+	delimiter string,
+	primitive2 ast.PrimitiveLike,
+	ket ast.KetLike,
+) RangeLike {
+	return RangeClass().Range(
+		bra,
+		primitive1,
+		delimiter,
+		primitive2,
+		ket,
 	)
 }
 

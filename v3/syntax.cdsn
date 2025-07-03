@@ -62,13 +62,13 @@ $String:
 
 $Collection:
     Empty
-    Interval
+    Range
     Attributes
-    Items  ! Must be after interval and attributes.
+    Items  ! Must be after range and attributes.
 
 $Empty: "[" ":"? "]"
 
-$Interval: Bra Primitive ".." Primitive Ket
+$Range: Bra Primitive ".." Primitive Ket
 
 $Bra:
     "["

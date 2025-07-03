@@ -27,19 +27,19 @@ import (
 
 // Access Function
 
-func IntervalClass() IntervalClassLike {
-	return intervalClass()
+func RangeClass() RangeClassLike {
+	return rangeClass()
 }
 
 // Constructor Methods
 
-func (c *intervalClass_) Interval(
+func (c *rangeClass_) Range(
 	bra BraLike,
 	primitive1 PrimitiveLike,
 	delimiter string,
 	primitive2 PrimitiveLike,
 	ket KetLike,
-) IntervalLike {
+) RangeLike {
 	if uti.IsUndefined(bra) {
 		panic("The \"bra\" attribute is required by this class.")
 	}
@@ -55,7 +55,7 @@ func (c *intervalClass_) Interval(
 	if uti.IsUndefined(ket) {
 		panic("The \"ket\" attribute is required by this class.")
 	}
-	var instance = &interval_{
+	var instance = &range_{
 		// Initialize the instance attributes.
 		bra_:        bra,
 		primitive1_: primitive1,
@@ -70,29 +70,29 @@ func (c *intervalClass_) Interval(
 
 // Principal Methods
 
-func (v *interval_) GetClass() IntervalClassLike {
-	return intervalClass()
+func (v *range_) GetClass() RangeClassLike {
+	return rangeClass()
 }
 
 // Attribute Methods
 
-func (v *interval_) GetBra() BraLike {
+func (v *range_) GetBra() BraLike {
 	return v.bra_
 }
 
-func (v *interval_) GetPrimitive1() PrimitiveLike {
+func (v *range_) GetPrimitive1() PrimitiveLike {
 	return v.primitive1_
 }
 
-func (v *interval_) GetDelimiter() string {
+func (v *range_) GetDelimiter() string {
 	return v.delimiter_
 }
 
-func (v *interval_) GetPrimitive2() PrimitiveLike {
+func (v *range_) GetPrimitive2() PrimitiveLike {
 	return v.primitive2_
 }
 
-func (v *interval_) GetKet() KetLike {
+func (v *range_) GetKet() KetLike {
 	return v.ket_
 }
 
@@ -100,7 +100,7 @@ func (v *interval_) GetKet() KetLike {
 
 // Instance Structure
 
-type interval_ struct {
+type range_ struct {
 	// Declare the instance attributes.
 	bra_        BraLike
 	primitive1_ PrimitiveLike
@@ -111,16 +111,16 @@ type interval_ struct {
 
 // Class Structure
 
-type intervalClass_ struct {
+type rangeClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func intervalClass() *intervalClass_ {
-	return intervalClassReference_
+func rangeClass() *rangeClass_ {
+	return rangeClassReference_
 }
 
-var intervalClassReference_ = &intervalClass_{
+var rangeClassReference_ = &rangeClass_{
 	// Initialize the class constants.
 }

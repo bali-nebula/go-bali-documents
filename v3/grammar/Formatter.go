@@ -639,10 +639,6 @@ func (v *formatter_) ProcessWithClauseSlot(
 
 const _indentation = "    "
 
-// PROTECTED INTERFACE
-
-// Private Methods
-
 func (v *formatter_) adjustIndentation(
 	multiline string,
 ) string {
@@ -673,6 +669,10 @@ func (v *formatter_) adjustIndentation(
 
 	return multiline
 }
+
+// PROTECTED INTERFACE
+
+// Private Methods
 
 func (v *formatter_) appendNewline() {
 	var newline = "\n"

@@ -446,14 +446,14 @@ func (v *visitor_) visitCollection(
 			1,
 			1,
 		)
-	case ast.IntervalLike:
-		v.processor_.PreprocessInterval(
+	case ast.RangeLike:
+		v.processor_.PreprocessRange(
 			actual,
 			1,
 			1,
 		)
-		v.visitInterval(actual)
-		v.processor_.PostprocessInterval(
+		v.visitRange(actual)
+		v.processor_.PostprocessRange(
 			actual,
 			1,
 			1,
@@ -1207,85 +1207,6 @@ func (v *visitor_) visitInduction(
 			1,
 		)
 	}
-}
-
-func (v *visitor_) visitInterval(
-	interval ast.IntervalLike,
-) {
-	var bra = interval.GetBra()
-	v.processor_.PreprocessBra(
-		bra,
-		1,
-		1,
-	)
-	v.visitBra(bra)
-	v.processor_.PostprocessBra(
-		bra,
-		1,
-		1,
-	)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessIntervalSlot(
-		interval,
-		1,
-	)
-
-	var primitive1 = interval.GetPrimitive1()
-	v.processor_.PreprocessPrimitive(
-		primitive1,
-		1,
-		1,
-	)
-	v.visitPrimitive(primitive1)
-	v.processor_.PostprocessPrimitive(
-		primitive1,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessIntervalSlot(
-		interval,
-		2,
-	)
-
-	var delimiter = interval.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessIntervalSlot(
-		interval,
-		3,
-	)
-
-	var primitive2 = interval.GetPrimitive2()
-	v.processor_.PreprocessPrimitive(
-		primitive2,
-		1,
-		1,
-	)
-	v.visitPrimitive(primitive2)
-	v.processor_.PostprocessPrimitive(
-		primitive2,
-		1,
-		1,
-	)
-	// Visit slot 4 between terms.
-	v.processor_.ProcessIntervalSlot(
-		interval,
-		4,
-	)
-
-	var ket = interval.GetKet()
-	v.processor_.PreprocessKet(
-		ket,
-		1,
-		1,
-	)
-	v.visitKet(ket)
-	v.processor_.PostprocessKet(
-		ket,
-		1,
-		1,
-	)
 }
 
 func (v *visitor_) visitInverse(
@@ -2468,6 +2389,85 @@ func (v *visitor_) visitPublishClause(
 	v.visitEvent(event)
 	v.processor_.PostprocessEvent(
 		event,
+		1,
+		1,
+	)
+}
+
+func (v *visitor_) visitRange(
+	range_ ast.RangeLike,
+) {
+	var bra = range_.GetBra()
+	v.processor_.PreprocessBra(
+		bra,
+		1,
+		1,
+	)
+	v.visitBra(bra)
+	v.processor_.PostprocessBra(
+		bra,
+		1,
+		1,
+	)
+	// Visit slot 1 between terms.
+	v.processor_.ProcessRangeSlot(
+		range_,
+		1,
+	)
+
+	var primitive1 = range_.GetPrimitive1()
+	v.processor_.PreprocessPrimitive(
+		primitive1,
+		1,
+		1,
+	)
+	v.visitPrimitive(primitive1)
+	v.processor_.PostprocessPrimitive(
+		primitive1,
+		1,
+		1,
+	)
+	// Visit slot 2 between terms.
+	v.processor_.ProcessRangeSlot(
+		range_,
+		2,
+	)
+
+	var delimiter = range_.GetDelimiter()
+	v.processor_.ProcessDelimiter(delimiter)
+	// Visit slot 3 between terms.
+	v.processor_.ProcessRangeSlot(
+		range_,
+		3,
+	)
+
+	var primitive2 = range_.GetPrimitive2()
+	v.processor_.PreprocessPrimitive(
+		primitive2,
+		1,
+		1,
+	)
+	v.visitPrimitive(primitive2)
+	v.processor_.PostprocessPrimitive(
+		primitive2,
+		1,
+		1,
+	)
+	// Visit slot 4 between terms.
+	v.processor_.ProcessRangeSlot(
+		range_,
+		4,
+	)
+
+	var ket = range_.GetKet()
+	v.processor_.PreprocessKet(
+		ket,
+		1,
+		1,
+	)
+	v.visitKet(ket)
+	v.processor_.PostprocessKet(
+		ket,
 		1,
 		1,
 	)

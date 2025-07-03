@@ -895,20 +895,6 @@ type Methodical interface {
 		induction ast.InductionLike,
 		slot_ uint,
 	)
-	PreprocessInterval(
-		interval ast.IntervalLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessInterval(
-		interval ast.IntervalLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessIntervalSlot(
-		interval ast.IntervalLike,
-		slot_ uint,
-	)
 	PreprocessInverse(
 		inverse ast.InverseLike,
 		index_ uint,
@@ -1285,6 +1271,20 @@ type Methodical interface {
 	)
 	ProcessPublishClauseSlot(
 		publishClause ast.PublishClauseLike,
+		slot_ uint,
+	)
+	PreprocessRange(
+		range_ ast.RangeLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessRange(
+		range_ ast.RangeLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessRangeSlot(
+		range_ ast.RangeLike,
 		slot_ uint,
 	)
 	PreprocessRecipient(

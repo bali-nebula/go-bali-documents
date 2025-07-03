@@ -786,12 +786,12 @@ func (v *parser_) parseCollection() (
 		return
 	}
 
-	// Attempt to parse a single Interval Collection.
-	var interval ast.IntervalLike
-	interval, token, ok = v.parseInterval()
+	// Attempt to parse a single Range Collection.
+	var range_ ast.RangeLike
+	range_, token, ok = v.parseRange()
 	if ok {
-		// Found a single Interval Collection.
-		collection = ast.CollectionClass().Collection(interval)
+		// Found a single Range Collection.
+		collection = ast.CollectionClass().Collection(range_)
 		return
 	}
 
@@ -1924,120 +1924,6 @@ func (v *parser_) parseInduction() (
 	}
 
 	// This is not a single Induction rule.
-	return
-}
-
-func (v *parser_) parseInterval() (
-	interval ast.IntervalLike,
-	token TokenLike,
-	ok bool,
-) {
-	var tokens = fra.List[TokenLike]()
-
-	// Attempt to parse a single Bra rule.
-	var bra ast.BraLike
-	bra, token, ok = v.parseBra()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Bra rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Interval", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single Primitive rule.
-	var primitive1 ast.PrimitiveLike
-	primitive1, token, ok = v.parsePrimitive()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Primitive rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Interval", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single ".." literal.
-	var delimiter string
-	delimiter, token, ok = v.parseDelimiter("..")
-	if !ok {
-		if uti.IsDefined(tokens) {
-			// This is not a single Interval rule.
-			v.putBack(tokens)
-			return
-		} else {
-			// Found a syntax error.
-			var message = v.formatError("$Interval", token)
-			panic(message)
-		}
-	}
-	if uti.IsDefined(tokens) {
-		tokens.AppendValue(token)
-	}
-
-	// Attempt to parse a single Primitive rule.
-	var primitive2 ast.PrimitiveLike
-	primitive2, token, ok = v.parsePrimitive()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Primitive rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Interval", token)
-		panic(message)
-	}
-
-	// Attempt to parse a single Ket rule.
-	var ket ast.KetLike
-	ket, token, ok = v.parseKet()
-	switch {
-	case ok:
-		// Found a multiexpression token.
-		if uti.IsDefined(tokens) {
-			tokens.AppendValue(token)
-		}
-	case uti.IsDefined(tokens):
-		// This is not a single Ket rule.
-		v.putBack(tokens)
-		return
-	default:
-		// Found a syntax error.
-		var message = v.formatError("$Interval", token)
-		panic(message)
-	}
-
-	// Found a single Interval rule.
-	ok = true
-	v.remove(tokens)
-	interval = ast.IntervalClass().Interval(
-		bra,
-		primitive1,
-		delimiter,
-		primitive2,
-		ket,
-	)
 	return
 }
 
@@ -3715,6 +3601,120 @@ func (v *parser_) parsePublishClause() (
 	return
 }
 
+func (v *parser_) parseRange() (
+	range_ ast.RangeLike,
+	token TokenLike,
+	ok bool,
+) {
+	var tokens = fra.List[TokenLike]()
+
+	// Attempt to parse a single Bra rule.
+	var bra ast.BraLike
+	bra, token, ok = v.parseBra()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single Bra rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Range", token)
+		panic(message)
+	}
+
+	// Attempt to parse a single Primitive rule.
+	var primitive1 ast.PrimitiveLike
+	primitive1, token, ok = v.parsePrimitive()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single Primitive rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Range", token)
+		panic(message)
+	}
+
+	// Attempt to parse a single ".." literal.
+	var delimiter string
+	delimiter, token, ok = v.parseDelimiter("..")
+	if !ok {
+		if uti.IsDefined(tokens) {
+			// This is not a single Range rule.
+			v.putBack(tokens)
+			return
+		} else {
+			// Found a syntax error.
+			var message = v.formatError("$Range", token)
+			panic(message)
+		}
+	}
+	if uti.IsDefined(tokens) {
+		tokens.AppendValue(token)
+	}
+
+	// Attempt to parse a single Primitive rule.
+	var primitive2 ast.PrimitiveLike
+	primitive2, token, ok = v.parsePrimitive()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single Primitive rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Range", token)
+		panic(message)
+	}
+
+	// Attempt to parse a single Ket rule.
+	var ket ast.KetLike
+	ket, token, ok = v.parseKet()
+	switch {
+	case ok:
+		// Found a multiexpression token.
+		if uti.IsDefined(tokens) {
+			tokens.AppendValue(token)
+		}
+	case uti.IsDefined(tokens):
+		// This is not a single Ket rule.
+		v.putBack(tokens)
+		return
+	default:
+		// Found a syntax error.
+		var message = v.formatError("$Range", token)
+		panic(message)
+	}
+
+	// Found a single Range rule.
+	ok = true
+	v.remove(tokens)
+	range_ = ast.RangeClass().Range(
+		bra,
+		primitive1,
+		delimiter,
+		primitive2,
+		ket,
+	)
+	return
+}
+
 func (v *parser_) parseRecipient() (
 	recipient ast.RecipientLike,
 	token TokenLike,
@@ -5264,11 +5264,11 @@ var parserClassReference_ = &parserClass_{
     version`,
 			"$Collection": `
     Empty
-    Interval
+    Range
     Attributes
-    Items  ! Must be after interval and attributes.`,
-			"$Empty":    `"[" ":"? "]"`,
-			"$Interval": `Bra Primitive ".." Primitive Ket`,
+    Items  ! Must be after range and attributes.`,
+			"$Empty": `"[" ":"? "]"`,
+			"$Range": `Bra Primitive ".." Primitive Ket`,
 			"$Bra": `
     "["
     "("`,

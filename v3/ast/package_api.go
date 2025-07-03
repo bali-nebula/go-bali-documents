@@ -493,22 +493,6 @@ type InductionClassLike interface {
 }
 
 /*
-IntervalClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete interval-like class.
-*/
-type IntervalClassLike interface {
-	// Constructor Methods
-	Interval(
-		bra BraLike,
-		primitive1 PrimitiveLike,
-		delimiter string,
-		primitive2 PrimitiveLike,
-		ket KetLike,
-	) IntervalLike
-}
-
-/*
 InverseClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
 supported by each concrete inverse-like class.
@@ -862,6 +846,22 @@ type PublishClauseClassLike interface {
 		delimiter string,
 		event EventLike,
 	) PublishClauseLike
+}
+
+/*
+RangeClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete range-like class.
+*/
+type RangeClassLike interface {
+	// Constructor Methods
+	Range(
+		bra BraLike,
+		primitive1 PrimitiveLike,
+		delimiter string,
+		primitive2 PrimitiveLike,
+		ket KetLike,
+	) RangeLike
 }
 
 /*
@@ -1639,23 +1639,6 @@ type InductionLike interface {
 }
 
 /*
-IntervalLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete interval-like class.
-*/
-type IntervalLike interface {
-	// Principal Methods
-	GetClass() IntervalClassLike
-
-	// Attribute Methods
-	GetBra() BraLike
-	GetPrimitive1() PrimitiveLike
-	GetDelimiter() string
-	GetPrimitive2() PrimitiveLike
-	GetKet() KetLike
-}
-
-/*
 InverseLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
 by each instance of a concrete inverse-like class.
@@ -2036,6 +2019,23 @@ type PublishClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetEvent() EventLike
+}
+
+/*
+RangeLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete range-like class.
+*/
+type RangeLike interface {
+	// Principal Methods
+	GetClass() RangeClassLike
+
+	// Attribute Methods
+	GetBra() BraLike
+	GetPrimitive1() PrimitiveLike
+	GetDelimiter() string
+	GetPrimitive2() PrimitiveLike
+	GetKet() KetLike
 }
 
 /*
