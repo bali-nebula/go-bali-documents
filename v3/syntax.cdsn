@@ -362,8 +362,6 @@ $probability: 'p' ('0' FRACTION? | "1")
 
 $quote: '"' CHARACTER* '"'
 
-$number: POLAR | RECTANGULAR | IMAGINARY | REAL  ! Must be after other numerics.
-
 $resource: '<' SCHEME ':' ("//" AUTHORITY)? '/' PATH ('?' QUERY)? ('#' FRAGMENT)? '>'
 
 $symbol: '$' identifier
@@ -371,6 +369,8 @@ $symbol: '$' identifier
 $tag: '#' BASE32{13..}
 
 $version: 'v' ORDINAL ('.' ORDINAL)*
+
+$number: POLAR | RECTANGULAR | IMAGINARY | REAL  ! Must be after other numerics.
 
 $identifier: LETTER (LETTER | DIGIT | '-')*  ! Must be last alphanumeric expression.
 

@@ -149,6 +149,16 @@ func (v *scanner_) foundToken(
 		return false
 	}
 
+	// Check for an exact delimiter match which takes precedence.
+	if tokenType != DelimiterToken {
+		matcher = class.matchers_.GetValue(DelimiterToken)
+		var delimiter = matcher.FindString(match)
+		if uti.IsDefined(delimiter) && delimiter == match {
+			// This is a delimiter instead so ignore it.
+			return false
+		}
+	}
+
 	// Check for partial identifier matches.
 	var token = []rune(match)
 	var length = uint(len(token))
@@ -157,16 +167,6 @@ func (v *scanner_) foundToken(
 		var next = v.runes_[v.next_+length]
 		if (uni.IsLetter(previous) || uni.IsNumber(previous)) &&
 			(uni.IsLetter(next) || uni.IsNumber(next) || next == '_') {
-			return false
-		}
-	}
-
-	// Check for an exact delimiter match which takes precedence.
-	if tokenType != DelimiterToken {
-		matcher = class.matchers_.GetValue(DelimiterToken)
-		var delimiter = matcher.FindString(match)
-		if uti.IsDefined(delimiter) && delimiter == match {
-			// This is a delimiter instead so ignore it.
 			return false
 		}
 	}
@@ -223,8 +223,8 @@ loop:
 		case v.foundToken(VersionToken):
 		case v.foundToken(NumberToken):
 		case v.foundToken(IdentifierToken):
-		case v.foundToken(NewlineToken):
 		case v.foundToken(SpaceToken):
+		case v.foundToken(NewlineToken):
 		case v.foundToken(DelimiterToken):
 		default:
 			v.foundError()
@@ -399,7 +399,7 @@ const (
 	second_         = "(?:([0-5][0-9])|(6[0-1]))"
 	seconds_        = "(?:(?:" + timespan_ + ")S)"
 	sign_           = "(?:\\+|-)"
-	space_          = "(?: +)"
+	space_          = "(?:[ \\t]+)"
 	symbol_         = "(?:\\$(?:" + identifier_ + "))"
 	tag_            = "(?:#(?:" + base32_ + "){13,})"
 	timespan_       = "(?:0|((?:" + ordinal_ + ")(?:" + fraction_ + ")?))"
