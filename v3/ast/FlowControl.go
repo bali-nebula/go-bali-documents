@@ -12,7 +12,9 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│                 This class file was automatically generated.                 │
+│              This class file was automatically generated using:              │
+│            https://github.com/craterdog/go-development-tools/wiki            │
+│                                                                              │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 */
@@ -27,19 +29,19 @@ import (
 
 // Access Function
 
-func MessagingClass() MessagingClassLike {
-	return messagingClass()
+func FlowControlClass() FlowControlClassLike {
+	return flowControlClass()
 }
 
 // Constructor Methods
 
-func (c *messagingClass_) Messaging(
+func (c *flowControlClass_) FlowControl(
 	any_ any,
-) MessagingLike {
+) FlowControlLike {
 	if uti.IsUndefined(any_) {
 		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &messaging_{
+	var instance = &flowControl_{
 		// Initialize the instance attributes.
 		any_: any_,
 	}
@@ -50,13 +52,13 @@ func (c *messagingClass_) Messaging(
 
 // Principal Methods
 
-func (v *messaging_) GetClass() MessagingClassLike {
-	return messagingClass()
+func (v *flowControl_) GetClass() FlowControlClassLike {
+	return flowControlClass()
 }
 
 // Attribute Methods
 
-func (v *messaging_) GetAny() any {
+func (v *flowControl_) GetAny() any {
 	return v.any_
 }
 
@@ -64,23 +66,23 @@ func (v *messaging_) GetAny() any {
 
 // Instance Structure
 
-type messaging_ struct {
+type flowControl_ struct {
 	// Declare the instance attributes.
 	any_ any
 }
 
 // Class Structure
 
-type messagingClass_ struct {
+type flowControlClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func messagingClass() *messagingClass_ {
-	return messagingClassReference_
+func flowControlClass() *flowControlClass_ {
+	return flowControlClassReference_
 }
 
-var messagingClassReference_ = &messagingClass_{
+var flowControlClassReference_ = &flowControlClass_{
 	// Initialize the class constants.
 }

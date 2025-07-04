@@ -12,7 +12,9 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│                 This class file was automatically generated.                 │
+│              This class file was automatically generated using:              │
+│            https://github.com/craterdog/go-development-tools/wiki            │
+│                                                                              │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 */
@@ -27,19 +29,19 @@ import (
 
 // Access Function
 
-func FlowClass() FlowClassLike {
-	return flowClass()
+func ActionInductionClass() ActionInductionClassLike {
+	return actionInductionClass()
 }
 
 // Constructor Methods
 
-func (c *flowClass_) Flow(
+func (c *actionInductionClass_) ActionInduction(
 	any_ any,
-) FlowLike {
+) ActionInductionLike {
 	if uti.IsUndefined(any_) {
 		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &flow_{
+	var instance = &actionInduction_{
 		// Initialize the instance attributes.
 		any_: any_,
 	}
@@ -50,13 +52,13 @@ func (c *flowClass_) Flow(
 
 // Principal Methods
 
-func (v *flow_) GetClass() FlowClassLike {
-	return flowClass()
+func (v *actionInduction_) GetClass() ActionInductionClassLike {
+	return actionInductionClass()
 }
 
 // Attribute Methods
 
-func (v *flow_) GetAny() any {
+func (v *actionInduction_) GetAny() any {
 	return v.any_
 }
 
@@ -64,23 +66,23 @@ func (v *flow_) GetAny() any {
 
 // Instance Structure
 
-type flow_ struct {
+type actionInduction_ struct {
 	// Declare the instance attributes.
 	any_ any
 }
 
 // Class Structure
 
-type flowClass_ struct {
+type actionInductionClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func flowClass() *flowClass_ {
-	return flowClassReference_
+func actionInductionClass() *actionInductionClass_ {
+	return actionInductionClassReference_
 }
 
-var flowClassReference_ = &flowClass_{
+var actionInductionClassReference_ = &actionInductionClass_{
 	// Initialize the class constants.
 }

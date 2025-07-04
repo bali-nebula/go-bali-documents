@@ -12,7 +12,9 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│                 This class file was automatically generated.                 │
+│              This class file was automatically generated using:              │
+│            https://github.com/craterdog/go-development-tools/wiki            │
+│                                                                              │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 */
@@ -241,6 +243,26 @@ func (v *processor_) PostprocessAcceptClause(
 
 func (v *processor_) ProcessAcceptClauseSlot(
 	acceptClause ast.AcceptClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PreprocessActionInduction(
+	actionInduction ast.ActionInductionLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PostprocessActionInduction(
+	actionInduction ast.ActionInductionLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessActionInductionSlot(
+	actionInduction ast.ActionInductionLike,
 	slot_ uint,
 ) {
 }
@@ -805,22 +827,22 @@ func (v *processor_) ProcessFailureSlot(
 ) {
 }
 
-func (v *processor_) PreprocessFlow(
-	flow ast.FlowLike,
+func (v *processor_) PreprocessFlowControl(
+	flowControl ast.FlowControlLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessFlow(
-	flow ast.FlowLike,
+func (v *processor_) PostprocessFlowControl(
+	flowControl ast.FlowControlLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessFlowSlot(
-	flow ast.FlowLike,
+func (v *processor_) ProcessFlowControlSlot(
+	flowControl ast.FlowControlLike,
 	slot_ uint,
 ) {
 }
@@ -901,26 +923,6 @@ func (v *processor_) PostprocessIndirect(
 
 func (v *processor_) ProcessIndirectSlot(
 	indirect ast.IndirectLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PreprocessInduction(
-	induction ast.InductionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PostprocessInduction(
-	induction ast.InductionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessInductionSlot(
-	induction ast.InductionLike,
 	slot_ uint,
 ) {
 }
@@ -1205,22 +1207,22 @@ func (v *processor_) ProcessMessageSlot(
 ) {
 }
 
-func (v *processor_) PreprocessMessaging(
-	messaging ast.MessagingLike,
+func (v *processor_) PreprocessMessageHandling(
+	messageHandling ast.MessageHandlingLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessMessaging(
-	messaging ast.MessagingLike,
+func (v *processor_) PostprocessMessageHandling(
+	messageHandling ast.MessageHandlingLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessMessagingSlot(
-	messaging ast.MessagingLike,
+func (v *processor_) ProcessMessageHandlingSlot(
+	messageHandling ast.MessageHandlingLike,
 	slot_ uint,
 ) {
 }
@@ -1545,22 +1547,22 @@ func (v *processor_) ProcessRejectClauseSlot(
 ) {
 }
 
-func (v *processor_) PreprocessRepository(
-	repository ast.RepositoryLike,
+func (v *processor_) PreprocessRepositoryAccess(
+	repositoryAccess ast.RepositoryAccessLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessRepository(
-	repository ast.RepositoryLike,
+func (v *processor_) PostprocessRepositoryAccess(
+	repositoryAccess ast.RepositoryAccessLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessRepositorySlot(
-	repository ast.RepositoryLike,
+func (v *processor_) ProcessRepositoryAccessSlot(
+	repositoryAccess ast.RepositoryAccessLike,
 	slot_ uint,
 ) {
 }

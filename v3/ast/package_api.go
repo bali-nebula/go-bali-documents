@@ -12,7 +12,9 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│            This "package_api.go" file was automatically generated.           │
+│         This "package_api.go" file was automatically generated using:        │
+│            https://github.com/craterdog/go-development-tools/wiki            │
+│                                                                              │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 
@@ -56,6 +58,18 @@ type AcceptClauseClassLike interface {
 		delimiter string,
 		message MessageLike,
 	) AcceptClauseLike
+}
+
+/*
+ActionInductionClassLike is a class interface that declares the
+complete set of class constructors, constants and functions that must be
+supported by each concrete action-induction-like class.
+*/
+type ActionInductionClassLike interface {
+	// Constructor Methods
+	ActionInduction(
+		any_ any,
+	) ActionInductionLike
 }
 
 /*
@@ -415,15 +429,15 @@ type FailureClassLike interface {
 }
 
 /*
-FlowClassLike is a class interface that declares the
+FlowControlClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete flow-like class.
+supported by each concrete flow-control-like class.
 */
-type FlowClassLike interface {
+type FlowControlClassLike interface {
 	// Constructor Methods
-	Flow(
+	FlowControl(
 		any_ any,
-	) FlowLike
+	) FlowControlLike
 }
 
 /*
@@ -478,18 +492,6 @@ type IndirectClassLike interface {
 	Indirect(
 		any_ any,
 	) IndirectLike
-}
-
-/*
-InductionClassLike is a class interface that declares the
-complete set of class constructors, constants and functions that must be
-supported by each concrete induction-like class.
-*/
-type InductionClassLike interface {
-	// Constructor Methods
-	Induction(
-		any_ any,
-	) InductionLike
 }
 
 /*
@@ -672,15 +674,15 @@ type MessageClassLike interface {
 }
 
 /*
-MessagingClassLike is a class interface that declares the
+MessageHandlingClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete messaging-like class.
+supported by each concrete message-handling-like class.
 */
-type MessagingClassLike interface {
+type MessageHandlingClassLike interface {
 	// Constructor Methods
-	Messaging(
+	MessageHandling(
 		any_ any,
-	) MessagingLike
+	) MessageHandlingLike
 }
 
 /*
@@ -903,15 +905,15 @@ type RejectClauseClassLike interface {
 }
 
 /*
-RepositoryClassLike is a class interface that declares the
+RepositoryAccessClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete repository-like class.
+supported by each concrete repository-access-like class.
 */
-type RepositoryClassLike interface {
+type RepositoryAccessClassLike interface {
 	// Constructor Methods
-	Repository(
+	RepositoryAccess(
 		any_ any,
-	) RepositoryLike
+	) RepositoryAccessLike
 }
 
 /*
@@ -1167,6 +1169,19 @@ type AcceptClauseLike interface {
 	// Attribute Methods
 	GetDelimiter() string
 	GetMessage() MessageLike
+}
+
+/*
+ActionInductionLike is an instance interface that declares the
+complete set of principal, attribute and aspect methods that must be supported
+by each instance of a concrete action-induction-like class.
+*/
+type ActionInductionLike interface {
+	// Principal Methods
+	GetClass() ActionInductionClassLike
+
+	// Attribute Methods
+	GetAny() any
 }
 
 /*
@@ -1554,13 +1569,13 @@ type FailureLike interface {
 }
 
 /*
-FlowLike is an instance interface that declares the
+FlowControlLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete flow-like class.
+by each instance of a concrete flow-control-like class.
 */
-type FlowLike interface {
+type FlowControlLike interface {
 	// Principal Methods
-	GetClass() FlowClassLike
+	GetClass() FlowControlClassLike
 
 	// Attribute Methods
 	GetAny() any
@@ -1619,19 +1634,6 @@ by each instance of a concrete indirect-like class.
 type IndirectLike interface {
 	// Principal Methods
 	GetClass() IndirectClassLike
-
-	// Attribute Methods
-	GetAny() any
-}
-
-/*
-InductionLike is an instance interface that declares the
-complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete induction-like class.
-*/
-type InductionLike interface {
-	// Principal Methods
-	GetClass() InductionClassLike
 
 	// Attribute Methods
 	GetAny() any
@@ -1831,13 +1833,13 @@ type MessageLike interface {
 }
 
 /*
-MessagingLike is an instance interface that declares the
+MessageHandlingLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete messaging-like class.
+by each instance of a concrete message-handling-like class.
 */
-type MessagingLike interface {
+type MessageHandlingLike interface {
 	// Principal Methods
-	GetClass() MessagingClassLike
+	GetClass() MessageHandlingClassLike
 
 	// Attribute Methods
 	GetAny() any
@@ -2079,13 +2081,13 @@ type RejectClauseLike interface {
 }
 
 /*
-RepositoryLike is an instance interface that declares the
+RepositoryAccessLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete repository-like class.
+by each instance of a concrete repository-access-like class.
 */
-type RepositoryLike interface {
+type RepositoryAccessLike interface {
 	// Principal Methods
-	GetClass() RepositoryClassLike
+	GetClass() RepositoryAccessClassLike
 
 	// Attribute Methods
 	GetAny() any

@@ -12,7 +12,9 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│                 This class file was automatically generated.                 │
+│              This class file was automatically generated using:              │
+│            https://github.com/craterdog/go-development-tools/wiki            │
+│                                                                              │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 */
@@ -27,19 +29,19 @@ import (
 
 // Access Function
 
-func InductionClass() InductionClassLike {
-	return inductionClass()
+func MessageHandlingClass() MessageHandlingClassLike {
+	return messageHandlingClass()
 }
 
 // Constructor Methods
 
-func (c *inductionClass_) Induction(
+func (c *messageHandlingClass_) MessageHandling(
 	any_ any,
-) InductionLike {
+) MessageHandlingLike {
 	if uti.IsUndefined(any_) {
 		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &induction_{
+	var instance = &messageHandling_{
 		// Initialize the instance attributes.
 		any_: any_,
 	}
@@ -50,13 +52,13 @@ func (c *inductionClass_) Induction(
 
 // Principal Methods
 
-func (v *induction_) GetClass() InductionClassLike {
-	return inductionClass()
+func (v *messageHandling_) GetClass() MessageHandlingClassLike {
+	return messageHandlingClass()
 }
 
 // Attribute Methods
 
-func (v *induction_) GetAny() any {
+func (v *messageHandling_) GetAny() any {
 	return v.any_
 }
 
@@ -64,23 +66,23 @@ func (v *induction_) GetAny() any {
 
 // Instance Structure
 
-type induction_ struct {
+type messageHandling_ struct {
 	// Declare the instance attributes.
 	any_ any
 }
 
 // Class Structure
 
-type inductionClass_ struct {
+type messageHandlingClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func inductionClass() *inductionClass_ {
-	return inductionClassReference_
+func messageHandlingClass() *messageHandlingClass_ {
+	return messageHandlingClassReference_
 }
 
-var inductionClassReference_ = &inductionClass_{
+var messageHandlingClassReference_ = &messageHandlingClass_{
 	// Initialize the class constants.
 }

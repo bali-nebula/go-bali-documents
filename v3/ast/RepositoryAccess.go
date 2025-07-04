@@ -12,7 +12,9 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│                 This class file was automatically generated.                 │
+│              This class file was automatically generated using:              │
+│            https://github.com/craterdog/go-development-tools/wiki            │
+│                                                                              │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 */
@@ -27,19 +29,19 @@ import (
 
 // Access Function
 
-func RepositoryClass() RepositoryClassLike {
-	return repositoryClass()
+func RepositoryAccessClass() RepositoryAccessClassLike {
+	return repositoryAccessClass()
 }
 
 // Constructor Methods
 
-func (c *repositoryClass_) Repository(
+func (c *repositoryAccessClass_) RepositoryAccess(
 	any_ any,
-) RepositoryLike {
+) RepositoryAccessLike {
 	if uti.IsUndefined(any_) {
 		panic("The \"any\" attribute is required by this class.")
 	}
-	var instance = &repository_{
+	var instance = &repositoryAccess_{
 		// Initialize the instance attributes.
 		any_: any_,
 	}
@@ -50,13 +52,13 @@ func (c *repositoryClass_) Repository(
 
 // Principal Methods
 
-func (v *repository_) GetClass() RepositoryClassLike {
-	return repositoryClass()
+func (v *repositoryAccess_) GetClass() RepositoryAccessClassLike {
+	return repositoryAccessClass()
 }
 
 // Attribute Methods
 
-func (v *repository_) GetAny() any {
+func (v *repositoryAccess_) GetAny() any {
 	return v.any_
 }
 
@@ -64,23 +66,23 @@ func (v *repository_) GetAny() any {
 
 // Instance Structure
 
-type repository_ struct {
+type repositoryAccess_ struct {
 	// Declare the instance attributes.
 	any_ any
 }
 
 // Class Structure
 
-type repositoryClass_ struct {
+type repositoryAccessClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func repositoryClass() *repositoryClass_ {
-	return repositoryClassReference_
+func repositoryAccessClass() *repositoryAccessClass_ {
+	return repositoryAccessClassReference_
 }
 
-var repositoryClassReference_ = &repositoryClass_{
+var repositoryAccessClassReference_ = &repositoryAccessClass_{
 	// Initialize the class constants.
 }

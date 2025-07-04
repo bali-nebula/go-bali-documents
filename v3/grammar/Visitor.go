@@ -12,7 +12,9 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│                 This class file was automatically generated.                 │
+│              This class file was automatically generated using:              │
+│            https://github.com/craterdog/go-development-tools/wiki            │
+│                                                                              │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 */
@@ -98,6 +100,38 @@ func (v *visitor_) visitAcceptClause(
 		1,
 		1,
 	)
+}
+
+func (v *visitor_) visitActionInduction(
+	actionInduction ast.ActionInductionLike,
+) {
+	// Visit the possible actionInduction rule types.
+	switch actual := actionInduction.GetAny().(type) {
+	case ast.DoClauseLike:
+		v.processor_.PreprocessDoClause(
+			actual,
+			1,
+			1,
+		)
+		v.visitDoClause(actual)
+		v.processor_.PostprocessDoClause(
+			actual,
+			1,
+			1,
+		)
+	case ast.LetClauseLike:
+		v.processor_.PreprocessLetClause(
+			actual,
+			1,
+			1,
+		)
+		v.visitLetClause(actual)
+		v.processor_.PostprocessLetClause(
+			actual,
+			1,
+			1,
+		)
+	}
 }
 
 func (v *visitor_) visitAnnotation(
@@ -869,11 +903,11 @@ func (v *visitor_) visitFailure(
 	v.processor_.ProcessSymbol(symbol)
 }
 
-func (v *visitor_) visitFlow(
-	flow ast.FlowLike,
+func (v *visitor_) visitFlowControl(
+	flowControl ast.FlowControlLike,
 ) {
-	// Visit the possible flow rule types.
-	switch actual := flow.GetAny().(type) {
+	// Visit the possible flowControl rule types.
+	switch actual := flowControl.GetAny().(type) {
 	case ast.IfClauseLike:
 		v.processor_.PreprocessIfClause(
 			actual,
@@ -1176,38 +1210,6 @@ func (v *visitor_) visitIndirect(
 		)
 		v.visitValue(actual)
 		v.processor_.PostprocessValue(
-			actual,
-			1,
-			1,
-		)
-	}
-}
-
-func (v *visitor_) visitInduction(
-	induction ast.InductionLike,
-) {
-	// Visit the possible induction rule types.
-	switch actual := induction.GetAny().(type) {
-	case ast.DoClauseLike:
-		v.processor_.PreprocessDoClause(
-			actual,
-			1,
-			1,
-		)
-		v.visitDoClause(actual)
-		v.processor_.PostprocessDoClause(
-			actual,
-			1,
-			1,
-		)
-	case ast.LetClauseLike:
-		v.processor_.PreprocessLetClause(
-			actual,
-			1,
-			1,
-		)
-		v.visitLetClause(actual)
-		v.processor_.PostprocessLetClause(
 			actual,
 			1,
 			1,
@@ -1614,50 +1616,50 @@ func (v *visitor_) visitMainClause(
 ) {
 	// Visit the possible mainClause rule types.
 	switch actual := mainClause.GetAny().(type) {
-	case ast.FlowLike:
-		v.processor_.PreprocessFlow(
+	case ast.FlowControlLike:
+		v.processor_.PreprocessFlowControl(
 			actual,
 			1,
 			1,
 		)
-		v.visitFlow(actual)
-		v.processor_.PostprocessFlow(
+		v.visitFlowControl(actual)
+		v.processor_.PostprocessFlowControl(
 			actual,
 			1,
 			1,
 		)
-	case ast.InductionLike:
-		v.processor_.PreprocessInduction(
+	case ast.ActionInductionLike:
+		v.processor_.PreprocessActionInduction(
 			actual,
 			1,
 			1,
 		)
-		v.visitInduction(actual)
-		v.processor_.PostprocessInduction(
+		v.visitActionInduction(actual)
+		v.processor_.PostprocessActionInduction(
 			actual,
 			1,
 			1,
 		)
-	case ast.MessagingLike:
-		v.processor_.PreprocessMessaging(
+	case ast.MessageHandlingLike:
+		v.processor_.PreprocessMessageHandling(
 			actual,
 			1,
 			1,
 		)
-		v.visitMessaging(actual)
-		v.processor_.PostprocessMessaging(
+		v.visitMessageHandling(actual)
+		v.processor_.PostprocessMessageHandling(
 			actual,
 			1,
 			1,
 		)
-	case ast.RepositoryLike:
-		v.processor_.PreprocessRepository(
+	case ast.RepositoryAccessLike:
+		v.processor_.PreprocessRepositoryAccess(
 			actual,
 			1,
 			1,
 		)
-		v.visitRepository(actual)
-		v.processor_.PostprocessRepository(
+		v.visitRepositoryAccess(actual)
+		v.processor_.PostprocessRepositoryAccess(
 			actual,
 			1,
 			1,
@@ -1733,11 +1735,11 @@ func (v *visitor_) visitMessage(
 	)
 }
 
-func (v *visitor_) visitMessaging(
-	messaging ast.MessagingLike,
+func (v *visitor_) visitMessageHandling(
+	messageHandling ast.MessageHandlingLike,
 ) {
-	// Visit the possible messaging rule types.
-	switch actual := messaging.GetAny().(type) {
+	// Visit the possible messageHandling rule types.
+	switch actual := messageHandling.GetAny().(type) {
 	case ast.PostClauseLike:
 		v.processor_.PreprocessPostClause(
 			actual,
@@ -2561,11 +2563,11 @@ func (v *visitor_) visitRejectClause(
 	)
 }
 
-func (v *visitor_) visitRepository(
-	repository ast.RepositoryLike,
+func (v *visitor_) visitRepositoryAccess(
+	repositoryAccess ast.RepositoryAccessLike,
 ) {
-	// Visit the possible repository rule types.
-	switch actual := repository.GetAny().(type) {
+	// Visit the possible repositoryAccess rule types.
+	switch actual := repositoryAccess.GetAny().(type) {
 	case ast.CheckoutClauseLike:
 		v.processor_.PreprocessCheckoutClause(
 			actual,

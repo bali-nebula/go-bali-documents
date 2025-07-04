@@ -12,7 +12,9 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│            This "package_api.go" file was automatically generated.           │
+│         This "package_api.go" file was automatically generated using:        │
+│            https://github.com/craterdog/go-development-tools/wiki            │
+│                                                                              │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 
@@ -419,6 +421,20 @@ type Methodical interface {
 		acceptClause ast.AcceptClauseLike,
 		slot_ uint,
 	)
+	PreprocessActionInduction(
+		actionInduction ast.ActionInductionLike,
+		index_ uint,
+		count_ uint,
+	)
+	PostprocessActionInduction(
+		actionInduction ast.ActionInductionLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessActionInductionSlot(
+		actionInduction ast.ActionInductionLike,
+		slot_ uint,
+	)
 	PreprocessAnnotation(
 		annotation ast.AnnotationLike,
 		index_ uint,
@@ -811,18 +827,18 @@ type Methodical interface {
 		failure ast.FailureLike,
 		slot_ uint,
 	)
-	PreprocessFlow(
-		flow ast.FlowLike,
+	PreprocessFlowControl(
+		flowControl ast.FlowControlLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessFlow(
-		flow ast.FlowLike,
+	PostprocessFlowControl(
+		flowControl ast.FlowControlLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessFlowSlot(
-		flow ast.FlowLike,
+	ProcessFlowControlSlot(
+		flowControl ast.FlowControlLike,
 		slot_ uint,
 	)
 	PreprocessFunction(
@@ -879,20 +895,6 @@ type Methodical interface {
 	)
 	ProcessIndirectSlot(
 		indirect ast.IndirectLike,
-		slot_ uint,
-	)
-	PreprocessInduction(
-		induction ast.InductionLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessInduction(
-		induction ast.InductionLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessInductionSlot(
-		induction ast.InductionLike,
 		slot_ uint,
 	)
 	PreprocessInverse(
@@ -1091,18 +1093,18 @@ type Methodical interface {
 		message ast.MessageLike,
 		slot_ uint,
 	)
-	PreprocessMessaging(
-		messaging ast.MessagingLike,
+	PreprocessMessageHandling(
+		messageHandling ast.MessageHandlingLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessMessaging(
-		messaging ast.MessagingLike,
+	PostprocessMessageHandling(
+		messageHandling ast.MessageHandlingLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessMessagingSlot(
-		messaging ast.MessagingLike,
+	ProcessMessageHandlingSlot(
+		messageHandling ast.MessageHandlingLike,
 		slot_ uint,
 	)
 	PreprocessMethod(
@@ -1329,18 +1331,18 @@ type Methodical interface {
 		rejectClause ast.RejectClauseLike,
 		slot_ uint,
 	)
-	PreprocessRepository(
-		repository ast.RepositoryLike,
+	PreprocessRepositoryAccess(
+		repositoryAccess ast.RepositoryAccessLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessRepository(
-		repository ast.RepositoryLike,
+	PostprocessRepositoryAccess(
+		repositoryAccess ast.RepositoryAccessLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessRepositorySlot(
-		repository ast.RepositoryLike,
+	ProcessRepositoryAccessSlot(
+		repositoryAccess ast.RepositoryAccessLike,
 		slot_ uint,
 	)
 	PreprocessResult(

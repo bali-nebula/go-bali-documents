@@ -95,10 +95,10 @@ $Annotation:
 $Statement: MainClause OnClause?
 
 $MainClause:
-    Flow
-    Induction
-    Messaging
-    Repository
+    FlowControl
+    ActionInduction
+    MessageHandling
+    RepositoryAccess
 
 $OnClause: "on" Failure MatchingClause+
 
@@ -108,7 +108,7 @@ $Failure: symbol
 
 $Template: Expression
 
-$Flow:
+$FlowControl:
     IfClause
     SelectClause
     WhileClause
@@ -118,18 +118,18 @@ $Flow:
     ReturnClause
     ThrowClause
 
-$Induction:
+$ActionInduction:
     DoClause
     LetClause
 
-$Messaging:
+$MessageHandling:
     PostClause
     RetrieveClause
     AcceptClause
     RejectClause
     PublishClause
 
-$Repository:
+$RepositoryAccess:
     CheckoutClause
     SaveClause
     DiscardClause

@@ -12,7 +12,9 @@
 
 /*
 ┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│                 This class file was automatically generated.                 │
+│              This class file was automatically generated using:              │
+│            https://github.com/craterdog/go-development-tools/wiki            │
+│                                                                              │
 │                     Any updates to it may be overwritten.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 */
@@ -125,6 +127,33 @@ func (v *parser_) parseAcceptClause() (
 		delimiter,
 		message,
 	)
+	return
+}
+
+func (v *parser_) parseActionInduction() (
+	actionInduction ast.ActionInductionLike,
+	token TokenLike,
+	ok bool,
+) {
+	// Attempt to parse a single DoClause ActionInduction.
+	var doClause ast.DoClauseLike
+	doClause, token, ok = v.parseDoClause()
+	if ok {
+		// Found a single DoClause ActionInduction.
+		actionInduction = ast.ActionInductionClass().ActionInduction(doClause)
+		return
+	}
+
+	// Attempt to parse a single LetClause ActionInduction.
+	var letClause ast.LetClauseLike
+	letClause, token, ok = v.parseLetClause()
+	if ok {
+		// Found a single LetClause ActionInduction.
+		actionInduction = ast.ActionInductionClass().ActionInduction(letClause)
+		return
+	}
+
+	// This is not a single ActionInduction rule.
 	return
 }
 
@@ -1536,84 +1565,84 @@ func (v *parser_) parseFailure() (
 	return
 }
 
-func (v *parser_) parseFlow() (
-	flow ast.FlowLike,
+func (v *parser_) parseFlowControl() (
+	flowControl ast.FlowControlLike,
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single IfClause Flow.
+	// Attempt to parse a single IfClause FlowControl.
 	var ifClause ast.IfClauseLike
 	ifClause, token, ok = v.parseIfClause()
 	if ok {
-		// Found a single IfClause Flow.
-		flow = ast.FlowClass().Flow(ifClause)
+		// Found a single IfClause FlowControl.
+		flowControl = ast.FlowControlClass().FlowControl(ifClause)
 		return
 	}
 
-	// Attempt to parse a single SelectClause Flow.
+	// Attempt to parse a single SelectClause FlowControl.
 	var selectClause ast.SelectClauseLike
 	selectClause, token, ok = v.parseSelectClause()
 	if ok {
-		// Found a single SelectClause Flow.
-		flow = ast.FlowClass().Flow(selectClause)
+		// Found a single SelectClause FlowControl.
+		flowControl = ast.FlowControlClass().FlowControl(selectClause)
 		return
 	}
 
-	// Attempt to parse a single WhileClause Flow.
+	// Attempt to parse a single WhileClause FlowControl.
 	var whileClause ast.WhileClauseLike
 	whileClause, token, ok = v.parseWhileClause()
 	if ok {
-		// Found a single WhileClause Flow.
-		flow = ast.FlowClass().Flow(whileClause)
+		// Found a single WhileClause FlowControl.
+		flowControl = ast.FlowControlClass().FlowControl(whileClause)
 		return
 	}
 
-	// Attempt to parse a single WithClause Flow.
+	// Attempt to parse a single WithClause FlowControl.
 	var withClause ast.WithClauseLike
 	withClause, token, ok = v.parseWithClause()
 	if ok {
-		// Found a single WithClause Flow.
-		flow = ast.FlowClass().Flow(withClause)
+		// Found a single WithClause FlowControl.
+		flowControl = ast.FlowControlClass().FlowControl(withClause)
 		return
 	}
 
-	// Attempt to parse a single ContinueClause Flow.
+	// Attempt to parse a single ContinueClause FlowControl.
 	var continueClause ast.ContinueClauseLike
 	continueClause, token, ok = v.parseContinueClause()
 	if ok {
-		// Found a single ContinueClause Flow.
-		flow = ast.FlowClass().Flow(continueClause)
+		// Found a single ContinueClause FlowControl.
+		flowControl = ast.FlowControlClass().FlowControl(continueClause)
 		return
 	}
 
-	// Attempt to parse a single BreakClause Flow.
+	// Attempt to parse a single BreakClause FlowControl.
 	var breakClause ast.BreakClauseLike
 	breakClause, token, ok = v.parseBreakClause()
 	if ok {
-		// Found a single BreakClause Flow.
-		flow = ast.FlowClass().Flow(breakClause)
+		// Found a single BreakClause FlowControl.
+		flowControl = ast.FlowControlClass().FlowControl(breakClause)
 		return
 	}
 
-	// Attempt to parse a single ReturnClause Flow.
+	// Attempt to parse a single ReturnClause FlowControl.
 	var returnClause ast.ReturnClauseLike
 	returnClause, token, ok = v.parseReturnClause()
 	if ok {
-		// Found a single ReturnClause Flow.
-		flow = ast.FlowClass().Flow(returnClause)
+		// Found a single ReturnClause FlowControl.
+		flowControl = ast.FlowControlClass().FlowControl(returnClause)
 		return
 	}
 
-	// Attempt to parse a single ThrowClause Flow.
+	// Attempt to parse a single ThrowClause FlowControl.
 	var throwClause ast.ThrowClauseLike
 	throwClause, token, ok = v.parseThrowClause()
 	if ok {
-		// Found a single ThrowClause Flow.
-		flow = ast.FlowClass().Flow(throwClause)
+		// Found a single ThrowClause FlowControl.
+		flowControl = ast.FlowControlClass().FlowControl(throwClause)
 		return
 	}
 
-	// This is not a single Flow rule.
+	// This is not a single FlowControl rule.
 	return
 }
 
@@ -1892,33 +1921,6 @@ func (v *parser_) parseIndirect() (
 	}
 
 	// This is not a single Indirect rule.
-	return
-}
-
-func (v *parser_) parseInduction() (
-	induction ast.InductionLike,
-	token TokenLike,
-	ok bool,
-) {
-	// Attempt to parse a single DoClause Induction.
-	var doClause ast.DoClauseLike
-	doClause, token, ok = v.parseDoClause()
-	if ok {
-		// Found a single DoClause Induction.
-		induction = ast.InductionClass().Induction(doClause)
-		return
-	}
-
-	// Attempt to parse a single LetClause Induction.
-	var letClause ast.LetClauseLike
-	letClause, token, ok = v.parseLetClause()
-	if ok {
-		// Found a single LetClause Induction.
-		induction = ast.InductionClass().Induction(letClause)
-		return
-	}
-
-	// This is not a single Induction rule.
 	return
 }
 
@@ -2489,39 +2491,39 @@ func (v *parser_) parseMainClause() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single Flow MainClause.
-	var flow ast.FlowLike
-	flow, token, ok = v.parseFlow()
+	// Attempt to parse a single FlowControl MainClause.
+	var flowControl ast.FlowControlLike
+	flowControl, token, ok = v.parseFlowControl()
 	if ok {
-		// Found a single Flow MainClause.
-		mainClause = ast.MainClauseClass().MainClause(flow)
+		// Found a single FlowControl MainClause.
+		mainClause = ast.MainClauseClass().MainClause(flowControl)
 		return
 	}
 
-	// Attempt to parse a single Induction MainClause.
-	var induction ast.InductionLike
-	induction, token, ok = v.parseInduction()
+	// Attempt to parse a single ActionInduction MainClause.
+	var actionInduction ast.ActionInductionLike
+	actionInduction, token, ok = v.parseActionInduction()
 	if ok {
-		// Found a single Induction MainClause.
-		mainClause = ast.MainClauseClass().MainClause(induction)
+		// Found a single ActionInduction MainClause.
+		mainClause = ast.MainClauseClass().MainClause(actionInduction)
 		return
 	}
 
-	// Attempt to parse a single Messaging MainClause.
-	var messaging ast.MessagingLike
-	messaging, token, ok = v.parseMessaging()
+	// Attempt to parse a single MessageHandling MainClause.
+	var messageHandling ast.MessageHandlingLike
+	messageHandling, token, ok = v.parseMessageHandling()
 	if ok {
-		// Found a single Messaging MainClause.
-		mainClause = ast.MainClauseClass().MainClause(messaging)
+		// Found a single MessageHandling MainClause.
+		mainClause = ast.MainClauseClass().MainClause(messageHandling)
 		return
 	}
 
-	// Attempt to parse a single Repository MainClause.
-	var repository ast.RepositoryLike
-	repository, token, ok = v.parseRepository()
+	// Attempt to parse a single RepositoryAccess MainClause.
+	var repositoryAccess ast.RepositoryAccessLike
+	repositoryAccess, token, ok = v.parseRepositoryAccess()
 	if ok {
-		// Found a single Repository MainClause.
-		mainClause = ast.MainClauseClass().MainClause(repository)
+		// Found a single RepositoryAccess MainClause.
+		mainClause = ast.MainClauseClass().MainClause(repositoryAccess)
 		return
 	}
 
@@ -2649,57 +2651,57 @@ func (v *parser_) parseMessage() (
 	return
 }
 
-func (v *parser_) parseMessaging() (
-	messaging ast.MessagingLike,
+func (v *parser_) parseMessageHandling() (
+	messageHandling ast.MessageHandlingLike,
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single PostClause Messaging.
+	// Attempt to parse a single PostClause MessageHandling.
 	var postClause ast.PostClauseLike
 	postClause, token, ok = v.parsePostClause()
 	if ok {
-		// Found a single PostClause Messaging.
-		messaging = ast.MessagingClass().Messaging(postClause)
+		// Found a single PostClause MessageHandling.
+		messageHandling = ast.MessageHandlingClass().MessageHandling(postClause)
 		return
 	}
 
-	// Attempt to parse a single RetrieveClause Messaging.
+	// Attempt to parse a single RetrieveClause MessageHandling.
 	var retrieveClause ast.RetrieveClauseLike
 	retrieveClause, token, ok = v.parseRetrieveClause()
 	if ok {
-		// Found a single RetrieveClause Messaging.
-		messaging = ast.MessagingClass().Messaging(retrieveClause)
+		// Found a single RetrieveClause MessageHandling.
+		messageHandling = ast.MessageHandlingClass().MessageHandling(retrieveClause)
 		return
 	}
 
-	// Attempt to parse a single AcceptClause Messaging.
+	// Attempt to parse a single AcceptClause MessageHandling.
 	var acceptClause ast.AcceptClauseLike
 	acceptClause, token, ok = v.parseAcceptClause()
 	if ok {
-		// Found a single AcceptClause Messaging.
-		messaging = ast.MessagingClass().Messaging(acceptClause)
+		// Found a single AcceptClause MessageHandling.
+		messageHandling = ast.MessageHandlingClass().MessageHandling(acceptClause)
 		return
 	}
 
-	// Attempt to parse a single RejectClause Messaging.
+	// Attempt to parse a single RejectClause MessageHandling.
 	var rejectClause ast.RejectClauseLike
 	rejectClause, token, ok = v.parseRejectClause()
 	if ok {
-		// Found a single RejectClause Messaging.
-		messaging = ast.MessagingClass().Messaging(rejectClause)
+		// Found a single RejectClause MessageHandling.
+		messageHandling = ast.MessageHandlingClass().MessageHandling(rejectClause)
 		return
 	}
 
-	// Attempt to parse a single PublishClause Messaging.
+	// Attempt to parse a single PublishClause MessageHandling.
 	var publishClause ast.PublishClauseLike
 	publishClause, token, ok = v.parsePublishClause()
 	if ok {
-		// Found a single PublishClause Messaging.
-		messaging = ast.MessagingClass().Messaging(publishClause)
+		// Found a single PublishClause MessageHandling.
+		messageHandling = ast.MessageHandlingClass().MessageHandling(publishClause)
 		return
 	}
 
-	// This is not a single Messaging rule.
+	// This is not a single MessageHandling rule.
 	return
 }
 
@@ -3841,48 +3843,48 @@ func (v *parser_) parseRejectClause() (
 	return
 }
 
-func (v *parser_) parseRepository() (
-	repository ast.RepositoryLike,
+func (v *parser_) parseRepositoryAccess() (
+	repositoryAccess ast.RepositoryAccessLike,
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single CheckoutClause Repository.
+	// Attempt to parse a single CheckoutClause RepositoryAccess.
 	var checkoutClause ast.CheckoutClauseLike
 	checkoutClause, token, ok = v.parseCheckoutClause()
 	if ok {
-		// Found a single CheckoutClause Repository.
-		repository = ast.RepositoryClass().Repository(checkoutClause)
+		// Found a single CheckoutClause RepositoryAccess.
+		repositoryAccess = ast.RepositoryAccessClass().RepositoryAccess(checkoutClause)
 		return
 	}
 
-	// Attempt to parse a single SaveClause Repository.
+	// Attempt to parse a single SaveClause RepositoryAccess.
 	var saveClause ast.SaveClauseLike
 	saveClause, token, ok = v.parseSaveClause()
 	if ok {
-		// Found a single SaveClause Repository.
-		repository = ast.RepositoryClass().Repository(saveClause)
+		// Found a single SaveClause RepositoryAccess.
+		repositoryAccess = ast.RepositoryAccessClass().RepositoryAccess(saveClause)
 		return
 	}
 
-	// Attempt to parse a single DiscardClause Repository.
+	// Attempt to parse a single DiscardClause RepositoryAccess.
 	var discardClause ast.DiscardClauseLike
 	discardClause, token, ok = v.parseDiscardClause()
 	if ok {
-		// Found a single DiscardClause Repository.
-		repository = ast.RepositoryClass().Repository(discardClause)
+		// Found a single DiscardClause RepositoryAccess.
+		repositoryAccess = ast.RepositoryAccessClass().RepositoryAccess(discardClause)
 		return
 	}
 
-	// Attempt to parse a single NotarizeClause Repository.
+	// Attempt to parse a single NotarizeClause RepositoryAccess.
 	var notarizeClause ast.NotarizeClauseLike
 	notarizeClause, token, ok = v.parseNotarizeClause()
 	if ok {
-		// Found a single NotarizeClause Repository.
-		repository = ast.RepositoryClass().Repository(notarizeClause)
+		// Found a single NotarizeClause RepositoryAccess.
+		repositoryAccess = ast.RepositoryAccessClass().RepositoryAccess(notarizeClause)
 		return
 	}
 
-	// This is not a single Repository rule.
+	// This is not a single RepositoryAccess rule.
 	return
 }
 
@@ -5269,15 +5271,15 @@ var parserClassReference_ = &parserClass_{
     note`,
 			"$Statement": `MainClause OnClause?`,
 			"$MainClause": `
-    Flow
-    Induction
-    Messaging
-    Repository`,
+    FlowControl
+    ActionInduction
+    MessageHandling
+    RepositoryAccess`,
 			"$OnClause":       `"on" Failure MatchingClause+`,
 			"$MatchingClause": `"matching" Template "do" Procedure`,
 			"$Failure":        `symbol`,
 			"$Template":       `Expression`,
-			"$Flow": `
+			"$FlowControl": `
     IfClause
     SelectClause
     WhileClause
@@ -5286,16 +5288,16 @@ var parserClassReference_ = &parserClass_{
     BreakClause
     ReturnClause
     ThrowClause`,
-			"$Induction": `
+			"$ActionInduction": `
     DoClause
     LetClause`,
-			"$Messaging": `
+			"$MessageHandling": `
     PostClause
     RetrieveClause
     AcceptClause
     RejectClause
     PublishClause`,
-			"$Repository": `
+			"$RepositoryAccess": `
     CheckoutClause
     SaveClause
     DiscardClause
