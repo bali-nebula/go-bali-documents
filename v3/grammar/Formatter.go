@@ -282,15 +282,6 @@ func (v *formatter_) ProcessAcceptClauseSlot(
 	v.appendString(" ")
 }
 
-func (v *formatter_) PreprocessAnnotation(
-	annotation ast.AnnotationLike,
-	index_ uint,
-	count_ uint,
-) {
-	v.appendString("\n")
-	v.appendNewline()
-}
-
 func (v *formatter_) PreprocessArgument(
 	argument ast.ArgumentLike,
 	index_ uint,
@@ -488,6 +479,20 @@ func (v *formatter_) ProcessLetClauseSlot(
 	slot_ uint,
 ) {
 	v.appendString(" ")
+}
+
+func (v *formatter_) PreprocessLine(
+	line ast.LineLike,
+	index_ uint,
+	count_ uint,
+) {
+	switch line.GetAny().(type) {
+	case ast.AnnotationLike:
+		if index_ > 1 {
+			v.appendString("\n")
+		}
+		v.appendNewline()
+	}
 }
 
 func (v *formatter_) PreprocessMatchingClause(
