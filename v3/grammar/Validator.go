@@ -69,12 +69,6 @@ func (v *validator_) ProcessAngle(
 	v.validateToken(angle, AngleToken)
 }
 
-func (v *validator_) ProcessAsynchronous(
-	arrow string,
-) {
-	v.validateToken(arrow, AsynchronousToken)
-}
-
 func (v *validator_) ProcessBinary(
 	binary string,
 ) {
@@ -93,22 +87,10 @@ func (v *validator_) ProcessBytecode(
 	v.validateToken(bytecode, BytecodeToken)
 }
 
-func (v *validator_) ProcessCaret(
-	caret string,
-) {
-	v.validateToken(caret, CaretToken)
-}
-
 func (v *validator_) ProcessComment(
 	comment string,
 ) {
 	v.validateToken(comment, CommentToken)
-}
-
-func (v *validator_) ProcessDash(
-	dash string,
-) {
-	v.validateToken(dash, DashToken)
 }
 
 func (v *validator_) ProcessDuration(
@@ -117,40 +99,16 @@ func (v *validator_) ProcessDuration(
 	v.validateToken(duration, DurationToken)
 }
 
-func (v *validator_) ProcessEqual(
-	equal string,
-) {
-	v.validateToken(equal, EqualToken)
-}
-
 func (v *validator_) ProcessIdentifier(
 	identifier string,
 ) {
 	v.validateToken(identifier, IdentifierToken)
 }
 
-func (v *validator_) ProcessLess(
-	less string,
-) {
-	v.validateToken(less, LessToken)
-}
-
-func (v *validator_) ProcessModulo(
-	modulo string,
-) {
-	v.validateToken(modulo, ModuloToken)
-}
-
 func (v *validator_) ProcessMoment(
 	moment string,
 ) {
 	v.validateToken(moment, MomentToken)
-}
-
-func (v *validator_) ProcessMore(
-	more string,
-) {
-	v.validateToken(more, MoreToken)
 }
 
 func (v *validator_) ProcessName(
@@ -195,12 +153,6 @@ func (v *validator_) ProcessPercentage(
 	v.validateToken(percentage, PercentageToken)
 }
 
-func (v *validator_) ProcessPlus(
-	plus string,
-) {
-	v.validateToken(plus, PlusToken)
-}
-
 func (v *validator_) ProcessProbability(
 	probability string,
 ) {
@@ -219,34 +171,16 @@ func (v *validator_) ProcessResource(
 	v.validateToken(resource, ResourceToken)
 }
 
-func (v *validator_) ProcessSlash(
-	slash string,
-) {
-	v.validateToken(slash, SlashToken)
-}
-
 func (v *validator_) ProcessSpace(
 	space string,
 ) {
 	v.validateToken(space, SpaceToken)
 }
 
-func (v *validator_) ProcessStar(
-	star string,
-) {
-	v.validateToken(star, StarToken)
-}
-
 func (v *validator_) ProcessSymbol(
 	symbol string,
 ) {
 	v.validateToken(symbol, SymbolToken)
-}
-
-func (v *validator_) ProcessSynchronous(
-	dot string,
-) {
-	v.validateToken(dot, SynchronousToken)
 }
 
 func (v *validator_) ProcessTag(

@@ -182,21 +182,21 @@ func (v *visitor_) visitArgument(
 func (v *visitor_) visitArithmetic(
 	arithmetic ast.ArithmeticLike,
 ) {
-	// Visit the possible arithmetic expression types.
+	// Visit the possible arithmetic literal values.
 	var actual = arithmetic.GetAny().(string)
-	switch {
-	case ScannerClass().MatchesType(actual, PlusToken):
-		v.processor_.ProcessPlus(actual)
-	case ScannerClass().MatchesType(actual, DashToken):
-		v.processor_.ProcessDash(actual)
-	case ScannerClass().MatchesType(actual, StarToken):
-		v.processor_.ProcessStar(actual)
-	case ScannerClass().MatchesType(actual, SlashToken):
-		v.processor_.ProcessSlash(actual)
-	case ScannerClass().MatchesType(actual, ModuloToken):
-		v.processor_.ProcessModulo(actual)
-	case ScannerClass().MatchesType(actual, CaretToken):
-		v.processor_.ProcessCaret(actual)
+	switch actual {
+	case "+":
+		v.processor_.ProcessDelimiter("+")
+	case "-":
+		v.processor_.ProcessDelimiter("-")
+	case "*":
+		v.processor_.ProcessDelimiter("*")
+	case "/":
+		v.processor_.ProcessDelimiter("/")
+	case "%":
+		v.processor_.ProcessDelimiter("%")
+	case "^":
+		v.processor_.ProcessDelimiter("^")
 	}
 }
 
@@ -528,15 +528,15 @@ func (v *visitor_) visitCollection(
 func (v *visitor_) visitComparison(
 	comparison ast.ComparisonLike,
 ) {
-	// Visit the possible comparison expression types.
+	// Visit the possible comparison literal values.
 	var actual = comparison.GetAny().(string)
-	switch {
-	case ScannerClass().MatchesType(actual, LessToken):
-		v.processor_.ProcessLess(actual)
-	case ScannerClass().MatchesType(actual, EqualToken):
-		v.processor_.ProcessEqual(actual)
-	case ScannerClass().MatchesType(actual, MoreToken):
-		v.processor_.ProcessMore(actual)
+	switch actual {
+	case "<":
+		v.processor_.ProcessDelimiter("<")
+	case "=":
+		v.processor_.ProcessDelimiter("=")
+	case ">":
+		v.processor_.ProcessDelimiter(">")
 	}
 }
 
@@ -1220,15 +1220,15 @@ func (v *visitor_) visitIndirect(
 func (v *visitor_) visitInverse(
 	inverse ast.InverseLike,
 ) {
-	// Visit the possible inverse expression types.
+	// Visit the possible inverse literal values.
 	var actual = inverse.GetAny().(string)
-	switch {
-	case ScannerClass().MatchesType(actual, DashToken):
-		v.processor_.ProcessDash(actual)
-	case ScannerClass().MatchesType(actual, SlashToken):
-		v.processor_.ProcessSlash(actual)
-	case ScannerClass().MatchesType(actual, StarToken):
-		v.processor_.ProcessStar(actual)
+	switch actual {
+	case "-":
+		v.processor_.ProcessDelimiter("-")
+	case "/":
+		v.processor_.ProcessDelimiter("/")
+	case "*":
+		v.processor_.ProcessDelimiter("*")
 	}
 }
 
@@ -1302,13 +1302,13 @@ func (v *visitor_) visitInvocation(
 func (v *visitor_) visitInvoke(
 	invoke ast.InvokeLike,
 ) {
-	// Visit the possible invoke expression types.
+	// Visit the possible invoke literal values.
 	var actual = invoke.GetAny().(string)
-	switch {
-	case ScannerClass().MatchesType(actual, SynchronousToken):
-		v.processor_.ProcessSynchronous(actual)
-	case ScannerClass().MatchesType(actual, AsynchronousToken):
-		v.processor_.ProcessAsynchronous(actual)
+	switch actual {
+	case "<-":
+		v.processor_.ProcessDelimiter("<-")
+	case "<~":
+		v.processor_.ProcessDelimiter("<~")
 	}
 }
 

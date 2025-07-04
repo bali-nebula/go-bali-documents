@@ -57,11 +57,6 @@ func (v *processor_) ProcessAngle(
 ) {
 }
 
-func (v *processor_) ProcessAsynchronous(
-	asynchronous string,
-) {
-}
-
 func (v *processor_) ProcessBinary(
 	binary string,
 ) {
@@ -77,18 +72,8 @@ func (v *processor_) ProcessBytecode(
 ) {
 }
 
-func (v *processor_) ProcessCaret(
-	caret string,
-) {
-}
-
 func (v *processor_) ProcessComment(
 	comment string,
-) {
-}
-
-func (v *processor_) ProcessDash(
-	dash string,
 ) {
 }
 
@@ -102,11 +87,6 @@ func (v *processor_) ProcessDuration(
 ) {
 }
 
-func (v *processor_) ProcessEqual(
-	equal string,
-) {
-}
-
 func (v *processor_) ProcessGlyph(
 	glyph string,
 ) {
@@ -117,23 +97,8 @@ func (v *processor_) ProcessIdentifier(
 ) {
 }
 
-func (v *processor_) ProcessLess(
-	less string,
-) {
-}
-
-func (v *processor_) ProcessModulo(
-	modulo string,
-) {
-}
-
 func (v *processor_) ProcessMoment(
 	moment string,
-) {
-}
-
-func (v *processor_) ProcessMore(
-	more string,
 ) {
 }
 
@@ -172,11 +137,6 @@ func (v *processor_) ProcessPercentage(
 ) {
 }
 
-func (v *processor_) ProcessPlus(
-	plus string,
-) {
-}
-
 func (v *processor_) ProcessProbability(
 	probability string,
 ) {
@@ -192,28 +152,13 @@ func (v *processor_) ProcessResource(
 ) {
 }
 
-func (v *processor_) ProcessSlash(
-	slash string,
-) {
-}
-
 func (v *processor_) ProcessSpace(
 	space string,
 ) {
 }
 
-func (v *processor_) ProcessStar(
-	star string,
-) {
-}
-
 func (v *processor_) ProcessSymbol(
 	symbol string,
-) {
-}
-
-func (v *processor_) ProcessSynchronous(
-	synchronous string,
 ) {
 }
 

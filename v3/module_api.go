@@ -223,42 +223,31 @@ type (
 )
 
 const (
-	ErrorToken        = gra.ErrorToken
-	AngleToken        = gra.AngleToken
-	AsynchronousToken = gra.AsynchronousToken
-	BinaryToken       = gra.BinaryToken
-	BooleanToken      = gra.BooleanToken
-	BytecodeToken     = gra.BytecodeToken
-	CaretToken        = gra.CaretToken
-	CommentToken      = gra.CommentToken
-	DashToken         = gra.DashToken
-	DelimiterToken    = gra.DelimiterToken
-	DurationToken     = gra.DurationToken
-	EqualToken        = gra.EqualToken
-	GlyphToken        = gra.GlyphToken
-	IdentifierToken   = gra.IdentifierToken
-	LessToken         = gra.LessToken
-	ModuloToken       = gra.ModuloToken
-	MomentToken       = gra.MomentToken
-	MoreToken         = gra.MoreToken
-	NameToken         = gra.NameToken
-	NarrativeToken    = gra.NarrativeToken
-	NewlineToken      = gra.NewlineToken
-	NoteToken         = gra.NoteToken
-	NumberToken       = gra.NumberToken
-	PatternToken      = gra.PatternToken
-	PercentageToken   = gra.PercentageToken
-	PlusToken         = gra.PlusToken
-	ProbabilityToken  = gra.ProbabilityToken
-	QuoteToken        = gra.QuoteToken
-	ResourceToken     = gra.ResourceToken
-	SlashToken        = gra.SlashToken
-	SpaceToken        = gra.SpaceToken
-	StarToken         = gra.StarToken
-	SymbolToken       = gra.SymbolToken
-	SynchronousToken  = gra.SynchronousToken
-	TagToken          = gra.TagToken
-	VersionToken      = gra.VersionToken
+	ErrorToken       = gra.ErrorToken
+	AngleToken       = gra.AngleToken
+	BinaryToken      = gra.BinaryToken
+	BooleanToken     = gra.BooleanToken
+	BytecodeToken    = gra.BytecodeToken
+	CommentToken     = gra.CommentToken
+	DelimiterToken   = gra.DelimiterToken
+	DurationToken    = gra.DurationToken
+	GlyphToken       = gra.GlyphToken
+	IdentifierToken  = gra.IdentifierToken
+	MomentToken      = gra.MomentToken
+	NameToken        = gra.NameToken
+	NarrativeToken   = gra.NarrativeToken
+	NewlineToken     = gra.NewlineToken
+	NoteToken        = gra.NoteToken
+	NumberToken      = gra.NumberToken
+	PatternToken     = gra.PatternToken
+	PercentageToken  = gra.PercentageToken
+	ProbabilityToken = gra.ProbabilityToken
+	QuoteToken       = gra.QuoteToken
+	ResourceToken    = gra.ResourceToken
+	SpaceToken       = gra.SpaceToken
+	SymbolToken      = gra.SymbolToken
+	TagToken         = gra.TagToken
+	VersionToken     = gra.VersionToken
 )
 
 type (

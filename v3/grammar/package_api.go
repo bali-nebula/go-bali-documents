@@ -58,22 +58,15 @@ type TokenType uint8
 const (
 	ErrorToken TokenType = iota
 	AngleToken
-	AsynchronousToken
 	BinaryToken
 	BooleanToken
 	BytecodeToken
-	CaretToken
 	CommentToken
-	DashToken
 	DelimiterToken
 	DurationToken
-	EqualToken
 	GlyphToken
 	IdentifierToken
-	LessToken
-	ModuloToken
 	MomentToken
-	MoreToken
 	NameToken
 	NarrativeToken
 	NewlineToken
@@ -81,15 +74,11 @@ const (
 	NumberToken
 	PatternToken
 	PercentageToken
-	PlusToken
 	ProbabilityToken
 	QuoteToken
 	ResourceToken
-	SlashToken
 	SpaceToken
-	StarToken
 	SymbolToken
-	SynchronousToken
 	TagToken
 	VersionToken
 )
@@ -305,9 +294,6 @@ type Methodical interface {
 	ProcessAngle(
 		angle string,
 	)
-	ProcessAsynchronous(
-		asynchronous string,
-	)
 	ProcessBinary(
 		binary string,
 	)
@@ -317,14 +303,8 @@ type Methodical interface {
 	ProcessBytecode(
 		bytecode string,
 	)
-	ProcessCaret(
-		caret string,
-	)
 	ProcessComment(
 		comment string,
-	)
-	ProcessDash(
-		dash string,
 	)
 	ProcessDelimiter(
 		delimiter string,
@@ -332,26 +312,14 @@ type Methodical interface {
 	ProcessDuration(
 		duration string,
 	)
-	ProcessEqual(
-		equal string,
-	)
 	ProcessGlyph(
 		glyph string,
 	)
 	ProcessIdentifier(
 		identifier string,
 	)
-	ProcessLess(
-		less string,
-	)
-	ProcessModulo(
-		modulo string,
-	)
 	ProcessMoment(
 		moment string,
-	)
-	ProcessMore(
-		more string,
 	)
 	ProcessName(
 		name string,
@@ -374,9 +342,6 @@ type Methodical interface {
 	ProcessPercentage(
 		percentage string,
 	)
-	ProcessPlus(
-		plus string,
-	)
 	ProcessProbability(
 		probability string,
 	)
@@ -386,20 +351,11 @@ type Methodical interface {
 	ProcessResource(
 		resource string,
 	)
-	ProcessSlash(
-		slash string,
-	)
 	ProcessSpace(
 		space string,
 	)
-	ProcessStar(
-		star string,
-	)
 	ProcessSymbol(
 		symbol string,
-	)
-	ProcessSynchronous(
-		synchronous string,
 	)
 	ProcessTag(
 		tag string,

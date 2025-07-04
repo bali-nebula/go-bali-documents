@@ -158,8 +158,8 @@ $Value: identifier
 $Method: identifier Invoke identifier "(" Argument* ")"
 
 $Invoke:
-    synchronous
-    asynchronous
+    "<-"
+    "<~"
 
 $Subentity: identifier "[" Index+ "]"
 
@@ -271,17 +271,17 @@ $Logic:
     "xor"
 
 $Arithmetic:
-    plus
-    dash
-    star
-    slash
-    modulo
-    caret
+    "+"
+    "-"
+    "*"
+    "/"
+    "%"
+    "^"
 
 $Comparison:
-    less
-    equal
-    more
+    "<"
+    "="
+    ">"
 
 $Precedence: "(" Expression ")"
 
@@ -310,9 +310,9 @@ $Logical:
 $Inversion: Inverse Numerical
 
 $Inverse:
-    dash
-    slash
-    star
+    "-"
+    "/"
+    "*"
 
 $Numerical:
     Document
@@ -340,17 +340,11 @@ $boolean: "false" | "true"
 
 $bytecode: "'>" EOL (SPACE* INSTRUCTION{1..12} EOL)+ SPACE* "<'"
 
-$caret: '^'
-
 $comment: "!>" EOL (ANY | EOL)+ EOL SPACE* "<!"  ! Chooses the shortest match.
 
 $duration: "~P" (WEEKS | (YEARS? MONTHS? DAYS? ('T' HOURS? MINUTES? SECONDS?)?))
 
-$equal: '='
-
 $glyph: "'" (ESCAPE | ~[CONTROL]) "'"
-
-$modulo: '%'
 
 $moment: '<' SIGN? YEAR ('-' MONTH ('-' DAY ('T' HOUR (':' MINUTE (':' SECOND FRACTION?)?)?)?)?)? '>'
 
@@ -379,22 +373,6 @@ $tag: '#' BASE32{13..}
 $version: 'v' ORDINAL ('.' ORDINAL)*
 
 $identifier: LETTER (LETTER | DIGIT | '-')*  ! Must be last alphanumeric expression.
-
-$synchronous: "<-"  ! Must be after other expressions beginning with "<-".
-
-$asynchronous: "<~"
-
-$less: '<'  ! Must be after all other expressions beginning with "<".
-
-$more: '>'
-
-$plus: '+'  ! Must be after all other expressions beginning with an operator.
-
-$dash: '-'  ! Must be after all other expressions beginning with an operator.
-
-$star: '*'  ! Must be after all other expressions beginning with an operator.
-
-$slash: '/'  ! Must be after all other expressions beginning with an operator.
 
 !>
 ┌──────────────────────────────────────────────────────────────────────────────┐

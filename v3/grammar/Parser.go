@@ -216,57 +216,53 @@ func (v *parser_) parseArithmetic() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single plus Arithmetic.
-	var plus string
-	plus, token, ok = v.parseToken(PlusToken)
+	var delimiter string
+
+	// Attempt to parse a single "+" delimiter.
+	delimiter, token, ok = v.parseDelimiter("+")
 	if ok {
-		// Found a single plus Arithmetic.
-		arithmetic = ast.ArithmeticClass().Arithmetic(plus)
+		// Found a single "+" delimiter.
+		arithmetic = ast.ArithmeticClass().Arithmetic(delimiter)
 		return
 	}
 
-	// Attempt to parse a single dash Arithmetic.
-	var dash string
-	dash, token, ok = v.parseToken(DashToken)
+	// Attempt to parse a single "-" delimiter.
+	delimiter, token, ok = v.parseDelimiter("-")
 	if ok {
-		// Found a single dash Arithmetic.
-		arithmetic = ast.ArithmeticClass().Arithmetic(dash)
+		// Found a single "-" delimiter.
+		arithmetic = ast.ArithmeticClass().Arithmetic(delimiter)
 		return
 	}
 
-	// Attempt to parse a single star Arithmetic.
-	var star string
-	star, token, ok = v.parseToken(StarToken)
+	// Attempt to parse a single "*" delimiter.
+	delimiter, token, ok = v.parseDelimiter("*")
 	if ok {
-		// Found a single star Arithmetic.
-		arithmetic = ast.ArithmeticClass().Arithmetic(star)
+		// Found a single "*" delimiter.
+		arithmetic = ast.ArithmeticClass().Arithmetic(delimiter)
 		return
 	}
 
-	// Attempt to parse a single slash Arithmetic.
-	var slash string
-	slash, token, ok = v.parseToken(SlashToken)
+	// Attempt to parse a single "/" delimiter.
+	delimiter, token, ok = v.parseDelimiter("/")
 	if ok {
-		// Found a single slash Arithmetic.
-		arithmetic = ast.ArithmeticClass().Arithmetic(slash)
+		// Found a single "/" delimiter.
+		arithmetic = ast.ArithmeticClass().Arithmetic(delimiter)
 		return
 	}
 
-	// Attempt to parse a single modulo Arithmetic.
-	var modulo string
-	modulo, token, ok = v.parseToken(ModuloToken)
+	// Attempt to parse a single "%" delimiter.
+	delimiter, token, ok = v.parseDelimiter("%")
 	if ok {
-		// Found a single modulo Arithmetic.
-		arithmetic = ast.ArithmeticClass().Arithmetic(modulo)
+		// Found a single "%" delimiter.
+		arithmetic = ast.ArithmeticClass().Arithmetic(delimiter)
 		return
 	}
 
-	// Attempt to parse a single caret Arithmetic.
-	var caret string
-	caret, token, ok = v.parseToken(CaretToken)
+	// Attempt to parse a single "^" delimiter.
+	delimiter, token, ok = v.parseDelimiter("^")
 	if ok {
-		// Found a single caret Arithmetic.
-		arithmetic = ast.ArithmeticClass().Arithmetic(caret)
+		// Found a single "^" delimiter.
+		arithmetic = ast.ArithmeticClass().Arithmetic(delimiter)
 		return
 	}
 
@@ -846,30 +842,29 @@ func (v *parser_) parseComparison() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single less Comparison.
-	var less string
-	less, token, ok = v.parseToken(LessToken)
+	var delimiter string
+
+	// Attempt to parse a single "<" delimiter.
+	delimiter, token, ok = v.parseDelimiter("<")
 	if ok {
-		// Found a single less Comparison.
-		comparison = ast.ComparisonClass().Comparison(less)
+		// Found a single "<" delimiter.
+		comparison = ast.ComparisonClass().Comparison(delimiter)
 		return
 	}
 
-	// Attempt to parse a single equal Comparison.
-	var equal string
-	equal, token, ok = v.parseToken(EqualToken)
+	// Attempt to parse a single "=" delimiter.
+	delimiter, token, ok = v.parseDelimiter("=")
 	if ok {
-		// Found a single equal Comparison.
-		comparison = ast.ComparisonClass().Comparison(equal)
+		// Found a single "=" delimiter.
+		comparison = ast.ComparisonClass().Comparison(delimiter)
 		return
 	}
 
-	// Attempt to parse a single more Comparison.
-	var more string
-	more, token, ok = v.parseToken(MoreToken)
+	// Attempt to parse a single ">" delimiter.
+	delimiter, token, ok = v.parseDelimiter(">")
 	if ok {
-		// Found a single more Comparison.
-		comparison = ast.ComparisonClass().Comparison(more)
+		// Found a single ">" delimiter.
+		comparison = ast.ComparisonClass().Comparison(delimiter)
 		return
 	}
 
@@ -1929,30 +1924,29 @@ func (v *parser_) parseInverse() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single dash Inverse.
-	var dash string
-	dash, token, ok = v.parseToken(DashToken)
+	var delimiter string
+
+	// Attempt to parse a single "-" delimiter.
+	delimiter, token, ok = v.parseDelimiter("-")
 	if ok {
-		// Found a single dash Inverse.
-		inverse = ast.InverseClass().Inverse(dash)
+		// Found a single "-" delimiter.
+		inverse = ast.InverseClass().Inverse(delimiter)
 		return
 	}
 
-	// Attempt to parse a single slash Inverse.
-	var slash string
-	slash, token, ok = v.parseToken(SlashToken)
+	// Attempt to parse a single "/" delimiter.
+	delimiter, token, ok = v.parseDelimiter("/")
 	if ok {
-		// Found a single slash Inverse.
-		inverse = ast.InverseClass().Inverse(slash)
+		// Found a single "/" delimiter.
+		inverse = ast.InverseClass().Inverse(delimiter)
 		return
 	}
 
-	// Attempt to parse a single star Inverse.
-	var star string
-	star, token, ok = v.parseToken(StarToken)
+	// Attempt to parse a single "*" delimiter.
+	delimiter, token, ok = v.parseDelimiter("*")
 	if ok {
-		// Found a single star Inverse.
-		inverse = ast.InverseClass().Inverse(star)
+		// Found a single "*" delimiter.
+		inverse = ast.InverseClass().Inverse(delimiter)
 		return
 	}
 
@@ -2045,21 +2039,21 @@ func (v *parser_) parseInvoke() (
 	token TokenLike,
 	ok bool,
 ) {
-	// Attempt to parse a single synchronous Invoke.
-	var synchronous string
-	synchronous, token, ok = v.parseToken(SynchronousToken)
+	var delimiter string
+
+	// Attempt to parse a single "<-" delimiter.
+	delimiter, token, ok = v.parseDelimiter("<-")
 	if ok {
-		// Found a single synchronous Invoke.
-		invoke = ast.InvokeClass().Invoke(synchronous)
+		// Found a single "<-" delimiter.
+		invoke = ast.InvokeClass().Invoke(delimiter)
 		return
 	}
 
-	// Attempt to parse a single asynchronous Invoke.
-	var asynchronous string
-	asynchronous, token, ok = v.parseToken(AsynchronousToken)
+	// Attempt to parse a single "<~" delimiter.
+	delimiter, token, ok = v.parseDelimiter("<~")
 	if ok {
-		// Found a single asynchronous Invoke.
-		invoke = ast.InvokeClass().Invoke(asynchronous)
+		// Found a single "<~" delimiter.
+		invoke = ast.InvokeClass().Invoke(delimiter)
 		return
 	}
 
@@ -5317,8 +5311,8 @@ var parserClassReference_ = &parserClass_{
 			"$Value":  `identifier`,
 			"$Method": `identifier Invoke identifier "(" Argument* ")"`,
 			"$Invoke": `
-    synchronous
-    asynchronous`,
+    "<-"
+    "<~"`,
 			"$Subentity": `identifier "[" Index+ "]"`,
 			"$Index": `
     Value
@@ -5391,16 +5385,16 @@ var parserClassReference_ = &parserClass_{
     "ior"
     "xor"`,
 			"$Arithmetic": `
-    plus
-    dash
-    star
-    slash
-    modulo
-    caret`,
+    "+"
+    "-"
+    "*"
+    "/"
+    "%"
+    "^"`,
 			"$Comparison": `
-    less
-    equal
-    more`,
+    "<"
+    "="
+    ">"`,
 			"$Precedence": `"(" Expression ")"`,
 			"$Referent":   `"@" Indirect`,
 			"$Indirect": `
@@ -5422,9 +5416,9 @@ var parserClassReference_ = &parserClass_{
     Value  ! This must be last since others also begin with an identifier.`,
 			"$Inversion": `Inverse Numerical`,
 			"$Inverse": `
-    dash
-    slash
-    star`,
+    "-"
+    "/"
+    "*"`,
 			"$Numerical": `
     Document
     Subentity

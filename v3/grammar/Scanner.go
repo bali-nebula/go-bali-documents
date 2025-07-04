@@ -192,19 +192,13 @@ loop:
 	for v.next_ < uint(len(v.runes_)) {
 		switch {
 		// Find the next token type.
-		case v.foundToken(DelimiterToken):
-		case v.foundToken(NewlineToken):
-		case v.foundToken(SpaceToken):
 		case v.foundToken(AngleToken):
 		case v.foundToken(BinaryToken):
 		case v.foundToken(BooleanToken):
 		case v.foundToken(BytecodeToken):
-		case v.foundToken(CaretToken):
 		case v.foundToken(CommentToken):
 		case v.foundToken(DurationToken):
-		case v.foundToken(EqualToken):
 		case v.foundToken(GlyphToken):
-		case v.foundToken(ModuloToken):
 		case v.foundToken(MomentToken):
 		case v.foundToken(NameToken):
 		case v.foundToken(NarrativeToken):
@@ -218,15 +212,10 @@ loop:
 		case v.foundToken(SymbolToken):
 		case v.foundToken(TagToken):
 		case v.foundToken(VersionToken):
+		case v.foundToken(DelimiterToken):
+		case v.foundToken(NewlineToken):
+		case v.foundToken(SpaceToken):
 		case v.foundToken(IdentifierToken):
-		case v.foundToken(SynchronousToken):
-		case v.foundToken(AsynchronousToken):
-		case v.foundToken(LessToken):
-		case v.foundToken(MoreToken):
-		case v.foundToken(PlusToken):
-		case v.foundToken(DashToken):
-		case v.foundToken(StarToken):
-		case v.foundToken(SlashToken):
 		default:
 			v.foundError()
 			break loop
@@ -266,82 +255,60 @@ var scannerClassReference_ = &scannerClass_{
 	tokens_: fra.CatalogFromMap[TokenType, string](
 		map[TokenType]string{
 			// Define token identifiers for each type of expression.
-			ErrorToken:        "error",
-			AngleToken:        "angle",
-			AsynchronousToken: "asynchronous",
-			BinaryToken:       "binary",
-			BooleanToken:      "boolean",
-			BytecodeToken:     "bytecode",
-			CaretToken:        "caret",
-			CommentToken:      "comment",
-			DashToken:         "dash",
-			DelimiterToken:    "delimiter",
-			DurationToken:     "duration",
-			EqualToken:        "equal",
-			GlyphToken:        "glyph",
-			IdentifierToken:   "identifier",
-			LessToken:         "less",
-			ModuloToken:       "modulo",
-			MomentToken:       "moment",
-			MoreToken:         "more",
-			NameToken:         "name",
-			NarrativeToken:    "narrative",
-			NewlineToken:      "newline",
-			NoteToken:         "note",
-			NumberToken:       "number",
-			PatternToken:      "pattern",
-			PercentageToken:   "percentage",
-			PlusToken:         "plus",
-			ProbabilityToken:  "probability",
-			QuoteToken:        "quote",
-			ResourceToken:     "resource",
-			SlashToken:        "slash",
-			SpaceToken:        "space",
-			StarToken:         "star",
-			SymbolToken:       "symbol",
-			SynchronousToken:  "synchronous",
-			TagToken:          "tag",
-			VersionToken:      "version",
+			ErrorToken:       "error",
+			AngleToken:       "angle",
+			BinaryToken:      "binary",
+			BooleanToken:     "boolean",
+			BytecodeToken:    "bytecode",
+			CommentToken:     "comment",
+			DelimiterToken:   "delimiter",
+			DurationToken:    "duration",
+			GlyphToken:       "glyph",
+			IdentifierToken:  "identifier",
+			MomentToken:      "moment",
+			NameToken:        "name",
+			NarrativeToken:   "narrative",
+			NewlineToken:     "newline",
+			NoteToken:        "note",
+			NumberToken:      "number",
+			PatternToken:     "pattern",
+			PercentageToken:  "percentage",
+			ProbabilityToken: "probability",
+			QuoteToken:       "quote",
+			ResourceToken:    "resource",
+			SpaceToken:       "space",
+			SymbolToken:      "symbol",
+			TagToken:         "tag",
+			VersionToken:     "version",
 		},
 	),
 	matchers_: fra.CatalogFromMap[TokenType, *reg.Regexp](
 		map[TokenType]*reg.Regexp{
 			// Define pattern matchers for each type of expression.
-			AngleToken:        reg.MustCompile("^" + angle_),
-			AsynchronousToken: reg.MustCompile("^" + asynchronous_),
-			BinaryToken:       reg.MustCompile("^" + binary_),
-			BooleanToken:      reg.MustCompile("^" + boolean_),
-			BytecodeToken:     reg.MustCompile("^" + bytecode_),
-			CaretToken:        reg.MustCompile("^" + caret_),
-			CommentToken:      reg.MustCompile("^" + comment_),
-			DashToken:         reg.MustCompile("^" + dash_),
-			DelimiterToken:    reg.MustCompile("^" + delimiter_),
-			DurationToken:     reg.MustCompile("^" + duration_),
-			EqualToken:        reg.MustCompile("^" + equal_),
-			GlyphToken:        reg.MustCompile("^" + glyph_),
-			IdentifierToken:   reg.MustCompile("^" + identifier_),
-			LessToken:         reg.MustCompile("^" + less_),
-			ModuloToken:       reg.MustCompile("^" + modulo_),
-			MomentToken:       reg.MustCompile("^" + moment_),
-			MoreToken:         reg.MustCompile("^" + more_),
-			NameToken:         reg.MustCompile("^" + name_),
-			NarrativeToken:    reg.MustCompile("^" + narrative_),
-			NewlineToken:      reg.MustCompile("^" + newline_),
-			NoteToken:         reg.MustCompile("^" + note_),
-			NumberToken:       reg.MustCompile("^" + number_),
-			PatternToken:      reg.MustCompile("^" + pattern_),
-			PercentageToken:   reg.MustCompile("^" + percentage_),
-			PlusToken:         reg.MustCompile("^" + plus_),
-			ProbabilityToken:  reg.MustCompile("^" + probability_),
-			QuoteToken:        reg.MustCompile("^" + quote_),
-			ResourceToken:     reg.MustCompile("^" + resource_),
-			SlashToken:        reg.MustCompile("^" + slash_),
-			SpaceToken:        reg.MustCompile("^" + space_),
-			StarToken:         reg.MustCompile("^" + star_),
-			SymbolToken:       reg.MustCompile("^" + symbol_),
-			SynchronousToken:  reg.MustCompile("^" + synchronous_),
-			TagToken:          reg.MustCompile("^" + tag_),
-			VersionToken:      reg.MustCompile("^" + version_),
+			AngleToken:       reg.MustCompile("^" + angle_),
+			BinaryToken:      reg.MustCompile("^" + binary_),
+			BooleanToken:     reg.MustCompile("^" + boolean_),
+			BytecodeToken:    reg.MustCompile("^" + bytecode_),
+			CommentToken:     reg.MustCompile("^" + comment_),
+			DelimiterToken:   reg.MustCompile("^" + delimiter_),
+			DurationToken:    reg.MustCompile("^" + duration_),
+			GlyphToken:       reg.MustCompile("^" + glyph_),
+			IdentifierToken:  reg.MustCompile("^" + identifier_),
+			MomentToken:      reg.MustCompile("^" + moment_),
+			NameToken:        reg.MustCompile("^" + name_),
+			NarrativeToken:   reg.MustCompile("^" + narrative_),
+			NewlineToken:     reg.MustCompile("^" + newline_),
+			NoteToken:        reg.MustCompile("^" + note_),
+			NumberToken:      reg.MustCompile("^" + number_),
+			PatternToken:     reg.MustCompile("^" + pattern_),
+			PercentageToken:  reg.MustCompile("^" + percentage_),
+			ProbabilityToken: reg.MustCompile("^" + probability_),
+			QuoteToken:       reg.MustCompile("^" + quote_),
+			ResourceToken:    reg.MustCompile("^" + resource_),
+			SpaceToken:       reg.MustCompile("^" + space_),
+			SymbolToken:      reg.MustCompile("^" + symbol_),
+			TagToken:         reg.MustCompile("^" + tag_),
+			VersionToken:     reg.MustCompile("^" + version_),
 		},
 	),
 }
@@ -369,7 +336,6 @@ const (
 	alphanumeric_   = "(?:(?:" + alpha_ + ")|(?:" + base10_ + "))"
 	amplitude_      = "(?:(0(?:" + fraction_ + ")|(?:" + ordinal_ + ")(?:" + fraction_ + ")?|(?:" + transcendental_ + "))(?:" + exponent_ + ")?)"
 	angle_          = "(?:~(0|(?:" + amplitude_ + ")))"
-	asynchronous_   = "(?:<~)"
 	authority_      = "(?:[^/" + control_ + "]+)"
 	base10_         = "(?:[0-9])"
 	base16_         = "(?:(?:" + base10_ + ")|[a-f])"
@@ -378,15 +344,12 @@ const (
 	binary_         = "(?:'>(" + eol_ + "((?:" + space_ + ")*(?:" + base64_ + "){2,60}" + eol_ + ")+(?:" + space_ + ")*)?<')"
 	boolean_        = "(?:false|true)"
 	bytecode_       = "(?:'>" + eol_ + "((?:" + space_ + ")*(?:" + instruction_ + "){1,12}" + eol_ + ")+(?:" + space_ + ")*<')"
-	caret_          = "(?:\\^)"
 	character_      = "(?:(?:" + escape_ + ")|\\\\\"|[^\"" + control_ + "])"
 	comment_        = "(?:!>" + eol_ + "(" + any_ + "|" + eol_ + ")+?" + eol_ + "(?:" + space_ + ")*<!)"
-	dash_           = "(?:-)"
 	day_            = "(?:([0-2][1-9])|(3[0-1]))"
 	days_           = "(?:(?:" + timespan_ + ")D)"
-	delimiter_      = "(?:xor|with|while|to|throw|select|save|san|return|retrieve|reject|publish|post|on|notarize|not|matching|matches|loop|level|let|is|ior|in|if|from|each|do|discard|continue|checkout|break|at|as|and|accept|\\}|\\||\\{|\\]|\\[|\\?=|\\.\\.|\\+=|\\*=|\\)|\\(|@|:=|:|/=|-=|&)"
+	delimiter_      = "(?:xor|with|while|to|throw|select|save|san|return|retrieve|reject|publish|post|on|notarize|not|matching|matches|loop|level|let|is|ior|in|if|from|each|do|discard|continue|checkout|break|at|as|and|accept|\\}|\\||\\{|\\^|\\]|\\[|\\?=|\\.\\.|\\+=|\\+|\\*=|\\*|\\)|\\(|@|>|=|<~|<-|<|:=|:|/=|/|-=|-|&|%)"
 	duration_       = "(?:~P((?:" + weeks_ + ")|((?:" + years_ + ")?(?:" + months_ + ")?(?:" + days_ + ")?(T(?:" + hours_ + ")?(?:" + minutes_ + ")?(?:" + seconds_ + ")?)?)))"
-	equal_          = "(?:=)"
 	escape_         = "(?:\\\\((?:" + unicode_ + ")|[abfnrtv\\\\]))"
 	exponent_       = "(?:E(?:" + sign_ + ")?(?:" + ordinal_ + "))"
 	float_          = "(?:(?:" + sign_ + ")?(?:" + amplitude_ + "))"
@@ -399,15 +362,12 @@ const (
 	imaginary_      = "(?:(?:" + float_ + ")i)"
 	infinity_       = "(?:(?:" + sign_ + ")?(infinity|∞))"
 	instruction_    = "(?:-(?:" + base16_ + "){4})"
-	less_           = "(?:<)"
 	letter_         = "(?:" + lower_ + "|" + upper_ + ")"
 	minute_         = "(?:[0-5][0-9])"
 	minutes_        = "(?:(?:" + timespan_ + ")M)"
-	modulo_         = "(?:%)"
 	moment_         = "(?:<(?:" + sign_ + ")?(?:" + year_ + ")(-(?:" + month_ + ")(-(?:" + day_ + ")(T(?:" + hour_ + ")(:(?:" + minute_ + ")(:(?:" + second_ + ")(?:" + fraction_ + ")?)?)?)?)?)?>)"
 	month_          = "(?:(0[1-9])|(1[0-2]))"
 	months_         = "(?:(?:" + timespan_ + ")M)"
-	more_           = "(?:>)"
 	name_           = "(?:(/(?:" + identifier_ + "))+)"
 	narrative_      = "(?:\">" + eol_ + "(" + any_ + "|" + eol_ + ")+?" + eol_ + "(?:" + space_ + ")*<\")"
 	newline_        = "(?:" + eol_ + ")"
@@ -417,7 +377,6 @@ const (
 	path_           = "(?:[^\\?#>" + control_ + "]*)"
 	pattern_        = "(?:none|(?:" + regex_ + ")|any)"
 	percentage_     = "(?:(?:" + real_ + ")%)"
-	plus_           = "(?:\\+)"
 	polar_          = "(?:(?:" + amplitude_ + ")e\\^(~(0|(?:" + amplitude_ + ")))?i)"
 	probability_    = "(?:p(0(?:" + fraction_ + ")?|1))"
 	query_          = "(?:[^#>" + control_ + "]*)"
@@ -430,11 +389,8 @@ const (
 	second_         = "(?:([0-5][0-9])|(6[0-1]))"
 	seconds_        = "(?:(?:" + timespan_ + ")S)"
 	sign_           = "(?:\\+|-)"
-	slash_          = "(?:/)"
 	space_          = "(?: +)"
-	star_           = "(?:\\*)"
 	symbol_         = "(?:\\$(?:" + identifier_ + "))"
-	synchronous_    = "(?:<-)"
 	tag_            = "(?:#(?:" + base32_ + "){13,})"
 	timespan_       = "(?:0|((?:" + ordinal_ + ")(?:" + fraction_ + ")?))"
 	transcendental_ = "(?:e|pi|π|tau|τ|phi|φ)"
