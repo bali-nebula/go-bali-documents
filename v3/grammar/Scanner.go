@@ -161,6 +161,16 @@ func (v *scanner_) foundToken(
 		}
 	}
 
+	// Check for an exact delimiter match which takes precedence.
+	if tokenType != DelimiterToken {
+		matcher = class.matchers_.GetValue(DelimiterToken)
+		var delimiter = matcher.FindString(match)
+		if uti.IsDefined(delimiter) && delimiter == match {
+			// This is a delimiter instead so ignore it.
+			return false
+		}
+	}
+
 	// Found the requested token type.
 	v.next_ += length
 	v.emitToken(tokenType)
@@ -207,15 +217,15 @@ loop:
 		case v.foundToken(PercentageToken):
 		case v.foundToken(ProbabilityToken):
 		case v.foundToken(QuoteToken):
-		case v.foundToken(NumberToken):
 		case v.foundToken(ResourceToken):
 		case v.foundToken(SymbolToken):
 		case v.foundToken(TagToken):
 		case v.foundToken(VersionToken):
-		case v.foundToken(DelimiterToken):
+		case v.foundToken(NumberToken):
+		case v.foundToken(IdentifierToken):
 		case v.foundToken(NewlineToken):
 		case v.foundToken(SpaceToken):
-		case v.foundToken(IdentifierToken):
+		case v.foundToken(DelimiterToken):
 		default:
 			v.foundError()
 			break loop
