@@ -149,17 +149,17 @@ $Target:
 
 $Function: identifier "(" Argument* ")"
 
-$Argument:
-    Value
-    Primitive
-
-$Value: identifier
-
 $Method: identifier Invoke identifier "(" Argument* ")"
 
 $Invoke:
     "<-"
     "<~"
+
+$Argument:
+    Value
+    Primitive
+
+$Value: identifier
 
 $Subcomponent: identifier "[" Index+ "]"
 

@@ -5305,14 +5305,14 @@ var parserClassReference_ = &parserClass_{
     Subcomponent
     Value  ! This must be last since others also begin with an identifier.`,
 			"$Function": `identifier "(" Argument* ")"`,
-			"$Argument": `
-    Value
-    Primitive`,
-			"$Value":  `identifier`,
-			"$Method": `identifier Invoke identifier "(" Argument* ")"`,
+			"$Method":   `identifier Invoke identifier "(" Argument* ")"`,
 			"$Invoke": `
     "<-"
     "<~"`,
+			"$Argument": `
+    Value
+    Primitive`,
+			"$Value":        `identifier`,
 			"$Subcomponent": `identifier "[" Index+ "]"`,
 			"$Index": `
     Value
