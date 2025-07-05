@@ -1023,18 +1023,18 @@ type StringClassLike interface {
 }
 
 /*
-SubentityClassLike is a class interface that declares the
+SubcomponentClassLike is a class interface that declares the
 complete set of class constructors, constants and functions that must be
-supported by each concrete subentity-like class.
+supported by each concrete subcomponent-like class.
 */
-type SubentityClassLike interface {
+type SubcomponentClassLike interface {
 	// Constructor Methods
-	Subentity(
+	Subcomponent(
 		identifier string,
 		delimiter1 string,
 		indexes fra.ListLike[IndexLike],
 		delimiter2 string,
-	) SubentityLike
+	) SubcomponentLike
 }
 
 /*
@@ -2208,13 +2208,13 @@ type StringLike interface {
 }
 
 /*
-SubentityLike is an instance interface that declares the
+SubcomponentLike is an instance interface that declares the
 complete set of principal, attribute and aspect methods that must be supported
-by each instance of a concrete subentity-like class.
+by each instance of a concrete subcomponent-like class.
 */
-type SubentityLike interface {
+type SubcomponentLike interface {
 	// Principal Methods
-	GetClass() SubentityClassLike
+	GetClass() SubcomponentClassLike
 
 	// Attribute Methods
 	GetIdentifier() string

@@ -1154,14 +1154,14 @@ func (v *visitor_) visitIndirect(
 			1,
 			1,
 		)
-	case ast.SubentityLike:
-		v.processor_.PreprocessSubentity(
+	case ast.SubcomponentLike:
+		v.processor_.PreprocessSubcomponent(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubentity(actual)
-		v.processor_.PostprocessSubentity(
+		v.visitSubcomponent(actual)
+		v.processor_.PostprocessSubcomponent(
 			actual,
 			1,
 			1,
@@ -1491,14 +1491,14 @@ func (v *visitor_) visitLogical(
 			1,
 			1,
 		)
-	case ast.SubentityLike:
-		v.processor_.PreprocessSubentity(
+	case ast.SubcomponentLike:
+		v.processor_.PreprocessSubcomponent(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubentity(actual)
-		v.processor_.PostprocessSubentity(
+		v.visitSubcomponent(actual)
+		v.processor_.PostprocessSubcomponent(
 			actual,
 			1,
 			1,
@@ -1944,14 +1944,14 @@ func (v *visitor_) visitNumerical(
 			1,
 			1,
 		)
-	case ast.SubentityLike:
-		v.processor_.PreprocessSubentity(
+	case ast.SubcomponentLike:
+		v.processor_.PreprocessSubcomponent(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubentity(actual)
-		v.processor_.PostprocessSubentity(
+		v.visitSubcomponent(actual)
+		v.processor_.PostprocessSubcomponent(
 			actual,
 			1,
 			1,
@@ -2498,14 +2498,14 @@ func (v *visitor_) visitRecipient(
 			1,
 			1,
 		)
-	case ast.SubentityLike:
-		v.processor_.PreprocessSubentity(
+	case ast.SubcomponentLike:
+		v.processor_.PreprocessSubcomponent(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubentity(actual)
-		v.processor_.PostprocessSubentity(
+		v.visitSubcomponent(actual)
+		v.processor_.PostprocessSubcomponent(
 			actual,
 			1,
 			1,
@@ -2891,27 +2891,27 @@ func (v *visitor_) visitString(
 	}
 }
 
-func (v *visitor_) visitSubentity(
-	subentity ast.SubentityLike,
+func (v *visitor_) visitSubcomponent(
+	subcomponent ast.SubcomponentLike,
 ) {
-	var identifier = subentity.GetIdentifier()
+	var identifier = subcomponent.GetIdentifier()
 	v.processor_.ProcessIdentifier(identifier)
 	// Visit slot 1 between terms.
-	v.processor_.ProcessSubentitySlot(
-		subentity,
+	v.processor_.ProcessSubcomponentSlot(
+		subcomponent,
 		1,
 	)
 
-	var delimiter1 = subentity.GetDelimiter1()
+	var delimiter1 = subcomponent.GetDelimiter1()
 	v.processor_.ProcessDelimiter(delimiter1)
 	// Visit slot 2 between terms.
-	v.processor_.ProcessSubentitySlot(
-		subentity,
+	v.processor_.ProcessSubcomponentSlot(
+		subcomponent,
 		2,
 	)
 
 	var indexesIndex uint
-	var indexes = subentity.GetIndexes().GetIterator()
+	var indexes = subcomponent.GetIndexes().GetIterator()
 	var indexesCount = uint(indexes.GetSize())
 	for indexes.HasNext() {
 		indexesIndex++
@@ -2929,12 +2929,12 @@ func (v *visitor_) visitSubentity(
 		)
 	}
 	// Visit slot 3 between terms.
-	v.processor_.ProcessSubentitySlot(
-		subentity,
+	v.processor_.ProcessSubcomponentSlot(
+		subcomponent,
 		3,
 	)
 
-	var delimiter2 = subentity.GetDelimiter2()
+	var delimiter2 = subcomponent.GetDelimiter2()
 	v.processor_.ProcessDelimiter(delimiter2)
 }
 
@@ -2955,14 +2955,14 @@ func (v *visitor_) visitSubject(
 			1,
 			1,
 		)
-	case ast.SubentityLike:
-		v.processor_.PreprocessSubentity(
+	case ast.SubcomponentLike:
+		v.processor_.PreprocessSubcomponent(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubentity(actual)
-		v.processor_.PostprocessSubentity(
+		v.visitSubcomponent(actual)
+		v.processor_.PostprocessSubcomponent(
 			actual,
 			1,
 			1,
@@ -3095,14 +3095,14 @@ func (v *visitor_) visitTarget(
 			1,
 			1,
 		)
-	case ast.SubentityLike:
-		v.processor_.PreprocessSubentity(
+	case ast.SubcomponentLike:
+		v.processor_.PreprocessSubcomponent(
 			actual,
 			1,
 			1,
 		)
-		v.visitSubentity(actual)
-		v.processor_.PostprocessSubentity(
+		v.visitSubcomponent(actual)
+		v.processor_.PostprocessSubcomponent(
 			actual,
 			1,
 			1,

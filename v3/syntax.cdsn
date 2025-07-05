@@ -144,7 +144,7 @@ $SelectClause: "select" Target MatchingClause+
 $Target:
     Function
     Method
-    Subentity
+    Subcomponent
     Value  ! This must be last since others also begin with an identifier.
 
 $Function: identifier "(" Argument* ")"
@@ -161,7 +161,7 @@ $Invoke:
     "<-"
     "<~"
 
-$Subentity: identifier "[" Index+ "]"
+$Subcomponent: identifier "[" Index+ "]"
 
 $Index:
     Value
@@ -205,7 +205,7 @@ $Assignment:
 
 $Recipient:
     Variable
-    Subentity
+    Subcomponent
 
 $PostClause: "post" Message "to" Bag
 
@@ -241,7 +241,7 @@ $Expression: Subject Predicate*
 
 $Subject:
     Document
-    Subentity
+    Subcomponent
     Precedence
     Referent
     Complement
@@ -289,7 +289,7 @@ $Referent: "@" Indirect
 
 $Indirect:
     Document
-    Subentity
+    Subcomponent
     Referent
     Function
     Method
@@ -299,7 +299,7 @@ $Complement: "not" Logical
 
 $Logical:
     Document
-    Subentity
+    Subcomponent
     Precedence
     Referent
     Complement
@@ -316,7 +316,7 @@ $Inverse:
 
 $Numerical:
     Document
-    Subentity
+    Subcomponent
     Precedence
     Referent
     Inversion

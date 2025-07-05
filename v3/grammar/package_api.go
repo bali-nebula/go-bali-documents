@@ -1413,18 +1413,18 @@ type Methodical interface {
 		string_ ast.StringLike,
 		slot_ uint,
 	)
-	PreprocessSubentity(
-		subentity ast.SubentityLike,
+	PreprocessSubcomponent(
+		subcomponent ast.SubcomponentLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessSubentity(
-		subentity ast.SubentityLike,
+	PostprocessSubcomponent(
+		subcomponent ast.SubcomponentLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessSubentitySlot(
-		subentity ast.SubentityLike,
+	ProcessSubcomponentSlot(
+		subcomponent ast.SubcomponentLike,
 		slot_ uint,
 	)
 	PreprocessSubject(

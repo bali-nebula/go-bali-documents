@@ -30,18 +30,18 @@ import (
 
 // Access Function
 
-func SubentityClass() SubentityClassLike {
-	return subentityClass()
+func SubcomponentClass() SubcomponentClassLike {
+	return subcomponentClass()
 }
 
 // Constructor Methods
 
-func (c *subentityClass_) Subentity(
+func (c *subcomponentClass_) Subcomponent(
 	identifier string,
 	delimiter1 string,
 	indexes fra.ListLike[IndexLike],
 	delimiter2 string,
-) SubentityLike {
+) SubcomponentLike {
 	if uti.IsUndefined(identifier) {
 		panic("The \"identifier\" attribute is required by this class.")
 	}
@@ -54,7 +54,7 @@ func (c *subentityClass_) Subentity(
 	if uti.IsUndefined(delimiter2) {
 		panic("The \"delimiter2\" attribute is required by this class.")
 	}
-	var instance = &subentity_{
+	var instance = &subcomponent_{
 		// Initialize the instance attributes.
 		identifier_: identifier,
 		delimiter1_: delimiter1,
@@ -68,25 +68,25 @@ func (c *subentityClass_) Subentity(
 
 // Principal Methods
 
-func (v *subentity_) GetClass() SubentityClassLike {
-	return subentityClass()
+func (v *subcomponent_) GetClass() SubcomponentClassLike {
+	return subcomponentClass()
 }
 
 // Attribute Methods
 
-func (v *subentity_) GetIdentifier() string {
+func (v *subcomponent_) GetIdentifier() string {
 	return v.identifier_
 }
 
-func (v *subentity_) GetDelimiter1() string {
+func (v *subcomponent_) GetDelimiter1() string {
 	return v.delimiter1_
 }
 
-func (v *subentity_) GetIndexes() fra.ListLike[IndexLike] {
+func (v *subcomponent_) GetIndexes() fra.ListLike[IndexLike] {
 	return v.indexes_
 }
 
-func (v *subentity_) GetDelimiter2() string {
+func (v *subcomponent_) GetDelimiter2() string {
 	return v.delimiter2_
 }
 
@@ -94,7 +94,7 @@ func (v *subentity_) GetDelimiter2() string {
 
 // Instance Structure
 
-type subentity_ struct {
+type subcomponent_ struct {
 	// Declare the instance attributes.
 	identifier_ string
 	delimiter1_ string
@@ -104,16 +104,16 @@ type subentity_ struct {
 
 // Class Structure
 
-type subentityClass_ struct {
+type subcomponentClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func subentityClass() *subentityClass_ {
-	return subentityClassReference_
+func subcomponentClass() *subcomponentClass_ {
+	return subcomponentClassReference_
 }
 
-var subentityClassReference_ = &subentityClass_{
+var subcomponentClassReference_ = &subcomponentClass_{
 	// Initialize the class constants.
 }

@@ -1672,22 +1672,22 @@ func (v *processor_) ProcessStringSlot(
 ) {
 }
 
-func (v *processor_) PreprocessSubentity(
-	subentity ast.SubentityLike,
+func (v *processor_) PreprocessSubcomponent(
+	subcomponent ast.SubcomponentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessSubentity(
-	subentity ast.SubentityLike,
+func (v *processor_) PostprocessSubcomponent(
+	subcomponent ast.SubcomponentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessSubentitySlot(
-	subentity ast.SubentityLike,
+func (v *processor_) ProcessSubcomponentSlot(
+	subcomponent ast.SubcomponentLike,
 	slot_ uint,
 ) {
 }

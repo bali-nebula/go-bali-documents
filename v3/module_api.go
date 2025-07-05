@@ -116,7 +116,7 @@ type (
 	SequenceClassLike         = ast.SequenceClassLike
 	StatementClassLike        = ast.StatementClassLike
 	StringClassLike           = ast.StringClassLike
-	SubentityClassLike        = ast.SubentityClassLike
+	SubcomponentClassLike     = ast.SubcomponentClassLike
 	SubjectClassLike          = ast.SubjectClassLike
 	TargetClassLike           = ast.TargetClassLike
 	TemplateClassLike         = ast.TemplateClassLike
@@ -204,7 +204,7 @@ type (
 	SequenceLike         = ast.SequenceLike
 	StatementLike        = ast.StatementLike
 	StringLike           = ast.StringLike
-	SubentityLike        = ast.SubentityLike
+	SubcomponentLike     = ast.SubcomponentLike
 	SubjectLike          = ast.SubjectLike
 	TargetLike           = ast.TargetLike
 	TemplateLike         = ast.TemplateLike
@@ -1328,17 +1328,17 @@ func String(
 	)
 }
 
-func SubentityClass() SubentityClassLike {
-	return ast.SubentityClass()
+func SubcomponentClass() SubcomponentClassLike {
+	return ast.SubcomponentClass()
 }
 
-func Subentity(
+func Subcomponent(
 	identifier string,
 	delimiter1 string,
 	indexes fra.ListLike[ast.IndexLike],
 	delimiter2 string,
-) SubentityLike {
-	return SubentityClass().Subentity(
+) SubcomponentLike {
+	return SubcomponentClass().Subcomponent(
 		identifier,
 		delimiter1,
 		indexes,

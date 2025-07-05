@@ -1870,12 +1870,12 @@ func (v *parser_) parseIndirect() (
 		return
 	}
 
-	// Attempt to parse a single Subentity Indirect.
-	var subentity ast.SubentityLike
-	subentity, token, ok = v.parseSubentity()
+	// Attempt to parse a single Subcomponent Indirect.
+	var subcomponent ast.SubcomponentLike
+	subcomponent, token, ok = v.parseSubcomponent()
 	if ok {
-		// Found a single Subentity Indirect.
-		indirect = ast.IndirectClass().Indirect(subentity)
+		// Found a single Subcomponent Indirect.
+		indirect = ast.IndirectClass().Indirect(subcomponent)
 		return
 	}
 
@@ -2342,12 +2342,12 @@ func (v *parser_) parseLogical() (
 		return
 	}
 
-	// Attempt to parse a single Subentity Logical.
-	var subentity ast.SubentityLike
-	subentity, token, ok = v.parseSubentity()
+	// Attempt to parse a single Subcomponent Logical.
+	var subcomponent ast.SubcomponentLike
+	subcomponent, token, ok = v.parseSubcomponent()
 	if ok {
-		// Found a single Subentity Logical.
-		logical = ast.LogicalClass().Logical(subentity)
+		// Found a single Subcomponent Logical.
+		logical = ast.LogicalClass().Logical(subcomponent)
 		return
 	}
 
@@ -2940,12 +2940,12 @@ func (v *parser_) parseNumerical() (
 		return
 	}
 
-	// Attempt to parse a single Subentity Numerical.
-	var subentity ast.SubentityLike
-	subentity, token, ok = v.parseSubentity()
+	// Attempt to parse a single Subcomponent Numerical.
+	var subcomponent ast.SubcomponentLike
+	subcomponent, token, ok = v.parseSubcomponent()
 	if ok {
-		// Found a single Subentity Numerical.
-		numerical = ast.NumericalClass().Numerical(subentity)
+		// Found a single Subcomponent Numerical.
+		numerical = ast.NumericalClass().Numerical(subcomponent)
 		return
 	}
 
@@ -3720,12 +3720,12 @@ func (v *parser_) parseRecipient() (
 		return
 	}
 
-	// Attempt to parse a single Subentity Recipient.
-	var subentity ast.SubentityLike
-	subentity, token, ok = v.parseSubentity()
+	// Attempt to parse a single Subcomponent Recipient.
+	var subcomponent ast.SubcomponentLike
+	subcomponent, token, ok = v.parseSubcomponent()
 	if ok {
-		// Found a single Subentity Recipient.
-		recipient = ast.RecipientClass().Recipient(subentity)
+		// Found a single Subcomponent Recipient.
+		recipient = ast.RecipientClass().Recipient(subcomponent)
 		return
 	}
 
@@ -4376,8 +4376,8 @@ func (v *parser_) parseString() (
 	return
 }
 
-func (v *parser_) parseSubentity() (
-	subentity ast.SubentityLike,
+func (v *parser_) parseSubcomponent() (
+	subcomponent ast.SubcomponentLike,
 	token TokenLike,
 	ok bool,
 ) {
@@ -4393,7 +4393,7 @@ func (v *parser_) parseSubentity() (
 			return
 		} else {
 			// Found a syntax error.
-			var message = v.formatError("$Subentity", token)
+			var message = v.formatError("$Subcomponent", token)
 			panic(message)
 		}
 	}
@@ -4406,12 +4406,12 @@ func (v *parser_) parseSubentity() (
 	delimiter1, token, ok = v.parseDelimiter("[")
 	if !ok {
 		if uti.IsDefined(tokens) {
-			// This is not a single Subentity rule.
+			// This is not a single Subcomponent rule.
 			v.putBack(tokens)
 			return
 		} else {
 			// Found a syntax error.
-			var message = v.formatError("$Subentity", token)
+			var message = v.formatError("$Subcomponent", token)
 			panic(message)
 		}
 	}
@@ -4435,7 +4435,7 @@ indexesLoop:
 				return
 			default:
 				// Found a syntax error.
-				var message = v.formatError("$Subentity", token)
+				var message = v.formatError("$Subcomponent", token)
 				message += "1 or more Index rules are required."
 				panic(message)
 			}
@@ -4450,12 +4450,12 @@ indexesLoop:
 	delimiter2, token, ok = v.parseDelimiter("]")
 	if !ok {
 		if uti.IsDefined(tokens) {
-			// This is not a single Subentity rule.
+			// This is not a single Subcomponent rule.
 			v.putBack(tokens)
 			return
 		} else {
 			// Found a syntax error.
-			var message = v.formatError("$Subentity", token)
+			var message = v.formatError("$Subcomponent", token)
 			panic(message)
 		}
 	}
@@ -4463,10 +4463,10 @@ indexesLoop:
 		tokens.AppendValue(token)
 	}
 
-	// Found a single Subentity rule.
+	// Found a single Subcomponent rule.
 	ok = true
 	v.remove(tokens)
-	subentity = ast.SubentityClass().Subentity(
+	subcomponent = ast.SubcomponentClass().Subcomponent(
 		identifier,
 		delimiter1,
 		indexes,
@@ -4489,12 +4489,12 @@ func (v *parser_) parseSubject() (
 		return
 	}
 
-	// Attempt to parse a single Subentity Subject.
-	var subentity ast.SubentityLike
-	subentity, token, ok = v.parseSubentity()
+	// Attempt to parse a single Subcomponent Subject.
+	var subcomponent ast.SubcomponentLike
+	subcomponent, token, ok = v.parseSubcomponent()
 	if ok {
-		// Found a single Subentity Subject.
-		subject = ast.SubjectClass().Subject(subentity)
+		// Found a single Subcomponent Subject.
+		subject = ast.SubjectClass().Subject(subcomponent)
 		return
 	}
 
@@ -4597,12 +4597,12 @@ func (v *parser_) parseTarget() (
 		return
 	}
 
-	// Attempt to parse a single Subentity Target.
-	var subentity ast.SubentityLike
-	subentity, token, ok = v.parseSubentity()
+	// Attempt to parse a single Subcomponent Target.
+	var subcomponent ast.SubcomponentLike
+	subcomponent, token, ok = v.parseSubcomponent()
 	if ok {
-		// Found a single Subentity Target.
-		target = ast.TargetClass().Target(subentity)
+		// Found a single Subcomponent Target.
+		target = ast.TargetClass().Target(subcomponent)
 		return
 	}
 
@@ -5302,7 +5302,7 @@ var parserClassReference_ = &parserClass_{
 			"$Target": `
     Function
     Method
-    Subentity
+    Subcomponent
     Value  ! This must be last since others also begin with an identifier.`,
 			"$Function": `identifier "(" Argument* ")"`,
 			"$Argument": `
@@ -5313,7 +5313,7 @@ var parserClassReference_ = &parserClass_{
 			"$Invoke": `
     "<-"
     "<~"`,
-			"$Subentity": `identifier "[" Index+ "]"`,
+			"$Subcomponent": `identifier "[" Index+ "]"`,
 			"$Index": `
     Value
     Primitive`,
@@ -5341,7 +5341,7 @@ var parserClassReference_ = &parserClass_{
     "/="`,
 			"$Recipient": `
     Variable
-    Subentity`,
+    Subcomponent`,
 			"$PostClause":     `"post" Message "to" Bag`,
 			"$Message":        `Expression`,
 			"$Bag":            `Expression`,
@@ -5360,7 +5360,7 @@ var parserClassReference_ = &parserClass_{
 			"$Expression":     `Subject Predicate*`,
 			"$Subject": `
     Document
-    Subentity
+    Subcomponent
     Precedence
     Referent
     Complement
@@ -5399,7 +5399,7 @@ var parserClassReference_ = &parserClass_{
 			"$Referent":   `"@" Indirect`,
 			"$Indirect": `
     Document
-    Subentity
+    Subcomponent
     Referent
     Function
     Method
@@ -5407,7 +5407,7 @@ var parserClassReference_ = &parserClass_{
 			"$Complement": `"not" Logical`,
 			"$Logical": `
     Document
-    Subentity
+    Subcomponent
     Precedence
     Referent
     Complement
@@ -5421,7 +5421,7 @@ var parserClassReference_ = &parserClass_{
     "*"`,
 			"$Numerical": `
     Document
-    Subentity
+    Subcomponent
     Precedence
     Referent
     Inversion
