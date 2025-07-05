@@ -102,9 +102,9 @@ $MainClause:
 
 $OnClause: "on" Failure MatchingClause+
 
-$MatchingClause: "matching" Template "do" Procedure
-
 $Failure: symbol
+
+$MatchingClause: "matching" Template "do" Procedure
 
 $Template: Expression
 

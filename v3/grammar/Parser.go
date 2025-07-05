@@ -5270,8 +5270,8 @@ var parserClassReference_ = &parserClass_{
     MessageHandling
     RepositoryAccess`,
 			"$OnClause":       `"on" Failure MatchingClause+`,
-			"$MatchingClause": `"matching" Template "do" Procedure`,
 			"$Failure":        `symbol`,
+			"$MatchingClause": `"matching" Template "do" Procedure`,
 			"$Template":       `Expression`,
 			"$FlowControl": `
     IfClause
