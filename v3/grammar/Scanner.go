@@ -371,7 +371,7 @@ const (
 	identifier_     = "(?:(?:" + letter_ + ")((?:" + letter_ + ")|" + digit_ + "|-)*)"
 	imaginary_      = "(?:(?:" + float_ + ")i)"
 	infinity_       = "(?:(?:" + sign_ + ")?(infinity|∞))"
-	instruction_    = "(?:-(?:" + base16_ + "){4})"
+	instruction_    = "(?::(?:" + base16_ + "){4})"
 	letter_         = "(?:" + lower_ + "|" + upper_ + ")"
 	minute_         = "(?:[0-5][0-9])"
 	minutes_        = "(?:(?:" + timespan_ + ")M)"
