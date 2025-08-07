@@ -36,7 +36,7 @@ func ComplementClass() ComplementClassLike {
 // Constructor Methods
 
 func (c *complementClass_) Complement(
-	logical string,
+	logical any,
 ) ComplementLike {
 	if uti.IsUndefined(logical) {
 		panic("The \"logical\" attribute is required by this class.")
@@ -58,7 +58,7 @@ func (v *complement_) GetClass() ComplementClassLike {
 
 // Attribute Methods
 
-func (v *complement_) GetLogical() string {
+func (v *complement_) GetLogical() any {
 	return v.logical_
 }
 
@@ -68,7 +68,7 @@ func (v *complement_) GetLogical() string {
 
 type complement_ struct {
 	// Declare the instance attributes.
-	logical_ string
+	logical_ any
 }
 
 // Class Structure
