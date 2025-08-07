@@ -384,10 +384,10 @@ range-like class.
 type RangeClassLike interface {
 	// Constructor Methods
 	Range(
-		bra Extent,
+		left Extent,
 		first any,
 		last any,
-		ket Extent,
+		right Extent,
 	) RangeLike
 }
 
@@ -893,10 +893,10 @@ type RangeLike interface {
 	GetClass() RangeClassLike
 
 	// Attribute Methods
-	GetBra() Extent
+	GetLeft() Extent
 	GetFirst() any
 	GetLast() any
-	GetKet() Extent
+	GetRight() Extent
 }
 
 /*

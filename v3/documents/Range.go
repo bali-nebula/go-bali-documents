@@ -36,13 +36,13 @@ func RangeClass() RangeClassLike {
 // Constructor Methods
 
 func (c *rangeClass_) Range(
-	bra Extent,
+	left Extent,
 	first any,
 	last any,
-	ket Extent,
+	right Extent,
 ) RangeLike {
-	if uti.IsUndefined(bra) {
-		panic("The \"bra\" attribute is required by this class.")
+	if uti.IsUndefined(left) {
+		panic("The \"left\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(first) {
 		panic("The \"first\" attribute is required by this class.")
@@ -50,15 +50,15 @@ func (c *rangeClass_) Range(
 	if uti.IsUndefined(last) {
 		panic("The \"last\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(ket) {
-		panic("The \"ket\" attribute is required by this class.")
+	if uti.IsUndefined(right) {
+		panic("The \"right\" attribute is required by this class.")
 	}
 	var instance = &range_{
 		// Initialize the instance attributes.
-		bra_:   bra,
+		left_:  left,
 		first_: first,
 		last_:  last,
-		ket_:   ket,
+		right_: right,
 	}
 	return instance
 }
@@ -73,8 +73,8 @@ func (v *range_) GetClass() RangeClassLike {
 
 // Attribute Methods
 
-func (v *range_) GetBra() Extent {
-	return v.bra_
+func (v *range_) GetLeft() Extent {
+	return v.left_
 }
 
 func (v *range_) GetFirst() any {
@@ -85,8 +85,8 @@ func (v *range_) GetLast() any {
 	return v.last_
 }
 
-func (v *range_) GetKet() Extent {
-	return v.ket_
+func (v *range_) GetRight() Extent {
+	return v.right_
 }
 
 // PROTECTED INTERFACE
@@ -95,10 +95,10 @@ func (v *range_) GetKet() Extent {
 
 type range_ struct {
 	// Declare the instance attributes.
-	bra_   Extent
+	left_  Extent
 	first_ any
 	last_  any
-	ket_   Extent
+	right_ Extent
 }
 
 // Class Structure
