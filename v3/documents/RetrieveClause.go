@@ -36,29 +36,19 @@ func RetrieveClauseClass() RetrieveClauseClassLike {
 // Constructor Methods
 
 func (c *retrieveClauseClass_) RetrieveClause(
-	delimiter1 string,
-	recipient RecipientLike,
-	delimiter2 string,
-	bag BagLike,
+	recipient any,
+	bag ExpressionLike,
 ) RetrieveClauseLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(recipient) {
 		panic("The \"recipient\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(bag) {
 		panic("The \"bag\" attribute is required by this class.")
 	}
 	var instance = &retrieveClause_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		recipient_:  recipient,
-		delimiter2_: delimiter2,
-		bag_:        bag,
+		recipient_: recipient,
+		bag_:       bag,
 	}
 	return instance
 }
@@ -73,19 +63,11 @@ func (v *retrieveClause_) GetClass() RetrieveClauseClassLike {
 
 // Attribute Methods
 
-func (v *retrieveClause_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *retrieveClause_) GetRecipient() RecipientLike {
+func (v *retrieveClause_) GetRecipient() any {
 	return v.recipient_
 }
 
-func (v *retrieveClause_) GetDelimiter2() string {
-	return v.delimiter2_
-}
-
-func (v *retrieveClause_) GetBag() BagLike {
+func (v *retrieveClause_) GetBag() ExpressionLike {
 	return v.bag_
 }
 
@@ -95,10 +77,8 @@ func (v *retrieveClause_) GetBag() BagLike {
 
 type retrieveClause_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	recipient_  RecipientLike
-	delimiter2_ string
-	bag_        BagLike
+	recipient_ any
+	bag_       ExpressionLike
 }
 
 // Class Structure

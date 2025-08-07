@@ -36,19 +36,14 @@ func AcceptClauseClass() AcceptClauseClassLike {
 // Constructor Methods
 
 func (c *acceptClauseClass_) AcceptClause(
-	delimiter string,
-	message MessageLike,
+	message ExpressionLike,
 ) AcceptClauseLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(message) {
 		panic("The \"message\" attribute is required by this class.")
 	}
 	var instance = &acceptClause_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
-		message_:   message,
+		message_: message,
 	}
 	return instance
 }
@@ -63,11 +58,7 @@ func (v *acceptClause_) GetClass() AcceptClauseClassLike {
 
 // Attribute Methods
 
-func (v *acceptClause_) GetDelimiter() string {
-	return v.delimiter_
-}
-
-func (v *acceptClause_) GetMessage() MessageLike {
+func (v *acceptClause_) GetMessage() ExpressionLike {
 	return v.message_
 }
 
@@ -77,8 +68,7 @@ func (v *acceptClause_) GetMessage() MessageLike {
 
 type acceptClause_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
-	message_   MessageLike
+	message_ ExpressionLike
 }
 
 // Class Structure

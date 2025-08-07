@@ -37,13 +37,9 @@ func OnClauseClass() OnClauseClassLike {
 // Constructor Methods
 
 func (c *onClauseClass_) OnClause(
-	delimiter string,
-	failure FailureLike,
+	failure fra.SymbolLike,
 	matchingClauses fra.ListLike[MatchingClauseLike],
 ) OnClauseLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(failure) {
 		panic("The \"failure\" attribute is required by this class.")
 	}
@@ -52,7 +48,6 @@ func (c *onClauseClass_) OnClause(
 	}
 	var instance = &onClause_{
 		// Initialize the instance attributes.
-		delimiter_:       delimiter,
 		failure_:         failure,
 		matchingClauses_: matchingClauses,
 	}
@@ -69,11 +64,7 @@ func (v *onClause_) GetClass() OnClauseClassLike {
 
 // Attribute Methods
 
-func (v *onClause_) GetDelimiter() string {
-	return v.delimiter_
-}
-
-func (v *onClause_) GetFailure() FailureLike {
+func (v *onClause_) GetFailure() fra.SymbolLike {
 	return v.failure_
 }
 
@@ -87,8 +78,7 @@ func (v *onClause_) GetMatchingClauses() fra.ListLike[MatchingClauseLike] {
 
 type onClause_ struct {
 	// Declare the instance attributes.
-	delimiter_       string
-	failure_         FailureLike
+	failure_         fra.SymbolLike
 	matchingClauses_ fra.ListLike[MatchingClauseLike]
 }
 

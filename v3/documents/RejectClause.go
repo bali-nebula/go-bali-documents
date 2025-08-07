@@ -36,19 +36,14 @@ func RejectClauseClass() RejectClauseClassLike {
 // Constructor Methods
 
 func (c *rejectClauseClass_) RejectClause(
-	delimiter string,
-	message MessageLike,
+	message ExpressionLike,
 ) RejectClauseLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(message) {
 		panic("The \"message\" attribute is required by this class.")
 	}
 	var instance = &rejectClause_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
-		message_:   message,
+		message_: message,
 	}
 	return instance
 }
@@ -63,11 +58,7 @@ func (v *rejectClause_) GetClass() RejectClauseClassLike {
 
 // Attribute Methods
 
-func (v *rejectClause_) GetDelimiter() string {
-	return v.delimiter_
-}
-
-func (v *rejectClause_) GetMessage() MessageLike {
+func (v *rejectClause_) GetMessage() ExpressionLike {
 	return v.message_
 }
 
@@ -77,8 +68,7 @@ func (v *rejectClause_) GetMessage() MessageLike {
 
 type rejectClause_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
-	message_   MessageLike
+	message_ ExpressionLike
 }
 
 // Class Structure

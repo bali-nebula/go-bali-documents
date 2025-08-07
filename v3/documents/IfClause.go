@@ -36,29 +36,19 @@ func IfClauseClass() IfClauseClassLike {
 // Constructor Methods
 
 func (c *ifClauseClass_) IfClause(
-	delimiter1 string,
-	condition ConditionLike,
-	delimiter2 string,
+	condition ExpressionLike,
 	procedure ProcedureLike,
 ) IfClauseLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(condition) {
 		panic("The \"condition\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(procedure) {
 		panic("The \"procedure\" attribute is required by this class.")
 	}
 	var instance = &ifClause_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		condition_:  condition,
-		delimiter2_: delimiter2,
-		procedure_:  procedure,
+		condition_: condition,
+		procedure_: procedure,
 	}
 	return instance
 }
@@ -73,16 +63,8 @@ func (v *ifClause_) GetClass() IfClauseClassLike {
 
 // Attribute Methods
 
-func (v *ifClause_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *ifClause_) GetCondition() ConditionLike {
+func (v *ifClause_) GetCondition() ExpressionLike {
 	return v.condition_
-}
-
-func (v *ifClause_) GetDelimiter2() string {
-	return v.delimiter2_
 }
 
 func (v *ifClause_) GetProcedure() ProcedureLike {
@@ -95,10 +77,8 @@ func (v *ifClause_) GetProcedure() ProcedureLike {
 
 type ifClause_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	condition_  ConditionLike
-	delimiter2_ string
-	procedure_  ProcedureLike
+	condition_ ExpressionLike
+	procedure_ ProcedureLike
 }
 
 // Class Structure

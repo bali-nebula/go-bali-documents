@@ -36,7 +36,7 @@ func PredicateClass() PredicateClassLike {
 // Constructor Methods
 
 func (c *predicateClass_) Predicate(
-	operation OperationLike,
+	operation string,
 	expression ExpressionLike,
 ) PredicateLike {
 	if uti.IsUndefined(operation) {
@@ -63,7 +63,7 @@ func (v *predicate_) GetClass() PredicateClassLike {
 
 // Attribute Methods
 
-func (v *predicate_) GetOperation() OperationLike {
+func (v *predicate_) GetOperation() string {
 	return v.operation_
 }
 
@@ -77,7 +77,7 @@ func (v *predicate_) GetExpression() ExpressionLike {
 
 type predicate_ struct {
 	// Declare the instance attributes.
-	operation_  OperationLike
+	operation_  string
 	expression_ ExpressionLike
 }
 

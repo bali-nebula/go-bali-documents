@@ -36,14 +36,10 @@ func LetClauseClass() LetClauseClassLike {
 // Constructor Methods
 
 func (c *letClauseClass_) LetClause(
-	delimiter string,
-	recipient RecipientLike,
-	assignment AssignmentLike,
+	recipient any,
+	assignment string,
 	expression ExpressionLike,
 ) LetClauseLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(recipient) {
 		panic("The \"recipient\" attribute is required by this class.")
 	}
@@ -55,7 +51,6 @@ func (c *letClauseClass_) LetClause(
 	}
 	var instance = &letClause_{
 		// Initialize the instance attributes.
-		delimiter_:  delimiter,
 		recipient_:  recipient,
 		assignment_: assignment,
 		expression_: expression,
@@ -73,15 +68,11 @@ func (v *letClause_) GetClass() LetClauseClassLike {
 
 // Attribute Methods
 
-func (v *letClause_) GetDelimiter() string {
-	return v.delimiter_
-}
-
-func (v *letClause_) GetRecipient() RecipientLike {
+func (v *letClause_) GetRecipient() any {
 	return v.recipient_
 }
 
-func (v *letClause_) GetAssignment() AssignmentLike {
+func (v *letClause_) GetAssignment() string {
 	return v.assignment_
 }
 
@@ -95,9 +86,8 @@ func (v *letClause_) GetExpression() ExpressionLike {
 
 type letClause_ struct {
 	// Declare the instance attributes.
-	delimiter_  string
-	recipient_  RecipientLike
-	assignment_ AssignmentLike
+	recipient_  any
+	assignment_ string
 	expression_ ExpressionLike
 }
 

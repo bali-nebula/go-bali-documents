@@ -36,30 +36,20 @@ func CheckoutClauseClass() CheckoutClauseClassLike {
 // Constructor Methods
 
 func (c *checkoutClauseClass_) CheckoutClause(
-	delimiter1 string,
-	recipient RecipientLike,
-	optionalAtLevel AtLevelLike,
-	delimiter2 string,
-	cited CitedLike,
+	recipient any,
+	optionalAtLevel ExpressionLike,
+	cited ExpressionLike,
 ) CheckoutClauseLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(recipient) {
 		panic("The \"recipient\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(cited) {
 		panic("The \"cited\" attribute is required by this class.")
 	}
 	var instance = &checkoutClause_{
 		// Initialize the instance attributes.
-		delimiter1_:      delimiter1,
 		recipient_:       recipient,
 		optionalAtLevel_: optionalAtLevel,
-		delimiter2_:      delimiter2,
 		cited_:           cited,
 	}
 	return instance
@@ -75,23 +65,15 @@ func (v *checkoutClause_) GetClass() CheckoutClauseClassLike {
 
 // Attribute Methods
 
-func (v *checkoutClause_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *checkoutClause_) GetRecipient() RecipientLike {
+func (v *checkoutClause_) GetRecipient() any {
 	return v.recipient_
 }
 
-func (v *checkoutClause_) GetOptionalAtLevel() AtLevelLike {
+func (v *checkoutClause_) GetOptionalAtLevel() ExpressionLike {
 	return v.optionalAtLevel_
 }
 
-func (v *checkoutClause_) GetDelimiter2() string {
-	return v.delimiter2_
-}
-
-func (v *checkoutClause_) GetCited() CitedLike {
+func (v *checkoutClause_) GetCited() ExpressionLike {
 	return v.cited_
 }
 
@@ -101,11 +83,9 @@ func (v *checkoutClause_) GetCited() CitedLike {
 
 type checkoutClause_ struct {
 	// Declare the instance attributes.
-	delimiter1_      string
-	recipient_       RecipientLike
-	optionalAtLevel_ AtLevelLike
-	delimiter2_      string
-	cited_           CitedLike
+	recipient_       any
+	optionalAtLevel_ ExpressionLike
+	cited_           ExpressionLike
 }
 
 // Class Structure

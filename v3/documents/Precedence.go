@@ -36,24 +36,14 @@ func PrecedenceClass() PrecedenceClassLike {
 // Constructor Methods
 
 func (c *precedenceClass_) Precedence(
-	delimiter1 string,
 	expression ExpressionLike,
-	delimiter2 string,
 ) PrecedenceLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(expression) {
 		panic("The \"expression\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
-	}
 	var instance = &precedence_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
 		expression_: expression,
-		delimiter2_: delimiter2,
 	}
 	return instance
 }
@@ -68,16 +58,8 @@ func (v *precedence_) GetClass() PrecedenceClassLike {
 
 // Attribute Methods
 
-func (v *precedence_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
 func (v *precedence_) GetExpression() ExpressionLike {
 	return v.expression_
-}
-
-func (v *precedence_) GetDelimiter2() string {
-	return v.delimiter2_
 }
 
 // PROTECTED INTERFACE
@@ -86,9 +68,7 @@ func (v *precedence_) GetDelimiter2() string {
 
 type precedence_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
 	expression_ ExpressionLike
-	delimiter2_ string
 }
 
 // Class Structure

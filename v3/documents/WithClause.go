@@ -22,6 +22,7 @@
 package documents
 
 import (
+	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -36,44 +37,24 @@ func WithClauseClass() WithClauseClassLike {
 // Constructor Methods
 
 func (c *withClauseClass_) WithClause(
-	delimiter1 string,
-	delimiter2 string,
-	variable VariableLike,
-	delimiter3 string,
-	sequence SequenceLike,
-	delimiter4 string,
+	variable fra.SymbolLike,
+	sequence ExpressionLike,
 	procedure ProcedureLike,
 ) WithClauseLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(variable) {
 		panic("The \"variable\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(delimiter3) {
-		panic("The \"delimiter3\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(sequence) {
 		panic("The \"sequence\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter4) {
-		panic("The \"delimiter4\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(procedure) {
 		panic("The \"procedure\" attribute is required by this class.")
 	}
 	var instance = &withClause_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		delimiter2_: delimiter2,
-		variable_:   variable,
-		delimiter3_: delimiter3,
-		sequence_:   sequence,
-		delimiter4_: delimiter4,
-		procedure_:  procedure,
+		variable_:  variable,
+		sequence_:  sequence,
+		procedure_: procedure,
 	}
 	return instance
 }
@@ -88,28 +69,12 @@ func (v *withClause_) GetClass() WithClauseClassLike {
 
 // Attribute Methods
 
-func (v *withClause_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *withClause_) GetDelimiter2() string {
-	return v.delimiter2_
-}
-
-func (v *withClause_) GetVariable() VariableLike {
+func (v *withClause_) GetVariable() fra.SymbolLike {
 	return v.variable_
 }
 
-func (v *withClause_) GetDelimiter3() string {
-	return v.delimiter3_
-}
-
-func (v *withClause_) GetSequence() SequenceLike {
+func (v *withClause_) GetSequence() ExpressionLike {
 	return v.sequence_
-}
-
-func (v *withClause_) GetDelimiter4() string {
-	return v.delimiter4_
 }
 
 func (v *withClause_) GetProcedure() ProcedureLike {
@@ -122,13 +87,9 @@ func (v *withClause_) GetProcedure() ProcedureLike {
 
 type withClause_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	delimiter2_ string
-	variable_   VariableLike
-	delimiter3_ string
-	sequence_   SequenceLike
-	delimiter4_ string
-	procedure_  ProcedureLike
+	variable_  fra.SymbolLike
+	sequence_  ExpressionLike
+	procedure_ ProcedureLike
 }
 
 // Class Structure

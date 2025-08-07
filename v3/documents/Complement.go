@@ -36,19 +36,14 @@ func ComplementClass() ComplementClassLike {
 // Constructor Methods
 
 func (c *complementClass_) Complement(
-	delimiter string,
-	logical LogicalLike,
+	logical string,
 ) ComplementLike {
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(logical) {
 		panic("The \"logical\" attribute is required by this class.")
 	}
 	var instance = &complement_{
 		// Initialize the instance attributes.
-		delimiter_: delimiter,
-		logical_:   logical,
+		logical_: logical,
 	}
 	return instance
 }
@@ -63,11 +58,7 @@ func (v *complement_) GetClass() ComplementClassLike {
 
 // Attribute Methods
 
-func (v *complement_) GetDelimiter() string {
-	return v.delimiter_
-}
-
-func (v *complement_) GetLogical() LogicalLike {
+func (v *complement_) GetLogical() string {
 	return v.logical_
 }
 
@@ -77,8 +68,7 @@ func (v *complement_) GetLogical() LogicalLike {
 
 type complement_ struct {
 	// Declare the instance attributes.
-	delimiter_ string
-	logical_   LogicalLike
+	logical_ string
 }
 
 // Class Structure

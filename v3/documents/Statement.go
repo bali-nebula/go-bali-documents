@@ -36,7 +36,7 @@ func StatementClass() StatementClassLike {
 // Constructor Methods
 
 func (c *statementClass_) Statement(
-	mainClause MainClauseLike,
+	mainClause any,
 	optionalOnClause OnClauseLike,
 ) StatementLike {
 	if uti.IsUndefined(mainClause) {
@@ -60,7 +60,7 @@ func (v *statement_) GetClass() StatementClassLike {
 
 // Attribute Methods
 
-func (v *statement_) GetMainClause() MainClauseLike {
+func (v *statement_) GetMainClause() any {
 	return v.mainClause_
 }
 
@@ -74,7 +74,7 @@ func (v *statement_) GetOptionalOnClause() OnClauseLike {
 
 type statement_ struct {
 	// Declare the instance attributes.
-	mainClause_       MainClauseLike
+	mainClause_       any
 	optionalOnClause_ OnClauseLike
 }
 

@@ -36,29 +36,19 @@ func SaveClauseClass() SaveClauseClassLike {
 // Constructor Methods
 
 func (c *saveClauseClass_) SaveClause(
-	delimiter1 string,
-	draft DraftLike,
-	delimiter2 string,
-	cited CitedLike,
+	draft ExpressionLike,
+	cited ExpressionLike,
 ) SaveClauseLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(draft) {
 		panic("The \"draft\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(cited) {
 		panic("The \"cited\" attribute is required by this class.")
 	}
 	var instance = &saveClause_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		draft_:      draft,
-		delimiter2_: delimiter2,
-		cited_:      cited,
+		draft_: draft,
+		cited_: cited,
 	}
 	return instance
 }
@@ -73,19 +63,11 @@ func (v *saveClause_) GetClass() SaveClauseClassLike {
 
 // Attribute Methods
 
-func (v *saveClause_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *saveClause_) GetDraft() DraftLike {
+func (v *saveClause_) GetDraft() ExpressionLike {
 	return v.draft_
 }
 
-func (v *saveClause_) GetDelimiter2() string {
-	return v.delimiter2_
-}
-
-func (v *saveClause_) GetCited() CitedLike {
+func (v *saveClause_) GetCited() ExpressionLike {
 	return v.cited_
 }
 
@@ -95,10 +77,8 @@ func (v *saveClause_) GetCited() CitedLike {
 
 type saveClause_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	draft_      DraftLike
-	delimiter2_ string
-	cited_      CitedLike
+	draft_ ExpressionLike
+	cited_ ExpressionLike
 }
 
 // Class Structure

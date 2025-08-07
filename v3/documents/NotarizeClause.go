@@ -36,29 +36,19 @@ func NotarizeClauseClass() NotarizeClauseClassLike {
 // Constructor Methods
 
 func (c *notarizeClauseClass_) NotarizeClause(
-	delimiter1 string,
-	draft DraftLike,
-	delimiter2 string,
-	cited CitedLike,
+	draft ExpressionLike,
+	cited ExpressionLike,
 ) NotarizeClauseLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(draft) {
 		panic("The \"draft\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(cited) {
 		panic("The \"cited\" attribute is required by this class.")
 	}
 	var instance = &notarizeClause_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		draft_:      draft,
-		delimiter2_: delimiter2,
-		cited_:      cited,
+		draft_: draft,
+		cited_: cited,
 	}
 	return instance
 }
@@ -73,19 +63,11 @@ func (v *notarizeClause_) GetClass() NotarizeClauseClassLike {
 
 // Attribute Methods
 
-func (v *notarizeClause_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *notarizeClause_) GetDraft() DraftLike {
+func (v *notarizeClause_) GetDraft() ExpressionLike {
 	return v.draft_
 }
 
-func (v *notarizeClause_) GetDelimiter2() string {
-	return v.delimiter2_
-}
-
-func (v *notarizeClause_) GetCited() CitedLike {
+func (v *notarizeClause_) GetCited() ExpressionLike {
 	return v.cited_
 }
 
@@ -95,10 +77,8 @@ func (v *notarizeClause_) GetCited() CitedLike {
 
 type notarizeClause_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	draft_      DraftLike
-	delimiter2_ string
-	cited_      CitedLike
+	draft_ ExpressionLike
+	cited_ ExpressionLike
 }
 
 // Class Structure

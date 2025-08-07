@@ -36,29 +36,19 @@ func PostClauseClass() PostClauseClassLike {
 // Constructor Methods
 
 func (c *postClauseClass_) PostClause(
-	delimiter1 string,
-	message MessageLike,
-	delimiter2 string,
-	bag BagLike,
+	message ExpressionLike,
+	bag ExpressionLike,
 ) PostClauseLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(message) {
 		panic("The \"message\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(bag) {
 		panic("The \"bag\" attribute is required by this class.")
 	}
 	var instance = &postClause_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		message_:    message,
-		delimiter2_: delimiter2,
-		bag_:        bag,
+		message_: message,
+		bag_:     bag,
 	}
 	return instance
 }
@@ -73,19 +63,11 @@ func (v *postClause_) GetClass() PostClauseClassLike {
 
 // Attribute Methods
 
-func (v *postClause_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *postClause_) GetMessage() MessageLike {
+func (v *postClause_) GetMessage() ExpressionLike {
 	return v.message_
 }
 
-func (v *postClause_) GetDelimiter2() string {
-	return v.delimiter2_
-}
-
-func (v *postClause_) GetBag() BagLike {
+func (v *postClause_) GetBag() ExpressionLike {
 	return v.bag_
 }
 
@@ -95,10 +77,8 @@ func (v *postClause_) GetBag() BagLike {
 
 type postClause_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	message_    MessageLike
-	delimiter2_ string
-	bag_        BagLike
+	message_ ExpressionLike
+	bag_     ExpressionLike
 }
 
 // Class Structure

@@ -36,34 +36,29 @@ func RangeClass() RangeClassLike {
 // Constructor Methods
 
 func (c *rangeClass_) Range(
-	bra BraLike,
-	primitive1 PrimitiveLike,
-	delimiter string,
-	primitive2 PrimitiveLike,
-	ket KetLike,
+	bra Extent,
+	first any,
+	last any,
+	ket Extent,
 ) RangeLike {
 	if uti.IsUndefined(bra) {
 		panic("The \"bra\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(primitive1) {
-		panic("The \"primitive1\" attribute is required by this class.")
+	if uti.IsUndefined(first) {
+		panic("The \"first\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(delimiter) {
-		panic("The \"delimiter\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(primitive2) {
-		panic("The \"primitive2\" attribute is required by this class.")
+	if uti.IsUndefined(last) {
+		panic("The \"last\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(ket) {
 		panic("The \"ket\" attribute is required by this class.")
 	}
 	var instance = &range_{
 		// Initialize the instance attributes.
-		bra_:        bra,
-		primitive1_: primitive1,
-		delimiter_:  delimiter,
-		primitive2_: primitive2,
-		ket_:        ket,
+		bra_:   bra,
+		first_: first,
+		last_:  last,
+		ket_:   ket,
 	}
 	return instance
 }
@@ -78,23 +73,19 @@ func (v *range_) GetClass() RangeClassLike {
 
 // Attribute Methods
 
-func (v *range_) GetBra() BraLike {
+func (v *range_) GetBra() Extent {
 	return v.bra_
 }
 
-func (v *range_) GetPrimitive1() PrimitiveLike {
-	return v.primitive1_
+func (v *range_) GetFirst() any {
+	return v.first_
 }
 
-func (v *range_) GetDelimiter() string {
-	return v.delimiter_
+func (v *range_) GetLast() any {
+	return v.last_
 }
 
-func (v *range_) GetPrimitive2() PrimitiveLike {
-	return v.primitive2_
-}
-
-func (v *range_) GetKet() KetLike {
+func (v *range_) GetKet() Extent {
 	return v.ket_
 }
 
@@ -104,11 +95,10 @@ func (v *range_) GetKet() KetLike {
 
 type range_ struct {
 	// Declare the instance attributes.
-	bra_        BraLike
-	primitive1_ PrimitiveLike
-	delimiter_  string
-	primitive2_ PrimitiveLike
-	ket_        KetLike
+	bra_   Extent
+	first_ any
+	last_  any
+	ket_   Extent
 }
 
 // Class Structure

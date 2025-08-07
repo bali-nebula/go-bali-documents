@@ -53,7 +53,7 @@ func (v *document_) GetClass() DocumentClassLike {
 
 // Attribute Methods
 
-func (v *document_) GetComponent() ComponentLike {
+func (v *document_) GetComponent() any {
 	return v.component_
 }
 
@@ -71,7 +71,7 @@ func (v *document_) GetOptionalNote() string {
 
 type document_ struct {
 	// Declare the instance attributes.
-	component_          ComponentLike
+	component_          any
 	optionalParameters_ ParametersLike
 	optionalNote_       string
 }

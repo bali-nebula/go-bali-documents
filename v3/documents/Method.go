@@ -37,39 +37,29 @@ func MethodClass() MethodClassLike {
 // Constructor Methods
 
 func (c *methodClass_) Method(
-	identifier1 string,
-	invoke InvokeLike,
-	identifier2 string,
-	delimiter1 string,
-	arguments fra.ListLike[ArgumentLike],
-	delimiter2 string,
+	target string,
+	invoke string,
+	message string,
+	arguments fra.ListLike[any],
 ) MethodLike {
-	if uti.IsUndefined(identifier1) {
-		panic("The \"identifier1\" attribute is required by this class.")
+	if uti.IsUndefined(target) {
+		panic("The \"target\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(invoke) {
 		panic("The \"invoke\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(identifier2) {
-		panic("The \"identifier2\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
+	if uti.IsUndefined(message) {
+		panic("The \"message\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(arguments) {
 		panic("The \"arguments\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
-	}
 	var instance = &method_{
 		// Initialize the instance attributes.
-		identifier1_: identifier1,
-		invoke_:      invoke,
-		identifier2_: identifier2,
-		delimiter1_:  delimiter1,
-		arguments_:   arguments,
-		delimiter2_:  delimiter2,
+		target_:    target,
+		invoke_:    invoke,
+		message_:   message,
+		arguments_: arguments,
 	}
 	return instance
 }
@@ -84,28 +74,20 @@ func (v *method_) GetClass() MethodClassLike {
 
 // Attribute Methods
 
-func (v *method_) GetIdentifier1() string {
-	return v.identifier1_
+func (v *method_) GetTarget() string {
+	return v.target_
 }
 
-func (v *method_) GetInvoke() InvokeLike {
+func (v *method_) GetInvoke() string {
 	return v.invoke_
 }
 
-func (v *method_) GetIdentifier2() string {
-	return v.identifier2_
+func (v *method_) GetMessage() string {
+	return v.message_
 }
 
-func (v *method_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *method_) GetArguments() fra.ListLike[ArgumentLike] {
+func (v *method_) GetArguments() fra.ListLike[any] {
 	return v.arguments_
-}
-
-func (v *method_) GetDelimiter2() string {
-	return v.delimiter2_
 }
 
 // PROTECTED INTERFACE
@@ -114,12 +96,10 @@ func (v *method_) GetDelimiter2() string {
 
 type method_ struct {
 	// Declare the instance attributes.
-	identifier1_ string
-	invoke_      InvokeLike
-	identifier2_ string
-	delimiter1_  string
-	arguments_   fra.ListLike[ArgumentLike]
-	delimiter2_  string
+	target_    string
+	invoke_    string
+	message_   string
+	arguments_ fra.ListLike[any]
 }
 
 // Class Structure

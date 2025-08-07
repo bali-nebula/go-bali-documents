@@ -37,7 +37,7 @@ func ExpressionClass() ExpressionClassLike {
 // Constructor Methods
 
 func (c *expressionClass_) Expression(
-	subject SubjectLike,
+	subject any,
 	predicates fra.ListLike[PredicateLike],
 ) ExpressionLike {
 	if uti.IsUndefined(subject) {
@@ -64,7 +64,7 @@ func (v *expression_) GetClass() ExpressionClassLike {
 
 // Attribute Methods
 
-func (v *expression_) GetSubject() SubjectLike {
+func (v *expression_) GetSubject() any {
 	return v.subject_
 }
 
@@ -78,7 +78,7 @@ func (v *expression_) GetPredicates() fra.ListLike[PredicateLike] {
 
 type expression_ struct {
 	// Declare the instance attributes.
-	subject_    SubjectLike
+	subject_    any
 	predicates_ fra.ListLike[PredicateLike]
 }
 

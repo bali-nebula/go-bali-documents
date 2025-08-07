@@ -38,28 +38,18 @@ func FunctionClass() FunctionClassLike {
 
 func (c *functionClass_) Function(
 	identifier string,
-	delimiter1 string,
-	arguments fra.ListLike[ArgumentLike],
-	delimiter2 string,
+	arguments fra.ListLike[any],
 ) FunctionLike {
 	if uti.IsUndefined(identifier) {
 		panic("The \"identifier\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(arguments) {
 		panic("The \"arguments\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
 	}
 	var instance = &function_{
 		// Initialize the instance attributes.
 		identifier_: identifier,
-		delimiter1_: delimiter1,
 		arguments_:  arguments,
-		delimiter2_: delimiter2,
 	}
 	return instance
 }
@@ -78,16 +68,8 @@ func (v *function_) GetIdentifier() string {
 	return v.identifier_
 }
 
-func (v *function_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *function_) GetArguments() fra.ListLike[ArgumentLike] {
+func (v *function_) GetArguments() fra.ListLike[any] {
 	return v.arguments_
-}
-
-func (v *function_) GetDelimiter2() string {
-	return v.delimiter2_
 }
 
 // PROTECTED INTERFACE
@@ -97,9 +79,7 @@ func (v *function_) GetDelimiter2() string {
 type function_ struct {
 	// Declare the instance attributes.
 	identifier_ string
-	delimiter1_ string
-	arguments_  fra.ListLike[ArgumentLike]
-	delimiter2_ string
+	arguments_  fra.ListLike[any]
 }
 
 // Class Structure

@@ -37,24 +37,14 @@ func ParametersClass() ParametersClassLike {
 // Constructor Methods
 
 func (c *parametersClass_) Parameters(
-	delimiter1 string,
-	associations fra.ListLike[AssociationLike],
-	delimiter2 string,
+	associations fra.CatalogLike[fra.SymbolLike, DocumentLike],
 ) ParametersLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(associations) {
 		panic("The \"associations\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
-	}
 	var instance = &parameters_{
 		// Initialize the instance attributes.
-		delimiter1_:   delimiter1,
 		associations_: associations,
-		delimiter2_:   delimiter2,
 	}
 	return instance
 }
@@ -69,16 +59,8 @@ func (v *parameters_) GetClass() ParametersClassLike {
 
 // Attribute Methods
 
-func (v *parameters_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *parameters_) GetAssociations() fra.ListLike[AssociationLike] {
+func (v *parameters_) GetAssociations() fra.CatalogLike[fra.SymbolLike, DocumentLike] {
 	return v.associations_
-}
-
-func (v *parameters_) GetDelimiter2() string {
-	return v.delimiter2_
 }
 
 // PROTECTED INTERFACE
@@ -87,9 +69,7 @@ func (v *parameters_) GetDelimiter2() string {
 
 type parameters_ struct {
 	// Declare the instance attributes.
-	delimiter1_   string
-	associations_ fra.ListLike[AssociationLike]
-	delimiter2_   string
+	associations_ fra.CatalogLike[fra.SymbolLike, DocumentLike]
 }
 
 // Class Structure

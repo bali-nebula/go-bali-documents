@@ -37,24 +37,14 @@ func ItemsClass() ItemsClassLike {
 // Constructor Methods
 
 func (c *itemsClass_) Items(
-	delimiter1 string,
-	entities fra.ListLike[EntityLike],
-	delimiter2 string,
+	entities fra.ListLike[DocumentLike],
 ) ItemsLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
 	if uti.IsUndefined(entities) {
 		panic("The \"entities\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
-	}
 	var instance = &items_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		entities_:   entities,
-		delimiter2_: delimiter2,
+		entities_: entities,
 	}
 	return instance
 }
@@ -69,16 +59,8 @@ func (v *items_) GetClass() ItemsClassLike {
 
 // Attribute Methods
 
-func (v *items_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *items_) GetEntities() fra.ListLike[EntityLike] {
+func (v *items_) GetEntities() fra.ListLike[DocumentLike] {
 	return v.entities_
-}
-
-func (v *items_) GetDelimiter2() string {
-	return v.delimiter2_
 }
 
 // PROTECTED INTERFACE
@@ -87,9 +69,7 @@ func (v *items_) GetDelimiter2() string {
 
 type items_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	entities_   fra.ListLike[EntityLike]
-	delimiter2_ string
+	entities_ fra.ListLike[DocumentLike]
 }
 
 // Class Structure

@@ -106,7 +106,7 @@ complement-like class.
 type ComplementClassLike interface {
 	// Constructor Methods
 	Complement(
-		logical any,
+		logical string,
 	) ComplementLike
 }
 
@@ -594,7 +594,7 @@ type ComplementLike interface {
 	GetClass() ComplementClassLike
 
 	// Attribute Methods
-	GetLogical() any
+	GetLogical() string
 }
 
 /*

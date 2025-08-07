@@ -21,9 +21,7 @@
 
 package documents
 
-import (
-	uti "github.com/craterdog/go-missing-utilities/v7"
-)
+import ()
 
 // CLASS INTERFACE
 
@@ -35,20 +33,9 @@ func ContinueClauseClass() ContinueClauseClassLike {
 
 // Constructor Methods
 
-func (c *continueClauseClass_) ContinueClause(
-	delimiter1 string,
-	delimiter2 string,
-) ContinueClauseLike {
-	if uti.IsUndefined(delimiter1) {
-		panic("The \"delimiter1\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(delimiter2) {
-		panic("The \"delimiter2\" attribute is required by this class.")
-	}
+func (c *continueClauseClass_) ContinueClause() ContinueClauseLike {
 	var instance = &continueClause_{
 		// Initialize the instance attributes.
-		delimiter1_: delimiter1,
-		delimiter2_: delimiter2,
 	}
 	return instance
 }
@@ -63,22 +50,12 @@ func (v *continueClause_) GetClass() ContinueClauseClassLike {
 
 // Attribute Methods
 
-func (v *continueClause_) GetDelimiter1() string {
-	return v.delimiter1_
-}
-
-func (v *continueClause_) GetDelimiter2() string {
-	return v.delimiter2_
-}
-
 // PROTECTED INTERFACE
 
 // Instance Structure
 
 type continueClause_ struct {
 	// Declare the instance attributes.
-	delimiter1_ string
-	delimiter2_ string
 }
 
 // Class Structure
