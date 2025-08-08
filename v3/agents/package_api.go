@@ -185,21 +185,16 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	ProcessAcceptClauseSlot(
+		acceptClause doc.AcceptClauseLike,
+		slot_ uint,
+	)
 	PostprocessAcceptClause(
 		acceptClause doc.AcceptClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessAcceptClauseSlot(
-		acceptClause doc.AcceptClauseLike,
-		slot_ uint,
-	)
 	PreprocessAttributes(
-		attributes doc.AttributesLike,
-		index_ uint,
-		count_ uint,
-	)
-	PostprocessAttributes(
 		attributes doc.AttributesLike,
 		index_ uint,
 		count_ uint,
@@ -208,12 +203,12 @@ type Methodical interface {
 		attributes doc.AttributesLike,
 		slot_ uint,
 	)
-	PreprocessBreakClause(
-		breakClause doc.BreakClauseLike,
+	PostprocessAttributes(
+		attributes doc.AttributesLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessBreakClause(
+	PreprocessBreakClause(
 		breakClause doc.BreakClauseLike,
 		index_ uint,
 		count_ uint,
@@ -222,12 +217,12 @@ type Methodical interface {
 		breakClause doc.BreakClauseLike,
 		slot_ uint,
 	)
-	PreprocessCheckoutClause(
-		checkoutClause doc.CheckoutClauseLike,
+	PostprocessBreakClause(
+		breakClause doc.BreakClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessCheckoutClause(
+	PreprocessCheckoutClause(
 		checkoutClause doc.CheckoutClauseLike,
 		index_ uint,
 		count_ uint,
@@ -236,12 +231,12 @@ type Methodical interface {
 		checkoutClause doc.CheckoutClauseLike,
 		slot_ uint,
 	)
-	PreprocessComplement(
-		complement doc.ComplementLike,
+	PostprocessCheckoutClause(
+		checkoutClause doc.CheckoutClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessComplement(
+	PreprocessComplement(
 		complement doc.ComplementLike,
 		index_ uint,
 		count_ uint,
@@ -250,12 +245,12 @@ type Methodical interface {
 		complement doc.ComplementLike,
 		slot_ uint,
 	)
-	PreprocessContinueClause(
-		continueClause doc.ContinueClauseLike,
+	PostprocessComplement(
+		complement doc.ComplementLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessContinueClause(
+	PreprocessContinueClause(
 		continueClause doc.ContinueClauseLike,
 		index_ uint,
 		count_ uint,
@@ -264,12 +259,12 @@ type Methodical interface {
 		continueClause doc.ContinueClauseLike,
 		slot_ uint,
 	)
-	PreprocessDiscardClause(
-		discardClause doc.DiscardClauseLike,
+	PostprocessContinueClause(
+		continueClause doc.ContinueClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessDiscardClause(
+	PreprocessDiscardClause(
 		discardClause doc.DiscardClauseLike,
 		index_ uint,
 		count_ uint,
@@ -278,12 +273,12 @@ type Methodical interface {
 		discardClause doc.DiscardClauseLike,
 		slot_ uint,
 	)
-	PreprocessDoClause(
-		doClause doc.DoClauseLike,
+	PostprocessDiscardClause(
+		discardClause doc.DiscardClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessDoClause(
+	PreprocessDoClause(
 		doClause doc.DoClauseLike,
 		index_ uint,
 		count_ uint,
@@ -292,12 +287,12 @@ type Methodical interface {
 		doClause doc.DoClauseLike,
 		slot_ uint,
 	)
-	PreprocessDocument(
-		document doc.DocumentLike,
+	PostprocessDoClause(
+		doClause doc.DoClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessDocument(
+	PreprocessDocument(
 		document doc.DocumentLike,
 		index_ uint,
 		count_ uint,
@@ -306,12 +301,12 @@ type Methodical interface {
 		document doc.DocumentLike,
 		slot_ uint,
 	)
-	PreprocessExpression(
-		expression doc.ExpressionLike,
+	PostprocessDocument(
+		document doc.DocumentLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessExpression(
+	PreprocessExpression(
 		expression doc.ExpressionLike,
 		index_ uint,
 		count_ uint,
@@ -320,12 +315,12 @@ type Methodical interface {
 		expression doc.ExpressionLike,
 		slot_ uint,
 	)
-	PreprocessFunction(
-		function doc.FunctionLike,
+	PostprocessExpression(
+		expression doc.ExpressionLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessFunction(
+	PreprocessFunction(
 		function doc.FunctionLike,
 		index_ uint,
 		count_ uint,
@@ -334,12 +329,12 @@ type Methodical interface {
 		function doc.FunctionLike,
 		slot_ uint,
 	)
-	PreprocessIfClause(
-		ifClause doc.IfClauseLike,
+	PostprocessFunction(
+		function doc.FunctionLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessIfClause(
+	PreprocessIfClause(
 		ifClause doc.IfClauseLike,
 		index_ uint,
 		count_ uint,
@@ -348,12 +343,12 @@ type Methodical interface {
 		ifClause doc.IfClauseLike,
 		slot_ uint,
 	)
-	PreprocessInversion(
-		inversion doc.InversionLike,
+	PostprocessIfClause(
+		ifClause doc.IfClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessInversion(
+	PreprocessInversion(
 		inversion doc.InversionLike,
 		index_ uint,
 		count_ uint,
@@ -362,12 +357,12 @@ type Methodical interface {
 		inversion doc.InversionLike,
 		slot_ uint,
 	)
-	PreprocessItems(
-		items doc.ItemsLike,
+	PostprocessInversion(
+		inversion doc.InversionLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessItems(
+	PreprocessItems(
 		items doc.ItemsLike,
 		index_ uint,
 		count_ uint,
@@ -376,12 +371,12 @@ type Methodical interface {
 		items doc.ItemsLike,
 		slot_ uint,
 	)
-	PreprocessLetClause(
-		letClause doc.LetClauseLike,
+	PostprocessItems(
+		items doc.ItemsLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessLetClause(
+	PreprocessLetClause(
 		letClause doc.LetClauseLike,
 		index_ uint,
 		count_ uint,
@@ -390,12 +385,12 @@ type Methodical interface {
 		letClause doc.LetClauseLike,
 		slot_ uint,
 	)
-	PreprocessMagnitude(
-		magnitude doc.MagnitudeLike,
+	PostprocessLetClause(
+		letClause doc.LetClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessMagnitude(
+	PreprocessMagnitude(
 		magnitude doc.MagnitudeLike,
 		index_ uint,
 		count_ uint,
@@ -404,12 +399,12 @@ type Methodical interface {
 		magnitude doc.MagnitudeLike,
 		slot_ uint,
 	)
-	PreprocessMatchingClause(
-		matchingClause doc.MatchingClauseLike,
+	PostprocessMagnitude(
+		magnitude doc.MagnitudeLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessMatchingClause(
+	PreprocessMatchingClause(
 		matchingClause doc.MatchingClauseLike,
 		index_ uint,
 		count_ uint,
@@ -418,12 +413,12 @@ type Methodical interface {
 		matchingClause doc.MatchingClauseLike,
 		slot_ uint,
 	)
-	PreprocessMethod(
-		method doc.MethodLike,
+	PostprocessMatchingClause(
+		matchingClause doc.MatchingClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessMethod(
+	PreprocessMethod(
 		method doc.MethodLike,
 		index_ uint,
 		count_ uint,
@@ -432,12 +427,12 @@ type Methodical interface {
 		method doc.MethodLike,
 		slot_ uint,
 	)
-	PreprocessNotarizeClause(
-		notarizeClause doc.NotarizeClauseLike,
+	PostprocessMethod(
+		method doc.MethodLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessNotarizeClause(
+	PreprocessNotarizeClause(
 		notarizeClause doc.NotarizeClauseLike,
 		index_ uint,
 		count_ uint,
@@ -446,12 +441,12 @@ type Methodical interface {
 		notarizeClause doc.NotarizeClauseLike,
 		slot_ uint,
 	)
-	PreprocessOnClause(
-		onClause doc.OnClauseLike,
+	PostprocessNotarizeClause(
+		notarizeClause doc.NotarizeClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessOnClause(
+	PreprocessOnClause(
 		onClause doc.OnClauseLike,
 		index_ uint,
 		count_ uint,
@@ -460,12 +455,12 @@ type Methodical interface {
 		onClause doc.OnClauseLike,
 		slot_ uint,
 	)
-	PreprocessParameters(
-		parameters doc.ParametersLike,
+	PostprocessOnClause(
+		onClause doc.OnClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessParameters(
+	PreprocessParameters(
 		parameters doc.ParametersLike,
 		index_ uint,
 		count_ uint,
@@ -474,12 +469,12 @@ type Methodical interface {
 		parameters doc.ParametersLike,
 		slot_ uint,
 	)
-	PreprocessPostClause(
-		postClause doc.PostClauseLike,
+	PostprocessParameters(
+		parameters doc.ParametersLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessPostClause(
+	PreprocessPostClause(
 		postClause doc.PostClauseLike,
 		index_ uint,
 		count_ uint,
@@ -488,12 +483,12 @@ type Methodical interface {
 		postClause doc.PostClauseLike,
 		slot_ uint,
 	)
-	PreprocessPrecedence(
-		precedence doc.PrecedenceLike,
+	PostprocessPostClause(
+		postClause doc.PostClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessPrecedence(
+	PreprocessPrecedence(
 		precedence doc.PrecedenceLike,
 		index_ uint,
 		count_ uint,
@@ -502,12 +497,12 @@ type Methodical interface {
 		precedence doc.PrecedenceLike,
 		slot_ uint,
 	)
-	PreprocessPredicate(
-		predicate doc.PredicateLike,
+	PostprocessPrecedence(
+		precedence doc.PrecedenceLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessPredicate(
+	PreprocessPredicate(
 		predicate doc.PredicateLike,
 		index_ uint,
 		count_ uint,
@@ -516,12 +511,12 @@ type Methodical interface {
 		predicate doc.PredicateLike,
 		slot_ uint,
 	)
-	PreprocessProcedure(
-		procedure doc.ProcedureLike,
+	PostprocessPredicate(
+		predicate doc.PredicateLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessProcedure(
+	PreprocessProcedure(
 		procedure doc.ProcedureLike,
 		index_ uint,
 		count_ uint,
@@ -530,12 +525,12 @@ type Methodical interface {
 		procedure doc.ProcedureLike,
 		slot_ uint,
 	)
-	PreprocessPublishClause(
-		publishClause doc.PublishClauseLike,
+	PostprocessProcedure(
+		procedure doc.ProcedureLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessPublishClause(
+	PreprocessPublishClause(
 		publishClause doc.PublishClauseLike,
 		index_ uint,
 		count_ uint,
@@ -544,12 +539,12 @@ type Methodical interface {
 		publishClause doc.PublishClauseLike,
 		slot_ uint,
 	)
-	PreprocessRange(
-		range_ doc.RangeLike,
+	PostprocessPublishClause(
+		publishClause doc.PublishClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessRange(
+	PreprocessRange(
 		range_ doc.RangeLike,
 		index_ uint,
 		count_ uint,
@@ -558,12 +553,12 @@ type Methodical interface {
 		range_ doc.RangeLike,
 		slot_ uint,
 	)
-	PreprocessReferent(
-		referent doc.ReferentLike,
+	PostprocessRange(
+		range_ doc.RangeLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessReferent(
+	PreprocessReferent(
 		referent doc.ReferentLike,
 		index_ uint,
 		count_ uint,
@@ -572,12 +567,12 @@ type Methodical interface {
 		referent doc.ReferentLike,
 		slot_ uint,
 	)
-	PreprocessRejectClause(
-		rejectClause doc.RejectClauseLike,
+	PostprocessReferent(
+		referent doc.ReferentLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessRejectClause(
+	PreprocessRejectClause(
 		rejectClause doc.RejectClauseLike,
 		index_ uint,
 		count_ uint,
@@ -586,12 +581,12 @@ type Methodical interface {
 		rejectClause doc.RejectClauseLike,
 		slot_ uint,
 	)
-	PreprocessRetrieveClause(
-		retrieveClause doc.RetrieveClauseLike,
+	PostprocessRejectClause(
+		rejectClause doc.RejectClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessRetrieveClause(
+	PreprocessRetrieveClause(
 		retrieveClause doc.RetrieveClauseLike,
 		index_ uint,
 		count_ uint,
@@ -600,12 +595,12 @@ type Methodical interface {
 		retrieveClause doc.RetrieveClauseLike,
 		slot_ uint,
 	)
-	PreprocessReturnClause(
-		returnClause doc.ReturnClauseLike,
+	PostprocessRetrieveClause(
+		retrieveClause doc.RetrieveClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessReturnClause(
+	PreprocessReturnClause(
 		returnClause doc.ReturnClauseLike,
 		index_ uint,
 		count_ uint,
@@ -614,12 +609,12 @@ type Methodical interface {
 		returnClause doc.ReturnClauseLike,
 		slot_ uint,
 	)
-	PreprocessSaveClause(
-		saveClause doc.SaveClauseLike,
+	PostprocessReturnClause(
+		returnClause doc.ReturnClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessSaveClause(
+	PreprocessSaveClause(
 		saveClause doc.SaveClauseLike,
 		index_ uint,
 		count_ uint,
@@ -628,12 +623,12 @@ type Methodical interface {
 		saveClause doc.SaveClauseLike,
 		slot_ uint,
 	)
-	PreprocessSelectClause(
-		selectClause doc.SelectClauseLike,
+	PostprocessSaveClause(
+		saveClause doc.SaveClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessSelectClause(
+	PreprocessSelectClause(
 		selectClause doc.SelectClauseLike,
 		index_ uint,
 		count_ uint,
@@ -642,12 +637,12 @@ type Methodical interface {
 		selectClause doc.SelectClauseLike,
 		slot_ uint,
 	)
-	PreprocessStatement(
-		statement doc.StatementLike,
+	PostprocessSelectClause(
+		selectClause doc.SelectClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessStatement(
+	PreprocessStatement(
 		statement doc.StatementLike,
 		index_ uint,
 		count_ uint,
@@ -656,12 +651,12 @@ type Methodical interface {
 		statement doc.StatementLike,
 		slot_ uint,
 	)
-	PreprocessSubcomponent(
-		subcomponent doc.SubcomponentLike,
+	PostprocessStatement(
+		statement doc.StatementLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessSubcomponent(
+	PreprocessSubcomponent(
 		subcomponent doc.SubcomponentLike,
 		index_ uint,
 		count_ uint,
@@ -670,12 +665,12 @@ type Methodical interface {
 		subcomponent doc.SubcomponentLike,
 		slot_ uint,
 	)
-	PreprocessThrowClause(
-		throwClause doc.ThrowClauseLike,
+	PostprocessSubcomponent(
+		subcomponent doc.SubcomponentLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessThrowClause(
+	PreprocessThrowClause(
 		throwClause doc.ThrowClauseLike,
 		index_ uint,
 		count_ uint,
@@ -684,12 +679,12 @@ type Methodical interface {
 		throwClause doc.ThrowClauseLike,
 		slot_ uint,
 	)
-	PreprocessWhileClause(
-		whileClause doc.WhileClauseLike,
+	PostprocessThrowClause(
+		throwClause doc.ThrowClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessWhileClause(
+	PreprocessWhileClause(
 		whileClause doc.WhileClauseLike,
 		index_ uint,
 		count_ uint,
@@ -698,12 +693,12 @@ type Methodical interface {
 		whileClause doc.WhileClauseLike,
 		slot_ uint,
 	)
-	PreprocessWithClause(
-		withClause doc.WithClauseLike,
+	PostprocessWhileClause(
+		whileClause doc.WhileClauseLike,
 		index_ uint,
 		count_ uint,
 	)
-	PostprocessWithClause(
+	PreprocessWithClause(
 		withClause doc.WithClauseLike,
 		index_ uint,
 		count_ uint,
@@ -711,5 +706,10 @@ type Methodical interface {
 	ProcessWithClauseSlot(
 		withClause doc.WithClauseLike,
 		slot_ uint,
+	)
+	PostprocessWithClause(
+		withClause doc.WithClauseLike,
+		index_ uint,
+		count_ uint,
 	)
 }
