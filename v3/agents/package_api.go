@@ -26,6 +26,7 @@ package agents
 
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
+	ast "github.com/bali-nebula/go-document-notation/v3"
 )
 
 // TYPE DECLARATIONS
@@ -33,6 +34,26 @@ import (
 // FUNCTIONAL DECLARATIONS
 
 // CLASS DECLARATIONS
+
+/*
+DeflatorClassLike is a class interface that declares the complete set of
+class constructors, constants and functions that must be supported by each
+concrete deflator-like class.
+*/
+type DeflatorClassLike interface {
+	// Constructor Methods
+	Deflator() DeflatorLike
+}
+
+/*
+InflatorClassLike is a class interface that declares the complete set of
+class constructors, constants and functions that must be supported by each
+concrete inflator-like class.
+*/
+type InflatorClassLike interface {
+	// Constructor Methods
+	Inflator() InflatorLike
+}
 
 /*
 ProcessorClassLike is a class interface that declares the complete set of
@@ -67,6 +88,38 @@ type VisitorClassLike interface {
 }
 
 // INSTANCE DECLARATIONS
+
+/*
+DeflatorLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each
+instance of a concrete deflator-like class.
+*/
+type DeflatorLike interface {
+	// Principal Methods
+	GetClass() DeflatorClassLike
+	DeflateDocument(
+		document doc.DocumentLike,
+	) ast.DocumentLike
+
+	// Aspect Interfaces
+	Methodical
+}
+
+/*
+InflatorLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each
+instance of a concrete inflator-like class.
+*/
+type InflatorLike interface {
+	// Principal Methods
+	GetClass() InflatorClassLike
+	InflateAst(
+		document ast.DocumentLike,
+	) doc.DocumentLike
+
+	// Aspect Interfaces
+	ast.Methodical
+}
 
 /*
 ProcessorLike is an instance interface that declares the complete set of
