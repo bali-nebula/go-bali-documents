@@ -73,128 +73,127 @@ func (v *inflator_) InflateAst(
 func (v *inflator_) ProcessAngle(
 	angle string,
 ) {
+	v.stack_.AddValue(fra.AngleFromString(angle))
 }
 
 func (v *inflator_) ProcessBinary(
 	binary string,
 ) {
+	v.stack_.AddValue(fra.BinaryFromString(binary))
 }
 
 func (v *inflator_) ProcessBoolean(
 	boolean string,
 ) {
+	v.stack_.AddValue(fra.BooleanFromString(boolean))
 }
 
 func (v *inflator_) ProcessBytecode(
 	bytecode string,
 ) {
+	v.stack_.AddValue(doc.BytecodeClass().BytecodeFromString(bytecode))
 }
 
 func (v *inflator_) ProcessComment(
 	comment string,
 ) {
-}
-
-func (v *inflator_) ProcessDelimiter(
-	delimiter string,
-) {
+	v.stack_.AddValue(comment)
 }
 
 func (v *inflator_) ProcessDuration(
 	duration string,
 ) {
+	v.stack_.AddValue(fra.DurationFromString(duration))
 }
 
 func (v *inflator_) ProcessGlyph(
 	glyph string,
 ) {
+	v.stack_.AddValue(fra.GlyphFromString(glyph))
 }
 
 func (v *inflator_) ProcessIdentifier(
 	identifier string,
 ) {
+	v.stack_.AddValue(identifier)
 }
 
 func (v *inflator_) ProcessMoment(
 	moment string,
 ) {
+	v.stack_.AddValue(fra.MomentFromString(moment))
 }
 
 func (v *inflator_) ProcessName(
 	name string,
 ) {
+	v.stack_.AddValue(fra.NameFromString(name))
 }
 
 func (v *inflator_) ProcessNarrative(
 	narrative string,
 ) {
-}
-
-func (v *inflator_) ProcessNewline(
-	newline string,
-) {
+	v.stack_.AddValue(fra.NarrativeFromString(narrative))
 }
 
 func (v *inflator_) ProcessNote(
 	note string,
 ) {
+	v.stack_.AddValue(note)
 }
 
 func (v *inflator_) ProcessNumber(
 	number string,
 ) {
+	v.stack_.AddValue(fra.NumberFromString(number))
 }
 
 func (v *inflator_) ProcessPattern(
 	pattern string,
 ) {
+	v.stack_.AddValue(fra.PatternFromString(pattern))
 }
 
 func (v *inflator_) ProcessPercentage(
 	percentage string,
 ) {
+	v.stack_.AddValue(fra.PercentageFromString(percentage))
 }
 
 func (v *inflator_) ProcessProbability(
 	probability string,
 ) {
+	v.stack_.AddValue(fra.ProbabilityFromString(probability))
 }
 
 func (v *inflator_) ProcessQuote(
 	quote string,
 ) {
+	v.stack_.AddValue(fra.QuoteFromString(quote))
 }
 
 func (v *inflator_) ProcessResource(
 	resource string,
 ) {
-}
-
-func (v *inflator_) ProcessSpace(
-	space string,
-) {
+	v.stack_.AddValue(fra.ResourceFromString(resource))
 }
 
 func (v *inflator_) ProcessSymbol(
 	symbol string,
 ) {
+	v.stack_.AddValue(fra.SymbolFromString(symbol))
 }
 
 func (v *inflator_) ProcessTag(
 	tag string,
 ) {
+	v.stack_.AddValue(fra.TagFromString(tag))
 }
 
 func (v *inflator_) ProcessVersion(
 	version string,
 ) {
-}
-
-func (v *inflator_) PreprocessAcceptClause(
-	acceptClause not.AcceptClauseLike,
-	index_ uint,
-	count_ uint,
-) {
+	v.stack_.AddValue(fra.VersionFromString(version))
 }
 
 func (v *inflator_) PostprocessAcceptClause(
@@ -202,99 +201,8 @@ func (v *inflator_) PostprocessAcceptClause(
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessAcceptClauseSlot(
-	acceptClause not.AcceptClauseLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessActionInduction(
-	actionInduction not.ActionInductionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessActionInduction(
-	actionInduction not.ActionInductionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessActionInductionSlot(
-	actionInduction not.ActionInductionLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessAnnotation(
-	annotation not.AnnotationLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessAnnotation(
-	annotation not.AnnotationLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessAnnotationSlot(
-	annotation not.AnnotationLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessArgument(
-	argument not.ArgumentLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessArgument(
-	argument not.ArgumentLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessArgumentSlot(
-	argument not.ArgumentLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessArithmeticOperator(
-	arithmeticOperator not.ArithmeticOperatorLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessArithmeticOperator(
-	arithmeticOperator not.ArithmeticOperatorLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessArithmeticOperatorSlot(
-	arithmeticOperator not.ArithmeticOperatorLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessAssignment(
-	assignment not.AssignmentLike,
-	index_ uint,
-	count_ uint,
-) {
+	var message = v.stack_.RemoveLast().(doc.ExpressionLike)
+	v.stack_.AddValue(doc.AcceptClauseClass().AcceptClause(message))
 }
 
 func (v *inflator_) PostprocessAssignment(
@@ -302,59 +210,7 @@ func (v *inflator_) PostprocessAssignment(
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessAssignmentSlot(
-	assignment not.AssignmentLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessAssociation(
-	association not.AssociationLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessAssociation(
-	association not.AssociationLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessAssociationSlot(
-	association not.AssociationLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessAtLevel(
-	atLevel not.AtLevelLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessAtLevel(
-	atLevel not.AtLevelLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessAtLevelSlot(
-	atLevel not.AtLevelLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessAttributes(
-	attributes not.AttributesLike,
-	index_ uint,
-	count_ uint,
-) {
+	v.stack_.AddValue(assignment.GetAny().(string))
 }
 
 func (v *inflator_) PostprocessAttributes(
@@ -362,39 +218,16 @@ func (v *inflator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessAttributesSlot(
-	attributes not.AttributesLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessBag(
-	bag not.BagLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessBag(
-	bag not.BagLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessBagSlot(
-	bag not.BagLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessBra(
-	bra not.BraLike,
-	index_ uint,
-	count_ uint,
-) {
+	var catalog = fra.Catalog[any, doc.DocumentLike]()
+	var associations = attributes.GetAssociations()
+	var iterator = associations.GetIterator()
+	for iterator.HasNext() {
+		var document = v.stack_.RemoveLast().(doc.DocumentLike)
+		var primitive = v.stack_.RemoveLast()
+		catalog.SetValue(primitive, document)
+	}
+	catalog.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(catalog)
 }
 
 func (v *inflator_) PostprocessBra(
@@ -402,19 +235,14 @@ func (v *inflator_) PostprocessBra(
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessBraSlot(
-	bra not.BraLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessBreakClause(
-	breakClause not.BreakClauseLike,
-	index_ uint,
-	count_ uint,
-) {
+	var extent doc.Extent
+	switch bra.GetAny().(string) {
+	case "[":
+		extent = doc.Inclusive
+	case "(":
+		extent = doc.Exclusive
+	}
+	v.stack_.AddValue(extent)
 }
 
 func (v *inflator_) PostprocessBreakClause(
@@ -422,12 +250,7 @@ func (v *inflator_) PostprocessBreakClause(
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessBreakClauseSlot(
-	breakClause not.BreakClauseLike,
-	slot_ uint,
-) {
+	// TBD
 }
 
 func (v *inflator_) PreprocessCheckoutClause(
@@ -486,26 +309,6 @@ func (v *inflator_) PostprocessCollection(
 
 func (v *inflator_) ProcessCollectionSlot(
 	collection not.CollectionLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessComparisonOperator(
-	comparisonOperator not.ComparisonOperatorLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessComparisonOperator(
-	comparisonOperator not.ComparisonOperatorLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessComparisonOperatorSlot(
-	comparisonOperator not.ComparisonOperatorLike,
 	slot_ uint,
 ) {
 }
@@ -990,24 +793,19 @@ func (v *inflator_) ProcessItemsSlot(
 ) {
 }
 
-func (v *inflator_) PreprocessKet(
-	ket not.KetLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
 func (v *inflator_) PostprocessKet(
 	ket not.KetLike,
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessKetSlot(
-	ket not.KetLike,
-	slot_ uint,
-) {
+	var extent doc.Extent
+	switch ket.GetAny().(string) {
+	case "]":
+		extent = doc.Inclusive
+	case ")":
+		extent = doc.Exclusive
+	}
+	v.stack_.AddValue(extent)
 }
 
 func (v *inflator_) PreprocessLetClause(
@@ -1026,26 +824,6 @@ func (v *inflator_) PostprocessLetClause(
 
 func (v *inflator_) ProcessLetClauseSlot(
 	letClause not.LetClauseLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessLexicalOperator(
-	lexicalOperator not.LexicalOperatorLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessLexicalOperator(
-	lexicalOperator not.LexicalOperatorLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessLexicalOperatorSlot(
-	lexicalOperator not.LexicalOperatorLike,
 	slot_ uint,
 ) {
 }
@@ -1086,26 +864,6 @@ func (v *inflator_) PostprocessLogical(
 
 func (v *inflator_) ProcessLogicalSlot(
 	logical not.LogicalLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessLogicalOperator(
-	logicalOperator not.LogicalOperatorLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessLogicalOperator(
-	logicalOperator not.LogicalOperatorLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessLogicalOperatorSlot(
-	logicalOperator not.LogicalOperatorLike,
 	slot_ uint,
 ) {
 }
@@ -1310,24 +1068,21 @@ func (v *inflator_) ProcessOperationSlot(
 ) {
 }
 
-func (v *inflator_) PreprocessParameters(
-	parameters not.ParametersLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
 func (v *inflator_) PostprocessParameters(
 	parameters not.ParametersLike,
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessParametersSlot(
-	parameters not.ParametersLike,
-	slot_ uint,
-) {
+	var catalog = fra.Catalog[fra.SymbolLike, doc.DocumentLike]()
+	var associations = parameters.GetAssociations()
+	var iterator = associations.GetIterator()
+	for iterator.HasNext() {
+		var document = v.stack_.RemoveLast().(doc.DocumentLike)
+		var symbol = v.stack_.RemoveLast().(fra.SymbolLike)
+		catalog.SetValue(symbol, document)
+	}
+	catalog.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(catalog)
 }
 
 func (v *inflator_) PreprocessPostClause(
