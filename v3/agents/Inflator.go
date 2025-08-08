@@ -17,6 +17,7 @@ import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
+	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
 // CLASS INTERFACE
@@ -250,14 +251,19 @@ func (v *inflator_) PostprocessBreakClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD
+	v.stack_.AddValue(doc.BreakClauseClass().BreakClause())
 }
 
-func (v *inflator_) PreprocessCheckoutClause(
+func (v *inflator_) ProcessCheckoutClauseSlot(
 	checkoutClause not.CheckoutClauseLike,
-	index_ uint,
-	count_ uint,
+	slot_ uint,
 ) {
+	switch slot_ {
+	case 3:
+		if uti.IsUndefined(checkoutClause.GetOptionalAtLevel()) {
+			v.stack_.AddValue(fra.Number(0))
+		}
+	}
 }
 
 func (v *inflator_) PostprocessCheckoutClause(
@@ -265,59 +271,12 @@ func (v *inflator_) PostprocessCheckoutClause(
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessCheckoutClauseSlot(
-	checkoutClause not.CheckoutClauseLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessCited(
-	cited not.CitedLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessCited(
-	cited not.CitedLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessCitedSlot(
-	cited not.CitedLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessCollection(
-	collection not.CollectionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessCollection(
-	collection not.CollectionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessCollectionSlot(
-	collection not.CollectionLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessComplement(
-	complement not.ComplementLike,
-	index_ uint,
-	count_ uint,
-) {
+	var cited = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var atLevel = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var recipient = v.stack_.RemoveLast()
+	v.stack_.AddValue(
+		doc.CheckoutClauseClass().CheckoutClause(recipient, atLevel, cited),
+	)
 }
 
 func (v *inflator_) PostprocessComplement(
@@ -325,59 +284,8 @@ func (v *inflator_) PostprocessComplement(
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessComplementSlot(
-	complement not.ComplementLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessComponent(
-	component not.ComponentLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessComponent(
-	component not.ComponentLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessComponentSlot(
-	component not.ComponentLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessCondition(
-	condition not.ConditionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessCondition(
-	condition not.ConditionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessConditionSlot(
-	condition not.ConditionLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessContinueClause(
-	continueClause not.ContinueClauseLike,
-	index_ uint,
-	count_ uint,
-) {
+	var logical = v.stack_.RemoveLast()
+	v.stack_.AddValue(doc.ComplementClass().Complement(logical))
 }
 
 func (v *inflator_) PostprocessContinueClause(
@@ -385,19 +293,7 @@ func (v *inflator_) PostprocessContinueClause(
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessContinueClauseSlot(
-	continueClause not.ContinueClauseLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessDiscardClause(
-	discardClause not.DiscardClauseLike,
-	index_ uint,
-	count_ uint,
-) {
+	v.stack_.AddValue(doc.ContinueClauseClass().ContinueClause())
 }
 
 func (v *inflator_) PostprocessDiscardClause(
@@ -405,19 +301,8 @@ func (v *inflator_) PostprocessDiscardClause(
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessDiscardClauseSlot(
-	discardClause not.DiscardClauseLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessDoClause(
-	doClause not.DoClauseLike,
-	index_ uint,
-	count_ uint,
-) {
+	var draft = v.stack_.RemoveLast().(doc.ExpressionLike)
+	v.stack_.AddValue(doc.DiscardClauseClass().DiscardClause(draft))
 }
 
 func (v *inflator_) PostprocessDoClause(
@@ -425,19 +310,20 @@ func (v *inflator_) PostprocessDoClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var invocation = v.stack_.RemoveLast()
+	v.stack_.AddValue(doc.DoClauseClass().DoClause(invocation))
 }
 
-func (v *inflator_) ProcessDoClauseSlot(
-	doClause not.DoClauseLike,
+func (v *inflator_) ProcessDocumentSlot(
+	document not.DocumentLike,
 	slot_ uint,
 ) {
-}
-
-func (v *inflator_) PreprocessDocument(
-	document not.DocumentLike,
-	index_ uint,
-	count_ uint,
-) {
+	switch slot_ {
+	case 2:
+		if uti.IsUndefined(document.GetOptionalParameters()) {
+			v.stack_.AddValue(nil)
+		}
+	}
 }
 
 func (v *inflator_) PostprocessDocument(
@@ -445,112 +331,13 @@ func (v *inflator_) PostprocessDocument(
 	index_ uint,
 	count_ uint,
 ) {
-}
-
-func (v *inflator_) ProcessDocumentSlot(
-	document not.DocumentLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessDraft(
-	draft not.DraftLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessDraft(
-	draft not.DraftLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessDraftSlot(
-	draft not.DraftLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessElement(
-	element not.ElementLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessElement(
-	element not.ElementLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessElementSlot(
-	element not.ElementLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessEntity(
-	entity not.EntityLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessEntity(
-	entity not.EntityLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessEntitySlot(
-	entity not.EntityLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessEvent(
-	event not.EventLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessEvent(
-	event not.EventLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessEventSlot(
-	event not.EventLike,
-	slot_ uint,
-) {
-}
-
-func (v *inflator_) PreprocessException(
-	exception not.ExceptionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) PostprocessException(
-	exception not.ExceptionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *inflator_) ProcessExceptionSlot(
-	exception not.ExceptionLike,
-	slot_ uint,
-) {
+	if uti.IsUndefined(document.GetOptionalNote()) {
+		v.stack_.AddValue("")
+	}
+	var component = v.stack_.RemoveLast()
+	var parameters = v.stack_.RemoveLast().(doc.ParametersLike)
+	var note = v.stack_.RemoveLast().(string)
+	v.stack_.AddValue(doc.DocumentClass().Document(component, parameters, note))
 }
 
 func (v *inflator_) PreprocessExpression(
@@ -565,6 +352,7 @@ func (v *inflator_) PostprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
+	// TBD
 }
 
 func (v *inflator_) ProcessExpressionSlot(
