@@ -27,6 +27,7 @@ package agents
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	ast "github.com/bali-nebula/go-document-notation/v3"
+	fra "github.com/craterdog/go-component-framework/v7"
 )
 
 // TYPE DECLARATIONS
@@ -171,67 +172,67 @@ all methodical processors.
 */
 type Methodical interface {
 	ProcessAngle(
-		angle string,
+		angle fra.AngleLike,
 	)
 	ProcessBinary(
-		binary string,
+		binary fra.BinaryLike,
 	)
 	ProcessBoolean(
-		boolean string,
+		boolean fra.BooleanLike,
 	)
 	ProcessBytecode(
-		bytecode string,
+		bytecode doc.BytecodeLike,
 	)
 	ProcessComment(
 		comment string,
 	)
 	ProcessDuration(
-		duration string,
+		duration fra.DurationLike,
 	)
 	ProcessGlyph(
-		glyph string,
+		glyph fra.GlyphLike,
 	)
 	ProcessIdentifier(
 		identifier string,
 	)
 	ProcessMoment(
-		moment string,
+		moment fra.MomentLike,
 	)
 	ProcessName(
-		name string,
+		name fra.NameLike,
 	)
 	ProcessNarrative(
-		narrative string,
+		narrative fra.NarrativeLike,
 	)
 	ProcessNote(
 		note string,
 	)
 	ProcessNumber(
-		number string,
+		number fra.NumberLike,
 	)
 	ProcessPattern(
-		pattern string,
+		pattern fra.PatternLike,
 	)
 	ProcessPercentage(
-		percentage string,
+		percentage fra.PercentageLike,
 	)
 	ProcessProbability(
-		probability string,
+		probability fra.ProbabilityLike,
 	)
 	ProcessQuote(
-		quote string,
+		quote fra.QuoteLike,
 	)
 	ProcessResource(
-		resource string,
+		resource fra.ResourceLike,
 	)
 	ProcessSymbol(
-		symbol string,
+		symbol fra.SymbolLike,
 	)
 	ProcessTag(
-		tag string,
+		tag fra.TagLike,
 	)
 	ProcessVersion(
-		version string,
+		version fra.VersionLike,
 	)
 	PreprocessAcceptClause(
 		acceptClause doc.AcceptClauseLike,

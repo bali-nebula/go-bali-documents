@@ -15,6 +15,7 @@ package agents
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	ast "github.com/bali-nebula/go-document-notation/v3"
+	fra "github.com/craterdog/go-component-framework/v7"
 )
 
 // CLASS INTERFACE
@@ -59,25 +60,25 @@ func (v *deflator_) DeflateDocument(
 // Methodical Methods
 
 func (v *deflator_) ProcessAngle(
-	angle string,
+	angle fra.AngleLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessBinary(
-	binary string,
+	binary fra.BinaryLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessBoolean(
-	boolean string,
+	boolean fra.BooleanLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessBytecode(
-	bytecode string,
+	bytecode doc.BytecodeLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -89,13 +90,13 @@ func (v *deflator_) ProcessComment(
 }
 
 func (v *deflator_) ProcessDuration(
-	duration string,
+	duration fra.DurationLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessGlyph(
-	glyph string,
+	glyph fra.GlyphLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -107,19 +108,19 @@ func (v *deflator_) ProcessIdentifier(
 }
 
 func (v *deflator_) ProcessMoment(
-	moment string,
+	moment fra.MomentLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessName(
-	name string,
+	name fra.NameLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessNarrative(
-	narrative string,
+	narrative fra.NarrativeLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -131,55 +132,55 @@ func (v *deflator_) ProcessNote(
 }
 
 func (v *deflator_) ProcessNumber(
-	number string,
+	number fra.NumberLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessPattern(
-	pattern string,
+	pattern fra.PatternLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessPercentage(
-	percentage string,
+	percentage fra.PercentageLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessProbability(
-	probability string,
+	probability fra.ProbabilityLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessQuote(
-	quote string,
+	quote fra.QuoteLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessResource(
-	resource string,
+	resource fra.ResourceLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessSymbol(
-	symbol string,
+	symbol fra.SymbolLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessTag(
-	tag string,
+	tag fra.TagLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *deflator_) ProcessVersion(
-	version string,
+	version fra.VersionLike,
 ) {
 	// TBD - Add the method implementation.
 }

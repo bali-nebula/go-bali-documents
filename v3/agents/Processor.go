@@ -14,6 +14,7 @@ package agents
 
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
+	fra "github.com/craterdog/go-component-framework/v7"
 )
 
 // CLASS INTERFACE
@@ -50,25 +51,25 @@ func (v *processor_) GetClass() ProcessorClassLike {
 // Methodical Methods
 
 func (v *processor_) ProcessAngle(
-	angle string,
+	angle fra.AngleLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessBinary(
-	binary string,
+	binary fra.BinaryLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessBoolean(
-	boolean string,
+	boolean fra.BooleanLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessBytecode(
-	bytecode string,
+	bytecode doc.BytecodeLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -80,13 +81,13 @@ func (v *processor_) ProcessComment(
 }
 
 func (v *processor_) ProcessDuration(
-	duration string,
+	duration fra.DurationLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessGlyph(
-	glyph string,
+	glyph fra.GlyphLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -98,19 +99,19 @@ func (v *processor_) ProcessIdentifier(
 }
 
 func (v *processor_) ProcessMoment(
-	moment string,
+	moment fra.MomentLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessName(
-	name string,
+	name fra.NameLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessNarrative(
-	narrative string,
+	narrative fra.NarrativeLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -122,55 +123,55 @@ func (v *processor_) ProcessNote(
 }
 
 func (v *processor_) ProcessNumber(
-	number string,
+	number fra.NumberLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessPattern(
-	pattern string,
+	pattern fra.PatternLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessPercentage(
-	percentage string,
+	percentage fra.PercentageLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessProbability(
-	probability string,
+	probability fra.ProbabilityLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessQuote(
-	quote string,
+	quote fra.QuoteLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessResource(
-	resource string,
+	resource fra.ResourceLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessSymbol(
-	symbol string,
+	symbol fra.SymbolLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessTag(
-	tag string,
+	tag fra.TagLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessVersion(
-	version string,
+	version fra.VersionLike,
 ) {
 	// TBD - Add the method implementation.
 }

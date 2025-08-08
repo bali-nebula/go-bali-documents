@@ -56,150 +56,126 @@ func (v *inflator_) InflateAst(
 
 // Attribute Methods
 
-// AstMethodical Methods
+// ast.Methodical Methods
 
 func (v *inflator_) ProcessAngle(
 	angle string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessBinary(
 	binary string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessBoolean(
 	boolean string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessBytecode(
 	bytecode string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessComment(
 	comment string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessDelimiter(
 	delimiter string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessDuration(
 	duration string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessGlyph(
 	glyph string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessIdentifier(
 	identifier string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessMoment(
 	moment string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessName(
 	name string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessNarrative(
 	narrative string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessNewline(
 	newline string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessNote(
 	note string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessNumber(
 	number string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessPattern(
 	pattern string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessPercentage(
 	percentage string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessProbability(
 	probability string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessQuote(
 	quote string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessResource(
 	resource string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessSpace(
 	space string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessSymbol(
 	symbol string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessTag(
 	tag string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessVersion(
 	version string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessAcceptClause(
@@ -207,7 +183,6 @@ func (v *inflator_) PreprocessAcceptClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessAcceptClause(
@@ -215,14 +190,12 @@ func (v *inflator_) PostprocessAcceptClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessAcceptClauseSlot(
 	acceptClause ast.AcceptClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessActionInduction(
@@ -230,7 +203,6 @@ func (v *inflator_) PreprocessActionInduction(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessActionInduction(
@@ -238,14 +210,12 @@ func (v *inflator_) PostprocessActionInduction(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessActionInductionSlot(
 	actionInduction ast.ActionInductionLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessAnnotation(
@@ -253,7 +223,6 @@ func (v *inflator_) PreprocessAnnotation(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessAnnotation(
@@ -261,14 +230,12 @@ func (v *inflator_) PostprocessAnnotation(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessAnnotationSlot(
 	annotation ast.AnnotationLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessArgument(
@@ -276,7 +243,6 @@ func (v *inflator_) PreprocessArgument(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessArgument(
@@ -284,14 +250,12 @@ func (v *inflator_) PostprocessArgument(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessArgumentSlot(
 	argument ast.ArgumentLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessArithmeticOperator(
@@ -299,7 +263,6 @@ func (v *inflator_) PreprocessArithmeticOperator(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessArithmeticOperator(
@@ -307,14 +270,12 @@ func (v *inflator_) PostprocessArithmeticOperator(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessArithmeticOperatorSlot(
 	arithmeticOperator ast.ArithmeticOperatorLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessAssignment(
@@ -322,7 +283,6 @@ func (v *inflator_) PreprocessAssignment(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessAssignment(
@@ -330,14 +290,12 @@ func (v *inflator_) PostprocessAssignment(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessAssignmentSlot(
 	assignment ast.AssignmentLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessAssociation(
@@ -345,7 +303,6 @@ func (v *inflator_) PreprocessAssociation(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessAssociation(
@@ -353,14 +310,12 @@ func (v *inflator_) PostprocessAssociation(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessAssociationSlot(
 	association ast.AssociationLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessAtLevel(
@@ -368,7 +323,6 @@ func (v *inflator_) PreprocessAtLevel(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessAtLevel(
@@ -376,14 +330,12 @@ func (v *inflator_) PostprocessAtLevel(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessAtLevelSlot(
 	atLevel ast.AtLevelLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessAttributes(
@@ -391,7 +343,6 @@ func (v *inflator_) PreprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessAttributes(
@@ -399,14 +350,12 @@ func (v *inflator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessAttributesSlot(
 	attributes ast.AttributesLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessBag(
@@ -414,7 +363,6 @@ func (v *inflator_) PreprocessBag(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessBag(
@@ -422,14 +370,12 @@ func (v *inflator_) PostprocessBag(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessBagSlot(
 	bag ast.BagLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessBra(
@@ -437,7 +383,6 @@ func (v *inflator_) PreprocessBra(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessBra(
@@ -445,14 +390,12 @@ func (v *inflator_) PostprocessBra(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessBraSlot(
 	bra ast.BraLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessBreakClause(
@@ -460,7 +403,6 @@ func (v *inflator_) PreprocessBreakClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessBreakClause(
@@ -468,14 +410,12 @@ func (v *inflator_) PostprocessBreakClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessBreakClauseSlot(
 	breakClause ast.BreakClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessCheckoutClause(
@@ -483,7 +423,6 @@ func (v *inflator_) PreprocessCheckoutClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessCheckoutClause(
@@ -491,14 +430,12 @@ func (v *inflator_) PostprocessCheckoutClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessCheckoutClauseSlot(
 	checkoutClause ast.CheckoutClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessCited(
@@ -506,7 +443,6 @@ func (v *inflator_) PreprocessCited(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessCited(
@@ -514,14 +450,12 @@ func (v *inflator_) PostprocessCited(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessCitedSlot(
 	cited ast.CitedLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessCollection(
@@ -529,7 +463,6 @@ func (v *inflator_) PreprocessCollection(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessCollection(
@@ -537,14 +470,12 @@ func (v *inflator_) PostprocessCollection(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessCollectionSlot(
 	collection ast.CollectionLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessComparisonOperator(
@@ -552,7 +483,6 @@ func (v *inflator_) PreprocessComparisonOperator(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessComparisonOperator(
@@ -560,14 +490,12 @@ func (v *inflator_) PostprocessComparisonOperator(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessComparisonOperatorSlot(
 	comparisonOperator ast.ComparisonOperatorLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessComplement(
@@ -575,7 +503,6 @@ func (v *inflator_) PreprocessComplement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessComplement(
@@ -583,14 +510,12 @@ func (v *inflator_) PostprocessComplement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessComplementSlot(
 	complement ast.ComplementLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessComponent(
@@ -598,7 +523,6 @@ func (v *inflator_) PreprocessComponent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessComponent(
@@ -606,14 +530,12 @@ func (v *inflator_) PostprocessComponent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessComponentSlot(
 	component ast.ComponentLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessCondition(
@@ -621,7 +543,6 @@ func (v *inflator_) PreprocessCondition(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessCondition(
@@ -629,14 +550,12 @@ func (v *inflator_) PostprocessCondition(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessConditionSlot(
 	condition ast.ConditionLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessContinueClause(
@@ -644,7 +563,6 @@ func (v *inflator_) PreprocessContinueClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessContinueClause(
@@ -652,14 +570,12 @@ func (v *inflator_) PostprocessContinueClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessContinueClauseSlot(
 	continueClause ast.ContinueClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessDiscardClause(
@@ -667,7 +583,6 @@ func (v *inflator_) PreprocessDiscardClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessDiscardClause(
@@ -675,14 +590,12 @@ func (v *inflator_) PostprocessDiscardClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessDiscardClauseSlot(
 	discardClause ast.DiscardClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessDoClause(
@@ -690,7 +603,6 @@ func (v *inflator_) PreprocessDoClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessDoClause(
@@ -698,14 +610,12 @@ func (v *inflator_) PostprocessDoClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessDoClauseSlot(
 	doClause ast.DoClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessDocument(
@@ -713,7 +623,6 @@ func (v *inflator_) PreprocessDocument(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessDocument(
@@ -721,14 +630,12 @@ func (v *inflator_) PostprocessDocument(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessDocumentSlot(
 	document ast.DocumentLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessDraft(
@@ -736,7 +643,6 @@ func (v *inflator_) PreprocessDraft(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessDraft(
@@ -744,14 +650,12 @@ func (v *inflator_) PostprocessDraft(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessDraftSlot(
 	draft ast.DraftLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessElement(
@@ -759,7 +663,6 @@ func (v *inflator_) PreprocessElement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessElement(
@@ -767,14 +670,12 @@ func (v *inflator_) PostprocessElement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessElementSlot(
 	element ast.ElementLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessEntity(
@@ -782,7 +683,6 @@ func (v *inflator_) PreprocessEntity(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessEntity(
@@ -790,14 +690,12 @@ func (v *inflator_) PostprocessEntity(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessEntitySlot(
 	entity ast.EntityLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessEvent(
@@ -805,7 +703,6 @@ func (v *inflator_) PreprocessEvent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessEvent(
@@ -813,14 +710,12 @@ func (v *inflator_) PostprocessEvent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessEventSlot(
 	event ast.EventLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessException(
@@ -828,7 +723,6 @@ func (v *inflator_) PreprocessException(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessException(
@@ -836,14 +730,12 @@ func (v *inflator_) PostprocessException(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessExceptionSlot(
 	exception ast.ExceptionLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessExpression(
@@ -851,7 +743,6 @@ func (v *inflator_) PreprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessExpression(
@@ -859,14 +750,12 @@ func (v *inflator_) PostprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessExpressionSlot(
 	expression ast.ExpressionLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessFailure(
@@ -874,7 +763,6 @@ func (v *inflator_) PreprocessFailure(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessFailure(
@@ -882,14 +770,12 @@ func (v *inflator_) PostprocessFailure(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessFailureSlot(
 	failure ast.FailureLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessFlowControl(
@@ -897,7 +783,6 @@ func (v *inflator_) PreprocessFlowControl(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessFlowControl(
@@ -905,14 +790,12 @@ func (v *inflator_) PostprocessFlowControl(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessFlowControlSlot(
 	flowControl ast.FlowControlLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessFunction(
@@ -920,7 +803,6 @@ func (v *inflator_) PreprocessFunction(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessFunction(
@@ -928,14 +810,12 @@ func (v *inflator_) PostprocessFunction(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessFunctionSlot(
 	function ast.FunctionLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessIfClause(
@@ -943,7 +823,6 @@ func (v *inflator_) PreprocessIfClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessIfClause(
@@ -951,14 +830,12 @@ func (v *inflator_) PostprocessIfClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessIfClauseSlot(
 	ifClause ast.IfClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessIndex(
@@ -966,7 +843,6 @@ func (v *inflator_) PreprocessIndex(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessIndex(
@@ -974,14 +850,12 @@ func (v *inflator_) PostprocessIndex(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessIndexSlot(
 	index ast.IndexLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessIndirect(
@@ -989,7 +863,6 @@ func (v *inflator_) PreprocessIndirect(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessIndirect(
@@ -997,14 +870,12 @@ func (v *inflator_) PostprocessIndirect(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessIndirectSlot(
 	indirect ast.IndirectLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessInverse(
@@ -1012,7 +883,6 @@ func (v *inflator_) PreprocessInverse(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessInverse(
@@ -1020,14 +890,12 @@ func (v *inflator_) PostprocessInverse(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessInverseSlot(
 	inverse ast.InverseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessInversion(
@@ -1035,7 +903,6 @@ func (v *inflator_) PreprocessInversion(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessInversion(
@@ -1043,14 +910,12 @@ func (v *inflator_) PostprocessInversion(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessInversionSlot(
 	inversion ast.InversionLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessInvocation(
@@ -1058,7 +923,6 @@ func (v *inflator_) PreprocessInvocation(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessInvocation(
@@ -1066,14 +930,12 @@ func (v *inflator_) PostprocessInvocation(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessInvocationSlot(
 	invocation ast.InvocationLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessInvoke(
@@ -1081,7 +943,6 @@ func (v *inflator_) PreprocessInvoke(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessInvoke(
@@ -1089,14 +950,12 @@ func (v *inflator_) PostprocessInvoke(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessInvokeSlot(
 	invoke ast.InvokeLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessItems(
@@ -1104,7 +963,6 @@ func (v *inflator_) PreprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessItems(
@@ -1112,14 +970,12 @@ func (v *inflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessItemsSlot(
 	items ast.ItemsLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessKet(
@@ -1127,7 +983,6 @@ func (v *inflator_) PreprocessKet(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessKet(
@@ -1135,14 +990,12 @@ func (v *inflator_) PostprocessKet(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessKetSlot(
 	ket ast.KetLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessLetClause(
@@ -1150,7 +1003,6 @@ func (v *inflator_) PreprocessLetClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessLetClause(
@@ -1158,14 +1010,12 @@ func (v *inflator_) PostprocessLetClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessLetClauseSlot(
 	letClause ast.LetClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessLexicalOperator(
@@ -1173,7 +1023,6 @@ func (v *inflator_) PreprocessLexicalOperator(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessLexicalOperator(
@@ -1181,14 +1030,12 @@ func (v *inflator_) PostprocessLexicalOperator(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessLexicalOperatorSlot(
 	lexicalOperator ast.LexicalOperatorLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessLine(
@@ -1196,7 +1043,6 @@ func (v *inflator_) PreprocessLine(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessLine(
@@ -1204,14 +1050,12 @@ func (v *inflator_) PostprocessLine(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessLineSlot(
 	line ast.LineLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessLogical(
@@ -1219,7 +1063,6 @@ func (v *inflator_) PreprocessLogical(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessLogical(
@@ -1227,14 +1070,12 @@ func (v *inflator_) PostprocessLogical(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessLogicalSlot(
 	logical ast.LogicalLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessLogicalOperator(
@@ -1242,7 +1083,6 @@ func (v *inflator_) PreprocessLogicalOperator(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessLogicalOperator(
@@ -1250,14 +1090,12 @@ func (v *inflator_) PostprocessLogicalOperator(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessLogicalOperatorSlot(
 	logicalOperator ast.LogicalOperatorLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessMagnitude(
@@ -1265,7 +1103,6 @@ func (v *inflator_) PreprocessMagnitude(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessMagnitude(
@@ -1273,14 +1110,12 @@ func (v *inflator_) PostprocessMagnitude(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessMagnitudeSlot(
 	magnitude ast.MagnitudeLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessMainClause(
@@ -1288,7 +1123,6 @@ func (v *inflator_) PreprocessMainClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessMainClause(
@@ -1296,14 +1130,12 @@ func (v *inflator_) PostprocessMainClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessMainClauseSlot(
 	mainClause ast.MainClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessMatchingClause(
@@ -1311,7 +1143,6 @@ func (v *inflator_) PreprocessMatchingClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessMatchingClause(
@@ -1319,14 +1150,12 @@ func (v *inflator_) PostprocessMatchingClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessMatchingClauseSlot(
 	matchingClause ast.MatchingClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessMessage(
@@ -1334,7 +1163,6 @@ func (v *inflator_) PreprocessMessage(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessMessage(
@@ -1342,14 +1170,12 @@ func (v *inflator_) PostprocessMessage(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessMessageSlot(
 	message ast.MessageLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessMessageHandling(
@@ -1357,7 +1183,6 @@ func (v *inflator_) PreprocessMessageHandling(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessMessageHandling(
@@ -1365,14 +1190,12 @@ func (v *inflator_) PostprocessMessageHandling(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessMessageHandlingSlot(
 	messageHandling ast.MessageHandlingLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessMethod(
@@ -1380,7 +1203,6 @@ func (v *inflator_) PreprocessMethod(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessMethod(
@@ -1388,14 +1210,12 @@ func (v *inflator_) PostprocessMethod(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessMethodSlot(
 	method ast.MethodLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessNotarizeClause(
@@ -1403,7 +1223,6 @@ func (v *inflator_) PreprocessNotarizeClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessNotarizeClause(
@@ -1411,14 +1230,12 @@ func (v *inflator_) PostprocessNotarizeClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessNotarizeClauseSlot(
 	notarizeClause ast.NotarizeClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessNumerical(
@@ -1426,7 +1243,6 @@ func (v *inflator_) PreprocessNumerical(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessNumerical(
@@ -1434,14 +1250,12 @@ func (v *inflator_) PostprocessNumerical(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessNumericalSlot(
 	numerical ast.NumericalLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessOnClause(
@@ -1449,7 +1263,6 @@ func (v *inflator_) PreprocessOnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessOnClause(
@@ -1457,14 +1270,12 @@ func (v *inflator_) PostprocessOnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessOnClauseSlot(
 	onClause ast.OnClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessOperation(
@@ -1472,7 +1283,6 @@ func (v *inflator_) PreprocessOperation(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessOperation(
@@ -1480,14 +1290,12 @@ func (v *inflator_) PostprocessOperation(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessOperationSlot(
 	operation ast.OperationLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessParameters(
@@ -1495,7 +1303,6 @@ func (v *inflator_) PreprocessParameters(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessParameters(
@@ -1503,14 +1310,12 @@ func (v *inflator_) PostprocessParameters(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessParametersSlot(
 	parameters ast.ParametersLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessPostClause(
@@ -1518,7 +1323,6 @@ func (v *inflator_) PreprocessPostClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessPostClause(
@@ -1526,14 +1330,12 @@ func (v *inflator_) PostprocessPostClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessPostClauseSlot(
 	postClause ast.PostClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessPrecedence(
@@ -1541,7 +1343,6 @@ func (v *inflator_) PreprocessPrecedence(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessPrecedence(
@@ -1549,14 +1350,12 @@ func (v *inflator_) PostprocessPrecedence(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessPrecedenceSlot(
 	precedence ast.PrecedenceLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessPredicate(
@@ -1564,7 +1363,6 @@ func (v *inflator_) PreprocessPredicate(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessPredicate(
@@ -1572,14 +1370,12 @@ func (v *inflator_) PostprocessPredicate(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessPredicateSlot(
 	predicate ast.PredicateLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessPrimitive(
@@ -1587,7 +1383,6 @@ func (v *inflator_) PreprocessPrimitive(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessPrimitive(
@@ -1595,14 +1390,12 @@ func (v *inflator_) PostprocessPrimitive(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessPrimitiveSlot(
 	primitive ast.PrimitiveLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessProcedure(
@@ -1610,7 +1403,6 @@ func (v *inflator_) PreprocessProcedure(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessProcedure(
@@ -1618,14 +1410,12 @@ func (v *inflator_) PostprocessProcedure(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessProcedureSlot(
 	procedure ast.ProcedureLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessPublishClause(
@@ -1633,7 +1423,6 @@ func (v *inflator_) PreprocessPublishClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessPublishClause(
@@ -1641,14 +1430,12 @@ func (v *inflator_) PostprocessPublishClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessPublishClauseSlot(
 	publishClause ast.PublishClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessRange(
@@ -1656,7 +1443,6 @@ func (v *inflator_) PreprocessRange(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessRange(
@@ -1664,14 +1450,12 @@ func (v *inflator_) PostprocessRange(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessRangeSlot(
 	range_ ast.RangeLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessRecipient(
@@ -1679,7 +1463,6 @@ func (v *inflator_) PreprocessRecipient(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessRecipient(
@@ -1687,14 +1470,12 @@ func (v *inflator_) PostprocessRecipient(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessRecipientSlot(
 	recipient ast.RecipientLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessReferent(
@@ -1702,7 +1483,6 @@ func (v *inflator_) PreprocessReferent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessReferent(
@@ -1710,14 +1490,12 @@ func (v *inflator_) PostprocessReferent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessReferentSlot(
 	referent ast.ReferentLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessRejectClause(
@@ -1725,7 +1503,6 @@ func (v *inflator_) PreprocessRejectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessRejectClause(
@@ -1733,14 +1510,12 @@ func (v *inflator_) PostprocessRejectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessRejectClauseSlot(
 	rejectClause ast.RejectClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessRepositoryAccess(
@@ -1748,7 +1523,6 @@ func (v *inflator_) PreprocessRepositoryAccess(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessRepositoryAccess(
@@ -1756,14 +1530,12 @@ func (v *inflator_) PostprocessRepositoryAccess(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessRepositoryAccessSlot(
 	repositoryAccess ast.RepositoryAccessLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessResult(
@@ -1771,7 +1543,6 @@ func (v *inflator_) PreprocessResult(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessResult(
@@ -1779,14 +1550,12 @@ func (v *inflator_) PostprocessResult(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessResultSlot(
 	result ast.ResultLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessRetrieveClause(
@@ -1794,7 +1563,6 @@ func (v *inflator_) PreprocessRetrieveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessRetrieveClause(
@@ -1802,14 +1570,12 @@ func (v *inflator_) PostprocessRetrieveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessRetrieveClauseSlot(
 	retrieveClause ast.RetrieveClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessReturnClause(
@@ -1817,7 +1583,6 @@ func (v *inflator_) PreprocessReturnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessReturnClause(
@@ -1825,14 +1590,12 @@ func (v *inflator_) PostprocessReturnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessReturnClauseSlot(
 	returnClause ast.ReturnClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessSaveClause(
@@ -1840,7 +1603,6 @@ func (v *inflator_) PreprocessSaveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessSaveClause(
@@ -1848,14 +1610,12 @@ func (v *inflator_) PostprocessSaveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessSaveClauseSlot(
 	saveClause ast.SaveClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessSelectClause(
@@ -1863,7 +1623,6 @@ func (v *inflator_) PreprocessSelectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessSelectClause(
@@ -1871,14 +1630,12 @@ func (v *inflator_) PostprocessSelectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessSelectClauseSlot(
 	selectClause ast.SelectClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessSequence(
@@ -1886,7 +1643,6 @@ func (v *inflator_) PreprocessSequence(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessSequence(
@@ -1894,14 +1650,12 @@ func (v *inflator_) PostprocessSequence(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessSequenceSlot(
 	sequence ast.SequenceLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessStatement(
@@ -1909,7 +1663,6 @@ func (v *inflator_) PreprocessStatement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessStatement(
@@ -1917,14 +1670,12 @@ func (v *inflator_) PostprocessStatement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessStatementSlot(
 	statement ast.StatementLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessString(
@@ -1932,7 +1683,6 @@ func (v *inflator_) PreprocessString(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessString(
@@ -1940,14 +1690,12 @@ func (v *inflator_) PostprocessString(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessStringSlot(
 	string_ ast.StringLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessSubcomponent(
@@ -1955,7 +1703,6 @@ func (v *inflator_) PreprocessSubcomponent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessSubcomponent(
@@ -1963,14 +1710,12 @@ func (v *inflator_) PostprocessSubcomponent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessSubcomponentSlot(
 	subcomponent ast.SubcomponentLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessSubject(
@@ -1978,7 +1723,6 @@ func (v *inflator_) PreprocessSubject(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessSubject(
@@ -1986,14 +1730,12 @@ func (v *inflator_) PostprocessSubject(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessSubjectSlot(
 	subject ast.SubjectLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessTarget(
@@ -2001,7 +1743,6 @@ func (v *inflator_) PreprocessTarget(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessTarget(
@@ -2009,14 +1750,12 @@ func (v *inflator_) PostprocessTarget(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessTargetSlot(
 	target ast.TargetLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessTemplate(
@@ -2024,7 +1763,6 @@ func (v *inflator_) PreprocessTemplate(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessTemplate(
@@ -2032,14 +1770,12 @@ func (v *inflator_) PostprocessTemplate(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessTemplateSlot(
 	template ast.TemplateLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessThrowClause(
@@ -2047,7 +1783,6 @@ func (v *inflator_) PreprocessThrowClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessThrowClause(
@@ -2055,14 +1790,12 @@ func (v *inflator_) PostprocessThrowClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessThrowClauseSlot(
 	throwClause ast.ThrowClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessValue(
@@ -2070,7 +1803,6 @@ func (v *inflator_) PreprocessValue(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessValue(
@@ -2078,14 +1810,12 @@ func (v *inflator_) PostprocessValue(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessValueSlot(
 	value ast.ValueLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessVariable(
@@ -2093,7 +1823,6 @@ func (v *inflator_) PreprocessVariable(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessVariable(
@@ -2101,14 +1830,12 @@ func (v *inflator_) PostprocessVariable(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessVariableSlot(
 	variable ast.VariableLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessWhileClause(
@@ -2116,7 +1843,6 @@ func (v *inflator_) PreprocessWhileClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessWhileClause(
@@ -2124,14 +1850,12 @@ func (v *inflator_) PostprocessWhileClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessWhileClauseSlot(
 	whileClause ast.WhileClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PreprocessWithClause(
@@ -2139,7 +1863,6 @@ func (v *inflator_) PreprocessWithClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) PostprocessWithClause(
@@ -2147,14 +1870,12 @@ func (v *inflator_) PostprocessWithClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *inflator_) ProcessWithClauseSlot(
 	withClause ast.WithClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 // PROTECTED INTERFACE
