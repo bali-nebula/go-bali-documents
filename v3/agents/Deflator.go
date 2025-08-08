@@ -14,7 +14,7 @@ package agents
 
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	ast "github.com/bali-nebula/go-document-notation/v3"
+	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
 )
 
@@ -49,8 +49,8 @@ func (v *deflator_) GetClass() DeflatorClassLike {
 
 func (v *deflator_) DeflateDocument(
 	document doc.DocumentLike,
-) ast.DocumentLike {
-	var result_ ast.DocumentLike
+) not.DocumentLike {
+	var result_ not.DocumentLike
 	// TBD - Add the method implementation.
 	return result_
 }

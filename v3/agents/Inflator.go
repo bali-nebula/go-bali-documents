@@ -13,8 +13,10 @@
 package agents
 
 import (
+	fmt "fmt"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	ast "github.com/bali-nebula/go-document-notation/v3"
+	not "github.com/bali-nebula/go-document-notation/v3"
+	fra "github.com/craterdog/go-component-framework/v7"
 )
 
 // CLASS INTERFACE
@@ -30,6 +32,10 @@ func InflatorClass() InflatorClassLike {
 func (c *inflatorClass_) Inflator() InflatorLike {
 	var instance = &inflator_{
 		// Initialize the instance attributes.
+		stack_: fra.Stack[any](),
+
+		// Initialize the inherited aspects.
+		Methodical: not.ProcessorClass().Processor(),
 	}
 	return instance
 }
@@ -47,16 +53,22 @@ func (v *inflator_) GetClass() InflatorClassLike {
 }
 
 func (v *inflator_) InflateAst(
-	document ast.DocumentLike,
+	document not.DocumentLike,
 ) doc.DocumentLike {
-	var result_ doc.DocumentLike
-	// TBD - Add the method implementation.
-	return result_
+	not.VisitorClass().Visitor(v).VisitDocument(document)
+	if v.stack_.GetSize() != 1 {
+		var message = fmt.Sprintf(
+			"Internal Error: the inflator stack is corrupted: %v",
+			v.stack_,
+		)
+		panic(message)
+	}
+	return v.stack_.RemoveLast().(doc.DocumentLike)
 }
 
 // Attribute Methods
 
-// ast.Methodical Methods
+// not.Methodical Methods
 
 func (v *inflator_) ProcessAngle(
 	angle string,
@@ -179,1701 +191,1701 @@ func (v *inflator_) ProcessVersion(
 }
 
 func (v *inflator_) PreprocessAcceptClause(
-	acceptClause ast.AcceptClauseLike,
+	acceptClause not.AcceptClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessAcceptClause(
-	acceptClause ast.AcceptClauseLike,
+	acceptClause not.AcceptClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessAcceptClauseSlot(
-	acceptClause ast.AcceptClauseLike,
+	acceptClause not.AcceptClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessActionInduction(
-	actionInduction ast.ActionInductionLike,
+	actionInduction not.ActionInductionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessActionInduction(
-	actionInduction ast.ActionInductionLike,
+	actionInduction not.ActionInductionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessActionInductionSlot(
-	actionInduction ast.ActionInductionLike,
+	actionInduction not.ActionInductionLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessAnnotation(
-	annotation ast.AnnotationLike,
+	annotation not.AnnotationLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessAnnotation(
-	annotation ast.AnnotationLike,
+	annotation not.AnnotationLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessAnnotationSlot(
-	annotation ast.AnnotationLike,
+	annotation not.AnnotationLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessArgument(
-	argument ast.ArgumentLike,
+	argument not.ArgumentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessArgument(
-	argument ast.ArgumentLike,
+	argument not.ArgumentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessArgumentSlot(
-	argument ast.ArgumentLike,
+	argument not.ArgumentLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessArithmeticOperator(
-	arithmeticOperator ast.ArithmeticOperatorLike,
+	arithmeticOperator not.ArithmeticOperatorLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessArithmeticOperator(
-	arithmeticOperator ast.ArithmeticOperatorLike,
+	arithmeticOperator not.ArithmeticOperatorLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessArithmeticOperatorSlot(
-	arithmeticOperator ast.ArithmeticOperatorLike,
+	arithmeticOperator not.ArithmeticOperatorLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessAssignment(
-	assignment ast.AssignmentLike,
+	assignment not.AssignmentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessAssignment(
-	assignment ast.AssignmentLike,
+	assignment not.AssignmentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessAssignmentSlot(
-	assignment ast.AssignmentLike,
+	assignment not.AssignmentLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessAssociation(
-	association ast.AssociationLike,
+	association not.AssociationLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessAssociation(
-	association ast.AssociationLike,
+	association not.AssociationLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessAssociationSlot(
-	association ast.AssociationLike,
+	association not.AssociationLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessAtLevel(
-	atLevel ast.AtLevelLike,
+	atLevel not.AtLevelLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessAtLevel(
-	atLevel ast.AtLevelLike,
+	atLevel not.AtLevelLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessAtLevelSlot(
-	atLevel ast.AtLevelLike,
+	atLevel not.AtLevelLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessAttributes(
-	attributes ast.AttributesLike,
+	attributes not.AttributesLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessAttributes(
-	attributes ast.AttributesLike,
+	attributes not.AttributesLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessAttributesSlot(
-	attributes ast.AttributesLike,
+	attributes not.AttributesLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessBag(
-	bag ast.BagLike,
+	bag not.BagLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessBag(
-	bag ast.BagLike,
+	bag not.BagLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessBagSlot(
-	bag ast.BagLike,
+	bag not.BagLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessBra(
-	bra ast.BraLike,
+	bra not.BraLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessBra(
-	bra ast.BraLike,
+	bra not.BraLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessBraSlot(
-	bra ast.BraLike,
+	bra not.BraLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessBreakClause(
-	breakClause ast.BreakClauseLike,
+	breakClause not.BreakClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessBreakClause(
-	breakClause ast.BreakClauseLike,
+	breakClause not.BreakClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessBreakClauseSlot(
-	breakClause ast.BreakClauseLike,
+	breakClause not.BreakClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessCheckoutClause(
-	checkoutClause ast.CheckoutClauseLike,
+	checkoutClause not.CheckoutClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessCheckoutClause(
-	checkoutClause ast.CheckoutClauseLike,
+	checkoutClause not.CheckoutClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessCheckoutClauseSlot(
-	checkoutClause ast.CheckoutClauseLike,
+	checkoutClause not.CheckoutClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessCited(
-	cited ast.CitedLike,
+	cited not.CitedLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessCited(
-	cited ast.CitedLike,
+	cited not.CitedLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessCitedSlot(
-	cited ast.CitedLike,
+	cited not.CitedLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessCollection(
-	collection ast.CollectionLike,
+	collection not.CollectionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessCollection(
-	collection ast.CollectionLike,
+	collection not.CollectionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessCollectionSlot(
-	collection ast.CollectionLike,
+	collection not.CollectionLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessComparisonOperator(
-	comparisonOperator ast.ComparisonOperatorLike,
+	comparisonOperator not.ComparisonOperatorLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessComparisonOperator(
-	comparisonOperator ast.ComparisonOperatorLike,
+	comparisonOperator not.ComparisonOperatorLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessComparisonOperatorSlot(
-	comparisonOperator ast.ComparisonOperatorLike,
+	comparisonOperator not.ComparisonOperatorLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessComplement(
-	complement ast.ComplementLike,
+	complement not.ComplementLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessComplement(
-	complement ast.ComplementLike,
+	complement not.ComplementLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessComplementSlot(
-	complement ast.ComplementLike,
+	complement not.ComplementLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessComponent(
-	component ast.ComponentLike,
+	component not.ComponentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessComponent(
-	component ast.ComponentLike,
+	component not.ComponentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessComponentSlot(
-	component ast.ComponentLike,
+	component not.ComponentLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessCondition(
-	condition ast.ConditionLike,
+	condition not.ConditionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessCondition(
-	condition ast.ConditionLike,
+	condition not.ConditionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessConditionSlot(
-	condition ast.ConditionLike,
+	condition not.ConditionLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessContinueClause(
-	continueClause ast.ContinueClauseLike,
+	continueClause not.ContinueClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessContinueClause(
-	continueClause ast.ContinueClauseLike,
+	continueClause not.ContinueClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessContinueClauseSlot(
-	continueClause ast.ContinueClauseLike,
+	continueClause not.ContinueClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessDiscardClause(
-	discardClause ast.DiscardClauseLike,
+	discardClause not.DiscardClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessDiscardClause(
-	discardClause ast.DiscardClauseLike,
+	discardClause not.DiscardClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessDiscardClauseSlot(
-	discardClause ast.DiscardClauseLike,
+	discardClause not.DiscardClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessDoClause(
-	doClause ast.DoClauseLike,
+	doClause not.DoClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessDoClause(
-	doClause ast.DoClauseLike,
+	doClause not.DoClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessDoClauseSlot(
-	doClause ast.DoClauseLike,
+	doClause not.DoClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessDocument(
-	document ast.DocumentLike,
+	document not.DocumentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessDocument(
-	document ast.DocumentLike,
+	document not.DocumentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessDocumentSlot(
-	document ast.DocumentLike,
+	document not.DocumentLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessDraft(
-	draft ast.DraftLike,
+	draft not.DraftLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessDraft(
-	draft ast.DraftLike,
+	draft not.DraftLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessDraftSlot(
-	draft ast.DraftLike,
+	draft not.DraftLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessElement(
-	element ast.ElementLike,
+	element not.ElementLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessElement(
-	element ast.ElementLike,
+	element not.ElementLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessElementSlot(
-	element ast.ElementLike,
+	element not.ElementLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessEntity(
-	entity ast.EntityLike,
+	entity not.EntityLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessEntity(
-	entity ast.EntityLike,
+	entity not.EntityLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessEntitySlot(
-	entity ast.EntityLike,
+	entity not.EntityLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessEvent(
-	event ast.EventLike,
+	event not.EventLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessEvent(
-	event ast.EventLike,
+	event not.EventLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessEventSlot(
-	event ast.EventLike,
+	event not.EventLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessException(
-	exception ast.ExceptionLike,
+	exception not.ExceptionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessException(
-	exception ast.ExceptionLike,
+	exception not.ExceptionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessExceptionSlot(
-	exception ast.ExceptionLike,
+	exception not.ExceptionLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessExpression(
-	expression ast.ExpressionLike,
+	expression not.ExpressionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessExpression(
-	expression ast.ExpressionLike,
+	expression not.ExpressionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessExpressionSlot(
-	expression ast.ExpressionLike,
+	expression not.ExpressionLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessFailure(
-	failure ast.FailureLike,
+	failure not.FailureLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessFailure(
-	failure ast.FailureLike,
+	failure not.FailureLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessFailureSlot(
-	failure ast.FailureLike,
+	failure not.FailureLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessFlowControl(
-	flowControl ast.FlowControlLike,
+	flowControl not.FlowControlLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessFlowControl(
-	flowControl ast.FlowControlLike,
+	flowControl not.FlowControlLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessFlowControlSlot(
-	flowControl ast.FlowControlLike,
+	flowControl not.FlowControlLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessFunction(
-	function ast.FunctionLike,
+	function not.FunctionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessFunction(
-	function ast.FunctionLike,
+	function not.FunctionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessFunctionSlot(
-	function ast.FunctionLike,
+	function not.FunctionLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessIfClause(
-	ifClause ast.IfClauseLike,
+	ifClause not.IfClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessIfClause(
-	ifClause ast.IfClauseLike,
+	ifClause not.IfClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessIfClauseSlot(
-	ifClause ast.IfClauseLike,
+	ifClause not.IfClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessIndex(
-	index ast.IndexLike,
+	index not.IndexLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessIndex(
-	index ast.IndexLike,
+	index not.IndexLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessIndexSlot(
-	index ast.IndexLike,
+	index not.IndexLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessIndirect(
-	indirect ast.IndirectLike,
+	indirect not.IndirectLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessIndirect(
-	indirect ast.IndirectLike,
+	indirect not.IndirectLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessIndirectSlot(
-	indirect ast.IndirectLike,
+	indirect not.IndirectLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessInverse(
-	inverse ast.InverseLike,
+	inverse not.InverseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessInverse(
-	inverse ast.InverseLike,
+	inverse not.InverseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessInverseSlot(
-	inverse ast.InverseLike,
+	inverse not.InverseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessInversion(
-	inversion ast.InversionLike,
+	inversion not.InversionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessInversion(
-	inversion ast.InversionLike,
+	inversion not.InversionLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessInversionSlot(
-	inversion ast.InversionLike,
+	inversion not.InversionLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessInvocation(
-	invocation ast.InvocationLike,
+	invocation not.InvocationLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessInvocation(
-	invocation ast.InvocationLike,
+	invocation not.InvocationLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessInvocationSlot(
-	invocation ast.InvocationLike,
+	invocation not.InvocationLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessInvoke(
-	invoke ast.InvokeLike,
+	invoke not.InvokeLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessInvoke(
-	invoke ast.InvokeLike,
+	invoke not.InvokeLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessInvokeSlot(
-	invoke ast.InvokeLike,
+	invoke not.InvokeLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessItems(
-	items ast.ItemsLike,
+	items not.ItemsLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessItems(
-	items ast.ItemsLike,
+	items not.ItemsLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessItemsSlot(
-	items ast.ItemsLike,
+	items not.ItemsLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessKet(
-	ket ast.KetLike,
+	ket not.KetLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessKet(
-	ket ast.KetLike,
+	ket not.KetLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessKetSlot(
-	ket ast.KetLike,
+	ket not.KetLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessLetClause(
-	letClause ast.LetClauseLike,
+	letClause not.LetClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessLetClause(
-	letClause ast.LetClauseLike,
+	letClause not.LetClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessLetClauseSlot(
-	letClause ast.LetClauseLike,
+	letClause not.LetClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessLexicalOperator(
-	lexicalOperator ast.LexicalOperatorLike,
+	lexicalOperator not.LexicalOperatorLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessLexicalOperator(
-	lexicalOperator ast.LexicalOperatorLike,
+	lexicalOperator not.LexicalOperatorLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessLexicalOperatorSlot(
-	lexicalOperator ast.LexicalOperatorLike,
+	lexicalOperator not.LexicalOperatorLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessLine(
-	line ast.LineLike,
+	line not.LineLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessLine(
-	line ast.LineLike,
+	line not.LineLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessLineSlot(
-	line ast.LineLike,
+	line not.LineLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessLogical(
-	logical ast.LogicalLike,
+	logical not.LogicalLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessLogical(
-	logical ast.LogicalLike,
+	logical not.LogicalLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessLogicalSlot(
-	logical ast.LogicalLike,
+	logical not.LogicalLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessLogicalOperator(
-	logicalOperator ast.LogicalOperatorLike,
+	logicalOperator not.LogicalOperatorLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessLogicalOperator(
-	logicalOperator ast.LogicalOperatorLike,
+	logicalOperator not.LogicalOperatorLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessLogicalOperatorSlot(
-	logicalOperator ast.LogicalOperatorLike,
+	logicalOperator not.LogicalOperatorLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessMagnitude(
-	magnitude ast.MagnitudeLike,
+	magnitude not.MagnitudeLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessMagnitude(
-	magnitude ast.MagnitudeLike,
+	magnitude not.MagnitudeLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessMagnitudeSlot(
-	magnitude ast.MagnitudeLike,
+	magnitude not.MagnitudeLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessMainClause(
-	mainClause ast.MainClauseLike,
+	mainClause not.MainClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessMainClause(
-	mainClause ast.MainClauseLike,
+	mainClause not.MainClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessMainClauseSlot(
-	mainClause ast.MainClauseLike,
+	mainClause not.MainClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessMatchingClause(
-	matchingClause ast.MatchingClauseLike,
+	matchingClause not.MatchingClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessMatchingClause(
-	matchingClause ast.MatchingClauseLike,
+	matchingClause not.MatchingClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessMatchingClauseSlot(
-	matchingClause ast.MatchingClauseLike,
+	matchingClause not.MatchingClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessMessage(
-	message ast.MessageLike,
+	message not.MessageLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessMessage(
-	message ast.MessageLike,
+	message not.MessageLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessMessageSlot(
-	message ast.MessageLike,
+	message not.MessageLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessMessageHandling(
-	messageHandling ast.MessageHandlingLike,
+	messageHandling not.MessageHandlingLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessMessageHandling(
-	messageHandling ast.MessageHandlingLike,
+	messageHandling not.MessageHandlingLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessMessageHandlingSlot(
-	messageHandling ast.MessageHandlingLike,
+	messageHandling not.MessageHandlingLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessMethod(
-	method ast.MethodLike,
+	method not.MethodLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessMethod(
-	method ast.MethodLike,
+	method not.MethodLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessMethodSlot(
-	method ast.MethodLike,
+	method not.MethodLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessNotarizeClause(
-	notarizeClause ast.NotarizeClauseLike,
+	notarizeClause not.NotarizeClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessNotarizeClause(
-	notarizeClause ast.NotarizeClauseLike,
+	notarizeClause not.NotarizeClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessNotarizeClauseSlot(
-	notarizeClause ast.NotarizeClauseLike,
+	notarizeClause not.NotarizeClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessNumerical(
-	numerical ast.NumericalLike,
+	numerical not.NumericalLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessNumerical(
-	numerical ast.NumericalLike,
+	numerical not.NumericalLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessNumericalSlot(
-	numerical ast.NumericalLike,
+	numerical not.NumericalLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessOnClause(
-	onClause ast.OnClauseLike,
+	onClause not.OnClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessOnClause(
-	onClause ast.OnClauseLike,
+	onClause not.OnClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessOnClauseSlot(
-	onClause ast.OnClauseLike,
+	onClause not.OnClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessOperation(
-	operation ast.OperationLike,
+	operation not.OperationLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessOperation(
-	operation ast.OperationLike,
+	operation not.OperationLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessOperationSlot(
-	operation ast.OperationLike,
+	operation not.OperationLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessParameters(
-	parameters ast.ParametersLike,
+	parameters not.ParametersLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessParameters(
-	parameters ast.ParametersLike,
+	parameters not.ParametersLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessParametersSlot(
-	parameters ast.ParametersLike,
+	parameters not.ParametersLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessPostClause(
-	postClause ast.PostClauseLike,
+	postClause not.PostClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessPostClause(
-	postClause ast.PostClauseLike,
+	postClause not.PostClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessPostClauseSlot(
-	postClause ast.PostClauseLike,
+	postClause not.PostClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessPrecedence(
-	precedence ast.PrecedenceLike,
+	precedence not.PrecedenceLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessPrecedence(
-	precedence ast.PrecedenceLike,
+	precedence not.PrecedenceLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessPrecedenceSlot(
-	precedence ast.PrecedenceLike,
+	precedence not.PrecedenceLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessPredicate(
-	predicate ast.PredicateLike,
+	predicate not.PredicateLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessPredicate(
-	predicate ast.PredicateLike,
+	predicate not.PredicateLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessPredicateSlot(
-	predicate ast.PredicateLike,
+	predicate not.PredicateLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessPrimitive(
-	primitive ast.PrimitiveLike,
+	primitive not.PrimitiveLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessPrimitive(
-	primitive ast.PrimitiveLike,
+	primitive not.PrimitiveLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessPrimitiveSlot(
-	primitive ast.PrimitiveLike,
+	primitive not.PrimitiveLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessProcedure(
-	procedure ast.ProcedureLike,
+	procedure not.ProcedureLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessProcedure(
-	procedure ast.ProcedureLike,
+	procedure not.ProcedureLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessProcedureSlot(
-	procedure ast.ProcedureLike,
+	procedure not.ProcedureLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessPublishClause(
-	publishClause ast.PublishClauseLike,
+	publishClause not.PublishClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessPublishClause(
-	publishClause ast.PublishClauseLike,
+	publishClause not.PublishClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessPublishClauseSlot(
-	publishClause ast.PublishClauseLike,
+	publishClause not.PublishClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessRange(
-	range_ ast.RangeLike,
+	range_ not.RangeLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessRange(
-	range_ ast.RangeLike,
+	range_ not.RangeLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessRangeSlot(
-	range_ ast.RangeLike,
+	range_ not.RangeLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessRecipient(
-	recipient ast.RecipientLike,
+	recipient not.RecipientLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessRecipient(
-	recipient ast.RecipientLike,
+	recipient not.RecipientLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessRecipientSlot(
-	recipient ast.RecipientLike,
+	recipient not.RecipientLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessReferent(
-	referent ast.ReferentLike,
+	referent not.ReferentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessReferent(
-	referent ast.ReferentLike,
+	referent not.ReferentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessReferentSlot(
-	referent ast.ReferentLike,
+	referent not.ReferentLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessRejectClause(
-	rejectClause ast.RejectClauseLike,
+	rejectClause not.RejectClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessRejectClause(
-	rejectClause ast.RejectClauseLike,
+	rejectClause not.RejectClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessRejectClauseSlot(
-	rejectClause ast.RejectClauseLike,
+	rejectClause not.RejectClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessRepositoryAccess(
-	repositoryAccess ast.RepositoryAccessLike,
+	repositoryAccess not.RepositoryAccessLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessRepositoryAccess(
-	repositoryAccess ast.RepositoryAccessLike,
+	repositoryAccess not.RepositoryAccessLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessRepositoryAccessSlot(
-	repositoryAccess ast.RepositoryAccessLike,
+	repositoryAccess not.RepositoryAccessLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessResult(
-	result ast.ResultLike,
+	result not.ResultLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessResult(
-	result ast.ResultLike,
+	result not.ResultLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessResultSlot(
-	result ast.ResultLike,
+	result not.ResultLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessRetrieveClause(
-	retrieveClause ast.RetrieveClauseLike,
+	retrieveClause not.RetrieveClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessRetrieveClause(
-	retrieveClause ast.RetrieveClauseLike,
+	retrieveClause not.RetrieveClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessRetrieveClauseSlot(
-	retrieveClause ast.RetrieveClauseLike,
+	retrieveClause not.RetrieveClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessReturnClause(
-	returnClause ast.ReturnClauseLike,
+	returnClause not.ReturnClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessReturnClause(
-	returnClause ast.ReturnClauseLike,
+	returnClause not.ReturnClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessReturnClauseSlot(
-	returnClause ast.ReturnClauseLike,
+	returnClause not.ReturnClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessSaveClause(
-	saveClause ast.SaveClauseLike,
+	saveClause not.SaveClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessSaveClause(
-	saveClause ast.SaveClauseLike,
+	saveClause not.SaveClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessSaveClauseSlot(
-	saveClause ast.SaveClauseLike,
+	saveClause not.SaveClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessSelectClause(
-	selectClause ast.SelectClauseLike,
+	selectClause not.SelectClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessSelectClause(
-	selectClause ast.SelectClauseLike,
+	selectClause not.SelectClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessSelectClauseSlot(
-	selectClause ast.SelectClauseLike,
+	selectClause not.SelectClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessSequence(
-	sequence ast.SequenceLike,
+	sequence not.SequenceLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessSequence(
-	sequence ast.SequenceLike,
+	sequence not.SequenceLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessSequenceSlot(
-	sequence ast.SequenceLike,
+	sequence not.SequenceLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessStatement(
-	statement ast.StatementLike,
+	statement not.StatementLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessStatement(
-	statement ast.StatementLike,
+	statement not.StatementLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessStatementSlot(
-	statement ast.StatementLike,
+	statement not.StatementLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessString(
-	string_ ast.StringLike,
+	string_ not.StringLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessString(
-	string_ ast.StringLike,
+	string_ not.StringLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessStringSlot(
-	string_ ast.StringLike,
+	string_ not.StringLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessSubcomponent(
-	subcomponent ast.SubcomponentLike,
+	subcomponent not.SubcomponentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessSubcomponent(
-	subcomponent ast.SubcomponentLike,
+	subcomponent not.SubcomponentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessSubcomponentSlot(
-	subcomponent ast.SubcomponentLike,
+	subcomponent not.SubcomponentLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessSubject(
-	subject ast.SubjectLike,
+	subject not.SubjectLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessSubject(
-	subject ast.SubjectLike,
+	subject not.SubjectLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessSubjectSlot(
-	subject ast.SubjectLike,
+	subject not.SubjectLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessTarget(
-	target ast.TargetLike,
+	target not.TargetLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessTarget(
-	target ast.TargetLike,
+	target not.TargetLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessTargetSlot(
-	target ast.TargetLike,
+	target not.TargetLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessTemplate(
-	template ast.TemplateLike,
+	template not.TemplateLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessTemplate(
-	template ast.TemplateLike,
+	template not.TemplateLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessTemplateSlot(
-	template ast.TemplateLike,
+	template not.TemplateLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessThrowClause(
-	throwClause ast.ThrowClauseLike,
+	throwClause not.ThrowClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessThrowClause(
-	throwClause ast.ThrowClauseLike,
+	throwClause not.ThrowClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessThrowClauseSlot(
-	throwClause ast.ThrowClauseLike,
+	throwClause not.ThrowClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessValue(
-	value ast.ValueLike,
+	value not.ValueLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessValue(
-	value ast.ValueLike,
+	value not.ValueLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessValueSlot(
-	value ast.ValueLike,
+	value not.ValueLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessVariable(
-	variable ast.VariableLike,
+	variable not.VariableLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessVariable(
-	variable ast.VariableLike,
+	variable not.VariableLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessVariableSlot(
-	variable ast.VariableLike,
+	variable not.VariableLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessWhileClause(
-	whileClause ast.WhileClauseLike,
+	whileClause not.WhileClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessWhileClause(
-	whileClause ast.WhileClauseLike,
+	whileClause not.WhileClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessWhileClauseSlot(
-	whileClause ast.WhileClauseLike,
+	whileClause not.WhileClauseLike,
 	slot_ uint,
 ) {
 }
 
 func (v *inflator_) PreprocessWithClause(
-	withClause ast.WithClauseLike,
+	withClause not.WithClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) PostprocessWithClause(
-	withClause ast.WithClauseLike,
+	withClause not.WithClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *inflator_) ProcessWithClauseSlot(
-	withClause ast.WithClauseLike,
+	withClause not.WithClauseLike,
 	slot_ uint,
 ) {
 }
@@ -1886,6 +1898,10 @@ func (v *inflator_) ProcessWithClauseSlot(
 
 type inflator_ struct {
 	// Declare the instance attributes.
+	stack_ fra.StackLike[any]
+
+	// Declare the inherited aspects.
+	not.Methodical
 }
 
 // Class Structure

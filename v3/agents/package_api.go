@@ -26,7 +26,7 @@ package agents
 
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	ast "github.com/bali-nebula/go-document-notation/v3"
+	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
 )
 
@@ -100,7 +100,7 @@ type DeflatorLike interface {
 	GetClass() DeflatorClassLike
 	DeflateDocument(
 		document doc.DocumentLike,
-	) ast.DocumentLike
+	) not.DocumentLike
 
 	// Aspect Interfaces
 	Methodical
@@ -115,11 +115,11 @@ type InflatorLike interface {
 	// Principal Methods
 	GetClass() InflatorClassLike
 	InflateAst(
-		document ast.DocumentLike,
+		document not.DocumentLike,
 	) doc.DocumentLike
 
 	// Aspect Interfaces
-	ast.Methodical
+	not.Methodical
 }
 
 /*
