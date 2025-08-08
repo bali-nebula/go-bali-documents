@@ -580,7 +580,8 @@ func (v *inflator_) PostprocessReferent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD
+	var indirect = v.stack_.RemoveLast()
+	v.stack_.AddValue(doc.ReferentClass().Referent(indirect))
 }
 
 func (v *inflator_) PostprocessRejectClause(
@@ -588,6 +589,8 @@ func (v *inflator_) PostprocessRejectClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var message = v.stack_.RemoveLast().(doc.ExpressionLike)
+	v.stack_.AddValue(doc.RejectClauseClass().RejectClause(message))
 }
 
 func (v *inflator_) PostprocessRetrieveClause(
@@ -595,6 +598,11 @@ func (v *inflator_) PostprocessRetrieveClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var bag = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var recipient = v.stack_.RemoveLast()
+	v.stack_.AddValue(
+		doc.RetrieveClauseClass().RetrieveClause(recipient, bag),
+	)
 }
 
 func (v *inflator_) PostprocessReturnClause(
@@ -602,6 +610,8 @@ func (v *inflator_) PostprocessReturnClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var result = v.stack_.RemoveLast().(doc.ExpressionLike)
+	v.stack_.AddValue(doc.ReturnClauseClass().ReturnClause(result))
 }
 
 func (v *inflator_) PostprocessSaveClause(
@@ -609,6 +619,11 @@ func (v *inflator_) PostprocessSaveClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var cited = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var draft = v.stack_.RemoveLast().(doc.ExpressionLike)
+	v.stack_.AddValue(
+		doc.SaveClauseClass().SaveClause(draft, cited),
+	)
 }
 
 func (v *inflator_) PostprocessSelectClause(
@@ -616,6 +631,18 @@ func (v *inflator_) PostprocessSelectClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var list = fra.List[doc.MatchingClauseLike]()
+	var matchingClauses = selectClause.GetMatchingClauses()
+	var iterator = matchingClauses.GetIterator()
+	for iterator.HasNext() {
+		var matchingClause = v.stack_.RemoveLast().(doc.MatchingClauseLike)
+		list.AppendValue(matchingClause)
+	}
+	list.ReverseValues() // They were pulled off the stack in reverse order.
+	var target = v.stack_.RemoveLast()
+	v.stack_.AddValue(
+		doc.SelectClauseClass().SelectClause(target, list),
+	)
 }
 
 func (v *inflator_) PostprocessStatement(
@@ -623,6 +650,12 @@ func (v *inflator_) PostprocessStatement(
 	index_ uint,
 	count_ uint,
 ) {
+	if uti.IsUndefined(statement.GetOptionalOnClause()) {
+		v.stack_.AddValue(nil)
+	}
+	var onClause = v.stack_.RemoveLast().(doc.OnClauseLike)
+	var mainClause = v.stack_.RemoveLast()
+	v.stack_.AddValue(doc.StatementClass().Statement(mainClause, onClause))
 }
 
 func (v *inflator_) PostprocessSubcomponent(
@@ -630,6 +663,9 @@ func (v *inflator_) PostprocessSubcomponent(
 	index_ uint,
 	count_ uint,
 ) {
+	var indexes = v.stack_.RemoveLast().(fra.ListLike[any])
+	var identifier = v.stack_.RemoveLast().(string)
+	v.stack_.AddValue(doc.SubcomponentClass().Subcomponent(identifier, indexes))
 }
 
 func (v *inflator_) PostprocessThrowClause(
@@ -637,6 +673,8 @@ func (v *inflator_) PostprocessThrowClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var exception = v.stack_.RemoveLast().(doc.ExpressionLike)
+	v.stack_.AddValue(doc.ThrowClauseClass().ThrowClause(exception))
 }
 
 func (v *inflator_) PostprocessWhileClause(
@@ -644,6 +682,9 @@ func (v *inflator_) PostprocessWhileClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var procedure = v.stack_.RemoveLast().(doc.ProcedureLike)
+	var condition = v.stack_.RemoveLast().(doc.ExpressionLike)
+	v.stack_.AddValue(doc.WhileClauseClass().WhileClause(condition, procedure))
 }
 
 func (v *inflator_) PostprocessWithClause(
@@ -651,6 +692,12 @@ func (v *inflator_) PostprocessWithClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var procedure = v.stack_.RemoveLast().(doc.ProcedureLike)
+	var sequence = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var variable = v.stack_.RemoveLast().(fra.SymbolLike)
+	v.stack_.AddValue(
+		doc.WithClauseClass().WithClause(variable, sequence, procedure),
+	)
 }
 
 // PROTECTED INTERFACE
