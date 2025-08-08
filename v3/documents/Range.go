@@ -10,15 +10,6 @@
 ................................................................................
 */
 
-/*
-┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│              This class file was automatically generated using:              │
-│            https://github.com/craterdog/go-development-tools/wiki            │
-│                                                                              │
-│                     Any updates to it may be overwritten.                    │
-└──────────────────────────────────────────────────────────────────────────────┘
-*/
-
 package documents
 
 import (
@@ -63,6 +54,10 @@ func (c *rangeClass_) Range(
 	return instance
 }
 
+// Constant Methods
+
+// Function Methods
+
 // INSTANCE INTERFACE
 
 // Principal Methods
@@ -90,6 +85,8 @@ func (v *range_) GetRight() Extent {
 }
 
 // PROTECTED INTERFACE
+
+// Private Methods
 
 // Instance Structure
 

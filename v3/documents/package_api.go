@@ -11,9 +11,9 @@
 */
 
 /*
-Package "documents" provides the class definitions for each node in an
-"inflated" Bali Document.  An inflated document can be manipulated by the agents
-defined in this project.
+Package "documents" provides the class definitions for each part of in an
+"inflated" Bali Document™.  An inflated document can be manipulated by the
+agents defined in this project.
 
 For detailed documentation on this package refer to the wiki:
   - https://github.com/bali-nebula/go-bali-documents/wiki

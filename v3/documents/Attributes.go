@@ -10,15 +10,6 @@
 ................................................................................
 */
 
-/*
-┌────────────────────────────────── WARNING ───────────────────────────────────┐
-│              This class file was automatically generated using:              │
-│            https://github.com/craterdog/go-development-tools/wiki            │
-│                                                                              │
-│                     Any updates to it may be overwritten.                    │
-└──────────────────────────────────────────────────────────────────────────────┘
-*/
-
 package documents
 
 import (
@@ -49,6 +40,10 @@ func (c *attributesClass_) Attributes(
 	return instance
 }
 
+// Constant Methods
+
+// Function Methods
+
 // INSTANCE INTERFACE
 
 // Principal Methods
@@ -64,6 +59,8 @@ func (v *attributes_) GetAssociations() fra.CatalogLike[any, DocumentLike] {
 }
 
 // PROTECTED INTERFACE
+
+// Private Methods
 
 // Instance Structure
 

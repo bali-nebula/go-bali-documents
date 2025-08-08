@@ -43,6 +43,10 @@ func (c *documentClass_) Document(
 	return instance
 }
 
+// Constant Methods
+
+// Function Methods
+
 // INSTANCE INTERFACE
 
 // Principal Methods
@@ -66,6 +70,8 @@ func (v *document_) GetOptionalNote() string {
 }
 
 // PROTECTED INTERFACE
+
+// Private Methods
 
 // Instance Structure
 
