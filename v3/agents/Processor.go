@@ -56,6 +56,11 @@ func (v *processor_) ProcessAngle(
 ) {
 }
 
+func (v *processor_) ProcessAssignment(
+	assignment doc.Assignment,
+) {
+}
+
 func (v *processor_) ProcessBinary(
 	binary fra.BinaryLike,
 ) {
@@ -101,6 +106,11 @@ func (v *processor_) ProcessInverse(
 ) {
 }
 
+func (v *processor_) ProcessInvoke(
+	invoke doc.Invoke,
+) {
+}
+
 func (v *processor_) ProcessMoment(
 	moment fra.MomentLike,
 ) {
@@ -123,6 +133,11 @@ func (v *processor_) ProcessNote(
 
 func (v *processor_) ProcessNumber(
 	number fra.NumberLike,
+) {
+}
+
+func (v *processor_) ProcessOperator(
+	operator doc.Operator,
 ) {
 }
 

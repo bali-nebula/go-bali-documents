@@ -66,6 +66,12 @@ func (v *deflator_) ProcessAngle(
 	// TBD - Add the method implementation.
 }
 
+func (v *deflator_) ProcessAssignment(
+	assignment doc.Assignment,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *deflator_) ProcessBinary(
 	binary fra.BinaryLike,
 ) {
@@ -120,6 +126,12 @@ func (v *deflator_) ProcessInverse(
 	// TBD - Add the method implementation.
 }
 
+func (v *deflator_) ProcessInvoke(
+	invoke doc.Invoke,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *deflator_) ProcessMoment(
 	moment fra.MomentLike,
 ) {
@@ -146,6 +158,12 @@ func (v *deflator_) ProcessNote(
 
 func (v *deflator_) ProcessNumber(
 	number fra.NumberLike,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *deflator_) ProcessOperator(
+	operator doc.Operator,
 ) {
 	// TBD - Add the method implementation.
 }

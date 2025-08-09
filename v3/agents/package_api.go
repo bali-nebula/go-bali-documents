@@ -175,6 +175,9 @@ type Methodical interface {
 	ProcessAngle(
 		angle fra.AngleLike,
 	)
+	ProcessAssignment(
+		assignment doc.Assignment,
+	)
 	ProcessBinary(
 		binary fra.BinaryLike,
 	)
@@ -202,6 +205,9 @@ type Methodical interface {
 	ProcessInverse(
 		inverse doc.Inverse,
 	)
+	ProcessInvoke(
+		invoke doc.Invoke,
+	)
 	ProcessMoment(
 		moment fra.MomentLike,
 	)
@@ -216,6 +222,9 @@ type Methodical interface {
 	)
 	ProcessNumber(
 		number fra.NumberLike,
+	)
+	ProcessOperator(
+		operator doc.Operator,
 	)
 	ProcessPattern(
 		pattern fra.PatternLike,

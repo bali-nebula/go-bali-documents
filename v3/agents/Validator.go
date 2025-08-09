@@ -63,6 +63,12 @@ func (v *validator_) ProcessAngle(
 	// TBD - Add the method implementation.
 }
 
+func (v *validator_) ProcessAssignment(
+	assignment doc.Assignment,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *validator_) ProcessBinary(
 	binary fra.BinaryLike,
 ) {
@@ -117,6 +123,12 @@ func (v *validator_) ProcessInverse(
 	// TBD - Add the method implementation.
 }
 
+func (v *validator_) ProcessInvoke(
+	invoke doc.Invoke,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *validator_) ProcessMoment(
 	moment fra.MomentLike,
 ) {
@@ -143,6 +155,12 @@ func (v *validator_) ProcessNote(
 
 func (v *validator_) ProcessNumber(
 	number fra.NumberLike,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) ProcessOperator(
+	operator doc.Operator,
 ) {
 	// TBD - Add the method implementation.
 }

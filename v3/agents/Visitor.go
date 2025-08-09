@@ -262,15 +262,15 @@ func (v *visitor_) visitExpression(
 	var predicatesCount = uint(predicates.GetSize())
 	for predicates.HasNext() {
 		predicatesIndex++
-		var rule = predicates.GetNext()
+		var predicate = predicates.GetNext()
 		v.processor_.PreprocessPredicate(
-			rule,
+			predicate,
 			predicatesIndex,
 			predicatesCount,
 		)
-		v.visitPredicate(rule)
+		v.visitPredicate(predicate)
 		v.processor_.PostprocessPredicate(
-			rule,
+			predicate,
 			predicatesIndex,
 			predicatesCount,
 		)
@@ -294,12 +294,10 @@ func (v *visitor_) visitFunction(
 		1,
 	)
 
-	var argumentsIndex uint
 	var arguments = function.GetArguments().GetIterator()
 	for arguments.HasNext() {
-		argumentsIndex++
-		var rule = arguments.GetNext()
-		v.visitArgument(rule)
+		var argument = arguments.GetNext()
+		v.visitArgument(argument)
 	}
 }
 
@@ -338,17 +336,23 @@ func (v *visitor_) visitIfClause(
 	)
 }
 
-func (v *visitor_) visitInverse(
-	inverse doc.Inverse,
+func (v *visitor_) visitIndex(
+	index any,
 ) {
-	v.processor_.ProcessInverse(inverse)
+	panic("Not yet implemented.")
+}
+
+func (v *visitor_) visitIndirect(
+	indirect any,
+) {
+	panic("Not yet implemented.")
 }
 
 func (v *visitor_) visitInversion(
 	inversion doc.InversionLike,
 ) {
 	var inverse = inversion.GetInverse()
-	v.visitInverse(inverse)
+	v.processor_.ProcessInverse(inverse)
 
 	// Visit slot 1 between terms.
 	v.processor_.ProcessInversionSlot(
@@ -402,7 +406,7 @@ func (v *visitor_) visitLetClause(
 	)
 
 	var assignment = letClause.GetAssignment()
-	v.visitAssignment(assignment)
+	v.processor_.ProcessAssignment(assignment)
 
 	// Visit slot 2 between terms.
 	v.processor_.ProcessLetClauseSlot(
@@ -424,6 +428,12 @@ func (v *visitor_) visitLetClause(
 	)
 }
 
+func (v *visitor_) visitLine(
+	line any,
+) {
+	panic("Not yet implemented.")
+}
+
 func (v *visitor_) visitLogical(
 	logical any,
 ) {
@@ -433,14 +443,6 @@ func (v *visitor_) visitLogical(
 func (v *visitor_) visitMagnitude(
 	magnitude doc.MagnitudeLike,
 ) {
-	var delimiter1 = magnitude.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessMagnitudeSlot(
-		magnitude,
-		1,
-	)
-
 	var expression = magnitude.GetExpression()
 	v.processor_.PreprocessExpression(
 		expression,
@@ -453,51 +455,33 @@ func (v *visitor_) visitMagnitude(
 		1,
 		1,
 	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessMagnitudeSlot(
-		magnitude,
-		2,
-	)
+}
 
-	var delimiter2 = magnitude.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
+func (v *visitor_) visitMainClause(
+	mainClause any,
+) {
+	panic("Not yet implemented.")
 }
 
 func (v *visitor_) visitMatchingClause(
 	matchingClause doc.MatchingClauseLike,
 ) {
-	var delimiter1 = matchingClause.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
+	var template = matchingClause.GetTemplate()
+	v.processor_.PreprocessExpression(
+		template,
+		1,
+		1,
+	)
+	v.visitExpression(template)
+	v.processor_.PostprocessExpression(
+		template,
+		1,
+		1,
+	)
 	// Visit slot 1 between terms.
 	v.processor_.ProcessMatchingClauseSlot(
 		matchingClause,
 		1,
-	)
-
-	var template = matchingClause.GetTemplate()
-	v.processor_.PreprocessTemplate(
-		template,
-		1,
-		1,
-	)
-	v.visitTemplate(template)
-	v.processor_.PostprocessTemplate(
-		template,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessMatchingClauseSlot(
-		matchingClause,
-		2,
-	)
-
-	var delimiter2 = matchingClause.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessMatchingClauseSlot(
-		matchingClause,
-		3,
 	)
 
 	var procedure = matchingClause.GetProcedure()
@@ -517,8 +501,9 @@ func (v *visitor_) visitMatchingClause(
 func (v *visitor_) visitMethod(
 	method doc.MethodLike,
 ) {
-	var identifier1 = method.GetIdentifier1()
-	v.processor_.ProcessIdentifier(identifier1)
+	var target = method.GetTarget()
+	v.processor_.ProcessIdentifier(target)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessMethodSlot(
 		method,
@@ -526,78 +511,33 @@ func (v *visitor_) visitMethod(
 	)
 
 	var invoke = method.GetInvoke()
-	v.processor_.PreprocessInvoke(
-		invoke,
-		1,
-		1,
-	)
-	v.visitInvoke(invoke)
-	v.processor_.PostprocessInvoke(
-		invoke,
-		1,
-		1,
-	)
+	v.processor_.ProcessInvoke(invoke)
+
 	// Visit slot 2 between terms.
 	v.processor_.ProcessMethodSlot(
 		method,
 		2,
 	)
 
-	var identifier2 = method.GetIdentifier2()
-	v.processor_.ProcessIdentifier(identifier2)
+	var message = method.GetMessage()
+	v.processor_.ProcessIdentifier(message)
+
 	// Visit slot 3 between terms.
 	v.processor_.ProcessMethodSlot(
 		method,
 		3,
 	)
 
-	var delimiter1 = method.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 4 between terms.
-	v.processor_.ProcessMethodSlot(
-		method,
-		4,
-	)
-
-	var argumentsIndex uint
 	var arguments = method.GetArguments().GetIterator()
-	var argumentsCount = uint(arguments.GetSize())
 	for arguments.HasNext() {
-		argumentsIndex++
-		var rule = arguments.GetNext()
-		v.processor_.PreprocessArgument(
-			rule,
-			argumentsIndex,
-			argumentsCount,
-		)
-		v.visitArgument(rule)
-		v.processor_.PostprocessArgument(
-			rule,
-			argumentsIndex,
-			argumentsCount,
-		)
+		var argument = arguments.GetNext()
+		v.visitArgument(argument)
 	}
-	// Visit slot 5 between terms.
-	v.processor_.ProcessMethodSlot(
-		method,
-		5,
-	)
-
-	var delimiter2 = method.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitNotarizeClause(
 	notarizeClause doc.NotarizeClauseLike,
 ) {
-	var delimiter1 = notarizeClause.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessNotarizeClauseSlot(
-		notarizeClause,
-		1,
-	)
-
 	var draft = notarizeClause.GetDraft()
 	v.processor_.PreprocessExpression(
 		draft,
@@ -610,18 +550,11 @@ func (v *visitor_) visitNotarizeClause(
 		1,
 		1,
 	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessNotarizeClauseSlot(
-		notarizeClause,
-		2,
-	)
 
-	var delimiter2 = notarizeClause.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-	// Visit slot 3 between terms.
+	// Visit slot 1 between terms.
 	v.processor_.ProcessNotarizeClauseSlot(
 		notarizeClause,
-		3,
+		1,
 	)
 
 	var cited = notarizeClause.GetCited()
@@ -647,30 +580,13 @@ func (v *visitor_) visitNumerical(
 func (v *visitor_) visitOnClause(
 	onClause doc.OnClauseLike,
 ) {
-	var delimiter = onClause.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
+	var failure = onClause.GetFailure()
+	v.processor_.ProcessSymbol(failure)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessOnClauseSlot(
 		onClause,
 		1,
-	)
-
-	var failure = onClause.GetFailure()
-	v.processor_.PreprocessFailure(
-		failure,
-		1,
-		1,
-	)
-	v.visitFailure(failure)
-	v.processor_.PostprocessFailure(
-		failure,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessOnClauseSlot(
-		onClause,
-		2,
 	)
 
 	var matchingClausesIndex uint
@@ -678,15 +594,15 @@ func (v *visitor_) visitOnClause(
 	var matchingClausesCount = uint(matchingClauses.GetSize())
 	for matchingClauses.HasNext() {
 		matchingClausesIndex++
-		var rule = matchingClauses.GetNext()
+		var clause = matchingClauses.GetNext()
 		v.processor_.PreprocessMatchingClause(
-			rule,
+			clause,
 			matchingClausesIndex,
 			matchingClausesCount,
 		)
-		v.visitMatchingClause(rule)
+		v.visitMatchingClause(clause)
 		v.processor_.PostprocessMatchingClause(
-			rule,
+			clause,
 			matchingClausesIndex,
 			matchingClausesCount,
 		)
@@ -696,87 +612,59 @@ func (v *visitor_) visitOnClause(
 func (v *visitor_) visitParameters(
 	parameters doc.ParametersLike,
 ) {
-	var delimiter1 = parameters.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessParametersSlot(
-		parameters,
-		1,
-	)
-
 	var associationsIndex uint
 	var associations = parameters.GetAssociations().GetIterator()
 	var associationsCount = uint(associations.GetSize())
 	for associations.HasNext() {
 		associationsIndex++
-		var rule = associations.GetNext()
-		v.processor_.PreprocessAssociation(
-			rule,
+		var association = associations.GetNext()
+		var symbol = association.GetKey()
+		v.processor_.ProcessSymbol(symbol)
+		var document = association.GetValue()
+		v.processor_.PreprocessDocument(
+			document,
 			associationsIndex,
 			associationsCount,
 		)
-		v.visitAssociation(rule)
-		v.processor_.PostprocessAssociation(
-			rule,
+		v.visitDocument(document)
+		v.processor_.PostprocessDocument(
+			document,
 			associationsIndex,
 			associationsCount,
 		)
 	}
-	// Visit slot 2 between terms.
-	v.processor_.ProcessParametersSlot(
-		parameters,
-		2,
-	)
-
-	var delimiter2 = parameters.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitPostClause(
 	postClause doc.PostClauseLike,
 ) {
-	var delimiter1 = postClause.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
+	var message = postClause.GetMessage()
+	v.processor_.PreprocessExpression(
+		message,
+		1,
+		1,
+	)
+	v.visitExpression(message)
+	v.processor_.PostprocessExpression(
+		message,
+		1,
+		1,
+	)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessPostClauseSlot(
 		postClause,
 		1,
 	)
 
-	var message = postClause.GetMessage()
-	v.processor_.PreprocessMessage(
-		message,
-		1,
-		1,
-	)
-	v.visitMessage(message)
-	v.processor_.PostprocessMessage(
-		message,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessPostClauseSlot(
-		postClause,
-		2,
-	)
-
-	var delimiter2 = postClause.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessPostClauseSlot(
-		postClause,
-		3,
-	)
-
 	var bag = postClause.GetBag()
-	v.processor_.PreprocessBag(
+	v.processor_.PreprocessExpression(
 		bag,
 		1,
 		1,
 	)
-	v.visitBag(bag)
-	v.processor_.PostprocessBag(
+	v.visitExpression(bag)
+	v.processor_.PostprocessExpression(
 		bag,
 		1,
 		1,
@@ -786,14 +674,6 @@ func (v *visitor_) visitPostClause(
 func (v *visitor_) visitPrecedence(
 	precedence doc.PrecedenceLike,
 ) {
-	var delimiter1 = precedence.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessPrecedenceSlot(
-		precedence,
-		1,
-	)
-
 	var expression = precedence.GetExpression()
 	v.processor_.PreprocessExpression(
 		expression,
@@ -806,31 +686,14 @@ func (v *visitor_) visitPrecedence(
 		1,
 		1,
 	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessPrecedenceSlot(
-		precedence,
-		2,
-	)
-
-	var delimiter2 = precedence.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitPredicate(
 	predicate doc.PredicateLike,
 ) {
-	var operation = predicate.GetOperation()
-	v.processor_.PreprocessOperation(
-		operation,
-		1,
-		1,
-	)
-	v.visitOperation(operation)
-	v.processor_.PostprocessOperation(
-		operation,
-		1,
-		1,
-	)
+	var operator = predicate.GetOperator()
+	v.processor_.ProcessOperator(operator)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessPredicateSlot(
 		predicate,
@@ -860,61 +723,24 @@ func (v *visitor_) visitPrimitive(
 func (v *visitor_) visitProcedure(
 	procedure doc.ProcedureLike,
 ) {
-	var delimiter1 = procedure.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessProcedureSlot(
-		procedure,
-		1,
-	)
-
-	var linesIndex uint
 	var lines = procedure.GetLines().GetIterator()
-	var linesCount = uint(lines.GetSize())
 	for lines.HasNext() {
-		linesIndex++
-		var rule = lines.GetNext()
-		v.processor_.PreprocessLine(
-			rule,
-			linesIndex,
-			linesCount,
-		)
-		v.visitLine(rule)
-		v.processor_.PostprocessLine(
-			rule,
-			linesIndex,
-			linesCount,
-		)
+		var line = lines.GetNext()
+		v.visitLine(line)
 	}
-	// Visit slot 2 between terms.
-	v.processor_.ProcessProcedureSlot(
-		procedure,
-		2,
-	)
-
-	var delimiter2 = procedure.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitPublishClause(
 	publishClause doc.PublishClauseLike,
 ) {
-	var delimiter = publishClause.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessPublishClauseSlot(
-		publishClause,
-		1,
-	)
-
 	var event = publishClause.GetEvent()
-	v.processor_.PreprocessEvent(
+	v.processor_.PreprocessExpression(
 		event,
 		1,
 		1,
 	)
-	v.visitEvent(event)
-	v.processor_.PostprocessEvent(
+	v.visitExpression(event)
+	v.processor_.PostprocessExpression(
 		event,
 		1,
 		1,
@@ -964,47 +790,21 @@ func (v *visitor_) visitRecipient(
 func (v *visitor_) visitReferent(
 	referent doc.ReferentLike,
 ) {
-	var delimiter = referent.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessReferentSlot(
-		referent,
-		1,
-	)
-
 	var indirect = referent.GetIndirect()
-	v.processor_.PreprocessIndirect(
-		indirect,
-		1,
-		1,
-	)
 	v.visitIndirect(indirect)
-	v.processor_.PostprocessIndirect(
-		indirect,
-		1,
-		1,
-	)
 }
 
 func (v *visitor_) visitRejectClause(
 	rejectClause doc.RejectClauseLike,
 ) {
-	var delimiter = rejectClause.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessRejectClauseSlot(
-		rejectClause,
-		1,
-	)
-
 	var message = rejectClause.GetMessage()
-	v.processor_.PreprocessMessage(
+	v.processor_.PreprocessExpression(
 		message,
 		1,
 		1,
 	)
-	v.visitMessage(message)
-	v.processor_.PostprocessMessage(
+	v.visitExpression(message)
+	v.processor_.PostprocessExpression(
 		message,
 		1,
 		1,
@@ -1014,38 +814,23 @@ func (v *visitor_) visitRejectClause(
 func (v *visitor_) visitRetrieveClause(
 	retrieveClause doc.RetrieveClauseLike,
 ) {
-	var delimiter1 = retrieveClause.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
+	var recipient = retrieveClause.GetRecipient()
+	v.visitRecipient(recipient)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessRetrieveClauseSlot(
 		retrieveClause,
 		1,
 	)
 
-	v.visitRecipient(recipient)
-
-	// Visit slot 2 between terms.
-	v.processor_.ProcessRetrieveClauseSlot(
-		retrieveClause,
-		2,
-	)
-
-	var delimiter2 = retrieveClause.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessRetrieveClauseSlot(
-		retrieveClause,
-		3,
-	)
-
 	var bag = retrieveClause.GetBag()
-	v.processor_.PreprocessBag(
+	v.processor_.PreprocessExpression(
 		bag,
 		1,
 		1,
 	)
-	v.visitBag(bag)
-	v.processor_.PostprocessBag(
+	v.visitExpression(bag)
+	v.processor_.PostprocessExpression(
 		bag,
 		1,
 		1,
@@ -1055,22 +840,14 @@ func (v *visitor_) visitRetrieveClause(
 func (v *visitor_) visitReturnClause(
 	returnClause doc.ReturnClauseLike,
 ) {
-	var delimiter = returnClause.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessReturnClauseSlot(
-		returnClause,
-		1,
-	)
-
 	var result = returnClause.GetResult()
-	v.processor_.PreprocessResult(
+	v.processor_.PreprocessExpression(
 		result,
 		1,
 		1,
 	)
-	v.visitResult(result)
-	v.processor_.PostprocessResult(
+	v.visitExpression(result)
+	v.processor_.PostprocessExpression(
 		result,
 		1,
 		1,
@@ -1080,14 +857,6 @@ func (v *visitor_) visitReturnClause(
 func (v *visitor_) visitSaveClause(
 	saveClause doc.SaveClauseLike,
 ) {
-	var delimiter1 = saveClause.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessSaveClauseSlot(
-		saveClause,
-		1,
-	)
-
 	var draft = saveClause.GetDraft()
 	v.processor_.PreprocessExpression(
 		draft,
@@ -1100,18 +869,10 @@ func (v *visitor_) visitSaveClause(
 		1,
 		1,
 	)
-	// Visit slot 2 between terms.
+	// Visit slot 1 between terms.
 	v.processor_.ProcessSaveClauseSlot(
 		saveClause,
-		2,
-	)
-
-	var delimiter2 = saveClause.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessSaveClauseSlot(
-		saveClause,
-		3,
+		1,
 	)
 
 	var cited = saveClause.GetCited()
@@ -1131,30 +892,13 @@ func (v *visitor_) visitSaveClause(
 func (v *visitor_) visitSelectClause(
 	selectClause doc.SelectClauseLike,
 ) {
-	var delimiter = selectClause.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
+	var target = selectClause.GetTarget()
+	v.visitTarget(target)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessSelectClauseSlot(
 		selectClause,
 		1,
-	)
-
-	var target = selectClause.GetTarget()
-	v.processor_.PreprocessTarget(
-		target,
-		1,
-		1,
-	)
-	v.visitTarget(target)
-	v.processor_.PostprocessTarget(
-		target,
-		1,
-		1,
-	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessSelectClauseSlot(
-		selectClause,
-		2,
 	)
 
 	var matchingClausesIndex uint
@@ -1162,15 +906,15 @@ func (v *visitor_) visitSelectClause(
 	var matchingClausesCount = uint(matchingClauses.GetSize())
 	for matchingClauses.HasNext() {
 		matchingClausesIndex++
-		var rule = matchingClauses.GetNext()
+		var clause = matchingClauses.GetNext()
 		v.processor_.PreprocessMatchingClause(
-			rule,
+			clause,
 			matchingClausesIndex,
 			matchingClausesCount,
 		)
-		v.visitMatchingClause(rule)
+		v.visitMatchingClause(clause)
 		v.processor_.PostprocessMatchingClause(
-			rule,
+			clause,
 			matchingClausesIndex,
 			matchingClausesCount,
 		)
@@ -1181,17 +925,8 @@ func (v *visitor_) visitStatement(
 	statement doc.StatementLike,
 ) {
 	var mainClause = statement.GetMainClause()
-	v.processor_.PreprocessMainClause(
-		mainClause,
-		1,
-		1,
-	)
 	v.visitMainClause(mainClause)
-	v.processor_.PostprocessMainClause(
-		mainClause,
-		1,
-		1,
-	)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessStatementSlot(
 		statement,
@@ -1219,46 +954,18 @@ func (v *visitor_) visitSubcomponent(
 ) {
 	var identifier = subcomponent.GetIdentifier()
 	v.processor_.ProcessIdentifier(identifier)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessSubcomponentSlot(
 		subcomponent,
 		1,
 	)
 
-	var delimiter1 = subcomponent.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessSubcomponentSlot(
-		subcomponent,
-		2,
-	)
-
-	var indexesIndex uint
 	var indexes = subcomponent.GetIndexes().GetIterator()
-	var indexesCount = uint(indexes.GetSize())
 	for indexes.HasNext() {
-		indexesIndex++
-		var rule = indexes.GetNext()
-		v.processor_.PreprocessIndex(
-			rule,
-			indexesIndex,
-			indexesCount,
-		)
-		v.visitIndex(rule)
-		v.processor_.PostprocessIndex(
-			rule,
-			indexesIndex,
-			indexesCount,
-		)
+		var index = indexes.GetNext()
+		v.visitIndex(index)
 	}
-	// Visit slot 3 between terms.
-	v.processor_.ProcessSubcomponentSlot(
-		subcomponent,
-		3,
-	)
-
-	var delimiter2 = subcomponent.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitSubject(
@@ -1267,25 +974,23 @@ func (v *visitor_) visitSubject(
 	panic("Not yet implemented.")
 }
 
+func (v *visitor_) visitTarget(
+	target any,
+) {
+	panic("Not yet implemented.")
+}
+
 func (v *visitor_) visitThrowClause(
 	throwClause doc.ThrowClauseLike,
 ) {
-	var delimiter = throwClause.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessThrowClauseSlot(
-		throwClause,
-		1,
-	)
-
 	var exception = throwClause.GetException()
-	v.processor_.PreprocessException(
+	v.processor_.PreprocessExpression(
 		exception,
 		1,
 		1,
 	)
-	v.visitException(exception)
-	v.processor_.PostprocessException(
+	v.visitExpression(exception)
+	v.processor_.PostprocessExpression(
 		exception,
 		1,
 		1,
