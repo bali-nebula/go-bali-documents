@@ -96,6 +96,11 @@ func (v *processor_) ProcessIdentifier(
 ) {
 }
 
+func (v *processor_) ProcessInverse(
+	inverse doc.Inverse,
+) {
+}
+
 func (v *processor_) ProcessMoment(
 	moment fra.MomentLike,
 ) {

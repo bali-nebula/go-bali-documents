@@ -29,7 +29,7 @@ func MethodClass() MethodClassLike {
 
 func (c *methodClass_) Method(
 	target string,
-	invoke string,
+	invoke Invoke,
 	message string,
 	arguments fra.ListLike[any],
 ) MethodLike {
@@ -73,7 +73,7 @@ func (v *method_) GetTarget() string {
 	return v.target_
 }
 
-func (v *method_) GetInvoke() string {
+func (v *method_) GetInvoke() Invoke {
 	return v.invoke_
 }
 
@@ -94,7 +94,7 @@ func (v *method_) GetArguments() fra.ListLike[any] {
 type method_ struct {
 	// Declare the instance attributes.
 	target_    string
-	invoke_    string
+	invoke_    Invoke
 	message_   string
 	arguments_ fra.ListLike[any]
 }

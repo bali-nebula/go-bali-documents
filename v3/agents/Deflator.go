@@ -114,6 +114,12 @@ func (v *deflator_) ProcessIdentifier(
 	// TBD - Add the method implementation.
 }
 
+func (v *deflator_) ProcessInverse(
+	inverse doc.Inverse,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *deflator_) ProcessMoment(
 	moment fra.MomentLike,
 ) {

@@ -338,21 +338,18 @@ func (v *visitor_) visitIfClause(
 	)
 }
 
+func (v *visitor_) visitInverse(
+	inverse doc.Inverse,
+) {
+	v.processor_.ProcessInverse(inverse)
+}
+
 func (v *visitor_) visitInversion(
 	inversion doc.InversionLike,
 ) {
 	var inverse = inversion.GetInverse()
-	v.processor_.PreprocessInverse(
-		inverse,
-		1,
-		1,
-	)
 	v.visitInverse(inverse)
-	v.processor_.PostprocessInverse(
-		inverse,
-		1,
-		1,
-	)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessInversionSlot(
 		inversion,
@@ -360,17 +357,7 @@ func (v *visitor_) visitInversion(
 	)
 
 	var numerical = inversion.GetNumerical()
-	v.processor_.PreprocessNumerical(
-		numerical,
-		1,
-		1,
-	)
 	v.visitNumerical(numerical)
-	v.processor_.PostprocessNumerical(
-		numerical,
-		1,
-		1,
-	)
 }
 
 func (v *visitor_) visitInvocation(
@@ -382,78 +369,45 @@ func (v *visitor_) visitInvocation(
 func (v *visitor_) visitItems(
 	items doc.ItemsLike,
 ) {
-	var delimiter1 = items.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessItemsSlot(
-		items,
-		1,
-	)
-
 	var entitiesIndex uint
 	var entities = items.GetEntities().GetIterator()
 	var entitiesCount = uint(entities.GetSize())
 	for entities.HasNext() {
 		entitiesIndex++
-		var rule = entities.GetNext()
-		v.processor_.PreprocessEntity(
-			rule,
+		var document = entities.GetNext()
+		v.processor_.PreprocessDocument(
+			document,
 			entitiesIndex,
 			entitiesCount,
 		)
-		v.visitEntity(rule)
-		v.processor_.PostprocessEntity(
-			rule,
+		v.visitDocument(document)
+		v.processor_.PostprocessDocument(
+			document,
 			entitiesIndex,
 			entitiesCount,
 		)
 	}
-	// Visit slot 2 between terms.
-	v.processor_.ProcessItemsSlot(
-		items,
-		2,
-	)
-
-	var delimiter2 = items.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
 }
 
 func (v *visitor_) visitLetClause(
 	letClause doc.LetClauseLike,
 ) {
-	var delimiter = letClause.GetDelimiter()
-	v.processor_.ProcessDelimiter(delimiter)
+	var recipient = letClause.GetRecipient()
+	v.visitRecipient(recipient)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessLetClauseSlot(
 		letClause,
 		1,
 	)
 
-	var recipient = letClause.GetRecipient()
-	v.visitRecipient(recipient)
+	var assignment = letClause.GetAssignment()
+	v.visitAssignment(assignment)
 
 	// Visit slot 2 between terms.
 	v.processor_.ProcessLetClauseSlot(
 		letClause,
 		2,
-	)
-
-	var assignment = letClause.GetAssignment()
-	v.processor_.PreprocessAssignment(
-		assignment,
-		1,
-		1,
-	)
-	v.visitAssignment(assignment)
-	v.processor_.PostprocessAssignment(
-		assignment,
-		1,
-		1,
-	)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessLetClauseSlot(
-		letClause,
-		3,
 	)
 
 	var expression = letClause.GetExpression()
@@ -682,6 +636,12 @@ func (v *visitor_) visitNotarizeClause(
 		1,
 		1,
 	)
+}
+
+func (v *visitor_) visitNumerical(
+	numerical any,
+) {
+	panic("Not yet implemented.")
 }
 
 func (v *visitor_) visitOnClause(

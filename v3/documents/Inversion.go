@@ -27,7 +27,7 @@ func InversionClass() InversionClassLike {
 // Constructor Methods
 
 func (c *inversionClass_) Inversion(
-	inverse string,
+	inverse Inverse,
 	numerical any,
 ) InversionLike {
 	if uti.IsUndefined(inverse) {
@@ -58,7 +58,7 @@ func (v *inversion_) GetClass() InversionClassLike {
 
 // Attribute Methods
 
-func (v *inversion_) GetInverse() string {
+func (v *inversion_) GetInverse() Inverse {
 	return v.inverse_
 }
 
@@ -74,7 +74,7 @@ func (v *inversion_) GetNumerical() any {
 
 type inversion_ struct {
 	// Declare the instance attributes.
-	inverse_   string
+	inverse_   Inverse
 	numerical_ any
 }
 

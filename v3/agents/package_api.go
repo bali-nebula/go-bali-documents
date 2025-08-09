@@ -199,6 +199,9 @@ type Methodical interface {
 	ProcessIdentifier(
 		identifier string,
 	)
+	ProcessInverse(
+		inverse doc.Inverse,
+	)
 	ProcessMoment(
 		moment fra.MomentLike,
 	)

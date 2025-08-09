@@ -27,18 +27,18 @@ func PredicateClass() PredicateClassLike {
 // Constructor Methods
 
 func (c *predicateClass_) Predicate(
-	operation string,
+	operator Operator,
 	expression ExpressionLike,
 ) PredicateLike {
-	if uti.IsUndefined(operation) {
-		panic("The \"operation\" attribute is required by this class.")
+	if uti.IsUndefined(operator) {
+		panic("The \"operator\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(expression) {
 		panic("The \"expression\" attribute is required by this class.")
 	}
 	var instance = &predicate_{
 		// Initialize the instance attributes.
-		operation_:  operation,
+		operator_:   operator,
 		expression_: expression,
 	}
 	return instance
@@ -58,8 +58,8 @@ func (v *predicate_) GetClass() PredicateClassLike {
 
 // Attribute Methods
 
-func (v *predicate_) GetOperation() string {
-	return v.operation_
+func (v *predicate_) GetOperator() Operator {
+	return v.operator_
 }
 
 func (v *predicate_) GetExpression() ExpressionLike {
@@ -74,7 +74,7 @@ func (v *predicate_) GetExpression() ExpressionLike {
 
 type predicate_ struct {
 	// Declare the instance attributes.
-	operation_  string
+	operator_   Operator
 	expression_ ExpressionLike
 }
 

@@ -377,7 +377,7 @@ func (v *inflator_) PostprocessInversion(
 	count_ uint,
 ) {
 	var numerical = v.stack_.RemoveLast()
-	var inverse = v.stack_.RemoveLast().(string)
+	var inverse = v.stack_.RemoveLast().(doc.Inverse)
 	v.stack_.AddValue(doc.InversionClass().Inversion(inverse, numerical))
 }
 
@@ -418,7 +418,7 @@ func (v *inflator_) PostprocessLetClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(doc.ExpressionLike)
-	var assignment = v.stack_.RemoveLast().(string)
+	var assignment = v.stack_.RemoveLast().(doc.Assignment)
 	var recipient = v.stack_.RemoveLast()
 	v.stack_.AddValue(
 		doc.LetClauseClass().LetClause(recipient, assignment, expression),
@@ -453,7 +453,7 @@ func (v *inflator_) PostprocessMethod(
 ) {
 	var arguments = v.stack_.RemoveLast().(fra.ListLike[any])
 	var identifier = v.stack_.RemoveLast().(string)
-	var invoke = v.stack_.RemoveLast().(string)
+	var invoke = v.stack_.RemoveLast().(doc.Invoke)
 	var target = v.stack_.RemoveLast().(string)
 	v.stack_.AddValue(
 		doc.MethodClass().Method(target, invoke, identifier, arguments),
@@ -535,8 +535,8 @@ func (v *inflator_) PostprocessPredicate(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(doc.ExpressionLike)
-	var operation = v.stack_.RemoveLast().(string)
-	v.stack_.AddValue(doc.PredicateClass().Predicate(operation, expression))
+	var operator = v.stack_.RemoveLast().(doc.Operator)
+	v.stack_.AddValue(doc.PredicateClass().Predicate(operator, expression))
 }
 
 func (v *inflator_) PostprocessProcedure(

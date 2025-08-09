@@ -28,7 +28,7 @@ func LetClauseClass() LetClauseClassLike {
 
 func (c *letClauseClass_) LetClause(
 	recipient any,
-	assignment string,
+	assignment Assignment,
 	expression ExpressionLike,
 ) LetClauseLike {
 	if uti.IsUndefined(recipient) {
@@ -67,7 +67,7 @@ func (v *letClause_) GetRecipient() any {
 	return v.recipient_
 }
 
-func (v *letClause_) GetAssignment() string {
+func (v *letClause_) GetAssignment() Assignment {
 	return v.assignment_
 }
 
@@ -84,7 +84,7 @@ func (v *letClause_) GetExpression() ExpressionLike {
 type letClause_ struct {
 	// Declare the instance attributes.
 	recipient_  any
-	assignment_ string
+	assignment_ Assignment
 	expression_ ExpressionLike
 }
 

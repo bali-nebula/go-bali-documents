@@ -36,6 +36,20 @@ import (
 // TYPE DECLARATIONS
 
 /*
+Assignment is a constrained type specifying a type of mathematical assignment.
+*/
+type Assignment uint8
+
+const (
+	Equals Assignment = iota
+	EqualsDefault
+	EqualsPlus
+	EqualsMinus
+	EqualsTimes
+	EqualsDivide
+)
+
+/*
 Extent is a constrained type specifying whether or not a range endpoint is
 inclusive or exclusive.
 */
@@ -47,67 +61,50 @@ const (
 )
 
 /*
-Operation is a constrained type representing the possible BVM operations.
+Inverse is a constrained type specifying a type of mathematical inverse.
 */
-type Operation uint16
+type Inverse uint8
 
 const (
-	Jump Operation = 0b0000000000000000
-	Push Operation = 0b0010000000000000
-	Pull Operation = 0b0100000000000000
-	Load Operation = 0b0110000000000000
-	Save Operation = 0b1000000000000000
-	Drop Operation = 0b1010000000000000
-	Call Operation = 0b1100000000000000
-	Send Operation = 0b1110000000000000
+	Additive Inverse = iota
+	Multiplicative
+	Conjugate
 )
 
 /*
-Modifier is a constrained type representing the possible BVM modifiers.
+Invoke is a constrained type specifying whether or not an invocation is
+synchronous or asynchronous.
 */
-type Modifier uint16
+type Invoke uint8
 
 const (
-	// Jump Operation
-	OnAny   Modifier = 0b0000000000000000
-	OnEmpty Modifier = 0b0000100000000000
-	OnNone  Modifier = 0b0001000000000000
-	OnFalse Modifier = 0b0001100000000000
-
-	// Push Operation
-	Handler  Modifier = 0b0000000000000000
-	Literal  Modifier = 0b0000100000000000
-	Constant Modifier = 0b0001000000000000
-	Argument Modifier = 0b0001100000000000
-
-	// Pull Operation
-	// Handler is defined above.
-	Exception Modifier = 0b0000100000000000
-	Component Modifier = 0b0001000000000000
-	Result    Modifier = 0b0001100000000000
-
-	// Load, Save and Drop Operations
-	Contract Modifier = 0b0000000000000000
-	Draft    Modifier = 0b0000100000000000
-	Message  Modifier = 0b0001000000000000
-	Variable Modifier = 0b0001100000000000
-
-	// Call Operation
-	With0Arguments Modifier = 0b0000000000000000
-	With1Argument  Modifier = 0b0000100000000000
-	With2Arguments Modifier = 0b0001000000000000
-	With3Arguments Modifier = 0b0001100000000000
-
-	// Send Operation
-	// Contract and Component are defined above.
-	ContractWithArguments  Modifier = 0b0000100000000000
-	ComponentWithArguments Modifier = 0b0001100000000000
+	Synchronous Invoke = iota
+	Asynchronous
 )
 
 /*
-Operand is a constrained type representing the possible BVM operands.
+Operator is a constrained type representing a mathematical operator.
 */
-type Operand uint16
+type Operator uint16
+
+const (
+	Chain Operator = iota
+	And
+	San
+	Ior
+	Eor
+	Plus
+	Minus
+	Times
+	Divide
+	Remainder
+	Power
+	Less
+	Equal
+	More
+	Is
+	Matches
+)
 
 // FUNCTIONAL DECLARATIONS
 
@@ -268,7 +265,7 @@ inversion-like class.
 type InversionClassLike interface {
 	// Constructor Methods
 	Inversion(
-		inverse string,
+		inverse Inverse,
 		numerical any,
 	) InversionLike
 }
@@ -294,7 +291,7 @@ type LetClauseClassLike interface {
 	// Constructor Methods
 	LetClause(
 		recipient any,
-		assignment string,
+		assignment Assignment,
 		expression ExpressionLike,
 	) LetClauseLike
 }
@@ -333,7 +330,7 @@ type MethodClassLike interface {
 	// Constructor Methods
 	Method(
 		target string,
-		invoke string,
+		invoke Invoke,
 		message string,
 		arguments fra.ListLike[any],
 	) MethodLike
@@ -410,7 +407,7 @@ predicate-like class.
 type PredicateClassLike interface {
 	// Constructor Methods
 	Predicate(
-		operation string,
+		operator Operator,
 		expression ExpressionLike,
 	) PredicateLike
 }
@@ -763,7 +760,7 @@ type InversionLike interface {
 	GetClass() InversionClassLike
 
 	// Attribute Methods
-	GetInverse() string
+	GetInverse() Inverse
 	GetNumerical() any
 }
 
@@ -791,7 +788,7 @@ type LetClauseLike interface {
 
 	// Attribute Methods
 	GetRecipient() any
-	GetAssignment() string
+	GetAssignment() Assignment
 	GetExpression() ExpressionLike
 }
 
@@ -833,7 +830,7 @@ type MethodLike interface {
 
 	// Attribute Methods
 	GetTarget() string
-	GetInvoke() string
+	GetInvoke() Invoke
 	GetMessage() string
 	GetArguments() fra.ListLike[any]
 }
@@ -916,7 +913,7 @@ type PredicateLike interface {
 	GetClass() PredicateClassLike
 
 	// Attribute Methods
-	GetOperation() string
+	GetOperator() Operator
 	GetExpression() ExpressionLike
 }
 

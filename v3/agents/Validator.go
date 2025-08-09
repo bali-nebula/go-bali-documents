@@ -111,6 +111,12 @@ func (v *validator_) ProcessIdentifier(
 	// TBD - Add the method implementation.
 }
 
+func (v *validator_) ProcessInverse(
+	inverse doc.Inverse,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *validator_) ProcessMoment(
 	moment fra.MomentLike,
 ) {
