@@ -521,7 +521,46 @@ func (v *visitor_) visitMagnitude(
 func (v *visitor_) visitMainClause(
 	mainClause any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := mainClause.(type) {
+	case doc.IfClauseLike:
+		v.visitIfClause(actual)
+	case doc.SelectClauseLike:
+		v.visitSelectClause(actual)
+	case doc.WhileClauseLike:
+		v.visitWhileClause(actual)
+	case doc.WithClauseLike:
+		v.visitWithClause(actual)
+	case doc.ContinueClauseLike:
+		v.visitContinueClause(actual)
+	case doc.BreakClauseLike:
+		v.visitBreakClause(actual)
+	case doc.ReturnClauseLike:
+		v.visitReturnClause(actual)
+	case doc.ThrowClauseLike:
+		v.visitThrowClause(actual)
+	case doc.DoClauseLike:
+		v.visitDoClause(actual)
+	case doc.LetClauseLike:
+		v.visitLetClause(actual)
+	case doc.PostClauseLike:
+		v.visitPostClause(actual)
+	case doc.RetrieveClauseLike:
+		v.visitRetrieveClause(actual)
+	case doc.AcceptClauseLike:
+		v.visitAcceptClause(actual)
+	case doc.RejectClauseLike:
+		v.visitRejectClause(actual)
+	case doc.PublishClauseLike:
+		v.visitPublishClause(actual)
+	case doc.CheckoutClauseLike:
+		v.visitCheckoutClause(actual)
+	case doc.SaveClauseLike:
+		v.visitSaveClause(actual)
+	case doc.DiscardClauseLike:
+		v.visitDiscardClause(actual)
+	case doc.NotarizeClauseLike:
+		v.visitNotarizeClause(actual)
+	}
 }
 
 func (v *visitor_) visitMatchingClause(
