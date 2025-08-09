@@ -148,21 +148,6 @@ type BreakClauseClassLike interface {
 }
 
 /*
-BytecodeClassLike is a class interface that declares the complete set of
-class constructors, constants and functions that must be supported by each
-concrete bytecode-like class.
-*/
-type BytecodeClassLike interface {
-	// Constructor Methods
-	Bytecode(
-		instructions fra.Sequential[InstructionLike],
-	) BytecodeLike
-	BytecodeFromString(
-		source string,
-	) BytecodeLike
-}
-
-/*
 CheckoutClauseClassLike is a class interface that declares the complete set of
 class constructors, constants and functions that must be supported by each
 concrete checkout-clause-like class.
@@ -273,33 +258,6 @@ type IfClauseClassLike interface {
 		condition ExpressionLike,
 		procedure ProcedureLike,
 	) IfClauseLike
-}
-
-/*
-InstructionClassLike is a class interface that declares the complete set of
-class constructors, constants and functions that must be supported by each
-concrete instruction-like class.
-*/
-type InstructionClassLike interface {
-	// Constructor Methods
-	Instruction(
-		operation Operation,
-		modifier Modifier,
-		operand Operand,
-	) InstructionLike
-	InstructionFromInteger(
-		integer uint16,
-	) InstructionLike
-
-	// Constant Methods
-	OperationMask() uint16
-	ModifierMask() uint16
-	OperandMask() uint16
-
-	// Function Methods
-	FormatInstructions(
-		instructions fra.Sequential[InstructionLike],
-	) string
 }
 
 /*
@@ -675,23 +633,6 @@ type BreakClauseLike interface {
 }
 
 /*
-BytecodeLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete bytecode-like class.
-*/
-type BytecodeLike interface {
-	// Principal Methods
-	GetClass() BytecodeClassLike
-	AsString() string
-
-	// Attribute Methods
-	GetInstructions() fra.Sequential[InstructionLike]
-
-	// Aspect Interfaces
-	fra.Sequential[InstructionLike]
-}
-
-/*
 CheckoutClauseLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete checkout-clause-like class.
@@ -810,26 +751,6 @@ type IfClauseLike interface {
 	// Attribute Methods
 	GetCondition() ExpressionLike
 	GetProcedure() ProcedureLike
-}
-
-/*
-InstructionLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete instruction-like class.
-*/
-type InstructionLike interface {
-	// Principal Methods
-	GetClass() InstructionClassLike
-	AsIntrinsic() uint16
-	AsString() string
-	OperationAsString() string
-	ModifierAsString() string
-	OperandAsString() string
-
-	// Attribute Methods
-	GetOperation() Operation
-	GetModifier() Modifier
-	GetOperand() Operand
 }
 
 /*

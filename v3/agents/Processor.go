@@ -13,6 +13,7 @@
 package agents
 
 import (
+	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	fra "github.com/craterdog/go-component-framework/v7"
 )
@@ -53,127 +54,111 @@ func (v *processor_) GetClass() ProcessorClassLike {
 func (v *processor_) ProcessAngle(
 	angle fra.AngleLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessBinary(
 	binary fra.BinaryLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessBoolean(
 	boolean fra.BooleanLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessBytecode(
-	bytecode doc.BytecodeLike,
+	bytecode ass.BytecodeLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessComment(
 	comment string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessDuration(
 	duration fra.DurationLike,
 ) {
-	// TBD - Add the method implementation.
+}
+
+func (v *processor_) ProcessExtent(
+	extent doc.Extent,
+) {
 }
 
 func (v *processor_) ProcessGlyph(
 	glyph fra.GlyphLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessIdentifier(
 	identifier string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessMoment(
 	moment fra.MomentLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessName(
 	name fra.NameLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessNarrative(
 	narrative fra.NarrativeLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessNote(
 	note string,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessNumber(
 	number fra.NumberLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessPattern(
 	pattern fra.PatternLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessPercentage(
 	percentage fra.PercentageLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessProbability(
 	probability fra.ProbabilityLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessQuote(
 	quote fra.QuoteLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessResource(
 	resource fra.ResourceLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessSymbol(
 	symbol fra.SymbolLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessTag(
 	tag fra.TagLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessVersion(
 	version fra.VersionLike,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessAcceptClause(
@@ -181,14 +166,12 @@ func (v *processor_) PreprocessAcceptClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessAcceptClauseSlot(
 	acceptClause doc.AcceptClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessAcceptClause(
@@ -196,7 +179,6 @@ func (v *processor_) PostprocessAcceptClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessAttributes(
@@ -204,14 +186,12 @@ func (v *processor_) PreprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessAttributesSlot(
 	attributes doc.AttributesLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessAttributes(
@@ -219,7 +199,6 @@ func (v *processor_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessBreakClause(
@@ -227,14 +206,12 @@ func (v *processor_) PreprocessBreakClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessBreakClauseSlot(
 	breakClause doc.BreakClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessBreakClause(
@@ -242,7 +219,6 @@ func (v *processor_) PostprocessBreakClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessCheckoutClause(
@@ -250,14 +226,12 @@ func (v *processor_) PreprocessCheckoutClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessCheckoutClauseSlot(
 	checkoutClause doc.CheckoutClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessCheckoutClause(
@@ -265,7 +239,6 @@ func (v *processor_) PostprocessCheckoutClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessComplement(
@@ -273,14 +246,12 @@ func (v *processor_) PreprocessComplement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessComplementSlot(
 	complement doc.ComplementLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessComplement(
@@ -288,7 +259,6 @@ func (v *processor_) PostprocessComplement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessContinueClause(
@@ -296,14 +266,12 @@ func (v *processor_) PreprocessContinueClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessContinueClauseSlot(
 	continueClause doc.ContinueClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessContinueClause(
@@ -311,7 +279,6 @@ func (v *processor_) PostprocessContinueClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessDiscardClause(
@@ -319,14 +286,12 @@ func (v *processor_) PreprocessDiscardClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessDiscardClauseSlot(
 	discardClause doc.DiscardClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessDiscardClause(
@@ -334,7 +299,6 @@ func (v *processor_) PostprocessDiscardClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessDoClause(
@@ -342,14 +306,12 @@ func (v *processor_) PreprocessDoClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessDoClauseSlot(
 	doClause doc.DoClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessDoClause(
@@ -357,7 +319,6 @@ func (v *processor_) PostprocessDoClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessDocument(
@@ -365,14 +326,12 @@ func (v *processor_) PreprocessDocument(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessDocumentSlot(
 	document doc.DocumentLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessDocument(
@@ -380,7 +339,6 @@ func (v *processor_) PostprocessDocument(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessExpression(
@@ -388,14 +346,12 @@ func (v *processor_) PreprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessExpressionSlot(
 	expression doc.ExpressionLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessExpression(
@@ -403,7 +359,6 @@ func (v *processor_) PostprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessFunction(
@@ -411,14 +366,12 @@ func (v *processor_) PreprocessFunction(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessFunctionSlot(
 	function doc.FunctionLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessFunction(
@@ -426,7 +379,6 @@ func (v *processor_) PostprocessFunction(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessIfClause(
@@ -434,14 +386,12 @@ func (v *processor_) PreprocessIfClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessIfClauseSlot(
 	ifClause doc.IfClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessIfClause(
@@ -449,7 +399,6 @@ func (v *processor_) PostprocessIfClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessInversion(
@@ -457,14 +406,12 @@ func (v *processor_) PreprocessInversion(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessInversionSlot(
 	inversion doc.InversionLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessInversion(
@@ -472,7 +419,6 @@ func (v *processor_) PostprocessInversion(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessItems(
@@ -480,14 +426,12 @@ func (v *processor_) PreprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessItemsSlot(
 	items doc.ItemsLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessItems(
@@ -495,7 +439,6 @@ func (v *processor_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessLetClause(
@@ -503,14 +446,12 @@ func (v *processor_) PreprocessLetClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessLetClauseSlot(
 	letClause doc.LetClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessLetClause(
@@ -518,7 +459,6 @@ func (v *processor_) PostprocessLetClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessMagnitude(
@@ -526,14 +466,12 @@ func (v *processor_) PreprocessMagnitude(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessMagnitudeSlot(
 	magnitude doc.MagnitudeLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessMagnitude(
@@ -541,7 +479,6 @@ func (v *processor_) PostprocessMagnitude(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessMatchingClause(
@@ -549,14 +486,12 @@ func (v *processor_) PreprocessMatchingClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessMatchingClauseSlot(
 	matchingClause doc.MatchingClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessMatchingClause(
@@ -564,7 +499,6 @@ func (v *processor_) PostprocessMatchingClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessMethod(
@@ -572,14 +506,12 @@ func (v *processor_) PreprocessMethod(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessMethodSlot(
 	method doc.MethodLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessMethod(
@@ -587,7 +519,6 @@ func (v *processor_) PostprocessMethod(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessNotarizeClause(
@@ -595,14 +526,12 @@ func (v *processor_) PreprocessNotarizeClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessNotarizeClauseSlot(
 	notarizeClause doc.NotarizeClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessNotarizeClause(
@@ -610,7 +539,6 @@ func (v *processor_) PostprocessNotarizeClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessOnClause(
@@ -618,14 +546,12 @@ func (v *processor_) PreprocessOnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessOnClauseSlot(
 	onClause doc.OnClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessOnClause(
@@ -633,7 +559,6 @@ func (v *processor_) PostprocessOnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessParameters(
@@ -641,14 +566,12 @@ func (v *processor_) PreprocessParameters(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessParametersSlot(
 	parameters doc.ParametersLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessParameters(
@@ -656,7 +579,6 @@ func (v *processor_) PostprocessParameters(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessPostClause(
@@ -664,14 +586,12 @@ func (v *processor_) PreprocessPostClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessPostClauseSlot(
 	postClause doc.PostClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessPostClause(
@@ -679,7 +599,6 @@ func (v *processor_) PostprocessPostClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessPrecedence(
@@ -687,14 +606,12 @@ func (v *processor_) PreprocessPrecedence(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessPrecedenceSlot(
 	precedence doc.PrecedenceLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessPrecedence(
@@ -702,7 +619,6 @@ func (v *processor_) PostprocessPrecedence(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessPredicate(
@@ -710,14 +626,12 @@ func (v *processor_) PreprocessPredicate(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessPredicateSlot(
 	predicate doc.PredicateLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessPredicate(
@@ -725,7 +639,6 @@ func (v *processor_) PostprocessPredicate(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessProcedure(
@@ -733,14 +646,12 @@ func (v *processor_) PreprocessProcedure(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessProcedureSlot(
 	procedure doc.ProcedureLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessProcedure(
@@ -748,7 +659,6 @@ func (v *processor_) PostprocessProcedure(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessPublishClause(
@@ -756,14 +666,12 @@ func (v *processor_) PreprocessPublishClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessPublishClauseSlot(
 	publishClause doc.PublishClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessPublishClause(
@@ -771,7 +679,6 @@ func (v *processor_) PostprocessPublishClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessRange(
@@ -779,14 +686,12 @@ func (v *processor_) PreprocessRange(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessRangeSlot(
 	range_ doc.RangeLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessRange(
@@ -794,7 +699,6 @@ func (v *processor_) PostprocessRange(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessReferent(
@@ -802,14 +706,12 @@ func (v *processor_) PreprocessReferent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessReferentSlot(
 	referent doc.ReferentLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessReferent(
@@ -817,7 +719,6 @@ func (v *processor_) PostprocessReferent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessRejectClause(
@@ -825,14 +726,12 @@ func (v *processor_) PreprocessRejectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessRejectClauseSlot(
 	rejectClause doc.RejectClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessRejectClause(
@@ -840,7 +739,6 @@ func (v *processor_) PostprocessRejectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessRetrieveClause(
@@ -848,14 +746,12 @@ func (v *processor_) PreprocessRetrieveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessRetrieveClauseSlot(
 	retrieveClause doc.RetrieveClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessRetrieveClause(
@@ -863,7 +759,6 @@ func (v *processor_) PostprocessRetrieveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessReturnClause(
@@ -871,14 +766,12 @@ func (v *processor_) PreprocessReturnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessReturnClauseSlot(
 	returnClause doc.ReturnClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessReturnClause(
@@ -886,7 +779,6 @@ func (v *processor_) PostprocessReturnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessSaveClause(
@@ -894,14 +786,12 @@ func (v *processor_) PreprocessSaveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessSaveClauseSlot(
 	saveClause doc.SaveClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessSaveClause(
@@ -909,7 +799,6 @@ func (v *processor_) PostprocessSaveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessSelectClause(
@@ -917,14 +806,12 @@ func (v *processor_) PreprocessSelectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessSelectClauseSlot(
 	selectClause doc.SelectClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessSelectClause(
@@ -932,7 +819,6 @@ func (v *processor_) PostprocessSelectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessStatement(
@@ -940,14 +826,12 @@ func (v *processor_) PreprocessStatement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessStatementSlot(
 	statement doc.StatementLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessStatement(
@@ -955,7 +839,6 @@ func (v *processor_) PostprocessStatement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessSubcomponent(
@@ -963,14 +846,12 @@ func (v *processor_) PreprocessSubcomponent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessSubcomponentSlot(
 	subcomponent doc.SubcomponentLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessSubcomponent(
@@ -978,7 +859,6 @@ func (v *processor_) PostprocessSubcomponent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessThrowClause(
@@ -986,14 +866,12 @@ func (v *processor_) PreprocessThrowClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessThrowClauseSlot(
 	throwClause doc.ThrowClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessThrowClause(
@@ -1001,7 +879,6 @@ func (v *processor_) PostprocessThrowClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessWhileClause(
@@ -1009,14 +886,12 @@ func (v *processor_) PreprocessWhileClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessWhileClauseSlot(
 	whileClause doc.WhileClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessWhileClause(
@@ -1024,7 +899,6 @@ func (v *processor_) PostprocessWhileClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PreprocessWithClause(
@@ -1032,14 +906,12 @@ func (v *processor_) PreprocessWithClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) ProcessWithClauseSlot(
 	withClause doc.WithClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 func (v *processor_) PostprocessWithClause(
@@ -1047,7 +919,6 @@ func (v *processor_) PostprocessWithClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
 }
 
 // PROTECTED INTERFACE

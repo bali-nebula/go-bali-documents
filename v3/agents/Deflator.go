@@ -13,6 +13,7 @@
 package agents
 
 import (
+	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
@@ -78,7 +79,7 @@ func (v *deflator_) ProcessBoolean(
 }
 
 func (v *deflator_) ProcessBytecode(
-	bytecode doc.BytecodeLike,
+	bytecode ass.BytecodeLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -91,6 +92,12 @@ func (v *deflator_) ProcessComment(
 
 func (v *deflator_) ProcessDuration(
 	duration fra.DurationLike,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *deflator_) ProcessExtent(
+	extent doc.Extent,
 ) {
 	// TBD - Add the method implementation.
 }

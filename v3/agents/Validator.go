@@ -13,6 +13,7 @@
 package agents
 
 import (
+	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	fra "github.com/craterdog/go-component-framework/v7"
 )
@@ -75,7 +76,7 @@ func (v *validator_) ProcessBoolean(
 }
 
 func (v *validator_) ProcessBytecode(
-	bytecode doc.BytecodeLike,
+	bytecode ass.BytecodeLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -88,6 +89,12 @@ func (v *validator_) ProcessComment(
 
 func (v *validator_) ProcessDuration(
 	duration fra.DurationLike,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) ProcessExtent(
+	extent doc.Extent,
 ) {
 	// TBD - Add the method implementation.
 }

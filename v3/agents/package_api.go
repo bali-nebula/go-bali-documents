@@ -25,6 +25,7 @@ on interfaces, not on each other.
 package agents
 
 import (
+	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
@@ -181,13 +182,16 @@ type Methodical interface {
 		boolean fra.BooleanLike,
 	)
 	ProcessBytecode(
-		bytecode doc.BytecodeLike,
+		bytecode ass.BytecodeLike,
 	)
 	ProcessComment(
 		comment string,
 	)
 	ProcessDuration(
 		duration fra.DurationLike,
+	)
+	ProcessExtent(
+		extent doc.Extent,
 	)
 	ProcessGlyph(
 		glyph fra.GlyphLike,
