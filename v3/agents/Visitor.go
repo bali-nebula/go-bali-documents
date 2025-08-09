@@ -84,7 +84,12 @@ func (v *visitor_) visitAcceptClause(
 func (v *visitor_) visitArgument(
 	argument any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := argument.(type) {
+	case string:
+		v.processor_.ProcessIdentifier(actual)
+	default:
+		v.visitPrimitive(argument)
+	}
 }
 
 func (v *visitor_) visitAttributes(
@@ -175,7 +180,18 @@ func (v *visitor_) visitComplement(
 func (v *visitor_) visitComponent(
 	component any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := component.(type) {
+	case doc.RangeLike:
+		v.visitRange(actual)
+	case doc.AttributesLike:
+		v.visitAttributes(actual)
+	case doc.ItemsLike:
+		v.visitItems(actual)
+	case doc.ProcedureLike:
+		v.visitProcedure(actual)
+	default:
+		v.visitPrimitive(component)
+	}
 }
 
 func (v *visitor_) visitContinueClause(
@@ -339,13 +355,31 @@ func (v *visitor_) visitIfClause(
 func (v *visitor_) visitIndex(
 	index any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := index.(type) {
+	case string:
+		v.processor_.ProcessIdentifier(actual)
+	default:
+		v.visitPrimitive(index)
+	}
 }
 
 func (v *visitor_) visitIndirect(
 	indirect any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := indirect.(type) {
+	case doc.DocumentLike:
+		v.visitDocument(actual)
+	case doc.SubcomponentLike:
+		v.visitSubcomponent(actual)
+	case doc.ReferentLike:
+		v.visitReferent(actual)
+	case doc.FunctionLike:
+		v.visitFunction(actual)
+	case doc.MethodLike:
+		v.visitMethod(actual)
+	case string:
+		v.processor_.ProcessIdentifier(actual)
+	}
 }
 
 func (v *visitor_) visitInversion(
@@ -367,7 +401,12 @@ func (v *visitor_) visitInversion(
 func (v *visitor_) visitInvocation(
 	invocation any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := invocation.(type) {
+	case doc.FunctionLike:
+		v.visitFunction(actual)
+	case doc.MethodLike:
+		v.visitMethod(actual)
+	}
 }
 
 func (v *visitor_) visitItems(
@@ -431,13 +470,35 @@ func (v *visitor_) visitLetClause(
 func (v *visitor_) visitLine(
 	line any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := line.(type) {
+	case doc.StatementLike:
+		v.visitStatement(actual)
+	case string:
+		v.processor_.ProcessAnnotation(actual)
+	}
 }
 
 func (v *visitor_) visitLogical(
 	logical any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := logical.(type) {
+	case doc.DocumentLike:
+		v.visitDocument(actual)
+	case doc.SubcomponentLike:
+		v.visitSubcomponent(actual)
+	case doc.PrecedenceLike:
+		v.visitPrecedence(actual)
+	case doc.ReferentLike:
+		v.visitReferent(actual)
+	case doc.ComplementLike:
+		v.visitComplement(actual)
+	case doc.FunctionLike:
+		v.visitFunction(actual)
+	case doc.MethodLike:
+		v.visitMethod(actual)
+	case string:
+		v.processor_.ProcessIdentifier(actual)
+	}
 }
 
 func (v *visitor_) visitMagnitude(

@@ -66,6 +66,12 @@ func (v *deflator_) ProcessAngle(
 	// TBD - Add the method implementation.
 }
 
+func (v *deflator_) ProcessAnnotation(
+	annotation string,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *deflator_) ProcessAssignment(
 	assignment doc.Assignment,
 ) {

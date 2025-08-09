@@ -56,6 +56,11 @@ func (v *processor_) ProcessAngle(
 ) {
 }
 
+func (v *processor_) ProcessAnnotation(
+	annotation string,
+) {
+}
+
 func (v *processor_) ProcessAssignment(
 	assignment doc.Assignment,
 ) {

@@ -63,6 +63,12 @@ func (v *validator_) ProcessAngle(
 	// TBD - Add the method implementation.
 }
 
+func (v *validator_) ProcessAnnotation(
+	annotation string,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *validator_) ProcessAssignment(
 	assignment doc.Assignment,
 ) {

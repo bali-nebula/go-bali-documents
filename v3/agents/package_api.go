@@ -175,6 +175,9 @@ type Methodical interface {
 	ProcessAngle(
 		angle fra.AngleLike,
 	)
+	ProcessAnnotation(
+		annotation string,
+	)
 	ProcessAssignment(
 		assignment doc.Assignment,
 	)
