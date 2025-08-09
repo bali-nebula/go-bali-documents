@@ -182,3 +182,5 @@ type InstructionLike interface {
 	GetModifier() Modifier
 	GetOperand() Operand
 }
+
+// ASPECT DECLARATIONS

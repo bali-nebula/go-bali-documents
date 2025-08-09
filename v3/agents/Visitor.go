@@ -1000,14 +1000,6 @@ func (v *visitor_) visitThrowClause(
 func (v *visitor_) visitWhileClause(
 	whileClause doc.WhileClauseLike,
 ) {
-	var delimiter1 = whileClause.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
-	// Visit slot 1 between terms.
-	v.processor_.ProcessWhileClauseSlot(
-		whileClause,
-		1,
-	)
-
 	var condition = whileClause.GetCondition()
 	v.processor_.PreprocessExpression(
 		condition,
@@ -1020,18 +1012,11 @@ func (v *visitor_) visitWhileClause(
 		1,
 		1,
 	)
-	// Visit slot 2 between terms.
-	v.processor_.ProcessWhileClauseSlot(
-		whileClause,
-		2,
-	)
 
-	var delimiter2 = whileClause.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
-	// Visit slot 3 between terms.
+	// Visit slot 1 between terms.
 	v.processor_.ProcessWhileClauseSlot(
 		whileClause,
-		3,
+		1,
 	)
 
 	var procedure = whileClause.GetProcedure()
@@ -1051,72 +1036,31 @@ func (v *visitor_) visitWhileClause(
 func (v *visitor_) visitWithClause(
 	withClause doc.WithClauseLike,
 ) {
-	var delimiter1 = withClause.GetDelimiter1()
-	v.processor_.ProcessDelimiter(delimiter1)
+	var variable = withClause.GetVariable()
+	v.processor_.ProcessSymbol(variable)
+
 	// Visit slot 1 between terms.
 	v.processor_.ProcessWithClauseSlot(
 		withClause,
 		1,
 	)
 
-	var delimiter2 = withClause.GetDelimiter2()
-	v.processor_.ProcessDelimiter(delimiter2)
+	var sequence = withClause.GetSequence()
+	v.processor_.PreprocessExpression(
+		sequence,
+		1,
+		1,
+	)
+	v.visitExpression(sequence)
+	v.processor_.PostprocessExpression(
+		sequence,
+		1,
+		1,
+	)
 	// Visit slot 2 between terms.
 	v.processor_.ProcessWithClauseSlot(
 		withClause,
 		2,
-	)
-
-	var variable = withClause.GetVariable()
-	v.processor_.PreprocessVariable(
-		variable,
-		1,
-		1,
-	)
-	v.visitVariable(variable)
-	v.processor_.PostprocessVariable(
-		variable,
-		1,
-		1,
-	)
-	// Visit slot 3 between terms.
-	v.processor_.ProcessWithClauseSlot(
-		withClause,
-		3,
-	)
-
-	var delimiter3 = withClause.GetDelimiter3()
-	v.processor_.ProcessDelimiter(delimiter3)
-	// Visit slot 4 between terms.
-	v.processor_.ProcessWithClauseSlot(
-		withClause,
-		4,
-	)
-
-	var sequence = withClause.GetSequence()
-	v.processor_.PreprocessSequence(
-		sequence,
-		1,
-		1,
-	)
-	v.visitSequence(sequence)
-	v.processor_.PostprocessSequence(
-		sequence,
-		1,
-		1,
-	)
-	// Visit slot 5 between terms.
-	v.processor_.ProcessWithClauseSlot(
-		withClause,
-		5,
-	)
-
-	var delimiter4 = withClause.GetDelimiter4()
-	v.processor_.ProcessDelimiter(delimiter4)
-	// Visit slot 6 between terms.
-	v.processor_.ProcessWithClauseSlot(
-		withClause,
-		6,
 	)
 
 	var procedure = withClause.GetProcedure()

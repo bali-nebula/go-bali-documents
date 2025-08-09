@@ -32,6 +32,7 @@ package module
 
 import (
 	age "github.com/bali-nebula/go-bali-documents/v3/agents"
+	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	fra "github.com/craterdog/go-component-framework/v7"
 )
@@ -60,15 +61,96 @@ type (
 	Methodical = age.Methodical
 )
 
-// Documents
+// Assembly
 
 type (
-	Extent = doc.Extent
+	Operation = ass.Operation
+	Modifier  = ass.Modifier
+	Operand   = ass.Operand
 )
 
 const (
-	Inclusive = doc.Inclusive
-	Exclusive = doc.Exclusive
+	Jump                   = ass.Jump
+	Push                   = ass.Push
+	Pull                   = ass.Pull
+	Load                   = ass.Load
+	Save                   = ass.Save
+	Drop                   = ass.Drop
+	Call                   = ass.Call
+	Send                   = ass.Send
+	OnAny                  = ass.OnAny
+	OnEmpty                = ass.OnEmpty
+	OnNone                 = ass.OnNone
+	OnFalse                = ass.OnFalse
+	Handler                = ass.Handler
+	Literal                = ass.Literal
+	Constant               = ass.Constant
+	Argument               = ass.Argument
+	Exception              = ass.Exception
+	Component              = ass.Component
+	Result                 = ass.Result
+	Contract               = ass.Contract
+	Draft                  = ass.Draft
+	Message                = ass.Message
+	Variable               = ass.Variable
+	With0Arguments         = ass.With0Arguments
+	With1Argument          = ass.With1Argument
+	With2Arguments         = ass.With2Arguments
+	With3Arguments         = ass.With3Arguments
+	ContractWithArguments  = ass.ContractWithArguments
+	ComponentWithArguments = ass.ComponentWithArguments
+)
+
+type (
+	BytecodeClassLike    = ass.BytecodeClassLike
+	InstructionClassLike = ass.InstructionClassLike
+)
+
+type (
+	BytecodeLike    = ass.BytecodeLike
+	InstructionLike = ass.InstructionLike
+)
+
+// Documents
+
+type (
+	Assignment = doc.Assignment
+	Extent     = doc.Extent
+	Inverse    = doc.Inverse
+	Invoke     = doc.Invoke
+	Operator   = doc.Operator
+)
+
+const (
+	Equals         = doc.Equals
+	EqualsDefault  = doc.EqualsDefault
+	EqualsPlus     = doc.EqualsPlus
+	EqualsMinus    = doc.EqualsMinus
+	EqualsTimes    = doc.EqualsTimes
+	EqualsDivide   = doc.EqualsDivide
+	Inclusive      = doc.Inclusive
+	Exclusive      = doc.Exclusive
+	Additive       = doc.Additive
+	Multiplicative = doc.Multiplicative
+	Conjugate      = doc.Conjugate
+	Synchronous    = doc.Synchronous
+	Asynchronous   = doc.Asynchronous
+	Chain          = doc.Chain
+	And            = doc.And
+	San            = doc.San
+	Ior            = doc.Ior
+	Eor            = doc.Eor
+	Plus           = doc.Plus
+	Minus          = doc.Minus
+	Times          = doc.Times
+	Divide         = doc.Divide
+	Remainder      = doc.Remainder
+	Power          = doc.Power
+	Less           = doc.Less
+	Equal          = doc.Equal
+	More           = doc.More
+	Is             = doc.Is
+	Matches        = doc.Matches
 )
 
 type (
@@ -198,6 +280,52 @@ func Visitor(
 ) VisitorLike {
 	return VisitorClass().Visitor(
 		processor,
+	)
+}
+
+// Assembly
+
+func BytecodeClass() BytecodeClassLike {
+	return ass.BytecodeClass()
+}
+
+func Bytecode(
+	instructions fra.Sequential[ass.InstructionLike],
+) BytecodeLike {
+	return BytecodeClass().Bytecode(
+		instructions,
+	)
+}
+
+func BytecodeFromString(
+	source string,
+) BytecodeLike {
+	return BytecodeClass().BytecodeFromString(
+		source,
+	)
+}
+
+func InstructionClass() InstructionClassLike {
+	return ass.InstructionClass()
+}
+
+func Instruction(
+	operation ass.Operation,
+	modifier ass.Modifier,
+	operand ass.Operand,
+) InstructionLike {
+	return InstructionClass().Instruction(
+		operation,
+		modifier,
+		operand,
+	)
+}
+
+func InstructionFromInteger(
+	integer uint16,
+) InstructionLike {
+	return InstructionClass().InstructionFromInteger(
+		integer,
 	)
 }
 
@@ -358,7 +486,7 @@ func InversionClass() InversionClassLike {
 }
 
 func Inversion(
-	inverse string,
+	inverse doc.Inverse,
 	numerical any,
 ) InversionLike {
 	return InversionClass().Inversion(
@@ -385,7 +513,7 @@ func LetClauseClass() LetClauseClassLike {
 
 func LetClause(
 	recipient any,
-	assignment string,
+	assignment doc.Assignment,
 	expression doc.ExpressionLike,
 ) LetClauseLike {
 	return LetClauseClass().LetClause(
@@ -427,7 +555,7 @@ func MethodClass() MethodClassLike {
 
 func Method(
 	target string,
-	invoke string,
+	invoke doc.Invoke,
 	message string,
 	arguments fra.ListLike[any],
 ) MethodLike {
@@ -510,11 +638,11 @@ func PredicateClass() PredicateClassLike {
 }
 
 func Predicate(
-	operation string,
+	operator doc.Operator,
 	expression doc.ExpressionLike,
 ) PredicateLike {
 	return PredicateClass().Predicate(
-		operation,
+		operator,
 		expression,
 	)
 }
