@@ -13,7 +13,9 @@
 package agents
 
 import (
+	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
+	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -674,7 +676,26 @@ func (v *visitor_) visitNotarizeClause(
 func (v *visitor_) visitNumerical(
 	numerical any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := numerical.(type) {
+	case doc.DocumentLike:
+		v.visitDocument(actual)
+	case doc.SubcomponentLike:
+		v.visitSubcomponent(actual)
+	case doc.PrecedenceLike:
+		v.visitPrecedence(actual)
+	case doc.ReferentLike:
+		v.visitReferent(actual)
+	case doc.InversionLike:
+		v.visitInversion(actual)
+	case doc.MagnitudeLike:
+		v.visitMagnitude(actual)
+	case doc.FunctionLike:
+		v.visitFunction(actual)
+	case doc.MethodLike:
+		v.visitMethod(actual)
+	case string:
+		v.processor_.ProcessIdentifier(actual)
+	}
 }
 
 func (v *visitor_) visitOnClause(
@@ -817,7 +838,44 @@ func (v *visitor_) visitPredicate(
 func (v *visitor_) visitPrimitive(
 	primitive any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := primitive.(type) {
+	case fra.AngleLike:
+		v.processor_.ProcessAngle(actual)
+	case fra.BooleanLike:
+		v.processor_.ProcessBoolean(actual)
+	case fra.DurationLike:
+		v.processor_.ProcessDuration(actual)
+	case fra.GlyphLike:
+		v.processor_.ProcessGlyph(actual)
+	case fra.MomentLike:
+		v.processor_.ProcessMoment(actual)
+	case fra.NumberLike:
+		v.processor_.ProcessNumber(actual)
+	case fra.PercentageLike:
+		v.processor_.ProcessPercentage(actual)
+	case fra.ProbabilityLike:
+		v.processor_.ProcessProbability(actual)
+	case fra.ResourceLike:
+		v.processor_.ProcessResource(actual)
+	case fra.SymbolLike:
+		v.processor_.ProcessSymbol(actual)
+	case fra.BinaryLike:
+		v.processor_.ProcessBinary(actual)
+	case ass.BytecodeLike:
+		v.processor_.ProcessBytecode(actual)
+	case fra.NameLike:
+		v.processor_.ProcessName(actual)
+	case fra.NarrativeLike:
+		v.processor_.ProcessNarrative(actual)
+	case fra.PatternLike:
+		v.processor_.ProcessPattern(actual)
+	case fra.QuoteLike:
+		v.processor_.ProcessQuote(actual)
+	case fra.TagLike:
+		v.processor_.ProcessTag(actual)
+	case fra.VersionLike:
+		v.processor_.ProcessVersion(actual)
+	}
 }
 
 func (v *visitor_) visitProcedure(
