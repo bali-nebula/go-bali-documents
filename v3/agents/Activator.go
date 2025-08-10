@@ -25,14 +25,14 @@ import (
 
 // Access Function
 
-func InflatorClass() InflatorClassLike {
-	return inflatorClass()
+func ActivatorClass() ActivatorClassLike {
+	return activatorClass()
 }
 
 // Constructor Methods
 
-func (c *inflatorClass_) Inflator() InflatorLike {
-	var instance = &inflator_{
+func (c *activatorClass_) Activator() ActivatorLike {
+	var instance = &activator_{
 		// Initialize the instance attributes.
 		stack_: fra.Stack[any](),
 
@@ -50,17 +50,17 @@ func (c *inflatorClass_) Inflator() InflatorLike {
 
 // Principal Methods
 
-func (v *inflator_) GetClass() InflatorClassLike {
-	return inflatorClass()
+func (v *activator_) GetClass() ActivatorClassLike {
+	return activatorClass()
 }
 
-func (v *inflator_) InflateAst(
+func (v *activator_) ActivateDocument(
 	document not.DocumentLike,
 ) doc.DocumentLike {
 	not.VisitorClass().Visitor(v).VisitDocument(document)
 	if v.stack_.GetSize() != 1 {
 		var message = fmt.Sprintf(
-			"Internal Error: the inflator stack is corrupted: %v",
+			"Internal Error: the activator stack is corrupted: %v",
 			v.stack_,
 		)
 		panic(message)
@@ -72,133 +72,133 @@ func (v *inflator_) InflateAst(
 
 // not.Methodical Methods
 
-func (v *inflator_) ProcessAngle(
+func (v *activator_) ProcessAngle(
 	angle string,
 ) {
 	v.stack_.AddValue(fra.AngleFromString(angle))
 }
 
-func (v *inflator_) ProcessBinary(
+func (v *activator_) ProcessBinary(
 	binary string,
 ) {
 	v.stack_.AddValue(fra.BinaryFromString(binary))
 }
 
-func (v *inflator_) ProcessBoolean(
+func (v *activator_) ProcessBoolean(
 	boolean string,
 ) {
 	v.stack_.AddValue(fra.BooleanFromString(boolean))
 }
 
-func (v *inflator_) ProcessBytecode(
+func (v *activator_) ProcessBytecode(
 	bytecode string,
 ) {
 	v.stack_.AddValue(ass.BytecodeClass().BytecodeFromString(bytecode))
 }
 
-func (v *inflator_) ProcessComment(
+func (v *activator_) ProcessComment(
 	comment string,
 ) {
 	v.stack_.AddValue(comment)
 }
 
-func (v *inflator_) ProcessDuration(
+func (v *activator_) ProcessDuration(
 	duration string,
 ) {
 	v.stack_.AddValue(fra.DurationFromString(duration))
 }
 
-func (v *inflator_) ProcessGlyph(
+func (v *activator_) ProcessGlyph(
 	glyph string,
 ) {
 	v.stack_.AddValue(fra.GlyphFromString(glyph))
 }
 
-func (v *inflator_) ProcessIdentifier(
+func (v *activator_) ProcessIdentifier(
 	identifier string,
 ) {
 	v.stack_.AddValue(identifier)
 }
 
-func (v *inflator_) ProcessMoment(
+func (v *activator_) ProcessMoment(
 	moment string,
 ) {
 	v.stack_.AddValue(fra.MomentFromString(moment))
 }
 
-func (v *inflator_) ProcessName(
+func (v *activator_) ProcessName(
 	name string,
 ) {
 	v.stack_.AddValue(fra.NameFromString(name))
 }
 
-func (v *inflator_) ProcessNarrative(
+func (v *activator_) ProcessNarrative(
 	narrative string,
 ) {
 	v.stack_.AddValue(fra.NarrativeFromString(narrative))
 }
 
-func (v *inflator_) ProcessNote(
+func (v *activator_) ProcessNote(
 	note string,
 ) {
 	v.stack_.AddValue(note)
 }
 
-func (v *inflator_) ProcessNumber(
+func (v *activator_) ProcessNumber(
 	number string,
 ) {
 	v.stack_.AddValue(fra.NumberFromString(number))
 }
 
-func (v *inflator_) ProcessPattern(
+func (v *activator_) ProcessPattern(
 	pattern string,
 ) {
 	v.stack_.AddValue(fra.PatternFromString(pattern))
 }
 
-func (v *inflator_) ProcessPercentage(
+func (v *activator_) ProcessPercentage(
 	percentage string,
 ) {
 	v.stack_.AddValue(fra.PercentageFromString(percentage))
 }
 
-func (v *inflator_) ProcessProbability(
+func (v *activator_) ProcessProbability(
 	probability string,
 ) {
 	v.stack_.AddValue(fra.ProbabilityFromString(probability))
 }
 
-func (v *inflator_) ProcessQuote(
+func (v *activator_) ProcessQuote(
 	quote string,
 ) {
 	v.stack_.AddValue(fra.QuoteFromString(quote))
 }
 
-func (v *inflator_) ProcessResource(
+func (v *activator_) ProcessResource(
 	resource string,
 ) {
 	v.stack_.AddValue(fra.ResourceFromString(resource))
 }
 
-func (v *inflator_) ProcessSymbol(
+func (v *activator_) ProcessSymbol(
 	symbol string,
 ) {
 	v.stack_.AddValue(fra.SymbolFromString(symbol))
 }
 
-func (v *inflator_) ProcessTag(
+func (v *activator_) ProcessTag(
 	tag string,
 ) {
 	v.stack_.AddValue(fra.TagFromString(tag))
 }
 
-func (v *inflator_) ProcessVersion(
+func (v *activator_) ProcessVersion(
 	version string,
 ) {
 	v.stack_.AddValue(fra.VersionFromString(version))
 }
 
-func (v *inflator_) PostprocessAcceptClause(
+func (v *activator_) PostprocessAcceptClause(
 	acceptClause not.AcceptClauseLike,
 	index_ uint,
 	count_ uint,
@@ -207,7 +207,7 @@ func (v *inflator_) PostprocessAcceptClause(
 	v.stack_.AddValue(doc.AcceptClauseClass().AcceptClause(message))
 }
 
-func (v *inflator_) PostprocessAssignment(
+func (v *activator_) PostprocessAssignment(
 	assignment not.AssignmentLike,
 	index_ uint,
 	count_ uint,
@@ -215,7 +215,7 @@ func (v *inflator_) PostprocessAssignment(
 	v.stack_.AddValue(assignment.GetAny().(string))
 }
 
-func (v *inflator_) PostprocessAttributes(
+func (v *activator_) PostprocessAttributes(
 	attributes not.AttributesLike,
 	index_ uint,
 	count_ uint,
@@ -232,7 +232,7 @@ func (v *inflator_) PostprocessAttributes(
 	v.stack_.AddValue(catalog)
 }
 
-func (v *inflator_) PostprocessBra(
+func (v *activator_) PostprocessBra(
 	bra not.BraLike,
 	index_ uint,
 	count_ uint,
@@ -247,7 +247,7 @@ func (v *inflator_) PostprocessBra(
 	v.stack_.AddValue(extent)
 }
 
-func (v *inflator_) PostprocessBreakClause(
+func (v *activator_) PostprocessBreakClause(
 	breakClause not.BreakClauseLike,
 	index_ uint,
 	count_ uint,
@@ -255,7 +255,7 @@ func (v *inflator_) PostprocessBreakClause(
 	v.stack_.AddValue(doc.BreakClauseClass().BreakClause())
 }
 
-func (v *inflator_) ProcessCheckoutClauseSlot(
+func (v *activator_) ProcessCheckoutClauseSlot(
 	checkoutClause not.CheckoutClauseLike,
 	slot_ uint,
 ) {
@@ -267,7 +267,7 @@ func (v *inflator_) ProcessCheckoutClauseSlot(
 	}
 }
 
-func (v *inflator_) PostprocessCheckoutClause(
+func (v *activator_) PostprocessCheckoutClause(
 	checkoutClause not.CheckoutClauseLike,
 	index_ uint,
 	count_ uint,
@@ -280,7 +280,7 @@ func (v *inflator_) PostprocessCheckoutClause(
 	)
 }
 
-func (v *inflator_) PostprocessComplement(
+func (v *activator_) PostprocessComplement(
 	complement not.ComplementLike,
 	index_ uint,
 	count_ uint,
@@ -289,7 +289,7 @@ func (v *inflator_) PostprocessComplement(
 	v.stack_.AddValue(doc.ComplementClass().Complement(logical))
 }
 
-func (v *inflator_) PostprocessContinueClause(
+func (v *activator_) PostprocessContinueClause(
 	continueClause not.ContinueClauseLike,
 	index_ uint,
 	count_ uint,
@@ -297,7 +297,7 @@ func (v *inflator_) PostprocessContinueClause(
 	v.stack_.AddValue(doc.ContinueClauseClass().ContinueClause())
 }
 
-func (v *inflator_) PostprocessDiscardClause(
+func (v *activator_) PostprocessDiscardClause(
 	discardClause not.DiscardClauseLike,
 	index_ uint,
 	count_ uint,
@@ -306,7 +306,7 @@ func (v *inflator_) PostprocessDiscardClause(
 	v.stack_.AddValue(doc.DiscardClauseClass().DiscardClause(draft))
 }
 
-func (v *inflator_) PostprocessDoClause(
+func (v *activator_) PostprocessDoClause(
 	doClause not.DoClauseLike,
 	index_ uint,
 	count_ uint,
@@ -315,7 +315,7 @@ func (v *inflator_) PostprocessDoClause(
 	v.stack_.AddValue(doc.DoClauseClass().DoClause(invocation))
 }
 
-func (v *inflator_) ProcessDocumentSlot(
+func (v *activator_) ProcessDocumentSlot(
 	document not.DocumentLike,
 	slot_ uint,
 ) {
@@ -327,7 +327,7 @@ func (v *inflator_) ProcessDocumentSlot(
 	}
 }
 
-func (v *inflator_) PostprocessDocument(
+func (v *activator_) PostprocessDocument(
 	document not.DocumentLike,
 	index_ uint,
 	count_ uint,
@@ -341,7 +341,7 @@ func (v *inflator_) PostprocessDocument(
 	v.stack_.AddValue(doc.DocumentClass().Document(component, parameters, note))
 }
 
-func (v *inflator_) PostprocessExpression(
+func (v *activator_) PostprocessExpression(
 	expression not.ExpressionLike,
 	index_ uint,
 	count_ uint,
@@ -351,7 +351,7 @@ func (v *inflator_) PostprocessExpression(
 	v.stack_.AddValue(doc.ExpressionClass().Expression(subject, predicates))
 }
 
-func (v *inflator_) PostprocessFunction(
+func (v *activator_) PostprocessFunction(
 	function not.FunctionLike,
 	index_ uint,
 	count_ uint,
@@ -361,7 +361,7 @@ func (v *inflator_) PostprocessFunction(
 	v.stack_.AddValue(doc.FunctionClass().Function(identifier, arguments))
 }
 
-func (v *inflator_) PostprocessIfClause(
+func (v *activator_) PostprocessIfClause(
 	ifClause not.IfClauseLike,
 	index_ uint,
 	count_ uint,
@@ -371,7 +371,7 @@ func (v *inflator_) PostprocessIfClause(
 	v.stack_.AddValue(doc.IfClauseClass().IfClause(condition, procedure))
 }
 
-func (v *inflator_) PostprocessInversion(
+func (v *activator_) PostprocessInversion(
 	inversion not.InversionLike,
 	index_ uint,
 	count_ uint,
@@ -381,7 +381,7 @@ func (v *inflator_) PostprocessInversion(
 	v.stack_.AddValue(doc.InversionClass().Inversion(inverse, numerical))
 }
 
-func (v *inflator_) PostprocessItems(
+func (v *activator_) PostprocessItems(
 	items not.ItemsLike,
 	index_ uint,
 	count_ uint,
@@ -397,7 +397,7 @@ func (v *inflator_) PostprocessItems(
 	v.stack_.AddValue(list)
 }
 
-func (v *inflator_) PostprocessKet(
+func (v *activator_) PostprocessKet(
 	ket not.KetLike,
 	index_ uint,
 	count_ uint,
@@ -412,7 +412,7 @@ func (v *inflator_) PostprocessKet(
 	v.stack_.AddValue(extent)
 }
 
-func (v *inflator_) PostprocessLetClause(
+func (v *activator_) PostprocessLetClause(
 	letClause not.LetClauseLike,
 	index_ uint,
 	count_ uint,
@@ -425,7 +425,7 @@ func (v *inflator_) PostprocessLetClause(
 	)
 }
 
-func (v *inflator_) PostprocessMagnitude(
+func (v *activator_) PostprocessMagnitude(
 	magnitude not.MagnitudeLike,
 	index_ uint,
 	count_ uint,
@@ -434,7 +434,7 @@ func (v *inflator_) PostprocessMagnitude(
 	v.stack_.AddValue(doc.MagnitudeClass().Magnitude(expression))
 }
 
-func (v *inflator_) PostprocessMatchingClause(
+func (v *activator_) PostprocessMatchingClause(
 	matchingClause not.MatchingClauseLike,
 	index_ uint,
 	count_ uint,
@@ -446,7 +446,7 @@ func (v *inflator_) PostprocessMatchingClause(
 	)
 }
 
-func (v *inflator_) PostprocessMethod(
+func (v *activator_) PostprocessMethod(
 	method not.MethodLike,
 	index_ uint,
 	count_ uint,
@@ -460,7 +460,7 @@ func (v *inflator_) PostprocessMethod(
 	)
 }
 
-func (v *inflator_) PostprocessNotarizeClause(
+func (v *activator_) PostprocessNotarizeClause(
 	notarizeClause not.NotarizeClauseLike,
 	index_ uint,
 	count_ uint,
@@ -472,7 +472,7 @@ func (v *inflator_) PostprocessNotarizeClause(
 	)
 }
 
-func (v *inflator_) PostprocessOnClause(
+func (v *activator_) PostprocessOnClause(
 	onClause not.OnClauseLike,
 	index_ uint,
 	count_ uint,
@@ -491,7 +491,7 @@ func (v *inflator_) PostprocessOnClause(
 	)
 }
 
-func (v *inflator_) PostprocessParameters(
+func (v *activator_) PostprocessParameters(
 	parameters not.ParametersLike,
 	index_ uint,
 	count_ uint,
@@ -508,7 +508,7 @@ func (v *inflator_) PostprocessParameters(
 	v.stack_.AddValue(catalog)
 }
 
-func (v *inflator_) PostprocessPostClause(
+func (v *activator_) PostprocessPostClause(
 	postClause not.PostClauseLike,
 	index_ uint,
 	count_ uint,
@@ -520,7 +520,7 @@ func (v *inflator_) PostprocessPostClause(
 	)
 }
 
-func (v *inflator_) PostprocessPrecedence(
+func (v *activator_) PostprocessPrecedence(
 	precedence not.PrecedenceLike,
 	index_ uint,
 	count_ uint,
@@ -529,7 +529,7 @@ func (v *inflator_) PostprocessPrecedence(
 	v.stack_.AddValue(doc.PrecedenceClass().Precedence(expression))
 }
 
-func (v *inflator_) PostprocessPredicate(
+func (v *activator_) PostprocessPredicate(
 	predicate not.PredicateLike,
 	index_ uint,
 	count_ uint,
@@ -539,7 +539,7 @@ func (v *inflator_) PostprocessPredicate(
 	v.stack_.AddValue(doc.PredicateClass().Predicate(operator, expression))
 }
 
-func (v *inflator_) PostprocessProcedure(
+func (v *activator_) PostprocessProcedure(
 	procedure not.ProcedureLike,
 	index_ uint,
 	count_ uint,
@@ -555,7 +555,7 @@ func (v *inflator_) PostprocessProcedure(
 	v.stack_.AddValue(list)
 }
 
-func (v *inflator_) PostprocessPublishClause(
+func (v *activator_) PostprocessPublishClause(
 	publishClause not.PublishClauseLike,
 	index_ uint,
 	count_ uint,
@@ -564,7 +564,7 @@ func (v *inflator_) PostprocessPublishClause(
 	v.stack_.AddValue(doc.PublishClauseClass().PublishClause(event))
 }
 
-func (v *inflator_) PostprocessRange(
+func (v *activator_) PostprocessRange(
 	range_ not.RangeLike,
 	index_ uint,
 	count_ uint,
@@ -576,7 +576,7 @@ func (v *inflator_) PostprocessRange(
 	v.stack_.AddValue(doc.RangeClass().Range(left, first, last, right))
 }
 
-func (v *inflator_) PostprocessReferent(
+func (v *activator_) PostprocessReferent(
 	referent not.ReferentLike,
 	index_ uint,
 	count_ uint,
@@ -585,7 +585,7 @@ func (v *inflator_) PostprocessReferent(
 	v.stack_.AddValue(doc.ReferentClass().Referent(indirect))
 }
 
-func (v *inflator_) PostprocessRejectClause(
+func (v *activator_) PostprocessRejectClause(
 	rejectClause not.RejectClauseLike,
 	index_ uint,
 	count_ uint,
@@ -594,7 +594,7 @@ func (v *inflator_) PostprocessRejectClause(
 	v.stack_.AddValue(doc.RejectClauseClass().RejectClause(message))
 }
 
-func (v *inflator_) PostprocessRetrieveClause(
+func (v *activator_) PostprocessRetrieveClause(
 	retrieveClause not.RetrieveClauseLike,
 	index_ uint,
 	count_ uint,
@@ -606,7 +606,7 @@ func (v *inflator_) PostprocessRetrieveClause(
 	)
 }
 
-func (v *inflator_) PostprocessReturnClause(
+func (v *activator_) PostprocessReturnClause(
 	returnClause not.ReturnClauseLike,
 	index_ uint,
 	count_ uint,
@@ -615,7 +615,7 @@ func (v *inflator_) PostprocessReturnClause(
 	v.stack_.AddValue(doc.ReturnClauseClass().ReturnClause(result))
 }
 
-func (v *inflator_) PostprocessSaveClause(
+func (v *activator_) PostprocessSaveClause(
 	saveClause not.SaveClauseLike,
 	index_ uint,
 	count_ uint,
@@ -627,7 +627,7 @@ func (v *inflator_) PostprocessSaveClause(
 	)
 }
 
-func (v *inflator_) PostprocessSelectClause(
+func (v *activator_) PostprocessSelectClause(
 	selectClause not.SelectClauseLike,
 	index_ uint,
 	count_ uint,
@@ -646,7 +646,7 @@ func (v *inflator_) PostprocessSelectClause(
 	)
 }
 
-func (v *inflator_) PostprocessStatement(
+func (v *activator_) PostprocessStatement(
 	statement not.StatementLike,
 	index_ uint,
 	count_ uint,
@@ -659,7 +659,7 @@ func (v *inflator_) PostprocessStatement(
 	v.stack_.AddValue(doc.StatementClass().Statement(mainClause, onClause))
 }
 
-func (v *inflator_) PostprocessSubcomponent(
+func (v *activator_) PostprocessSubcomponent(
 	subcomponent not.SubcomponentLike,
 	index_ uint,
 	count_ uint,
@@ -669,7 +669,7 @@ func (v *inflator_) PostprocessSubcomponent(
 	v.stack_.AddValue(doc.SubcomponentClass().Subcomponent(identifier, indexes))
 }
 
-func (v *inflator_) PostprocessThrowClause(
+func (v *activator_) PostprocessThrowClause(
 	throwClause not.ThrowClauseLike,
 	index_ uint,
 	count_ uint,
@@ -678,7 +678,7 @@ func (v *inflator_) PostprocessThrowClause(
 	v.stack_.AddValue(doc.ThrowClauseClass().ThrowClause(exception))
 }
 
-func (v *inflator_) PostprocessWhileClause(
+func (v *activator_) PostprocessWhileClause(
 	whileClause not.WhileClauseLike,
 	index_ uint,
 	count_ uint,
@@ -688,7 +688,7 @@ func (v *inflator_) PostprocessWhileClause(
 	v.stack_.AddValue(doc.WhileClauseClass().WhileClause(condition, procedure))
 }
 
-func (v *inflator_) PostprocessWithClause(
+func (v *activator_) PostprocessWithClause(
 	withClause not.WithClauseLike,
 	index_ uint,
 	count_ uint,
@@ -707,7 +707,7 @@ func (v *inflator_) PostprocessWithClause(
 
 // Instance Structure
 
-type inflator_ struct {
+type activator_ struct {
 	// Declare the instance attributes.
 	stack_ fra.StackLike[any]
 
@@ -717,16 +717,16 @@ type inflator_ struct {
 
 // Class Structure
 
-type inflatorClass_ struct {
+type activatorClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func inflatorClass() *inflatorClass_ {
-	return inflatorClassReference_
+func activatorClass() *activatorClass_ {
+	return activatorClassReference_
 }
 
-var inflatorClassReference_ = &inflatorClass_{
+var activatorClassReference_ = &activatorClass_{
 	// Initialize the class constants.
 }

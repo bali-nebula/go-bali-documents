@@ -23,14 +23,14 @@ import (
 
 // Access Function
 
-func DeflatorClass() DeflatorClassLike {
-	return deflatorClass()
+func PassivatorClass() PassivatorClassLike {
+	return passivatorClass()
 }
 
 // Constructor Methods
 
-func (c *deflatorClass_) Deflator() DeflatorLike {
-	var instance = &deflator_{
+func (c *passivatorClass_) Passivator() PassivatorLike {
+	var instance = &passivator_{
 		// Initialize the instance attributes.
 	}
 	return instance
@@ -44,11 +44,11 @@ func (c *deflatorClass_) Deflator() DeflatorLike {
 
 // Principal Methods
 
-func (v *deflator_) GetClass() DeflatorClassLike {
-	return deflatorClass()
+func (v *passivator_) GetClass() PassivatorClassLike {
+	return passivatorClass()
 }
 
-func (v *deflator_) DeflateDocument(
+func (v *passivator_) PassivateDocument(
 	document doc.DocumentLike,
 ) not.DocumentLike {
 	var result_ not.DocumentLike
@@ -60,169 +60,169 @@ func (v *deflator_) DeflateDocument(
 
 // Methodical Methods
 
-func (v *deflator_) ProcessAngle(
+func (v *passivator_) ProcessAngle(
 	angle fra.AngleLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessAnnotation(
+func (v *passivator_) ProcessAnnotation(
 	annotation string,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessAssignment(
+func (v *passivator_) ProcessAssignment(
 	assignment doc.Assignment,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessBinary(
+func (v *passivator_) ProcessBinary(
 	binary fra.BinaryLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessBoolean(
+func (v *passivator_) ProcessBoolean(
 	boolean fra.BooleanLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessBytecode(
+func (v *passivator_) ProcessBytecode(
 	bytecode ass.BytecodeLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessComment(
+func (v *passivator_) ProcessComment(
 	comment string,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessDuration(
+func (v *passivator_) ProcessDuration(
 	duration fra.DurationLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessExtent(
+func (v *passivator_) ProcessExtent(
 	extent doc.Extent,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessGlyph(
+func (v *passivator_) ProcessGlyph(
 	glyph fra.GlyphLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessIdentifier(
+func (v *passivator_) ProcessIdentifier(
 	identifier string,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessInverse(
+func (v *passivator_) ProcessInverse(
 	inverse doc.Inverse,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessInvoke(
+func (v *passivator_) ProcessInvoke(
 	invoke doc.Invoke,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessMoment(
+func (v *passivator_) ProcessMoment(
 	moment fra.MomentLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessName(
+func (v *passivator_) ProcessName(
 	name fra.NameLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessNarrative(
+func (v *passivator_) ProcessNarrative(
 	narrative fra.NarrativeLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessNote(
+func (v *passivator_) ProcessNote(
 	note string,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessNumber(
+func (v *passivator_) ProcessNumber(
 	number fra.NumberLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessOperator(
+func (v *passivator_) ProcessOperator(
 	operator doc.Operator,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessPattern(
+func (v *passivator_) ProcessPattern(
 	pattern fra.PatternLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessPercentage(
+func (v *passivator_) ProcessPercentage(
 	percentage fra.PercentageLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessProbability(
+func (v *passivator_) ProcessProbability(
 	probability fra.ProbabilityLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessQuote(
+func (v *passivator_) ProcessQuote(
 	quote fra.QuoteLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessResource(
+func (v *passivator_) ProcessResource(
 	resource fra.ResourceLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessSymbol(
+func (v *passivator_) ProcessSymbol(
 	symbol fra.SymbolLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessTag(
+func (v *passivator_) ProcessTag(
 	tag fra.TagLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessVersion(
+func (v *passivator_) ProcessVersion(
 	version fra.VersionLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessAcceptClause(
+func (v *passivator_) PreprocessAcceptClause(
 	acceptClause doc.AcceptClauseLike,
 	index_ uint,
 	count_ uint,
@@ -230,14 +230,14 @@ func (v *deflator_) PreprocessAcceptClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessAcceptClauseSlot(
+func (v *passivator_) ProcessAcceptClauseSlot(
 	acceptClause doc.AcceptClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessAcceptClause(
+func (v *passivator_) PostprocessAcceptClause(
 	acceptClause doc.AcceptClauseLike,
 	index_ uint,
 	count_ uint,
@@ -245,7 +245,7 @@ func (v *deflator_) PostprocessAcceptClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessAttributes(
+func (v *passivator_) PreprocessAttributes(
 	attributes doc.AttributesLike,
 	index_ uint,
 	count_ uint,
@@ -253,14 +253,14 @@ func (v *deflator_) PreprocessAttributes(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessAttributesSlot(
+func (v *passivator_) ProcessAttributesSlot(
 	attributes doc.AttributesLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessAttributes(
+func (v *passivator_) PostprocessAttributes(
 	attributes doc.AttributesLike,
 	index_ uint,
 	count_ uint,
@@ -268,7 +268,7 @@ func (v *deflator_) PostprocessAttributes(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessBreakClause(
+func (v *passivator_) PreprocessBreakClause(
 	breakClause doc.BreakClauseLike,
 	index_ uint,
 	count_ uint,
@@ -276,14 +276,14 @@ func (v *deflator_) PreprocessBreakClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessBreakClauseSlot(
+func (v *passivator_) ProcessBreakClauseSlot(
 	breakClause doc.BreakClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessBreakClause(
+func (v *passivator_) PostprocessBreakClause(
 	breakClause doc.BreakClauseLike,
 	index_ uint,
 	count_ uint,
@@ -291,7 +291,7 @@ func (v *deflator_) PostprocessBreakClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessCheckoutClause(
+func (v *passivator_) PreprocessCheckoutClause(
 	checkoutClause doc.CheckoutClauseLike,
 	index_ uint,
 	count_ uint,
@@ -299,14 +299,14 @@ func (v *deflator_) PreprocessCheckoutClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessCheckoutClauseSlot(
+func (v *passivator_) ProcessCheckoutClauseSlot(
 	checkoutClause doc.CheckoutClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessCheckoutClause(
+func (v *passivator_) PostprocessCheckoutClause(
 	checkoutClause doc.CheckoutClauseLike,
 	index_ uint,
 	count_ uint,
@@ -314,7 +314,7 @@ func (v *deflator_) PostprocessCheckoutClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessComplement(
+func (v *passivator_) PreprocessComplement(
 	complement doc.ComplementLike,
 	index_ uint,
 	count_ uint,
@@ -322,14 +322,14 @@ func (v *deflator_) PreprocessComplement(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessComplementSlot(
+func (v *passivator_) ProcessComplementSlot(
 	complement doc.ComplementLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessComplement(
+func (v *passivator_) PostprocessComplement(
 	complement doc.ComplementLike,
 	index_ uint,
 	count_ uint,
@@ -337,7 +337,7 @@ func (v *deflator_) PostprocessComplement(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessContinueClause(
+func (v *passivator_) PreprocessContinueClause(
 	continueClause doc.ContinueClauseLike,
 	index_ uint,
 	count_ uint,
@@ -345,14 +345,14 @@ func (v *deflator_) PreprocessContinueClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessContinueClauseSlot(
+func (v *passivator_) ProcessContinueClauseSlot(
 	continueClause doc.ContinueClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessContinueClause(
+func (v *passivator_) PostprocessContinueClause(
 	continueClause doc.ContinueClauseLike,
 	index_ uint,
 	count_ uint,
@@ -360,7 +360,7 @@ func (v *deflator_) PostprocessContinueClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessDiscardClause(
+func (v *passivator_) PreprocessDiscardClause(
 	discardClause doc.DiscardClauseLike,
 	index_ uint,
 	count_ uint,
@@ -368,14 +368,14 @@ func (v *deflator_) PreprocessDiscardClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessDiscardClauseSlot(
+func (v *passivator_) ProcessDiscardClauseSlot(
 	discardClause doc.DiscardClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessDiscardClause(
+func (v *passivator_) PostprocessDiscardClause(
 	discardClause doc.DiscardClauseLike,
 	index_ uint,
 	count_ uint,
@@ -383,7 +383,7 @@ func (v *deflator_) PostprocessDiscardClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessDoClause(
+func (v *passivator_) PreprocessDoClause(
 	doClause doc.DoClauseLike,
 	index_ uint,
 	count_ uint,
@@ -391,14 +391,14 @@ func (v *deflator_) PreprocessDoClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessDoClauseSlot(
+func (v *passivator_) ProcessDoClauseSlot(
 	doClause doc.DoClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessDoClause(
+func (v *passivator_) PostprocessDoClause(
 	doClause doc.DoClauseLike,
 	index_ uint,
 	count_ uint,
@@ -406,7 +406,7 @@ func (v *deflator_) PostprocessDoClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessDocument(
+func (v *passivator_) PreprocessDocument(
 	document doc.DocumentLike,
 	index_ uint,
 	count_ uint,
@@ -414,14 +414,14 @@ func (v *deflator_) PreprocessDocument(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessDocumentSlot(
+func (v *passivator_) ProcessDocumentSlot(
 	document doc.DocumentLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessDocument(
+func (v *passivator_) PostprocessDocument(
 	document doc.DocumentLike,
 	index_ uint,
 	count_ uint,
@@ -429,7 +429,7 @@ func (v *deflator_) PostprocessDocument(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessExpression(
+func (v *passivator_) PreprocessExpression(
 	expression doc.ExpressionLike,
 	index_ uint,
 	count_ uint,
@@ -437,14 +437,14 @@ func (v *deflator_) PreprocessExpression(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessExpressionSlot(
+func (v *passivator_) ProcessExpressionSlot(
 	expression doc.ExpressionLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessExpression(
+func (v *passivator_) PostprocessExpression(
 	expression doc.ExpressionLike,
 	index_ uint,
 	count_ uint,
@@ -452,7 +452,7 @@ func (v *deflator_) PostprocessExpression(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessFunction(
+func (v *passivator_) PreprocessFunction(
 	function doc.FunctionLike,
 	index_ uint,
 	count_ uint,
@@ -460,14 +460,14 @@ func (v *deflator_) PreprocessFunction(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessFunctionSlot(
+func (v *passivator_) ProcessFunctionSlot(
 	function doc.FunctionLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessFunction(
+func (v *passivator_) PostprocessFunction(
 	function doc.FunctionLike,
 	index_ uint,
 	count_ uint,
@@ -475,7 +475,7 @@ func (v *deflator_) PostprocessFunction(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessIfClause(
+func (v *passivator_) PreprocessIfClause(
 	ifClause doc.IfClauseLike,
 	index_ uint,
 	count_ uint,
@@ -483,14 +483,14 @@ func (v *deflator_) PreprocessIfClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessIfClauseSlot(
+func (v *passivator_) ProcessIfClauseSlot(
 	ifClause doc.IfClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessIfClause(
+func (v *passivator_) PostprocessIfClause(
 	ifClause doc.IfClauseLike,
 	index_ uint,
 	count_ uint,
@@ -498,7 +498,7 @@ func (v *deflator_) PostprocessIfClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessInversion(
+func (v *passivator_) PreprocessInversion(
 	inversion doc.InversionLike,
 	index_ uint,
 	count_ uint,
@@ -506,14 +506,14 @@ func (v *deflator_) PreprocessInversion(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessInversionSlot(
+func (v *passivator_) ProcessInversionSlot(
 	inversion doc.InversionLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessInversion(
+func (v *passivator_) PostprocessInversion(
 	inversion doc.InversionLike,
 	index_ uint,
 	count_ uint,
@@ -521,7 +521,7 @@ func (v *deflator_) PostprocessInversion(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessItems(
+func (v *passivator_) PreprocessItems(
 	items doc.ItemsLike,
 	index_ uint,
 	count_ uint,
@@ -529,14 +529,14 @@ func (v *deflator_) PreprocessItems(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessItemsSlot(
+func (v *passivator_) ProcessItemsSlot(
 	items doc.ItemsLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessItems(
+func (v *passivator_) PostprocessItems(
 	items doc.ItemsLike,
 	index_ uint,
 	count_ uint,
@@ -544,7 +544,7 @@ func (v *deflator_) PostprocessItems(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessLetClause(
+func (v *passivator_) PreprocessLetClause(
 	letClause doc.LetClauseLike,
 	index_ uint,
 	count_ uint,
@@ -552,14 +552,14 @@ func (v *deflator_) PreprocessLetClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessLetClauseSlot(
+func (v *passivator_) ProcessLetClauseSlot(
 	letClause doc.LetClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessLetClause(
+func (v *passivator_) PostprocessLetClause(
 	letClause doc.LetClauseLike,
 	index_ uint,
 	count_ uint,
@@ -567,7 +567,7 @@ func (v *deflator_) PostprocessLetClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessMagnitude(
+func (v *passivator_) PreprocessMagnitude(
 	magnitude doc.MagnitudeLike,
 	index_ uint,
 	count_ uint,
@@ -575,14 +575,14 @@ func (v *deflator_) PreprocessMagnitude(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessMagnitudeSlot(
+func (v *passivator_) ProcessMagnitudeSlot(
 	magnitude doc.MagnitudeLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessMagnitude(
+func (v *passivator_) PostprocessMagnitude(
 	magnitude doc.MagnitudeLike,
 	index_ uint,
 	count_ uint,
@@ -590,7 +590,7 @@ func (v *deflator_) PostprocessMagnitude(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessMatchingClause(
+func (v *passivator_) PreprocessMatchingClause(
 	matchingClause doc.MatchingClauseLike,
 	index_ uint,
 	count_ uint,
@@ -598,14 +598,14 @@ func (v *deflator_) PreprocessMatchingClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessMatchingClauseSlot(
+func (v *passivator_) ProcessMatchingClauseSlot(
 	matchingClause doc.MatchingClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessMatchingClause(
+func (v *passivator_) PostprocessMatchingClause(
 	matchingClause doc.MatchingClauseLike,
 	index_ uint,
 	count_ uint,
@@ -613,7 +613,7 @@ func (v *deflator_) PostprocessMatchingClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessMethod(
+func (v *passivator_) PreprocessMethod(
 	method doc.MethodLike,
 	index_ uint,
 	count_ uint,
@@ -621,14 +621,14 @@ func (v *deflator_) PreprocessMethod(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessMethodSlot(
+func (v *passivator_) ProcessMethodSlot(
 	method doc.MethodLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessMethod(
+func (v *passivator_) PostprocessMethod(
 	method doc.MethodLike,
 	index_ uint,
 	count_ uint,
@@ -636,7 +636,7 @@ func (v *deflator_) PostprocessMethod(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessNotarizeClause(
+func (v *passivator_) PreprocessNotarizeClause(
 	notarizeClause doc.NotarizeClauseLike,
 	index_ uint,
 	count_ uint,
@@ -644,14 +644,14 @@ func (v *deflator_) PreprocessNotarizeClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessNotarizeClauseSlot(
+func (v *passivator_) ProcessNotarizeClauseSlot(
 	notarizeClause doc.NotarizeClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessNotarizeClause(
+func (v *passivator_) PostprocessNotarizeClause(
 	notarizeClause doc.NotarizeClauseLike,
 	index_ uint,
 	count_ uint,
@@ -659,7 +659,7 @@ func (v *deflator_) PostprocessNotarizeClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessOnClause(
+func (v *passivator_) PreprocessOnClause(
 	onClause doc.OnClauseLike,
 	index_ uint,
 	count_ uint,
@@ -667,14 +667,14 @@ func (v *deflator_) PreprocessOnClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessOnClauseSlot(
+func (v *passivator_) ProcessOnClauseSlot(
 	onClause doc.OnClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessOnClause(
+func (v *passivator_) PostprocessOnClause(
 	onClause doc.OnClauseLike,
 	index_ uint,
 	count_ uint,
@@ -682,7 +682,7 @@ func (v *deflator_) PostprocessOnClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessParameters(
+func (v *passivator_) PreprocessParameters(
 	parameters doc.ParametersLike,
 	index_ uint,
 	count_ uint,
@@ -690,14 +690,14 @@ func (v *deflator_) PreprocessParameters(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessParametersSlot(
+func (v *passivator_) ProcessParametersSlot(
 	parameters doc.ParametersLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessParameters(
+func (v *passivator_) PostprocessParameters(
 	parameters doc.ParametersLike,
 	index_ uint,
 	count_ uint,
@@ -705,7 +705,7 @@ func (v *deflator_) PostprocessParameters(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessPostClause(
+func (v *passivator_) PreprocessPostClause(
 	postClause doc.PostClauseLike,
 	index_ uint,
 	count_ uint,
@@ -713,14 +713,14 @@ func (v *deflator_) PreprocessPostClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessPostClauseSlot(
+func (v *passivator_) ProcessPostClauseSlot(
 	postClause doc.PostClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessPostClause(
+func (v *passivator_) PostprocessPostClause(
 	postClause doc.PostClauseLike,
 	index_ uint,
 	count_ uint,
@@ -728,7 +728,7 @@ func (v *deflator_) PostprocessPostClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessPrecedence(
+func (v *passivator_) PreprocessPrecedence(
 	precedence doc.PrecedenceLike,
 	index_ uint,
 	count_ uint,
@@ -736,14 +736,14 @@ func (v *deflator_) PreprocessPrecedence(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessPrecedenceSlot(
+func (v *passivator_) ProcessPrecedenceSlot(
 	precedence doc.PrecedenceLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessPrecedence(
+func (v *passivator_) PostprocessPrecedence(
 	precedence doc.PrecedenceLike,
 	index_ uint,
 	count_ uint,
@@ -751,7 +751,7 @@ func (v *deflator_) PostprocessPrecedence(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessPredicate(
+func (v *passivator_) PreprocessPredicate(
 	predicate doc.PredicateLike,
 	index_ uint,
 	count_ uint,
@@ -759,14 +759,14 @@ func (v *deflator_) PreprocessPredicate(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessPredicateSlot(
+func (v *passivator_) ProcessPredicateSlot(
 	predicate doc.PredicateLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessPredicate(
+func (v *passivator_) PostprocessPredicate(
 	predicate doc.PredicateLike,
 	index_ uint,
 	count_ uint,
@@ -774,7 +774,7 @@ func (v *deflator_) PostprocessPredicate(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessProcedure(
+func (v *passivator_) PreprocessProcedure(
 	procedure doc.ProcedureLike,
 	index_ uint,
 	count_ uint,
@@ -782,14 +782,14 @@ func (v *deflator_) PreprocessProcedure(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessProcedureSlot(
+func (v *passivator_) ProcessProcedureSlot(
 	procedure doc.ProcedureLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessProcedure(
+func (v *passivator_) PostprocessProcedure(
 	procedure doc.ProcedureLike,
 	index_ uint,
 	count_ uint,
@@ -797,7 +797,7 @@ func (v *deflator_) PostprocessProcedure(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessPublishClause(
+func (v *passivator_) PreprocessPublishClause(
 	publishClause doc.PublishClauseLike,
 	index_ uint,
 	count_ uint,
@@ -805,14 +805,14 @@ func (v *deflator_) PreprocessPublishClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessPublishClauseSlot(
+func (v *passivator_) ProcessPublishClauseSlot(
 	publishClause doc.PublishClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessPublishClause(
+func (v *passivator_) PostprocessPublishClause(
 	publishClause doc.PublishClauseLike,
 	index_ uint,
 	count_ uint,
@@ -820,7 +820,7 @@ func (v *deflator_) PostprocessPublishClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessRange(
+func (v *passivator_) PreprocessRange(
 	range_ doc.RangeLike,
 	index_ uint,
 	count_ uint,
@@ -828,14 +828,14 @@ func (v *deflator_) PreprocessRange(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessRangeSlot(
+func (v *passivator_) ProcessRangeSlot(
 	range_ doc.RangeLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessRange(
+func (v *passivator_) PostprocessRange(
 	range_ doc.RangeLike,
 	index_ uint,
 	count_ uint,
@@ -843,7 +843,7 @@ func (v *deflator_) PostprocessRange(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessReferent(
+func (v *passivator_) PreprocessReferent(
 	referent doc.ReferentLike,
 	index_ uint,
 	count_ uint,
@@ -851,14 +851,14 @@ func (v *deflator_) PreprocessReferent(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessReferentSlot(
+func (v *passivator_) ProcessReferentSlot(
 	referent doc.ReferentLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessReferent(
+func (v *passivator_) PostprocessReferent(
 	referent doc.ReferentLike,
 	index_ uint,
 	count_ uint,
@@ -866,7 +866,7 @@ func (v *deflator_) PostprocessReferent(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessRejectClause(
+func (v *passivator_) PreprocessRejectClause(
 	rejectClause doc.RejectClauseLike,
 	index_ uint,
 	count_ uint,
@@ -874,14 +874,14 @@ func (v *deflator_) PreprocessRejectClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessRejectClauseSlot(
+func (v *passivator_) ProcessRejectClauseSlot(
 	rejectClause doc.RejectClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessRejectClause(
+func (v *passivator_) PostprocessRejectClause(
 	rejectClause doc.RejectClauseLike,
 	index_ uint,
 	count_ uint,
@@ -889,7 +889,7 @@ func (v *deflator_) PostprocessRejectClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessRetrieveClause(
+func (v *passivator_) PreprocessRetrieveClause(
 	retrieveClause doc.RetrieveClauseLike,
 	index_ uint,
 	count_ uint,
@@ -897,14 +897,14 @@ func (v *deflator_) PreprocessRetrieveClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessRetrieveClauseSlot(
+func (v *passivator_) ProcessRetrieveClauseSlot(
 	retrieveClause doc.RetrieveClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessRetrieveClause(
+func (v *passivator_) PostprocessRetrieveClause(
 	retrieveClause doc.RetrieveClauseLike,
 	index_ uint,
 	count_ uint,
@@ -912,7 +912,7 @@ func (v *deflator_) PostprocessRetrieveClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessReturnClause(
+func (v *passivator_) PreprocessReturnClause(
 	returnClause doc.ReturnClauseLike,
 	index_ uint,
 	count_ uint,
@@ -920,14 +920,14 @@ func (v *deflator_) PreprocessReturnClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessReturnClauseSlot(
+func (v *passivator_) ProcessReturnClauseSlot(
 	returnClause doc.ReturnClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessReturnClause(
+func (v *passivator_) PostprocessReturnClause(
 	returnClause doc.ReturnClauseLike,
 	index_ uint,
 	count_ uint,
@@ -935,7 +935,7 @@ func (v *deflator_) PostprocessReturnClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessSaveClause(
+func (v *passivator_) PreprocessSaveClause(
 	saveClause doc.SaveClauseLike,
 	index_ uint,
 	count_ uint,
@@ -943,14 +943,14 @@ func (v *deflator_) PreprocessSaveClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessSaveClauseSlot(
+func (v *passivator_) ProcessSaveClauseSlot(
 	saveClause doc.SaveClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessSaveClause(
+func (v *passivator_) PostprocessSaveClause(
 	saveClause doc.SaveClauseLike,
 	index_ uint,
 	count_ uint,
@@ -958,7 +958,7 @@ func (v *deflator_) PostprocessSaveClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessSelectClause(
+func (v *passivator_) PreprocessSelectClause(
 	selectClause doc.SelectClauseLike,
 	index_ uint,
 	count_ uint,
@@ -966,14 +966,14 @@ func (v *deflator_) PreprocessSelectClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessSelectClauseSlot(
+func (v *passivator_) ProcessSelectClauseSlot(
 	selectClause doc.SelectClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessSelectClause(
+func (v *passivator_) PostprocessSelectClause(
 	selectClause doc.SelectClauseLike,
 	index_ uint,
 	count_ uint,
@@ -981,7 +981,7 @@ func (v *deflator_) PostprocessSelectClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessStatement(
+func (v *passivator_) PreprocessStatement(
 	statement doc.StatementLike,
 	index_ uint,
 	count_ uint,
@@ -989,14 +989,14 @@ func (v *deflator_) PreprocessStatement(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessStatementSlot(
+func (v *passivator_) ProcessStatementSlot(
 	statement doc.StatementLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessStatement(
+func (v *passivator_) PostprocessStatement(
 	statement doc.StatementLike,
 	index_ uint,
 	count_ uint,
@@ -1004,7 +1004,7 @@ func (v *deflator_) PostprocessStatement(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessSubcomponent(
+func (v *passivator_) PreprocessSubcomponent(
 	subcomponent doc.SubcomponentLike,
 	index_ uint,
 	count_ uint,
@@ -1012,14 +1012,14 @@ func (v *deflator_) PreprocessSubcomponent(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessSubcomponentSlot(
+func (v *passivator_) ProcessSubcomponentSlot(
 	subcomponent doc.SubcomponentLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessSubcomponent(
+func (v *passivator_) PostprocessSubcomponent(
 	subcomponent doc.SubcomponentLike,
 	index_ uint,
 	count_ uint,
@@ -1027,7 +1027,7 @@ func (v *deflator_) PostprocessSubcomponent(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessThrowClause(
+func (v *passivator_) PreprocessThrowClause(
 	throwClause doc.ThrowClauseLike,
 	index_ uint,
 	count_ uint,
@@ -1035,14 +1035,14 @@ func (v *deflator_) PreprocessThrowClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessThrowClauseSlot(
+func (v *passivator_) ProcessThrowClauseSlot(
 	throwClause doc.ThrowClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessThrowClause(
+func (v *passivator_) PostprocessThrowClause(
 	throwClause doc.ThrowClauseLike,
 	index_ uint,
 	count_ uint,
@@ -1050,7 +1050,7 @@ func (v *deflator_) PostprocessThrowClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessWhileClause(
+func (v *passivator_) PreprocessWhileClause(
 	whileClause doc.WhileClauseLike,
 	index_ uint,
 	count_ uint,
@@ -1058,14 +1058,14 @@ func (v *deflator_) PreprocessWhileClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessWhileClauseSlot(
+func (v *passivator_) ProcessWhileClauseSlot(
 	whileClause doc.WhileClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessWhileClause(
+func (v *passivator_) PostprocessWhileClause(
 	whileClause doc.WhileClauseLike,
 	index_ uint,
 	count_ uint,
@@ -1073,7 +1073,7 @@ func (v *deflator_) PostprocessWhileClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PreprocessWithClause(
+func (v *passivator_) PreprocessWithClause(
 	withClause doc.WithClauseLike,
 	index_ uint,
 	count_ uint,
@@ -1081,14 +1081,14 @@ func (v *deflator_) PreprocessWithClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) ProcessWithClauseSlot(
+func (v *passivator_) ProcessWithClauseSlot(
 	withClause doc.WithClauseLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *deflator_) PostprocessWithClause(
+func (v *passivator_) PostprocessWithClause(
 	withClause doc.WithClauseLike,
 	index_ uint,
 	count_ uint,
@@ -1102,22 +1102,22 @@ func (v *deflator_) PostprocessWithClause(
 
 // Instance Structure
 
-type deflator_ struct {
+type passivator_ struct {
 	// Declare the instance attributes.
 }
 
 // Class Structure
 
-type deflatorClass_ struct {
+type passivatorClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func deflatorClass() *deflatorClass_ {
-	return deflatorClassReference_
+func passivatorClass() *passivatorClass_ {
+	return passivatorClassReference_
 }
 
-var deflatorClassReference_ = &deflatorClass_{
+var passivatorClassReference_ = &passivatorClass_{
 	// Initialize the class constants.
 }
