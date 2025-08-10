@@ -74,163 +74,215 @@ func (v *passivator_) PassivateDocument(
 func (v *passivator_) ProcessAngle(
 	angle fra.AngleLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(angle.AsString())
 }
 
 func (v *passivator_) ProcessAnnotation(
 	annotation string,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(annotation)
 }
 
 func (v *passivator_) ProcessAssignment(
 	assignment doc.Assignment,
 ) {
-	// TBD - Add the method implementation.
+	switch assignment {
+	case doc.Equals:
+		v.stack_.AddValue(":=")
+	case doc.EqualsDefault:
+		v.stack_.AddValue("?=")
+	case doc.EqualsPlus:
+		v.stack_.AddValue("+=")
+	case doc.EqualsMinus:
+		v.stack_.AddValue("-=")
+	case doc.EqualsTimes:
+		v.stack_.AddValue("*=")
+	case doc.EqualsDivide:
+		v.stack_.AddValue("/=")
+	}
 }
 
 func (v *passivator_) ProcessBinary(
 	binary fra.BinaryLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(binary.AsString())
 }
 
 func (v *passivator_) ProcessBoolean(
 	boolean fra.BooleanLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(boolean.AsString())
 }
 
 func (v *passivator_) ProcessBytecode(
 	bytecode ass.BytecodeLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(bytecode.AsString())
 }
 
 func (v *passivator_) ProcessComment(
 	comment string,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(comment)
 }
 
 func (v *passivator_) ProcessDuration(
 	duration fra.DurationLike,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessExtent(
-	extent doc.Extent,
-) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(duration.AsString())
 }
 
 func (v *passivator_) ProcessGlyph(
 	glyph fra.GlyphLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(glyph.AsString())
 }
 
 func (v *passivator_) ProcessIdentifier(
 	identifier string,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(identifier)
 }
 
 func (v *passivator_) ProcessInverse(
 	inverse doc.Inverse,
 ) {
-	// TBD - Add the method implementation.
+	switch inverse {
+	case doc.Additive:
+		v.stack_.AddValue("-")
+	case doc.Multiplicative:
+		v.stack_.AddValue("/")
+	case doc.Conjugate:
+		v.stack_.AddValue("*")
+	}
 }
 
 func (v *passivator_) ProcessInvoke(
 	invoke doc.Invoke,
 ) {
-	// TBD - Add the method implementation.
+	switch invoke {
+	case doc.Synchronous:
+		v.stack_.AddValue("<-")
+	case doc.Asynchronous:
+		v.stack_.AddValue("<~")
+	}
 }
 
 func (v *passivator_) ProcessMoment(
 	moment fra.MomentLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(moment.AsString())
 }
 
 func (v *passivator_) ProcessName(
 	name fra.NameLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(name.AsString())
 }
 
 func (v *passivator_) ProcessNarrative(
 	narrative fra.NarrativeLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(narrative.AsString())
 }
 
 func (v *passivator_) ProcessNote(
 	note string,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(note)
 }
 
 func (v *passivator_) ProcessNumber(
 	number fra.NumberLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(number.AsString())
 }
 
 func (v *passivator_) ProcessOperator(
 	operator doc.Operator,
 ) {
-	// TBD - Add the method implementation.
+	switch operator {
+	case doc.Chain:
+		v.stack_.AddValue("&")
+	case doc.And:
+		v.stack_.AddValue("and")
+	case doc.San:
+		v.stack_.AddValue("san")
+	case doc.Ior:
+		v.stack_.AddValue("ior")
+	case doc.Eor:
+		v.stack_.AddValue("eor")
+	case doc.Plus:
+		v.stack_.AddValue("+")
+	case doc.Minus:
+		v.stack_.AddValue("-")
+	case doc.Times:
+		v.stack_.AddValue("*")
+	case doc.Divide:
+		v.stack_.AddValue("/")
+	case doc.Remainder:
+		v.stack_.AddValue("%")
+	case doc.Power:
+		v.stack_.AddValue("^")
+	case doc.Less:
+		v.stack_.AddValue("<")
+	case doc.Equal:
+		v.stack_.AddValue("=")
+	case doc.More:
+		v.stack_.AddValue(">")
+	case doc.Is:
+		v.stack_.AddValue("is")
+	case doc.Matches:
+		v.stack_.AddValue("matches")
+	}
 }
 
 func (v *passivator_) ProcessPattern(
 	pattern fra.PatternLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(pattern.AsString())
 }
 
 func (v *passivator_) ProcessPercentage(
 	percentage fra.PercentageLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(percentage.AsString())
 }
 
 func (v *passivator_) ProcessProbability(
 	probability fra.ProbabilityLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(probability.AsString())
 }
 
 func (v *passivator_) ProcessQuote(
 	quote fra.QuoteLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(quote.AsString())
 }
 
 func (v *passivator_) ProcessResource(
 	resource fra.ResourceLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(resource.AsString())
 }
 
 func (v *passivator_) ProcessSymbol(
 	symbol fra.SymbolLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(symbol.AsString())
 }
 
 func (v *passivator_) ProcessTag(
 	tag fra.TagLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(tag.AsString())
 }
 
 func (v *passivator_) ProcessVersion(
 	version fra.VersionLike,
 ) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(version.AsString())
 }
 
 func (v *passivator_) PreprocessAcceptClause(
