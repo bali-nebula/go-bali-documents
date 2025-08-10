@@ -13,6 +13,7 @@
 package agents
 
 import (
+	fmt "fmt"
 	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
@@ -32,6 +33,10 @@ func PassivatorClass() PassivatorClassLike {
 func (c *passivatorClass_) Passivator() PassivatorLike {
 	var instance = &passivator_{
 		// Initialize the instance attributes.
+		stack_: fra.Stack[any](),
+
+		// Initialize the inherited aspects.
+		Methodical: ProcessorClass().Processor(),
 	}
 	return instance
 }
@@ -51,9 +56,15 @@ func (v *passivator_) GetClass() PassivatorClassLike {
 func (v *passivator_) PassivateDocument(
 	document doc.DocumentLike,
 ) not.DocumentLike {
-	var result_ not.DocumentLike
-	// TBD - Add the method implementation.
-	return result_
+	VisitorClass().Visitor(v).VisitDocument(document)
+	if v.stack_.GetSize() != 1 {
+		var message = fmt.Sprintf(
+			"Internal Error: the passivator stack is corrupted: %v",
+			v.stack_,
+		)
+		panic(message)
+	}
+	return v.stack_.RemoveLast().(not.DocumentLike)
 }
 
 // Attribute Methods
@@ -1104,6 +1115,10 @@ func (v *passivator_) PostprocessWithClause(
 
 type passivator_ struct {
 	// Declare the instance attributes.
+	stack_ fra.StackLike[any]
+
+	// Declare the inherited aspects.
+	Methodical
 }
 
 // Class Structure
