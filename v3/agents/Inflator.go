@@ -262,7 +262,7 @@ func (v *inflator_) ProcessCheckoutClauseSlot(
 	switch slot_ {
 	case 3:
 		if uti.IsUndefined(checkoutClause.GetOptionalAtLevel()) {
-			v.stack_.AddValue(fra.Number(0))
+			v.stack_.AddValue(nil)
 		}
 	}
 }
