@@ -57,7 +57,7 @@ func (v *visitor_) GetClass() VisitorClassLike {
 func (v *visitor_) VisitDocument(
 	document doc.DocumentLike,
 ) {
-	// TBD - Add the method implementation.
+	v.visitDocument(document)
 }
 
 // Attribute Methods
@@ -942,7 +942,12 @@ func (v *visitor_) visitRange(
 func (v *visitor_) visitRecipient(
 	recipient any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := recipient.(type) {
+	case doc.SubcomponentLike:
+		v.visitSubcomponent(actual)
+	case fra.SymbolLike:
+		v.processor_.ProcessSymbol(actual)
+	}
 }
 
 func (v *visitor_) visitReferent(
@@ -1129,13 +1134,43 @@ func (v *visitor_) visitSubcomponent(
 func (v *visitor_) visitSubject(
 	subject any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := subject.(type) {
+	case doc.DocumentLike:
+		v.visitDocument(actual)
+	case doc.SubcomponentLike:
+		v.visitSubcomponent(actual)
+	case doc.PrecedenceLike:
+		v.visitPrecedence(actual)
+	case doc.ReferentLike:
+		v.visitReferent(actual)
+	case doc.ComplementLike:
+		v.visitComplement(actual)
+	case doc.InversionLike:
+		v.visitInversion(actual)
+	case doc.MagnitudeLike:
+		v.visitMagnitude(actual)
+	case doc.FunctionLike:
+		v.visitFunction(actual)
+	case doc.MethodLike:
+		v.visitMethod(actual)
+	case string:
+		v.processor_.ProcessIdentifier(actual)
+	}
 }
 
 func (v *visitor_) visitTarget(
 	target any,
 ) {
-	panic("Not yet implemented.")
+	switch actual := target.(type) {
+	case doc.SubcomponentLike:
+		v.visitSubcomponent(actual)
+	case doc.FunctionLike:
+		v.visitFunction(actual)
+	case doc.MethodLike:
+		v.visitMethod(actual)
+	case string:
+		v.processor_.ProcessIdentifier(actual)
+	}
 }
 
 func (v *visitor_) visitThrowClause(
