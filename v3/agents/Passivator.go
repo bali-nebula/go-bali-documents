@@ -18,6 +18,7 @@ import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
+	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
 // CLASS INTERFACE
@@ -285,42 +286,13 @@ func (v *passivator_) ProcessVersion(
 	v.stack_.AddValue(version.AsString())
 }
 
-func (v *passivator_) PreprocessAcceptClause(
-	acceptClause doc.AcceptClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessAcceptClauseSlot(
-	acceptClause doc.AcceptClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *passivator_) PostprocessAcceptClause(
 	acceptClause doc.AcceptClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessAttributes(
-	attributes doc.AttributesLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessAttributesSlot(
-	attributes doc.AttributesLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var message = v.stack_.RemoveLast().(not.MessageLike)
+	v.stack_.AddValue(not.AcceptClause("accept", message))
 }
 
 func (v *passivator_) PostprocessAttributes(
@@ -328,22 +300,17 @@ func (v *passivator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessBreakClause(
-	breakClause doc.BreakClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessBreakClauseSlot(
-	breakClause doc.BreakClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var list = fra.List[not.AssociationLike]()
+	var associations = attributes.GetAssociations()
+	var iterator = associations.GetIterator()
+	for iterator.HasNext() {
+		var document = v.stack_.RemoveLast().(not.DocumentLike)
+		var primitive = v.stack_.RemoveLast().(not.PrimitiveLike)
+		var association = not.Association(primitive, ":", document)
+		list.AppendValue(association)
+	}
+	list.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(list)
 }
 
 func (v *passivator_) PostprocessBreakClause(
@@ -351,22 +318,19 @@ func (v *passivator_) PostprocessBreakClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessCheckoutClause(
-	checkoutClause doc.CheckoutClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(not.BreakClause("break", "loop"))
 }
 
 func (v *passivator_) ProcessCheckoutClauseSlot(
 	checkoutClause doc.CheckoutClauseLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
+	switch slot_ {
+	case 2:
+		if uti.IsUndefined(checkoutClause.GetOptionalAtLevel()) {
+			v.stack_.AddValue(nil)
+		}
+	}
 }
 
 func (v *passivator_) PostprocessCheckoutClause(
@@ -374,22 +338,18 @@ func (v *passivator_) PostprocessCheckoutClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessComplement(
-	complement doc.ComplementLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessComplementSlot(
-	complement doc.ComplementLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var cited = v.stack_.RemoveLast().(not.CitedLike)
+	var atLevel = v.stack_.RemoveLast().(not.AtLevelLike)
+	var recipient = v.stack_.RemoveLast().(not.RecipientLike)
+	v.stack_.AddValue(
+		not.CheckoutClause(
+			"checkout",
+			recipient,
+			atLevel,
+			"from",
+			cited,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessComplement(
@@ -397,22 +357,14 @@ func (v *passivator_) PostprocessComplement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessContinueClause(
-	continueClause doc.ContinueClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessContinueClauseSlot(
-	continueClause doc.ContinueClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var logical = v.stack_.RemoveLast().(not.LogicalLike)
+	var delimiter = v.stack_.RemoveLast().(string)
+	v.stack_.AddValue(
+		not.Complement(
+			delimiter,
+			logical,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessContinueClause(
@@ -420,22 +372,7 @@ func (v *passivator_) PostprocessContinueClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessDiscardClause(
-	discardClause doc.DiscardClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessDiscardClauseSlot(
-	discardClause doc.DiscardClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	v.stack_.AddValue(not.ContinueClause("continue", "loop"))
 }
 
 func (v *passivator_) PostprocessDiscardClause(
@@ -443,22 +380,13 @@ func (v *passivator_) PostprocessDiscardClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessDoClause(
-	doClause doc.DoClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessDoClauseSlot(
-	doClause doc.DoClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var draft = v.stack_.RemoveLast().(not.DraftLike)
+	v.stack_.AddValue(
+		not.DiscardClause(
+			"discard",
+			draft,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessDoClause(
@@ -466,22 +394,25 @@ func (v *passivator_) PostprocessDoClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessDocument(
-	document doc.DocumentLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
+	var invocation = v.stack_.RemoveLast().(not.InvocationLike)
+	v.stack_.AddValue(
+		not.DoClause(
+			"do",
+			invocation,
+		),
+	)
 }
 
 func (v *passivator_) ProcessDocumentSlot(
 	document doc.DocumentLike,
 	slot_ uint,
 ) {
-	// TBD - Add the method implementation.
+	switch slot_ {
+	case 2:
+		if uti.IsUndefined(document.GetOptionalParameters()) {
+			v.stack_.AddValue(nil)
+		}
+	}
 }
 
 func (v *passivator_) PostprocessDocument(
@@ -489,22 +420,16 @@ func (v *passivator_) PostprocessDocument(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessExpression(
-	expression doc.ExpressionLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessExpressionSlot(
-	expression doc.ExpressionLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var note = v.stack_.RemoveLast().(string)
+	var parameters = v.stack_.RemoveLast().(not.ParametersLike)
+	var component = v.stack_.RemoveLast().(not.ComponentLike)
+	v.stack_.AddValue(
+		not.Document(
+			component,
+			parameters,
+			note,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessExpression(
@@ -512,22 +437,14 @@ func (v *passivator_) PostprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessFunction(
-	function doc.FunctionLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessFunctionSlot(
-	function doc.FunctionLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var predicates = v.stack_.RemoveLast().(fra.ListLike[not.PredicateLike])
+	var subject = v.stack_.RemoveLast().(not.SubjectLike)
+	v.stack_.AddValue(
+		not.Expression(
+			subject,
+			predicates,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessFunction(
@@ -535,22 +452,16 @@ func (v *passivator_) PostprocessFunction(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessIfClause(
-	ifClause doc.IfClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessIfClauseSlot(
-	ifClause doc.IfClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var arguments = v.stack_.RemoveLast().(fra.ListLike[not.ArgumentLike])
+	var identifier = v.stack_.RemoveLast().(string)
+	v.stack_.AddValue(
+		not.Function(
+			identifier,
+			"(",
+			arguments,
+			")",
+		),
+	)
 }
 
 func (v *passivator_) PostprocessIfClause(
@@ -558,22 +469,16 @@ func (v *passivator_) PostprocessIfClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessInversion(
-	inversion doc.InversionLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessInversionSlot(
-	inversion doc.InversionLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
+	var condition = v.stack_.RemoveLast().(not.ConditionLike)
+	v.stack_.AddValue(
+		not.IfClause(
+			"if",
+			condition,
+			"do",
+			procedure,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessInversion(
@@ -581,22 +486,14 @@ func (v *passivator_) PostprocessInversion(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessItems(
-	items doc.ItemsLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessItemsSlot(
-	items doc.ItemsLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var numerical = v.stack_.RemoveLast().(not.NumericalLike)
+	var inverse = v.stack_.RemoveLast().(not.InverseLike)
+	v.stack_.AddValue(
+		not.Inversion(
+			inverse,
+			numerical,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessItems(
@@ -604,22 +501,14 @@ func (v *passivator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessLetClause(
-	letClause doc.LetClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessLetClauseSlot(
-	letClause doc.LetClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var entities = v.stack_.RemoveLast().(fra.ListLike[not.EntityLike])
+	v.stack_.AddValue(
+		not.Items(
+			"[",
+			entities,
+			"]",
+		),
+	)
 }
 
 func (v *passivator_) PostprocessLetClause(
@@ -627,22 +516,17 @@ func (v *passivator_) PostprocessLetClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessMagnitude(
-	magnitude doc.MagnitudeLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessMagnitudeSlot(
-	magnitude doc.MagnitudeLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var assignment = v.stack_.RemoveLast().(not.AssignmentLike)
+	var recipient = v.stack_.RemoveLast().(not.RecipientLike)
+	v.stack_.AddValue(
+		not.LetClause(
+			"let",
+			recipient,
+			assignment,
+			expression,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessMagnitude(
@@ -650,22 +534,14 @@ func (v *passivator_) PostprocessMagnitude(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessMatchingClause(
-	matchingClause doc.MatchingClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessMatchingClauseSlot(
-	matchingClause doc.MatchingClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	v.stack_.AddValue(
+		not.Magnitude(
+			"|",
+			expression,
+			"|",
+		),
+	)
 }
 
 func (v *passivator_) PostprocessMatchingClause(
@@ -673,22 +549,16 @@ func (v *passivator_) PostprocessMatchingClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessMethod(
-	method doc.MethodLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessMethodSlot(
-	method doc.MethodLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
+	var template = v.stack_.RemoveLast().(not.TemplateLike)
+	v.stack_.AddValue(
+		not.MatchingClause(
+			"matching",
+			template,
+			"do",
+			procedure,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessMethod(
@@ -696,22 +566,20 @@ func (v *passivator_) PostprocessMethod(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessNotarizeClause(
-	notarizeClause doc.NotarizeClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessNotarizeClauseSlot(
-	notarizeClause doc.NotarizeClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var arguments = v.stack_.RemoveLast().(fra.ListLike[not.ArgumentLike])
+	var identifier = v.stack_.RemoveLast().(string)
+	var invoke = v.stack_.RemoveLast().(not.InvokeLike)
+	var target = v.stack_.RemoveLast().(string)
+	v.stack_.AddValue(
+		not.Method(
+			target,
+			invoke,
+			identifier,
+			"(",
+			arguments,
+			")",
+		),
+	)
 }
 
 func (v *passivator_) PostprocessNotarizeClause(
@@ -719,22 +587,16 @@ func (v *passivator_) PostprocessNotarizeClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessOnClause(
-	onClause doc.OnClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessOnClauseSlot(
-	onClause doc.OnClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var cited = v.stack_.RemoveLast().(not.CitedLike)
+	var draft = v.stack_.RemoveLast().(not.DraftLike)
+	v.stack_.AddValue(
+		not.NotarizeClause(
+			"notarize",
+			draft,
+			"as",
+			cited,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessOnClause(
@@ -742,43 +604,21 @@ func (v *passivator_) PostprocessOnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessParameters(
-	parameters doc.ParametersLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessParametersSlot(
-	parameters doc.ParametersLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
+	var matchingClauses = v.stack_.RemoveLast().(fra.ListLike[not.MatchingClauseLike])
+	var failure = v.stack_.RemoveLast().(not.FailureLike)
+	v.stack_.AddValue(
+		not.OnClause(
+			"on",
+			failure,
+			matchingClauses,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessParameters(
 	parameters doc.ParametersLike,
 	index_ uint,
 	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessPostClause(
-	postClause doc.PostClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessPostClauseSlot(
-	postClause doc.PostClauseLike,
-	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -791,40 +631,10 @@ func (v *passivator_) PostprocessPostClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *passivator_) PreprocessPrecedence(
-	precedence doc.PrecedenceLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessPrecedenceSlot(
-	precedence doc.PrecedenceLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *passivator_) PostprocessPrecedence(
 	precedence doc.PrecedenceLike,
 	index_ uint,
 	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessPredicate(
-	predicate doc.PredicateLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessPredicateSlot(
-	predicate doc.PredicateLike,
-	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -837,40 +647,10 @@ func (v *passivator_) PostprocessPredicate(
 	// TBD - Add the method implementation.
 }
 
-func (v *passivator_) PreprocessProcedure(
-	procedure doc.ProcedureLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessProcedureSlot(
-	procedure doc.ProcedureLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *passivator_) PostprocessProcedure(
 	procedure doc.ProcedureLike,
 	index_ uint,
 	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessPublishClause(
-	publishClause doc.PublishClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessPublishClauseSlot(
-	publishClause doc.PublishClauseLike,
-	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -891,32 +671,10 @@ func (v *passivator_) PreprocessRange(
 	// TBD - Add the method implementation.
 }
 
-func (v *passivator_) ProcessRangeSlot(
-	range_ doc.RangeLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *passivator_) PostprocessRange(
 	range_ doc.RangeLike,
 	index_ uint,
 	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessReferent(
-	referent doc.ReferentLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessReferentSlot(
-	referent doc.ReferentLike,
-	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -929,40 +687,10 @@ func (v *passivator_) PostprocessReferent(
 	// TBD - Add the method implementation.
 }
 
-func (v *passivator_) PreprocessRejectClause(
-	rejectClause doc.RejectClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessRejectClauseSlot(
-	rejectClause doc.RejectClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *passivator_) PostprocessRejectClause(
 	rejectClause doc.RejectClauseLike,
 	index_ uint,
 	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessRetrieveClause(
-	retrieveClause doc.RetrieveClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessRetrieveClauseSlot(
-	retrieveClause doc.RetrieveClauseLike,
-	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -975,40 +703,10 @@ func (v *passivator_) PostprocessRetrieveClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *passivator_) PreprocessReturnClause(
-	returnClause doc.ReturnClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessReturnClauseSlot(
-	returnClause doc.ReturnClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *passivator_) PostprocessReturnClause(
 	returnClause doc.ReturnClauseLike,
 	index_ uint,
 	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessSaveClause(
-	saveClause doc.SaveClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessSaveClauseSlot(
-	saveClause doc.SaveClauseLike,
-	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -1021,40 +719,10 @@ func (v *passivator_) PostprocessSaveClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *passivator_) PreprocessSelectClause(
-	selectClause doc.SelectClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessSelectClauseSlot(
-	selectClause doc.SelectClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *passivator_) PostprocessSelectClause(
 	selectClause doc.SelectClauseLike,
 	index_ uint,
 	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessStatement(
-	statement doc.StatementLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessStatementSlot(
-	statement doc.StatementLike,
-	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -1067,40 +735,10 @@ func (v *passivator_) PostprocessStatement(
 	// TBD - Add the method implementation.
 }
 
-func (v *passivator_) PreprocessSubcomponent(
-	subcomponent doc.SubcomponentLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessSubcomponentSlot(
-	subcomponent doc.SubcomponentLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *passivator_) PostprocessSubcomponent(
 	subcomponent doc.SubcomponentLike,
 	index_ uint,
 	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessThrowClause(
-	throwClause doc.ThrowClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessThrowClauseSlot(
-	throwClause doc.ThrowClauseLike,
-	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -1113,40 +751,10 @@ func (v *passivator_) PostprocessThrowClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *passivator_) PreprocessWhileClause(
-	whileClause doc.WhileClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessWhileClauseSlot(
-	whileClause doc.WhileClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *passivator_) PostprocessWhileClause(
 	whileClause doc.WhileClauseLike,
 	index_ uint,
 	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessWithClause(
-	withClause doc.WithClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) ProcessWithClauseSlot(
-	withClause doc.WithClauseLike,
-	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
