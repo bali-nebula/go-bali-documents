@@ -232,21 +232,6 @@ func (v *activator_) PostprocessAttributes(
 	v.stack_.AddValue(catalog)
 }
 
-func (v *activator_) PostprocessBra(
-	bra not.BraLike,
-	index_ uint,
-	count_ uint,
-) {
-	var extent doc.Extent
-	switch bra.GetAny().(string) {
-	case "[":
-		extent = doc.Inclusive
-	case "(":
-		extent = doc.Exclusive
-	}
-	v.stack_.AddValue(extent)
-}
-
 func (v *activator_) PostprocessBreakClause(
 	breakClause not.BreakClauseLike,
 	index_ uint,
@@ -311,8 +296,8 @@ func (v *activator_) PostprocessDoClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var invocation = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.DoClauseClass().DoClause(invocation))
+	var method = v.stack_.RemoveLast().(doc.MethodLike)
+	v.stack_.AddValue(doc.DoClauseClass().DoClause(method))
 }
 
 func (v *activator_) ProcessDocumentSlot(
@@ -339,6 +324,22 @@ func (v *activator_) PostprocessDocument(
 	var parameters = v.stack_.RemoveLast().(doc.ParametersLike)
 	var component = v.stack_.RemoveLast()
 	v.stack_.AddValue(doc.DocumentClass().Document(component, parameters, note))
+}
+
+func (v *activator_) PostprocessEntities(
+	entities not.EntitiesLike,
+	index_ uint,
+	count_ uint,
+) {
+	var list = fra.List[doc.DocumentLike]()
+	var items = entities.GetItems()
+	var iterator = items.GetIterator()
+	for iterator.HasNext() {
+		var document = v.stack_.RemoveLast().(doc.DocumentLike)
+		list.AppendValue(document)
+	}
+	list.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(list)
 }
 
 func (v *activator_) PostprocessExpression(
@@ -381,32 +382,16 @@ func (v *activator_) PostprocessInversion(
 	v.stack_.AddValue(doc.InversionClass().Inversion(inverse, numerical))
 }
 
-func (v *activator_) PostprocessItems(
-	items not.ItemsLike,
-	index_ uint,
-	count_ uint,
-) {
-	var list = fra.List[doc.DocumentLike]()
-	var entities = items.GetEntities()
-	var iterator = entities.GetIterator()
-	for iterator.HasNext() {
-		var document = v.stack_.RemoveLast().(doc.DocumentLike)
-		list.AppendValue(document)
-	}
-	list.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(list)
-}
-
-func (v *activator_) PostprocessKet(
-	ket not.KetLike,
+func (v *activator_) PostprocessLeft(
+	left not.LeftLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var extent doc.Extent
-	switch ket.GetAny().(string) {
-	case "]":
+	switch left.GetAny().(string) {
+	case "[":
 		extent = doc.Inclusive
-	case ")":
+	case "(":
 		extent = doc.Exclusive
 	}
 	v.stack_.AddValue(extent)
@@ -615,6 +600,21 @@ func (v *activator_) PostprocessReturnClause(
 	v.stack_.AddValue(doc.ReturnClauseClass().ReturnClause(result))
 }
 
+func (v *activator_) PostprocessRight(
+	right not.RightLike,
+	index_ uint,
+	count_ uint,
+) {
+	var extent doc.Extent
+	switch right.GetAny().(string) {
+	case "]":
+		extent = doc.Inclusive
+	case ")":
+		extent = doc.Exclusive
+	}
+	v.stack_.AddValue(extent)
+}
+
 func (v *activator_) PostprocessSaveClause(
 	saveClause not.SaveClauseLike,
 	index_ uint,
@@ -640,9 +640,9 @@ func (v *activator_) PostprocessSelectClause(
 		list.AppendValue(matchingClause)
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
-	var target = v.stack_.RemoveLast()
+	var expression = v.stack_.RemoveLast().(doc.ExpressionLike)
 	v.stack_.AddValue(
-		doc.SelectClauseClass().SelectClause(target, list),
+		doc.SelectClauseClass().SelectClause(expression, list),
 	)
 }
 

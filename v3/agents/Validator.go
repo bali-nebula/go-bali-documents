@@ -429,6 +429,29 @@ func (v *validator_) PostprocessDocument(
 	// TBD - Add the method implementation.
 }
 
+func (v *validator_) PreprocessEntities(
+	entities doc.EntitiesLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) ProcessEntitiesSlot(
+	entities doc.EntitiesLike,
+	slot_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) PostprocessEntities(
+	entities doc.EntitiesLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *validator_) PreprocessExpression(
 	expression doc.ExpressionLike,
 	index_ uint,
@@ -515,29 +538,6 @@ func (v *validator_) ProcessInversionSlot(
 
 func (v *validator_) PostprocessInversion(
 	inversion doc.InversionLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) PreprocessItems(
-	items doc.ItemsLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) ProcessItemsSlot(
-	items doc.ItemsLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) PostprocessItems(
-	items doc.ItemsLike,
 	index_ uint,
 	count_ uint,
 ) {

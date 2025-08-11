@@ -42,19 +42,19 @@ import (
 // Agents
 
 type (
-	DeflatorClassLike  = age.DeflatorClassLike
-	InflatorClassLike  = age.InflatorClassLike
-	ProcessorClassLike = age.ProcessorClassLike
-	ValidatorClassLike = age.ValidatorClassLike
-	VisitorClassLike   = age.VisitorClassLike
+	ActivatorClassLike  = age.ActivatorClassLike
+	PassivatorClassLike = age.PassivatorClassLike
+	ProcessorClassLike  = age.ProcessorClassLike
+	ValidatorClassLike  = age.ValidatorClassLike
+	VisitorClassLike    = age.VisitorClassLike
 )
 
 type (
-	DeflatorLike  = age.DeflatorLike
-	InflatorLike  = age.InflatorLike
-	ProcessorLike = age.ProcessorLike
-	ValidatorLike = age.ValidatorLike
-	VisitorLike   = age.VisitorLike
+	ActivatorLike  = age.ActivatorLike
+	PassivatorLike = age.PassivatorLike
+	ProcessorLike  = age.ProcessorLike
+	ValidatorLike  = age.ValidatorLike
+	VisitorLike    = age.VisitorLike
 )
 
 type (
@@ -163,11 +163,11 @@ type (
 	DiscardClauseClassLike  = doc.DiscardClauseClassLike
 	DoClauseClassLike       = doc.DoClauseClassLike
 	DocumentClassLike       = doc.DocumentClassLike
+	EntitiesClassLike       = doc.EntitiesClassLike
 	ExpressionClassLike     = doc.ExpressionClassLike
 	FunctionClassLike       = doc.FunctionClassLike
 	IfClauseClassLike       = doc.IfClauseClassLike
 	InversionClassLike      = doc.InversionClassLike
-	ItemsClassLike          = doc.ItemsClassLike
 	LetClauseClassLike      = doc.LetClauseClassLike
 	MagnitudeClassLike      = doc.MagnitudeClassLike
 	MatchingClauseClassLike = doc.MatchingClauseClassLike
@@ -204,11 +204,11 @@ type (
 	DiscardClauseLike  = doc.DiscardClauseLike
 	DoClauseLike       = doc.DoClauseLike
 	DocumentLike       = doc.DocumentLike
+	EntitiesLike       = doc.EntitiesLike
 	ExpressionLike     = doc.ExpressionLike
 	FunctionLike       = doc.FunctionLike
 	IfClauseLike       = doc.IfClauseLike
 	InversionLike      = doc.InversionLike
-	ItemsLike          = doc.ItemsLike
 	LetClauseLike      = doc.LetClauseLike
 	MagnitudeLike      = doc.MagnitudeLike
 	MatchingClauseLike = doc.MatchingClauseLike
@@ -239,20 +239,20 @@ type (
 
 // Agents
 
-func DeflatorClass() DeflatorClassLike {
-	return age.DeflatorClass()
+func ActivatorClass() ActivatorClassLike {
+	return age.ActivatorClass()
 }
 
-func Deflator() DeflatorLike {
-	return DeflatorClass().Deflator()
+func Activator() ActivatorLike {
+	return ActivatorClass().Activator()
 }
 
-func InflatorClass() InflatorClassLike {
-	return age.InflatorClass()
+func PassivatorClass() PassivatorClassLike {
+	return age.PassivatorClass()
 }
 
-func Inflator() InflatorLike {
-	return InflatorClass().Inflator()
+func Passivator() PassivatorLike {
+	return PassivatorClass().Passivator()
 }
 
 func ProcessorClass() ProcessorClassLike {
@@ -416,10 +416,10 @@ func DoClauseClass() DoClauseClassLike {
 }
 
 func DoClause(
-	invocation any,
+	method doc.MethodLike,
 ) DoClauseLike {
 	return DoClauseClass().DoClause(
-		invocation,
+		method,
 	)
 }
 
@@ -436,6 +436,18 @@ func Document(
 		component,
 		optionalParameters,
 		optionalNote,
+	)
+}
+
+func EntitiesClass() EntitiesClassLike {
+	return doc.EntitiesClass()
+}
+
+func Entities(
+	items fra.ListLike[doc.DocumentLike],
+) EntitiesLike {
+	return EntitiesClass().Entities(
+		items,
 	)
 }
 
@@ -492,18 +504,6 @@ func Inversion(
 	return InversionClass().Inversion(
 		inverse,
 		numerical,
-	)
-}
-
-func ItemsClass() ItemsClassLike {
-	return doc.ItemsClass()
-}
-
-func Items(
-	entities fra.ListLike[doc.DocumentLike],
-) ItemsLike {
-	return ItemsClass().Items(
-		entities,
 	)
 }
 
@@ -694,10 +694,10 @@ func ReferentClass() ReferentClassLike {
 }
 
 func Referent(
-	indirect any,
+	reference any,
 ) ReferentLike {
 	return ReferentClass().Referent(
-		indirect,
+		reference,
 	)
 }
 
@@ -758,11 +758,11 @@ func SelectClauseClass() SelectClauseClassLike {
 }
 
 func SelectClause(
-	target any,
+	expression doc.ExpressionLike,
 	matchingClauses fra.ListLike[doc.MatchingClauseLike],
 ) SelectClauseLike {
 	return SelectClauseClass().SelectClause(
-		target,
+		expression,
 		matchingClauses,
 	)
 }

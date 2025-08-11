@@ -21,21 +21,21 @@ import (
 
 // Access Function
 
-func ItemsClass() ItemsClassLike {
-	return itemsClass()
+func EntitiesClass() EntitiesClassLike {
+	return entitiesClass()
 }
 
 // Constructor Methods
 
-func (c *itemsClass_) Items(
-	entities fra.ListLike[DocumentLike],
-) ItemsLike {
-	if uti.IsUndefined(entities) {
-		panic("The \"entities\" attribute is required by this class.")
+func (c *entitiesClass_) Entities(
+	items fra.ListLike[DocumentLike],
+) EntitiesLike {
+	if uti.IsUndefined(items) {
+		panic("The \"items\" attribute is required by this class.")
 	}
-	var instance = &items_{
+	var instance = &entities_{
 		// Initialize the instance attributes.
-		entities_: entities,
+		items_: items,
 	}
 	return instance
 }
@@ -48,14 +48,14 @@ func (c *itemsClass_) Items(
 
 // Principal Methods
 
-func (v *items_) GetClass() ItemsClassLike {
-	return itemsClass()
+func (v *entities_) GetClass() EntitiesClassLike {
+	return entitiesClass()
 }
 
 // Attribute Methods
 
-func (v *items_) GetEntities() fra.ListLike[DocumentLike] {
-	return v.entities_
+func (v *entities_) GetItems() fra.ListLike[DocumentLike] {
+	return v.items_
 }
 
 // PROTECTED INTERFACE
@@ -64,23 +64,23 @@ func (v *items_) GetEntities() fra.ListLike[DocumentLike] {
 
 // Instance Structure
 
-type items_ struct {
+type entities_ struct {
 	// Declare the instance attributes.
-	entities_ fra.ListLike[DocumentLike]
+	items_ fra.ListLike[DocumentLike]
 }
 
 // Class Structure
 
-type itemsClass_ struct {
+type entitiesClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func itemsClass() *itemsClass_ {
-	return itemsClassReference_
+func entitiesClass() *entitiesClass_ {
+	return entitiesClassReference_
 }
 
-var itemsClassReference_ = &itemsClass_{
+var entitiesClassReference_ = &entitiesClass_{
 	// Initialize the class constants.
 }

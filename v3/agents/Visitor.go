@@ -187,8 +187,8 @@ func (v *visitor_) visitComponent(
 		v.visitRange(actual)
 	case doc.AttributesLike:
 		v.visitAttributes(actual)
-	case doc.ItemsLike:
-		v.visitItems(actual)
+	case doc.EntitiesLike:
+		v.visitEntities(actual)
 	case doc.ProcedureLike:
 		v.visitProcedure(actual)
 	default:
@@ -221,8 +221,8 @@ func (v *visitor_) visitDiscardClause(
 func (v *visitor_) visitDoClause(
 	doClause doc.DoClauseLike,
 ) {
-	var invocation = doClause.GetInvocation()
-	v.visitInvocation(invocation)
+	var method = doClause.GetMethod()
+	v.visitMethod(method)
 }
 
 func (v *visitor_) visitDocument(
@@ -260,6 +260,29 @@ func (v *visitor_) visitDocument(
 	var optionalNote = document.GetOptionalNote()
 	if uti.IsDefined(optionalNote) {
 		v.processor_.ProcessNote(optionalNote)
+	}
+}
+
+func (v *visitor_) visitEntities(
+	entities doc.EntitiesLike,
+) {
+	var itemsIndex uint
+	var items = entities.GetItems().GetIterator()
+	var itemsCount = uint(items.GetSize())
+	for items.HasNext() {
+		itemsIndex++
+		var document = items.GetNext()
+		v.processor_.PreprocessDocument(
+			document,
+			itemsIndex,
+			itemsCount,
+		)
+		v.visitDocument(document)
+		v.processor_.PostprocessDocument(
+			document,
+			itemsIndex,
+			itemsCount,
+		)
 	}
 }
 
@@ -365,25 +388,6 @@ func (v *visitor_) visitIndex(
 	}
 }
 
-func (v *visitor_) visitIndirect(
-	indirect any,
-) {
-	switch actual := indirect.(type) {
-	case doc.DocumentLike:
-		v.visitDocument(actual)
-	case doc.SubcomponentLike:
-		v.visitSubcomponent(actual)
-	case doc.ReferentLike:
-		v.visitReferent(actual)
-	case doc.FunctionLike:
-		v.visitFunction(actual)
-	case doc.MethodLike:
-		v.visitMethod(actual)
-	case string:
-		v.processor_.ProcessIdentifier(actual)
-	}
-}
-
 func (v *visitor_) visitInversion(
 	inversion doc.InversionLike,
 ) {
@@ -398,40 +402,6 @@ func (v *visitor_) visitInversion(
 
 	var numerical = inversion.GetNumerical()
 	v.visitNumerical(numerical)
-}
-
-func (v *visitor_) visitInvocation(
-	invocation any,
-) {
-	switch actual := invocation.(type) {
-	case doc.FunctionLike:
-		v.visitFunction(actual)
-	case doc.MethodLike:
-		v.visitMethod(actual)
-	}
-}
-
-func (v *visitor_) visitItems(
-	items doc.ItemsLike,
-) {
-	var entitiesIndex uint
-	var entities = items.GetEntities().GetIterator()
-	var entitiesCount = uint(entities.GetSize())
-	for entities.HasNext() {
-		entitiesIndex++
-		var document = entities.GetNext()
-		v.processor_.PreprocessDocument(
-			document,
-			entitiesIndex,
-			entitiesCount,
-		)
-		v.visitDocument(document)
-		v.processor_.PostprocessDocument(
-			document,
-			entitiesIndex,
-			entitiesCount,
-		)
-	}
 }
 
 func (v *visitor_) visitLetClause(
@@ -950,11 +920,30 @@ func (v *visitor_) visitRecipient(
 	}
 }
 
+func (v *visitor_) visitReference(
+	reference any,
+) {
+	switch actual := reference.(type) {
+	case doc.DocumentLike:
+		v.visitDocument(actual)
+	case doc.SubcomponentLike:
+		v.visitSubcomponent(actual)
+	case doc.ReferentLike:
+		v.visitReferent(actual)
+	case doc.FunctionLike:
+		v.visitFunction(actual)
+	case doc.MethodLike:
+		v.visitMethod(actual)
+	case string:
+		v.processor_.ProcessIdentifier(actual)
+	}
+}
+
 func (v *visitor_) visitReferent(
 	referent doc.ReferentLike,
 ) {
-	var indirect = referent.GetIndirect()
-	v.visitIndirect(indirect)
+	var reference = referent.GetReference()
+	v.visitReference(reference)
 }
 
 func (v *visitor_) visitRejectClause(
@@ -1055,8 +1044,8 @@ func (v *visitor_) visitSaveClause(
 func (v *visitor_) visitSelectClause(
 	selectClause doc.SelectClauseLike,
 ) {
-	var target = selectClause.GetTarget()
-	v.visitTarget(target)
+	var expression = selectClause.GetExpression()
+	v.visitExpression(expression)
 
 	// Visit slot 1 between terms.
 	v.processor_.ProcessSelectClauseSlot(
@@ -1149,21 +1138,6 @@ func (v *visitor_) visitSubject(
 		v.visitInversion(actual)
 	case doc.MagnitudeLike:
 		v.visitMagnitude(actual)
-	case doc.FunctionLike:
-		v.visitFunction(actual)
-	case doc.MethodLike:
-		v.visitMethod(actual)
-	case string:
-		v.processor_.ProcessIdentifier(actual)
-	}
-}
-
-func (v *visitor_) visitTarget(
-	target any,
-) {
-	switch actual := target.(type) {
-	case doc.SubcomponentLike:
-		v.visitSubcomponent(actual)
 	case doc.FunctionLike:
 		v.visitFunction(actual)
 	case doc.MethodLike:

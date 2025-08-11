@@ -379,6 +379,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessEntities(
+		entities doc.EntitiesLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessEntitiesSlot(
+		entities doc.EntitiesLike,
+		slot_ uint,
+	)
+	PostprocessEntities(
+		entities doc.EntitiesLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessExpression(
 		expression doc.ExpressionLike,
 		index_ uint,
@@ -432,20 +446,6 @@ type Methodical interface {
 	)
 	PostprocessInversion(
 		inversion doc.InversionLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessItems(
-		items doc.ItemsLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessItemsSlot(
-		items doc.ItemsLike,
-		slot_ uint,
-	)
-	PostprocessItems(
-		items doc.ItemsLike,
 		index_ uint,
 		count_ uint,
 	)

@@ -200,7 +200,7 @@ do-clause-like class.
 type DoClauseClassLike interface {
 	// Constructor Methods
 	DoClause(
-		invocation any,
+		method MethodLike,
 	) DoClauseLike
 }
 
@@ -216,6 +216,18 @@ type DocumentClassLike interface {
 		optionalParameters ParametersLike,
 		optionalNote string,
 	) DocumentLike
+}
+
+/*
+EntitiesClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+entities-like class.
+*/
+type EntitiesClassLike interface {
+	// Constructor Methods
+	Entities(
+		items fra.ListLike[DocumentLike],
+	) EntitiesLike
 }
 
 /*
@@ -268,18 +280,6 @@ type InversionClassLike interface {
 		inverse Inverse,
 		numerical any,
 	) InversionLike
-}
-
-/*
-ItemsClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-items-like class.
-*/
-type ItemsClassLike interface {
-	// Constructor Methods
-	Items(
-		entities fra.ListLike[DocumentLike],
-	) ItemsLike
 }
 
 /*
@@ -459,7 +459,7 @@ referent-like class.
 type ReferentClassLike interface {
 	// Constructor Methods
 	Referent(
-		indirect any,
+		reference any,
 	) ReferentLike
 }
 
@@ -521,7 +521,7 @@ concrete select-clause-like class.
 type SelectClauseClassLike interface {
 	// Constructor Methods
 	SelectClause(
-		target any,
+		expression ExpressionLike,
 		matchingClauses fra.ListLike[MatchingClauseLike],
 	) SelectClauseLike
 }
@@ -690,7 +690,7 @@ type DoClauseLike interface {
 	GetClass() DoClauseClassLike
 
 	// Attribute Methods
-	GetInvocation() any
+	GetMethod() MethodLike
 }
 
 /*
@@ -706,6 +706,19 @@ type DocumentLike interface {
 	GetComponent() any
 	GetOptionalParameters() ParametersLike
 	GetOptionalNote() string
+}
+
+/*
+EntitiesLike is an instance interface that declares the complete set of principal,
+attribute and aspect methods that must be supported by each instance of a
+concrete entities-like class.
+*/
+type EntitiesLike interface {
+	// Principal Methods
+	GetClass() EntitiesClassLike
+
+	// Attribute Methods
+	GetItems() fra.ListLike[DocumentLike]
 }
 
 /*
@@ -762,19 +775,6 @@ type InversionLike interface {
 	// Attribute Methods
 	GetInverse() Inverse
 	GetNumerical() any
-}
-
-/*
-ItemsLike is an instance interface that declares the complete set of principal,
-attribute and aspect methods that must be supported by each instance of a
-concrete items-like class.
-*/
-type ItemsLike interface {
-	// Principal Methods
-	GetClass() ItemsClassLike
-
-	// Attribute Methods
-	GetEntities() fra.ListLike[DocumentLike]
 }
 
 /*
@@ -969,7 +969,7 @@ type ReferentLike interface {
 	GetClass() ReferentClassLike
 
 	// Attribute Methods
-	GetIndirect() any
+	GetReference() any
 }
 
 /*
@@ -1036,7 +1036,7 @@ type SelectClauseLike interface {
 	GetClass() SelectClauseClassLike
 
 	// Attribute Methods
-	GetTarget() any
+	GetExpression() ExpressionLike
 	GetMatchingClauses() fra.ListLike[MatchingClauseLike]
 }
 

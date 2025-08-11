@@ -27,14 +27,14 @@ func DoClauseClass() DoClauseClassLike {
 // Constructor Methods
 
 func (c *doClauseClass_) DoClause(
-	invocation any,
+	method MethodLike,
 ) DoClauseLike {
-	if uti.IsUndefined(invocation) {
-		panic("The \"invocation\" attribute is required by this class.")
+	if uti.IsUndefined(method) {
+		panic("The \"method\" attribute is required by this class.")
 	}
 	var instance = &doClause_{
 		// Initialize the instance attributes.
-		invocation_: invocation,
+		method_: method,
 	}
 	return instance
 }
@@ -53,8 +53,8 @@ func (v *doClause_) GetClass() DoClauseClassLike {
 
 // Attribute Methods
 
-func (v *doClause_) GetInvocation() any {
-	return v.invocation_
+func (v *doClause_) GetMethod() MethodLike {
+	return v.method_
 }
 
 // PROTECTED INTERFACE
@@ -65,7 +65,7 @@ func (v *doClause_) GetInvocation() any {
 
 type doClause_ struct {
 	// Declare the instance attributes.
-	invocation_ any
+	method_ MethodLike
 }
 
 // Class Structure

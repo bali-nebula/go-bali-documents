@@ -28,18 +28,18 @@ func SelectClauseClass() SelectClauseClassLike {
 // Constructor Methods
 
 func (c *selectClauseClass_) SelectClause(
-	target any,
+	expression ExpressionLike,
 	matchingClauses fra.ListLike[MatchingClauseLike],
 ) SelectClauseLike {
-	if uti.IsUndefined(target) {
-		panic("The \"target\" attribute is required by this class.")
+	if uti.IsUndefined(expression) {
+		panic("The \"expression\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(matchingClauses) {
 		panic("The \"matchingClauses\" attribute is required by this class.")
 	}
 	var instance = &selectClause_{
 		// Initialize the instance attributes.
-		target_:          target,
+		expression_:      expression,
 		matchingClauses_: matchingClauses,
 	}
 	return instance
@@ -59,8 +59,8 @@ func (v *selectClause_) GetClass() SelectClauseClassLike {
 
 // Attribute Methods
 
-func (v *selectClause_) GetTarget() any {
-	return v.target_
+func (v *selectClause_) GetExpression() ExpressionLike {
+	return v.expression_
 }
 
 func (v *selectClause_) GetMatchingClauses() fra.ListLike[MatchingClauseLike] {
@@ -75,7 +75,7 @@ func (v *selectClause_) GetMatchingClauses() fra.ListLike[MatchingClauseLike] {
 
 type selectClause_ struct {
 	// Declare the instance attributes.
-	target_          any
+	expression_      ExpressionLike
 	matchingClauses_ fra.ListLike[MatchingClauseLike]
 }
 

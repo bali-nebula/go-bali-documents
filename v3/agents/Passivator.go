@@ -394,11 +394,11 @@ func (v *passivator_) PostprocessDoClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var invocation = v.stack_.RemoveLast().(not.InvocationLike)
+	var method = v.stack_.RemoveLast().(not.MethodLike)
 	v.stack_.AddValue(
 		not.DoClause(
 			"do",
-			invocation,
+			method,
 		),
 	)
 }
@@ -432,6 +432,21 @@ func (v *passivator_) PostprocessDocument(
 			component,
 			parameters,
 			note,
+		),
+	)
+}
+
+func (v *passivator_) PostprocessEntities(
+	entities doc.EntitiesLike,
+	index_ uint,
+	count_ uint,
+) {
+	var items = v.stack_.RemoveLast().(fra.ListLike[not.ItemLike])
+	v.stack_.AddValue(
+		not.Entities(
+			"[",
+			items,
+			"]",
 		),
 	)
 }
@@ -496,21 +511,6 @@ func (v *passivator_) PostprocessInversion(
 		not.Inversion(
 			inverse,
 			numerical,
-		),
-	)
-}
-
-func (v *passivator_) PostprocessItems(
-	items doc.ItemsLike,
-	index_ uint,
-	count_ uint,
-) {
-	var entities = v.stack_.RemoveLast().(fra.ListLike[not.EntityLike])
-	v.stack_.AddValue(
-		not.Items(
-			"[",
-			entities,
-			"]",
 		),
 	)
 }
@@ -672,10 +672,10 @@ func (v *passivator_) PostprocessPredicate(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var operation = v.stack_.RemoveLast().(not.OperationLike)
+	var operator = v.stack_.RemoveLast().(not.OperatorLike)
 	v.stack_.AddValue(
 		not.Predicate(
-			operation,
+			operator,
 			expression,
 		),
 	)
@@ -715,29 +715,29 @@ func (v *passivator_) PostprocessRange(
 	index_ uint,
 	count_ uint,
 ) {
-	var ket not.KetLike
+	var right not.RightLike
 	switch range_.GetRight() {
 	case doc.Inclusive:
-		ket = not.Ket("]")
+		right = not.Right("]")
 	case doc.Exclusive:
-		ket = not.Ket(")")
+		right = not.Right(")")
 	}
 	var primitive2 = v.stack_.RemoveLast().(not.PrimitiveLike)
 	var primitive1 = v.stack_.RemoveLast().(not.PrimitiveLike)
-	var bra not.BraLike
+	var left not.LeftLike
 	switch range_.GetLeft() {
 	case doc.Inclusive:
-		bra = not.Bra("[")
+		left = not.Left("[")
 	case doc.Exclusive:
-		bra = not.Bra("(")
+		left = not.Left("(")
 	}
 	v.stack_.AddValue(
 		not.Range(
-			bra,
+			left,
 			primitive1,
 			"..",
 			primitive2,
-			ket,
+			right,
 		),
 	)
 }
@@ -747,11 +747,11 @@ func (v *passivator_) PostprocessReferent(
 	index_ uint,
 	count_ uint,
 ) {
-	var indirect = v.stack_.RemoveLast().(not.IndirectLike)
+	var reference = v.stack_.RemoveLast().(not.ReferenceLike)
 	v.stack_.AddValue(
 		not.Referent(
 			"@",
-			indirect,
+			reference,
 		),
 	)
 }
@@ -824,11 +824,11 @@ func (v *passivator_) PostprocessSelectClause(
 	count_ uint,
 ) {
 	var matchingClauses = v.stack_.RemoveLast().(fra.ListLike[not.MatchingClauseLike])
-	var target = v.stack_.RemoveLast().(not.TargetLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	v.stack_.AddValue(
 		not.SelectClause(
 			"select",
-			target,
+			expression,
 			matchingClauses,
 		),
 	)

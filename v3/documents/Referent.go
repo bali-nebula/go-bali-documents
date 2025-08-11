@@ -27,14 +27,14 @@ func ReferentClass() ReferentClassLike {
 // Constructor Methods
 
 func (c *referentClass_) Referent(
-	indirect any,
+	reference any,
 ) ReferentLike {
-	if uti.IsUndefined(indirect) {
-		panic("The \"indirect\" attribute is required by this class.")
+	if uti.IsUndefined(reference) {
+		panic("The \"reference\" attribute is required by this class.")
 	}
 	var instance = &referent_{
 		// Initialize the instance attributes.
-		indirect_: indirect,
+		reference_: reference,
 	}
 	return instance
 }
@@ -53,8 +53,8 @@ func (v *referent_) GetClass() ReferentClassLike {
 
 // Attribute Methods
 
-func (v *referent_) GetIndirect() any {
-	return v.indirect_
+func (v *referent_) GetReference() any {
+	return v.reference_
 }
 
 // PROTECTED INTERFACE
@@ -65,7 +65,7 @@ func (v *referent_) GetIndirect() any {
 
 type referent_ struct {
 	// Declare the instance attributes.
-	indirect_ any
+	reference_ any
 }
 
 // Class Structure

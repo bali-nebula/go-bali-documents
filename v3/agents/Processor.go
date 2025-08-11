@@ -366,6 +366,26 @@ func (v *processor_) PostprocessDocument(
 ) {
 }
 
+func (v *processor_) PreprocessEntities(
+	entities doc.EntitiesLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessEntitiesSlot(
+	entities doc.EntitiesLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessEntities(
+	entities doc.EntitiesLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessExpression(
 	expression doc.ExpressionLike,
 	index_ uint,
@@ -441,26 +461,6 @@ func (v *processor_) ProcessInversionSlot(
 
 func (v *processor_) PostprocessInversion(
 	inversion doc.InversionLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PreprocessItems(
-	items doc.ItemsLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessItemsSlot(
-	items doc.ItemsLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessItems(
-	items doc.ItemsLike,
 	index_ uint,
 	count_ uint,
 ) {
