@@ -866,7 +866,16 @@ func (v *passivator_) PostprocessSubcomponent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var indexes = v.stack_.RemoveLast().(fra.ListLike[not.IndexLike])
+	var identifier = v.stack_.RemoveLast().(string)
+	v.stack_.AddValue(
+		not.Subcomponent(
+			identifier,
+			"[",
+			indexes,
+			"]",
+		),
+	)
 }
 
 func (v *passivator_) PostprocessThrowClause(
@@ -874,7 +883,13 @@ func (v *passivator_) PostprocessThrowClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var exception = v.stack_.RemoveLast().(not.ExceptionLike)
+	v.stack_.AddValue(
+		not.ThrowClause(
+			"throw",
+			exception,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessWhileClause(
@@ -882,7 +897,16 @@ func (v *passivator_) PostprocessWhileClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
+	var condition = v.stack_.RemoveLast().(not.ConditionLike)
+	v.stack_.AddValue(
+		not.WhileClause(
+			"while",
+			condition,
+			"do",
+			procedure,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessWithClause(
@@ -890,7 +914,20 @@ func (v *passivator_) PostprocessWithClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
+	var sequence = v.stack_.RemoveLast().(not.SequenceLike)
+	var variable = v.stack_.RemoveLast().(not.VariableLike)
+	v.stack_.AddValue(
+		not.WithClause(
+			"with",
+			"each",
+			variable,
+			"in",
+			sequence,
+			"do",
+			procedure,
+		),
+	)
 }
 
 // PROTECTED INTERFACE
