@@ -412,6 +412,10 @@ func (v *passivator_) ProcessDocumentSlot(
 		if uti.IsUndefined(document.GetOptionalParameters()) {
 			v.stack_.AddValue(nil)
 		}
+	case 3:
+		if uti.IsUndefined(document.GetOptionalNote()) {
+			v.stack_.AddValue("")
+		}
 	}
 }
 
@@ -620,7 +624,14 @@ func (v *passivator_) PostprocessParameters(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var associations = v.stack_.RemoveLast().(fra.ListLike[not.AssociationLike])
+	v.stack_.AddValue(
+		not.Parameters(
+			"[",
+			associations,
+			"]",
+		),
+	)
 }
 
 func (v *passivator_) PostprocessPostClause(
@@ -628,7 +639,16 @@ func (v *passivator_) PostprocessPostClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var bag = v.stack_.RemoveLast().(not.BagLike)
+	var message = v.stack_.RemoveLast().(not.MessageLike)
+	v.stack_.AddValue(
+		not.PostClause(
+			"post",
+			message,
+			"to",
+			bag,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessPrecedence(
@@ -636,7 +656,14 @@ func (v *passivator_) PostprocessPrecedence(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	v.stack_.AddValue(
+		not.Precedence(
+			"(",
+			expression,
+			")",
+		),
+	)
 }
 
 func (v *passivator_) PostprocessPredicate(
@@ -644,7 +671,14 @@ func (v *passivator_) PostprocessPredicate(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var operation = v.stack_.RemoveLast().(not.OperationLike)
+	v.stack_.AddValue(
+		not.Predicate(
+			operation,
+			expression,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessProcedure(
@@ -652,7 +686,14 @@ func (v *passivator_) PostprocessProcedure(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var lines = v.stack_.RemoveLast().(fra.ListLike[not.LineLike])
+	v.stack_.AddValue(
+		not.Procedure(
+			"{",
+			lines,
+			"}",
+		),
+	)
 }
 
 func (v *passivator_) PostprocessPublishClause(
@@ -660,15 +701,13 @@ func (v *passivator_) PostprocessPublishClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
-}
-
-func (v *passivator_) PreprocessRange(
-	range_ doc.RangeLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
+	var event = v.stack_.RemoveLast().(not.EventLike)
+	v.stack_.AddValue(
+		not.PublishClause(
+			"publish",
+			event,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessRange(
@@ -676,7 +715,31 @@ func (v *passivator_) PostprocessRange(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var ket not.KetLike
+	switch range_.GetRight() {
+	case doc.Inclusive:
+		ket = not.Ket("]")
+	case doc.Exclusive:
+		ket = not.Ket(")")
+	}
+	var primitive2 = v.stack_.RemoveLast().(not.PrimitiveLike)
+	var primitive1 = v.stack_.RemoveLast().(not.PrimitiveLike)
+	var bra not.BraLike
+	switch range_.GetLeft() {
+	case doc.Inclusive:
+		bra = not.Bra("[")
+	case doc.Exclusive:
+		bra = not.Bra("(")
+	}
+	v.stack_.AddValue(
+		not.Range(
+			bra,
+			primitive1,
+			"..",
+			primitive2,
+			ket,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessReferent(
@@ -684,7 +747,13 @@ func (v *passivator_) PostprocessReferent(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var indirect = v.stack_.RemoveLast().(not.IndirectLike)
+	v.stack_.AddValue(
+		not.Referent(
+			"@",
+			indirect,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessRejectClause(
@@ -692,7 +761,13 @@ func (v *passivator_) PostprocessRejectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var message = v.stack_.RemoveLast().(not.MessageLike)
+	v.stack_.AddValue(
+		not.RejectClause(
+			"reject",
+			message,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessRetrieveClause(
@@ -700,7 +775,16 @@ func (v *passivator_) PostprocessRetrieveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var bag = v.stack_.RemoveLast().(not.BagLike)
+	var recipient = v.stack_.RemoveLast().(not.RecipientLike)
+	v.stack_.AddValue(
+		not.RetrieveClause(
+			"retrieve",
+			recipient,
+			"from",
+			bag,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessReturnClause(
@@ -708,7 +792,13 @@ func (v *passivator_) PostprocessReturnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var result = v.stack_.RemoveLast().(not.ResultLike)
+	v.stack_.AddValue(
+		not.ReturnClause(
+			"return",
+			result,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessSaveClause(
@@ -716,7 +806,16 @@ func (v *passivator_) PostprocessSaveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var cited = v.stack_.RemoveLast().(not.CitedLike)
+	var draft = v.stack_.RemoveLast().(not.DraftLike)
+	v.stack_.AddValue(
+		not.SaveClause(
+			"save",
+			draft,
+			"as",
+			cited,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessSelectClause(
@@ -724,7 +823,27 @@ func (v *passivator_) PostprocessSelectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var matchingClauses = v.stack_.RemoveLast().(fra.ListLike[not.MatchingClauseLike])
+	var target = v.stack_.RemoveLast().(not.TargetLike)
+	v.stack_.AddValue(
+		not.SelectClause(
+			"select",
+			target,
+			matchingClauses,
+		),
+	)
+}
+
+func (v *passivator_) ProcessStatementSlot(
+	statement doc.StatementLike,
+	slot_ uint,
+) {
+	switch slot_ {
+	case 1:
+		if uti.IsUndefined(statement.GetOptionalOnClause()) {
+			v.stack_.AddValue(nil)
+		}
+	}
 }
 
 func (v *passivator_) PostprocessStatement(
@@ -732,7 +851,14 @@ func (v *passivator_) PostprocessStatement(
 	index_ uint,
 	count_ uint,
 ) {
-	// TBD - Add the method implementation.
+	var onClause = v.stack_.RemoveLast().(not.OnClauseLike)
+	var mainClause = v.stack_.RemoveLast().(not.MainClauseLike)
+	v.stack_.AddValue(
+		not.Statement(
+			mainClause,
+			onClause,
+		),
+	)
 }
 
 func (v *passivator_) PostprocessSubcomponent(
