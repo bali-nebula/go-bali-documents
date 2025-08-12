@@ -34,6 +34,7 @@ import (
 	age "github.com/bali-nebula/go-bali-documents/v3/agents"
 	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
+	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
 )
 
@@ -42,19 +43,19 @@ import (
 // Agents
 
 type (
-	ActivatorClassLike  = age.ActivatorClassLike
-	PassivatorClassLike = age.PassivatorClassLike
-	ProcessorClassLike  = age.ProcessorClassLike
-	ValidatorClassLike  = age.ValidatorClassLike
-	VisitorClassLike    = age.VisitorClassLike
+	DeflatorClassLike  = age.DeflatorClassLike
+	InflatorClassLike  = age.InflatorClassLike
+	ProcessorClassLike = age.ProcessorClassLike
+	ValidatorClassLike = age.ValidatorClassLike
+	VisitorClassLike   = age.VisitorClassLike
 )
 
 type (
-	ActivatorLike  = age.ActivatorLike
-	PassivatorLike = age.PassivatorLike
-	ProcessorLike  = age.ProcessorLike
-	ValidatorLike  = age.ValidatorLike
-	VisitorLike    = age.VisitorLike
+	DeflatorLike  = age.DeflatorLike
+	InflatorLike  = age.InflatorLike
+	ProcessorLike = age.ProcessorLike
+	ValidatorLike = age.ValidatorLike
+	VisitorLike   = age.VisitorLike
 )
 
 type (
@@ -239,20 +240,20 @@ type (
 
 // Agents
 
-func ActivatorClass() ActivatorClassLike {
-	return age.ActivatorClass()
+func DeflatorClass() DeflatorClassLike {
+	return age.DeflatorClass()
 }
 
-func Activator() ActivatorLike {
-	return ActivatorClass().Activator()
+func Deflator() DeflatorLike {
+	return DeflatorClass().Deflator()
 }
 
-func PassivatorClass() PassivatorClassLike {
-	return age.PassivatorClass()
+func InflatorClass() InflatorClassLike {
+	return age.InflatorClass()
 }
 
-func Passivator() PassivatorLike {
-	return PassivatorClass().Passivator()
+func Inflator() InflatorLike {
+	return InflatorClass().Inflator()
 }
 
 func ProcessorClass() ProcessorClassLike {
@@ -838,3 +839,19 @@ func WithClause(
 }
 
 // GLOBAL FUNCTIONS
+
+func FormatDocument(
+	document doc.DocumentLike,
+) string {
+	var deflator = Deflator()
+	var formatter = not.Formatter()
+	return formatter.FormatDocument(deflator.DeflateDocument(document))
+}
+
+func ParseSource(
+	source string,
+) doc.DocumentLike {
+	var inflator = Inflator()
+	var parser = not.Parser()
+	return inflator.InflateDocument(parser.ParseSource(source))
+}

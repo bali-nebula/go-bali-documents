@@ -1,0 +1,26 @@
+{
+    let $foo := ~π($units: $radians)
+    let $foo := sum(a b)
+    let $foo := foo<-bar(x)
+    let $foo := |z|
+    let $foo := |3-4i|
+    let $foo := |"Hello, 世界"|
+    let $foo := -/*z
+    let $foo := x + 1
+    let $foo := x + y
+    let $foo := x + y + z
+    let $foo := (x + y)
+    let $foo := (x + y - z) * (x / y % z)
+    let $foo := base ^ phase-angle
+    let $foo := pin
+    let $foo := phi + pi
+    let $foo := not p
+    let $foo := p and q
+    let $foo := not (p and q) ior (p ior not q) xor (p san q)
+    let $foo := @reference
+    let $foo := list<-add-value(ex)
+    let $foo := remote<~notify(event)
+    let $foo := customer[42 $address $province]
+    let $foo := a & b & c
+    let $foo := a < b and b = c san d > e ior e is f xor f matches g
+}

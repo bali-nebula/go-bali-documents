@@ -38,23 +38,23 @@ import (
 // CLASS DECLARATIONS
 
 /*
-ActivatorClassLike is a class interface that declares the complete set of
+DeflatorClassLike is a class interface that declares the complete set of
 class constructors, constants and functions that must be supported by each
-concrete passivator-like class.
+concrete deflator-like class.
 */
-type ActivatorClassLike interface {
+type DeflatorClassLike interface {
 	// Constructor Methods
-	Activator() ActivatorLike
+	Deflator() DeflatorLike
 }
 
 /*
-PassivatorClassLike is a class interface that declares the complete set of
+InflatorClassLike is a class interface that declares the complete set of
 class constructors, constants and functions that must be supported by each
-concrete passivator-like class.
+concrete inflator-like class.
 */
-type PassivatorClassLike interface {
+type InflatorClassLike interface {
 	// Constructor Methods
-	Passivator() PassivatorLike
+	Inflator() InflatorLike
 }
 
 /*
@@ -92,35 +92,35 @@ type VisitorClassLike interface {
 // INSTANCE DECLARATIONS
 
 /*
-ActivatorLike is an instance interface that declares the complete set of
+DeflatorLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each
-instance of a concrete passivator-like class.
+instance of a concrete deflator-like class.
 */
-type ActivatorLike interface {
+type DeflatorLike interface {
 	// Principal Methods
-	GetClass() ActivatorClassLike
-	ActivateDocument(
-		document not.DocumentLike,
-	) doc.DocumentLike
-
-	// Aspect Interfaces
-	not.Methodical
-}
-
-/*
-PassivatorLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each
-instance of a concrete passivator-like class.
-*/
-type PassivatorLike interface {
-	// Principal Methods
-	GetClass() PassivatorClassLike
-	PassivateDocument(
+	GetClass() DeflatorClassLike
+	DeflateDocument(
 		document doc.DocumentLike,
 	) not.DocumentLike
 
 	// Aspect Interfaces
 	Methodical
+}
+
+/*
+InflatorLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each
+instance of a concrete inflator-like class.
+*/
+type InflatorLike interface {
+	// Principal Methods
+	GetClass() InflatorClassLike
+	InflateDocument(
+		document not.DocumentLike,
+	) doc.DocumentLike
+
+	// Aspect Interfaces
+	not.Methodical
 }
 
 /*

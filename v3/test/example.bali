@@ -1,0 +1,332 @@
+[
+    $parent: none
+    $description: ">
+        This class encapsulates a /Tower of Hanoi/ game with three pegs (A, B, and C) and a
+        parameterized number of disks. To play the game do the following:
+        
+         # Initialize a game with 3 disks.
+        `$game := [:]($type: /nebula/examples/TowerOfHanoi/v1)`
+        
+         # Play the game.
+        `game.play()`
+        
+        The output should be:
+        `
+         1. Move top disk on peg A to peg C
+         2. Move top disk on peg A to peg B
+         3. Move top disk on peg C to peg B
+         4. Move top disk on peg A to peg C
+         5. Move top disk on peg B to peg A
+         6. Move top disk on peg B to peg C
+         7. Move top disk on peg A to peg C
+        `
+    <"($mediaType: "application/bsmd")
+    $attributes: [
+        $pegs: [
+            $description: ">
+                The three pegs (A, B and C) that are used to hold the disks.
+            <"($mediaType: "application/bsmd")
+            $type: /nebula/collections/Catalog/v1(
+                $keyType: /nebula/strings/Symbol/v1
+                $valueType: /nebula/collections/Stack/v1(
+                    $itemType: /nebula/elements/Number/v1($range: [1..10])
+                )
+            )
+        ]($type: /nebula/aspects/Attribute/v1)
+        $steps: [
+            $description: ">
+                The steps needed to move the disks.
+            <"($mediaType: "application/bsmd")
+            $type: /nebula/collections/List/v1($itemType: /nebula/strings/Text/v1)
+        ]($type: /nebula/aspects/Attribute/v1)
+    ](
+        $type: /nebula/collections/Catalog/v1($valueType: /nebula/aspects/Attribute/v1)
+    )
+    $operations: [
+        $play: [
+            $description: ">
+                This procedure causes the game to (re)initialize itself and play the game.
+            <"($mediaType: "application/bsmd")
+            $parameters: [
+                $numberOfDisks: [
+                    $description: ">
+                        The number of disks.
+                    <"($mediaType: "application/bsmd")
+                    $type: /nebula/elements/Number/v1($range: [1..10])
+                ]($type: /nebula/aspects/Parameter/v1)
+            ](
+                $type: /nebula/collections/Catalog/v1($valueType: /nebula/aspects/Parameter/v1)
+            )
+            $type: /nebula/collections/Catalog/v1(
+                $keyType: /nebula/elements/Number/v1($range: [1..10])
+                $valueType: /nebula/strings/Text/v1
+            )
+        ]($type: /nebula/aspects/Operation/v1)
+        $moveTower: [
+            $description: ">
+                This procedure causes the game to move a tower of disks of a certain height
+                from one peg to another peg using a third peg as a buffer.
+            <"($mediaType: "application/bsmd")
+            $parameters: [
+                $height: [
+                    $description: ">
+                        The height of the tower to be moved.
+                    <"($mediaType: "application/bsmd")
+                    $type: /nebula/elements/Number/v1($range: [1..10])
+                ]($type: /nebula/aspects/Parameter/v1)
+                $fromPeg: [
+                    $description: ">
+                        The peg from which the disks originate.
+                    <"($mediaType: "application/bsmd")
+                    $type: /nebula/strings/Text/v1
+                ]($type: /nebula/aspects/Parameter/v1)
+                $toPeg: [
+                    $description: ">
+                        The peg to which the disks should be moved.
+                    <"($mediaType: "application/bsmd")
+                    $type: /nebula/strings/Text/v1
+                ]($type: /nebula/aspects/Parameter/v1)
+                $withPeg: [
+                    $description: ">
+                        The peg to use to buffer the disks during the move.
+                    <"($mediaType: "application/bsmd")
+                    $type: /nebula/strings/Text/v1
+                ]($type: /nebula/aspects/Parameter/v1)
+            ](
+                $type: /nebula/collections/Catalog/v1($valueType: /nebula/aspects/Parameter/v1)
+            )
+        ](
+            $type: /nebula/aspects/Operation/v1
+            $access: $private
+        )
+        $moveDisk: [
+            $description: ">
+                This procedure causes the game to move the top disk from one peg to another.
+            <"($mediaType: "application/bsmd")
+            $parameters: [
+                $fromPeg: [
+                    $description: ">
+                        The peg from which the disk originates.
+                    <"($mediaType: "application/bsmd")
+                    $type: /nebula/strings/Text/v1
+                ]($type: /nebula/aspects/Parameter/v1)
+                $toPeg: [
+                    $description: ">
+                        The peg to which the disk should be moved.
+                    <"($mediaType: "application/bsmd")
+                    $type: /nebula/strings/Text/v1
+                ]($type: /nebula/aspects/Parameter/v1)
+            ](
+                $type: /nebula/collections/Catalog/v1($valueType: /nebula/aspects/Parameter/v1)
+            )
+        ](
+            $type: /nebula/aspects/Operation/v1
+            $access: $private
+        )
+    ](
+        $type: /nebula/collections/Catalog/v1($valueType: /nebula/aspects/Operation/v1)
+    )
+    $methods: [
+        $play: [
+            $procedure: {
+                let target[$pegs] := [
+                    "peg A": [ ](
+                        $type: /nebula/collections/Stack/v1(
+                            $itemType: /nebula/elements/Number/v1($range: [1..10])
+                        )
+                    )
+                    "peg B": [ ](
+                        $type: /nebula/collections/Stack/v1(
+                            $itemType: /nebula/elements/Number/v1($range: [1..10])
+                        )
+                    )
+                    "peg C": [ ](
+                        $type: /nebula/collections/Stack/v1(
+                            $itemType: /nebula/elements/Number/v1($range: [1..10])
+                        )
+                    )
+                ]
+                let target[$steps] := [ ]
+                let $disks := range(numberOfDisks 1)
+                with each $n in disks do {
+                    let $pegA := target[$pegs "peg A"]
+                    do pegA<-addItem(n)
+                }
+                do target<-moveTower(numberOfDisks "peg A" "peg C" "peg B")
+                let $steps := target[$steps]
+                return steps<-asCatalog()
+            }
+            $bytecode: '>
+                :3801:2805:c012:280b:c012:2808:2802:c012:2804:2803:c012:2806
+                :2809:c862:2801:d075:d874:d874:d874:c880:d009:d001:280c:c012
+                :2808:2802:c012:2804:2803:c012:2806:2809:c862:2801:d075:d874
+                :d874:d874:c880:d009:d001:280d:c012:2808:2802:c012:2804:2803
+                :c012:2806:2809:c862:2801:d075:d874:d874:d874:c880:d009:d001
+                :d874:4800:3801:2807:c047:d874:4800:3802:2801:d062:8001:6001
+                :e004:8002:6002:e003:185c:6002:e006:8003:3801:2805:d00a:280b
+                :d00a:c047:6003:d001:e801:8004:004b:0000:3801:c047:3802:d001
+                :280b:d001:280d:d001:280c:d001:e805:8004:3801:2807:d00a:e002
+                :5000
+            <'(
+                $encoding: $base16
+                $mediaType: "application/bcod"
+            )
+            $arguments: [
+                $target: none
+                $numberOfDisks: none
+            ]
+            $variables: [
+                $disks
+                $iterator-2
+                $n
+                $result-1
+            ](
+                $type: /nebula/collections/Set/v1($itemType: /nebula/strings/Symbol/v1)
+            )
+            $messages: [
+                $addItem
+                $asCatalog
+                $hasNext
+                $iterator
+                $moveTower
+                $next
+            ](
+                $type: /nebula/collections/Set/v1($itemType: /nebula/strings/Symbol/v1)
+            )
+            $addresses: [
+                "1.EvaluateStatement": 1
+                "2.EvaluateStatement": 63
+                "3.EvaluateStatement": 68
+                "4.WithStatement": 72
+                "4.1.ConditionClause": 75
+                "4.1.1.EvaluateStatement": 81
+                "4.ConditionRepeat": 91
+                "4.WithStatementDone": 92
+                "5.EvaluateStatement": 93
+                "6.ReturnStatement": 105
+            ](
+                $type: /nebula/collections/Catalog/v1(
+                    $keyType: /nebula/strings/Text/v1
+                    $valueType: /nebula/interfaces/Discrete/v1
+                )
+            )
+        ]($type: /nebula/aspects/Method/v1)
+        $moveTower: [
+            $procedure: {
+                if height do {
+                    let $height -= 1
+                    do target<-moveTower(height fromPeg withPeg toPeg)
+                    do target<-moveDisk(fromPeg toPeg)
+                    do target<-moveTower(height withPeg toPeg fromPeg)
+                }
+            }
+            $bytecode: '>
+                :0000:3802:1828:3801:c047:3802:2801:d021:d001:3803:d001:3805
+                :d001:3804:d001:e802:8001:3801:c047:3803:d001:3804:d001:e801
+                :8001:3801:c047:3802:2801:d021:d001:3805:d001:3804:d001:3803
+                :d001:e802:8001:6001:5000
+            <'(
+                $encoding: $base16
+                $mediaType: "application/bcod"
+            )
+            $arguments: [
+                $target: none
+                $height: none
+                $fromPeg: none
+                $toPeg: none
+                $withPeg: none
+            ]
+            $variables: [$result-1](
+                $type: /nebula/collections/Set/v1($itemType: /nebula/strings/Symbol/v1)
+            )
+            $messages: [
+                $moveDisk
+                $moveTower
+            ](
+                $type: /nebula/collections/Set/v1($itemType: /nebula/strings/Symbol/v1)
+            )
+            $addresses: [
+                "1.IfStatement": 1
+                "1.1.ConditionClause": 2
+                "1.1.1.EvaluateStatement": 4
+                "1.1.2.EvaluateStatement": 18
+                "1.1.3.EvaluateStatement": 26
+                "1.IfStatementDone": 40
+            ](
+                $type: /nebula/collections/Catalog/v1(
+                    $keyType: /nebula/strings/Text/v1
+                    $valueType: /nebula/interfaces/Discrete/v1
+                )
+            )
+        ]($valueType: /nebula/aspects/Method/v1)
+        $moveDisk: [
+            $procedure: {
+                let $fromPeg := target[$pegs fromPeg]
+                let $disk := fromPeg<-removeItem()
+                let $toPeg := target[$pegs toPeg]
+                do toPeg<-addItem(disk)
+                let $steps := target[$steps]
+                do steps<-append("Move disk {disk} from {fromPeg} to {toPeg}.")
+            }
+            $bytecode: '>
+                :3801:2805:d00a:3802:d00a:e003:8001:3801:2805:d00a:3803:d00a
+                :c047:6001:d001:e801:8002:3801:2807:d00a:c047:280a:d001:e802
+                :8002:6002:5000
+            <'(
+                $encoding: $base16
+                $mediaType: "application/bcod"
+            )
+            $arguments: [
+                $target: none
+                $fromPeg: none
+                $toPeg: none
+            ]
+            $variables: [
+                $disk
+                $result-1
+            ](
+                $type: /nebula/collections/Set/v1($itemType: /nebula/strings/Symbol/v1)
+            )
+            $messages: [
+                $addItem
+                $append
+                $removeItem
+            ](
+                $type: /nebula/collections/Set/v1($itemType: /nebula/strings/Symbol/v1)
+            )
+            $addresses: [
+                "1.EvaluateStatement": 1
+                "2.EvaluateStatement": 8
+                "3.EvaluateStatement": 18
+            ](
+                $type: /nebula/collections/Catalog/v1(
+                    $keyType: /nebula/strings/Text/v1
+                    $valueType: /nebula/interfaces/Discrete/v1
+                )
+            )
+        ]($type: /nebula/aspects/Method/v1)
+    ](
+        $type: /nebula/collections/Catalog/v1($valueType: /nebula/aspects/Method/v1)
+    )
+    $literals: [
+        1
+        /nebula/collections/Stack/v1
+        /nebula/elements/Number/v1
+        $itemType
+        $pegs
+        $range
+        $steps
+        $type
+        ".."
+        "Move disk {disk} from {fromPeg} to {toPeg}."
+        "peg A"
+        "peg B"
+        "peg C"
+    ]($type: /nebula/collections/Set/v1)
+](
+    $type: /nebula/types/Class/v1
+    $tag: #1M9WB8VXAWP8A0T1K3MHWD4ZFBM3MG7T
+    $version: v1
+    $permissions: /nebula/permissions/public/v1
+    $previous: none
+)

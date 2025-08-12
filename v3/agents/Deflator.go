@@ -25,14 +25,14 @@ import (
 
 // Access Function
 
-func PassivatorClass() PassivatorClassLike {
-	return passivatorClass()
+func DeflatorClass() DeflatorClassLike {
+	return deflatorClass()
 }
 
 // Constructor Methods
 
-func (c *passivatorClass_) Passivator() PassivatorLike {
-	var instance = &passivator_{
+func (c *deflatorClass_) Deflator() DeflatorLike {
+	var instance = &deflator_{
 		// Initialize the instance attributes.
 		stack_: fra.Stack[any](),
 
@@ -50,17 +50,17 @@ func (c *passivatorClass_) Passivator() PassivatorLike {
 
 // Principal Methods
 
-func (v *passivator_) GetClass() PassivatorClassLike {
-	return passivatorClass()
+func (v *deflator_) GetClass() DeflatorClassLike {
+	return deflatorClass()
 }
 
-func (v *passivator_) PassivateDocument(
+func (v *deflator_) DeflateDocument(
 	document doc.DocumentLike,
 ) not.DocumentLike {
 	VisitorClass().Visitor(v).VisitDocument(document)
 	if v.stack_.GetSize() != 1 {
 		var message = fmt.Sprintf(
-			"Internal Error: the passivator stack is corrupted: %v",
+			"Internal Error: the deflator stack is corrupted: %v",
 			v.stack_,
 		)
 		panic(message)
@@ -72,19 +72,19 @@ func (v *passivator_) PassivateDocument(
 
 // Methodical Methods
 
-func (v *passivator_) ProcessAngle(
+func (v *deflator_) ProcessAngle(
 	angle fra.AngleLike,
 ) {
 	v.stack_.AddValue(angle.AsString())
 }
 
-func (v *passivator_) ProcessAnnotation(
+func (v *deflator_) ProcessAnnotation(
 	annotation string,
 ) {
 	v.stack_.AddValue(annotation)
 }
 
-func (v *passivator_) ProcessAssignment(
+func (v *deflator_) ProcessAssignment(
 	assignment doc.Assignment,
 ) {
 	switch assignment {
@@ -103,49 +103,49 @@ func (v *passivator_) ProcessAssignment(
 	}
 }
 
-func (v *passivator_) ProcessBinary(
+func (v *deflator_) ProcessBinary(
 	binary fra.BinaryLike,
 ) {
 	v.stack_.AddValue(binary.AsString())
 }
 
-func (v *passivator_) ProcessBoolean(
+func (v *deflator_) ProcessBoolean(
 	boolean fra.BooleanLike,
 ) {
 	v.stack_.AddValue(boolean.AsString())
 }
 
-func (v *passivator_) ProcessBytecode(
+func (v *deflator_) ProcessBytecode(
 	bytecode ass.BytecodeLike,
 ) {
 	v.stack_.AddValue(bytecode.AsString())
 }
 
-func (v *passivator_) ProcessComment(
+func (v *deflator_) ProcessComment(
 	comment string,
 ) {
 	v.stack_.AddValue(comment)
 }
 
-func (v *passivator_) ProcessDuration(
+func (v *deflator_) ProcessDuration(
 	duration fra.DurationLike,
 ) {
 	v.stack_.AddValue(duration.AsString())
 }
 
-func (v *passivator_) ProcessGlyph(
+func (v *deflator_) ProcessGlyph(
 	glyph fra.GlyphLike,
 ) {
 	v.stack_.AddValue(glyph.AsString())
 }
 
-func (v *passivator_) ProcessIdentifier(
+func (v *deflator_) ProcessIdentifier(
 	identifier string,
 ) {
 	v.stack_.AddValue(identifier)
 }
 
-func (v *passivator_) ProcessInverse(
+func (v *deflator_) ProcessInverse(
 	inverse doc.Inverse,
 ) {
 	switch inverse {
@@ -158,7 +158,7 @@ func (v *passivator_) ProcessInverse(
 	}
 }
 
-func (v *passivator_) ProcessInvoke(
+func (v *deflator_) ProcessInvoke(
 	invoke doc.Invoke,
 ) {
 	switch invoke {
@@ -169,37 +169,37 @@ func (v *passivator_) ProcessInvoke(
 	}
 }
 
-func (v *passivator_) ProcessMoment(
+func (v *deflator_) ProcessMoment(
 	moment fra.MomentLike,
 ) {
 	v.stack_.AddValue(moment.AsString())
 }
 
-func (v *passivator_) ProcessName(
+func (v *deflator_) ProcessName(
 	name fra.NameLike,
 ) {
 	v.stack_.AddValue(name.AsString())
 }
 
-func (v *passivator_) ProcessNarrative(
+func (v *deflator_) ProcessNarrative(
 	narrative fra.NarrativeLike,
 ) {
 	v.stack_.AddValue(narrative.AsString())
 }
 
-func (v *passivator_) ProcessNote(
+func (v *deflator_) ProcessNote(
 	note string,
 ) {
 	v.stack_.AddValue(note)
 }
 
-func (v *passivator_) ProcessNumber(
+func (v *deflator_) ProcessNumber(
 	number fra.NumberLike,
 ) {
 	v.stack_.AddValue(number.AsString())
 }
 
-func (v *passivator_) ProcessOperator(
+func (v *deflator_) ProcessOperator(
 	operator doc.Operator,
 ) {
 	switch operator {
@@ -238,55 +238,55 @@ func (v *passivator_) ProcessOperator(
 	}
 }
 
-func (v *passivator_) ProcessPattern(
+func (v *deflator_) ProcessPattern(
 	pattern fra.PatternLike,
 ) {
 	v.stack_.AddValue(pattern.AsString())
 }
 
-func (v *passivator_) ProcessPercentage(
+func (v *deflator_) ProcessPercentage(
 	percentage fra.PercentageLike,
 ) {
 	v.stack_.AddValue(percentage.AsString())
 }
 
-func (v *passivator_) ProcessProbability(
+func (v *deflator_) ProcessProbability(
 	probability fra.ProbabilityLike,
 ) {
 	v.stack_.AddValue(probability.AsString())
 }
 
-func (v *passivator_) ProcessQuote(
+func (v *deflator_) ProcessQuote(
 	quote fra.QuoteLike,
 ) {
 	v.stack_.AddValue(quote.AsString())
 }
 
-func (v *passivator_) ProcessResource(
+func (v *deflator_) ProcessResource(
 	resource fra.ResourceLike,
 ) {
 	v.stack_.AddValue(resource.AsString())
 }
 
-func (v *passivator_) ProcessSymbol(
+func (v *deflator_) ProcessSymbol(
 	symbol fra.SymbolLike,
 ) {
 	v.stack_.AddValue(symbol.AsString())
 }
 
-func (v *passivator_) ProcessTag(
+func (v *deflator_) ProcessTag(
 	tag fra.TagLike,
 ) {
 	v.stack_.AddValue(tag.AsString())
 }
 
-func (v *passivator_) ProcessVersion(
+func (v *deflator_) ProcessVersion(
 	version fra.VersionLike,
 ) {
 	v.stack_.AddValue(version.AsString())
 }
 
-func (v *passivator_) PostprocessAcceptClause(
+func (v *deflator_) PostprocessAcceptClause(
 	acceptClause doc.AcceptClauseLike,
 	index_ uint,
 	count_ uint,
@@ -295,7 +295,7 @@ func (v *passivator_) PostprocessAcceptClause(
 	v.stack_.AddValue(not.AcceptClause("accept", message))
 }
 
-func (v *passivator_) PostprocessAttributes(
+func (v *deflator_) PostprocessAttributes(
 	attributes doc.AttributesLike,
 	index_ uint,
 	count_ uint,
@@ -313,7 +313,7 @@ func (v *passivator_) PostprocessAttributes(
 	v.stack_.AddValue(list)
 }
 
-func (v *passivator_) PostprocessBreakClause(
+func (v *deflator_) PostprocessBreakClause(
 	breakClause doc.BreakClauseLike,
 	index_ uint,
 	count_ uint,
@@ -321,7 +321,7 @@ func (v *passivator_) PostprocessBreakClause(
 	v.stack_.AddValue(not.BreakClause("break", "loop"))
 }
 
-func (v *passivator_) ProcessCheckoutClauseSlot(
+func (v *deflator_) ProcessCheckoutClauseSlot(
 	checkoutClause doc.CheckoutClauseLike,
 	slot_ uint,
 ) {
@@ -333,7 +333,7 @@ func (v *passivator_) ProcessCheckoutClauseSlot(
 	}
 }
 
-func (v *passivator_) PostprocessCheckoutClause(
+func (v *deflator_) PostprocessCheckoutClause(
 	checkoutClause doc.CheckoutClauseLike,
 	index_ uint,
 	count_ uint,
@@ -352,7 +352,7 @@ func (v *passivator_) PostprocessCheckoutClause(
 	)
 }
 
-func (v *passivator_) PostprocessComplement(
+func (v *deflator_) PostprocessComplement(
 	complement doc.ComplementLike,
 	index_ uint,
 	count_ uint,
@@ -367,7 +367,7 @@ func (v *passivator_) PostprocessComplement(
 	)
 }
 
-func (v *passivator_) PostprocessContinueClause(
+func (v *deflator_) PostprocessContinueClause(
 	continueClause doc.ContinueClauseLike,
 	index_ uint,
 	count_ uint,
@@ -375,7 +375,7 @@ func (v *passivator_) PostprocessContinueClause(
 	v.stack_.AddValue(not.ContinueClause("continue", "loop"))
 }
 
-func (v *passivator_) PostprocessDiscardClause(
+func (v *deflator_) PostprocessDiscardClause(
 	discardClause doc.DiscardClauseLike,
 	index_ uint,
 	count_ uint,
@@ -389,7 +389,7 @@ func (v *passivator_) PostprocessDiscardClause(
 	)
 }
 
-func (v *passivator_) PostprocessDoClause(
+func (v *deflator_) PostprocessDoClause(
 	doClause doc.DoClauseLike,
 	index_ uint,
 	count_ uint,
@@ -403,7 +403,7 @@ func (v *passivator_) PostprocessDoClause(
 	)
 }
 
-func (v *passivator_) ProcessDocumentSlot(
+func (v *deflator_) ProcessDocumentSlot(
 	document doc.DocumentLike,
 	slot_ uint,
 ) {
@@ -419,7 +419,7 @@ func (v *passivator_) ProcessDocumentSlot(
 	}
 }
 
-func (v *passivator_) PostprocessDocument(
+func (v *deflator_) PostprocessDocument(
 	document doc.DocumentLike,
 	index_ uint,
 	count_ uint,
@@ -436,7 +436,7 @@ func (v *passivator_) PostprocessDocument(
 	)
 }
 
-func (v *passivator_) PostprocessEntities(
+func (v *deflator_) PostprocessEntities(
 	entities doc.EntitiesLike,
 	index_ uint,
 	count_ uint,
@@ -451,7 +451,7 @@ func (v *passivator_) PostprocessEntities(
 	)
 }
 
-func (v *passivator_) PostprocessExpression(
+func (v *deflator_) PostprocessExpression(
 	expression doc.ExpressionLike,
 	index_ uint,
 	count_ uint,
@@ -466,7 +466,7 @@ func (v *passivator_) PostprocessExpression(
 	)
 }
 
-func (v *passivator_) PostprocessFunction(
+func (v *deflator_) PostprocessFunction(
 	function doc.FunctionLike,
 	index_ uint,
 	count_ uint,
@@ -483,7 +483,7 @@ func (v *passivator_) PostprocessFunction(
 	)
 }
 
-func (v *passivator_) PostprocessIfClause(
+func (v *deflator_) PostprocessIfClause(
 	ifClause doc.IfClauseLike,
 	index_ uint,
 	count_ uint,
@@ -500,7 +500,7 @@ func (v *passivator_) PostprocessIfClause(
 	)
 }
 
-func (v *passivator_) PostprocessInversion(
+func (v *deflator_) PostprocessInversion(
 	inversion doc.InversionLike,
 	index_ uint,
 	count_ uint,
@@ -515,7 +515,7 @@ func (v *passivator_) PostprocessInversion(
 	)
 }
 
-func (v *passivator_) PostprocessLetClause(
+func (v *deflator_) PostprocessLetClause(
 	letClause doc.LetClauseLike,
 	index_ uint,
 	count_ uint,
@@ -533,7 +533,7 @@ func (v *passivator_) PostprocessLetClause(
 	)
 }
 
-func (v *passivator_) PostprocessMagnitude(
+func (v *deflator_) PostprocessMagnitude(
 	magnitude doc.MagnitudeLike,
 	index_ uint,
 	count_ uint,
@@ -548,7 +548,7 @@ func (v *passivator_) PostprocessMagnitude(
 	)
 }
 
-func (v *passivator_) PostprocessMatchingClause(
+func (v *deflator_) PostprocessMatchingClause(
 	matchingClause doc.MatchingClauseLike,
 	index_ uint,
 	count_ uint,
@@ -565,7 +565,7 @@ func (v *passivator_) PostprocessMatchingClause(
 	)
 }
 
-func (v *passivator_) PostprocessMethod(
+func (v *deflator_) PostprocessMethod(
 	method doc.MethodLike,
 	index_ uint,
 	count_ uint,
@@ -586,7 +586,7 @@ func (v *passivator_) PostprocessMethod(
 	)
 }
 
-func (v *passivator_) PostprocessNotarizeClause(
+func (v *deflator_) PostprocessNotarizeClause(
 	notarizeClause doc.NotarizeClauseLike,
 	index_ uint,
 	count_ uint,
@@ -603,7 +603,7 @@ func (v *passivator_) PostprocessNotarizeClause(
 	)
 }
 
-func (v *passivator_) PostprocessOnClause(
+func (v *deflator_) PostprocessOnClause(
 	onClause doc.OnClauseLike,
 	index_ uint,
 	count_ uint,
@@ -619,7 +619,7 @@ func (v *passivator_) PostprocessOnClause(
 	)
 }
 
-func (v *passivator_) PostprocessParameters(
+func (v *deflator_) PostprocessParameters(
 	parameters doc.ParametersLike,
 	index_ uint,
 	count_ uint,
@@ -634,7 +634,7 @@ func (v *passivator_) PostprocessParameters(
 	)
 }
 
-func (v *passivator_) PostprocessPostClause(
+func (v *deflator_) PostprocessPostClause(
 	postClause doc.PostClauseLike,
 	index_ uint,
 	count_ uint,
@@ -651,7 +651,7 @@ func (v *passivator_) PostprocessPostClause(
 	)
 }
 
-func (v *passivator_) PostprocessPrecedence(
+func (v *deflator_) PostprocessPrecedence(
 	precedence doc.PrecedenceLike,
 	index_ uint,
 	count_ uint,
@@ -666,7 +666,7 @@ func (v *passivator_) PostprocessPrecedence(
 	)
 }
 
-func (v *passivator_) PostprocessPredicate(
+func (v *deflator_) PostprocessPredicate(
 	predicate doc.PredicateLike,
 	index_ uint,
 	count_ uint,
@@ -681,7 +681,7 @@ func (v *passivator_) PostprocessPredicate(
 	)
 }
 
-func (v *passivator_) PostprocessProcedure(
+func (v *deflator_) PostprocessProcedure(
 	procedure doc.ProcedureLike,
 	index_ uint,
 	count_ uint,
@@ -696,7 +696,7 @@ func (v *passivator_) PostprocessProcedure(
 	)
 }
 
-func (v *passivator_) PostprocessPublishClause(
+func (v *deflator_) PostprocessPublishClause(
 	publishClause doc.PublishClauseLike,
 	index_ uint,
 	count_ uint,
@@ -710,7 +710,7 @@ func (v *passivator_) PostprocessPublishClause(
 	)
 }
 
-func (v *passivator_) PostprocessRange(
+func (v *deflator_) PostprocessRange(
 	range_ doc.RangeLike,
 	index_ uint,
 	count_ uint,
@@ -742,7 +742,7 @@ func (v *passivator_) PostprocessRange(
 	)
 }
 
-func (v *passivator_) PostprocessReferent(
+func (v *deflator_) PostprocessReferent(
 	referent doc.ReferentLike,
 	index_ uint,
 	count_ uint,
@@ -756,7 +756,7 @@ func (v *passivator_) PostprocessReferent(
 	)
 }
 
-func (v *passivator_) PostprocessRejectClause(
+func (v *deflator_) PostprocessRejectClause(
 	rejectClause doc.RejectClauseLike,
 	index_ uint,
 	count_ uint,
@@ -770,7 +770,7 @@ func (v *passivator_) PostprocessRejectClause(
 	)
 }
 
-func (v *passivator_) PostprocessRetrieveClause(
+func (v *deflator_) PostprocessRetrieveClause(
 	retrieveClause doc.RetrieveClauseLike,
 	index_ uint,
 	count_ uint,
@@ -787,7 +787,7 @@ func (v *passivator_) PostprocessRetrieveClause(
 	)
 }
 
-func (v *passivator_) PostprocessReturnClause(
+func (v *deflator_) PostprocessReturnClause(
 	returnClause doc.ReturnClauseLike,
 	index_ uint,
 	count_ uint,
@@ -801,7 +801,7 @@ func (v *passivator_) PostprocessReturnClause(
 	)
 }
 
-func (v *passivator_) PostprocessSaveClause(
+func (v *deflator_) PostprocessSaveClause(
 	saveClause doc.SaveClauseLike,
 	index_ uint,
 	count_ uint,
@@ -818,7 +818,7 @@ func (v *passivator_) PostprocessSaveClause(
 	)
 }
 
-func (v *passivator_) PostprocessSelectClause(
+func (v *deflator_) PostprocessSelectClause(
 	selectClause doc.SelectClauseLike,
 	index_ uint,
 	count_ uint,
@@ -834,7 +834,7 @@ func (v *passivator_) PostprocessSelectClause(
 	)
 }
 
-func (v *passivator_) ProcessStatementSlot(
+func (v *deflator_) ProcessStatementSlot(
 	statement doc.StatementLike,
 	slot_ uint,
 ) {
@@ -846,7 +846,7 @@ func (v *passivator_) ProcessStatementSlot(
 	}
 }
 
-func (v *passivator_) PostprocessStatement(
+func (v *deflator_) PostprocessStatement(
 	statement doc.StatementLike,
 	index_ uint,
 	count_ uint,
@@ -861,7 +861,7 @@ func (v *passivator_) PostprocessStatement(
 	)
 }
 
-func (v *passivator_) PostprocessSubcomponent(
+func (v *deflator_) PostprocessSubcomponent(
 	subcomponent doc.SubcomponentLike,
 	index_ uint,
 	count_ uint,
@@ -878,7 +878,7 @@ func (v *passivator_) PostprocessSubcomponent(
 	)
 }
 
-func (v *passivator_) PostprocessThrowClause(
+func (v *deflator_) PostprocessThrowClause(
 	throwClause doc.ThrowClauseLike,
 	index_ uint,
 	count_ uint,
@@ -892,7 +892,7 @@ func (v *passivator_) PostprocessThrowClause(
 	)
 }
 
-func (v *passivator_) PostprocessWhileClause(
+func (v *deflator_) PostprocessWhileClause(
 	whileClause doc.WhileClauseLike,
 	index_ uint,
 	count_ uint,
@@ -909,7 +909,7 @@ func (v *passivator_) PostprocessWhileClause(
 	)
 }
 
-func (v *passivator_) PostprocessWithClause(
+func (v *deflator_) PostprocessWithClause(
 	withClause doc.WithClauseLike,
 	index_ uint,
 	count_ uint,
@@ -936,7 +936,7 @@ func (v *passivator_) PostprocessWithClause(
 
 // Instance Structure
 
-type passivator_ struct {
+type deflator_ struct {
 	// Declare the instance attributes.
 	stack_ fra.StackLike[any]
 
@@ -946,16 +946,16 @@ type passivator_ struct {
 
 // Class Structure
 
-type passivatorClass_ struct {
+type deflatorClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func passivatorClass() *passivatorClass_ {
-	return passivatorClassReference_
+func deflatorClass() *deflatorClass_ {
+	return deflatorClassReference_
 }
 
-var passivatorClassReference_ = &passivatorClass_{
+var deflatorClassReference_ = &deflatorClass_{
 	// Initialize the class constants.
 }

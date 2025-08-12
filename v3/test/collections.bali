@@ -1,0 +1,75 @@
+[
+    [ ]
+    [[ ]]
+    [~0..~τ]
+    [~P0W..~P3Y)
+    [<2000>..<2023>]
+    [1..∞)
+    (∞..0]
+    (-∞..+∞)
+    ["a".."z"]
+    ["Aa".."Fe"]
+    [1..42]
+    (0%..75%)
+    (p0..p1]
+    (p0.25..p0.75)
+    [<bali:/nebula/abstractions/Continuous:v1>..<bali:/nebula/abstractions/Spectral:v1.2>]
+    [$bar..$foo]
+    [v1.2..v1.6.3)
+    [1..∞]
+    [~0..~π)
+    [~π..~τ)
+    [1..100]
+    (-1..1)
+    ["a".."f"]
+    [~0..~π)
+    (-∞..-1.2]
+    [42]
+    ["abc"]
+    [
+        "abc"($encoding: $ASCII)
+    ]
+    [
+        "foo": $bar
+        "bar": 42
+    ]
+    [
+        1
+        2
+        3
+    ]
+    [
+        1
+        2
+        3
+    ]($type: <bali:/nebula/collections/Stack:v1>)
+    [
+        $alpha: 1
+        $beta: 2
+        $gamma: 3
+    ]
+    [
+        $a: [$array]
+        $b: [$foo: "bar"]
+    ]
+    [ ]($type: <bali:/nebula/collections/Set:v1>)
+    [$foobar]($type: <bali:/nebula/collections/List:v1>)
+    [
+        $foo
+        $bar
+    ]($type: <bali:/nebula/collections/List:v1>)
+    [$foo: "bar"]($type: <bali:/nebula/collections/Catalog:v1>)
+    [
+        $foo: "bar"
+        $bar: "foo"
+    ]($type: <bali:/nebula/collections/Catalog:v1>)
+    [$key: "value"]
+    [
+        $foo: 5
+        $bar: ~π
+    ]
+    [
+        $foo
+        $bar
+    ]
+]
