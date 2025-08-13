@@ -291,7 +291,7 @@ func BytecodeClass() BytecodeClassLike {
 }
 
 func Bytecode(
-	instructions fra.Sequential[ass.InstructionLike],
+	instructions []ass.InstructionLike,
 ) BytecodeLike {
 	return BytecodeClass().Bytecode(
 		instructions,

@@ -1,6 +1,6 @@
 /*
 ................................................................................
-.    Copyright (c) 2009-2025 Crater Dog Technologies.  All Rights Reserved.    .
+.    Copyright (c) 2009-2025 Crater Dog Technologies™.  All Rights Reserved.   .
 ................................................................................
 .  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.               .
 .                                                                              .
@@ -33,16 +33,26 @@ func BytecodeClass() BytecodeClassLike {
 // Constructor Methods
 
 func (c *bytecodeClass_) Bytecode(
-	instructions fra.Sequential[InstructionLike],
+	instructions []InstructionLike,
 ) BytecodeLike {
-	if uti.IsUndefined(instructions) {
-		panic("The \"instructions\" attribute is required by this class.")
+	var source = "'>"
+	var newline = "\n    "
+	var iterator = fra.ListFromArray[InstructionLike](instructions).GetIterator()
+	for iterator.HasNext() {
+		var instruction = iterator.GetNext()
+		if mat.Mod(float64(iterator.GetSlot()-1), 12.0) == 0 {
+			source += newline
+		}
+		source += fmt.Sprintf(":%04x", instruction.AsIntrinsic())
 	}
-	var instance = &bytecode_{
-		// Initialize the instance attributes.
-		instructions_: instructions,
-	}
-	return instance
+	source += "\n<'"
+	return bytecode_(source)
+}
+
+func (c *bytecodeClass_) BytecodeFromSequence(
+	sequence fra.Sequential[InstructionLike],
+) BytecodeLike {
+	return c.Bytecode(sequence.AsArray())
 }
 
 func (c *bytecodeClass_) BytecodeFromString(
@@ -56,18 +66,7 @@ func (c *bytecodeClass_) BytecodeFromString(
 		)
 		panic(message)
 	}
-	var base16 = matches[0]
-	base16 = base16[2 : len(base16)-2]        // Strip off the delimiters.
-	base16 = sts.ReplaceAll(base16, "\n", "") // Remove all newlines.
-	base16 = sts.ReplaceAll(base16, " ", "")  // Remove all spaces.
-	var strings = sts.Split(base16, ":")[1:]  // Extract the instructions.
-	var instructions = fra.List[InstructionLike]()
-	for _, hex := range strings {
-		var integer, _ = stc.ParseUint(hex, 16, 16)
-		var instruction = InstructionClass().InstructionFromInteger(uint16(integer))
-		instructions.AppendValue(instruction)
-	}
-	return c.Bytecode(instructions)
+	return bytecode_(source)
 }
 
 // Constant Methods
@@ -78,59 +77,60 @@ func (c *bytecodeClass_) BytecodeFromString(
 
 // Principal Methods
 
-func (v *bytecode_) GetClass() BytecodeClassLike {
+func (v bytecode_) GetClass() BytecodeClassLike {
 	return bytecodeClass()
 }
 
-func (v *bytecode_) AsString() string {
-	var source = "'>"
-	var newline = "\n    "
-	var iterator = v.instructions_.GetIterator()
-	for iterator.HasNext() {
-		var instruction = iterator.GetNext()
-		if mat.Mod(float64(iterator.GetSlot()-1), 12.0) == 0 {
-			source += newline
-		}
-		source += fmt.Sprintf(":%04x", instruction.AsIntrinsic())
+func (v bytecode_) AsIntrinsic() []InstructionLike {
+	var base16 = string(v)
+	base16 = base16[2 : len(base16)-2]        // Strip off the delimiters.
+	base16 = sts.ReplaceAll(base16, "\n", "") // Remove all newlines.
+	base16 = sts.ReplaceAll(base16, " ", "")  // Remove all spaces.
+	var strings = sts.Split(base16, ":")[1:]  // Extract the instructions.
+	var instructions = fra.List[InstructionLike]()
+	for _, hex := range strings {
+		var integer, _ = stc.ParseUint(hex, 16, 16)
+		var instruction = InstructionClass().InstructionFromInteger(uint16(integer))
+		instructions.AppendValue(instruction)
 	}
-	source += "\n<'"
-	return source
+	return instructions.AsArray()
+}
+
+func (v bytecode_) AsString() string {
+	return string(v)
 }
 
 // Attribute Methods
 
-func (v *bytecode_) GetInstructions() fra.Sequential[InstructionLike] {
-	return v.instructions_
-}
-
 // Sequential[InstructionLike] Methods
 
-func (v *bytecode_) IsEmpty() bool {
-	return v.instructions_.IsEmpty()
+func (v bytecode_) IsEmpty() bool {
+	return len(v.AsIntrinsic()) == 0
 }
 
-func (v *bytecode_) GetSize() uti.Cardinal {
-	return v.instructions_.GetSize()
+func (v bytecode_) GetSize() uti.Cardinal {
+	return uti.Cardinal(len(v.AsIntrinsic()))
 }
 
-func (v *bytecode_) AsArray() []InstructionLike {
-	return v.instructions_.AsArray()
+func (v bytecode_) AsArray() []InstructionLike {
+	return v.AsIntrinsic()
 }
 
-func (v *bytecode_) GetIterator() fra.IteratorLike[InstructionLike] {
-	return v.instructions_.GetIterator()
+func (v bytecode_) GetIterator() fra.IteratorLike[InstructionLike] {
+	return fra.IteratorClass[InstructionLike]().Iterator(v.AsIntrinsic())
 }
 
 // PROTECTED INTERFACE
+
+func (v bytecode_) String() string {
+	return v.AsString()
+}
 
 // Private Methods
 
 // Instance Structure
 
-type bytecode_ struct {
-	// Declare the instance attributes.
-	instructions_ fra.Sequential[InstructionLike]
-}
+type bytecode_ string // This type must support the "comparable" type contraint.
 
 // Class Structure
 

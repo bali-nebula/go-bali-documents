@@ -304,6 +304,7 @@ func (v *deflator_) PostprocessAttributes(
 	var associations = attributes.GetAssociations()
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
+		iterator.GetNext()
 		var document = v.stack_.RemoveLast().(not.DocumentLike)
 		var primitive = v.stack_.RemoveLast().(not.PrimitiveLike)
 		var association = not.Association(primitive, ":", document)
@@ -410,11 +411,12 @@ func (v *deflator_) ProcessDocumentSlot(
 	switch slot_ {
 	case 2:
 		if uti.IsUndefined(document.GetOptionalParameters()) {
-			v.stack_.AddValue(nil)
+			var parameters not.ParametersLike
+			v.stack_.AddValue(parameters)
 		}
-	case 3:
 		if uti.IsUndefined(document.GetOptionalNote()) {
-			v.stack_.AddValue("")
+			var note string
+			v.stack_.AddValue(note)
 		}
 	}
 }
@@ -425,7 +427,11 @@ func (v *deflator_) PostprocessDocument(
 	count_ uint,
 ) {
 	var note = v.stack_.RemoveLast().(string)
-	var parameters = v.stack_.RemoveLast().(not.ParametersLike)
+	var parameters not.ParametersLike
+	var optional = v.stack_.RemoveLast()
+	if uti.IsDefined(optional) {
+		parameters = optional.(not.ParametersLike)
+	}
 	var component = v.stack_.RemoveLast().(not.ComponentLike)
 	v.stack_.AddValue(
 		not.Document(

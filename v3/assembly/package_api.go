@@ -110,7 +110,7 @@ concrete bytecode-like class.
 type BytecodeClassLike interface {
 	// Constructor Methods
 	Bytecode(
-		instructions fra.Sequential[InstructionLike],
+		instructions []InstructionLike,
 	) BytecodeLike
 	BytecodeFromString(
 		source string,
@@ -155,9 +155,7 @@ type BytecodeLike interface {
 	// Principal Methods
 	GetClass() BytecodeClassLike
 	AsString() string
-
-	// Attribute Methods
-	GetInstructions() fra.Sequential[InstructionLike]
+	AsIntrinsic() []InstructionLike
 
 	// Aspect Interfaces
 	fra.Sequential[InstructionLike]
