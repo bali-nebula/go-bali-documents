@@ -34,7 +34,7 @@ func DeflatorClass() DeflatorClassLike {
 func (c *deflatorClass_) Deflator() DeflatorLike {
 	var instance = &deflator_{
 		// Initialize the instance attributes.
-		stack_: fra.Stack[any](),
+		stack_: fra.StackWithCapacity[any](256),
 
 		// Initialize the inherited aspects.
 		Methodical: ProcessorClass().Processor(),
@@ -664,14 +664,18 @@ func (v *deflator_) PostprocessParameters(
 	index_ uint,
 	count_ uint,
 ) {
-	var associations = v.stack_.RemoveLast().(fra.ListLike[not.AssociationLike])
-	v.stack_.AddValue(
-		not.Parameters(
-			"[",
-			associations,
-			"]",
-		),
-	)
+	var list = fra.List[not.AssociationLike]()
+	var associations = parameters.GetAssociations()
+	var iterator = associations.GetIterator()
+	for iterator.HasNext() {
+		iterator.GetNext()
+		var document = v.stack_.RemoveLast().(not.DocumentLike)
+		var primitive = not.Primitive(v.stack_.RemoveLast())
+		var association = not.Association(primitive, ":", document)
+		list.AppendValue(association)
+	}
+	list.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Parameters("(", list, ")"))
 }
 
 func (v *deflator_) PostprocessPostClause(
