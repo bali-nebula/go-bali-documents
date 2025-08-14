@@ -75,7 +75,7 @@ func (v *deflator_) DeflateDocument(
 func (v *deflator_) ProcessAngle(
 	angle fra.AngleLike,
 ) {
-	v.stack_.AddValue(angle.AsString())
+	v.stack_.AddValue(not.Element(angle.AsString()))
 }
 
 func (v *deflator_) ProcessAnnotation(
@@ -106,19 +106,19 @@ func (v *deflator_) ProcessAssignment(
 func (v *deflator_) ProcessBinary(
 	binary fra.BinaryLike,
 ) {
-	v.stack_.AddValue(binary.AsString())
+	v.stack_.AddValue(not.String(binary.AsString()))
 }
 
 func (v *deflator_) ProcessBoolean(
 	boolean fra.BooleanLike,
 ) {
-	v.stack_.AddValue(boolean.AsString())
+	v.stack_.AddValue(not.Element(boolean.AsString()))
 }
 
 func (v *deflator_) ProcessBytecode(
 	bytecode ass.BytecodeLike,
 ) {
-	v.stack_.AddValue(bytecode.AsString())
+	v.stack_.AddValue(not.String(bytecode.AsString()))
 }
 
 func (v *deflator_) ProcessComment(
@@ -130,13 +130,13 @@ func (v *deflator_) ProcessComment(
 func (v *deflator_) ProcessDuration(
 	duration fra.DurationLike,
 ) {
-	v.stack_.AddValue(duration.AsString())
+	v.stack_.AddValue(not.Element(duration.AsString()))
 }
 
 func (v *deflator_) ProcessGlyph(
 	glyph fra.GlyphLike,
 ) {
-	v.stack_.AddValue(glyph.AsString())
+	v.stack_.AddValue(not.Element(glyph.AsString()))
 }
 
 func (v *deflator_) ProcessIdentifier(
@@ -172,19 +172,19 @@ func (v *deflator_) ProcessInvoke(
 func (v *deflator_) ProcessMoment(
 	moment fra.MomentLike,
 ) {
-	v.stack_.AddValue(moment.AsString())
+	v.stack_.AddValue(not.Element(moment.AsString()))
 }
 
 func (v *deflator_) ProcessName(
 	name fra.NameLike,
 ) {
-	v.stack_.AddValue(name.AsString())
+	v.stack_.AddValue(not.String(name.AsString()))
 }
 
 func (v *deflator_) ProcessNarrative(
 	narrative fra.NarrativeLike,
 ) {
-	v.stack_.AddValue(narrative.AsString())
+	v.stack_.AddValue(not.String(narrative.AsString()))
 }
 
 func (v *deflator_) ProcessNote(
@@ -196,7 +196,7 @@ func (v *deflator_) ProcessNote(
 func (v *deflator_) ProcessNumber(
 	number fra.NumberLike,
 ) {
-	v.stack_.AddValue(number.AsString())
+	v.stack_.AddValue(not.Element(number.AsString()))
 }
 
 func (v *deflator_) ProcessOperator(
@@ -241,49 +241,49 @@ func (v *deflator_) ProcessOperator(
 func (v *deflator_) ProcessPattern(
 	pattern fra.PatternLike,
 ) {
-	v.stack_.AddValue(pattern.AsString())
+	v.stack_.AddValue(not.String(pattern.AsString()))
 }
 
 func (v *deflator_) ProcessPercentage(
 	percentage fra.PercentageLike,
 ) {
-	v.stack_.AddValue(percentage.AsString())
+	v.stack_.AddValue(not.Element(percentage.AsString()))
 }
 
 func (v *deflator_) ProcessProbability(
 	probability fra.ProbabilityLike,
 ) {
-	v.stack_.AddValue(probability.AsString())
+	v.stack_.AddValue(not.Element(probability.AsString()))
 }
 
 func (v *deflator_) ProcessQuote(
 	quote fra.QuoteLike,
 ) {
-	v.stack_.AddValue(quote.AsString())
+	v.stack_.AddValue(not.String(quote.AsString()))
 }
 
 func (v *deflator_) ProcessResource(
 	resource fra.ResourceLike,
 ) {
-	v.stack_.AddValue(resource.AsString())
+	v.stack_.AddValue(not.Element(resource.AsString()))
 }
 
 func (v *deflator_) ProcessSymbol(
 	symbol fra.SymbolLike,
 ) {
-	v.stack_.AddValue(symbol.AsString())
+	v.stack_.AddValue(not.Element(symbol.AsString()))
 }
 
 func (v *deflator_) ProcessTag(
 	tag fra.TagLike,
 ) {
-	v.stack_.AddValue(tag.AsString())
+	v.stack_.AddValue(not.String(tag.AsString()))
 }
 
 func (v *deflator_) ProcessVersion(
 	version fra.VersionLike,
 ) {
-	v.stack_.AddValue(version.AsString())
+	v.stack_.AddValue(not.String(version.AsString()))
 }
 
 func (v *deflator_) PostprocessAcceptClause(
@@ -311,7 +311,7 @@ func (v *deflator_) PostprocessAttributes(
 		list.AppendValue(association)
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(list)
+	v.stack_.AddValue(not.Collection(not.Attributes("[", list, "]")))
 }
 
 func (v *deflator_) PostprocessBreakClause(
@@ -432,7 +432,21 @@ func (v *deflator_) PostprocessDocument(
 	if uti.IsDefined(optional) {
 		parameters = optional.(not.ParametersLike)
 	}
-	var component = v.stack_.RemoveLast().(not.ComponentLike)
+	var component not.ComponentLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case not.ElementLike:
+		component = not.Component(actual)
+	case not.StringLike:
+		component = not.Component(actual)
+	case not.RangeLike:
+		component = not.Component(actual)
+	case not.AttributesLike:
+		component = not.Component(not.Collection(actual))
+	case not.EntitiesLike:
+		component = not.Component(not.Collection(actual))
+	case not.ProcedureLike:
+		component = not.Component(actual)
+	}
 	v.stack_.AddValue(
 		not.Document(
 			component,
@@ -457,7 +471,7 @@ func (v *deflator_) PostprocessEntities(
 		list.AppendValue(item)
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(list)
+	v.stack_.AddValue(not.Collection(not.Entities("[", list, "]")))
 }
 
 func (v *deflator_) PostprocessExpression(
