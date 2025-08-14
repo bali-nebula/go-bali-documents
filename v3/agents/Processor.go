@@ -206,6 +206,26 @@ func (v *processor_) PostprocessAcceptClause(
 ) {
 }
 
+func (v *processor_) PreprocessArgument(
+	argument any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessArgumentSlot(
+	argument any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessArgument(
+	argument any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessAttributes(
 	attributes doc.AttributesLike,
 	index_ uint,
@@ -281,6 +301,26 @@ func (v *processor_) ProcessComplementSlot(
 
 func (v *processor_) PostprocessComplement(
 	complement doc.ComplementLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessComponent(
+	component any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessComponentSlot(
+	component any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessComponent(
+	component any,
 	index_ uint,
 	count_ uint,
 ) {
@@ -446,6 +486,26 @@ func (v *processor_) PostprocessIfClause(
 ) {
 }
 
+func (v *processor_) PreprocessIndex(
+	index any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessIndexSlot(
+	index any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessIndex(
+	index any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessInversion(
 	inversion doc.InversionLike,
 	index_ uint,
@@ -486,6 +546,46 @@ func (v *processor_) PostprocessLetClause(
 ) {
 }
 
+func (v *processor_) PreprocessLine(
+	line any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessLineSlot(
+	line any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessLine(
+	line any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessLogical(
+	logical any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessLogicalSlot(
+	logical any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessLogical(
+	logical any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessMagnitude(
 	magnitude doc.MagnitudeLike,
 	index_ uint,
@@ -501,6 +601,26 @@ func (v *processor_) ProcessMagnitudeSlot(
 
 func (v *processor_) PostprocessMagnitude(
 	magnitude doc.MagnitudeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessMainClause(
+	mainClause any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessMainClauseSlot(
+	mainClause any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessMainClause(
+	mainClause any,
 	index_ uint,
 	count_ uint,
 ) {
@@ -561,6 +681,26 @@ func (v *processor_) ProcessNotarizeClauseSlot(
 
 func (v *processor_) PostprocessNotarizeClause(
 	notarizeClause doc.NotarizeClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessNumerical(
+	numerical any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessNumericalSlot(
+	numerical any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessNumerical(
+	numerical any,
 	index_ uint,
 	count_ uint,
 ) {
@@ -666,6 +806,26 @@ func (v *processor_) PostprocessPredicate(
 ) {
 }
 
+func (v *processor_) PreprocessPrimitive(
+	primitive any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessPrimitiveSlot(
+	primitive any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessPrimitive(
+	primitive any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessProcedure(
 	procedure doc.ProcedureLike,
 	index_ uint,
@@ -721,6 +881,46 @@ func (v *processor_) ProcessRangeSlot(
 
 func (v *processor_) PostprocessRange(
 	range_ doc.RangeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessRecipient(
+	recipient any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessRecipientSlot(
+	recipient any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessRecipient(
+	recipient any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessReference(
+	reference any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessReferenceSlot(
+	reference any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessReference(
+	reference any,
 	index_ uint,
 	count_ uint,
 ) {
@@ -881,6 +1081,26 @@ func (v *processor_) ProcessSubcomponentSlot(
 
 func (v *processor_) PostprocessSubcomponent(
 	subcomponent doc.SubcomponentLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessSubject(
+	subject any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessSubjectSlot(
+	subject any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessSubject(
+	subject any,
 	index_ uint,
 	count_ uint,
 ) {

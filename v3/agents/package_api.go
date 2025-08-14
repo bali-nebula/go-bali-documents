@@ -267,6 +267,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessArgument(
+		argument any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessArgumentSlot(
+		argument any,
+		slot_ uint,
+	)
+	PostprocessArgument(
+		argument any,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessAttributes(
 		attributes doc.AttributesLike,
 		index_ uint,
@@ -320,6 +334,20 @@ type Methodical interface {
 	)
 	PostprocessComplement(
 		complement doc.ComplementLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessComponent(
+		component any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessComponentSlot(
+		component any,
+		slot_ uint,
+	)
+	PostprocessComponent(
+		component any,
 		index_ uint,
 		count_ uint,
 	)
@@ -435,6 +463,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessIndex(
+		index any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessIndexSlot(
+		index any,
+		slot_ uint,
+	)
+	PostprocessIndex(
+		index any,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessInversion(
 		inversion doc.InversionLike,
 		index_ uint,
@@ -463,6 +505,34 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessLine(
+		line any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessLineSlot(
+		line any,
+		slot_ uint,
+	)
+	PostprocessLine(
+		line any,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessLogical(
+		logical any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessLogicalSlot(
+		logical any,
+		slot_ uint,
+	)
+	PostprocessLogical(
+		logical any,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessMagnitude(
 		magnitude doc.MagnitudeLike,
 		index_ uint,
@@ -474,6 +544,20 @@ type Methodical interface {
 	)
 	PostprocessMagnitude(
 		magnitude doc.MagnitudeLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessMainClause(
+		mainClause any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessMainClauseSlot(
+		mainClause any,
+		slot_ uint,
+	)
+	PostprocessMainClause(
+		mainClause any,
 		index_ uint,
 		count_ uint,
 	)
@@ -516,6 +600,20 @@ type Methodical interface {
 	)
 	PostprocessNotarizeClause(
 		notarizeClause doc.NotarizeClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessNumerical(
+		numerical any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessNumericalSlot(
+		numerical any,
+		slot_ uint,
+	)
+	PostprocessNumerical(
+		numerical any,
 		index_ uint,
 		count_ uint,
 	)
@@ -589,6 +687,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessPrimitive(
+		primitive any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessPrimitiveSlot(
+		primitive any,
+		slot_ uint,
+	)
+	PostprocessPrimitive(
+		primitive any,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessProcedure(
 		procedure doc.ProcedureLike,
 		index_ uint,
@@ -628,6 +740,34 @@ type Methodical interface {
 	)
 	PostprocessRange(
 		range_ doc.RangeLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessRecipient(
+		recipient any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessRecipientSlot(
+		recipient any,
+		slot_ uint,
+	)
+	PostprocessRecipient(
+		recipient any,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessReference(
+		reference any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessReferenceSlot(
+		reference any,
+		slot_ uint,
+	)
+	PostprocessReference(
+		reference any,
 		index_ uint,
 		count_ uint,
 	)
@@ -740,6 +880,20 @@ type Methodical interface {
 	)
 	PostprocessSubcomponent(
 		subcomponent doc.SubcomponentLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessSubject(
+		subject any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessSubjectSlot(
+		subject any,
+		slot_ uint,
+	)
+	PostprocessSubject(
+		subject any,
 		index_ uint,
 		count_ uint,
 	)
