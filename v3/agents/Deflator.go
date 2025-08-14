@@ -637,11 +637,15 @@ func (v *deflator_) PostprocessNotarizeClause(
 	var cited = v.stack_.RemoveLast().(not.CitedLike)
 	var draft = v.stack_.RemoveLast().(not.DraftLike)
 	v.stack_.AddValue(
-		not.NotarizeClause(
-			"notarize",
-			draft,
-			"as",
-			cited,
+		not.MainClause(
+			not.RepositoryAccess(
+				not.NotarizeClause(
+					"notarize",
+					draft,
+					"as",
+					cited,
+				),
+			),
 		),
 	)
 }
@@ -685,11 +689,15 @@ func (v *deflator_) PostprocessPostClause(
 	var bag = v.stack_.RemoveLast().(not.BagLike)
 	var message = v.stack_.RemoveLast().(not.MessageLike)
 	v.stack_.AddValue(
-		not.PostClause(
-			"post",
-			message,
-			"to",
-			bag,
+		not.MainClause(
+			not.MessageHandling(
+				not.PostClause(
+					"post",
+					message,
+					"to",
+					bag,
+				),
+			),
 		),
 	)
 }
@@ -746,9 +754,13 @@ func (v *deflator_) PostprocessPublishClause(
 ) {
 	var event = v.stack_.RemoveLast().(not.EventLike)
 	v.stack_.AddValue(
-		not.PublishClause(
-			"publish",
-			event,
+		not.MainClause(
+			not.MessageHandling(
+				not.PublishClause(
+					"publish",
+					event,
+				),
+			),
 		),
 	)
 }
@@ -806,9 +818,13 @@ func (v *deflator_) PostprocessRejectClause(
 ) {
 	var message = v.stack_.RemoveLast().(not.MessageLike)
 	v.stack_.AddValue(
-		not.RejectClause(
-			"reject",
-			message,
+		not.MainClause(
+			not.MessageHandling(
+				not.RejectClause(
+					"reject",
+					message,
+				),
+			),
 		),
 	)
 }
@@ -821,11 +837,15 @@ func (v *deflator_) PostprocessRetrieveClause(
 	var bag = v.stack_.RemoveLast().(not.BagLike)
 	var recipient = v.stack_.RemoveLast().(not.RecipientLike)
 	v.stack_.AddValue(
-		not.RetrieveClause(
-			"retrieve",
-			recipient,
-			"from",
-			bag,
+		not.MainClause(
+			not.MessageHandling(
+				not.RetrieveClause(
+					"retrieve",
+					recipient,
+					"from",
+					bag,
+				),
+			),
 		),
 	)
 }
@@ -837,9 +857,13 @@ func (v *deflator_) PostprocessReturnClause(
 ) {
 	var result = v.stack_.RemoveLast().(not.ResultLike)
 	v.stack_.AddValue(
-		not.ReturnClause(
-			"return",
-			result,
+		not.MainClause(
+			not.FlowControl(
+				not.ReturnClause(
+					"return",
+					result,
+				),
+			),
 		),
 	)
 }
@@ -852,11 +876,15 @@ func (v *deflator_) PostprocessSaveClause(
 	var cited = v.stack_.RemoveLast().(not.CitedLike)
 	var draft = v.stack_.RemoveLast().(not.DraftLike)
 	v.stack_.AddValue(
-		not.SaveClause(
-			"save",
-			draft,
-			"as",
-			cited,
+		not.MainClause(
+			not.RepositoryAccess(
+				not.SaveClause(
+					"save",
+					draft,
+					"as",
+					cited,
+				),
+			),
 		),
 	)
 }
@@ -869,10 +897,14 @@ func (v *deflator_) PostprocessSelectClause(
 	var matchingClauses = v.stack_.RemoveLast().(fra.ListLike[not.MatchingClauseLike])
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	v.stack_.AddValue(
-		not.SelectClause(
-			"select",
-			expression,
-			matchingClauses,
+		not.MainClause(
+			not.FlowControl(
+				not.SelectClause(
+					"select",
+					expression,
+					matchingClauses,
+				),
+			),
 		),
 	)
 }
