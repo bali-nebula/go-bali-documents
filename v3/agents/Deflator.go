@@ -126,7 +126,7 @@ func (v *deflator_) ProcessBytecode(
 func (v *deflator_) ProcessComment(
 	comment string,
 ) {
-	v.stack_.AddValue(not.Annotation(comment))
+	v.stack_.AddValue(comment)
 }
 
 func (v *deflator_) ProcessDuration(
@@ -196,7 +196,7 @@ func (v *deflator_) ProcessNarrative(
 func (v *deflator_) ProcessNote(
 	note string,
 ) {
-	v.stack_.AddValue(not.Annotation(note))
+	v.stack_.AddValue(note)
 }
 
 func (v *deflator_) ProcessNumber(
