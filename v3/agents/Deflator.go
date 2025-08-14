@@ -353,13 +353,7 @@ func (v *deflator_) PostprocessCheckoutClause(
 ) {
 	var cited = v.stack_.RemoveLast().(not.CitedLike)
 	var atLevel = v.stack_.RemoveLast().(not.AtLevelLike)
-	var recipient not.RecipientLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.VariableLike:
-		recipient = not.Recipient(actual)
-	case not.SubcomponentLike:
-		recipient = not.Recipient(actual)
-	}
+	var recipient = not.Recipient(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.MainClause(
 			not.RepositoryAccess(
@@ -380,25 +374,7 @@ func (v *deflator_) PostprocessComplement(
 	index_ uint,
 	count_ uint,
 ) {
-	var logical not.LogicalLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.DocumentLike:
-		logical = not.Logical(actual)
-	case not.SubcomponentLike:
-		logical = not.Logical(actual)
-	case not.PrecedenceLike:
-		logical = not.Logical(actual)
-	case not.ReferentLike:
-		logical = not.Logical(actual)
-	case not.ComplementLike:
-		logical = not.Logical(actual)
-	case not.FunctionLike:
-		logical = not.Logical(actual)
-	case not.MethodLike:
-		logical = not.Logical(actual)
-	case not.ValueLike:
-		logical = not.Logical(actual)
-	}
+	var logical = not.Logical(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.Complement(
 			"not",
@@ -467,21 +443,7 @@ func (v *deflator_) PostprocessDocument(
 	if uti.IsDefined(optional) {
 		parameters = optional.(not.ParametersLike)
 	}
-	var component not.ComponentLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.ElementLike:
-		component = not.Component(actual)
-	case not.StringLike:
-		component = not.Component(actual)
-	case not.RangeLike:
-		component = not.Component(actual)
-	case not.AttributesLike:
-		component = not.Component(not.Collection(actual))
-	case not.EntitiesLike:
-		component = not.Component(not.Collection(actual))
-	case not.ProcedureLike:
-		component = not.Component(actual)
-	}
+	var component = not.Component(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.Document(
 			component,
@@ -515,29 +477,7 @@ func (v *deflator_) PostprocessExpression(
 	count_ uint,
 ) {
 	var predicates = v.stack_.RemoveLast().(fra.ListLike[not.PredicateLike])
-	var subject not.SubjectLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.DocumentLike:
-		subject = not.Subject(actual)
-	case not.SubcomponentLike:
-		subject = not.Subject(actual)
-	case not.PrecedenceLike:
-		subject = not.Subject(actual)
-	case not.ReferentLike:
-		subject = not.Subject(actual)
-	case not.ComplementLike:
-		subject = not.Subject(actual)
-	case not.InversionLike:
-		subject = not.Subject(actual)
-	case not.MagnitudeLike:
-		subject = not.Subject(actual)
-	case not.FunctionLike:
-		subject = not.Subject(actual)
-	case not.MethodLike:
-		subject = not.Subject(actual)
-	case not.ValueLike:
-		subject = not.Subject(actual)
-	}
+	var subject = not.Subject(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.Expression(
 			subject,
@@ -589,27 +529,7 @@ func (v *deflator_) PostprocessInversion(
 	index_ uint,
 	count_ uint,
 ) {
-	var numerical not.NumericalLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.DocumentLike:
-		numerical = not.Numerical(actual)
-	case not.SubcomponentLike:
-		numerical = not.Numerical(actual)
-	case not.PrecedenceLike:
-		numerical = not.Numerical(actual)
-	case not.ReferentLike:
-		numerical = not.Numerical(actual)
-	case not.InversionLike:
-		numerical = not.Numerical(actual)
-	case not.MagnitudeLike:
-		numerical = not.Numerical(actual)
-	case not.FunctionLike:
-		numerical = not.Numerical(actual)
-	case not.MethodLike:
-		numerical = not.Numerical(actual)
-	case not.ValueLike:
-		numerical = not.Numerical(actual)
-	}
+	var numerical = not.Numerical(v.stack_.RemoveLast())
 	var inverse = v.stack_.RemoveLast().(not.InverseLike)
 	v.stack_.AddValue(
 		not.Inversion(
@@ -626,13 +546,7 @@ func (v *deflator_) PostprocessLetClause(
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var assignment = v.stack_.RemoveLast().(not.AssignmentLike)
-	var recipient not.RecipientLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.VariableLike:
-		recipient = not.Recipient(actual)
-	case not.SubcomponentLike:
-		recipient = not.Recipient(actual)
-	}
+	var recipient = not.Recipient(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.MainClause(
 			not.ActionInduction(
@@ -873,21 +787,7 @@ func (v *deflator_) PostprocessReferent(
 	index_ uint,
 	count_ uint,
 ) {
-	var reference not.ReferenceLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.DocumentLike:
-		reference = not.Reference(actual)
-	case not.SubcomponentLike:
-		reference = not.Reference(actual)
-	case not.ReferentLike:
-		reference = not.Reference(actual)
-	case not.FunctionLike:
-		reference = not.Reference(actual)
-	case not.MethodLike:
-		reference = not.Reference(actual)
-	case not.ValueLike:
-		reference = not.Reference(actual)
-	}
+	var reference = not.Reference(v.stack_.RemoveLast())
 	v.stack_.AddValue( not.Referent("@", reference))
 }
 
@@ -915,13 +815,7 @@ func (v *deflator_) PostprocessRetrieveClause(
 	count_ uint,
 ) {
 	var bag = v.stack_.RemoveLast().(not.BagLike)
-	var recipient not.RecipientLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.VariableLike:
-		recipient = not.Recipient(actual)
-	case not.SubcomponentLike:
-		recipient = not.Recipient(actual)
-	}
+	var recipient = not.Recipient(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.MainClause(
 			not.MessageHandling(
@@ -1027,7 +921,11 @@ func (v *deflator_) PostprocessSubcomponent(
 	index_ uint,
 	count_ uint,
 ) {
-	var indexes = v.stack_.RemoveLast().(fra.ListLike[not.IndexLike])
+	var indexes = fra.List[not.IndexLike]()
+	var iterator = v.stack_.RemoveLast().(fra.ListLike[any]).GetIterator()
+	for iterator.HasNext() {
+		indexes.AppendValue(not.Index(iterator.GetNext()))
+	}
 	var identifier = v.stack_.RemoveLast().(string)
 	v.stack_.AddValue(
 		not.Subcomponent(
