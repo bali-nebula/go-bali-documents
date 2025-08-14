@@ -316,7 +316,7 @@ func (v *deflator_) PostprocessAttributes(
 	for iterator.HasNext() {
 		iterator.GetNext()
 		var document = v.stack_.RemoveLast().(not.DocumentLike)
-		var primitive = v.stack_.RemoveLast().(not.PrimitiveLike)
+		var primitive = not.Primitive(v.stack_.RemoveLast())
 		var association = not.Association(primitive, ":", document)
 		list.AppendValue(association)
 	}
@@ -491,7 +491,11 @@ func (v *deflator_) PostprocessFunction(
 	index_ uint,
 	count_ uint,
 ) {
-	var arguments = v.stack_.RemoveLast().(fra.ListLike[not.ArgumentLike])
+	var arguments = fra.List[not.ArgumentLike]()
+	var iterator = v.stack_.RemoveLast().(fra.ListLike[any]).GetIterator()
+	for iterator.HasNext() {
+		arguments.AppendValue(not.Argument(iterator.GetNext()))
+	}
 	var identifier = v.stack_.RemoveLast().(string)
 	v.stack_.AddValue(
 		not.Function(
@@ -598,7 +602,11 @@ func (v *deflator_) PostprocessMethod(
 	index_ uint,
 	count_ uint,
 ) {
-	var arguments = v.stack_.RemoveLast().(fra.ListLike[not.ArgumentLike])
+	var arguments = fra.List[not.ArgumentLike]()
+	var iterator = v.stack_.RemoveLast().(fra.ListLike[any]).GetIterator()
+	for iterator.HasNext() {
+		arguments.AppendValue(not.Argument(iterator.GetNext()))
+	}
 	var identifier = v.stack_.RemoveLast().(string)
 	var invoke = v.stack_.RemoveLast().(not.InvokeLike)
 	var target = v.stack_.RemoveLast().(string)
@@ -722,7 +730,11 @@ func (v *deflator_) PostprocessProcedure(
 	index_ uint,
 	count_ uint,
 ) {
-	var lines = v.stack_.RemoveLast().(fra.ListLike[not.LineLike])
+	var lines = fra.List[not.LineLike]()
+	var iterator = v.stack_.RemoveLast().(fra.ListLike[any]).GetIterator()
+	for iterator.HasNext() {
+		lines.AppendValue(not.Line(iterator.GetNext()))
+	}
 	v.stack_.AddValue(
 		not.Procedure(
 			"{",
@@ -762,8 +774,8 @@ func (v *deflator_) PostprocessRange(
 	case doc.Exclusive:
 		right = not.Right(")")
 	}
-	var primitive2 = v.stack_.RemoveLast().(not.PrimitiveLike)
-	var primitive1 = v.stack_.RemoveLast().(not.PrimitiveLike)
+	var primitive2 = not.Primitive(v.stack_.RemoveLast())
+	var primitive1 = not.Primitive(v.stack_.RemoveLast())
 	var left not.LeftLike
 	switch range_.GetLeft() {
 	case doc.Inclusive:
@@ -788,7 +800,7 @@ func (v *deflator_) PostprocessReferent(
 	count_ uint,
 ) {
 	var reference = not.Reference(v.stack_.RemoveLast())
-	v.stack_.AddValue( not.Referent("@", reference))
+	v.stack_.AddValue(not.Referent("@", reference))
 }
 
 func (v *deflator_) PostprocessRejectClause(
