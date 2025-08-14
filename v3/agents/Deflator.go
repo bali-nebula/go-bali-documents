@@ -300,7 +300,9 @@ func (v *deflator_) PostprocessAcceptClause(
 	count_ uint,
 ) {
 	var message = v.stack_.RemoveLast().(not.MessageLike)
-	v.stack_.AddValue(not.AcceptClause("accept", message))
+	v.stack_.AddValue(
+		not.MainClause(not.MessageHandling(not.AcceptClause("accept", message))),
+	)
 }
 
 func (v *deflator_) PostprocessAttributes(
@@ -327,7 +329,9 @@ func (v *deflator_) PostprocessBreakClause(
 	index_ uint,
 	count_ uint,
 ) {
-	v.stack_.AddValue(not.BreakClause("break", "loop"))
+	v.stack_.AddValue(
+		not.MainClause(not.FlowControl(not.BreakClause("break", "loop"))),
+	)
 }
 
 func (v *deflator_) ProcessCheckoutClauseSlot(
@@ -351,12 +355,16 @@ func (v *deflator_) PostprocessCheckoutClause(
 	var atLevel = v.stack_.RemoveLast().(not.AtLevelLike)
 	var recipient = v.stack_.RemoveLast().(not.RecipientLike)
 	v.stack_.AddValue(
-		not.CheckoutClause(
-			"checkout",
-			recipient,
-			atLevel,
-			"from",
-			cited,
+		not.MainClause(
+			not.RepositoryAccess(
+				not.CheckoutClause(
+					"checkout",
+					recipient,
+					atLevel,
+					"from",
+					cited,
+				),
+			),
 		),
 	)
 }
@@ -381,7 +389,9 @@ func (v *deflator_) PostprocessContinueClause(
 	index_ uint,
 	count_ uint,
 ) {
-	v.stack_.AddValue(not.ContinueClause("continue", "loop"))
+	v.stack_.AddValue(
+		not.MainClause(not.FlowControl(not.ContinueClause("continue", "loop"))),
+	)
 }
 
 func (v *deflator_) PostprocessDiscardClause(
@@ -391,10 +401,7 @@ func (v *deflator_) PostprocessDiscardClause(
 ) {
 	var draft = v.stack_.RemoveLast().(not.DraftLike)
 	v.stack_.AddValue(
-		not.DiscardClause(
-			"discard",
-			draft,
-		),
+		not.MainClause(not.RepositoryAccess(not.DiscardClause("discard", draft))),
 	)
 }
 
@@ -405,10 +412,7 @@ func (v *deflator_) PostprocessDoClause(
 ) {
 	var method = v.stack_.RemoveLast().(not.MethodLike)
 	v.stack_.AddValue(
-		not.DoClause(
-			"do",
-			method,
-		),
+		not.MainClause(not.ActionInduction(not.DoClause("do", method))),
 	)
 }
 
@@ -522,11 +526,15 @@ func (v *deflator_) PostprocessIfClause(
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
 	var condition = v.stack_.RemoveLast().(not.ConditionLike)
 	v.stack_.AddValue(
-		not.IfClause(
-			"if",
-			condition,
-			"do",
-			procedure,
+		not.MainClause(
+			not.FlowControl(
+				not.IfClause(
+					"if",
+					condition,
+					"do",
+					procedure,
+				),
+			),
 		),
 	)
 }
@@ -555,11 +563,15 @@ func (v *deflator_) PostprocessLetClause(
 	var assignment = v.stack_.RemoveLast().(not.AssignmentLike)
 	var recipient = v.stack_.RemoveLast().(not.RecipientLike)
 	v.stack_.AddValue(
-		not.LetClause(
-			"let",
-			recipient,
-			assignment,
-			expression,
+		not.MainClause(
+			not.ActionInduction(
+				not.LetClause(
+					"let",
+					recipient,
+					assignment,
+					expression,
+				),
+			),
 		),
 	)
 }
