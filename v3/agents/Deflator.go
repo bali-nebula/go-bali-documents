@@ -447,14 +447,17 @@ func (v *deflator_) PostprocessEntities(
 	index_ uint,
 	count_ uint,
 ) {
-	var items = v.stack_.RemoveLast().(fra.ListLike[not.ItemLike])
-	v.stack_.AddValue(
-		not.Entities(
-			"[",
-			items,
-			"]",
-		),
-	)
+	var list = fra.List[not.ItemLike]()
+	var items = entities.GetItems()
+	var iterator = items.GetIterator()
+	for iterator.HasNext() {
+		iterator.GetNext()
+		var document = v.stack_.RemoveLast().(not.DocumentLike)
+		var item = not.Item(document)
+		list.AppendValue(item)
+	}
+	list.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(list)
 }
 
 func (v *deflator_) PostprocessExpression(
