@@ -81,26 +81,28 @@ func (v *deflator_) ProcessAngle(
 func (v *deflator_) ProcessAnnotation(
 	annotation string,
 ) {
-	v.stack_.AddValue(annotation)
+	v.stack_.AddValue(not.Annotation(annotation))
 }
 
 func (v *deflator_) ProcessAssignment(
 	assignment doc.Assignment,
 ) {
+	var operation string
 	switch assignment {
 	case doc.Equals:
-		v.stack_.AddValue(":=")
+		operation = ":="
 	case doc.EqualsDefault:
-		v.stack_.AddValue("?=")
+		operation = "?="
 	case doc.EqualsPlus:
-		v.stack_.AddValue("+=")
+		operation = "+="
 	case doc.EqualsMinus:
-		v.stack_.AddValue("-=")
+		operation = "-="
 	case doc.EqualsTimes:
-		v.stack_.AddValue("*=")
+		operation = "*="
 	case doc.EqualsDivide:
-		v.stack_.AddValue("/=")
+		operation = "/="
 	}
+	v.stack_.AddValue(not.Assignment(operation))
 }
 
 func (v *deflator_) ProcessBinary(
@@ -124,7 +126,7 @@ func (v *deflator_) ProcessBytecode(
 func (v *deflator_) ProcessComment(
 	comment string,
 ) {
-	v.stack_.AddValue(comment)
+	v.stack_.AddValue(not.Annotation(comment))
 }
 
 func (v *deflator_) ProcessDuration(
@@ -148,25 +150,29 @@ func (v *deflator_) ProcessIdentifier(
 func (v *deflator_) ProcessInverse(
 	inverse doc.Inverse,
 ) {
+	var operation string
 	switch inverse {
 	case doc.Additive:
-		v.stack_.AddValue("-")
+		operation = "-"
 	case doc.Multiplicative:
-		v.stack_.AddValue("/")
+		operation = "/"
 	case doc.Conjugate:
-		v.stack_.AddValue("*")
+		operation = "*"
 	}
+	v.stack_.AddValue(not.Inverse(operation))
 }
 
 func (v *deflator_) ProcessInvoke(
 	invoke doc.Invoke,
 ) {
+	var operation string
 	switch invoke {
 	case doc.Synchronous:
-		v.stack_.AddValue("<-")
+		operation = "<-"
 	case doc.Asynchronous:
-		v.stack_.AddValue("<~")
+		operation = "<~"
 	}
+	v.stack_.AddValue(not.Invoke(operation))
 }
 
 func (v *deflator_) ProcessMoment(
@@ -190,7 +196,7 @@ func (v *deflator_) ProcessNarrative(
 func (v *deflator_) ProcessNote(
 	note string,
 ) {
-	v.stack_.AddValue(note)
+	v.stack_.AddValue(not.Annotation(note))
 }
 
 func (v *deflator_) ProcessNumber(
@@ -202,40 +208,42 @@ func (v *deflator_) ProcessNumber(
 func (v *deflator_) ProcessOperator(
 	operator doc.Operator,
 ) {
+	var operation string
 	switch operator {
 	case doc.Chain:
-		v.stack_.AddValue("&")
+		operation = "&"
 	case doc.And:
-		v.stack_.AddValue("and")
+		operation = "and"
 	case doc.San:
-		v.stack_.AddValue("san")
+		operation = "san"
 	case doc.Ior:
-		v.stack_.AddValue("ior")
+		operation = "ior"
 	case doc.Eor:
-		v.stack_.AddValue("eor")
+		operation = "eor"
 	case doc.Plus:
-		v.stack_.AddValue("+")
+		operation = "+"
 	case doc.Minus:
-		v.stack_.AddValue("-")
+		operation = "-"
 	case doc.Times:
-		v.stack_.AddValue("*")
+		operation = "*"
 	case doc.Divide:
-		v.stack_.AddValue("/")
+		operation = "/"
 	case doc.Remainder:
-		v.stack_.AddValue("%")
+		operation = "%"
 	case doc.Power:
-		v.stack_.AddValue("^")
+		operation = "^"
 	case doc.Less:
-		v.stack_.AddValue("<")
+		operation = "<"
 	case doc.Equal:
-		v.stack_.AddValue("=")
+		operation = "="
 	case doc.More:
-		v.stack_.AddValue(">")
+		operation = ">"
 	case doc.Is:
-		v.stack_.AddValue("is")
+		operation = "is"
 	case doc.Matches:
-		v.stack_.AddValue("matches")
+		operation = "matches"
 	}
+	v.stack_.AddValue(not.Operator(operation))
 }
 
 func (v *deflator_) ProcessPattern(
