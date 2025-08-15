@@ -81,7 +81,7 @@ func (v *deflator_) ProcessAngle(
 func (v *deflator_) ProcessAnnotation(
 	annotation string,
 ) {
-	v.stack_.AddValue(not.Annotation(annotation))
+	v.stack_.AddValue(not.Line(not.Annotation(annotation)))
 }
 
 func (v *deflator_) ProcessAssignment(
@@ -310,18 +310,17 @@ func (v *deflator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = fra.List[not.AssociationLike]()
-	var associations = attributes.GetAssociations()
-	var iterator = associations.GetIterator()
+	var associations = fra.List[not.AssociationLike]()
+	var iterator = attributes.GetAssociations().GetIterator()
 	for iterator.HasNext() {
-		iterator.GetNext()
 		var document = v.stack_.RemoveLast().(not.DocumentLike)
 		var primitive = not.Primitive(v.stack_.RemoveLast())
 		var association = not.Association(primitive, ":", document)
-		list.AppendValue(association)
+		associations.AppendValue(association)
+		iterator.GetNext()
 	}
-	list.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Collection(not.Attributes("[", list, "]")))
+	associations.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Collection(not.Attributes("[", associations, "]")))
 }
 
 func (v *deflator_) PostprocessBreakClause(
@@ -458,17 +457,16 @@ func (v *deflator_) PostprocessEntities(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = fra.List[not.ItemLike]()
-	var items = entities.GetItems()
-	var iterator = items.GetIterator()
+	var items = fra.List[not.ItemLike]()
+	var iterator = entities.GetItems().GetIterator()
 	for iterator.HasNext() {
 		iterator.GetNext()
 		var document = v.stack_.RemoveLast().(not.DocumentLike)
 		var item = not.Item(document)
-		list.AppendValue(item)
+		items.AppendValue(item)
 	}
-	list.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Collection(not.Entities("[", list, "]")))
+	items.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Collection(not.Entities("[", items, "]")))
 }
 
 func (v *deflator_) PostprocessExpression(
@@ -492,19 +490,15 @@ func (v *deflator_) PostprocessFunction(
 	count_ uint,
 ) {
 	var arguments = fra.List[not.ArgumentLike]()
-	var iterator = v.stack_.RemoveLast().(fra.ListLike[any]).GetIterator()
+	var iterator = function.GetArguments().GetIterator()
 	for iterator.HasNext() {
-		arguments.AppendValue(not.Argument(iterator.GetNext()))
+		var argument = not.Argument(v.stack_.RemoveLast())
+		arguments.AppendValue(argument)
+		iterator.GetNext()
 	}
+	arguments.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
-	v.stack_.AddValue(
-		not.Function(
-			identifier,
-			"(",
-			arguments,
-			")",
-		),
-	)
+	v.stack_.AddValue(not.Function(identifier, "(", arguments, ")"))
 }
 
 func (v *deflator_) PostprocessIfClause(
@@ -603,23 +597,17 @@ func (v *deflator_) PostprocessMethod(
 	count_ uint,
 ) {
 	var arguments = fra.List[not.ArgumentLike]()
-	var iterator = v.stack_.RemoveLast().(fra.ListLike[any]).GetIterator()
+	var iterator = method.GetArguments().GetIterator()
 	for iterator.HasNext() {
-		arguments.AppendValue(not.Argument(iterator.GetNext()))
+		var argument = not.Argument(v.stack_.RemoveLast())
+		arguments.AppendValue(argument)
+		iterator.GetNext()
 	}
+	arguments.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
 	var invoke = v.stack_.RemoveLast().(not.InvokeLike)
 	var target = v.stack_.RemoveLast().(string)
-	v.stack_.AddValue(
-		not.Method(
-			target,
-			invoke,
-			identifier,
-			"(",
-			arguments,
-			")",
-		),
-	)
+	v.stack_.AddValue(not.Method(target, invoke, identifier, "(", arguments, ")"))
 }
 
 func (v *deflator_) PostprocessNotarizeClause(
@@ -664,18 +652,17 @@ func (v *deflator_) PostprocessParameters(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = fra.List[not.AssociationLike]()
-	var associations = parameters.GetAssociations()
-	var iterator = associations.GetIterator()
+	var associations = fra.List[not.AssociationLike]()
+	var iterator = parameters.GetAssociations().GetIterator()
 	for iterator.HasNext() {
-		iterator.GetNext()
 		var document = v.stack_.RemoveLast().(not.DocumentLike)
 		var primitive = not.Primitive(v.stack_.RemoveLast())
 		var association = not.Association(primitive, ":", document)
-		list.AppendValue(association)
+		associations.AppendValue(association)
+		iterator.GetNext()
 	}
-	list.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Parameters("(", list, ")"))
+	associations.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Parameters("(", associations, ")"))
 }
 
 func (v *deflator_) PostprocessPostClause(
@@ -735,17 +722,14 @@ func (v *deflator_) PostprocessProcedure(
 	count_ uint,
 ) {
 	var lines = fra.List[not.LineLike]()
-	var iterator = v.stack_.RemoveLast().(fra.ListLike[any]).GetIterator()
+	var iterator = procedure.GetLines().GetIterator()
 	for iterator.HasNext() {
-		lines.AppendValue(not.Line(iterator.GetNext()))
+		var line = v.stack_.RemoveLast().(not.LineLike)
+		lines.AppendValue(line)
+		iterator.GetNext()
 	}
-	v.stack_.AddValue(
-		not.Procedure(
-			"{",
-			lines,
-			"}",
-		),
-	)
+	lines.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Procedure("{", lines, "}"))
 }
 
 func (v *deflator_) PostprocessPublishClause(
@@ -925,9 +909,11 @@ func (v *deflator_) PostprocessStatement(
 	var onClause = v.stack_.RemoveLast().(not.OnClauseLike)
 	var mainClause = v.stack_.RemoveLast().(not.MainClauseLike)
 	v.stack_.AddValue(
-		not.Statement(
-			mainClause,
-			onClause,
+		not.Line(
+			not.Statement(
+				mainClause,
+				onClause,
+			),
 		),
 	)
 }
@@ -938,19 +924,15 @@ func (v *deflator_) PostprocessSubcomponent(
 	count_ uint,
 ) {
 	var indexes = fra.List[not.IndexLike]()
-	var iterator = v.stack_.RemoveLast().(fra.ListLike[any]).GetIterator()
+	var iterator = subcomponent.GetIndexes().GetIterator()
 	for iterator.HasNext() {
-		indexes.AppendValue(not.Index(iterator.GetNext()))
+		var index = not.Index(v.stack_.RemoveLast())
+		indexes.AppendValue(index)
+		iterator.GetNext()
 	}
+	indexes.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
-	v.stack_.AddValue(
-		not.Subcomponent(
-			identifier,
-			"[",
-			indexes,
-			"]",
-		),
-	)
+	v.stack_.AddValue(not.Subcomponent(identifier, "[", indexes, "]"))
 }
 
 func (v *deflator_) PostprocessThrowClause(

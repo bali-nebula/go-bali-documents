@@ -111,6 +111,7 @@ func (v *inflator_) ProcessDuration(
 func (v *inflator_) ProcessGlyph(
 	glyph string,
 ) {
+	fmt.Printf("GLYPH: |%s|\n", glyph)
 	v.stack_.AddValue(fra.GlyphFromString(glyph))
 }
 
@@ -237,10 +238,10 @@ func (v *inflator_) PostprocessAttributes(
 	var associations = attributes.GetAssociations()
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
-		iterator.GetNext()
 		var document = v.stack_.RemoveLast().(doc.DocumentLike)
 		var primitive = v.stack_.RemoveLast()
 		catalog.SetValue(primitive, document)
+		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.
 	v.stack_.AddValue(doc.AttributesClass().Attributes(catalog))
@@ -273,7 +274,11 @@ func (v *inflator_) PostprocessCheckoutClause(
 	count_ uint,
 ) {
 	var cited = v.stack_.RemoveLast().(doc.ExpressionLike)
-	var atLevel = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var atLevel doc.ExpressionLike
+	var optional = v.stack_.RemoveLast()
+	if uti.IsDefined(optional) {
+		atLevel = optional.(doc.ExpressionLike)
+	}
 	var recipient = v.stack_.RemoveLast()
 	v.stack_.AddValue(
 		doc.CheckoutClauseClass().CheckoutClause(recipient, atLevel, cited),
@@ -356,9 +361,9 @@ func (v *inflator_) PostprocessEntities(
 	var items = entities.GetItems()
 	var iterator = items.GetIterator()
 	for iterator.HasNext() {
-		iterator.GetNext()
 		var document = v.stack_.RemoveLast().(doc.DocumentLike)
 		list.AppendValue(document)
+		iterator.GetNext()
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
 	v.stack_.AddValue(doc.EntitiesClass().Entities(list))
@@ -369,9 +374,17 @@ func (v *inflator_) PostprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
-	var predicates = v.stack_.RemoveLast().(fra.ListLike[doc.PredicateLike])
+	var list = fra.List[doc.PredicateLike]()
+	var predicates = expression.GetPredicates()
+	var iterator = predicates.GetIterator()
+	for iterator.HasNext() {
+		var predicate = v.stack_.RemoveLast().(doc.PredicateLike)
+		list.AppendValue(predicate)
+		iterator.GetNext()
+	}
+	list.ReverseValues() // They were pulled off the stack in reverse order.
 	var subject = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.ExpressionClass().Expression(subject, predicates))
+	v.stack_.AddValue(doc.ExpressionClass().Expression(subject, list))
 }
 
 func (v *inflator_) PostprocessFunction(
@@ -379,9 +392,17 @@ func (v *inflator_) PostprocessFunction(
 	index_ uint,
 	count_ uint,
 ) {
-	var arguments = v.stack_.RemoveLast().(fra.ListLike[any])
+	var list = fra.List[any]()
+	var arguments = function.GetArguments()
+	var iterator = arguments.GetIterator()
+	for iterator.HasNext() {
+		var argument = v.stack_.RemoveLast()
+		list.AppendValue(argument)
+		iterator.GetNext()
+	}
+	list.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
-	v.stack_.AddValue(doc.FunctionClass().Function(identifier, arguments))
+	v.stack_.AddValue(doc.FunctionClass().Function(identifier, list))
 }
 
 func (v *inflator_) PostprocessIfClause(
@@ -402,6 +423,19 @@ func (v *inflator_) PostprocessInversion(
 	var numerical = v.stack_.RemoveLast()
 	var inverse = v.stack_.RemoveLast().(doc.Inverse)
 	v.stack_.AddValue(doc.InversionClass().Inversion(inverse, numerical))
+}
+
+func (v *inflator_) PostprocessInvoke(
+	invoke not.InvokeLike,
+	index_ uint,
+	count_ uint,
+) {
+	switch invoke.GetAny().(string) {
+	case "<-":
+		v.stack_.AddValue(doc.Synchronous)
+	case "<~":
+		v.stack_.AddValue(doc.Asynchronous)
+	}
 }
 
 func (v *inflator_) PostprocessLeft(
@@ -458,12 +492,20 @@ func (v *inflator_) PostprocessMethod(
 	index_ uint,
 	count_ uint,
 ) {
-	var arguments = v.stack_.RemoveLast().(fra.ListLike[any])
+	var list = fra.List[any]()
+	var arguments = method.GetArguments()
+	var iterator = arguments.GetIterator()
+	for iterator.HasNext() {
+		var argument = v.stack_.RemoveLast()
+		list.AppendValue(argument)
+		iterator.GetNext()
+	}
+	list.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
 	var invoke = v.stack_.RemoveLast().(doc.Invoke)
 	var target = v.stack_.RemoveLast().(string)
 	v.stack_.AddValue(
-		doc.MethodClass().Method(target, invoke, identifier, arguments),
+		doc.MethodClass().Method(target, invoke, identifier, list),
 	)
 }
 
@@ -488,9 +530,9 @@ func (v *inflator_) PostprocessOnClause(
 	var matchingClauses = onClause.GetMatchingClauses()
 	var iterator = matchingClauses.GetIterator()
 	for iterator.HasNext() {
-		iterator.GetNext()
 		var matchingClause = v.stack_.RemoveLast().(doc.MatchingClauseLike)
 		list.AppendValue(matchingClause)
+		iterator.GetNext()
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
 	var symbol = v.stack_.RemoveLast().(fra.SymbolLike)
@@ -508,10 +550,10 @@ func (v *inflator_) PostprocessParameters(
 	var associations = parameters.GetAssociations()
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
-		iterator.GetNext()
 		var document = v.stack_.RemoveLast().(doc.DocumentLike)
 		var symbol = v.stack_.RemoveLast().(fra.SymbolLike)
 		catalog.SetValue(symbol, document)
+		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.
 	v.stack_.AddValue(doc.ParametersClass().Parameters(catalog))
@@ -555,9 +597,9 @@ func (v *inflator_) PostprocessProcedure(
 	var lines = procedure.GetLines()
 	var iterator = lines.GetIterator()
 	for iterator.HasNext() {
-		iterator.GetNext()
 		var line = v.stack_.RemoveLast()
 		list.AppendValue(line)
+		iterator.GetNext()
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
 	v.stack_.AddValue(doc.ProcedureClass().Procedure(list))
@@ -655,9 +697,9 @@ func (v *inflator_) PostprocessSelectClause(
 	var matchingClauses = selectClause.GetMatchingClauses()
 	var iterator = matchingClauses.GetIterator()
 	for iterator.HasNext() {
-		iterator.GetNext()
 		var matchingClause = v.stack_.RemoveLast().(doc.MatchingClauseLike)
 		list.AppendValue(matchingClause)
+		iterator.GetNext()
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
 	var expression = v.stack_.RemoveLast().(doc.ExpressionLike)
@@ -682,7 +724,11 @@ func (v *inflator_) PostprocessStatement(
 	index_ uint,
 	count_ uint,
 ) {
-	var onClause = v.stack_.RemoveLast().(doc.OnClauseLike)
+	var onClause doc.OnClauseLike
+	var optional = v.stack_.RemoveLast()
+	if uti.IsDefined(optional) {
+		onClause = optional.(doc.OnClauseLike)
+	}
 	var mainClause = v.stack_.RemoveLast()
 	v.stack_.AddValue(doc.StatementClass().Statement(mainClause, onClause))
 }
@@ -692,9 +738,17 @@ func (v *inflator_) PostprocessSubcomponent(
 	index_ uint,
 	count_ uint,
 ) {
-	var indexes = v.stack_.RemoveLast().(fra.ListLike[any])
+	var list = fra.List[any]()
+	var indexes = subcomponent.GetIndexes()
+	var iterator = indexes.GetIterator()
+	for iterator.HasNext() {
+		var index = v.stack_.RemoveLast()
+		list.AppendValue(index)
+		iterator.GetNext()
+	}
+	list.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
-	v.stack_.AddValue(doc.SubcomponentClass().Subcomponent(identifier, indexes))
+	v.stack_.AddValue(doc.SubcomponentClass().Subcomponent(identifier, list))
 }
 
 func (v *inflator_) PostprocessThrowClause(
