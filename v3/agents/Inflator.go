@@ -111,7 +111,6 @@ func (v *inflator_) ProcessDuration(
 func (v *inflator_) ProcessGlyph(
 	glyph string,
 ) {
-	fmt.Printf("GLYPH: |%s|\n", glyph)
 	v.stack_.AddValue(fra.GlyphFromString(glyph))
 }
 

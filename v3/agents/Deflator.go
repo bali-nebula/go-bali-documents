@@ -350,19 +350,14 @@ func (v *deflator_) PostprocessCheckoutClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var cited = v.stack_.RemoveLast().(not.CitedLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var cited = not.Cited(expression)
 	var atLevel = v.stack_.RemoveLast().(not.AtLevelLike)
 	var recipient = not.Recipient(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.MainClause(
 			not.RepositoryAccess(
-				not.CheckoutClause(
-					"checkout",
-					recipient,
-					atLevel,
-					"from",
-					cited,
-				),
+				not.CheckoutClause("checkout", recipient, atLevel, "from", cited),
 			),
 		),
 	)
@@ -474,14 +469,16 @@ func (v *deflator_) PostprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
-	var predicates = v.stack_.RemoveLast().(fra.ListLike[not.PredicateLike])
+	var predicates = fra.List[not.PredicateLike]()
+	var iterator = expression.GetPredicates().GetIterator()
+	for iterator.HasNext() {
+		iterator.GetNext()
+		var predicate = v.stack_.RemoveLast().(not.PredicateLike)
+		predicates.AppendValue(predicate)
+	}
+	predicates.ReverseValues() // They were pulled off the stack in reverse order.
 	var subject = not.Subject(v.stack_.RemoveLast())
-	v.stack_.AddValue(
-		not.Expression(
-			subject,
-			predicates,
-		),
-	)
+	v.stack_.AddValue(not.Expression(subject, predicates))
 }
 
 func (v *deflator_) PostprocessFunction(
@@ -507,16 +504,12 @@ func (v *deflator_) PostprocessIfClause(
 	count_ uint,
 ) {
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
-	var condition = v.stack_.RemoveLast().(not.ConditionLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var condition = not.Condition(expression)
 	v.stack_.AddValue(
 		not.MainClause(
 			not.FlowControl(
-				not.IfClause(
-					"if",
-					condition,
-					"do",
-					procedure,
-				),
+				not.IfClause("if", condition, "do", procedure),
 			),
 		),
 	)
@@ -548,12 +541,7 @@ func (v *deflator_) PostprocessLetClause(
 	v.stack_.AddValue(
 		not.MainClause(
 			not.ActionInduction(
-				not.LetClause(
-					"let",
-					recipient,
-					assignment,
-					expression,
-				),
+				not.LetClause("let", recipient, assignment, expression),
 			),
 		),
 	)
@@ -566,11 +554,7 @@ func (v *deflator_) PostprocessMagnitude(
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	v.stack_.AddValue(
-		not.Magnitude(
-			"|",
-			expression,
-			"|",
-		),
+		not.Magnitude("|", expression, "|"),
 	)
 }
 
@@ -580,14 +564,10 @@ func (v *deflator_) PostprocessMatchingClause(
 	count_ uint,
 ) {
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
-	var template = v.stack_.RemoveLast().(not.TemplateLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var template = not.Template(expression)
 	v.stack_.AddValue(
-		not.MatchingClause(
-			"matching",
-			template,
-			"do",
-			procedure,
-		),
+		not.MatchingClause("matching", template, "do", procedure),
 	)
 }
 
@@ -670,17 +650,14 @@ func (v *deflator_) PostprocessPostClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var bag = v.stack_.RemoveLast().(not.BagLike)
-	var message = v.stack_.RemoveLast().(not.MessageLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var bag = not.Bag(expression)
+	expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var message = not.Message(expression)
 	v.stack_.AddValue(
 		not.MainClause(
 			not.MessageHandling(
-				not.PostClause(
-					"post",
-					message,
-					"to",
-					bag,
-				),
+				not.PostClause("post", message, "to", bag),
 			),
 		),
 	)
@@ -693,11 +670,7 @@ func (v *deflator_) PostprocessPrecedence(
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	v.stack_.AddValue(
-		not.Precedence(
-			"(",
-			expression,
-			")",
-		),
+		not.Precedence("(", expression, ")"),
 	)
 }
 
@@ -709,10 +682,7 @@ func (v *deflator_) PostprocessPredicate(
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var operator = v.stack_.RemoveLast().(not.OperatorLike)
 	v.stack_.AddValue(
-		not.Predicate(
-			operator,
-			expression,
-		),
+		not.Predicate(operator, expression),
 	)
 }
 
@@ -737,14 +707,12 @@ func (v *deflator_) PostprocessPublishClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var event = v.stack_.RemoveLast().(not.EventLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var event = not.Event(expression)
 	v.stack_.AddValue(
 		not.MainClause(
 			not.MessageHandling(
-				not.PublishClause(
-					"publish",
-					event,
-				),
+				not.PublishClause("publish", event),
 			),
 		),
 	)
@@ -835,14 +803,12 @@ func (v *deflator_) PostprocessReturnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var result = v.stack_.RemoveLast().(not.ResultLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var result = not.Result(expression)
 	v.stack_.AddValue(
 		not.MainClause(
 			not.FlowControl(
-				not.ReturnClause(
-					"return",
-					result,
-				),
+				not.ReturnClause("return", result),
 			),
 		),
 	)
@@ -853,17 +819,14 @@ func (v *deflator_) PostprocessSaveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var cited = v.stack_.RemoveLast().(not.CitedLike)
-	var draft = v.stack_.RemoveLast().(not.DraftLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var cited = not.Cited(expression)
+	expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var draft = not.Draft(expression)
 	v.stack_.AddValue(
 		not.MainClause(
 			not.RepositoryAccess(
-				not.SaveClause(
-					"save",
-					draft,
-					"as",
-					cited,
-				),
+				not.SaveClause("save", draft, "as", cited),
 			),
 		),
 	)
@@ -879,11 +842,7 @@ func (v *deflator_) PostprocessSelectClause(
 	v.stack_.AddValue(
 		not.MainClause(
 			not.FlowControl(
-				not.SelectClause(
-					"select",
-					expression,
-					matchingClauses,
-				),
+				not.SelectClause("select", expression, matchingClauses),
 			),
 		),
 	)
@@ -906,16 +865,13 @@ func (v *deflator_) PostprocessStatement(
 	index_ uint,
 	count_ uint,
 ) {
-	var onClause = v.stack_.RemoveLast().(not.OnClauseLike)
-	var mainClause = v.stack_.RemoveLast().(not.MainClauseLike)
-	v.stack_.AddValue(
-		not.Line(
-			not.Statement(
-				mainClause,
-				onClause,
-			),
-		),
-	)
+	var onClause not.OnClauseLike
+	var optional = v.stack_.RemoveLast()
+	if uti.IsDefined(optional) {
+		onClause = optional.(not.OnClauseLike)
+	}
+	var mainClause = not.MainClause(v.stack_.RemoveLast())
+	v.stack_.AddValue(not.Line(not.Statement(mainClause, onClause)))
 }
 
 func (v *deflator_) PostprocessSubcomponent(
@@ -940,12 +896,10 @@ func (v *deflator_) PostprocessThrowClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var exception = v.stack_.RemoveLast().(not.ExceptionLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var exception = not.Exception(expression)
 	v.stack_.AddValue(
-		not.ThrowClause(
-			"throw",
-			exception,
-		),
+		not.ThrowClause("throw", exception),
 	)
 }
 
@@ -972,18 +926,12 @@ func (v *deflator_) PostprocessWithClause(
 	count_ uint,
 ) {
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
-	var sequence = v.stack_.RemoveLast().(not.SequenceLike)
-	var variable = v.stack_.RemoveLast().(not.VariableLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var sequence = not.Sequence(expression)
+	var element = v.stack_.RemoveLast().(not.ElementLike)
+	var variable = not.Variable(element.GetAny().(string))
 	v.stack_.AddValue(
-		not.WithClause(
-			"with",
-			"each",
-			variable,
-			"in",
-			sequence,
-			"do",
-			procedure,
-		),
+		not.WithClause("with", "each", variable, "in", sequence, "do", procedure),
 	)
 }
 
