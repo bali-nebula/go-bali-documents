@@ -101,6 +101,13 @@ func (v *deflator_) ProcessAssignment(
 		operation = "*="
 	case doc.EqualsDivide:
 		operation = "/="
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected value in a switch statement: %v(%T)",
+			assignment,
+			assignment,
+		)
+		panic(message)
 	}
 	v.stack_.AddValue(not.Assignment(operation))
 }
@@ -158,6 +165,13 @@ func (v *deflator_) ProcessInverse(
 		operation = "/"
 	case doc.Conjugate:
 		operation = "*"
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected value in a switch statement: %v(%T)",
+			inverse,
+			inverse,
+		)
+		panic(message)
 	}
 	v.stack_.AddValue(not.Inverse(operation))
 }
@@ -171,6 +185,13 @@ func (v *deflator_) ProcessInvoke(
 		operation = "<-"
 	case doc.Asynchronous:
 		operation = "<~"
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected value in a switch statement: %v(%T)",
+			invoke,
+			invoke,
+		)
+		panic(message)
 	}
 	v.stack_.AddValue(not.Invoke(operation))
 }
@@ -218,8 +239,8 @@ func (v *deflator_) ProcessOperator(
 		operation = not.LogicalOperator("san")
 	case doc.Ior:
 		operation = not.LogicalOperator("ior")
-	case doc.Eor:
-		operation = not.LogicalOperator("eor")
+	case doc.Xor:
+		operation = not.LogicalOperator("xor")
 	case doc.Plus:
 		operation = not.ArithmeticOperator("+")
 	case doc.Minus:
@@ -242,6 +263,13 @@ func (v *deflator_) ProcessOperator(
 		operation = not.ComparisonOperator("is")
 	case doc.Matches:
 		operation = not.ComparisonOperator("matches")
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected value in a switch statement: %v(%T)",
+			operator,
+			operator,
+		)
+		panic(message)
 	}
 	v.stack_.AddValue(not.Operator(operation))
 }
@@ -299,7 +327,8 @@ func (v *deflator_) PostprocessAcceptClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var message = v.stack_.RemoveLast().(not.MessageLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var message = not.Message(expression)
 	v.stack_.AddValue(
 		not.MainClause(not.MessageHandling(not.AcceptClause("accept", message))),
 	)
@@ -352,7 +381,12 @@ func (v *deflator_) PostprocessCheckoutClause(
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var cited = not.Cited(expression)
-	var atLevel = v.stack_.RemoveLast().(not.AtLevelLike)
+	var atLevel not.AtLevelLike
+	var optional = v.stack_.RemoveLast()
+	if uti.IsDefined(optional) {
+		var expression = optional.(not.ExpressionLike)
+		atLevel = not.AtLevel("at", "level", expression)
+	}
 	var recipient = not.Recipient(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.MainClause(
@@ -392,7 +426,8 @@ func (v *deflator_) PostprocessDiscardClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var draft = v.stack_.RemoveLast().(not.DraftLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var draft = not.Draft(expression)
 	v.stack_.AddValue(
 		not.MainClause(not.RepositoryAccess(not.DiscardClause("discard", draft))),
 	)
@@ -455,10 +490,10 @@ func (v *deflator_) PostprocessEntities(
 	var items = fra.List[not.ItemLike]()
 	var iterator = entities.GetItems().GetIterator()
 	for iterator.HasNext() {
-		iterator.GetNext()
 		var document = v.stack_.RemoveLast().(not.DocumentLike)
 		var item = not.Item(document)
 		items.AppendValue(item)
+		iterator.GetNext()
 	}
 	items.ReverseValues() // They were pulled off the stack in reverse order.
 	v.stack_.AddValue(not.Collection(not.Entities("[", items, "]")))
@@ -472,9 +507,9 @@ func (v *deflator_) PostprocessExpression(
 	var predicates = fra.List[not.PredicateLike]()
 	var iterator = expression.GetPredicates().GetIterator()
 	for iterator.HasNext() {
-		iterator.GetNext()
 		var predicate = v.stack_.RemoveLast().(not.PredicateLike)
 		predicates.AppendValue(predicate)
+		iterator.GetNext()
 	}
 	predicates.ReverseValues() // They were pulled off the stack in reverse order.
 	var subject = not.Subject(v.stack_.RemoveLast())
@@ -595,8 +630,10 @@ func (v *deflator_) PostprocessNotarizeClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var cited = v.stack_.RemoveLast().(not.CitedLike)
-	var draft = v.stack_.RemoveLast().(not.DraftLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var cited = not.Cited(expression)
+	expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var draft = not.Draft(expression)
 	v.stack_.AddValue(
 		not.MainClause(
 			not.RepositoryAccess(
@@ -616,8 +653,16 @@ func (v *deflator_) PostprocessOnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var matchingClauses = v.stack_.RemoveLast().(fra.ListLike[not.MatchingClauseLike])
-	var failure = v.stack_.RemoveLast().(not.FailureLike)
+	var matchingClauses = fra.List[not.MatchingClauseLike]()
+	var iterator = onClause.GetMatchingClauses().GetIterator()
+	for iterator.HasNext() {
+		var matchingClause = v.stack_.RemoveLast().(not.MatchingClauseLike)
+		matchingClauses.AppendValue(matchingClause)
+		iterator.GetNext()
+	}
+	matchingClauses.ReverseValues() // They were pulled off the stack in reverse order.
+	var element = v.stack_.RemoveLast().(not.ElementLike)
+	var failure = not.Failure(element.GetAny().(string))
 	v.stack_.AddValue(
 		not.OnClause(
 			"on",
@@ -724,20 +769,36 @@ func (v *deflator_) PostprocessRange(
 	count_ uint,
 ) {
 	var right not.RightLike
-	switch range_.GetRight() {
+	var extent = range_.GetRight()
+	switch extent {
 	case doc.Inclusive:
 		right = not.Right("]")
 	case doc.Exclusive:
 		right = not.Right(")")
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected value in a switch statement: %v(%T)",
+			extent,
+			extent,
+		)
+		panic(message)
 	}
 	var primitive2 = not.Primitive(v.stack_.RemoveLast())
 	var primitive1 = not.Primitive(v.stack_.RemoveLast())
 	var left not.LeftLike
-	switch range_.GetLeft() {
+	extent = range_.GetLeft()
+	switch extent {
 	case doc.Inclusive:
 		left = not.Left("[")
 	case doc.Exclusive:
 		left = not.Left("(")
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected value in a switch statement: %v(%T)",
+			extent,
+			extent,
+		)
+		panic(message)
 	}
 	v.stack_.AddValue(
 		not.Range(
@@ -764,7 +825,8 @@ func (v *deflator_) PostprocessRejectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var message = v.stack_.RemoveLast().(not.MessageLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var message = not.Message(expression)
 	v.stack_.AddValue(
 		not.MainClause(
 			not.MessageHandling(
@@ -782,7 +844,8 @@ func (v *deflator_) PostprocessRetrieveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var bag = v.stack_.RemoveLast().(not.BagLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var bag = not.Bag(expression)
 	var recipient = not.Recipient(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.MainClause(
@@ -837,7 +900,14 @@ func (v *deflator_) PostprocessSelectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var matchingClauses = v.stack_.RemoveLast().(fra.ListLike[not.MatchingClauseLike])
+	var matchingClauses = fra.List[not.MatchingClauseLike]()
+	var iterator = selectClause.GetMatchingClauses().GetIterator()
+	for iterator.HasNext() {
+		var matchingClause = v.stack_.RemoveLast().(not.MatchingClauseLike)
+		matchingClauses.AppendValue(matchingClause)
+		iterator.GetNext()
+	}
+	matchingClauses.ReverseValues() // They were pulled off the stack in reverse order.
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	v.stack_.AddValue(
 		not.MainClause(
@@ -909,7 +979,8 @@ func (v *deflator_) PostprocessWhileClause(
 	count_ uint,
 ) {
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
-	var condition = v.stack_.RemoveLast().(not.ConditionLike)
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var condition = not.Condition(expression)
 	v.stack_.AddValue(
 		not.WhileClause(
 			"while",

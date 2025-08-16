@@ -92,7 +92,7 @@ const (
 	And
 	San
 	Ior
-	Eor
+	Xor
 	Plus
 	Minus
 	Times

@@ -13,6 +13,7 @@
 package agents
 
 import (
+	fmt "fmt"
 	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	fra "github.com/craterdog/go-component-framework/v7"
@@ -604,6 +605,13 @@ func (v *visitor_) visitLine(
 		)
 	case string:
 		v.processor_.ProcessAnnotation(actual)
+	default:
+		var message = fmt.Sprintf(
+			"Found a value of an unexpected type in a switch statement: %v(%T)",
+			actual,
+			actual,
+		)
+		panic(message)
 	}
 }
 
@@ -697,6 +705,13 @@ func (v *visitor_) visitLogical(
 		)
 	case string:
 		v.processor_.ProcessIdentifier(actual)
+	default:
+		var message = fmt.Sprintf(
+			"Found a value of an unexpected type in a switch statement: %v(%T)",
+			actual,
+			actual,
+		)
+		panic(message)
 	}
 }
 
@@ -949,6 +964,13 @@ func (v *visitor_) visitMainClause(
 			1,
 			1,
 		)
+	default:
+		var message = fmt.Sprintf(
+			"Found a value of an unexpected type in a switch statement: %v(%T)",
+			actual,
+			actual,
+		)
+		panic(message)
 	}
 }
 
@@ -1173,6 +1195,13 @@ func (v *visitor_) visitNumerical(
 		)
 	case string:
 		v.processor_.ProcessIdentifier(actual)
+	default:
+		var message = fmt.Sprintf(
+			"Found a value of an unexpected type in a switch statement: %v(%T)",
+			actual,
+			actual,
+		)
+		panic(message)
 	}
 }
 
@@ -1353,6 +1382,13 @@ func (v *visitor_) visitPrimitive(
 		v.processor_.ProcessTag(actual)
 	case fra.VersionLike:
 		v.processor_.ProcessVersion(actual)
+	default:
+		var message = fmt.Sprintf(
+			"Found a value of an unexpected type in a switch statement: %v(%T)",
+			actual,
+			actual,
+		)
+		panic(message)
 	}
 }
 
@@ -1465,6 +1501,13 @@ func (v *visitor_) visitRecipient(
 		)
 	case fra.SymbolLike:
 		v.processor_.ProcessSymbol(actual)
+	default:
+		var message = fmt.Sprintf(
+			"Found a value of an unexpected type in a switch statement: %v(%T)",
+			actual,
+			actual,
+		)
+		panic(message)
 	}
 }
 
@@ -1534,6 +1577,13 @@ func (v *visitor_) visitReference(
 		)
 	case string:
 		v.processor_.ProcessIdentifier(actual)
+	default:
+		var message = fmt.Sprintf(
+			"Found a value of an unexpected type in a switch statement: %v(%T)",
+			actual,
+			actual,
+		)
+		panic(message)
 	}
 }
 
@@ -1883,6 +1933,13 @@ func (v *visitor_) visitSubject(
 		)
 	case string:
 		v.processor_.ProcessIdentifier(actual)
+	default:
+		var message = fmt.Sprintf(
+			"Found a value of an unexpected type in a switch statement: %v(%T)",
+			actual,
+			actual,
+		)
+		panic(message)
 	}
 }
 

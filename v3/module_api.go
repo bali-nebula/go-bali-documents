@@ -140,7 +140,7 @@ const (
 	And            = doc.And
 	San            = doc.San
 	Ior            = doc.Ior
-	Eor            = doc.Eor
+	Xor            = doc.Xor
 	Plus           = doc.Plus
 	Minus          = doc.Minus
 	Times          = doc.Times

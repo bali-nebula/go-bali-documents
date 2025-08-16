@@ -212,7 +212,8 @@ func (v *inflator_) PostprocessAssignment(
 	index_ uint,
 	count_ uint,
 ) {
-	switch assignment.GetAny().(string) {
+	var operator = assignment.GetAny().(string)
+	switch operator {
 	case ":=":
 		v.stack_.AddValue(doc.Equals)
 	case "?=":
@@ -225,6 +226,12 @@ func (v *inflator_) PostprocessAssignment(
 		v.stack_.AddValue(doc.EqualsTimes)
 	case "/=":
 		v.stack_.AddValue(doc.EqualsDivide)
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected string value in a switch statement: %v",
+			operator,
+		)
+		panic(message)
 	}
 }
 
@@ -414,6 +421,28 @@ func (v *inflator_) PostprocessIfClause(
 	v.stack_.AddValue(doc.IfClauseClass().IfClause(condition, procedure))
 }
 
+func (v *inflator_) PostprocessInverse(
+	inverse not.InverseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var operator = inverse.GetAny().(string)
+	switch operator {
+	case "-":
+		v.stack_.AddValue(doc.Additive)
+	case "*":
+		v.stack_.AddValue(doc.Multiplicative)
+	case "/":
+		v.stack_.AddValue(doc.Conjugate)
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected string value in a switch statement: %v",
+			operator,
+		)
+		panic(message)
+	}
+}
+
 func (v *inflator_) PostprocessInversion(
 	inversion not.InversionLike,
 	index_ uint,
@@ -429,11 +458,18 @@ func (v *inflator_) PostprocessInvoke(
 	index_ uint,
 	count_ uint,
 ) {
-	switch invoke.GetAny().(string) {
+	var operator = invoke.GetAny().(string)
+	switch operator {
 	case "<-":
 		v.stack_.AddValue(doc.Synchronous)
 	case "<~":
 		v.stack_.AddValue(doc.Asynchronous)
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected string value in a switch statement: %v",
+			operator,
+		)
+		panic(message)
 	}
 }
 
@@ -443,11 +479,18 @@ func (v *inflator_) PostprocessLeft(
 	count_ uint,
 ) {
 	var extent doc.Extent
-	switch left.GetAny().(string) {
+	var bracket = left.GetAny().(string)
+	switch bracket {
 	case "[":
 		extent = doc.Inclusive
 	case "(":
 		extent = doc.Exclusive
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected string value in a switch statement: %v",
+			bracket,
+		)
+		panic(message)
 	}
 	v.stack_.AddValue(extent)
 }
@@ -538,6 +581,72 @@ func (v *inflator_) PostprocessOnClause(
 	v.stack_.AddValue(
 		doc.OnClauseClass().OnClause(symbol, list),
 	)
+}
+
+func (v *inflator_) PostprocessOperator(
+	operator not.OperatorLike,
+	index_ uint,
+	count_ uint,
+) {
+	var wrapper any
+	switch actual := operator.GetAny().(type) {
+	case not.LexicalOperatorLike:
+		wrapper = actual.GetAny()
+	case not.LogicalOperatorLike:
+		wrapper = actual.GetAny()
+	case not.ArithmeticOperatorLike:
+		wrapper = actual.GetAny()
+	case not.ComparisonOperatorLike:
+		wrapper = actual.GetAny()
+	default:
+		var message = fmt.Sprintf(
+			"Found a value of an unexpected type in a switch statement: %v(%T)",
+			actual,
+			actual,
+		)
+		panic(message)
+	}
+	var actual = wrapper.(string)
+	switch actual {
+	case "&":
+		v.stack_.AddValue(doc.Chain)
+	case "and":
+		v.stack_.AddValue(doc.And)
+	case "san":
+		v.stack_.AddValue(doc.San)
+	case "ior":
+		v.stack_.AddValue(doc.Ior)
+	case "xor":
+		v.stack_.AddValue(doc.Xor)
+	case "+":
+		v.stack_.AddValue(doc.Plus)
+	case "-":
+		v.stack_.AddValue(doc.Minus)
+	case "*":
+		v.stack_.AddValue(doc.Times)
+	case "/":
+		v.stack_.AddValue(doc.Divide)
+	case "%":
+		v.stack_.AddValue(doc.Remainder)
+	case "^":
+		v.stack_.AddValue(doc.Power)
+	case "<":
+		v.stack_.AddValue(doc.Less)
+	case "=":
+		v.stack_.AddValue(doc.Equal)
+	case ">":
+		v.stack_.AddValue(doc.More)
+	case "is":
+		v.stack_.AddValue(doc.Is)
+	case "matches":
+		v.stack_.AddValue(doc.Matches)
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected string value in a switch statement: %v",
+			actual,
+		)
+		panic(message)
+	}
 }
 
 func (v *inflator_) PostprocessParameters(
@@ -668,11 +777,18 @@ func (v *inflator_) PostprocessRight(
 	count_ uint,
 ) {
 	var extent doc.Extent
-	switch right.GetAny().(string) {
+	var bracket = right.GetAny().(string)
+	switch bracket {
 	case "]":
 		extent = doc.Inclusive
 	case ")":
 		extent = doc.Exclusive
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected string value in a switch statement: %v",
+			bracket,
+		)
+		panic(message)
 	}
 	v.stack_.AddValue(extent)
 }
