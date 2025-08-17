@@ -13,7 +13,7 @@
     let $foo := (x + y - z) * (x / y % z)
     let $foo := base ^ phase-angle
     let $foo := pin
-    let $foo := phi + pi
+    let $foo := φ + π
     let $foo := not p
     let $foo := p and q
     let $foo := not (p and q) ior (p ior not q) xor (p san q)
