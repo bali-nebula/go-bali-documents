@@ -442,19 +442,22 @@ func (v *visitor_) visitFunction(
 		1,
 	)
 
+	var argumentsIndex uint
 	var arguments = function.GetArguments().GetIterator()
+	var argumentsCount = uint(arguments.GetSize())
 	for arguments.HasNext() {
+		argumentsIndex++
 		var argument = arguments.GetNext()
 		v.processor_.PreprocessArgument(
 			argument,
-			1,
-			1,
+			argumentsIndex,
+			argumentsCount,
 		)
 		v.visitArgument(argument)
 		v.processor_.PostprocessArgument(
 			argument,
-			1,
-			1,
+			argumentsIndex,
+			argumentsCount,
 		)
 	}
 }
@@ -1040,19 +1043,22 @@ func (v *visitor_) visitMethod(
 		3,
 	)
 
+	var argumentsIndex uint
 	var arguments = method.GetArguments().GetIterator()
+	var argumentsCount = uint(arguments.GetSize())
 	for arguments.HasNext() {
+		argumentsIndex++
 		var argument = arguments.GetNext()
 		v.processor_.PreprocessArgument(
 			argument,
-			1,
-			1,
+			argumentsIndex,
+			argumentsCount,
 		)
 		v.visitArgument(argument)
 		v.processor_.PostprocessArgument(
 			argument,
-			1,
-			1,
+			argumentsIndex,
+			argumentsCount,
 		)
 	}
 }
@@ -1395,19 +1401,22 @@ func (v *visitor_) visitPrimitive(
 func (v *visitor_) visitProcedure(
 	procedure doc.ProcedureLike,
 ) {
+	var linesIndex uint
 	var lines = procedure.GetLines().GetIterator()
+	var linesCount = uint(lines.GetSize())
 	for lines.HasNext() {
+		linesIndex++
 		var line = lines.GetNext()
 		v.processor_.PreprocessLine(
 			line,
-			1,
-			1,
+			linesIndex,
+			linesCount,
 		)
 		v.visitLine(line)
 		v.processor_.PostprocessLine(
 			line,
-			1,
-			1,
+			linesIndex,
+			linesCount,
 		)
 	}
 }
@@ -1802,19 +1811,22 @@ func (v *visitor_) visitSubcomponent(
 		1,
 	)
 
+	var indexesIndex uint
 	var indexes = subcomponent.GetIndexes().GetIterator()
+	var indexesCount = uint(indexes.GetSize())
 	for indexes.HasNext() {
+		indexesIndex++
 		var index = indexes.GetNext()
 		v.processor_.PreprocessIndex(
 			index,
-			1,
-			1,
+			indexesIndex,
+			indexesCount,
 		)
 		v.visitIndex(index)
 		v.processor_.PostprocessIndex(
 			index,
-			1,
-			1,
+			indexesIndex,
+			indexesCount,
 		)
 	}
 }
