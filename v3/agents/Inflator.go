@@ -430,9 +430,9 @@ func (v *inflator_) PostprocessInverse(
 	switch operator {
 	case "-":
 		v.stack_.AddValue(doc.Additive)
-	case "*":
-		v.stack_.AddValue(doc.Multiplicative)
 	case "/":
+		v.stack_.AddValue(doc.Multiplicative)
+	case "*":
 		v.stack_.AddValue(doc.Conjugate)
 	default:
 		var message = fmt.Sprintf(
