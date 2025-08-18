@@ -701,6 +701,23 @@ of a concrete document-like class.
 type DocumentLike interface {
 	// Principal Methods
 	GetClass() DocumentClassLike
+	GetParameter(
+		key fra.SymbolLike,
+	) DocumentLike
+	SetParameter(
+		key fra.SymbolLike,
+		parameter DocumentLike,
+	)
+	GetAttribute(
+		indices ...any,
+	) DocumentLike
+	SetAttribute(
+		attribute DocumentLike,
+		indices ...any,
+	)
+	RemoveAttribute(
+		indices ...any,
+	)
 
 	// Attribute Methods
 	GetComponent() any

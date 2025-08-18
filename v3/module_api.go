@@ -65,9 +65,9 @@ type (
 // Assembly
 
 type (
-	Operation = ass.Operation
 	Modifier  = ass.Modifier
 	Operand   = ass.Operand
+	Operation = ass.Operation
 )
 
 const (
@@ -840,18 +840,18 @@ func WithClause(
 
 // GLOBAL FUNCTIONS
 
+func ParseSource(
+	source string,
+) DocumentLike {
+	var inflator = Inflator()
+	var parser = not.Parser()
+	return inflator.InflateDocument(parser.ParseSource(source))
+}
+
 func FormatDocument(
-	document doc.DocumentLike,
+	document DocumentLike,
 ) string {
 	var deflator = Deflator()
 	var formatter = not.Formatter()
 	return formatter.FormatDocument(deflator.DeflateDocument(document))
-}
-
-func ParseSource(
-	source string,
-) doc.DocumentLike {
-	var inflator = Inflator()
-	var parser = not.Parser()
-	return inflator.InflateDocument(parser.ParseSource(source))
 }
