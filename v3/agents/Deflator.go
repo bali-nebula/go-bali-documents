@@ -387,7 +387,13 @@ func (v *deflator_) PostprocessCheckoutClause(
 		var expression = optional.(not.ExpressionLike)
 		atLevel = not.AtLevel("at", "level", expression)
 	}
-	var recipient = not.Recipient(v.stack_.RemoveLast())
+	var recipient not.RecipientLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case not.ElementLike:
+		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
+	case not.SubcomponentLike:
+		recipient = not.Recipient(actual)
+	}
 	v.stack_.AddValue(
 		not.MainClause(
 			not.RepositoryAccess(
@@ -402,7 +408,13 @@ func (v *deflator_) PostprocessComplement(
 	index_ uint,
 	count_ uint,
 ) {
-	var logical = not.Logical(v.stack_.RemoveLast())
+	var logical not.LogicalLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case string:
+		logical = not.Logical(not.Value(actual))
+	default:
+		logical = not.Logical(actual)
+	}
 	v.stack_.AddValue(
 		not.Complement(
 			"not",
@@ -512,7 +524,13 @@ func (v *deflator_) PostprocessExpression(
 		iterator.GetNext()
 	}
 	predicates.ReverseValues() // They were pulled off the stack in reverse order.
-	var subject = not.Subject(v.stack_.RemoveLast())
+	var subject not.SubjectLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case string:
+		subject = not.Subject(not.Value(actual))
+	default:
+		subject = not.Subject(actual)
+	}
 	v.stack_.AddValue(not.Expression(subject, predicates))
 }
 
@@ -524,7 +542,13 @@ func (v *deflator_) PostprocessFunction(
 	var arguments = fra.List[not.ArgumentLike]()
 	var iterator = function.GetArguments().GetIterator()
 	for iterator.HasNext() {
-		var argument = not.Argument(v.stack_.RemoveLast())
+		var argument not.ArgumentLike
+		switch actual := v.stack_.RemoveLast().(type) {
+		case string:
+			argument = not.Argument(not.Value(actual))
+		default:
+			argument = not.Argument(not.Primitive(actual))
+		}
 		arguments.AppendValue(argument)
 		iterator.GetNext()
 	}
@@ -555,7 +579,13 @@ func (v *deflator_) PostprocessInversion(
 	index_ uint,
 	count_ uint,
 ) {
-	var numerical = not.Numerical(v.stack_.RemoveLast())
+	var numerical not.NumericalLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case string:
+		numerical = not.Numerical(not.Value(actual))
+	default:
+		numerical = not.Numerical(actual)
+	}
 	var inverse = v.stack_.RemoveLast().(not.InverseLike)
 	v.stack_.AddValue(
 		not.Inversion(
@@ -572,7 +602,13 @@ func (v *deflator_) PostprocessLetClause(
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var assignment = v.stack_.RemoveLast().(not.AssignmentLike)
-	var recipient = not.Recipient(v.stack_.RemoveLast())
+	var recipient not.RecipientLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case not.ElementLike:
+		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
+	case not.SubcomponentLike:
+		recipient = not.Recipient(actual)
+	}
 	v.stack_.AddValue(
 		not.MainClause(
 			not.ActionInduction(
@@ -614,7 +650,13 @@ func (v *deflator_) PostprocessMethod(
 	var arguments = fra.List[not.ArgumentLike]()
 	var iterator = method.GetArguments().GetIterator()
 	for iterator.HasNext() {
-		var argument = not.Argument(v.stack_.RemoveLast())
+		var argument not.ArgumentLike
+		switch actual := v.stack_.RemoveLast().(type) {
+		case string:
+			argument = not.Argument(not.Value(actual))
+		default:
+			argument = not.Argument(not.Primitive(actual))
+		}
 		arguments.AppendValue(argument)
 		iterator.GetNext()
 	}
@@ -816,7 +858,13 @@ func (v *deflator_) PostprocessReferent(
 	index_ uint,
 	count_ uint,
 ) {
-	var reference = not.Reference(v.stack_.RemoveLast())
+	var reference not.ReferenceLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case string:
+		reference = not.Reference(not.Value(actual))
+	default:
+		reference = not.Reference(actual)
+	}
 	v.stack_.AddValue(not.Referent("@", reference))
 }
 
@@ -846,7 +894,13 @@ func (v *deflator_) PostprocessRetrieveClause(
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var bag = not.Bag(expression)
-	var recipient = not.Recipient(v.stack_.RemoveLast())
+	var recipient not.RecipientLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case not.ElementLike:
+		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
+	case not.SubcomponentLike:
+		recipient = not.Recipient(actual)
+	}
 	v.stack_.AddValue(
 		not.MainClause(
 			not.MessageHandling(
@@ -940,7 +994,7 @@ func (v *deflator_) PostprocessStatement(
 	if uti.IsDefined(optional) {
 		onClause = optional.(not.OnClauseLike)
 	}
-	var mainClause = not.MainClause(v.stack_.RemoveLast())
+	var mainClause = v.stack_.RemoveLast().(not.MainClauseLike)
 	v.stack_.AddValue(not.Line(not.Statement(mainClause, onClause)))
 }
 
@@ -952,7 +1006,13 @@ func (v *deflator_) PostprocessSubcomponent(
 	var indexes = fra.List[not.IndexLike]()
 	var iterator = subcomponent.GetIndexes().GetIterator()
 	for iterator.HasNext() {
-		var index = not.Index(v.stack_.RemoveLast())
+		var index not.IndexLike
+		switch actual := v.stack_.RemoveLast().(type) {
+		case string:
+			index = not.Index(not.Value(actual))
+		default:
+			index = not.Index(not.Primitive(actual))
+		}
 		indexes.AppendValue(index)
 		iterator.GetNext()
 	}
