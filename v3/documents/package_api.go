@@ -701,28 +701,14 @@ of a concrete document-like class.
 type DocumentLike interface {
 	// Principal Methods
 	GetClass() DocumentClassLike
-	GetParameter(
-		key fra.SymbolLike,
-	) DocumentLike
-	SetParameter(
-		key fra.SymbolLike,
-		parameter DocumentLike,
-	)
-	GetAttribute(
-		indices ...any,
-	) DocumentLike
-	SetAttribute(
-		attribute DocumentLike,
-		indices ...any,
-	)
-	RemoveAttribute(
-		indices ...any,
-	)
 
 	// Attribute Methods
 	GetComponent() any
 	GetOptionalParameters() ParametersLike
 	GetOptionalNote() string
+
+	// Aspect Interfaces
+	Declarative
 }
 
 /*
@@ -1128,3 +1114,27 @@ type WithClauseLike interface {
 }
 
 // ASPECT DECLARATIONS
+
+/*
+Declarative declares the set of method signatures that must be supported by
+all declarative documents.
+*/
+type Declarative interface {
+	GetParameter(
+		key fra.SymbolLike,
+	) DocumentLike
+	SetParameter(
+		key fra.SymbolLike,
+		parameter DocumentLike,
+	)
+	GetAttribute(
+		indices ...any,
+	) DocumentLike
+	SetAttribute(
+		attribute DocumentLike,
+		indices ...any,
+	)
+	RemoveAttribute(
+		indices ...any,
+	)
+}
