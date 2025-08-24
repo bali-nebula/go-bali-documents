@@ -60,14 +60,14 @@ func (v *visitor_) VisitDocument(
 ) {
 	v.processor_.PreprocessDocument(
 		document,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitDocument(document)
 	v.processor_.PostprocessDocument(
 		document,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -83,14 +83,14 @@ func (v *visitor_) visitAcceptClause(
 	var message = acceptClause.GetMessage()
 	v.processor_.PreprocessExpression(
 		message,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(message)
 	v.processor_.PostprocessExpression(
 		message,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -116,15 +116,15 @@ func (v *visitor_) visitAttributes(
 		var association = associations.GetNext()
 		var primitive = association.GetKey()
 		v.visitPrimitive(primitive)
-		var document = association.GetValue()
-		v.processor_.PreprocessDocument(
-			document,
+		var member = association.GetValue()
+		v.processor_.PreprocessMember(
+			member,
 			associationsIndex,
 			associationsCount,
 		)
-		v.visitDocument(document)
-		v.processor_.PostprocessDocument(
-			document,
+		v.visitMember(member)
+		v.processor_.PostprocessMember(
+			member,
 			associationsIndex,
 			associationsCount,
 		)
@@ -142,14 +142,14 @@ func (v *visitor_) visitCheckoutClause(
 	var recipient = checkoutClause.GetRecipient()
 	v.processor_.PreprocessRecipient(
 		recipient,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitRecipient(recipient)
 	v.processor_.PostprocessRecipient(
 		recipient,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -162,14 +162,14 @@ func (v *visitor_) visitCheckoutClause(
 	if uti.IsDefined(optionalAtLevel) {
 		v.processor_.PreprocessExpression(
 			optionalAtLevel,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitExpression(optionalAtLevel)
 		v.processor_.PostprocessExpression(
 			optionalAtLevel,
-			1,
-			1,
+			0,
+			0,
 		)
 	}
 
@@ -182,14 +182,14 @@ func (v *visitor_) visitCheckoutClause(
 	var cited = checkoutClause.GetCited()
 	v.processor_.PreprocessExpression(
 		cited,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(cited)
 	v.processor_.PostprocessExpression(
 		cited,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -199,80 +199,89 @@ func (v *visitor_) visitComplement(
 	var logical = complement.GetLogical()
 	v.processor_.PreprocessLogical(
 		logical,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitLogical(logical)
 	v.processor_.PostprocessLogical(
 		logical,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
 func (v *visitor_) visitComponent(
-	component any,
+	component doc.ComponentLike,
 ) {
-	switch actual := component.(type) {
-	case doc.RangeLike:
-		v.processor_.PreprocessRange(
-			actual,
-			1,
-			1,
+	var entity = component.GetEntity()
+	v.processor_.PreprocessEntity(
+		entity,
+		0,
+		0,
+	)
+	v.visitEntity(entity)
+	v.processor_.PostprocessEntity(
+		entity,
+		0,
+		0,
+	)
+
+	// Visit slot 1 between terms.
+	v.processor_.ProcessComponentSlot(
+		component,
+		1,
+	)
+
+	var optionalParameterization = component.GetOptionalParameterization()
+	if uti.IsDefined(optionalParameterization) {
+		v.processor_.PreprocessParameterization(
+			optionalParameterization,
+			0,
+			0,
 		)
-		v.visitRange(actual)
-		v.processor_.PostprocessRange(
-			actual,
-			1,
-			1,
+		v.visitParameterization(optionalParameterization)
+		v.processor_.PostprocessParameterization(
+			optionalParameterization,
+			0,
+			0,
 		)
-	case doc.AttributesLike:
-		v.processor_.PreprocessAttributes(
-			actual,
-			1,
-			1,
+	}
+}
+
+func (v *visitor_) visitConstraint(
+	constraint doc.ConstraintLike,
+) {
+	var type_ = constraint.GetType()
+	v.processor_.PreprocessType(
+		type_,
+		0,
+		0,
+	)
+	v.visitType(type_)
+	v.processor_.PostprocessType(
+		type_,
+		0,
+		0,
+	)
+
+	// Visit slot 1 between terms.
+	v.processor_.ProcessComponentSlot(
+		constraint,
+		1,
+	)
+
+	var optionalParameterization = constraint.GetOptionalParameterization()
+	if uti.IsDefined(optionalParameterization) {
+		v.processor_.PreprocessParameterization(
+			optionalParameterization,
+			0,
+			0,
 		)
-		v.visitAttributes(actual)
-		v.processor_.PostprocessAttributes(
-			actual,
-			1,
-			1,
-		)
-	case doc.EntitiesLike:
-		v.processor_.PreprocessEntities(
-			actual,
-			1,
-			1,
-		)
-		v.visitEntities(actual)
-		v.processor_.PostprocessEntities(
-			actual,
-			1,
-			1,
-		)
-	case doc.ProcedureLike:
-		v.processor_.PreprocessProcedure(
-			actual,
-			1,
-			1,
-		)
-		v.visitProcedure(actual)
-		v.processor_.PostprocessProcedure(
-			actual,
-			1,
-			1,
-		)
-	default:
-		v.processor_.PreprocessPrimitive(
-			component,
-			1,
-			1,
-		)
-		v.visitPrimitive(component)
-		v.processor_.PostprocessPrimitive(
-			component,
-			1,
-			1,
+		v.visitParameterization(optionalParameterization)
+		v.processor_.PostprocessParameterization(
+			optionalParameterization,
+			0,
+			0,
 		)
 	}
 }
@@ -288,14 +297,14 @@ func (v *visitor_) visitDiscardClause(
 	var draft = discardClause.GetDraft()
 	v.processor_.PreprocessExpression(
 		draft,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(draft)
 	v.processor_.PostprocessExpression(
 		draft,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -305,14 +314,14 @@ func (v *visitor_) visitDoClause(
 	var method = doClause.GetMethod()
 	v.processor_.PreprocessMethod(
 		method,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitMethod(method)
 	v.processor_.PostprocessMethod(
 		method,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -322,68 +331,103 @@ func (v *visitor_) visitDocument(
 	var component = document.GetComponent()
 	v.processor_.PreprocessComponent(
 		component,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitComponent(component)
 	v.processor_.PostprocessComponent(
 		component,
-		1,
-		1,
+		0,
+		0,
 	)
+}
 
-	// Visit slot 1 between terms.
-	v.processor_.ProcessDocumentSlot(
-		document,
-		1,
-	)
-
-	var optionalParameters = document.GetOptionalParameters()
-	if uti.IsDefined(optionalParameters) {
-		v.processor_.PreprocessParameters(
-			optionalParameters,
-			1,
-			1,
+func (v *visitor_) visitEntity(
+	entity any,
+) {
+	switch actual := entity.(type) {
+	case doc.RangeLike:
+		v.processor_.PreprocessRange(
+			actual,
+			0,
+			0,
 		)
-		v.visitParameters(optionalParameters)
-		v.processor_.PostprocessParameters(
-			optionalParameters,
-			1,
-			1,
+		v.visitRange(actual)
+		v.processor_.PostprocessRange(
+			actual,
+			0,
+			0,
 		)
-	}
-
-	// Visit slot 2 between terms.
-	v.processor_.ProcessDocumentSlot(
-		document,
-		2,
-	)
-
-	var optionalNote = document.GetOptionalNote()
-	if uti.IsDefined(optionalNote) {
-		v.processor_.ProcessNote(optionalNote)
+	case doc.AttributesLike:
+		v.processor_.PreprocessAttributes(
+			actual,
+			0,
+			0,
+		)
+		v.visitAttributes(actual)
+		v.processor_.PostprocessAttributes(
+			actual,
+			0,
+			0,
+		)
+	case doc.ItemsLike:
+		v.processor_.PreprocessItems(
+			actual,
+			0,
+			0,
+		)
+		v.visitItems(actual)
+		v.processor_.PostprocessItems(
+			actual,
+			0,
+			0,
+		)
+	case doc.ProcedureLike:
+		v.processor_.PreprocessProcedure(
+			actual,
+			0,
+			0,
+		)
+		v.visitProcedure(actual)
+		v.processor_.PostprocessProcedure(
+			actual,
+			0,
+			0,
+		)
+	default:
+		v.processor_.PreprocessPrimitive(
+			entity,
+			0,
+			0,
+		)
+		v.visitPrimitive(entity)
+		v.processor_.PostprocessPrimitive(
+			entity,
+			0,
+			0,
+		)
 	}
 }
 
-func (v *visitor_) visitEntities(
-	entities doc.EntitiesLike,
+func (v *visitor_) visitItems(
+	items doc.ItemsLike,
 ) {
-	var itemsIndex uint
-	var items = entities.GetItems().GetIterator()
-	var itemsCount = uint(items.GetSize())
-	for items.HasNext() {
-		itemsIndex++
-		var document = items.GetNext()
-		v.processor_.PreprocessDocument(
-			document,
-			itemsIndex,
-			itemsCount,
+	var membersIndex uint
+	var members = items.GetMembers().GetIterator()
+	var membersCount = uint(members.GetSize())
+	for members.HasNext() {
+		membersIndex++
+		var member = members.GetNext()
+		v.processor_.PreprocessMember(
+			member,
+			membersIndex,
+			membersCount,
 		)
-		v.visitDocument(document)
-		v.processor_.PostprocessDocument(
-			document,
-			itemsIndex,
-			itemsCount,
+		v.visitMember(member)
+		v.processor_.PostprocessMember(
+			member,
+			membersIndex,
+			membersCount,
 		)
 	}
 }
@@ -394,14 +438,14 @@ func (v *visitor_) visitExpression(
 	var subject = expression.GetSubject()
 	v.processor_.PreprocessSubject(
 		subject,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitSubject(subject)
 	v.processor_.PostprocessSubject(
 		subject,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -468,14 +512,14 @@ func (v *visitor_) visitIfClause(
 	var condition = ifClause.GetCondition()
 	v.processor_.PreprocessExpression(
 		condition,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(condition)
 	v.processor_.PostprocessExpression(
 		condition,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -487,14 +531,14 @@ func (v *visitor_) visitIfClause(
 	var procedure = ifClause.GetProcedure()
 	v.processor_.PreprocessProcedure(
 		procedure,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitProcedure(procedure)
 	v.processor_.PostprocessProcedure(
 		procedure,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -507,14 +551,14 @@ func (v *visitor_) visitIndex(
 	default:
 		v.processor_.PreprocessPrimitive(
 			index,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitPrimitive(index)
 		v.processor_.PostprocessPrimitive(
 			index,
-			1,
-			1,
+			0,
+			0,
 		)
 	}
 }
@@ -534,14 +578,14 @@ func (v *visitor_) visitInversion(
 	var numerical = inversion.GetNumerical()
 	v.processor_.PreprocessNumerical(
 		numerical,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitNumerical(numerical)
 	v.processor_.PostprocessNumerical(
 		numerical,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -551,14 +595,14 @@ func (v *visitor_) visitLetClause(
 	var recipient = letClause.GetRecipient()
 	v.processor_.PreprocessRecipient(
 		recipient,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitRecipient(recipient)
 	v.processor_.PostprocessRecipient(
 		recipient,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -579,14 +623,14 @@ func (v *visitor_) visitLetClause(
 	var expression = letClause.GetExpression()
 	v.processor_.PreprocessExpression(
 		expression,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(expression)
 	v.processor_.PostprocessExpression(
 		expression,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -597,14 +641,14 @@ func (v *visitor_) visitLine(
 	case doc.StatementLike:
 		v.processor_.PreprocessStatement(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitStatement(actual)
 		v.processor_.PostprocessStatement(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case string:
 		v.processor_.ProcessAnnotation(actual)
@@ -625,86 +669,86 @@ func (v *visitor_) visitLogical(
 	case doc.DocumentLike:
 		v.processor_.PreprocessDocument(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitDocument(actual)
 		v.processor_.PostprocessDocument(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.SubcomponentLike:
 		v.processor_.PreprocessSubcomponent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitSubcomponent(actual)
 		v.processor_.PostprocessSubcomponent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.PrecedenceLike:
 		v.processor_.PreprocessPrecedence(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitPrecedence(actual)
 		v.processor_.PostprocessPrecedence(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.ReferentLike:
 		v.processor_.PreprocessReferent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitReferent(actual)
 		v.processor_.PostprocessReferent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.ComplementLike:
 		v.processor_.PreprocessComplement(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitComplement(actual)
 		v.processor_.PostprocessComplement(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.FunctionLike:
 		v.processor_.PreprocessFunction(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitFunction(actual)
 		v.processor_.PostprocessFunction(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.MethodLike:
 		v.processor_.PreprocessMethod(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitMethod(actual)
 		v.processor_.PostprocessMethod(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case string:
 		v.processor_.ProcessIdentifier(actual)
@@ -724,14 +768,14 @@ func (v *visitor_) visitMagnitude(
 	var expression = magnitude.GetExpression()
 	v.processor_.PreprocessExpression(
 		expression,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(expression)
 	v.processor_.PostprocessExpression(
 		expression,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -742,230 +786,230 @@ func (v *visitor_) visitMainClause(
 	case doc.IfClauseLike:
 		v.processor_.PreprocessIfClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitIfClause(actual)
 		v.processor_.PostprocessIfClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.SelectClauseLike:
 		v.processor_.PreprocessSelectClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitSelectClause(actual)
 		v.processor_.PostprocessSelectClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.WhileClauseLike:
 		v.processor_.PreprocessWhileClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitWhileClause(actual)
 		v.processor_.PostprocessWhileClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.WithClauseLike:
 		v.processor_.PreprocessWithClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitWithClause(actual)
 		v.processor_.PostprocessWithClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.ContinueClauseLike:
 		v.processor_.PreprocessContinueClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitContinueClause(actual)
 		v.processor_.PostprocessContinueClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.BreakClauseLike:
 		v.processor_.PreprocessBreakClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitBreakClause(actual)
 		v.processor_.PostprocessBreakClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.ReturnClauseLike:
 		v.processor_.PreprocessReturnClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitReturnClause(actual)
 		v.processor_.PostprocessReturnClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.ThrowClauseLike:
 		v.processor_.PreprocessThrowClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitThrowClause(actual)
 		v.processor_.PostprocessThrowClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.DoClauseLike:
 		v.processor_.PreprocessDoClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitDoClause(actual)
 		v.processor_.PostprocessDoClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.LetClauseLike:
 		v.processor_.PreprocessLetClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitLetClause(actual)
 		v.processor_.PostprocessLetClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.PostClauseLike:
 		v.processor_.PreprocessPostClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitPostClause(actual)
 		v.processor_.PostprocessPostClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.RetrieveClauseLike:
 		v.processor_.PreprocessRetrieveClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitRetrieveClause(actual)
 		v.processor_.PostprocessRetrieveClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.AcceptClauseLike:
 		v.processor_.PreprocessAcceptClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitAcceptClause(actual)
 		v.processor_.PostprocessAcceptClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.RejectClauseLike:
 		v.processor_.PreprocessRejectClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitRejectClause(actual)
 		v.processor_.PostprocessRejectClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.PublishClauseLike:
 		v.processor_.PreprocessPublishClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitPublishClause(actual)
 		v.processor_.PostprocessPublishClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.CheckoutClauseLike:
 		v.processor_.PreprocessCheckoutClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitCheckoutClause(actual)
 		v.processor_.PostprocessCheckoutClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.SaveClauseLike:
 		v.processor_.PreprocessSaveClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitSaveClause(actual)
 		v.processor_.PostprocessSaveClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.DiscardClauseLike:
 		v.processor_.PreprocessDiscardClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitDiscardClause(actual)
 		v.processor_.PostprocessDiscardClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.NotarizeClauseLike:
 		v.processor_.PreprocessNotarizeClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitNotarizeClause(actual)
 		v.processor_.PostprocessNotarizeClause(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	default:
 		var message = fmt.Sprintf(
@@ -983,14 +1027,14 @@ func (v *visitor_) visitMatchingClause(
 	var template = matchingClause.GetTemplate()
 	v.processor_.PreprocessExpression(
 		template,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(template)
 	v.processor_.PostprocessExpression(
 		template,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -1002,15 +1046,43 @@ func (v *visitor_) visitMatchingClause(
 	var procedure = matchingClause.GetProcedure()
 	v.processor_.PreprocessProcedure(
 		procedure,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitProcedure(procedure)
 	v.processor_.PostprocessProcedure(
 		procedure,
-		1,
+		0,
+		0,
+	)
+}
+
+func (v *visitor_) visitMember(
+	member doc.MemberLike,
+) {
+	var component = member.GetComponent()
+	v.processor_.PreprocessComponent(
+		component,
+		0,
+		0,
+	)
+	v.visitComponent(component)
+	v.processor_.PostprocessComponent(
+		component,
+		0,
+		0,
+	)
+
+	// Visit slot 1 between terms.
+	v.processor_.ProcessMemberSlot(
+		member,
 		1,
 	)
+
+	var optionalNote = member.GetOptionalNote()
+	if uti.IsDefined(optionalNote) {
+		v.processor_.ProcessNote(optionalNote)
+	}
 }
 
 func (v *visitor_) visitMethod(
@@ -1069,14 +1141,14 @@ func (v *visitor_) visitNotarizeClause(
 	var draft = notarizeClause.GetDraft()
 	v.processor_.PreprocessExpression(
 		draft,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(draft)
 	v.processor_.PostprocessExpression(
 		draft,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -1088,14 +1160,14 @@ func (v *visitor_) visitNotarizeClause(
 	var cited = notarizeClause.GetCited()
 	v.processor_.PreprocessExpression(
 		cited,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(cited)
 	v.processor_.PostprocessExpression(
 		cited,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -1106,98 +1178,98 @@ func (v *visitor_) visitNumerical(
 	case doc.DocumentLike:
 		v.processor_.PreprocessDocument(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitDocument(actual)
 		v.processor_.PostprocessDocument(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.SubcomponentLike:
 		v.processor_.PreprocessSubcomponent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitSubcomponent(actual)
 		v.processor_.PostprocessSubcomponent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.PrecedenceLike:
 		v.processor_.PreprocessPrecedence(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitPrecedence(actual)
 		v.processor_.PostprocessPrecedence(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.ReferentLike:
 		v.processor_.PreprocessReferent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitReferent(actual)
 		v.processor_.PostprocessReferent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.InversionLike:
 		v.processor_.PreprocessInversion(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitInversion(actual)
 		v.processor_.PostprocessInversion(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.MagnitudeLike:
 		v.processor_.PreprocessMagnitude(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitMagnitude(actual)
 		v.processor_.PostprocessMagnitude(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.FunctionLike:
 		v.processor_.PreprocessFunction(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitFunction(actual)
 		v.processor_.PostprocessFunction(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.MethodLike:
 		v.processor_.PreprocessMethod(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitMethod(actual)
 		v.processor_.PostprocessMethod(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case string:
 		v.processor_.ProcessIdentifier(actual)
@@ -1243,28 +1315,28 @@ func (v *visitor_) visitOnClause(
 	}
 }
 
-func (v *visitor_) visitParameters(
-	parameters doc.ParametersLike,
+func (v *visitor_) visitParameterization(
+	parameterization doc.ParameterizationLike,
 ) {
-	var associationsIndex uint
-	var associations = parameters.GetAssociations().GetIterator()
-	var associationsCount = uint(associations.GetSize())
-	for associations.HasNext() {
-		associationsIndex++
-		var association = associations.GetNext()
-		var symbol = association.GetKey()
+	var parametersIndex uint
+	var parameters = parameterization.GetParameters().GetIterator()
+	var parametersCount = uint(parameters.GetSize())
+	for parameters.HasNext() {
+		parametersIndex++
+		var parameter = parameters.GetNext()
+		var symbol = parameter.GetKey()
 		v.processor_.ProcessSymbol(symbol)
-		var document = association.GetValue()
-		v.processor_.PreprocessDocument(
-			document,
-			associationsIndex,
-			associationsCount,
+		var constraint = parameter.GetValue()
+		v.processor_.PreprocessConstraint(
+			constraint,
+			parametersIndex,
+			parametersCount,
 		)
-		v.visitDocument(document)
-		v.processor_.PostprocessDocument(
-			document,
-			associationsIndex,
-			associationsCount,
+		v.visitConstraint(constraint)
+		v.processor_.PostprocessConstraint(
+			constraint,
+			parametersIndex,
+			parametersCount,
 		)
 	}
 }
@@ -1275,14 +1347,14 @@ func (v *visitor_) visitPostClause(
 	var message = postClause.GetMessage()
 	v.processor_.PreprocessExpression(
 		message,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(message)
 	v.processor_.PostprocessExpression(
 		message,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -1294,14 +1366,14 @@ func (v *visitor_) visitPostClause(
 	var bag = postClause.GetBag()
 	v.processor_.PreprocessExpression(
 		bag,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(bag)
 	v.processor_.PostprocessExpression(
 		bag,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -1311,14 +1383,14 @@ func (v *visitor_) visitPrecedence(
 	var expression = precedence.GetExpression()
 	v.processor_.PreprocessExpression(
 		expression,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(expression)
 	v.processor_.PostprocessExpression(
 		expression,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -1337,14 +1409,14 @@ func (v *visitor_) visitPredicate(
 	var expression = predicate.GetExpression()
 	v.processor_.PreprocessExpression(
 		expression,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(expression)
 	v.processor_.PostprocessExpression(
 		expression,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -1427,14 +1499,14 @@ func (v *visitor_) visitPublishClause(
 	var event = publishClause.GetEvent()
 	v.processor_.PreprocessExpression(
 		event,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(event)
 	v.processor_.PostprocessExpression(
 		event,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -1453,14 +1525,14 @@ func (v *visitor_) visitRange(
 	var first = range_.GetFirst()
 	v.processor_.PreprocessPrimitive(
 		first,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitPrimitive(first)
 	v.processor_.PostprocessPrimitive(
 		first,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 2 between terms.
@@ -1472,14 +1544,14 @@ func (v *visitor_) visitRange(
 	var last = range_.GetLast()
 	v.processor_.PreprocessPrimitive(
 		last,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitPrimitive(last)
 	v.processor_.PostprocessPrimitive(
 		last,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 3 between terms.
@@ -1499,14 +1571,14 @@ func (v *visitor_) visitRecipient(
 	case doc.SubcomponentLike:
 		v.processor_.PreprocessSubcomponent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitSubcomponent(actual)
 		v.processor_.PostprocessSubcomponent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case fra.SymbolLike:
 		v.processor_.ProcessSymbol(actual)
@@ -1527,62 +1599,62 @@ func (v *visitor_) visitReference(
 	case doc.DocumentLike:
 		v.processor_.PreprocessDocument(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitDocument(actual)
 		v.processor_.PostprocessDocument(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.SubcomponentLike:
 		v.processor_.PreprocessSubcomponent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitSubcomponent(actual)
 		v.processor_.PostprocessSubcomponent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.ReferentLike:
 		v.processor_.PreprocessReferent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitReferent(actual)
 		v.processor_.PostprocessReferent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.FunctionLike:
 		v.processor_.PreprocessFunction(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitFunction(actual)
 		v.processor_.PostprocessFunction(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.MethodLike:
 		v.processor_.PreprocessMethod(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitMethod(actual)
 		v.processor_.PostprocessMethod(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case string:
 		v.processor_.ProcessIdentifier(actual)
@@ -1602,14 +1674,14 @@ func (v *visitor_) visitReferent(
 	var reference = referent.GetReference()
 	v.processor_.PreprocessReference(
 		reference,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitReference(reference)
 	v.processor_.PostprocessReference(
 		reference,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -1619,14 +1691,14 @@ func (v *visitor_) visitRejectClause(
 	var message = rejectClause.GetMessage()
 	v.processor_.PreprocessExpression(
 		message,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(message)
 	v.processor_.PostprocessExpression(
 		message,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -1636,14 +1708,14 @@ func (v *visitor_) visitRetrieveClause(
 	var recipient = retrieveClause.GetRecipient()
 	v.processor_.PreprocessRecipient(
 		recipient,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitRecipient(recipient)
 	v.processor_.PostprocessRecipient(
 		recipient,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -1655,14 +1727,14 @@ func (v *visitor_) visitRetrieveClause(
 	var bag = retrieveClause.GetBag()
 	v.processor_.PreprocessExpression(
 		bag,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(bag)
 	v.processor_.PostprocessExpression(
 		bag,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -1672,14 +1744,14 @@ func (v *visitor_) visitReturnClause(
 	var result = returnClause.GetResult()
 	v.processor_.PreprocessExpression(
 		result,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(result)
 	v.processor_.PostprocessExpression(
 		result,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -1689,14 +1761,14 @@ func (v *visitor_) visitSaveClause(
 	var draft = saveClause.GetDraft()
 	v.processor_.PreprocessExpression(
 		draft,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(draft)
 	v.processor_.PostprocessExpression(
 		draft,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -1708,14 +1780,14 @@ func (v *visitor_) visitSaveClause(
 	var cited = saveClause.GetCited()
 	v.processor_.PreprocessExpression(
 		cited,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(cited)
 	v.processor_.PostprocessExpression(
 		cited,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -1725,14 +1797,14 @@ func (v *visitor_) visitSelectClause(
 	var expression = selectClause.GetExpression()
 	v.processor_.PreprocessExpression(
 		expression,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(expression)
 	v.processor_.PostprocessExpression(
 		expression,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -1767,14 +1839,14 @@ func (v *visitor_) visitStatement(
 	var mainClause = statement.GetMainClause()
 	v.processor_.PreprocessMainClause(
 		mainClause,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitMainClause(mainClause)
 	v.processor_.PostprocessMainClause(
 		mainClause,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -1787,14 +1859,14 @@ func (v *visitor_) visitStatement(
 	if uti.IsDefined(optionalOnClause) {
 		v.processor_.PreprocessOnClause(
 			optionalOnClause,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitOnClause(optionalOnClause)
 		v.processor_.PostprocessOnClause(
 			optionalOnClause,
-			1,
-			1,
+			0,
+			0,
 		)
 	}
 }
@@ -1838,110 +1910,110 @@ func (v *visitor_) visitSubject(
 	case doc.DocumentLike:
 		v.processor_.PreprocessDocument(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitDocument(actual)
 		v.processor_.PostprocessDocument(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.SubcomponentLike:
 		v.processor_.PreprocessSubcomponent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitSubcomponent(actual)
 		v.processor_.PostprocessSubcomponent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.PrecedenceLike:
 		v.processor_.PreprocessPrecedence(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitPrecedence(actual)
 		v.processor_.PostprocessPrecedence(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.ReferentLike:
 		v.processor_.PreprocessReferent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitReferent(actual)
 		v.processor_.PostprocessReferent(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.ComplementLike:
 		v.processor_.PreprocessComplement(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitComplement(actual)
 		v.processor_.PostprocessComplement(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.InversionLike:
 		v.processor_.PreprocessInversion(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitInversion(actual)
 		v.processor_.PostprocessInversion(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.MagnitudeLike:
 		v.processor_.PreprocessMagnitude(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitMagnitude(actual)
 		v.processor_.PostprocessMagnitude(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.FunctionLike:
 		v.processor_.PreprocessFunction(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitFunction(actual)
 		v.processor_.PostprocessFunction(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case doc.MethodLike:
 		v.processor_.PreprocessMethod(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 		v.visitMethod(actual)
 		v.processor_.PostprocessMethod(
 			actual,
-			1,
-			1,
+			0,
+			0,
 		)
 	case string:
 		v.processor_.ProcessIdentifier(actual)
@@ -1961,15 +2033,46 @@ func (v *visitor_) visitThrowClause(
 	var exception = throwClause.GetException()
 	v.processor_.PreprocessExpression(
 		exception,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(exception)
 	v.processor_.PostprocessExpression(
 		exception,
-		1,
-		1,
+		0,
+		0,
 	)
+}
+
+func (v *visitor_) visitType(
+	type_ any,
+) {
+	switch actual := type_.(type) {
+	case doc.RangeLike:
+		v.processor_.PreprocessRange(
+			actual,
+			0,
+			0,
+		)
+		v.visitRange(actual)
+		v.processor_.PostprocessRange(
+			actual,
+			0,
+			0,
+		)
+	default:
+		v.processor_.PreprocessPrimitive(
+			type_,
+			0,
+			0,
+		)
+		v.visitPrimitive(type_)
+		v.processor_.PostprocessPrimitive(
+			type_,
+			0,
+			0,
+		)
+	}
 }
 
 func (v *visitor_) visitWhileClause(
@@ -1978,14 +2081,14 @@ func (v *visitor_) visitWhileClause(
 	var condition = whileClause.GetCondition()
 	v.processor_.PreprocessExpression(
 		condition,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(condition)
 	v.processor_.PostprocessExpression(
 		condition,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 1 between terms.
@@ -1997,14 +2100,14 @@ func (v *visitor_) visitWhileClause(
 	var procedure = whileClause.GetProcedure()
 	v.processor_.PreprocessProcedure(
 		procedure,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitProcedure(procedure)
 	v.processor_.PostprocessProcedure(
 		procedure,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 
@@ -2023,14 +2126,14 @@ func (v *visitor_) visitWithClause(
 	var sequence = withClause.GetSequence()
 	v.processor_.PreprocessExpression(
 		sequence,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitExpression(sequence)
 	v.processor_.PostprocessExpression(
 		sequence,
-		1,
-		1,
+		0,
+		0,
 	)
 
 	// Visit slot 2 between terms.
@@ -2042,14 +2145,14 @@ func (v *visitor_) visitWithClause(
 	var procedure = withClause.GetProcedure()
 	v.processor_.PreprocessProcedure(
 		procedure,
-		1,
-		1,
+		0,
+		0,
 	)
 	v.visitProcedure(procedure)
 	v.processor_.PostprocessProcedure(
 		procedure,
-		1,
-		1,
+		0,
+		0,
 	)
 }
 

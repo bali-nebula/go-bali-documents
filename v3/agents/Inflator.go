@@ -332,9 +332,9 @@ func (v *inflator_) ProcessDocumentSlot(
 ) {
 	switch slot_ {
 	case 2:
-		if uti.IsUndefined(document.GetOptionalParameters()) {
-			var parameters doc.ParametersLike
-			v.stack_.AddValue(parameters)
+		if uti.IsUndefined(document.GetOptionalParameterization()) {
+			var parameterization doc.ParameterizationLike
+			v.stack_.AddValue(parameterization)
 		}
 		if uti.IsUndefined(document.GetOptionalNote()) {
 			var note string
@@ -349,30 +349,13 @@ func (v *inflator_) PostprocessDocument(
 	count_ uint,
 ) {
 	var note = v.stack_.RemoveLast().(string)
-	var parameters doc.ParametersLike
+	var parameterization doc.ParameterizationLike
 	var optional = v.stack_.RemoveLast()
 	if uti.IsDefined(optional) {
-		parameters = optional.(doc.ParametersLike)
+		parameterization = optional.(doc.ParameterizationLike)
 	}
 	var component = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.DocumentClass().Document(component, parameters, note))
-}
-
-func (v *inflator_) PostprocessEntities(
-	entities not.EntitiesLike,
-	index_ uint,
-	count_ uint,
-) {
-	var list = fra.List[doc.DocumentLike]()
-	var items = entities.GetItems()
-	var iterator = items.GetIterator()
-	for iterator.HasNext() {
-		var document = v.stack_.RemoveLast().(doc.DocumentLike)
-		list.AppendValue(document)
-		iterator.GetNext()
-	}
-	list.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(doc.EntitiesClass().Entities(list))
+	v.stack_.AddValue(doc.DocumentClass().Document(component, parameterization, note))
 }
 
 func (v *inflator_) PostprocessExpression(
@@ -471,6 +454,22 @@ func (v *inflator_) PostprocessInvoke(
 		)
 		panic(message)
 	}
+}
+
+func (v *inflator_) PostprocessItems(
+	items not.ItemsLike,
+	index_ uint,
+	count_ uint,
+) {
+	var members = fra.List[doc.DocumentLike]()
+	var iterator = items.GetMembers().GetIterator()
+	for iterator.HasNext() {
+		var member = v.stack_.RemoveLast().(doc.MemberLike)
+		members.AppendValue(member)
+		iterator.GetNext()
+	}
+	members.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(doc.ItemsClass().Items(members))
 }
 
 func (v *inflator_) PostprocessLeft(
@@ -649,13 +648,13 @@ func (v *inflator_) PostprocessOperator(
 	}
 }
 
-func (v *inflator_) PostprocessParameters(
-	parameters not.ParametersLike,
+func (v *inflator_) PostprocessParameterization(
+	parameterization not.ParameterizationLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var catalog = fra.Catalog[fra.SymbolLike, doc.DocumentLike]()
-	var associations = parameters.GetAssociations()
+	var associations = parameterization.GetAssociations()
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
 		var document = v.stack_.RemoveLast().(doc.DocumentLike)
@@ -664,7 +663,7 @@ func (v *inflator_) PostprocessParameters(
 		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(doc.ParametersClass().Parameters(catalog))
+	v.stack_.AddValue(doc.ParameterizationClass().Parameterization(catalog))
 }
 
 func (v *inflator_) PostprocessPostClause(

@@ -326,6 +326,26 @@ func (v *processor_) PostprocessComponent(
 ) {
 }
 
+func (v *processor_) PreprocessConstraint(
+	constraint doc.ConstraintLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessConstraintSlot(
+	constraint doc.ConstraintLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessConstraint(
+	constraint doc.ConstraintLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessContinueClause(
 	continueClause doc.ContinueClauseLike,
 	index_ uint,
@@ -406,21 +426,21 @@ func (v *processor_) PostprocessDocument(
 ) {
 }
 
-func (v *processor_) PreprocessEntities(
-	entities doc.EntitiesLike,
+func (v *processor_) PreprocessEntity(
+	entity any,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessEntitiesSlot(
-	entities doc.EntitiesLike,
+func (v *processor_) ProcessEntitySlot(
+	entity any,
 	slot_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessEntities(
-	entities doc.EntitiesLike,
+func (v *processor_) PostprocessEntity(
+	entity any,
 	index_ uint,
 	count_ uint,
 ) {
@@ -521,6 +541,26 @@ func (v *processor_) ProcessInversionSlot(
 
 func (v *processor_) PostprocessInversion(
 	inversion doc.InversionLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessItems(
+	items doc.ItemsLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessItemsSlot(
+	items doc.ItemsLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessItems(
+	items doc.ItemsLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -646,6 +686,26 @@ func (v *processor_) PostprocessMatchingClause(
 ) {
 }
 
+func (v *processor_) PreprocessMember(
+	member doc.MemberLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessMemberSlot(
+	member doc.MemberLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessMember(
+	member doc.MemberLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessMethod(
 	method doc.MethodLike,
 	index_ uint,
@@ -726,21 +786,21 @@ func (v *processor_) PostprocessOnClause(
 ) {
 }
 
-func (v *processor_) PreprocessParameters(
-	parameters doc.ParametersLike,
+func (v *processor_) PreprocessParameterization(
+	parameterization doc.ParameterizationLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessParametersSlot(
-	parameters doc.ParametersLike,
+func (v *processor_) ProcessParameterizationSlot(
+	parameterization doc.ParameterizationLike,
 	slot_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessParameters(
-	parameters doc.ParametersLike,
+func (v *processor_) PostprocessParameterization(
+	parameterization doc.ParameterizationLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -1121,6 +1181,26 @@ func (v *processor_) ProcessThrowClauseSlot(
 
 func (v *processor_) PostprocessThrowClause(
 	throwClause doc.ThrowClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessType(
+	type_ any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessTypeSlot(
+	type_ any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessType(
+	type_ any,
 	index_ uint,
 	count_ uint,
 ) {

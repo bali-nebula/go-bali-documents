@@ -429,23 +429,23 @@ func (v *validator_) PostprocessDocument(
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) PreprocessEntities(
-	entities doc.EntitiesLike,
+func (v *validator_) PreprocessItems(
+	items doc.ItemsLike,
 	index_ uint,
 	count_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) ProcessEntitiesSlot(
-	entities doc.EntitiesLike,
+func (v *validator_) ProcessItemsSlot(
+	items doc.ItemsLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) PostprocessEntities(
-	entities doc.EntitiesLike,
+func (v *validator_) PostprocessItems(
+	items doc.ItemsLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -682,23 +682,23 @@ func (v *validator_) PostprocessOnClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) PreprocessParameters(
-	parameters doc.ParametersLike,
+func (v *validator_) PreprocessParameterization(
+	parameterization doc.ParameterizationLike,
 	index_ uint,
 	count_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) ProcessParametersSlot(
-	parameters doc.ParametersLike,
+func (v *validator_) ProcessParameterizationSlot(
+	parameterization doc.ParameterizationLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) PostprocessParameters(
-	parameters doc.ParametersLike,
+func (v *validator_) PostprocessParameterization(
+	parameterization doc.ParameterizationLike,
 	index_ uint,
 	count_ uint,
 ) {

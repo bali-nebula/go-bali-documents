@@ -13,7 +13,6 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -21,21 +20,26 @@ import (
 
 // Access Function
 
-func ParametersClass() ParametersClassLike {
-	return parametersClass()
+func MemberClass() MemberClassLike {
+	return memberClass()
 }
 
 // Constructor Methods
 
-func (c *parametersClass_) Parameters(
-	associations fra.CatalogLike[fra.SymbolLike, DocumentLike],
-) ParametersLike {
-	if uti.IsUndefined(associations) {
-		panic("The \"associations\" attribute is required by this class.")
+func (c *memberClass_) Member(
+	component ComponentLike,
+	optionalNote string,
+) MemberLike {
+	if uti.IsUndefined(component) {
+		panic("The \"component\" attribute is required by this class.")
 	}
-	var instance = &parameters_{
+	var instance = &member_{
 		// Initialize the instance attributes.
-		associations_: associations,
+		component_:    component,
+		optionalNote_: optionalNote,
+
+		// Initialize the inherited aspects.
+		Declarative: component,
 	}
 	return instance
 }
@@ -48,14 +52,18 @@ func (c *parametersClass_) Parameters(
 
 // Principal Methods
 
-func (v *parameters_) GetClass() ParametersClassLike {
-	return parametersClass()
+func (v *member_) GetClass() MemberClassLike {
+	return memberClass()
 }
 
 // Attribute Methods
 
-func (v *parameters_) GetAssociations() fra.CatalogLike[fra.SymbolLike, DocumentLike] {
-	return v.associations_
+func (v *member_) GetComponent() ComponentLike {
+	return v.component_
+}
+
+func (v *member_) GetOptionalNote() string {
+	return v.optionalNote_
 }
 
 // PROTECTED INTERFACE
@@ -64,23 +72,27 @@ func (v *parameters_) GetAssociations() fra.CatalogLike[fra.SymbolLike, Document
 
 // Instance Structure
 
-type parameters_ struct {
+type member_ struct {
 	// Declare the instance attributes.
-	associations_ fra.CatalogLike[fra.SymbolLike, DocumentLike]
+	component_    ComponentLike
+	optionalNote_ string
+
+	// Declare the inherited aspects.
+	Declarative
 }
 
 // Class Structure
 
-type parametersClass_ struct {
+type memberClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func parametersClass() *parametersClass_ {
-	return parametersClassReference_
+func memberClass() *memberClass_ {
+	return memberClassReference_
 }
 
-var parametersClassReference_ = &parametersClass_{
+var memberClassReference_ = &memberClass_{
 	// Initialize the class constants.
 }

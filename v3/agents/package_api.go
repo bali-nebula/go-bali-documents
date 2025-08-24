@@ -351,6 +351,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessConstraint(
+		constraint doc.ConstraintLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessConstraintSlot(
+		constraint doc.ConstraintLike,
+		slot_ uint,
+	)
+	PostprocessConstraint(
+		constraint doc.ConstraintLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessContinueClause(
 		continueClause doc.ContinueClauseLike,
 		index_ uint,
@@ -407,17 +421,17 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessEntities(
-		entities doc.EntitiesLike,
+	PreprocessEntity(
+		entity any,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessEntitiesSlot(
-		entities doc.EntitiesLike,
+	ProcessEntitySlot(
+		entity any,
 		slot_ uint,
 	)
-	PostprocessEntities(
-		entities doc.EntitiesLike,
+	PostprocessEntity(
+		entity any,
 		index_ uint,
 		count_ uint,
 	)
@@ -488,6 +502,20 @@ type Methodical interface {
 	)
 	PostprocessInversion(
 		inversion doc.InversionLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessItems(
+		items doc.ItemsLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessItemsSlot(
+		items doc.ItemsLike,
+		slot_ uint,
+	)
+	PostprocessItems(
+		items doc.ItemsLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -575,6 +603,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessMember(
+		member doc.MemberLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessMemberSlot(
+		member doc.MemberLike,
+		slot_ uint,
+	)
+	PostprocessMember(
+		member doc.MemberLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessMethod(
 		method doc.MethodLike,
 		index_ uint,
@@ -631,17 +673,17 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessParameters(
-		parameters doc.ParametersLike,
+	PreprocessParameterization(
+		parameterization doc.ParameterizationLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessParametersSlot(
-		parameters doc.ParametersLike,
+	ProcessParameterizationSlot(
+		parameterization doc.ParameterizationLike,
 		slot_ uint,
 	)
-	PostprocessParameters(
-		parameters doc.ParametersLike,
+	PostprocessParameterization(
+		parameterization doc.ParameterizationLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -908,6 +950,20 @@ type Methodical interface {
 	)
 	PostprocessThrowClause(
 		throwClause doc.ThrowClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessType(
+		type_ any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessTypeSlot(
+		type_ any,
+		slot_ uint,
+	)
+	PostprocessType(
+		type_ any,
 		index_ uint,
 		count_ uint,
 	)

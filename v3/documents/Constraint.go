@@ -13,7 +13,6 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -21,21 +20,23 @@ import (
 
 // Access Function
 
-func EntitiesClass() EntitiesClassLike {
-	return entitiesClass()
+func ConstraintClass() ConstraintClassLike {
+	return constraintClass()
 }
 
 // Constructor Methods
 
-func (c *entitiesClass_) Entities(
-	items fra.ListLike[DocumentLike],
-) EntitiesLike {
-	if uti.IsUndefined(items) {
-		panic("The \"items\" attribute is required by this class.")
+func (c *constraintClass_) Constraint(
+	type_ any,
+	optionalParameterization ParameterizationLike,
+) ConstraintLike {
+	if uti.IsUndefined(type_) {
+		panic("The \"type\" attribute is required by this class.")
 	}
-	var instance = &entities_{
+	var instance = &constraint_{
 		// Initialize the instance attributes.
-		items_: items,
+		type_:                     type_,
+		optionalParameterization_: optionalParameterization,
 	}
 	return instance
 }
@@ -48,14 +49,18 @@ func (c *entitiesClass_) Entities(
 
 // Principal Methods
 
-func (v *entities_) GetClass() EntitiesClassLike {
-	return entitiesClass()
+func (v *constraint_) GetClass() ConstraintClassLike {
+	return constraintClass()
 }
 
 // Attribute Methods
 
-func (v *entities_) GetItems() fra.ListLike[DocumentLike] {
-	return v.items_
+func (v *constraint_) GetType() any {
+	return v.type_
+}
+
+func (v *constraint_) GetOptionalParameterization() ParameterizationLike {
+	return v.optionalParameterization_
 }
 
 // PROTECTED INTERFACE
@@ -64,23 +69,24 @@ func (v *entities_) GetItems() fra.ListLike[DocumentLike] {
 
 // Instance Structure
 
-type entities_ struct {
+type constraint_ struct {
 	// Declare the instance attributes.
-	items_ fra.ListLike[DocumentLike]
+	type_                     any
+	optionalParameterization_ ParameterizationLike
 }
 
 // Class Structure
 
-type entitiesClass_ struct {
+type constraintClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func entitiesClass() *entitiesClass_ {
-	return entitiesClassReference_
+func constraintClass() *constraintClass_ {
+	return constraintClassReference_
 }
 
-var entitiesClassReference_ = &entitiesClass_{
+var constraintClassReference_ = &constraintClass_{
 	// Initialize the class constants.
 }

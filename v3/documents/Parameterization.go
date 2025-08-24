@@ -13,6 +13,7 @@
 package documents
 
 import (
+	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -20,24 +21,21 @@ import (
 
 // Access Function
 
-func DocumentClass() DocumentClassLike {
-	return documentClass()
+func ParameterizationClass() ParameterizationClassLike {
+	return parameterizationClass()
 }
 
 // Constructor Methods
 
-func (c *documentClass_) Document(
-	component ComponentLike,
-) DocumentLike {
-	if uti.IsUndefined(component) {
-		panic("The \"component\" attribute is required by this class.")
+func (c *parameterizationClass_) Parameterization(
+	parameters fra.CatalogLike[fra.SymbolLike, ConstraintLike],
+) ParameterizationLike {
+	if uti.IsUndefined(parameters) {
+		panic("The \"parameters\" attribute is required by this class.")
 	}
-	var instance = &document_{
+	var instance = &parameterization_{
 		// Initialize the instance attributes.
-		component_: component,
-
-		// Initialize the inherited aspects.
-		Declarative: component,
+		parameters_: parameters,
 	}
 	return instance
 }
@@ -50,14 +48,14 @@ func (c *documentClass_) Document(
 
 // Principal Methods
 
-func (v *document_) GetClass() DocumentClassLike {
-	return documentClass()
+func (v *parameterization_) GetClass() ParameterizationClassLike {
+	return parameterizationClass()
 }
 
 // Attribute Methods
 
-func (v *document_) GetComponent() ComponentLike {
-	return v.component_
+func (v *parameterization_) GetParameters() fra.CatalogLike[fra.SymbolLike, ConstraintLike] {
+	return v.parameters_
 }
 
 // PROTECTED INTERFACE
@@ -66,26 +64,23 @@ func (v *document_) GetComponent() ComponentLike {
 
 // Instance Structure
 
-type document_ struct {
+type parameterization_ struct {
 	// Declare the instance attributes.
-	component_ ComponentLike
-
-	// Declare the inherited aspects.
-	Declarative
+	parameters_ fra.CatalogLike[fra.SymbolLike, ConstraintLike]
 }
 
 // Class Structure
 
-type documentClass_ struct {
+type parameterizationClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func documentClass() *documentClass_ {
-	return documentClassReference_
+func parameterizationClass() *parameterizationClass_ {
+	return parameterizationClassReference_
 }
 
-var documentClassReference_ = &documentClass_{
+var parameterizationClassReference_ = &parameterizationClass_{
 	// Initialize the class constants.
 }

@@ -13,6 +13,7 @@
 package documents
 
 import (
+	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -20,24 +21,21 @@ import (
 
 // Access Function
 
-func DocumentClass() DocumentClassLike {
-	return documentClass()
+func ItemsClass() ItemsClassLike {
+	return itemsClass()
 }
 
 // Constructor Methods
 
-func (c *documentClass_) Document(
-	component ComponentLike,
-) DocumentLike {
-	if uti.IsUndefined(component) {
-		panic("The \"component\" attribute is required by this class.")
+func (c *itemsClass_) Items(
+	members fra.ListLike[MemberLike],
+) ItemsLike {
+	if uti.IsUndefined(members) {
+		panic("The \"members\" attribute is required by this class.")
 	}
-	var instance = &document_{
+	var instance = &items_{
 		// Initialize the instance attributes.
-		component_: component,
-
-		// Initialize the inherited aspects.
-		Declarative: component,
+		members_: members,
 	}
 	return instance
 }
@@ -50,14 +48,14 @@ func (c *documentClass_) Document(
 
 // Principal Methods
 
-func (v *document_) GetClass() DocumentClassLike {
-	return documentClass()
+func (v *items_) GetClass() ItemsClassLike {
+	return itemsClass()
 }
 
 // Attribute Methods
 
-func (v *document_) GetComponent() ComponentLike {
-	return v.component_
+func (v *items_) GetMembers() fra.ListLike[MemberLike] {
+	return v.members_
 }
 
 // PROTECTED INTERFACE
@@ -66,26 +64,23 @@ func (v *document_) GetComponent() ComponentLike {
 
 // Instance Structure
 
-type document_ struct {
+type items_ struct {
 	// Declare the instance attributes.
-	component_ ComponentLike
-
-	// Declare the inherited aspects.
-	Declarative
+	members_ fra.ListLike[MemberLike]
 }
 
 // Class Structure
 
-type documentClass_ struct {
+type itemsClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func documentClass() *documentClass_ {
-	return documentClassReference_
+func itemsClass() *itemsClass_ {
+	return itemsClassReference_
 }
 
-var documentClassReference_ = &documentClass_{
+var itemsClassReference_ = &itemsClass_{
 	// Initialize the class constants.
 }

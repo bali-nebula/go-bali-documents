@@ -470,9 +470,9 @@ func (v *deflator_) ProcessDocumentSlot(
 ) {
 	switch slot_ {
 	case 2:
-		if uti.IsUndefined(document.GetOptionalParameters()) {
-			var parameters not.ParametersLike
-			v.stack_.AddValue(parameters)
+		if uti.IsUndefined(document.GetOptionalParameterization()) {
+			var parameterization not.ParameterizationLike
+			v.stack_.AddValue(parameterization)
 		}
 		if uti.IsUndefined(document.GetOptionalNote()) {
 			var note string
@@ -487,36 +487,19 @@ func (v *deflator_) PostprocessDocument(
 	count_ uint,
 ) {
 	var note = v.stack_.RemoveLast().(string)
-	var parameters not.ParametersLike
+	var parameterization not.ParameterizationLike
 	var optional = v.stack_.RemoveLast()
 	if uti.IsDefined(optional) {
-		parameters = optional.(not.ParametersLike)
+		parameterization = optional.(not.ParameterizationLike)
 	}
 	var component = not.Component(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.Document(
 			component,
-			parameters,
+			parameterization,
 			note,
 		),
 	)
-}
-
-func (v *deflator_) PostprocessEntities(
-	entities doc.EntitiesLike,
-	index_ uint,
-	count_ uint,
-) {
-	var items = fra.List[not.ItemLike]()
-	var iterator = entities.GetItems().GetIterator()
-	for iterator.HasNext() {
-		var document = v.stack_.RemoveLast().(not.DocumentLike)
-		var item = not.Item(document)
-		items.AppendValue(item)
-		iterator.GetNext()
-	}
-	items.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Collection(not.Entities("[", items, "]")))
 }
 
 func (v *deflator_) PostprocessExpression(
@@ -599,6 +582,22 @@ func (v *deflator_) PostprocessInversion(
 			numerical,
 		),
 	)
+}
+
+func (v *deflator_) PostprocessItems(
+	items doc.ItemsLike,
+	index_ uint,
+	count_ uint,
+) {
+	var members = fra.List[not.MemberLike]()
+	var iterator = items.GetMembers().GetIterator()
+	for iterator.HasNext() {
+		var member = v.stack_.RemoveLast().(not.MemberLike)
+		members.AppendValue(member)
+		iterator.GetNext()
+	}
+	members.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Collection(not.Items("[", members, "]")))
 }
 
 func (v *deflator_) PostprocessLetClause(
@@ -716,13 +715,13 @@ func (v *deflator_) PostprocessOnClause(
 	)
 }
 
-func (v *deflator_) PostprocessParameters(
-	parameters doc.ParametersLike,
+func (v *deflator_) PostprocessParameterization(
+	parameterization doc.ParameterizationLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var associations = fra.List[not.AssociationLike]()
-	var iterator = parameters.GetAssociations().GetIterator()
+	var iterator = parameterization.GetAssociations().GetIterator()
 	for iterator.HasNext() {
 		var document = v.stack_.RemoveLast().(not.DocumentLike)
 		var primitive = not.Primitive(v.stack_.RemoveLast())
@@ -731,7 +730,7 @@ func (v *deflator_) PostprocessParameters(
 		iterator.GetNext()
 	}
 	associations.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Parameters("(", associations, ")"))
+	v.stack_.AddValue(not.Parameterization("(", associations, ")"))
 }
 
 func (v *deflator_) PostprocessPostClause(

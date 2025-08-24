@@ -130,7 +130,7 @@ attributes-like class.
 type AttributesClassLike interface {
 	// Constructor Methods
 	Attributes(
-		associations fra.CatalogLike[any, DocumentLike],
+		associations fra.CatalogLike[any, MemberLike],
 	) AttributesLike
 }
 
@@ -168,6 +168,32 @@ type ComplementClassLike interface {
 	Complement(
 		logical any,
 	) ComplementLike
+}
+
+/*
+ComponentClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+component-like class.
+*/
+type ComponentClassLike interface {
+	// Constructor Methods
+	Component(
+		entity any,
+		optionalParameterization ParameterizationLike,
+	) ComponentLike
+}
+
+/*
+ConstraintClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+constraint-like class.
+*/
+type ConstraintClassLike interface {
+	// Constructor Methods
+	Constraint(
+		type_ any,
+		optionalParameterization ParameterizationLike,
+	) ConstraintLike
 }
 
 /*
@@ -212,22 +238,8 @@ document-like class.
 type DocumentClassLike interface {
 	// Constructor Methods
 	Document(
-		component any,
-		optionalParameters ParametersLike,
-		optionalNote string,
+		component ComponentLike,
 	) DocumentLike
-}
-
-/*
-EntitiesClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-entities-like class.
-*/
-type EntitiesClassLike interface {
-	// Constructor Methods
-	Entities(
-		items fra.ListLike[DocumentLike],
-	) EntitiesLike
 }
 
 /*
@@ -283,6 +295,18 @@ type InversionClassLike interface {
 }
 
 /*
+ItemsClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+items-like class.
+*/
+type ItemsClassLike interface {
+	// Constructor Methods
+	Items(
+		members fra.ListLike[MemberLike],
+	) ItemsLike
+}
+
+/*
 LetClauseClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
 let-clause-like class.
@@ -319,6 +343,19 @@ type MatchingClauseClassLike interface {
 		template ExpressionLike,
 		procedure ProcedureLike,
 	) MatchingClauseLike
+}
+
+/*
+MemberClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+component-like class.
+*/
+type MemberClassLike interface {
+	// Constructor Methods
+	Member(
+		component ComponentLike,
+		optionalNote string,
+	) MemberLike
 }
 
 /*
@@ -363,15 +400,15 @@ type OnClauseClassLike interface {
 }
 
 /*
-ParametersClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-parameters-like class.
+ParameterizationClassLike is a class interface that declares the complete set of
+class constructors, constants and functions that must be supported by each
+concrete parameterization-like class.
 */
-type ParametersClassLike interface {
+type ParameterizationClassLike interface {
 	// Constructor Methods
-	Parameters(
-		associations fra.CatalogLike[fra.SymbolLike, DocumentLike],
-	) ParametersLike
+	Parameterization(
+		parameters fra.CatalogLike[fra.SymbolLike, ConstraintLike],
+	) ParameterizationLike
 }
 
 /*
@@ -616,7 +653,7 @@ type AttributesLike interface {
 	GetClass() AttributesClassLike
 
 	// Attribute Methods
-	GetAssociations() fra.CatalogLike[any, DocumentLike]
+	GetAssociations() fra.CatalogLike[any, MemberLike]
 }
 
 /*
@@ -655,6 +692,37 @@ type ComplementLike interface {
 
 	// Attribute Methods
 	GetLogical() any
+}
+
+/*
+ComponentLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete component-like class.
+*/
+type ComponentLike interface {
+	// Principal Methods
+	GetClass() ComponentClassLike
+
+	// Attribute Methods
+	GetEntity() any
+	GetOptionalParameterization() ParameterizationLike
+
+	// Aspect Interfaces
+	Declarative
+}
+
+/*
+ConstraintLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete constraint-like class.
+*/
+type ConstraintLike interface {
+	// Principal Methods
+	GetClass() ConstraintClassLike
+
+	// Attribute Methods
+	GetType() any
+	GetOptionalParameterization() ParameterizationLike
 }
 
 /*
@@ -703,25 +771,10 @@ type DocumentLike interface {
 	GetClass() DocumentClassLike
 
 	// Attribute Methods
-	GetComponent() any
-	GetOptionalParameters() ParametersLike
-	GetOptionalNote() string
+	GetComponent() ComponentLike
 
 	// Aspect Interfaces
 	Declarative
-}
-
-/*
-EntitiesLike is an instance interface that declares the complete set of principal,
-attribute and aspect methods that must be supported by each instance of a
-concrete entities-like class.
-*/
-type EntitiesLike interface {
-	// Principal Methods
-	GetClass() EntitiesClassLike
-
-	// Attribute Methods
-	GetItems() fra.ListLike[DocumentLike]
 }
 
 /*
@@ -781,6 +834,19 @@ type InversionLike interface {
 }
 
 /*
+ItemsLike is an instance interface that declares the complete set of principal,
+attribute and aspect methods that must be supported by each instance of a
+concrete items-like class.
+*/
+type ItemsLike interface {
+	// Principal Methods
+	GetClass() ItemsClassLike
+
+	// Attribute Methods
+	GetMembers() fra.ListLike[MemberLike]
+}
+
+/*
 LetClauseLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete let-clause-like class.
@@ -820,6 +886,23 @@ type MatchingClauseLike interface {
 	// Attribute Methods
 	GetTemplate() ExpressionLike
 	GetProcedure() ProcedureLike
+}
+
+/*
+MemberLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete component-like class.
+*/
+type MemberLike interface {
+	// Principal Methods
+	GetClass() MemberClassLike
+
+	// Attribute Methods
+	GetComponent() ComponentLike
+	GetOptionalNote() string
+
+	// Aspect Interfaces
+	Declarative
 }
 
 /*
@@ -867,16 +950,16 @@ type OnClauseLike interface {
 }
 
 /*
-ParametersLike is an instance interface that declares the complete set of
+ParameterizationLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
-of a concrete parameters-like class.
+of a concrete parameterization-like class.
 */
-type ParametersLike interface {
+type ParameterizationLike interface {
 	// Principal Methods
-	GetClass() ParametersClassLike
+	GetClass() ParameterizationClassLike
 
 	// Attribute Methods
-	GetAssociations() fra.CatalogLike[fra.SymbolLike, DocumentLike]
+	GetParameters() fra.CatalogLike[fra.SymbolLike, ConstraintLike]
 }
 
 /*
@@ -1120,21 +1203,21 @@ Declarative declares the set of method signatures that must be supported by
 all declarative documents.
 */
 type Declarative interface {
-	GetParameter(
-		key fra.SymbolLike,
-	) DocumentLike
-	SetParameter(
-		key fra.SymbolLike,
-		parameter DocumentLike,
+	GetConstraint(
+		symbol fra.SymbolLike,
+	) ConstraintLike
+	SetConstraint(
+		symbol fra.SymbolLike,
+		constraint ConstraintLike,
 	)
-	GetAttribute(
+	GetMember(
 		indices ...any,
-	) DocumentLike
-	SetAttribute(
-		attribute DocumentLike,
+	) MemberLike
+	SetMember(
+		member MemberLike,
 		indices ...any,
 	)
-	RemoveAttribute(
+	RemoveMember(
 		indices ...any,
 	)
 }
