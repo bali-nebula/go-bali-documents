@@ -40,106 +40,99 @@ func TestParsingRoundtrips(t *tes.T) {
 
 func TestParameterAccess(t *tes.T) {
 	var source = `[ ]`
-	var document = doc.ParseSource(source)
+	var component = doc.ParseSource(source)
 	var key = fra.SymbolFromString("$type")
-	var parameter = document.GetParameter(key)
+	var parameter = component.GetParameter(key)
 	ass.Equal(t, nil, parameter)
 
 	source = `[ ]($type: "foo")`
-	document = doc.ParseSource(source)
-	parameter = document.GetParameter(key)
-	ass.Equal(t, "\"foo\"\n", doc.FormatDocument(parameter))
+	component = doc.ParseSource(source)
+	parameter = component.GetParameter(key)
+	ass.Equal(t, "\"foo\"", doc.FormatComponent(parameter))
 
-	source = `[ ]($type: "foo" $hype: /bar)`
-	document = doc.ParseSource(source)
+	source = `[ ]($type: "foo" $hype: /bar $skype: none)`
+	component = doc.ParseSource(source)
+	key = fra.SymbolFromString("$type")
+	parameter = component.GetParameter(key)
+	ass.Equal(t, "\"foo\"", doc.FormatComponent(parameter))
 	key = fra.SymbolFromString("$hype")
-	parameter = document.GetParameter(key)
-	ass.Equal(t, "/bar\n", doc.FormatDocument(parameter))
-	parameter = doc.ParseSource("'A'")
-	document.SetParameter(key, parameter)
-	parameter = document.GetParameter(key)
-	ass.Equal(t, "'A'\n", doc.FormatDocument(parameter))
-	key = fra.SymbolFromString("$new")
-	parameter = doc.ParseSource("none")
-	document.SetParameter(key, parameter)
-	parameter = document.GetParameter(key)
-	ass.Equal(t, "none\n", doc.FormatDocument(parameter))
+	parameter = component.GetParameter(key)
+	ass.Equal(t, "/bar", doc.FormatComponent(parameter))
+	key = fra.SymbolFromString("$skype")
+	parameter = component.GetParameter(key)
+	ass.Equal(t, "none", doc.FormatComponent(parameter))
 }
 
-func TestAttributeAccess(t *tes.T) {
+func TestMemberAccess(t *tes.T) {
 	var source = `[ ]`
-	var document = doc.ParseSource(source)
+	var component = doc.ParseSource(source)
 	var index uti.Index = 1
-	var attribute = document.GetAttribute(index)
-	ass.Equal(t, nil, attribute)
+	var member = component.GetMember(index)
+	ass.Equal(t, nil, member)
 
-	source = `[ ]`
-	document = doc.ParseSource(source)
-	attribute = document.GetAttribute(index)
-	ass.Equal(t, nil, attribute)
-	attribute = doc.ParseSource("$new")
-	index = 0 // Append a new attribute.
-	document.SetAttribute(attribute, index)
+	var component2 = doc.ParseSource("$new")
+	index = 0 // Append a new member.
+	component.SetMember(component2, index)
 	index = 1
-	attribute = document.GetAttribute(index)
-	ass.Equal(t, "$new\n", doc.FormatDocument(attribute))
-	document.RemoveAttribute(index)
-	attribute = document.GetAttribute(index)
-	ass.Equal(t, nil, attribute)
+	member = component.GetMember(index)
+	ass.Equal(t, "$new", doc.FormatComponent(member))
+	component.RemoveMember(index)
+	member = component.GetMember(index)
+	ass.Equal(t, nil, member)
 
 	source = `[
     $alpha
     $beta
     $gamma
 ]`
-	document = doc.ParseSource(source)
+	component = doc.ParseSource(source)
 	index = 1
-	attribute = document.GetAttribute(index)
-	ass.Equal(t, "$alpha\n", doc.FormatDocument(attribute))
+	member = component.GetMember(index)
+	ass.Equal(t, "$alpha", doc.FormatComponent(member))
 	index = 2
-	attribute = document.GetAttribute(index)
-	ass.Equal(t, "$beta\n", doc.FormatDocument(attribute))
+	member = component.GetMember(index)
+	ass.Equal(t, "$beta", doc.FormatComponent(member))
 	index = 3
-	attribute = document.GetAttribute(index)
-	ass.Equal(t, "$gamma\n", doc.FormatDocument(attribute))
-	attribute = doc.ParseSource("$delta")
-	document.SetAttribute(attribute, index)
-	attribute = document.GetAttribute(index)
-	ass.Equal(t, "$delta\n", doc.FormatDocument(attribute))
+	member = component.GetMember(index)
+	ass.Equal(t, "$gamma", doc.FormatComponent(member))
+	component2 = doc.ParseSource("$delta")
+	component.SetMember(component2, index)
+	member = component.GetMember(index)
+	ass.Equal(t, "$delta", doc.FormatComponent(member))
 	index = 0
-	attribute = doc.ParseSource("$epsilon")
-	document.SetAttribute(attribute, index)
+	component2 = doc.ParseSource("$epsilon")
+	component.SetMember(component2, index)
 	index = 4
-	attribute = document.GetAttribute(index)
-	ass.Equal(t, "$epsilon\n", doc.FormatDocument(attribute))
-	document.RemoveAttribute(index)
+	member = component.GetMember(index)
+	ass.Equal(t, "$epsilon", doc.FormatComponent(member))
+	component.RemoveMember(index)
 	index = -1
-	attribute = document.GetAttribute(index)
-	ass.Equal(t, "$delta\n", doc.FormatDocument(attribute))
+	member = component.GetMember(index)
+	ass.Equal(t, "$delta", doc.FormatComponent(member))
 
 	source = `[
     $alpha: "1"
     $beta: "2"
     $gamma: "3"
 ]`
-	document = doc.ParseSource(source)
+	component = doc.ParseSource(source)
 	var key = fra.Symbol("alpha")
-	attribute = document.GetAttribute(key)
-	ass.Equal(t, "\"1\"\n", doc.FormatDocument(attribute))
+	member = component.GetMember(key)
+	ass.Equal(t, "\"1\"", doc.FormatComponent(member))
 	key = fra.Symbol("beta")
-	attribute = document.GetAttribute(key)
-	ass.Equal(t, "\"2\"\n", doc.FormatDocument(attribute))
+	member = component.GetMember(key)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(member))
 	key = fra.Symbol("gamma")
-	attribute = document.GetAttribute(key)
-	ass.Equal(t, "\"3\"\n", doc.FormatDocument(attribute))
-	attribute = doc.ParseSource("\"5\"")
-	document.SetAttribute(attribute, key)
-	attribute = document.GetAttribute(key)
-	ass.Equal(t, "\"5\"\n", doc.FormatDocument(attribute))
-	document.RemoveAttribute(key)
+	member = component.GetMember(key)
+	ass.Equal(t, "\"3\"", doc.FormatComponent(member))
+	component2 = doc.ParseSource("\"5\"")
+	component.SetMember(component2, key)
+	member = component.GetMember(key)
+	ass.Equal(t, "\"5\"", doc.FormatComponent(member))
+	component.RemoveMember(key)
 	key = fra.Symbol("beta")
-	attribute = document.GetAttribute(key)
-	ass.Equal(t, "\"2\"\n", doc.FormatDocument(attribute))
+	member = component.GetMember(key)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(member))
 
 	source = `[
     $items: [
@@ -153,23 +146,23 @@ func TestAttributeAccess(t *tes.T) {
         $gamma: "3"
     ]
 ]`
-	document = doc.ParseSource(source)
+	component = doc.ParseSource(source)
 	key = fra.Symbol("items")
 	index = 2
-	attribute = document.GetAttribute(key, index)
-	ass.Equal(t, "2\n", doc.FormatDocument(attribute))
+	member = component.GetMember(key, index)
+	ass.Equal(t, "2", doc.FormatComponent(member))
 	key = fra.Symbol("attributes")
 	var key2 = fra.Symbol("gamma")
-	attribute = document.GetAttribute(key, key2)
-	ass.Equal(t, "\"3\"\n", doc.FormatDocument(attribute))
-	attribute = doc.ParseSource("\"5\"")
-	document.SetAttribute(attribute, key, key2)
-	attribute = document.GetAttribute(key, key2)
-	ass.Equal(t, "\"5\"\n", doc.FormatDocument(attribute))
-	document.RemoveAttribute(key, key2)
+	member = component.GetMember(key, key2)
+	ass.Equal(t, "\"3\"", doc.FormatComponent(member))
+	component2 = doc.ParseSource("\"5\"")
+	component.SetMember(component2, key, key2)
+	member = component.GetMember(key, key2)
+	ass.Equal(t, "\"5\"", doc.FormatComponent(member))
+	component.RemoveMember(key, key2)
 	key2 = fra.Symbol("beta")
-	attribute = document.GetAttribute(key, key2)
-	ass.Equal(t, "\"2\"\n", doc.FormatDocument(attribute))
+	member = component.GetMember(key, key2)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(member))
 
 	source = `[
     [
@@ -190,35 +183,35 @@ func TestAttributeAccess(t *tes.T) {
         $gamma: "3"
     ]
 ]`
-	document = doc.ParseSource(source)
+	component = doc.ParseSource(source)
 	index = 1
 	var index2 uti.Index = 2
-	attribute = document.GetAttribute(index, index2)
-	ass.Equal(t, "2\n", doc.FormatDocument(attribute))
+	member = component.GetMember(index, index2)
+	ass.Equal(t, "2", doc.FormatComponent(member))
 	index = 2
 	key2 = fra.Symbol("beta")
-	attribute = document.GetAttribute(index, key2)
-	ass.Equal(t, "\"2\"\n", doc.FormatDocument(attribute))
+	member = component.GetMember(index, key2)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(member))
 	index = 1
 	index2 = 3
 	var key3 = fra.AngleFromString("~tau")
-	attribute = document.GetAttribute(index, index2, key3)
-	ass.Equal(t, "6.28\n", doc.FormatDocument(attribute))
-	attribute = doc.ParseSource("~τ")
-	document.SetAttribute(attribute, index, index2, key3)
-	attribute = document.GetAttribute(index, index2, key3)
-	ass.Equal(t, "~τ\n", doc.FormatDocument(attribute))
+	member = component.GetMember(index, index2, key3)
+	ass.Equal(t, "6.28", doc.FormatComponent(member))
+	component2 = doc.ParseSource("~τ")
+	component.SetMember(component2, index, index2, key3)
+	member = component.GetMember(index, index2, key3)
+	ass.Equal(t, "~τ", doc.FormatComponent(member))
 	index = 2
 	key2 = fra.Symbol("alpha")
 	var index3 uti.Index = -1
-	document.RemoveAttribute(index, key2, index3)
-	attribute = document.GetAttribute(index, key2, index3)
-	ass.Equal(t, "'b'\n", doc.FormatDocument(attribute))
+	component.RemoveMember(index, key2, index3)
+	member = component.GetMember(index, key2, index3)
+	ass.Equal(t, "'b'", doc.FormatComponent(member))
 	index = 3
-	attribute = document.GetAttribute(index)
-	ass.Equal(t, nil, attribute)
+	member = component.GetMember(index)
+	ass.Equal(t, nil, member)
 	index = 2
 	key2 = fra.Symbol("delta")
-	attribute = document.GetAttribute(index, key2)
-	ass.Equal(t, nil, attribute)
+	member = component.GetMember(index, key2)
+	ass.Equal(t, nil, member)
 }

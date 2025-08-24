@@ -338,16 +338,16 @@ type Methodical interface {
 		count_ uint,
 	)
 	PreprocessComponent(
-		component any,
+		component doc.ComponentLike,
 		index_ uint,
 		count_ uint,
 	)
 	ProcessComponentSlot(
-		component any,
+		component doc.ComponentLike,
 		slot_ uint,
 	)
 	PostprocessComponent(
-		component any,
+		component doc.ComponentLike,
 		index_ uint,
 		count_ uint,
 	)

@@ -67,27 +67,20 @@ func (v *component_) GetOptionalParameterization() ParameterizationLike {
 
 // Declarative Methods
 
-func (v *component_) GetConstraint(
+func (v *component_) GetParameter(
 	symbol fra.SymbolLike,
-) ConstraintLike {
-	var constraint ConstraintLike
+) ComponentLike {
+	var parameter ComponentLike
 	var parameterization = v.GetOptionalParameterization()
 	if uti.IsDefined(parameterization) {
 		var parameters = parameterization.GetParameters()
-		constraint = parameters.GetValue(symbol)
+		var constraint = parameters.GetValue(symbol)
+		parameter = componentClass().Component(
+			constraint.GetType(),
+			constraint.GetOptionalParameterization(),
+		)
 	}
-	return constraint
-}
-
-func (v *component_) SetConstraint(
-	symbol fra.SymbolLike,
-	constraint ConstraintLike,
-) {
-	var parameterization = v.GetOptionalParameterization()
-	if uti.IsDefined(parameterization) {
-		var parameters = parameterization.GetParameters()
-		parameters.SetValue(symbol, constraint)
-	}
+	return parameter
 }
 
 func (v *component_) GetMember(
@@ -111,9 +104,20 @@ func (v *component_) GetMember(
 }
 
 func (v *component_) SetMember(
-	member MemberLike,
+	class any,
 	indices ...any,
 ) {
+	var member MemberLike
+	switch actual := class.(type) {
+	case ComponentLike:
+		member = MemberClass().Member(actual, "")
+	case DocumentLike:
+		member = MemberClass().Member(actual.GetComponent(), "")
+	case MemberLike:
+		member = actual
+	default:
+		member = MemberClass().Member(componentClass().Component(class, nil), "")
+	}
 	if uti.IsDefined(member) && len(indices) > 0 {
 		var key = indices[0]
 		indices = indices[1:]
@@ -121,7 +125,7 @@ func (v *component_) SetMember(
 		case ItemsLike:
 			var members = collection.GetMembers()
 			var index = key.(uti.Index)
-			v.setItem(members, index, member, indices...)
+			v.setItem(members, member, index, indices...)
 		case AttributesLike:
 			var associations = collection.GetAssociations()
 			v.setAttribute(associations, key, member, indices...)
@@ -180,8 +184,8 @@ func (v *component_) getItem(
 
 func (v *component_) setItem(
 	members fra.ListLike[MemberLike],
-	index uti.Index,
 	member MemberLike,
+	index uti.Index,
 	indices ...any,
 ) {
 	if index == 0 && len(indices) == 0 {
@@ -203,8 +207,7 @@ func (v *component_) setItem(
 		return
 	}
 	if len(indices) > 0 {
-		var member = members.GetValue(index)
-		var component = member.GetComponent()
+		var component = members.GetValue(index).GetComponent()
 		component.SetMember(member, indices...)
 		return
 	}

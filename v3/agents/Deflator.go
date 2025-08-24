@@ -344,9 +344,9 @@ func (v *deflator_) PostprocessAttributes(
 	var associations = fra.List[not.AssociationLike]()
 	var iterator = attributes.GetAssociations().GetIterator()
 	for iterator.HasNext() {
-		var document = v.stack_.RemoveLast().(not.DocumentLike)
+		var member = v.stack_.RemoveLast().(not.MemberLike)
 		var primitive = not.Primitive(v.stack_.RemoveLast())
-		var association = not.Association(primitive, ":", document)
+		var association = not.Association(primitive, ":", member)
 		associations.AppendValue(association)
 		iterator.GetNext()
 	}
@@ -425,6 +425,70 @@ func (v *deflator_) PostprocessComplement(
 	)
 }
 
+func (v *deflator_) ProcessComponentSlot(
+	component doc.ComponentLike,
+	slot_ uint,
+) {
+	switch slot_ {
+	case 1:
+		if uti.IsUndefined(component.GetOptionalParameterization()) {
+			var parameterization not.ParameterizationLike
+			v.stack_.AddValue(parameterization)
+		}
+	}
+}
+
+func (v *deflator_) PostprocessComponent(
+	component doc.ComponentLike,
+	index_ uint,
+	count_ uint,
+) {
+	var parameterization not.ParameterizationLike
+	var optional = v.stack_.RemoveLast()
+	if uti.IsDefined(optional) {
+		parameterization = optional.(not.ParameterizationLike)
+	}
+	var entity = not.Entity(v.stack_.RemoveLast())
+	v.stack_.AddValue(
+		not.Component(
+			entity,
+			parameterization,
+		),
+	)
+}
+
+func (v *deflator_) ProcessConstraintSlot(
+	constraint doc.ConstraintLike,
+	slot_ uint,
+) {
+	switch slot_ {
+	case 1:
+		if uti.IsUndefined(constraint.GetOptionalParameterization()) {
+			var parameterization not.ParameterizationLike
+			v.stack_.AddValue(parameterization)
+		}
+	}
+}
+
+func (v *deflator_) PostprocessConstraint(
+	constraint doc.ConstraintLike,
+	index_ uint,
+	count_ uint,
+) {
+	var parameterization not.ParameterizationLike
+	var optional = v.stack_.RemoveLast()
+	if uti.IsDefined(optional) {
+		parameterization = optional.(not.ParameterizationLike)
+	}
+	var type_ = not.Type(v.stack_.RemoveLast())
+	v.stack_.AddValue(
+		not.Constraint(
+			type_,
+			parameterization,
+		),
+	)
+}
+
 func (v *deflator_) PostprocessContinueClause(
 	continueClause doc.ContinueClauseLike,
 	index_ uint,
@@ -464,40 +528,15 @@ func (v *deflator_) PostprocessDoClause(
 	)
 }
 
-func (v *deflator_) ProcessDocumentSlot(
-	document doc.DocumentLike,
-	slot_ uint,
-) {
-	switch slot_ {
-	case 2:
-		if uti.IsUndefined(document.GetOptionalParameterization()) {
-			var parameterization not.ParameterizationLike
-			v.stack_.AddValue(parameterization)
-		}
-		if uti.IsUndefined(document.GetOptionalNote()) {
-			var note string
-			v.stack_.AddValue(note)
-		}
-	}
-}
-
 func (v *deflator_) PostprocessDocument(
 	document doc.DocumentLike,
 	index_ uint,
 	count_ uint,
 ) {
-	var note = v.stack_.RemoveLast().(string)
-	var parameterization not.ParameterizationLike
-	var optional = v.stack_.RemoveLast()
-	if uti.IsDefined(optional) {
-		parameterization = optional.(not.ParameterizationLike)
-	}
-	var component = not.Component(v.stack_.RemoveLast())
+	var component = v.stack_.RemoveLast().(not.ComponentLike)
 	v.stack_.AddValue(
 		not.Document(
 			component,
-			parameterization,
-			note,
 		),
 	)
 }
@@ -645,6 +684,34 @@ func (v *deflator_) PostprocessMatchingClause(
 	)
 }
 
+func (v *deflator_) ProcessMemberSlot(
+	member doc.MemberLike,
+	slot_ uint,
+) {
+	switch slot_ {
+	case 1:
+		if uti.IsUndefined(member.GetOptionalNote()) {
+			var note string
+			v.stack_.AddValue(note)
+		}
+	}
+}
+
+func (v *deflator_) PostprocessMember(
+	member doc.MemberLike,
+	index_ uint,
+	count_ uint,
+) {
+	var note = v.stack_.RemoveLast().(string)
+	var component = v.stack_.RemoveLast().(not.ComponentLike)
+	v.stack_.AddValue(
+		not.Member(
+			component,
+			note,
+		),
+	)
+}
+
 func (v *deflator_) PostprocessMethod(
 	method doc.MethodLike,
 	index_ uint,
@@ -720,17 +787,18 @@ func (v *deflator_) PostprocessParameterization(
 	index_ uint,
 	count_ uint,
 ) {
-	var associations = fra.List[not.AssociationLike]()
-	var iterator = parameterization.GetAssociations().GetIterator()
+	var parameters = fra.List[not.ParameterLike]()
+	var iterator = parameterization.GetParameters().GetIterator()
 	for iterator.HasNext() {
-		var document = v.stack_.RemoveLast().(not.DocumentLike)
-		var primitive = not.Primitive(v.stack_.RemoveLast())
-		var association = not.Association(primitive, ":", document)
-		associations.AppendValue(association)
+		var constraint = v.stack_.RemoveLast().(not.ConstraintLike)
+		var element = v.stack_.RemoveLast().(not.ElementLike)
+		var symbol = element.GetAny().(string)
+		var parameter = not.Parameter(symbol, ":", constraint)
+		parameters.AppendValue(parameter)
 		iterator.GetNext()
 	}
-	associations.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Parameterization("(", associations, ")"))
+	parameters.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Parameterization("(", parameters, ")"))
 }
 
 func (v *deflator_) PostprocessPostClause(

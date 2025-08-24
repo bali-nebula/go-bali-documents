@@ -240,13 +240,13 @@ func (v *inflator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = fra.Catalog[any, doc.DocumentLike]()
+	var catalog = fra.Catalog[any, doc.MemberLike]()
 	var associations = attributes.GetAssociations()
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
-		var document = v.stack_.RemoveLast().(doc.DocumentLike)
+		var member = v.stack_.RemoveLast().(doc.MemberLike)
 		var primitive = v.stack_.RemoveLast()
-		catalog.SetValue(primitive, document)
+		catalog.SetValue(primitive, member)
 		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.
@@ -300,6 +300,60 @@ func (v *inflator_) PostprocessComplement(
 	v.stack_.AddValue(doc.ComplementClass().Complement(logical))
 }
 
+func (v *inflator_) ProcessComponentSlot(
+	component not.ComponentLike,
+	slot_ uint,
+) {
+	switch slot_ {
+	case 1:
+		if uti.IsUndefined(component.GetOptionalParameterization()) {
+			var parameterization doc.ParameterizationLike
+			v.stack_.AddValue(parameterization)
+		}
+	}
+}
+
+func (v *inflator_) PostprocessComponent(
+	component not.ComponentLike,
+	index_ uint,
+	count_ uint,
+) {
+	var parameterization doc.ParameterizationLike
+	var optional = v.stack_.RemoveLast()
+	if uti.IsDefined(optional) {
+		parameterization = optional.(doc.ParameterizationLike)
+	}
+	var entity = v.stack_.RemoveLast()
+	v.stack_.AddValue(doc.ComponentClass().Component(entity, parameterization))
+}
+
+func (v *inflator_) ProcessConstraintSlot(
+	constraint not.ConstraintLike,
+	slot_ uint,
+) {
+	switch slot_ {
+	case 1:
+		if uti.IsUndefined(constraint.GetOptionalParameterization()) {
+			var parameterization doc.ParameterizationLike
+			v.stack_.AddValue(parameterization)
+		}
+	}
+}
+
+func (v *inflator_) PostprocessConstraint(
+	constraint not.ConstraintLike,
+	index_ uint,
+	count_ uint,
+) {
+	var parameterization doc.ParameterizationLike
+	var optional = v.stack_.RemoveLast()
+	if uti.IsDefined(optional) {
+		parameterization = optional.(doc.ParameterizationLike)
+	}
+	var type_ = v.stack_.RemoveLast()
+	v.stack_.AddValue(doc.ConstraintClass().Constraint(type_, parameterization))
+}
+
 func (v *inflator_) PostprocessContinueClause(
 	continueClause not.ContinueClauseLike,
 	index_ uint,
@@ -326,36 +380,13 @@ func (v *inflator_) PostprocessDoClause(
 	v.stack_.AddValue(doc.DoClauseClass().DoClause(method))
 }
 
-func (v *inflator_) ProcessDocumentSlot(
-	document not.DocumentLike,
-	slot_ uint,
-) {
-	switch slot_ {
-	case 2:
-		if uti.IsUndefined(document.GetOptionalParameterization()) {
-			var parameterization doc.ParameterizationLike
-			v.stack_.AddValue(parameterization)
-		}
-		if uti.IsUndefined(document.GetOptionalNote()) {
-			var note string
-			v.stack_.AddValue(note)
-		}
-	}
-}
-
 func (v *inflator_) PostprocessDocument(
 	document not.DocumentLike,
 	index_ uint,
 	count_ uint,
 ) {
-	var note = v.stack_.RemoveLast().(string)
-	var parameterization doc.ParameterizationLike
-	var optional = v.stack_.RemoveLast()
-	if uti.IsDefined(optional) {
-		parameterization = optional.(doc.ParameterizationLike)
-	}
-	var component = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.DocumentClass().Document(component, parameterization, note))
+	var component = v.stack_.RemoveLast().(doc.ComponentLike)
+	v.stack_.AddValue(doc.DocumentClass().Document(component))
 }
 
 func (v *inflator_) PostprocessExpression(
@@ -461,7 +492,7 @@ func (v *inflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var members = fra.List[doc.DocumentLike]()
+	var members = fra.List[doc.MemberLike]()
 	var iterator = items.GetMembers().GetIterator()
 	for iterator.HasNext() {
 		var member = v.stack_.RemoveLast().(doc.MemberLike)
@@ -525,6 +556,34 @@ func (v *inflator_) PostprocessMatchingClause(
 	var template = v.stack_.RemoveLast().(doc.ExpressionLike)
 	v.stack_.AddValue(
 		doc.MatchingClauseClass().MatchingClause(template, procedure),
+	)
+}
+
+func (v *inflator_) ProcessMemberSlot(
+	member not.MemberLike,
+	slot_ uint,
+) {
+	switch slot_ {
+	case 1:
+		if uti.IsUndefined(member.GetOptionalNote()) {
+			var note string
+			v.stack_.AddValue(note)
+		}
+	}
+}
+
+func (v *inflator_) PostprocessMember(
+	member not.MemberLike,
+	index_ uint,
+	count_ uint,
+) {
+	var note = v.stack_.RemoveLast().(string)
+	var component = v.stack_.RemoveLast().(doc.ComponentLike)
+	v.stack_.AddValue(
+		doc.MemberClass().Member(
+			component,
+			note,
+		),
 	)
 }
 
@@ -653,13 +712,13 @@ func (v *inflator_) PostprocessParameterization(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = fra.Catalog[fra.SymbolLike, doc.DocumentLike]()
-	var associations = parameterization.GetAssociations()
-	var iterator = associations.GetIterator()
+	var catalog = fra.Catalog[fra.SymbolLike, doc.ConstraintLike]()
+	var parameters = parameterization.GetParameters()
+	var iterator = parameters.GetIterator()
 	for iterator.HasNext() {
-		var document = v.stack_.RemoveLast().(doc.DocumentLike)
+		var constraint = v.stack_.RemoveLast().(doc.ConstraintLike)
 		var symbol = v.stack_.RemoveLast().(fra.SymbolLike)
-		catalog.SetValue(symbol, document)
+		catalog.SetValue(symbol, constraint)
 		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.

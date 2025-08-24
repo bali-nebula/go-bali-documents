@@ -186,36 +186,36 @@ func (v instruction_) ModifierAsString() string {
 		}
 	case Push:
 		switch modifier {
-		case Handler:
-			return "HANDLER"
 		case Literal:
 			return "LITERAL"
 		case Constant:
 			return "CONSTANT"
 		case Argument:
 			return "ARGUMENT"
+		case Handler:
+			return "HANDLER"
 		}
 	case Pull:
 		switch modifier {
-		case Handler:
-			return "HANDLER"
-		case Exception:
-			return "EXCEPTION"
-		case Component:
-			return "COMPONENT"
+		case Draft:
+			return "DRAFT"
 		case Result:
 			return "RESULT"
+		case Exception:
+			return "EXCEPTION"
+		case Handler:
+			return "HANDLER"
 		}
 	case Load, Save, Drop:
 		switch modifier {
-		case Contract:
-			return "CONTRACT"
 		case Draft:
 			return "DRAFT"
-		case Message:
-			return "MESSAGE"
+		case Contract:
+			return "CONTRACT"
 		case Variable:
 			return "VARIABLE"
+		case Message:
+			return "MESSAGE"
 		}
 	case Call:
 		switch modifier {
@@ -230,12 +230,12 @@ func (v instruction_) ModifierAsString() string {
 		}
 	case Send:
 		switch modifier {
-		case Component:
-			return "TO COMPONENT"
-		case ComponentWithArguments:
-			return "TO COMPONENT WITH ARGUMENTS"
+		case Draft:
+			return "TO DRAFT"
 		case Contract:
 			return "TO CONTRACT"
+		case DraftWithArguments:
+			return "TO DRAFT WITH ARGUMENTS"
 		case ContractWithArguments:
 			return "TO CONTRACT WITH ARGUMENTS"
 		}

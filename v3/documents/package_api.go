@@ -1203,18 +1203,14 @@ Declarative declares the set of method signatures that must be supported by
 all declarative documents.
 */
 type Declarative interface {
-	GetConstraint(
+	GetParameter(
 		symbol fra.SymbolLike,
-	) ConstraintLike
-	SetConstraint(
-		symbol fra.SymbolLike,
-		constraint ConstraintLike,
-	)
+	) ComponentLike
 	GetMember(
 		indices ...any,
 	) MemberLike
 	SetMember(
-		member MemberLike,
+		class any,
 		indices ...any,
 	)
 	RemoveMember(

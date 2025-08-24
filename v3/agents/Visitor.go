@@ -265,7 +265,7 @@ func (v *visitor_) visitConstraint(
 	)
 
 	// Visit slot 1 between terms.
-	v.processor_.ProcessComponentSlot(
+	v.processor_.ProcessConstraintSlot(
 		constraint,
 		1,
 	)
@@ -666,14 +666,14 @@ func (v *visitor_) visitLogical(
 	logical any,
 ) {
 	switch actual := logical.(type) {
-	case doc.DocumentLike:
-		v.processor_.PreprocessDocument(
+	case doc.ComponentLike:
+		v.processor_.PreprocessComponent(
 			actual,
 			0,
 			0,
 		)
-		v.visitDocument(actual)
-		v.processor_.PostprocessDocument(
+		v.visitComponent(actual)
+		v.processor_.PostprocessComponent(
 			actual,
 			0,
 			0,
@@ -1175,14 +1175,14 @@ func (v *visitor_) visitNumerical(
 	numerical any,
 ) {
 	switch actual := numerical.(type) {
-	case doc.DocumentLike:
-		v.processor_.PreprocessDocument(
+	case doc.ComponentLike:
+		v.processor_.PreprocessComponent(
 			actual,
 			0,
 			0,
 		)
-		v.visitDocument(actual)
-		v.processor_.PostprocessDocument(
+		v.visitComponent(actual)
+		v.processor_.PostprocessComponent(
 			actual,
 			0,
 			0,
@@ -1596,14 +1596,14 @@ func (v *visitor_) visitReference(
 	reference any,
 ) {
 	switch actual := reference.(type) {
-	case doc.DocumentLike:
-		v.processor_.PreprocessDocument(
+	case doc.ComponentLike:
+		v.processor_.PreprocessComponent(
 			actual,
 			0,
 			0,
 		)
-		v.visitDocument(actual)
-		v.processor_.PostprocessDocument(
+		v.visitComponent(actual)
+		v.processor_.PostprocessComponent(
 			actual,
 			0,
 			0,
@@ -1907,14 +1907,14 @@ func (v *visitor_) visitSubject(
 	subject any,
 ) {
 	switch actual := subject.(type) {
-	case doc.DocumentLike:
-		v.processor_.PreprocessDocument(
+	case doc.ComponentLike:
+		v.processor_.PreprocessComponent(
 			actual,
 			0,
 			0,
 		)
-		v.visitDocument(actual)
-		v.processor_.PostprocessDocument(
+		v.visitComponent(actual)
+		v.processor_.PostprocessComponent(
 			actual,
 			0,
 			0,

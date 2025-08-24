@@ -65,41 +65,40 @@ type (
 // Assembly
 
 type (
+	Operation = ass.Operation
 	Modifier  = ass.Modifier
 	Operand   = ass.Operand
-	Operation = ass.Operation
 )
 
 const (
-	Jump                   = ass.Jump
-	Push                   = ass.Push
-	Pull                   = ass.Pull
-	Load                   = ass.Load
-	Save                   = ass.Save
-	Drop                   = ass.Drop
-	Call                   = ass.Call
-	Send                   = ass.Send
-	OnAny                  = ass.OnAny
-	OnEmpty                = ass.OnEmpty
-	OnNone                 = ass.OnNone
-	OnFalse                = ass.OnFalse
-	Handler                = ass.Handler
-	Literal                = ass.Literal
-	Constant               = ass.Constant
-	Argument               = ass.Argument
-	Exception              = ass.Exception
-	Component              = ass.Component
-	Result                 = ass.Result
-	Contract               = ass.Contract
-	Draft                  = ass.Draft
-	Message                = ass.Message
-	Variable               = ass.Variable
-	With0Arguments         = ass.With0Arguments
-	With1Argument          = ass.With1Argument
-	With2Arguments         = ass.With2Arguments
-	With3Arguments         = ass.With3Arguments
-	ContractWithArguments  = ass.ContractWithArguments
-	ComponentWithArguments = ass.ComponentWithArguments
+	Jump                  = ass.Jump
+	Push                  = ass.Push
+	Pull                  = ass.Pull
+	Load                  = ass.Load
+	Save                  = ass.Save
+	Drop                  = ass.Drop
+	Call                  = ass.Call
+	Send                  = ass.Send
+	OnAny                 = ass.OnAny
+	OnEmpty               = ass.OnEmpty
+	OnNone                = ass.OnNone
+	OnFalse               = ass.OnFalse
+	Literal               = ass.Literal
+	Constant              = ass.Constant
+	Argument              = ass.Argument
+	Handler               = ass.Handler
+	Draft                 = ass.Draft
+	Result                = ass.Result
+	Exception             = ass.Exception
+	Contract              = ass.Contract
+	Variable              = ass.Variable
+	Message               = ass.Message
+	With0Arguments        = ass.With0Arguments
+	With1Argument         = ass.With1Argument
+	With2Arguments        = ass.With2Arguments
+	With3Arguments        = ass.With3Arguments
+	DraftWithArguments    = ass.DraftWithArguments
+	ContractWithArguments = ass.ContractWithArguments
 )
 
 type (
@@ -155,85 +154,91 @@ const (
 )
 
 type (
-	AcceptClauseClassLike   = doc.AcceptClauseClassLike
-	AttributesClassLike     = doc.AttributesClassLike
-	BreakClauseClassLike    = doc.BreakClauseClassLike
-	CheckoutClauseClassLike = doc.CheckoutClauseClassLike
-	ComplementClassLike     = doc.ComplementClassLike
-	ContinueClauseClassLike = doc.ContinueClauseClassLike
-	DiscardClauseClassLike  = doc.DiscardClauseClassLike
-	DoClauseClassLike       = doc.DoClauseClassLike
-	DocumentClassLike       = doc.DocumentClassLike
-	EntitiesClassLike       = doc.EntitiesClassLike
-	ExpressionClassLike     = doc.ExpressionClassLike
-	FunctionClassLike       = doc.FunctionClassLike
-	IfClauseClassLike       = doc.IfClauseClassLike
-	InversionClassLike      = doc.InversionClassLike
-	LetClauseClassLike      = doc.LetClauseClassLike
-	MagnitudeClassLike      = doc.MagnitudeClassLike
-	MatchingClauseClassLike = doc.MatchingClauseClassLike
-	MethodClassLike         = doc.MethodClassLike
-	NotarizeClauseClassLike = doc.NotarizeClauseClassLike
-	OnClauseClassLike       = doc.OnClauseClassLike
-	ParametersClassLike     = doc.ParametersClassLike
-	PostClauseClassLike     = doc.PostClauseClassLike
-	PrecedenceClassLike     = doc.PrecedenceClassLike
-	PredicateClassLike      = doc.PredicateClassLike
-	ProcedureClassLike      = doc.ProcedureClassLike
-	PublishClauseClassLike  = doc.PublishClauseClassLike
-	RangeClassLike          = doc.RangeClassLike
-	ReferentClassLike       = doc.ReferentClassLike
-	RejectClauseClassLike   = doc.RejectClauseClassLike
-	RetrieveClauseClassLike = doc.RetrieveClauseClassLike
-	ReturnClauseClassLike   = doc.ReturnClauseClassLike
-	SaveClauseClassLike     = doc.SaveClauseClassLike
-	SelectClauseClassLike   = doc.SelectClauseClassLike
-	StatementClassLike      = doc.StatementClassLike
-	SubcomponentClassLike   = doc.SubcomponentClassLike
-	ThrowClauseClassLike    = doc.ThrowClauseClassLike
-	WhileClauseClassLike    = doc.WhileClauseClassLike
-	WithClauseClassLike     = doc.WithClauseClassLike
+	AcceptClauseClassLike     = doc.AcceptClauseClassLike
+	AttributesClassLike       = doc.AttributesClassLike
+	BreakClauseClassLike      = doc.BreakClauseClassLike
+	CheckoutClauseClassLike   = doc.CheckoutClauseClassLike
+	ComplementClassLike       = doc.ComplementClassLike
+	ComponentClassLike        = doc.ComponentClassLike
+	ConstraintClassLike       = doc.ConstraintClassLike
+	ContinueClauseClassLike   = doc.ContinueClauseClassLike
+	DiscardClauseClassLike    = doc.DiscardClauseClassLike
+	DoClauseClassLike         = doc.DoClauseClassLike
+	DocumentClassLike         = doc.DocumentClassLike
+	ExpressionClassLike       = doc.ExpressionClassLike
+	FunctionClassLike         = doc.FunctionClassLike
+	IfClauseClassLike         = doc.IfClauseClassLike
+	InversionClassLike        = doc.InversionClassLike
+	ItemsClassLike            = doc.ItemsClassLike
+	LetClauseClassLike        = doc.LetClauseClassLike
+	MagnitudeClassLike        = doc.MagnitudeClassLike
+	MatchingClauseClassLike   = doc.MatchingClauseClassLike
+	MemberClassLike           = doc.MemberClassLike
+	MethodClassLike           = doc.MethodClassLike
+	NotarizeClauseClassLike   = doc.NotarizeClauseClassLike
+	OnClauseClassLike         = doc.OnClauseClassLike
+	ParameterizationClassLike = doc.ParameterizationClassLike
+	PostClauseClassLike       = doc.PostClauseClassLike
+	PrecedenceClassLike       = doc.PrecedenceClassLike
+	PredicateClassLike        = doc.PredicateClassLike
+	ProcedureClassLike        = doc.ProcedureClassLike
+	PublishClauseClassLike    = doc.PublishClauseClassLike
+	RangeClassLike            = doc.RangeClassLike
+	ReferentClassLike         = doc.ReferentClassLike
+	RejectClauseClassLike     = doc.RejectClauseClassLike
+	RetrieveClauseClassLike   = doc.RetrieveClauseClassLike
+	ReturnClauseClassLike     = doc.ReturnClauseClassLike
+	SaveClauseClassLike       = doc.SaveClauseClassLike
+	SelectClauseClassLike     = doc.SelectClauseClassLike
+	StatementClassLike        = doc.StatementClassLike
+	SubcomponentClassLike     = doc.SubcomponentClassLike
+	ThrowClauseClassLike      = doc.ThrowClauseClassLike
+	WhileClauseClassLike      = doc.WhileClauseClassLike
+	WithClauseClassLike       = doc.WithClauseClassLike
 )
 
 type (
-	AcceptClauseLike   = doc.AcceptClauseLike
-	AttributesLike     = doc.AttributesLike
-	BreakClauseLike    = doc.BreakClauseLike
-	CheckoutClauseLike = doc.CheckoutClauseLike
-	ComplementLike     = doc.ComplementLike
-	ContinueClauseLike = doc.ContinueClauseLike
-	DiscardClauseLike  = doc.DiscardClauseLike
-	DoClauseLike       = doc.DoClauseLike
-	DocumentLike       = doc.DocumentLike
-	EntitiesLike       = doc.EntitiesLike
-	ExpressionLike     = doc.ExpressionLike
-	FunctionLike       = doc.FunctionLike
-	IfClauseLike       = doc.IfClauseLike
-	InversionLike      = doc.InversionLike
-	LetClauseLike      = doc.LetClauseLike
-	MagnitudeLike      = doc.MagnitudeLike
-	MatchingClauseLike = doc.MatchingClauseLike
-	MethodLike         = doc.MethodLike
-	NotarizeClauseLike = doc.NotarizeClauseLike
-	OnClauseLike       = doc.OnClauseLike
-	ParametersLike     = doc.ParametersLike
-	PostClauseLike     = doc.PostClauseLike
-	PrecedenceLike     = doc.PrecedenceLike
-	PredicateLike      = doc.PredicateLike
-	ProcedureLike      = doc.ProcedureLike
-	PublishClauseLike  = doc.PublishClauseLike
-	RangeLike          = doc.RangeLike
-	ReferentLike       = doc.ReferentLike
-	RejectClauseLike   = doc.RejectClauseLike
-	RetrieveClauseLike = doc.RetrieveClauseLike
-	ReturnClauseLike   = doc.ReturnClauseLike
-	SaveClauseLike     = doc.SaveClauseLike
-	SelectClauseLike   = doc.SelectClauseLike
-	StatementLike      = doc.StatementLike
-	SubcomponentLike   = doc.SubcomponentLike
-	ThrowClauseLike    = doc.ThrowClauseLike
-	WhileClauseLike    = doc.WhileClauseLike
-	WithClauseLike     = doc.WithClauseLike
+	AcceptClauseLike     = doc.AcceptClauseLike
+	AttributesLike       = doc.AttributesLike
+	BreakClauseLike      = doc.BreakClauseLike
+	CheckoutClauseLike   = doc.CheckoutClauseLike
+	ComplementLike       = doc.ComplementLike
+	ComponentLike        = doc.ComponentLike
+	ConstraintLike       = doc.ConstraintLike
+	ContinueClauseLike   = doc.ContinueClauseLike
+	DiscardClauseLike    = doc.DiscardClauseLike
+	DoClauseLike         = doc.DoClauseLike
+	DocumentLike         = doc.DocumentLike
+	ExpressionLike       = doc.ExpressionLike
+	FunctionLike         = doc.FunctionLike
+	IfClauseLike         = doc.IfClauseLike
+	InversionLike        = doc.InversionLike
+	ItemsLike            = doc.ItemsLike
+	LetClauseLike        = doc.LetClauseLike
+	MagnitudeLike        = doc.MagnitudeLike
+	MatchingClauseLike   = doc.MatchingClauseLike
+	MemberLike           = doc.MemberLike
+	MethodLike           = doc.MethodLike
+	NotarizeClauseLike   = doc.NotarizeClauseLike
+	OnClauseLike         = doc.OnClauseLike
+	ParameterizationLike = doc.ParameterizationLike
+	PostClauseLike       = doc.PostClauseLike
+	PrecedenceLike       = doc.PrecedenceLike
+	PredicateLike        = doc.PredicateLike
+	ProcedureLike        = doc.ProcedureLike
+	PublishClauseLike    = doc.PublishClauseLike
+	RangeLike            = doc.RangeLike
+	ReferentLike         = doc.ReferentLike
+	RejectClauseLike     = doc.RejectClauseLike
+	RetrieveClauseLike   = doc.RetrieveClauseLike
+	ReturnClauseLike     = doc.ReturnClauseLike
+	SaveClauseLike       = doc.SaveClauseLike
+	SelectClauseLike     = doc.SelectClauseLike
+	StatementLike        = doc.StatementLike
+	SubcomponentLike     = doc.SubcomponentLike
+	ThrowClauseLike      = doc.ThrowClauseLike
+	WhileClauseLike      = doc.WhileClauseLike
+	WithClauseLike       = doc.WithClauseLike
 )
 
 type (
@@ -353,7 +358,7 @@ func AttributesClass() AttributesClassLike {
 }
 
 func Attributes(
-	associations fra.CatalogLike[any, doc.DocumentLike],
+	associations fra.CatalogLike[any, doc.MemberLike],
 ) AttributesLike {
 	return AttributesClass().Attributes(
 		associations,
@@ -396,6 +401,34 @@ func Complement(
 	)
 }
 
+func ComponentClass() ComponentClassLike {
+	return doc.ComponentClass()
+}
+
+func Component(
+	entity any,
+	optionalParameterization doc.ParameterizationLike,
+) ComponentLike {
+	return ComponentClass().Component(
+		entity,
+		optionalParameterization,
+	)
+}
+
+func ConstraintClass() ConstraintClassLike {
+	return doc.ConstraintClass()
+}
+
+func Constraint(
+	type_ any,
+	optionalParameterization doc.ParameterizationLike,
+) ConstraintLike {
+	return ConstraintClass().Constraint(
+		type_,
+		optionalParameterization,
+	)
+}
+
 func ContinueClauseClass() ContinueClauseClassLike {
 	return doc.ContinueClauseClass()
 }
@@ -433,26 +466,10 @@ func DocumentClass() DocumentClassLike {
 }
 
 func Document(
-	component any,
-	optionalParameters doc.ParametersLike,
-	optionalNote string,
+	component doc.ComponentLike,
 ) DocumentLike {
 	return DocumentClass().Document(
 		component,
-		optionalParameters,
-		optionalNote,
-	)
-}
-
-func EntitiesClass() EntitiesClassLike {
-	return doc.EntitiesClass()
-}
-
-func Entities(
-	items fra.ListLike[doc.DocumentLike],
-) EntitiesLike {
-	return EntitiesClass().Entities(
-		items,
 	)
 }
 
@@ -512,6 +529,18 @@ func Inversion(
 	)
 }
 
+func ItemsClass() ItemsClassLike {
+	return doc.ItemsClass()
+}
+
+func Items(
+	members fra.ListLike[doc.MemberLike],
+) ItemsLike {
+	return ItemsClass().Items(
+		members,
+	)
+}
+
 func LetClauseClass() LetClauseClassLike {
 	return doc.LetClauseClass()
 }
@@ -551,6 +580,20 @@ func MatchingClause(
 	return MatchingClauseClass().MatchingClause(
 		template,
 		procedure,
+	)
+}
+
+func MemberClass() MemberClassLike {
+	return doc.MemberClass()
+}
+
+func Member(
+	component doc.ComponentLike,
+	optionalNote string,
+) MemberLike {
+	return MemberClass().Member(
+		component,
+		optionalNote,
 	)
 }
 
@@ -600,15 +643,15 @@ func OnClause(
 	)
 }
 
-func ParametersClass() ParametersClassLike {
-	return doc.ParametersClass()
+func ParameterizationClass() ParameterizationClassLike {
+	return doc.ParameterizationClass()
 }
 
-func Parameters(
-	associations fra.CatalogLike[fra.SymbolLike, doc.DocumentLike],
-) ParametersLike {
-	return ParametersClass().Parameters(
-		associations,
+func Parameterization(
+	parameters fra.CatalogLike[fra.SymbolLike, doc.ConstraintLike],
+) ParameterizationLike {
+	return ParameterizationClass().Parameterization(
+		parameters,
 	)
 }
 
@@ -846,16 +889,40 @@ func WithClause(
 
 func ParseSource(
 	source string,
-) DocumentLike {
+) ComponentLike {
 	var inflator = Inflator()
 	var parser = not.Parser()
-	return inflator.InflateDocument(parser.ParseSource(source))
+	var document = inflator.InflateDocument(parser.ParseSource(source))
+	return document.GetComponent()
+}
+
+func FormatComponent(
+	class any,
+) string {
+	var component ComponentLike
+	switch actual := class.(type) {
+	case ComponentLike:
+		component = actual
+	case ConstraintLike:
+		var entity = actual.GetType()
+		var parameterization = actual.GetOptionalParameterization()
+		component = Component(entity, parameterization)
+	case DocumentLike:
+		component = actual.GetComponent()
+	case MemberLike:
+		component = actual.GetComponent()
+	default:
+		component = Component(class, nil)
+	}
+	var deflator = Deflator()
+	var formatter = not.Formatter()
+	var document = deflator.DeflateDocument(Document(component))
+	var source = formatter.FormatDocument(document)
+	return source[:len(source)-1] // Remove the trailing newline.
 }
 
 func FormatDocument(
-	document DocumentLike,
+	component ComponentLike,
 ) string {
-	var deflator = Deflator()
-	var formatter = not.Formatter()
-	return formatter.FormatDocument(deflator.DeflateDocument(document))
+	return FormatComponent(component) + "\n"
 }

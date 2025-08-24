@@ -58,39 +58,40 @@ type Modifier uint16
 
 const (
 	// Jump Operation
-	OnAny   Modifier = 0b0000000000000000
-	OnEmpty Modifier = 0b0000100000000000
-	OnNone  Modifier = 0b0001000000000000
-	OnFalse Modifier = 0b0001100000000000
+	OnAny                 Modifier = 0b0000000000000000
+	OnEmpty               Modifier = 0b0000100000000000
+	OnNone                Modifier = 0b0001000000000000
+	OnFalse               Modifier = 0b0001100000000000
 
 	// Push Operation
-	Handler  Modifier = 0b0000000000000000
-	Literal  Modifier = 0b0000100000000000
-	Constant Modifier = 0b0001000000000000
-	Argument Modifier = 0b0001100000000000
+	Literal               Modifier = 0b0000000000000000
+	Constant              Modifier = 0b0000100000000000
+	Argument              Modifier = 0b0001000000000000
+	Handler               Modifier = 0b0001100000000000
 
 	// Pull Operation
-	// Handler is defined above.
-	Exception Modifier = 0b0000100000000000
-	Component Modifier = 0b0001000000000000
-	Result    Modifier = 0b0001100000000000
+	Draft                 Modifier = 0b0000000000000000
+	Result                Modifier = 0b0000100000000000
+	Exception             Modifier = 0b0001000000000000
+  //Handler               Modifier = 0b0001100000000000
 
 	// Load, Save and Drop Operations
-	Contract Modifier = 0b0000000000000000
-	Draft    Modifier = 0b0000100000000000
-	Message  Modifier = 0b0001000000000000
-	Variable Modifier = 0b0001100000000000
+  //Draft                 Modifier = 0b0000000000000000
+	Contract              Modifier = 0b0000100000000000
+	Variable              Modifier = 0b0001000000000000
+	Message               Modifier = 0b0001100000000000
 
 	// Call Operation
-	With0Arguments Modifier = 0b0000000000000000
-	With1Argument  Modifier = 0b0000100000000000
-	With2Arguments Modifier = 0b0001000000000000
-	With3Arguments Modifier = 0b0001100000000000
+	With0Arguments        Modifier = 0b0000000000000000
+	With1Argument         Modifier = 0b0000100000000000
+	With2Arguments        Modifier = 0b0001000000000000
+	With3Arguments        Modifier = 0b0001100000000000
 
 	// Send Operation
-	// Contract and Component are defined above.
-	ContractWithArguments  Modifier = 0b0000100000000000
-	ComponentWithArguments Modifier = 0b0001100000000000
+  //Draft                 Modifier = 0b0000000000000000
+  //Contract              Modifier = 0b0000100000000000
+	DraftWithArguments    Modifier = 0b0001000000000000
+	ContractWithArguments Modifier = 0b0001100000000000
 )
 
 /*
