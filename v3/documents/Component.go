@@ -282,9 +282,10 @@ func (v *component_) setAttribute(
 			} else {
 				association.SetValue(object)
 			}
-			break
+			return
 		}
 	}
+	associations.SetValue(key, object)
 }
 
 func (v *component_) removeAttribute(
