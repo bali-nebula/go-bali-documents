@@ -173,9 +173,9 @@ type (
 	LetClauseClassLike        = doc.LetClauseClassLike
 	MagnitudeClassLike        = doc.MagnitudeClassLike
 	MatchingClauseClassLike   = doc.MatchingClauseClassLike
-	MemberClassLike           = doc.MemberClassLike
 	MethodClassLike           = doc.MethodClassLike
 	NotarizeClauseClassLike   = doc.NotarizeClauseClassLike
+	ObjectClassLike           = doc.ObjectClassLike
 	OnClauseClassLike         = doc.OnClauseClassLike
 	ParameterizationClassLike = doc.ParameterizationClassLike
 	PostClauseClassLike       = doc.PostClauseClassLike
@@ -217,9 +217,9 @@ type (
 	LetClauseLike        = doc.LetClauseLike
 	MagnitudeLike        = doc.MagnitudeLike
 	MatchingClauseLike   = doc.MatchingClauseLike
-	MemberLike           = doc.MemberLike
 	MethodLike           = doc.MethodLike
 	NotarizeClauseLike   = doc.NotarizeClauseLike
+	ObjectLike           = doc.ObjectLike
 	OnClauseLike         = doc.OnClauseLike
 	ParameterizationLike = doc.ParameterizationLike
 	PostClauseLike       = doc.PostClauseLike
@@ -358,7 +358,7 @@ func AttributesClass() AttributesClassLike {
 }
 
 func Attributes(
-	associations fra.CatalogLike[any, doc.MemberLike],
+	associations fra.CatalogLike[any, doc.ObjectLike],
 ) AttributesLike {
 	return AttributesClass().Attributes(
 		associations,
@@ -420,11 +420,11 @@ func ConstraintClass() ConstraintClassLike {
 }
 
 func Constraint(
-	type_ any,
+	metadata any,
 	optionalParameterization doc.ParameterizationLike,
 ) ConstraintLike {
 	return ConstraintClass().Constraint(
-		type_,
+		metadata,
 		optionalParameterization,
 	)
 }
@@ -534,10 +534,10 @@ func ItemsClass() ItemsClassLike {
 }
 
 func Items(
-	members fra.ListLike[doc.MemberLike],
+	objects fra.ListLike[doc.ObjectLike],
 ) ItemsLike {
 	return ItemsClass().Items(
-		members,
+		objects,
 	)
 }
 
@@ -583,20 +583,6 @@ func MatchingClause(
 	)
 }
 
-func MemberClass() MemberClassLike {
-	return doc.MemberClass()
-}
-
-func Member(
-	component doc.ComponentLike,
-	optionalNote string,
-) MemberLike {
-	return MemberClass().Member(
-		component,
-		optionalNote,
-	)
-}
-
 func MethodClass() MethodClassLike {
 	return doc.MethodClass()
 }
@@ -626,6 +612,20 @@ func NotarizeClause(
 	return NotarizeClauseClass().NotarizeClause(
 		draft,
 		cited,
+	)
+}
+
+func ObjectClass() ObjectClassLike {
+	return doc.ObjectClass()
+}
+
+func Object(
+	component doc.ComponentLike,
+	optionalNote string,
+) ObjectLike {
+	return ObjectClass().Object(
+		component,
+		optionalNote,
 	)
 }
 
@@ -904,12 +904,12 @@ func FormatComponent(
 	case ComponentLike:
 		component = actual
 	case ConstraintLike:
-		var entity = actual.GetType()
+		var entity = actual.GetMetadata()
 		var parameterization = actual.GetOptionalParameterization()
 		component = Component(entity, parameterization)
 	case DocumentLike:
 		component = actual.GetComponent()
-	case MemberLike:
+	case ObjectLike:
 		component = actual.GetComponent()
 	default:
 		component = Component(class, nil)

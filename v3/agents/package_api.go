@@ -603,17 +603,17 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessMember(
-		member doc.MemberLike,
+	PreprocessObject(
+		object doc.ObjectLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessMemberSlot(
-		member doc.MemberLike,
+	ProcessObjectSlot(
+		object doc.ObjectLike,
 		slot_ uint,
 	)
-	PostprocessMember(
-		member doc.MemberLike,
+	PostprocessObject(
+		object doc.ObjectLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -953,17 +953,17 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessType(
-		type_ any,
+	PreprocessMetadata(
+		metadata any,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessTypeSlot(
-		type_ any,
+	ProcessMetadataSlot(
+		metadata any,
 		slot_ uint,
 	)
-	PostprocessType(
-		type_ any,
+	PostprocessMetadata(
+		metadata any,
 		index_ uint,
 		count_ uint,
 	)

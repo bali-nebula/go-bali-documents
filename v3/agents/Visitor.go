@@ -116,15 +116,15 @@ func (v *visitor_) visitAttributes(
 		var association = associations.GetNext()
 		var primitive = association.GetKey()
 		v.visitPrimitive(primitive)
-		var member = association.GetValue()
-		v.processor_.PreprocessMember(
-			member,
+		var object = association.GetValue()
+		v.processor_.PreprocessObject(
+			object,
 			associationsIndex,
 			associationsCount,
 		)
-		v.visitMember(member)
-		v.processor_.PostprocessMember(
-			member,
+		v.visitObject(object)
+		v.processor_.PostprocessObject(
+			object,
 			associationsIndex,
 			associationsCount,
 		)
@@ -251,15 +251,15 @@ func (v *visitor_) visitComponent(
 func (v *visitor_) visitConstraint(
 	constraint doc.ConstraintLike,
 ) {
-	var type_ = constraint.GetType()
-	v.processor_.PreprocessType(
-		type_,
+	var metadata = constraint.GetMetadata()
+	v.processor_.PreprocessMetadata(
+		metadata,
 		0,
 		0,
 	)
-	v.visitType(type_)
-	v.processor_.PostprocessType(
-		type_,
+	v.visitMetadata(metadata)
+	v.processor_.PostprocessMetadata(
+		metadata,
 		0,
 		0,
 	)
@@ -412,22 +412,22 @@ func (v *visitor_) visitEntity(
 func (v *visitor_) visitItems(
 	items doc.ItemsLike,
 ) {
-	var membersIndex uint
-	var members = items.GetMembers().GetIterator()
-	var membersCount = uint(members.GetSize())
-	for members.HasNext() {
-		membersIndex++
-		var member = members.GetNext()
-		v.processor_.PreprocessMember(
-			member,
-			membersIndex,
-			membersCount,
+	var objectsIndex uint
+	var objects = items.GetObjects().GetIterator()
+	var objectsCount = uint(objects.GetSize())
+	for objects.HasNext() {
+		objectsIndex++
+		var object = objects.GetNext()
+		v.processor_.PreprocessObject(
+			object,
+			objectsIndex,
+			objectsCount,
 		)
-		v.visitMember(member)
-		v.processor_.PostprocessMember(
-			member,
-			membersIndex,
-			membersCount,
+		v.visitObject(object)
+		v.processor_.PostprocessObject(
+			object,
+			objectsIndex,
+			objectsCount,
 		)
 	}
 }
@@ -1057,31 +1057,34 @@ func (v *visitor_) visitMatchingClause(
 	)
 }
 
-func (v *visitor_) visitMember(
-	member doc.MemberLike,
+func (v *visitor_) visitMetadata(
+	metadata any,
 ) {
-	var component = member.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
-		0,
-		0,
-	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
-		0,
-		0,
-	)
-
-	// Visit slot 1 between terms.
-	v.processor_.ProcessMemberSlot(
-		member,
-		1,
-	)
-
-	var optionalNote = member.GetOptionalNote()
-	if uti.IsDefined(optionalNote) {
-		v.processor_.ProcessNote(optionalNote)
+	switch actual := metadata.(type) {
+	case doc.RangeLike:
+		v.processor_.PreprocessRange(
+			actual,
+			0,
+			0,
+		)
+		v.visitRange(actual)
+		v.processor_.PostprocessRange(
+			actual,
+			0,
+			0,
+		)
+	default:
+		v.processor_.PreprocessPrimitive(
+			metadata,
+			0,
+			0,
+		)
+		v.visitPrimitive(metadata)
+		v.processor_.PostprocessPrimitive(
+			metadata,
+			0,
+			0,
+		)
 	}
 }
 
@@ -1280,6 +1283,34 @@ func (v *visitor_) visitNumerical(
 			actual,
 		)
 		panic(message)
+	}
+}
+
+func (v *visitor_) visitObject(
+	object doc.ObjectLike,
+) {
+	var component = object.GetComponent()
+	v.processor_.PreprocessComponent(
+		component,
+		0,
+		0,
+	)
+	v.visitComponent(component)
+	v.processor_.PostprocessComponent(
+		component,
+		0,
+		0,
+	)
+
+	// Visit slot 1 between terms.
+	v.processor_.ProcessObjectSlot(
+		object,
+		1,
+	)
+
+	var optionalNote = object.GetOptionalNote()
+	if uti.IsDefined(optionalNote) {
+		v.processor_.ProcessNote(optionalNote)
 	}
 }
 
@@ -2042,37 +2073,6 @@ func (v *visitor_) visitThrowClause(
 		0,
 		0,
 	)
-}
-
-func (v *visitor_) visitType(
-	type_ any,
-) {
-	switch actual := type_.(type) {
-	case doc.RangeLike:
-		v.processor_.PreprocessRange(
-			actual,
-			0,
-			0,
-		)
-		v.visitRange(actual)
-		v.processor_.PostprocessRange(
-			actual,
-			0,
-			0,
-		)
-	default:
-		v.processor_.PreprocessPrimitive(
-			type_,
-			0,
-			0,
-		)
-		v.visitPrimitive(type_)
-		v.processor_.PostprocessPrimitive(
-			type_,
-			0,
-			0,
-		)
-	}
 }
 
 func (v *visitor_) visitWhileClause(

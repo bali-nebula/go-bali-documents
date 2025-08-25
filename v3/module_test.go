@@ -63,22 +63,22 @@ func TestParameterAccess(t *tes.T) {
 	ass.Equal(t, "none", doc.FormatComponent(parameter))
 }
 
-func TestMemberAccess(t *tes.T) {
+func TestObjectAccess(t *tes.T) {
 	var source = `[ ]`
 	var component = doc.ParseSource(source)
 	var index uti.Index = 1
-	var member = component.GetMember(index)
-	ass.Equal(t, nil, member)
+	var object = component.GetObject(index)
+	ass.Equal(t, nil, object)
 
 	var component2 = doc.ParseSource("$new")
-	index = 0 // Append a new member.
-	component.SetMember(component2, index)
+	index = 0 // Append a new object.
+	component.SetObject(component2, index)
 	index = 1
-	member = component.GetMember(index)
-	ass.Equal(t, "$new", doc.FormatComponent(member))
-	component.RemoveMember(index)
-	member = component.GetMember(index)
-	ass.Equal(t, nil, member)
+	object = component.GetObject(index)
+	ass.Equal(t, "$new", doc.FormatComponent(object))
+	component.RemoveObject(index)
+	object = component.GetObject(index)
+	ass.Equal(t, nil, object)
 
 	source = `[
     $alpha
@@ -87,28 +87,28 @@ func TestMemberAccess(t *tes.T) {
 ]`
 	component = doc.ParseSource(source)
 	index = 1
-	member = component.GetMember(index)
-	ass.Equal(t, "$alpha", doc.FormatComponent(member))
+	object = component.GetObject(index)
+	ass.Equal(t, "$alpha", doc.FormatComponent(object))
 	index = 2
-	member = component.GetMember(index)
-	ass.Equal(t, "$beta", doc.FormatComponent(member))
+	object = component.GetObject(index)
+	ass.Equal(t, "$beta", doc.FormatComponent(object))
 	index = 3
-	member = component.GetMember(index)
-	ass.Equal(t, "$gamma", doc.FormatComponent(member))
+	object = component.GetObject(index)
+	ass.Equal(t, "$gamma", doc.FormatComponent(object))
 	component2 = doc.ParseSource("$delta")
-	component.SetMember(component2, index)
-	member = component.GetMember(index)
-	ass.Equal(t, "$delta", doc.FormatComponent(member))
+	component.SetObject(component2, index)
+	object = component.GetObject(index)
+	ass.Equal(t, "$delta", doc.FormatComponent(object))
 	index = 0
 	component2 = doc.ParseSource("$epsilon")
-	component.SetMember(component2, index)
+	component.SetObject(component2, index)
 	index = 4
-	member = component.GetMember(index)
-	ass.Equal(t, "$epsilon", doc.FormatComponent(member))
-	component.RemoveMember(index)
+	object = component.GetObject(index)
+	ass.Equal(t, "$epsilon", doc.FormatComponent(object))
+	component.RemoveObject(index)
 	index = -1
-	member = component.GetMember(index)
-	ass.Equal(t, "$delta", doc.FormatComponent(member))
+	object = component.GetObject(index)
+	ass.Equal(t, "$delta", doc.FormatComponent(object))
 
 	source = `[
     $alpha: "1"
@@ -117,22 +117,22 @@ func TestMemberAccess(t *tes.T) {
 ]`
 	component = doc.ParseSource(source)
 	var key = fra.Symbol("alpha")
-	member = component.GetMember(key)
-	ass.Equal(t, "\"1\"", doc.FormatComponent(member))
+	object = component.GetObject(key)
+	ass.Equal(t, "\"1\"", doc.FormatComponent(object))
 	key = fra.Symbol("beta")
-	member = component.GetMember(key)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(member))
+	object = component.GetObject(key)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(object))
 	key = fra.Symbol("gamma")
-	member = component.GetMember(key)
-	ass.Equal(t, "\"3\"", doc.FormatComponent(member))
+	object = component.GetObject(key)
+	ass.Equal(t, "\"3\"", doc.FormatComponent(object))
 	component2 = doc.ParseSource("\"5\"")
-	component.SetMember(component2, key)
-	member = component.GetMember(key)
-	ass.Equal(t, "\"5\"", doc.FormatComponent(member))
-	component.RemoveMember(key)
+	component.SetObject(component2, key)
+	object = component.GetObject(key)
+	ass.Equal(t, "\"5\"", doc.FormatComponent(object))
+	component.RemoveObject(key)
 	key = fra.Symbol("beta")
-	member = component.GetMember(key)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(member))
+	object = component.GetObject(key)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(object))
 
 	source = `[
     $items: [
@@ -149,20 +149,20 @@ func TestMemberAccess(t *tes.T) {
 	component = doc.ParseSource(source)
 	key = fra.Symbol("items")
 	index = 2
-	member = component.GetMember(key, index)
-	ass.Equal(t, "2", doc.FormatComponent(member))
+	object = component.GetObject(key, index)
+	ass.Equal(t, "2", doc.FormatComponent(object))
 	key = fra.Symbol("attributes")
 	var key2 = fra.Symbol("gamma")
-	member = component.GetMember(key, key2)
-	ass.Equal(t, "\"3\"", doc.FormatComponent(member))
+	object = component.GetObject(key, key2)
+	ass.Equal(t, "\"3\"", doc.FormatComponent(object))
 	component2 = doc.ParseSource("\"5\"")
-	component.SetMember(component2, key, key2)
-	member = component.GetMember(key, key2)
-	ass.Equal(t, "\"5\"", doc.FormatComponent(member))
-	component.RemoveMember(key, key2)
+	component.SetObject(component2, key, key2)
+	object = component.GetObject(key, key2)
+	ass.Equal(t, "\"5\"", doc.FormatComponent(object))
+	component.RemoveObject(key, key2)
 	key2 = fra.Symbol("beta")
-	member = component.GetMember(key, key2)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(member))
+	object = component.GetObject(key, key2)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(object))
 
 	source = `[
     [
@@ -186,32 +186,32 @@ func TestMemberAccess(t *tes.T) {
 	component = doc.ParseSource(source)
 	index = 1
 	var index2 uti.Index = 2
-	member = component.GetMember(index, index2)
-	ass.Equal(t, "2", doc.FormatComponent(member))
+	object = component.GetObject(index, index2)
+	ass.Equal(t, "2", doc.FormatComponent(object))
 	index = 2
 	key2 = fra.Symbol("beta")
-	member = component.GetMember(index, key2)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(member))
+	object = component.GetObject(index, key2)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(object))
 	index = 1
 	index2 = 3
 	var key3 = fra.AngleFromString("~tau")
-	member = component.GetMember(index, index2, key3)
-	ass.Equal(t, "6.28", doc.FormatComponent(member))
+	object = component.GetObject(index, index2, key3)
+	ass.Equal(t, "6.28", doc.FormatComponent(object))
 	component2 = doc.ParseSource("~τ")
-	component.SetMember(component2, index, index2, key3)
-	member = component.GetMember(index, index2, key3)
-	ass.Equal(t, "~τ", doc.FormatComponent(member))
+	component.SetObject(component2, index, index2, key3)
+	object = component.GetObject(index, index2, key3)
+	ass.Equal(t, "~τ", doc.FormatComponent(object))
 	index = 2
 	key2 = fra.Symbol("alpha")
 	var index3 uti.Index = -1
-	component.RemoveMember(index, key2, index3)
-	member = component.GetMember(index, key2, index3)
-	ass.Equal(t, "'b'", doc.FormatComponent(member))
+	component.RemoveObject(index, key2, index3)
+	object = component.GetObject(index, key2, index3)
+	ass.Equal(t, "'b'", doc.FormatComponent(object))
 	index = 3
-	member = component.GetMember(index)
-	ass.Equal(t, nil, member)
+	object = component.GetObject(index)
+	ass.Equal(t, nil, object)
 	index = 2
 	key2 = fra.Symbol("delta")
-	member = component.GetMember(index, key2)
-	ass.Equal(t, nil, member)
+	object = component.GetObject(index, key2)
+	ass.Equal(t, nil, object)
 }

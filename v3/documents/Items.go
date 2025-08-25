@@ -28,14 +28,14 @@ func ItemsClass() ItemsClassLike {
 // Constructor Methods
 
 func (c *itemsClass_) Items(
-	members fra.ListLike[MemberLike],
+	objects fra.ListLike[ObjectLike],
 ) ItemsLike {
-	if uti.IsUndefined(members) {
-		panic("The \"members\" attribute is required by this class.")
+	if uti.IsUndefined(objects) {
+		panic("The \"objects\" attribute is required by this class.")
 	}
 	var instance = &items_{
 		// Initialize the instance attributes.
-		members_: members,
+		objects_: objects,
 	}
 	return instance
 }
@@ -54,8 +54,8 @@ func (v *items_) GetClass() ItemsClassLike {
 
 // Attribute Methods
 
-func (v *items_) GetMembers() fra.ListLike[MemberLike] {
-	return v.members_
+func (v *items_) GetObjects() fra.ListLike[ObjectLike] {
+	return v.objects_
 }
 
 // PROTECTED INTERFACE
@@ -66,7 +66,7 @@ func (v *items_) GetMembers() fra.ListLike[MemberLike] {
 
 type items_ struct {
 	// Declare the instance attributes.
-	members_ fra.ListLike[MemberLike]
+	objects_ fra.ListLike[ObjectLike]
 }
 
 // Class Structure

@@ -240,13 +240,13 @@ func (v *inflator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = fra.Catalog[any, doc.MemberLike]()
+	var catalog = fra.Catalog[any, doc.ObjectLike]()
 	var associations = attributes.GetAssociations()
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
-		var member = v.stack_.RemoveLast().(doc.MemberLike)
+		var object = v.stack_.RemoveLast().(doc.ObjectLike)
 		var primitive = v.stack_.RemoveLast()
-		catalog.SetValue(primitive, member)
+		catalog.SetValue(primitive, object)
 		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.
@@ -350,8 +350,8 @@ func (v *inflator_) PostprocessConstraint(
 	if uti.IsDefined(optional) {
 		parameterization = optional.(doc.ParameterizationLike)
 	}
-	var type_ = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.ConstraintClass().Constraint(type_, parameterization))
+	var metadata = v.stack_.RemoveLast()
+	v.stack_.AddValue(doc.ConstraintClass().Constraint(metadata, parameterization))
 }
 
 func (v *inflator_) PostprocessContinueClause(
@@ -492,15 +492,15 @@ func (v *inflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var members = fra.List[doc.MemberLike]()
-	var iterator = items.GetMembers().GetIterator()
+	var objects = fra.List[doc.ObjectLike]()
+	var iterator = items.GetObjects().GetIterator()
 	for iterator.HasNext() {
-		var member = v.stack_.RemoveLast().(doc.MemberLike)
-		members.AppendValue(member)
+		var object = v.stack_.RemoveLast().(doc.ObjectLike)
+		objects.AppendValue(object)
 		iterator.GetNext()
 	}
-	members.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(doc.ItemsClass().Items(members))
+	objects.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(doc.ItemsClass().Items(objects))
 }
 
 func (v *inflator_) PostprocessLeft(
@@ -559,28 +559,28 @@ func (v *inflator_) PostprocessMatchingClause(
 	)
 }
 
-func (v *inflator_) ProcessMemberSlot(
-	member not.MemberLike,
+func (v *inflator_) ProcessObjectSlot(
+	object not.ObjectLike,
 	slot_ uint,
 ) {
 	switch slot_ {
 	case 1:
-		if uti.IsUndefined(member.GetOptionalNote()) {
+		if uti.IsUndefined(object.GetOptionalNote()) {
 			var note string
 			v.stack_.AddValue(note)
 		}
 	}
 }
 
-func (v *inflator_) PostprocessMember(
-	member not.MemberLike,
+func (v *inflator_) PostprocessObject(
+	object not.ObjectLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var note = v.stack_.RemoveLast().(string)
 	var component = v.stack_.RemoveLast().(doc.ComponentLike)
 	v.stack_.AddValue(
-		doc.MemberClass().Member(
+		doc.ObjectClass().Object(
 			component,
 			note,
 		),

@@ -130,7 +130,7 @@ attributes-like class.
 type AttributesClassLike interface {
 	// Constructor Methods
 	Attributes(
-		associations fra.CatalogLike[any, MemberLike],
+		associations fra.CatalogLike[any, ObjectLike],
 	) AttributesLike
 }
 
@@ -191,7 +191,7 @@ constraint-like class.
 type ConstraintClassLike interface {
 	// Constructor Methods
 	Constraint(
-		type_ any,
+		metadata any,
 		optionalParameterization ParameterizationLike,
 	) ConstraintLike
 }
@@ -302,7 +302,7 @@ items-like class.
 type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
-		members fra.ListLike[MemberLike],
+		objects fra.ListLike[ObjectLike],
 	) ItemsLike
 }
 
@@ -346,19 +346,6 @@ type MatchingClauseClassLike interface {
 }
 
 /*
-MemberClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-component-like class.
-*/
-type MemberClassLike interface {
-	// Constructor Methods
-	Member(
-		component ComponentLike,
-		optionalNote string,
-	) MemberLike
-}
-
-/*
 MethodClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
 method-like class.
@@ -384,6 +371,19 @@ type NotarizeClauseClassLike interface {
 		draft ExpressionLike,
 		cited ExpressionLike,
 	) NotarizeClauseLike
+}
+
+/*
+ObjectClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+component-like class.
+*/
+type ObjectClassLike interface {
+	// Constructor Methods
+	Object(
+		component ComponentLike,
+		optionalNote string,
+	) ObjectLike
 }
 
 /*
@@ -653,7 +653,7 @@ type AttributesLike interface {
 	GetClass() AttributesClassLike
 
 	// Attribute Methods
-	GetAssociations() fra.CatalogLike[any, MemberLike]
+	GetAssociations() fra.CatalogLike[any, ObjectLike]
 }
 
 /*
@@ -721,7 +721,7 @@ type ConstraintLike interface {
 	GetClass() ConstraintClassLike
 
 	// Attribute Methods
-	GetType() any
+	GetMetadata() any
 	GetOptionalParameterization() ParameterizationLike
 }
 
@@ -843,7 +843,7 @@ type ItemsLike interface {
 	GetClass() ItemsClassLike
 
 	// Attribute Methods
-	GetMembers() fra.ListLike[MemberLike]
+	GetObjects() fra.ListLike[ObjectLike]
 }
 
 /*
@@ -889,23 +889,6 @@ type MatchingClauseLike interface {
 }
 
 /*
-MemberLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete component-like class.
-*/
-type MemberLike interface {
-	// Principal Methods
-	GetClass() MemberClassLike
-
-	// Attribute Methods
-	GetComponent() ComponentLike
-	GetOptionalNote() string
-
-	// Aspect Interfaces
-	Declarative
-}
-
-/*
 MethodLike is an instance interface that declares the complete set of principal,
 attribute and aspect methods that must be supported by each instance of a
 concrete method-like class.
@@ -933,6 +916,23 @@ type NotarizeClauseLike interface {
 	// Attribute Methods
 	GetDraft() ExpressionLike
 	GetCited() ExpressionLike
+}
+
+/*
+ObjectLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete component-like class.
+*/
+type ObjectLike interface {
+	// Principal Methods
+	GetClass() ObjectClassLike
+
+	// Attribute Methods
+	GetComponent() ComponentLike
+	GetOptionalNote() string
+
+	// Aspect Interfaces
+	Declarative
 }
 
 /*
@@ -1206,14 +1206,14 @@ type Declarative interface {
 	GetParameter(
 		symbol fra.SymbolLike,
 	) ComponentLike
-	GetMember(
+	GetObject(
 		indices ...any,
-	) MemberLike
-	SetMember(
+	) ObjectLike
+	SetObject(
 		class any,
 		indices ...any,
 	)
-	RemoveMember(
+	RemoveObject(
 		indices ...any,
 	)
 }

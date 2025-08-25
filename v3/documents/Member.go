@@ -20,20 +20,20 @@ import (
 
 // Access Function
 
-func MemberClass() MemberClassLike {
-	return memberClass()
+func ObjectClass() ObjectClassLike {
+	return objectClass()
 }
 
 // Constructor Methods
 
-func (c *memberClass_) Member(
+func (c *objectClass_) Object(
 	component ComponentLike,
 	optionalNote string,
-) MemberLike {
+) ObjectLike {
 	if uti.IsUndefined(component) {
 		panic("The \"component\" attribute is required by this class.")
 	}
-	var instance = &member_{
+	var instance = &object_{
 		// Initialize the instance attributes.
 		component_:    component,
 		optionalNote_: optionalNote,
@@ -52,17 +52,17 @@ func (c *memberClass_) Member(
 
 // Principal Methods
 
-func (v *member_) GetClass() MemberClassLike {
-	return memberClass()
+func (v *object_) GetClass() ObjectClassLike {
+	return objectClass()
 }
 
 // Attribute Methods
 
-func (v *member_) GetComponent() ComponentLike {
+func (v *object_) GetComponent() ComponentLike {
 	return v.component_
 }
 
-func (v *member_) GetOptionalNote() string {
+func (v *object_) GetOptionalNote() string {
 	return v.optionalNote_
 }
 
@@ -72,7 +72,7 @@ func (v *member_) GetOptionalNote() string {
 
 // Instance Structure
 
-type member_ struct {
+type object_ struct {
 	// Declare the instance attributes.
 	component_    ComponentLike
 	optionalNote_ string
@@ -83,16 +83,16 @@ type member_ struct {
 
 // Class Structure
 
-type memberClass_ struct {
+type objectClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func memberClass() *memberClass_ {
-	return memberClassReference_
+func objectClass() *objectClass_ {
+	return objectClassReference_
 }
 
-var memberClassReference_ = &memberClass_{
+var objectClassReference_ = &objectClass_{
 	// Initialize the class constants.
 }

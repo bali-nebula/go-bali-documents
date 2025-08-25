@@ -344,9 +344,9 @@ func (v *deflator_) PostprocessAttributes(
 	var associations = fra.List[not.AssociationLike]()
 	var iterator = attributes.GetAssociations().GetIterator()
 	for iterator.HasNext() {
-		var member = v.stack_.RemoveLast().(not.MemberLike)
+		var object = v.stack_.RemoveLast().(not.ObjectLike)
 		var primitive = not.Primitive(v.stack_.RemoveLast())
-		var association = not.Association(primitive, ":", member)
+		var association = not.Association(primitive, ":", object)
 		associations.AppendValue(association)
 		iterator.GetNext()
 	}
@@ -480,10 +480,10 @@ func (v *deflator_) PostprocessConstraint(
 	if uti.IsDefined(optional) {
 		parameterization = optional.(not.ParameterizationLike)
 	}
-	var type_ = not.Type(v.stack_.RemoveLast())
+	var metadata = not.Metadata(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.Constraint(
-			type_,
+			metadata,
 			parameterization,
 		),
 	)
@@ -628,15 +628,15 @@ func (v *deflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var members = fra.List[not.MemberLike]()
-	var iterator = items.GetMembers().GetIterator()
+	var objects = fra.List[not.ObjectLike]()
+	var iterator = items.GetObjects().GetIterator()
 	for iterator.HasNext() {
-		var member = v.stack_.RemoveLast().(not.MemberLike)
-		members.AppendValue(member)
+		var object = v.stack_.RemoveLast().(not.ObjectLike)
+		objects.AppendValue(object)
 		iterator.GetNext()
 	}
-	members.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Collection(not.Items("[", members, "]")))
+	objects.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Collection(not.Items("[", objects, "]")))
 }
 
 func (v *deflator_) PostprocessLetClause(
@@ -684,28 +684,28 @@ func (v *deflator_) PostprocessMatchingClause(
 	)
 }
 
-func (v *deflator_) ProcessMemberSlot(
-	member doc.MemberLike,
+func (v *deflator_) ProcessObjectSlot(
+	object doc.ObjectLike,
 	slot_ uint,
 ) {
 	switch slot_ {
 	case 1:
-		if uti.IsUndefined(member.GetOptionalNote()) {
+		if uti.IsUndefined(object.GetOptionalNote()) {
 			var note string
 			v.stack_.AddValue(note)
 		}
 	}
 }
 
-func (v *deflator_) PostprocessMember(
-	member doc.MemberLike,
+func (v *deflator_) PostprocessObject(
+	object doc.ObjectLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var note = v.stack_.RemoveLast().(string)
 	var component = v.stack_.RemoveLast().(not.ComponentLike)
 	v.stack_.AddValue(
-		not.Member(
+		not.Object(
 			component,
 			note,
 		),

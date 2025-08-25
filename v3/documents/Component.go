@@ -76,64 +76,64 @@ func (v *component_) GetParameter(
 		var parameters = parameterization.GetParameters()
 		var constraint = parameters.GetValue(symbol)
 		parameter = componentClass().Component(
-			constraint.GetType(),
+			constraint.GetMetadata(),
 			constraint.GetOptionalParameterization(),
 		)
 	}
 	return parameter
 }
 
-func (v *component_) GetMember(
+func (v *component_) GetObject(
 	indices ...any,
-) MemberLike {
-	var member MemberLike
+) ObjectLike {
+	var object ObjectLike
 	if len(indices) > 0 {
 		var key = indices[0]
 		indices = indices[1:]
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
-			var members = collection.GetMembers()
+			var objects = collection.GetObjects()
 			var index = key.(uti.Index)
-			member = v.getItem(members, index, indices...)
+			object = v.getItem(objects, index, indices...)
 		case AttributesLike:
 			var associations = collection.GetAssociations()
-			member = v.getAttribute(associations, key, indices...)
+			object = v.getAttribute(associations, key, indices...)
 		}
 	}
-	return member
+	return object
 }
 
-func (v *component_) SetMember(
+func (v *component_) SetObject(
 	class any,
 	indices ...any,
 ) {
-	var member MemberLike
+	var object ObjectLike
 	switch actual := class.(type) {
 	case ComponentLike:
-		member = MemberClass().Member(actual, "")
+		object = ObjectClass().Object(actual, "")
 	case DocumentLike:
-		member = MemberClass().Member(actual.GetComponent(), "")
-	case MemberLike:
-		member = actual
+		object = ObjectClass().Object(actual.GetComponent(), "")
+	case ObjectLike:
+		object = actual
 	default:
-		member = MemberClass().Member(componentClass().Component(class, nil), "")
+		object = ObjectClass().Object(componentClass().Component(class, nil), "")
 	}
-	if uti.IsDefined(member) && len(indices) > 0 {
+	if uti.IsDefined(object) && len(indices) > 0 {
 		var key = indices[0]
 		indices = indices[1:]
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
-			var members = collection.GetMembers()
+			var objects = collection.GetObjects()
 			var index = key.(uti.Index)
-			v.setItem(members, member, index, indices...)
+			v.setItem(objects, object, index, indices...)
 		case AttributesLike:
 			var associations = collection.GetAssociations()
-			v.setAttribute(associations, key, member, indices...)
+			v.setAttribute(associations, key, object, indices...)
 		}
 	}
 }
 
-func (v *component_) RemoveMember(
+func (v *component_) RemoveObject(
 	indices ...any,
 ) {
 	if len(indices) > 0 {
@@ -141,9 +141,9 @@ func (v *component_) RemoveMember(
 		indices = indices[1:]
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
-			var members = collection.GetMembers()
+			var objects = collection.GetObjects()
 			var index = key.(uti.Index)
-			v.removeItem(members, index, indices...)
+			v.removeItem(objects, index, indices...)
 		case AttributesLike:
 			var associations = collection.GetAssociations()
 			v.removeAttribute(associations, key, indices...)
@@ -156,15 +156,15 @@ func (v *component_) RemoveMember(
 // Private Methods
 
 func (v *component_) getItem(
-	members fra.ListLike[MemberLike],
+	objects fra.ListLike[ObjectLike],
 	index uti.Index,
 	indices ...any,
-) MemberLike {
-	var member MemberLike
-	var size = uti.Index(members.GetSize())
+) ObjectLike {
+	var object ObjectLike
+	var size = uti.Index(objects.GetSize())
 	if size == 0 {
-		// The list of members is empty.
-		return member
+		// The list of objects is empty.
+		return object
 	}
 	if index < 0 {
 		// Negative indices start from the end of the list.
@@ -172,28 +172,28 @@ func (v *component_) getItem(
 	}
 	if index > size {
 		// The index is out of bounds.
-		return member
+		return object
 	}
-	member = members.GetValue(index)
+	object = objects.GetValue(index)
 	if len(indices) > 0 {
-		var component = member.GetComponent()
-		member = component.GetMember(indices...)
+		var component = object.GetComponent()
+		object = component.GetObject(indices...)
 	}
-	return member
+	return object
 }
 
 func (v *component_) setItem(
-	members fra.ListLike[MemberLike],
-	member MemberLike,
+	objects fra.ListLike[ObjectLike],
+	object ObjectLike,
 	index uti.Index,
 	indices ...any,
 ) {
 	if index == 0 && len(indices) == 0 {
 		// Append the attribute to the end of the list.
-		members.AppendValue(member)
+		objects.AppendValue(object)
 		return
 	}
-	var size = uti.Index(members.GetSize())
+	var size = uti.Index(objects.GetSize())
 	if size == 0 {
 		// The list is empty.
 		return
@@ -207,21 +207,21 @@ func (v *component_) setItem(
 		return
 	}
 	if len(indices) > 0 {
-		var component = members.GetValue(index).GetComponent()
-		component.SetMember(member, indices...)
+		var component = objects.GetValue(index).GetComponent()
+		component.SetObject(object, indices...)
 		return
 	}
-	members.SetValue(uti.Index(index), member)
+	objects.SetValue(uti.Index(index), object)
 }
 
 func (v *component_) removeItem(
-	members fra.ListLike[MemberLike],
+	objects fra.ListLike[ObjectLike],
 	index uti.Index,
 	indices ...any,
 ) {
-	var size = uti.Index(members.GetSize())
+	var size = uti.Index(objects.GetSize())
 	if size == 0 {
-		// The list of members is empty.
+		// The list of objects is empty.
 		return
 	}
 	if index < 0 {
@@ -233,41 +233,41 @@ func (v *component_) removeItem(
 		return
 	}
 	if len(indices) == 0 {
-		members.RemoveValue(index)
+		objects.RemoveValue(index)
 		return
 	}
-	var member = members.GetValue(index)
-	var component = member.GetComponent()
-	component.RemoveMember(indices...)
+	var object = objects.GetValue(index)
+	var component = object.GetComponent()
+	component.RemoveObject(indices...)
 }
 
 func (v *component_) getAttribute(
-	associations fra.CatalogLike[any, MemberLike],
+	associations fra.CatalogLike[any, ObjectLike],
 	key any,
 	indices ...any,
-) MemberLike {
-	var member MemberLike
+) ObjectLike {
+	var object ObjectLike
 	var first = fmt.Sprintf("%v", key)
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
 		var association = iterator.GetNext()
 		var second = fmt.Sprintf("%v", association.GetKey())
 		if first == second {
-			member = association.GetValue()
+			object = association.GetValue()
 			if len(indices) > 0 {
-				var component = member.GetComponent()
-				member = component.GetMember(indices...)
+				var component = object.GetComponent()
+				object = component.GetObject(indices...)
 			}
 			break
 		}
 	}
-	return member
+	return object
 }
 
 func (v *component_) setAttribute(
-	associations fra.CatalogLike[any, MemberLike],
+	associations fra.CatalogLike[any, ObjectLike],
 	key any,
-	member MemberLike,
+	object ObjectLike,
 	indices ...any,
 ) {
 	var first = fmt.Sprintf("%v", key)
@@ -278,9 +278,9 @@ func (v *component_) setAttribute(
 		if first == second {
 			if len(indices) > 0 {
 				var component = association.GetValue().GetComponent()
-				component.SetMember(member, indices...)
+				component.SetObject(object, indices...)
 			} else {
-				association.SetValue(member)
+				association.SetValue(object)
 			}
 			break
 		}
@@ -288,7 +288,7 @@ func (v *component_) setAttribute(
 }
 
 func (v *component_) removeAttribute(
-	associations fra.CatalogLike[any, MemberLike],
+	associations fra.CatalogLike[any, ObjectLike],
 	key any,
 	indices ...any,
 ) {
@@ -299,9 +299,9 @@ func (v *component_) removeAttribute(
 		var second = fmt.Sprintf("%v", association.GetKey())
 		if first == second {
 			if len(indices) > 0 {
-				var member = association.GetValue()
-				var component = member.GetComponent()
-				component.RemoveMember(indices...)
+				var object = association.GetValue()
+				var component = object.GetComponent()
+				component.RemoveObject(indices...)
 			} else {
 				associations.RemoveValue(key)
 			}
