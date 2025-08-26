@@ -384,7 +384,7 @@ func (v *deflator_) PostprocessCheckoutClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var cited = not.Cited(expression)
+	var location = not.Location(expression)
 	var atLevel not.AtLevelLike
 	var optional = v.stack_.RemoveLast()
 	if uti.IsDefined(optional) {
@@ -400,7 +400,7 @@ func (v *deflator_) PostprocessCheckoutClause(
 	}
 	v.stack_.AddValue(
 		not.RepositoryAccess(
-			not.CheckoutClause("checkout", recipient, atLevel, "from", cited),
+			not.CheckoutClause("checkout", recipient, atLevel, "from", location),
 		),
 	)
 }
@@ -507,10 +507,10 @@ func (v *deflator_) PostprocessDiscardClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var draft = not.Draft(expression)
+	var location = not.Location(expression)
 	v.stack_.AddValue(
 		not.RepositoryAccess(
-			not.DiscardClause("discard", draft),
+			not.DiscardClause("discard", location),
 		),
 	)
 }
@@ -743,7 +743,7 @@ func (v *deflator_) PostprocessNotarizeClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var cited = not.Cited(expression)
+	var location = not.Location(expression)
 	expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var draft = not.Draft(expression)
 	v.stack_.AddValue(
@@ -751,8 +751,8 @@ func (v *deflator_) PostprocessNotarizeClause(
 			not.NotarizeClause(
 				"notarize",
 				draft,
-				"as",
-				cited,
+				"at",
+				location,
 			),
 		),
 	)
@@ -996,12 +996,12 @@ func (v *deflator_) PostprocessSaveClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var cited = not.Cited(expression)
+	var location = not.Location(expression)
 	expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var draft = not.Draft(expression)
 	v.stack_.AddValue(
 		not.RepositoryAccess(
-			not.SaveClause("save", draft, "as", cited),
+			not.SaveClause("save", draft, "to", location),
 		),
 	)
 }

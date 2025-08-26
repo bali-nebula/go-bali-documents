@@ -279,7 +279,7 @@ func (v *inflator_) PostprocessCheckoutClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var cited = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var location = v.stack_.RemoveLast().(doc.ExpressionLike)
 	var atLevel doc.ExpressionLike
 	var optional = v.stack_.RemoveLast()
 	if uti.IsDefined(optional) {
@@ -287,7 +287,7 @@ func (v *inflator_) PostprocessCheckoutClause(
 	}
 	var recipient = v.stack_.RemoveLast()
 	v.stack_.AddValue(
-		doc.CheckoutClauseClass().CheckoutClause(recipient, atLevel, cited),
+		doc.CheckoutClauseClass().CheckoutClause(recipient, atLevel, location),
 	)
 }
 
@@ -367,8 +367,8 @@ func (v *inflator_) PostprocessDiscardClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var draft = v.stack_.RemoveLast().(doc.ExpressionLike)
-	v.stack_.AddValue(doc.DiscardClauseClass().DiscardClause(draft))
+	var location = v.stack_.RemoveLast().(doc.ExpressionLike)
+	v.stack_.AddValue(doc.DiscardClauseClass().DiscardClause(location))
 }
 
 func (v *inflator_) PostprocessDoClause(
@@ -614,10 +614,10 @@ func (v *inflator_) PostprocessNotarizeClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var cited = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var location = v.stack_.RemoveLast().(doc.ExpressionLike)
 	var draft = v.stack_.RemoveLast().(doc.ExpressionLike)
 	v.stack_.AddValue(
-		doc.NotarizeClauseClass().NotarizeClause(draft, cited),
+		doc.NotarizeClauseClass().NotarizeClause(draft, location),
 	)
 }
 
@@ -856,9 +856,9 @@ func (v *inflator_) PostprocessSaveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var cited = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var location = v.stack_.RemoveLast().(doc.ExpressionLike)
 	var draft = v.stack_.RemoveLast().(doc.ExpressionLike)
-	v.stack_.AddValue(doc.SaveClauseClass().SaveClause(draft, cited))
+	v.stack_.AddValue(doc.SaveClauseClass().SaveClause(draft, location))
 }
 
 func (v *inflator_) PostprocessSelectClause(

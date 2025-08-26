@@ -28,18 +28,18 @@ func SaveClauseClass() SaveClauseClassLike {
 
 func (c *saveClauseClass_) SaveClause(
 	draft ExpressionLike,
-	cited ExpressionLike,
+	location ExpressionLike,
 ) SaveClauseLike {
 	if uti.IsUndefined(draft) {
 		panic("The \"draft\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(cited) {
-		panic("The \"cited\" attribute is required by this class.")
+	if uti.IsUndefined(location) {
+		panic("The \"location\" attribute is required by this class.")
 	}
 	var instance = &saveClause_{
 		// Initialize the instance attributes.
-		draft_: draft,
-		cited_: cited,
+		draft_:    draft,
+		location_: location,
 	}
 	return instance
 }
@@ -62,8 +62,8 @@ func (v *saveClause_) GetDraft() ExpressionLike {
 	return v.draft_
 }
 
-func (v *saveClause_) GetCited() ExpressionLike {
-	return v.cited_
+func (v *saveClause_) GetLocation() ExpressionLike {
+	return v.location_
 }
 
 // PROTECTED INTERFACE
@@ -74,8 +74,8 @@ func (v *saveClause_) GetCited() ExpressionLike {
 
 type saveClause_ struct {
 	// Declare the instance attributes.
-	draft_ ExpressionLike
-	cited_ ExpressionLike
+	draft_    ExpressionLike
+	location_ ExpressionLike
 }
 
 // Class Structure

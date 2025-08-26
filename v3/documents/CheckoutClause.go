@@ -29,19 +29,19 @@ func CheckoutClauseClass() CheckoutClauseClassLike {
 func (c *checkoutClauseClass_) CheckoutClause(
 	recipient any,
 	optionalAtLevel ExpressionLike,
-	cited ExpressionLike,
+	location ExpressionLike,
 ) CheckoutClauseLike {
 	if uti.IsUndefined(recipient) {
 		panic("The \"recipient\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(cited) {
-		panic("The \"cited\" attribute is required by this class.")
+	if uti.IsUndefined(location) {
+		panic("The \"location\" attribute is required by this class.")
 	}
 	var instance = &checkoutClause_{
 		// Initialize the instance attributes.
 		recipient_:       recipient,
 		optionalAtLevel_: optionalAtLevel,
-		cited_:           cited,
+		location_:        location,
 	}
 	return instance
 }
@@ -68,8 +68,8 @@ func (v *checkoutClause_) GetOptionalAtLevel() ExpressionLike {
 	return v.optionalAtLevel_
 }
 
-func (v *checkoutClause_) GetCited() ExpressionLike {
-	return v.cited_
+func (v *checkoutClause_) GetLocation() ExpressionLike {
+	return v.location_
 }
 
 // PROTECTED INTERFACE
@@ -82,7 +82,7 @@ type checkoutClause_ struct {
 	// Declare the instance attributes.
 	recipient_       any
 	optionalAtLevel_ ExpressionLike
-	cited_           ExpressionLike
+	location_        ExpressionLike
 }
 
 // Class Structure

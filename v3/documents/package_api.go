@@ -154,7 +154,7 @@ type CheckoutClauseClassLike interface {
 	CheckoutClause(
 		recipient any,
 		optionalAtLevel ExpressionLike,
-		cited ExpressionLike,
+		location ExpressionLike,
 	) CheckoutClauseLike
 }
 
@@ -214,7 +214,7 @@ concrete discard-clause-like class.
 type DiscardClauseClassLike interface {
 	// Constructor Methods
 	DiscardClause(
-		draft ExpressionLike,
+		location ExpressionLike,
 	) DiscardClauseLike
 }
 
@@ -369,7 +369,7 @@ type NotarizeClauseClassLike interface {
 	// Constructor Methods
 	NotarizeClause(
 		draft ExpressionLike,
-		cited ExpressionLike,
+		location ExpressionLike,
 	) NotarizeClauseLike
 }
 
@@ -546,7 +546,7 @@ type SaveClauseClassLike interface {
 	// Constructor Methods
 	SaveClause(
 		draft ExpressionLike,
-		cited ExpressionLike,
+		location ExpressionLike,
 	) SaveClauseLike
 }
 
@@ -678,7 +678,7 @@ type CheckoutClauseLike interface {
 	// Attribute Methods
 	GetRecipient() any
 	GetOptionalAtLevel() ExpressionLike
-	GetCited() ExpressionLike
+	GetLocation() ExpressionLike
 }
 
 /*
@@ -745,7 +745,7 @@ type DiscardClauseLike interface {
 	GetClass() DiscardClauseClassLike
 
 	// Attribute Methods
-	GetDraft() ExpressionLike
+	GetLocation() ExpressionLike
 }
 
 /*
@@ -915,7 +915,7 @@ type NotarizeClauseLike interface {
 
 	// Attribute Methods
 	GetDraft() ExpressionLike
-	GetCited() ExpressionLike
+	GetLocation() ExpressionLike
 }
 
 /*
@@ -1109,7 +1109,7 @@ type SaveClauseLike interface {
 
 	// Attribute Methods
 	GetDraft() ExpressionLike
-	GetCited() ExpressionLike
+	GetLocation() ExpressionLike
 }
 
 /*

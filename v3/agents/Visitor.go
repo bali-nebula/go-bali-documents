@@ -179,15 +179,15 @@ func (v *visitor_) visitCheckoutClause(
 		2,
 	)
 
-	var cited = checkoutClause.GetCited()
+	var location = checkoutClause.GetLocation()
 	v.processor_.PreprocessExpression(
-		cited,
+		location,
 		0,
 		0,
 	)
-	v.visitExpression(cited)
+	v.visitExpression(location)
 	v.processor_.PostprocessExpression(
-		cited,
+		location,
 		0,
 		0,
 	)
@@ -294,15 +294,15 @@ func (v *visitor_) visitContinueClause(
 func (v *visitor_) visitDiscardClause(
 	discardClause doc.DiscardClauseLike,
 ) {
-	var draft = discardClause.GetDraft()
+	var location = discardClause.GetLocation()
 	v.processor_.PreprocessExpression(
-		draft,
+		location,
 		0,
 		0,
 	)
-	v.visitExpression(draft)
+	v.visitExpression(location)
 	v.processor_.PostprocessExpression(
-		draft,
+		location,
 		0,
 		0,
 	)
@@ -1160,15 +1160,15 @@ func (v *visitor_) visitNotarizeClause(
 		1,
 	)
 
-	var cited = notarizeClause.GetCited()
+	var location = notarizeClause.GetLocation()
 	v.processor_.PreprocessExpression(
-		cited,
+		location,
 		0,
 		0,
 	)
-	v.visitExpression(cited)
+	v.visitExpression(location)
 	v.processor_.PostprocessExpression(
-		cited,
+		location,
 		0,
 		0,
 	)
@@ -1808,15 +1808,15 @@ func (v *visitor_) visitSaveClause(
 		1,
 	)
 
-	var cited = saveClause.GetCited()
+	var location = saveClause.GetLocation()
 	v.processor_.PreprocessExpression(
-		cited,
+		location,
 		0,
 		0,
 	)
-	v.visitExpression(cited)
+	v.visitExpression(location)
 	v.processor_.PostprocessExpression(
-		cited,
+		location,
 		0,
 		0,
 	)

@@ -381,12 +381,12 @@ func CheckoutClauseClass() CheckoutClauseClassLike {
 func CheckoutClause(
 	recipient any,
 	optionalAtLevel doc.ExpressionLike,
-	cited doc.ExpressionLike,
+	location doc.ExpressionLike,
 ) CheckoutClauseLike {
 	return CheckoutClauseClass().CheckoutClause(
 		recipient,
 		optionalAtLevel,
-		cited,
+		location,
 	)
 }
 
@@ -443,10 +443,10 @@ func DiscardClauseClass() DiscardClauseClassLike {
 }
 
 func DiscardClause(
-	draft doc.ExpressionLike,
+	location doc.ExpressionLike,
 ) DiscardClauseLike {
 	return DiscardClauseClass().DiscardClause(
-		draft,
+		location,
 	)
 }
 
@@ -608,11 +608,11 @@ func NotarizeClauseClass() NotarizeClauseClassLike {
 
 func NotarizeClause(
 	draft doc.ExpressionLike,
-	cited doc.ExpressionLike,
+	location doc.ExpressionLike,
 ) NotarizeClauseLike {
 	return NotarizeClauseClass().NotarizeClause(
 		draft,
-		cited,
+		location,
 	)
 }
 
@@ -794,11 +794,11 @@ func SaveClauseClass() SaveClauseClassLike {
 
 func SaveClause(
 	draft doc.ExpressionLike,
-	cited doc.ExpressionLike,
+	location doc.ExpressionLike,
 ) SaveClauseLike {
 	return SaveClauseClass().SaveClause(
 		draft,
-		cited,
+		location,
 	)
 }
 
