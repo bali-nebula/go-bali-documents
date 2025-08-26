@@ -36,62 +36,48 @@ import (
 // TYPE DECLARATIONS
 
 /*
-Operation is a constrained type representing the possible BVM operations.
+Operation is an enumerated type representing the possible BVM operations.
 */
-type Operation uint16
+type Operation uint8
 
 const (
-	Jump Operation = 0b0000000000000000
-	Push Operation = 0b0010000000000000
-	Pull Operation = 0b0100000000000000
-	Load Operation = 0b0110000000000000
-	Save Operation = 0b1000000000000000
-	Drop Operation = 0b1010000000000000
-	Call Operation = 0b1100000000000000
-	Send Operation = 0b1110000000000000
+	JumpOperation Operation = iota
+	PushOperation
+	PullOperation
+	LoadOperation
+	SaveOperation
+	DropOperation
+	CallOperation
+	SendOperation
 )
 
 /*
-Modifier is a constrained type representing the possible BVM modifiers.
+Modifier is an enumerated type representing the possible BVM modifiers.
 */
-type Modifier uint16
+type Modifier uint8
 
 const (
-	// Jump Operation
-	OnAny                 Modifier = 0b0000000000000000
-	OnEmpty               Modifier = 0b0000100000000000
-	OnNone                Modifier = 0b0001000000000000
-	OnFalse               Modifier = 0b0001100000000000
-
-	// Push Operation
-	Literal               Modifier = 0b0000000000000000
-	Constant              Modifier = 0b0000100000000000
-	Argument              Modifier = 0b0001000000000000
-	Handler               Modifier = 0b0001100000000000
-
-	// Pull Operation
-	Draft                 Modifier = 0b0000000000000000
-	Result                Modifier = 0b0000100000000000
-	Exception             Modifier = 0b0001000000000000
-  //Handler               Modifier = 0b0001100000000000
-
-	// Load, Save and Drop Operations
-  //Draft                 Modifier = 0b0000000000000000
-	Contract              Modifier = 0b0000100000000000
-	Variable              Modifier = 0b0001000000000000
-	Message               Modifier = 0b0001100000000000
-
-	// Call Operation
-	With0Arguments        Modifier = 0b0000000000000000
-	With1Argument         Modifier = 0b0000100000000000
-	With2Arguments        Modifier = 0b0001000000000000
-	With3Arguments        Modifier = 0b0001100000000000
-
-	// Send Operation
-  //Draft                 Modifier = 0b0000000000000000
-  //Contract              Modifier = 0b0000100000000000
-	DraftWithArguments    Modifier = 0b0001000000000000
-	ContractWithArguments Modifier = 0b0001100000000000
+	OnAnyModifier Modifier = iota
+	OnNoneModifier
+	OnFalseModifier
+	OnEmptyModifier
+	LiteralModifier
+	ConstantModifier
+	ArgumentModifier
+	HandlerModifier
+	ComponentModifier
+	ResultModifier
+	ExceptionModifier
+	DraftModifier
+	ContractModifier
+	VariableModifier
+	MessageModifier
+	With0Modifier
+	With1Modifier
+	With2Modifier
+	With3Modifier
+	ComponentWithModifier
+	ContractWithModifier
 )
 
 /*
@@ -133,11 +119,6 @@ type InstructionClassLike interface {
 	InstructionFromInteger(
 		integer uint16,
 	) InstructionLike
-
-	// Constant Methods
-	OperationMask() uint16
-	ModifierMask() uint16
-	OperandMask() uint16
 
 	// Function Methods
 	FormatInstructions(

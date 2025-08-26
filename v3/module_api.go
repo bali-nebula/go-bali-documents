@@ -71,34 +71,35 @@ type (
 )
 
 const (
-	Jump                  = ass.Jump
-	Push                  = ass.Push
-	Pull                  = ass.Pull
-	Load                  = ass.Load
-	Save                  = ass.Save
-	Drop                  = ass.Drop
-	Call                  = ass.Call
-	Send                  = ass.Send
-	OnAny                 = ass.OnAny
-	OnEmpty               = ass.OnEmpty
-	OnNone                = ass.OnNone
-	OnFalse               = ass.OnFalse
-	Literal               = ass.Literal
-	Constant              = ass.Constant
-	Argument              = ass.Argument
-	Handler               = ass.Handler
-	Draft                 = ass.Draft
-	Result                = ass.Result
-	Exception             = ass.Exception
-	Contract              = ass.Contract
-	Variable              = ass.Variable
-	Message               = ass.Message
-	With0Arguments        = ass.With0Arguments
-	With1Argument         = ass.With1Argument
-	With2Arguments        = ass.With2Arguments
-	With3Arguments        = ass.With3Arguments
-	DraftWithArguments    = ass.DraftWithArguments
-	ContractWithArguments = ass.ContractWithArguments
+	JumpOperation         = ass.JumpOperation
+	PushOperation         = ass.PushOperation
+	PullOperation         = ass.PullOperation
+	LoadOperation         = ass.LoadOperation
+	SaveOperation         = ass.SaveOperation
+	DropOperation         = ass.DropOperation
+	CallOperation         = ass.CallOperation
+	SendOperation         = ass.SendOperation
+	OnAnyModifier         = ass.OnAnyModifier
+	OnNoneModifier        = ass.OnNoneModifier
+	OnFalseModifier       = ass.OnFalseModifier
+	OnEmptyModifier       = ass.OnEmptyModifier
+	LiteralModifier       = ass.LiteralModifier
+	ConstantModifier      = ass.ConstantModifier
+	ArgumentModifier      = ass.ArgumentModifier
+	HandlerModifier       = ass.HandlerModifier
+	ComponentModifier     = ass.ComponentModifier
+	ResultModifier        = ass.ResultModifier
+	ExceptionModifier     = ass.ExceptionModifier
+	DraftModifier         = ass.DraftModifier
+	ContractModifier      = ass.ContractModifier
+	VariableModifier      = ass.VariableModifier
+	MessageModifier       = ass.MessageModifier
+	With0Modifier         = ass.With0Modifier
+	With1Modifier         = ass.With1Modifier
+	With2Modifier         = ass.With2Modifier
+	With3Modifier         = ass.With3Modifier
+	ComponentWithModifier = ass.ComponentWithModifier
+	ContractWithModifier  = ass.ContractWithModifier
 )
 
 type (
