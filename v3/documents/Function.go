@@ -29,7 +29,7 @@ func FunctionClass() FunctionClassLike {
 
 func (c *functionClass_) Function(
 	identifier string,
-	arguments fra.ListLike[any],
+	arguments fra.Sequential[any],
 ) FunctionLike {
 	if uti.IsUndefined(identifier) {
 		panic("The \"identifier\" attribute is required by this class.")
@@ -63,7 +63,7 @@ func (v *function_) GetIdentifier() string {
 	return v.identifier_
 }
 
-func (v *function_) GetArguments() fra.ListLike[any] {
+func (v *function_) GetArguments() fra.Sequential[any] {
 	return v.arguments_
 }
 
@@ -76,7 +76,7 @@ func (v *function_) GetArguments() fra.ListLike[any] {
 type function_ struct {
 	// Declare the instance attributes.
 	identifier_ string
-	arguments_  fra.ListLike[any]
+	arguments_  fra.Sequential[any]
 }
 
 // Class Structure

@@ -320,10 +320,15 @@ func (v *inflator_) PostprocessComponent(
 ) {
 	var parameterization doc.ParameterizationLike
 	var optional = v.stack_.RemoveLast()
+	var entity = v.stack_.RemoveLast()
 	if uti.IsDefined(optional) {
 		parameterization = optional.(doc.ParameterizationLike)
+		switch actual := entity.(type) {
+		case doc.ItemsLike:
+			var objects = v.getObjects(actual, parameterization)
+			entity = doc.ItemsClass().Items(objects)
+		}
 	}
-	var entity = v.stack_.RemoveLast()
 	v.stack_.AddValue(doc.ComponentClass().Component(entity, parameterization))
 }
 
@@ -959,6 +964,30 @@ func (v *inflator_) PostprocessWithClause(
 // PROTECTED INTERFACE
 
 // Private Methods
+
+func (v *inflator_) getObjects(
+	items doc.ItemsLike,
+	parameterization doc.ParameterizationLike,
+) fra.Sequential[doc.ObjectLike] {
+	var objects = items.GetObjects()
+	var dummy = doc.ComponentClass().Component(
+		fra.PatternClass().None(),
+		parameterization,
+	)
+	var parameter = dummy.GetParameter(fra.Symbol("type"))
+	switch entity := parameter.GetEntity().(type) {
+	case fra.ResourceLike:
+		switch entity.AsString() {
+		case "<bali:/nebula/collections/Queue:v3>":
+			objects = fra.QueueFromSequence(objects)
+		case "<bali:/nebula/collections/Set:v3>":
+			objects = fra.SetFromSequence(objects)
+		case "<bali:/nebula/collections/Stack:v3>":
+			objects = fra.StackFromSequence(objects)
+		}
+	}
+	return objects
+}
 
 // Instance Structure
 

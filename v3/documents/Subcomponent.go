@@ -29,7 +29,7 @@ func SubcomponentClass() SubcomponentClassLike {
 
 func (c *subcomponentClass_) Subcomponent(
 	identifier string,
-	indexes fra.ListLike[any],
+	indexes fra.Sequential[any],
 ) SubcomponentLike {
 	if uti.IsUndefined(identifier) {
 		panic("The \"identifier\" attribute is required by this class.")
@@ -63,7 +63,7 @@ func (v *subcomponent_) GetIdentifier() string {
 	return v.identifier_
 }
 
-func (v *subcomponent_) GetIndexes() fra.ListLike[any] {
+func (v *subcomponent_) GetIndexes() fra.Sequential[any] {
 	return v.indexes_
 }
 
@@ -76,7 +76,7 @@ func (v *subcomponent_) GetIndexes() fra.ListLike[any] {
 type subcomponent_ struct {
 	// Declare the instance attributes.
 	identifier_ string
-	indexes_    fra.ListLike[any]
+	indexes_    fra.Sequential[any]
 }
 
 // Class Structure

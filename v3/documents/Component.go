@@ -123,9 +123,17 @@ func (v *component_) SetObject(
 		indices = indices[1:]
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
-			var objects = collection.GetObjects()
-			var index = key.(uti.Index)
-			v.setItem(objects, object, index, indices...)
+			switch objects := collection.GetObjects().(type) {
+			case fra.ListLike[ObjectLike]:
+				var index = key.(uti.Index)
+				v.setItem(objects, object, index, indices...)
+			default:
+				var message = fmt.Sprintf(
+					"Attempted to set an item in a non-list type: %T",
+					objects,
+				)
+				panic(message)
+			}
 		case AttributesLike:
 			var associations = collection.GetAssociations()
 			v.setAttribute(associations, key, object, indices...)
@@ -141,9 +149,17 @@ func (v *component_) RemoveObject(
 		indices = indices[1:]
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
-			var objects = collection.GetObjects()
-			var index = key.(uti.Index)
-			v.removeItem(objects, index, indices...)
+			switch objects := collection.GetObjects().(type) {
+			case fra.ListLike[ObjectLike]:
+				var index = key.(uti.Index)
+				v.removeItem(objects, index, indices...)
+			default:
+				var message = fmt.Sprintf(
+					"Attempted to remove an item from a non-list type: %T",
+					objects,
+				)
+				panic(message)
+			}
 		case AttributesLike:
 			var associations = collection.GetAssociations()
 			v.removeAttribute(associations, key, indices...)
@@ -156,7 +172,7 @@ func (v *component_) RemoveObject(
 // Private Methods
 
 func (v *component_) getItem(
-	objects fra.ListLike[ObjectLike],
+	objects fra.Sequential[ObjectLike],
 	index uti.Index,
 	indices ...any,
 ) ObjectLike {
@@ -174,7 +190,7 @@ func (v *component_) getItem(
 		// The index is out of bounds.
 		return object
 	}
-	object = objects.GetValue(index)
+	object = objects.AsArray()[index-1]
 	if len(indices) > 0 {
 		var component = object.GetComponent()
 		object = component.GetObject(indices...)

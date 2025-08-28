@@ -31,7 +31,7 @@ func (c *methodClass_) Method(
 	target string,
 	invoke Invoke,
 	message string,
-	arguments fra.ListLike[any],
+	arguments fra.Sequential[any],
 ) MethodLike {
 	if uti.IsUndefined(target) {
 		panic("The \"target\" attribute is required by this class.")
@@ -81,7 +81,7 @@ func (v *method_) GetMessage() string {
 	return v.message_
 }
 
-func (v *method_) GetArguments() fra.ListLike[any] {
+func (v *method_) GetArguments() fra.Sequential[any] {
 	return v.arguments_
 }
 
@@ -96,7 +96,7 @@ type method_ struct {
 	target_    string
 	invoke_    Invoke
 	message_   string
-	arguments_ fra.ListLike[any]
+	arguments_ fra.Sequential[any]
 }
 
 // Class Structure

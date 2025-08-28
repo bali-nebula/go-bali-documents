@@ -13,7 +13,7 @@
     (0%..75%)
     (p0..p1]
     (p0.25..p0.75)
-    [<bali:/nebula/abstractions/Continuous:v1>..<bali:/nebula/abstractions/Spectral:v1.2>]
+    [<bali:/nebula/abstractions/Continuous:v3>..<bali:/nebula/abstractions/Spectral:v3.2>]
     [$bar..$foo]
     [v1.2..v1.6.3)
     [1..∞]
@@ -42,7 +42,7 @@
         1
         2
         3
-    ]($type: <bali:/nebula/collections/Stack:v1>)
+    ]($type: <bali:/nebula/collections/Stack:v3>)
     [
         $alpha: 1
         $beta: 2
@@ -52,17 +52,17 @@
         $a: [$array]
         $b: [$foo: "bar"]
     ]
-    [ ]($type: <bali:/nebula/collections/Set:v1>)
-    [$foobar]($type: <bali:/nebula/collections/List:v1>)
+    [ ]($type: <bali:/nebula/collections/Set:v3>)
+    [$foobar]($type: <bali:/nebula/collections/Queue:v3>)
     [
         $foo
         $bar
-    ]($type: <bali:/nebula/collections/List:v1>)
-    [$foo: "bar"]($type: <bali:/nebula/collections/Catalog:v1>)
+    ]($type: <bali:/nebula/collections/List:v3>)
+    [$foo: "bar"]($type: <bali:/nebula/collections/Catalog:v3>)
     [
         $foo: "bar"
         $bar: "foo"
-    ]($type: <bali:/nebula/collections/Catalog:v1>)
+    ]($type: <bali:/nebula/collections/Catalog:v3>)
     [$key: "value"]
     [
         $foo: 5

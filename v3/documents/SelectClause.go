@@ -29,7 +29,7 @@ func SelectClauseClass() SelectClauseClassLike {
 
 func (c *selectClauseClass_) SelectClause(
 	expression ExpressionLike,
-	matchingClauses fra.ListLike[MatchingClauseLike],
+	matchingClauses fra.Sequential[MatchingClauseLike],
 ) SelectClauseLike {
 	if uti.IsUndefined(expression) {
 		panic("The \"expression\" attribute is required by this class.")
@@ -63,7 +63,7 @@ func (v *selectClause_) GetExpression() ExpressionLike {
 	return v.expression_
 }
 
-func (v *selectClause_) GetMatchingClauses() fra.ListLike[MatchingClauseLike] {
+func (v *selectClause_) GetMatchingClauses() fra.Sequential[MatchingClauseLike] {
 	return v.matchingClauses_
 }
 
@@ -76,7 +76,7 @@ func (v *selectClause_) GetMatchingClauses() fra.ListLike[MatchingClauseLike] {
 type selectClause_ struct {
 	// Declare the instance attributes.
 	expression_      ExpressionLike
-	matchingClauses_ fra.ListLike[MatchingClauseLike]
+	matchingClauses_ fra.Sequential[MatchingClauseLike]
 }
 
 // Class Structure

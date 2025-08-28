@@ -29,7 +29,7 @@ func OnClauseClass() OnClauseClassLike {
 
 func (c *onClauseClass_) OnClause(
 	failure fra.SymbolLike,
-	matchingClauses fra.ListLike[MatchingClauseLike],
+	matchingClauses fra.Sequential[MatchingClauseLike],
 ) OnClauseLike {
 	if uti.IsUndefined(failure) {
 		panic("The \"failure\" attribute is required by this class.")
@@ -63,7 +63,7 @@ func (v *onClause_) GetFailure() fra.SymbolLike {
 	return v.failure_
 }
 
-func (v *onClause_) GetMatchingClauses() fra.ListLike[MatchingClauseLike] {
+func (v *onClause_) GetMatchingClauses() fra.Sequential[MatchingClauseLike] {
 	return v.matchingClauses_
 }
 
@@ -76,7 +76,7 @@ func (v *onClause_) GetMatchingClauses() fra.ListLike[MatchingClauseLike] {
 type onClause_ struct {
 	// Declare the instance attributes.
 	failure_         fra.SymbolLike
-	matchingClauses_ fra.ListLike[MatchingClauseLike]
+	matchingClauses_ fra.Sequential[MatchingClauseLike]
 }
 
 // Class Structure

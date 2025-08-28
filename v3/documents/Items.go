@@ -28,7 +28,7 @@ func ItemsClass() ItemsClassLike {
 // Constructor Methods
 
 func (c *itemsClass_) Items(
-	objects fra.ListLike[ObjectLike],
+	objects fra.Sequential[ObjectLike],
 ) ItemsLike {
 	if uti.IsUndefined(objects) {
 		panic("The \"objects\" attribute is required by this class.")
@@ -54,7 +54,7 @@ func (v *items_) GetClass() ItemsClassLike {
 
 // Attribute Methods
 
-func (v *items_) GetObjects() fra.ListLike[ObjectLike] {
+func (v *items_) GetObjects() fra.Sequential[ObjectLike] {
 	return v.objects_
 }
 
@@ -66,7 +66,7 @@ func (v *items_) GetObjects() fra.ListLike[ObjectLike] {
 
 type items_ struct {
 	// Declare the instance attributes.
-	objects_ fra.ListLike[ObjectLike]
+	objects_ fra.Sequential[ObjectLike]
 }
 
 // Class Structure

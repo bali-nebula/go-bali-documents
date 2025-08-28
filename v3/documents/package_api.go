@@ -251,7 +251,7 @@ type ExpressionClassLike interface {
 	// Constructor Methods
 	Expression(
 		subject any,
-		predicates fra.ListLike[PredicateLike],
+		predicates fra.Sequential[PredicateLike],
 	) ExpressionLike
 }
 
@@ -264,7 +264,7 @@ type FunctionClassLike interface {
 	// Constructor Methods
 	Function(
 		identifier string,
-		arguments fra.ListLike[any],
+		arguments fra.Sequential[any],
 	) FunctionLike
 }
 
@@ -302,7 +302,7 @@ items-like class.
 type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
-		objects fra.ListLike[ObjectLike],
+		objects fra.Sequential[ObjectLike],
 	) ItemsLike
 }
 
@@ -356,7 +356,7 @@ type MethodClassLike interface {
 		target string,
 		invoke Invoke,
 		message string,
-		arguments fra.ListLike[any],
+		arguments fra.Sequential[any],
 	) MethodLike
 }
 
@@ -395,7 +395,7 @@ type OnClauseClassLike interface {
 	// Constructor Methods
 	OnClause(
 		failure fra.SymbolLike,
-		matchingClauses fra.ListLike[MatchingClauseLike],
+		matchingClauses fra.Sequential[MatchingClauseLike],
 	) OnClauseLike
 }
 
@@ -457,7 +457,7 @@ procedure-like class.
 type ProcedureClassLike interface {
 	// Constructor Methods
 	Procedure(
-		lines fra.ListLike[any],
+		lines fra.Sequential[any],
 	) ProcedureLike
 }
 
@@ -559,7 +559,7 @@ type SelectClauseClassLike interface {
 	// Constructor Methods
 	SelectClause(
 		expression ExpressionLike,
-		matchingClauses fra.ListLike[MatchingClauseLike],
+		matchingClauses fra.Sequential[MatchingClauseLike],
 	) SelectClauseLike
 }
 
@@ -585,7 +585,7 @@ type SubcomponentClassLike interface {
 	// Constructor Methods
 	Subcomponent(
 		identifier string,
-		indexes fra.ListLike[any],
+		indexes fra.Sequential[any],
 	) SubcomponentLike
 }
 
@@ -788,7 +788,7 @@ type ExpressionLike interface {
 
 	// Attribute Methods
 	GetSubject() any
-	GetPredicates() fra.ListLike[PredicateLike]
+	GetPredicates() fra.Sequential[PredicateLike]
 }
 
 /*
@@ -802,7 +802,7 @@ type FunctionLike interface {
 
 	// Attribute Methods
 	GetIdentifier() string
-	GetArguments() fra.ListLike[any]
+	GetArguments() fra.Sequential[any]
 }
 
 /*
@@ -843,7 +843,7 @@ type ItemsLike interface {
 	GetClass() ItemsClassLike
 
 	// Attribute Methods
-	GetObjects() fra.ListLike[ObjectLike]
+	GetObjects() fra.Sequential[ObjectLike]
 }
 
 /*
@@ -901,7 +901,7 @@ type MethodLike interface {
 	GetTarget() string
 	GetInvoke() Invoke
 	GetMessage() string
-	GetArguments() fra.ListLike[any]
+	GetArguments() fra.Sequential[any]
 }
 
 /*
@@ -946,7 +946,7 @@ type OnClauseLike interface {
 
 	// Attribute Methods
 	GetFailure() fra.SymbolLike
-	GetMatchingClauses() fra.ListLike[MatchingClauseLike]
+	GetMatchingClauses() fra.Sequential[MatchingClauseLike]
 }
 
 /*
@@ -1013,7 +1013,7 @@ type ProcedureLike interface {
 	GetClass() ProcedureClassLike
 
 	// Attribute Methods
-	GetLines() fra.ListLike[any]
+	GetLines() fra.Sequential[any]
 }
 
 /*
@@ -1123,7 +1123,7 @@ type SelectClauseLike interface {
 
 	// Attribute Methods
 	GetExpression() ExpressionLike
-	GetMatchingClauses() fra.ListLike[MatchingClauseLike]
+	GetMatchingClauses() fra.Sequential[MatchingClauseLike]
 }
 
 /*
@@ -1151,7 +1151,7 @@ type SubcomponentLike interface {
 
 	// Attribute Methods
 	GetIdentifier() string
-	GetIndexes() fra.ListLike[any]
+	GetIndexes() fra.Sequential[any]
 }
 
 /*

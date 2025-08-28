@@ -28,7 +28,7 @@ func ProcedureClass() ProcedureClassLike {
 // Constructor Methods
 
 func (c *procedureClass_) Procedure(
-	lines fra.ListLike[any],
+	lines fra.Sequential[any],
 ) ProcedureLike {
 	if uti.IsUndefined(lines) {
 		panic("The \"lines\" attribute is required by this class.")
@@ -54,7 +54,7 @@ func (v *procedure_) GetClass() ProcedureClassLike {
 
 // Attribute Methods
 
-func (v *procedure_) GetLines() fra.ListLike[any] {
+func (v *procedure_) GetLines() fra.Sequential[any] {
 	return v.lines_
 }
 
@@ -66,7 +66,7 @@ func (v *procedure_) GetLines() fra.ListLike[any] {
 
 type procedure_ struct {
 	// Declare the instance attributes.
-	lines_ fra.ListLike[any]
+	lines_ fra.Sequential[any]
 }
 
 // Class Structure
