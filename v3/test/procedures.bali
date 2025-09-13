@@ -27,13 +27,13 @@
         with an empty line.
     <!
     if flip() do {
-        checkout $draft from <bali:/nebula/tests/Procedures:v1.2>
+        checkout $draft from <bali:/examples/Procedure:v1.2>
     }
-    checkout $draft at level 3 from <bali:/nebula/tests/Procedures:v1.2>
-    checkout $draft from <bali:/nebula/tests/Procedures:v1.2>
+    checkout $draft at level 3 from <bali:/examples/Procedure:v1.2>
+    checkout $draft from <bali:/examples/Procedure:v1.2>
     save draft to $location
     discard $location
-    notarize document at <bali:/nebula/test/Contract:v1>
+    notarize document at <bali:/examples/Contract:v1>
     select foo matching any do {
         return foo
     }

@@ -978,11 +978,11 @@ func (v *inflator_) getObjects(
 	switch entity := parameter.GetEntity().(type) {
 	case fra.ResourceLike:
 		switch entity.AsString() {
-		case "<bali:/nebula/collections/Queue:v3>":
+		case "<bali:/types/collections/Queue:v3>":
 			objects = fra.QueueFromSequence(objects)
-		case "<bali:/nebula/collections/Set:v3>":
+		case "<bali:/types/collections/Set:v3>":
 			objects = fra.SetFromSequence(objects)
-		case "<bali:/nebula/collections/Stack:v3>":
+		case "<bali:/types/collections/Stack:v3>":
 			objects = fra.StackFromSequence(objects)
 		}
 	}

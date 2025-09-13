@@ -40,8 +40,8 @@
         :1a2b
     <'
     /bali-nebula
-    /bali-nebula/abstractions
-    /bali-nebula/abstractions/Sequential
+    /bali-nebula/aspects
+    /bali-nebula/aspects/Sequential
     ">
           This is a multiline
         narrative with " marks
