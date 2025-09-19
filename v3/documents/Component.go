@@ -75,10 +75,12 @@ func (v *component_) GetParameter(
 	if uti.IsDefined(parameterization) {
 		var parameters = parameterization.GetParameters()
 		var constraint = parameters.GetValue(symbol)
-		parameter = componentClass().Component(
-			constraint.GetMetadata(),
-			constraint.GetOptionalParameterization(),
-		)
+		if uti.IsDefined(constraint) {
+			parameter = componentClass().Component(
+				constraint.GetMetadata(),
+				constraint.GetOptionalParameterization(),
+			)
+		}
 	}
 	return parameter
 }
