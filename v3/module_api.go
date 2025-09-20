@@ -1239,19 +1239,16 @@ func AngleClass() AngleClassLike {
 }
 
 func Angle(
-	radians float64,
+	value any,
 ) AngleLike {
-	return AngleClass().Angle(
-		radians,
-	)
-}
-
-func AngleFromString(
-	source string,
-) AngleLike {
-	return AngleClass().AngleFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return AngleClass().AngleFromString(actual)
+	case float64:
+		return AngleClass().Angle(actual)
+	default:
+		return AngleClass().Zero()
+	}
 }
 
 func BooleanClass() BooleanClassLike {
@@ -1259,19 +1256,16 @@ func BooleanClass() BooleanClassLike {
 }
 
 func Boolean(
-	boolean bool,
+	value any,
 ) BooleanLike {
-	return BooleanClass().Boolean(
-		boolean,
-	)
-}
-
-func BooleanFromString(
-	source string,
-) BooleanLike {
-	return BooleanClass().BooleanFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return BooleanClass().BooleanFromString(actual)
+	case bool:
+		return BooleanClass().Boolean(actual)
+	default:
+		return BooleanClass().False()
+	}
 }
 
 func DurationClass() DurationClassLike {
@@ -1279,19 +1273,16 @@ func DurationClass() DurationClassLike {
 }
 
 func Duration(
-	milliseconds int,
+	value any,
 ) DurationLike {
-	return DurationClass().Duration(
-		milliseconds,
-	)
-}
-
-func DurationFromString(
-	source string,
-) DurationLike {
-	return DurationClass().DurationFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return DurationClass().DurationFromString(actual)
+	case int:
+		return DurationClass().Duration(actual)
+	default:
+		return DurationClass().Undefined()
+	}
 }
 
 func GlyphClass() GlyphClassLike {
@@ -1299,51 +1290,35 @@ func GlyphClass() GlyphClassLike {
 }
 
 func Glyph(
-	rune_ rune,
+	value any,
 ) GlyphLike {
-	return GlyphClass().Glyph(
-		rune_,
-	)
-}
-
-func GlyphFromInteger(
-	integer int,
-) GlyphLike {
-	return GlyphClass().GlyphFromInteger(
-		integer,
-	)
-}
-
-func GlyphFromString(
-	source string,
-) GlyphLike {
-	return GlyphClass().GlyphFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return GlyphClass().GlyphFromString(actual)
+	case rune:
+		return GlyphClass().Glyph(actual)
+	case int:
+		return GlyphClass().GlyphFromInteger(actual)
+	default:
+		return GlyphClass().Undefined()
+	}
 }
 
 func MomentClass() MomentClassLike {
 	return fra.MomentClass()
 }
 
-func Now() MomentLike {
-	return fra.MomentClass().Now()
-}
-
 func Moment(
-	milliseconds int,
+	value any,
 ) MomentLike {
-	return MomentClass().Moment(
-		milliseconds,
-	)
-}
-
-func MomentFromString(
-	source string,
-) MomentLike {
-	return MomentClass().MomentFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return MomentClass().MomentFromString(actual)
+	case int:
+		return MomentClass().Moment(actual)
+	default:
+		return MomentClass().Now()
+	}
 }
 
 func NumberClass() NumberClassLike {
@@ -1351,39 +1326,34 @@ func NumberClass() NumberClassLike {
 }
 
 func Number(
-	complex_ complex128,
+	value any,
 ) NumberLike {
-	return NumberClass().Number(
-		complex_,
-	)
+	switch actual := value.(type) {
+	case string:
+		return NumberClass().NumberFromString(actual)
+	case complex128:
+		return NumberClass().Number(actual)
+	case int:
+		return NumberClass().Number(complex(float64(actual), 0))
+	case float64:
+		return NumberClass().Number(complex(actual, 0))
+	default:
+		return NumberClass().Undefined()
+	}
 }
 
 func NumberFromPolar(
 	magnitude float64,
 	phase float64,
 ) NumberLike {
-	return NumberClass().NumberFromPolar(
-		magnitude,
-		phase,
-	)
+	return NumberClass().NumberFromPolar(magnitude, phase)
 }
 
 func NumberFromRectangular(
-	real_ float64,
-	imaginary float64,
+	x float64,
+	y float64,
 ) NumberLike {
-	return NumberClass().NumberFromRectangular(
-		real_,
-		imaginary,
-	)
-}
-
-func NumberFromString(
-	source string,
-) NumberLike {
-	return NumberClass().NumberFromString(
-		source,
-	)
+	return NumberClass().NumberFromRectangular(x, y)
 }
 
 func PercentageClass() PercentageClassLike {
@@ -1391,59 +1361,37 @@ func PercentageClass() PercentageClassLike {
 }
 
 func Percentage(
-	float float64,
+	value any,
 ) PercentageLike {
-	return PercentageClass().Percentage(
-		float,
-	)
-}
-
-func PercentageFromInteger(
-	integer int,
-) PercentageLike {
-	return PercentageClass().PercentageFromInteger(
-		integer,
-	)
-}
-
-func PercentageFromString(
-	source string,
-) PercentageLike {
-	return PercentageClass().PercentageFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return PercentageClass().PercentageFromString(actual)
+	case int:
+		return PercentageClass().PercentageFromInteger(actual)
+	case float64:
+		return PercentageClass().Percentage(actual)
+	default:
+		return PercentageClass().Undefined()
+	}
 }
 
 func ProbabilityClass() ProbabilityClassLike {
 	return fra.ProbabilityClass()
 }
 
-func Random() ProbabilityLike {
-	return fra.ProbabilityClass().Random()
-}
-
 func Probability(
-	float float64,
+	value any,
 ) ProbabilityLike {
-	return ProbabilityClass().Probability(
-		float,
-	)
-}
-
-func ProbabilityFromBoolean(
-	boolean bool,
-) ProbabilityLike {
-	return ProbabilityClass().ProbabilityFromBoolean(
-		boolean,
-	)
-}
-
-func ProbabilityFromString(
-	source string,
-) ProbabilityLike {
-	return ProbabilityClass().ProbabilityFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return ProbabilityClass().ProbabilityFromString(actual)
+	case bool:
+		return ProbabilityClass().ProbabilityFromBoolean(actual)
+	case float64:
+		return ProbabilityClass().Probability(actual)
+	default:
+		return ProbabilityClass().Random()
+	}
 }
 
 func ResourceClass() ResourceClassLike {
@@ -1451,27 +1399,20 @@ func ResourceClass() ResourceClassLike {
 }
 
 func Resource(
-	string_ string,
+	value any,
 ) ResourceLike {
-	return ResourceClass().Resource(
-		string_,
-	)
-}
-
-func ResourceFromString(
-	source string,
-) ResourceLike {
-	return ResourceClass().ResourceFromString(
-		source,
-	)
-}
-
-func ResourceFromUri(
-	url *uri.URL,
-) ResourceLike {
-	return ResourceClass().ResourceFromUri(
-		url,
-	)
+	switch actual := value.(type) {
+	case string:
+		if actual[0] == '<' {
+			return ResourceClass().ResourceFromString(actual)
+		} else {
+			return ResourceClass().Resource(actual)
+		}
+	case *uri.URL:
+		return ResourceClass().ResourceFromUri(actual)
+	default:
+		return ResourceClass().ResourceFromString("<>") // TBD - Add Undefined().
+	}
 }
 
 func SymbolClass() SymbolClassLike {
@@ -1479,19 +1420,18 @@ func SymbolClass() SymbolClassLike {
 }
 
 func Symbol(
-	string_ string,
+	value any,
 ) SymbolLike {
-	return SymbolClass().Symbol(
-		string_,
-	)
-}
-
-func SymbolFromString(
-	source string,
-) SymbolLike {
-	return SymbolClass().SymbolFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		if actual[0] == '$' {
+			return SymbolClass().SymbolFromString(actual)
+		} else {
+			return SymbolClass().Symbol(actual)
+		}
+	default:
+		return SymbolClass().SymbolFromString("$") // TBD - Add Undefined().
+	}
 }
 
 // Ranges
