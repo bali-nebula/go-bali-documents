@@ -76,7 +76,8 @@ func TestObjectAccess(t *tes.T) {
 	index = 1
 	object = component.GetObject(index)
 	ass.Equal(t, "$new", doc.FormatComponent(object))
-	component.RemoveObject(index)
+	object = component.RemoveObject(index)
+	ass.Equal(t, "$new", doc.FormatComponent(object))
 	object = component.GetObject(index)
 	ass.Equal(t, nil, object)
 
@@ -105,7 +106,8 @@ func TestObjectAccess(t *tes.T) {
 	index = 4
 	object = component.GetObject(index)
 	ass.Equal(t, "$epsilon", doc.FormatComponent(object))
-	component.RemoveObject(index)
+	object = component.RemoveObject(index)
+	ass.Equal(t, "$epsilon", doc.FormatComponent(object))
 	index = -1
 	object = component.GetObject(index)
 	ass.Equal(t, "$delta", doc.FormatComponent(object))
@@ -129,7 +131,8 @@ func TestObjectAccess(t *tes.T) {
 	component.SetObject(component2, key)
 	object = component.GetObject(key)
 	ass.Equal(t, "\"5\"", doc.FormatComponent(object))
-	component.RemoveObject(key)
+	object = component.RemoveObject(key)
+	ass.Equal(t, "\"5\"", doc.FormatComponent(object))
 	key = fra.Symbol("beta")
 	object = component.GetObject(key)
 	ass.Equal(t, "\"2\"", doc.FormatComponent(object))
@@ -160,7 +163,8 @@ func TestObjectAccess(t *tes.T) {
 	component.SetObject(component2, key, key2)
 	object = component.GetObject(key, key2)
 	ass.Equal(t, "\"4\"", doc.FormatComponent(object))
-	component.RemoveObject(key, key2)
+	object = component.RemoveObject(key, key2)
+	ass.Equal(t, "\"4\"", doc.FormatComponent(object))
 	key2 = fra.Symbol("beta")
 	object = component.GetObject(key, key2)
 	ass.Equal(t, "\"2\"", doc.FormatComponent(object))

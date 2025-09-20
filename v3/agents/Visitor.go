@@ -1545,7 +1545,7 @@ func (v *visitor_) visitRange(
 	range_ doc.RangeLike,
 ) {
 	var left = range_.GetLeft()
-	v.processor_.ProcessExtent(left)
+	v.processor_.ProcessBracket(left)
 
 	// Visit slot 1 between terms.
 	v.processor_.ProcessRangeSlot(
@@ -1592,7 +1592,7 @@ func (v *visitor_) visitRange(
 	)
 
 	var right = range_.GetRight()
-	v.processor_.ProcessExtent(right)
+	v.processor_.ProcessBracket(right)
 }
 
 func (v *visitor_) visitRecipient(

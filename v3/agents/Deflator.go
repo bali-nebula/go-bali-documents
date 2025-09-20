@@ -878,9 +878,9 @@ func (v *deflator_) PostprocessRange(
 	var right not.RightLike
 	var extent = range_.GetRight()
 	switch extent {
-	case doc.Inclusive:
+	case fra.Inclusive:
 		right = not.Right("]")
-	case doc.Exclusive:
+	case fra.Exclusive:
 		right = not.Right(")")
 	default:
 		var message = fmt.Sprintf(
@@ -895,9 +895,9 @@ func (v *deflator_) PostprocessRange(
 	var left not.LeftLike
 	extent = range_.GetLeft()
 	switch extent {
-	case doc.Inclusive:
+	case fra.Inclusive:
 		left = not.Left("[")
-	case doc.Exclusive:
+	case fra.Exclusive:
 		left = not.Left("(")
 	default:
 		var message = fmt.Sprintf(

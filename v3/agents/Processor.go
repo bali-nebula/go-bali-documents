@@ -76,6 +76,11 @@ func (v *processor_) ProcessBoolean(
 ) {
 }
 
+func (v *processor_) ProcessBracket(
+	bracket fra.Bracket,
+) {
+}
+
 func (v *processor_) ProcessBytecode(
 	bytecode ass.BytecodeLike,
 ) {
@@ -88,11 +93,6 @@ func (v *processor_) ProcessComment(
 
 func (v *processor_) ProcessDuration(
 	duration fra.DurationLike,
-) {
-}
-
-func (v *processor_) ProcessExtent(
-	extent doc.Extent,
 ) {
 }
 

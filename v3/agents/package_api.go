@@ -187,6 +187,9 @@ type Methodical interface {
 	ProcessBoolean(
 		boolean fra.BooleanLike,
 	)
+	ProcessBracket(
+		bracket fra.Bracket,
+	)
 	ProcessBytecode(
 		bytecode ass.BytecodeLike,
 	)
@@ -195,9 +198,6 @@ type Methodical interface {
 	)
 	ProcessDuration(
 		duration fra.DurationLike,
-	)
-	ProcessExtent(
-		extent doc.Extent,
 	)
 	ProcessGlyph(
 		glyph fra.GlyphLike,

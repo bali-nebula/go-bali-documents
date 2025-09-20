@@ -36,6 +36,8 @@ import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
+	uti "github.com/craterdog/go-missing-utilities/v7"
+	uri "net/url"
 )
 
 // TYPE ALIASES
@@ -116,7 +118,6 @@ type (
 
 type (
 	Assignment = doc.Assignment
-	Extent     = doc.Extent
 	Inverse    = doc.Inverse
 	Invoke     = doc.Invoke
 	Operator   = doc.Operator
@@ -129,8 +130,6 @@ const (
 	EqualsMinus    = doc.EqualsMinus
 	EqualsTimes    = doc.EqualsTimes
 	EqualsDivide   = doc.EqualsDivide
-	Inclusive      = doc.Inclusive
-	Exclusive      = doc.Exclusive
 	Additive       = doc.Additive
 	Multiplicative = doc.Multiplicative
 	Conjugate      = doc.Conjugate
@@ -725,10 +724,10 @@ func RangeClass() RangeClassLike {
 }
 
 func Range(
-	left doc.Extent,
+	left fra.Bracket,
 	first any,
 	last any,
-	right doc.Extent,
+	right fra.Bracket,
 ) RangeLike {
 	return RangeClass().Range(
 		left,
@@ -898,10 +897,10 @@ func ParseSource(
 }
 
 func FormatComponent(
-	class any,
+	value any,
 ) string {
 	var component ComponentLike
-	switch actual := class.(type) {
+	switch actual := value.(type) {
 	case ComponentLike:
 		component = actual
 	case ConstraintLike:
@@ -913,17 +912,966 @@ func FormatComponent(
 	case ObjectLike:
 		component = actual.GetComponent()
 	default:
-		component = Component(class, nil)
+		component = Component(value, nil)
 	}
-	var deflator = Deflator()
-	var formatter = not.Formatter()
-	var document = deflator.DeflateDocument(Document(component))
-	var source = formatter.FormatDocument(document)
+	var source = FormatDocument(component)
 	return source[:len(source)-1] // Remove the trailing newline.
 }
 
 func FormatDocument(
 	component ComponentLike,
 ) string {
-	return FormatComponent(component) + "\n"
+	var deflator = Deflator()
+	var formatter = not.Formatter()
+	var document = deflator.DeflateDocument(Document(component))
+	var source = formatter.FormatDocument(document)
+	return source
+}
+
+// Agents
+
+type (
+	Event       = fra.Event
+	Rank        = fra.Rank
+	Slot        = fra.Slot
+	State       = fra.State
+	Transitions = fra.Transitions
+)
+
+const (
+	LesserRank  = fra.LesserRank
+	EqualRank   = fra.EqualRank
+	GreaterRank = fra.GreaterRank
+)
+
+type (
+	RankingFunction[V any] = fra.RankingFunction[V]
+)
+
+type (
+	CollatorClassLike[V any] = fra.CollatorClassLike[V]
+	ControllerClassLike      = fra.ControllerClassLike
+	EncoderClassLike         = fra.EncoderClassLike
+	GeneratorClassLike       = fra.GeneratorClassLike
+	IteratorClassLike[V any] = fra.IteratorClassLike[V]
+	SorterClassLike[V any]   = fra.SorterClassLike[V]
+)
+
+type (
+	CollatorLike[V any] = fra.CollatorLike[V]
+	ControllerLike      = fra.ControllerLike
+	EncoderLike         = fra.EncoderLike
+	GeneratorLike       = fra.GeneratorLike
+	IteratorLike[V any] = fra.IteratorLike[V]
+	SorterLike[V any]   = fra.SorterLike[V]
+)
+
+func CollatorClass[V any]() CollatorClassLike[V] {
+	return fra.CollatorClass[V]()
+}
+
+func Collator[V any]() CollatorLike[V] {
+	return CollatorClass[V]().Collator()
+}
+
+func CollatorWithMaximumDepth[V any](
+	maximumDepth uti.Cardinal,
+) CollatorLike[V] {
+	return CollatorClass[V]().CollatorWithMaximumDepth(
+		maximumDepth,
+	)
+}
+
+func ControllerClass() ControllerClassLike {
+	return fra.ControllerClass()
+}
+
+func Controller(
+	events []fra.Event,
+	transitions map[State]fra.Transitions,
+	initialState fra.State,
+) ControllerLike {
+	return ControllerClass().Controller(
+		events,
+		transitions,
+		initialState,
+	)
+}
+
+func EncoderClass() EncoderClassLike {
+	return fra.EncoderClass()
+}
+
+func Encoder() EncoderLike {
+	return EncoderClass().Encoder()
+}
+
+func GeneratorClass() GeneratorClassLike {
+	return fra.GeneratorClass()
+}
+
+func Generator() GeneratorLike {
+	return GeneratorClass().Generator()
+}
+
+func IteratorClass[V any]() IteratorClassLike[V] {
+	return fra.IteratorClass[V]()
+}
+
+func Iterator[V any](
+	array []V,
+) IteratorLike[V] {
+	return IteratorClass[V]().Iterator(
+		array,
+	)
+}
+
+func SorterClass[V any]() SorterClassLike[V] {
+	return fra.SorterClass[V]()
+}
+
+func Sorter[V any]() SorterLike[V] {
+	return SorterClass[V]().Sorter()
+}
+
+func SorterWithRanker[V any](
+	ranker fra.RankingFunction[V],
+) SorterLike[V] {
+	return SorterClass[V]().SorterWithRanker(
+		ranker,
+	)
+}
+
+// Collections
+
+type (
+	AssociationClassLike[K comparable, V any] = fra.AssociationClassLike[K, V]
+	CatalogClassLike[K comparable, V any]     = fra.CatalogClassLike[K, V]
+	ListClassLike[V any]                      = fra.ListClassLike[V]
+	QueueClassLike[V any]                     = fra.QueueClassLike[V]
+	SetClassLike[V any]                       = fra.SetClassLike[V]
+	StackClassLike[V any]                     = fra.StackClassLike[V]
+)
+
+type (
+	AssociationLike[K comparable, V any] = fra.AssociationLike[K, V]
+	CatalogLike[K comparable, V any]     = fra.CatalogLike[K, V]
+	ListLike[V any]                      = fra.ListLike[V]
+	QueueLike[V any]                     = fra.QueueLike[V]
+	SetLike[V any]                       = fra.SetLike[V]
+	StackLike[V any]                     = fra.StackLike[V]
+)
+
+type (
+	Associative[K comparable, V any] = fra.Associative[K, V]
+	Elastic[V any]                   = fra.Elastic[V]
+	Fifo[V any]                      = fra.Fifo[V]
+	Lifo[V any]                      = fra.Lifo[V]
+	Malleable[V any]                 = fra.Malleable[V]
+	Sortable[V any]                  = fra.Sortable[V]
+	Synchronized                     = fra.Synchronized
+	Updatable[V any]                 = fra.Updatable[V]
+)
+
+func AssociationClass[K comparable, V any]() AssociationClassLike[K, V] {
+	return fra.AssociationClass[K, V]()
+}
+
+func Association[K comparable, V any](
+	key K,
+	value V,
+) AssociationLike[K, V] {
+	return AssociationClass[K, V]().Association(
+		key,
+		value,
+	)
+}
+
+func CatalogClass[K comparable, V any]() CatalogClassLike[K, V] {
+	return fra.CatalogClass[K, V]()
+}
+
+func Catalog[K comparable, V any](
+	value any,
+) CatalogLike[K, V] {
+	switch actual := value.(type) {
+	case []AssociationLike[K, V]:
+		return fra.CatalogFromArray(actual)
+	case map[K]V:
+		return fra.CatalogFromMap(actual)
+	case Sequential[AssociationLike[K, V]]:
+		return fra.CatalogFromSequence(actual)
+	default:
+		return fra.Catalog[K, V]()
+	}
+}
+
+func CatalogFromArray[K comparable, V any](
+	associations []fra.AssociationLike[K, V],
+) CatalogLike[K, V] {
+	return CatalogClass[K, V]().CatalogFromArray(
+		associations,
+	)
+}
+
+func CatalogFromMap[K comparable, V any](
+	associations map[K]V,
+) CatalogLike[K, V] {
+	return CatalogClass[K, V]().CatalogFromMap(
+		associations,
+	)
+}
+
+func CatalogFromSequence[K comparable, V any](
+	associations fra.Sequential[fra.AssociationLike[K, V]],
+) CatalogLike[K, V] {
+	return CatalogClass[K, V]().CatalogFromSequence(
+		associations,
+	)
+}
+
+func ListClass[V any]() ListClassLike[V] {
+	return fra.ListClass[V]()
+}
+
+func List[V any]() ListLike[V] {
+	return ListClass[V]().List()
+}
+
+func ListFromArray[V any](
+	values []V,
+) ListLike[V] {
+	return ListClass[V]().ListFromArray(
+		values,
+	)
+}
+
+func ListFromSequence[V any](
+	values fra.Sequential[V],
+) ListLike[V] {
+	return ListClass[V]().ListFromSequence(
+		values,
+	)
+}
+
+func QueueClass[V any]() QueueClassLike[V] {
+	return fra.QueueClass[V]()
+}
+
+func Queue[V any]() QueueLike[V] {
+	return QueueClass[V]().Queue()
+}
+
+func QueueWithCapacity[V any](
+	capacity uti.Cardinal,
+) QueueLike[V] {
+	return QueueClass[V]().QueueWithCapacity(
+		capacity,
+	)
+}
+
+func QueueFromArray[V any](
+	values []V,
+) QueueLike[V] {
+	return QueueClass[V]().QueueFromArray(
+		values,
+	)
+}
+
+func QueueFromSequence[V any](
+	values fra.Sequential[V],
+) QueueLike[V] {
+	return QueueClass[V]().QueueFromSequence(
+		values,
+	)
+}
+
+func SetClass[V any]() SetClassLike[V] {
+	return fra.SetClass[V]()
+}
+
+func Set[V any]() SetLike[V] {
+	return SetClass[V]().Set()
+}
+
+func SetWithCollator[V any](
+	collator fra.CollatorLike[V],
+) SetLike[V] {
+	return SetClass[V]().SetWithCollator(
+		collator,
+	)
+}
+
+func SetFromArray[V any](
+	values []V,
+) SetLike[V] {
+	return SetClass[V]().SetFromArray(
+		values,
+	)
+}
+
+func SetFromSequence[V any](
+	values fra.Sequential[V],
+) SetLike[V] {
+	return SetClass[V]().SetFromSequence(
+		values,
+	)
+}
+
+func StackClass[V any]() StackClassLike[V] {
+	return fra.StackClass[V]()
+}
+
+func Stack[V any]() StackLike[V] {
+	return StackClass[V]().Stack()
+}
+
+func StackWithCapacity[V any](
+	capacity uti.Cardinal,
+) StackLike[V] {
+	return StackClass[V]().StackWithCapacity(
+		capacity,
+	)
+}
+
+func StackFromArray[V any](
+	values []V,
+) StackLike[V] {
+	return StackClass[V]().StackFromArray(
+		values,
+	)
+}
+
+func StackFromSequence[V any](
+	values fra.Sequential[V],
+) StackLike[V] {
+	return StackClass[V]().StackFromSequence(
+		values,
+	)
+}
+
+// Elements
+
+type (
+	Units = fra.Units
+)
+
+const (
+	Degrees  = fra.Degrees
+	Radians  = fra.Radians
+	Gradians = fra.Gradians
+)
+
+type (
+	AngleClassLike       = fra.AngleClassLike
+	BooleanClassLike     = fra.BooleanClassLike
+	DurationClassLike    = fra.DurationClassLike
+	GlyphClassLike       = fra.GlyphClassLike
+	MomentClassLike      = fra.MomentClassLike
+	NumberClassLike      = fra.NumberClassLike
+	PercentageClassLike  = fra.PercentageClassLike
+	ProbabilityClassLike = fra.ProbabilityClassLike
+	ResourceClassLike    = fra.ResourceClassLike
+	SymbolClassLike      = fra.SymbolClassLike
+)
+
+type (
+	AngleLike       = fra.AngleLike
+	BooleanLike     = fra.BooleanLike
+	DurationLike    = fra.DurationLike
+	GlyphLike       = fra.GlyphLike
+	MomentLike      = fra.MomentLike
+	NumberLike      = fra.NumberLike
+	PercentageLike  = fra.PercentageLike
+	ProbabilityLike = fra.ProbabilityLike
+	ResourceLike    = fra.ResourceLike
+	SymbolLike      = fra.SymbolLike
+)
+
+type (
+	Continuous = fra.Continuous
+	Discrete   = fra.Discrete
+	Factored   = fra.Factored
+	Polarized  = fra.Polarized
+	Temporal   = fra.Temporal
+)
+
+func AngleClass() AngleClassLike {
+	return fra.AngleClass()
+}
+
+func Angle(
+	radians float64,
+) AngleLike {
+	return AngleClass().Angle(
+		radians,
+	)
+}
+
+func AngleFromString(
+	source string,
+) AngleLike {
+	return AngleClass().AngleFromString(
+		source,
+	)
+}
+
+func BooleanClass() BooleanClassLike {
+	return fra.BooleanClass()
+}
+
+func Boolean(
+	boolean bool,
+) BooleanLike {
+	return BooleanClass().Boolean(
+		boolean,
+	)
+}
+
+func BooleanFromString(
+	source string,
+) BooleanLike {
+	return BooleanClass().BooleanFromString(
+		source,
+	)
+}
+
+func DurationClass() DurationClassLike {
+	return fra.DurationClass()
+}
+
+func Duration(
+	milliseconds int,
+) DurationLike {
+	return DurationClass().Duration(
+		milliseconds,
+	)
+}
+
+func DurationFromString(
+	source string,
+) DurationLike {
+	return DurationClass().DurationFromString(
+		source,
+	)
+}
+
+func GlyphClass() GlyphClassLike {
+	return fra.GlyphClass()
+}
+
+func Glyph(
+	rune_ rune,
+) GlyphLike {
+	return GlyphClass().Glyph(
+		rune_,
+	)
+}
+
+func GlyphFromInteger(
+	integer int,
+) GlyphLike {
+	return GlyphClass().GlyphFromInteger(
+		integer,
+	)
+}
+
+func GlyphFromString(
+	source string,
+) GlyphLike {
+	return GlyphClass().GlyphFromString(
+		source,
+	)
+}
+
+func MomentClass() MomentClassLike {
+	return fra.MomentClass()
+}
+
+func Now() MomentLike {
+	return fra.MomentClass().Now()
+}
+
+func Moment(
+	milliseconds int,
+) MomentLike {
+	return MomentClass().Moment(
+		milliseconds,
+	)
+}
+
+func MomentFromString(
+	source string,
+) MomentLike {
+	return MomentClass().MomentFromString(
+		source,
+	)
+}
+
+func NumberClass() NumberClassLike {
+	return fra.NumberClass()
+}
+
+func Number(
+	complex_ complex128,
+) NumberLike {
+	return NumberClass().Number(
+		complex_,
+	)
+}
+
+func NumberFromPolar(
+	magnitude float64,
+	phase float64,
+) NumberLike {
+	return NumberClass().NumberFromPolar(
+		magnitude,
+		phase,
+	)
+}
+
+func NumberFromRectangular(
+	real_ float64,
+	imaginary float64,
+) NumberLike {
+	return NumberClass().NumberFromRectangular(
+		real_,
+		imaginary,
+	)
+}
+
+func NumberFromString(
+	source string,
+) NumberLike {
+	return NumberClass().NumberFromString(
+		source,
+	)
+}
+
+func PercentageClass() PercentageClassLike {
+	return fra.PercentageClass()
+}
+
+func Percentage(
+	float float64,
+) PercentageLike {
+	return PercentageClass().Percentage(
+		float,
+	)
+}
+
+func PercentageFromInteger(
+	integer int,
+) PercentageLike {
+	return PercentageClass().PercentageFromInteger(
+		integer,
+	)
+}
+
+func PercentageFromString(
+	source string,
+) PercentageLike {
+	return PercentageClass().PercentageFromString(
+		source,
+	)
+}
+
+func ProbabilityClass() ProbabilityClassLike {
+	return fra.ProbabilityClass()
+}
+
+func Random() ProbabilityLike {
+	return fra.ProbabilityClass().Random()
+}
+
+func Probability(
+	float float64,
+) ProbabilityLike {
+	return ProbabilityClass().Probability(
+		float,
+	)
+}
+
+func ProbabilityFromBoolean(
+	boolean bool,
+) ProbabilityLike {
+	return ProbabilityClass().ProbabilityFromBoolean(
+		boolean,
+	)
+}
+
+func ProbabilityFromString(
+	source string,
+) ProbabilityLike {
+	return ProbabilityClass().ProbabilityFromString(
+		source,
+	)
+}
+
+func ResourceClass() ResourceClassLike {
+	return fra.ResourceClass()
+}
+
+func Resource(
+	string_ string,
+) ResourceLike {
+	return ResourceClass().Resource(
+		string_,
+	)
+}
+
+func ResourceFromString(
+	source string,
+) ResourceLike {
+	return ResourceClass().ResourceFromString(
+		source,
+	)
+}
+
+func ResourceFromUri(
+	url *uri.URL,
+) ResourceLike {
+	return ResourceClass().ResourceFromUri(
+		url,
+	)
+}
+
+func SymbolClass() SymbolClassLike {
+	return fra.SymbolClass()
+}
+
+func Symbol(
+	string_ string,
+) SymbolLike {
+	return SymbolClass().Symbol(
+		string_,
+	)
+}
+
+func SymbolFromString(
+	source string,
+) SymbolLike {
+	return SymbolClass().SymbolFromString(
+		source,
+	)
+}
+
+// Ranges
+
+type (
+	Bracket = fra.Bracket
+)
+
+const (
+	Inclusive = fra.Inclusive
+	Exclusive = fra.Exclusive
+)
+
+type (
+	ContinuumClassLike[V fra.Continuous] = fra.ContinuumClassLike[V]
+	IntervalClassLike[V fra.Discrete]    = fra.IntervalClassLike[V]
+	SpectrumClassLike[V fra.Spectral[V]] = fra.SpectrumClassLike[V]
+)
+
+type (
+	ContinuumLike[V fra.Continuous] = fra.ContinuumLike[V]
+	IntervalLike[V fra.Discrete]    = fra.IntervalLike[V]
+	SpectrumLike[V fra.Spectral[V]] = fra.SpectrumLike[V]
+)
+
+type (
+	Bounded[V any] = fra.Bounded[V]
+)
+
+func ContinuumClass[V fra.Continuous]() ContinuumClassLike[V] {
+	return fra.ContinuumClass[V]()
+}
+
+func Continuum[V fra.Continuous](
+	left fra.Bracket,
+	minimum V,
+	maximum V,
+	right fra.Bracket,
+) ContinuumLike[V] {
+	return ContinuumClass[V]().Continuum(
+		left,
+		minimum,
+		maximum,
+		right,
+	)
+}
+
+func IntervalClass[V fra.Discrete]() IntervalClassLike[V] {
+	return fra.IntervalClass[V]()
+}
+
+func Interval[V fra.Discrete](
+	left fra.Bracket,
+	minimum V,
+	maximum V,
+	right fra.Bracket,
+) IntervalLike[V] {
+	return IntervalClass[V]().Interval(
+		left,
+		minimum,
+		maximum,
+		right,
+	)
+}
+
+func SpectrumClass[V fra.Spectral[V]]() SpectrumClassLike[V] {
+	return fra.SpectrumClass[V]()
+}
+
+func Spectrum[V fra.Spectral[V]](
+	left fra.Bracket,
+	minimum V,
+	maximum V,
+	right fra.Bracket,
+) SpectrumLike[V] {
+	return SpectrumClass[V]().Spectrum(
+		left,
+		minimum,
+		maximum,
+		right,
+	)
+}
+
+// Strings
+
+type (
+	Identifier = fra.Identifier
+	Line       = fra.Line
+	Character  = fra.Character
+)
+
+type (
+	BinaryClassLike    = fra.BinaryClassLike
+	NameClassLike      = fra.NameClassLike
+	NarrativeClassLike = fra.NarrativeClassLike
+	PatternClassLike   = fra.PatternClassLike
+	QuoteClassLike     = fra.QuoteClassLike
+	TagClassLike       = fra.TagClassLike
+	VersionClassLike   = fra.VersionClassLike
+)
+
+type (
+	BinaryLike    = fra.BinaryLike
+	NameLike      = fra.NameLike
+	NarrativeLike = fra.NarrativeLike
+	PatternLike   = fra.PatternLike
+	QuoteLike     = fra.QuoteLike
+	TagLike       = fra.TagLike
+	VersionLike   = fra.VersionLike
+)
+
+type (
+	Accessible[V any] = fra.Accessible[V]
+	Searchable[V any] = fra.Searchable[V]
+	Sequential[V any] = fra.Sequential[V]
+	Spectral[V any]   = fra.Spectral[V]
+)
+
+func BinaryClass() BinaryClassLike {
+	return fra.BinaryClass()
+}
+
+func Binary(
+	bytes []byte,
+) BinaryLike {
+	return BinaryClass().Binary(
+		bytes,
+	)
+}
+
+func BinaryFromSequence(
+	sequence fra.Sequential[byte],
+) BinaryLike {
+	return BinaryClass().BinaryFromSequence(
+		sequence,
+	)
+}
+
+func BinaryFromString(
+	source string,
+) BinaryLike {
+	return BinaryClass().BinaryFromString(
+		source,
+	)
+}
+
+func NameClass() NameClassLike {
+	return fra.NameClass()
+}
+
+func Name(
+	identifiers []fra.Identifier,
+) NameLike {
+	return NameClass().Name(
+		identifiers,
+	)
+}
+
+func NameFromSequence(
+	sequence fra.Sequential[fra.Identifier],
+) NameLike {
+	return NameClass().NameFromSequence(
+		sequence,
+	)
+}
+
+func NameFromString(
+	source string,
+) NameLike {
+	return NameClass().NameFromString(
+		source,
+	)
+}
+
+func NarrativeClass() NarrativeClassLike {
+	return fra.NarrativeClass()
+}
+
+func Narrative(
+	lines []fra.Line,
+) NarrativeLike {
+	return NarrativeClass().Narrative(
+		lines,
+	)
+}
+
+func NarrativeFromSequence(
+	sequence fra.Sequential[fra.Line],
+) NarrativeLike {
+	return NarrativeClass().NarrativeFromSequence(
+		sequence,
+	)
+}
+
+func NarrativeFromString(
+	source string,
+) NarrativeLike {
+	return NarrativeClass().NarrativeFromString(
+		source,
+	)
+}
+
+func PatternClass() PatternClassLike {
+	return fra.PatternClass()
+}
+
+func Pattern(
+	characters []fra.Character,
+) PatternLike {
+	return PatternClass().Pattern(
+		characters,
+	)
+}
+
+func PatternFromSequence(
+	sequence fra.Sequential[fra.Character],
+) PatternLike {
+	return PatternClass().PatternFromSequence(
+		sequence,
+	)
+}
+
+func PatternFromString(
+	source string,
+) PatternLike {
+	return PatternClass().PatternFromString(
+		source,
+	)
+}
+
+func QuoteClass() QuoteClassLike {
+	return fra.QuoteClass()
+}
+
+func Quote(
+	characters []fra.Character,
+) QuoteLike {
+	return QuoteClass().Quote(
+		characters,
+	)
+}
+
+func QuoteFromSequence(
+	sequence fra.Sequential[fra.Character],
+) QuoteLike {
+	return QuoteClass().QuoteFromSequence(
+		sequence,
+	)
+}
+
+func QuoteFromString(
+	source string,
+) QuoteLike {
+	return QuoteClass().QuoteFromString(
+		source,
+	)
+}
+
+func TagClass() TagClassLike {
+	return fra.TagClass()
+}
+
+func Tag(
+	bytes []byte,
+) TagLike {
+	return TagClass().Tag(
+		bytes,
+	)
+}
+
+func TagWithSize(
+	size uti.Cardinal,
+) TagLike {
+	return TagClass().TagWithSize(
+		size,
+	)
+}
+
+func TagFromSequence(
+	sequence fra.Sequential[byte],
+) TagLike {
+	return TagClass().TagFromSequence(
+		sequence,
+	)
+}
+
+func TagFromString(
+	source string,
+) TagLike {
+	return TagClass().TagFromString(
+		source,
+	)
+}
+
+func VersionClass() VersionClassLike {
+	return fra.VersionClass()
+}
+
+func Version(
+	ordinals []uti.Ordinal,
+) VersionLike {
+	return VersionClass().Version(
+		ordinals,
+	)
+}
+
+func VersionFromSequence(
+	sequence fra.Sequential[uti.Ordinal],
+) VersionLike {
+	return VersionClass().VersionFromSequence(
+		sequence,
+	)
+}
+
+func VersionFromString(
+	source string,
+) VersionLike {
+	return VersionClass().VersionFromString(
+		source,
+	)
 }

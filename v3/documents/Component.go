@@ -106,11 +106,11 @@ func (v *component_) GetObject(
 }
 
 func (v *component_) SetObject(
-	class any,
+	value any,
 	indices ...any,
 ) {
 	var object ObjectLike
-	switch actual := class.(type) {
+	switch actual := value.(type) {
 	case ComponentLike:
 		object = ObjectClass().Object(actual, "")
 	case DocumentLike:
@@ -118,7 +118,7 @@ func (v *component_) SetObject(
 	case ObjectLike:
 		object = actual
 	default:
-		object = ObjectClass().Object(componentClass().Component(class, nil), "")
+		object = ObjectClass().Object(componentClass().Component(value, nil), "")
 	}
 	if uti.IsDefined(object) && len(indices) > 0 {
 		var key = indices[0]
@@ -145,7 +145,8 @@ func (v *component_) SetObject(
 
 func (v *component_) RemoveObject(
 	indices ...any,
-) {
+) ObjectLike {
+	var object ObjectLike
 	if len(indices) > 0 {
 		var key = indices[0]
 		indices = indices[1:]
@@ -154,7 +155,7 @@ func (v *component_) RemoveObject(
 			switch objects := collection.GetObjects().(type) {
 			case fra.ListLike[ObjectLike]:
 				var index = key.(uti.Index)
-				v.removeItem(objects, index, indices...)
+				object = v.removeItem(objects, index, indices...)
 			default:
 				var message = fmt.Sprintf(
 					"Attempted to remove an item from a non-list type: %T",
@@ -164,9 +165,10 @@ func (v *component_) RemoveObject(
 			}
 		case AttributesLike:
 			var associations = collection.GetAssociations()
-			v.removeAttribute(associations, key, indices...)
+			object = v.removeAttribute(associations, key, indices...)
 		}
 	}
+	return object
 }
 
 // PROTECTED INTERFACE
@@ -236,11 +238,12 @@ func (v *component_) removeItem(
 	objects fra.ListLike[ObjectLike],
 	index uti.Index,
 	indices ...any,
-) {
+) ObjectLike {
+	var object ObjectLike
 	var size = uti.Index(objects.GetSize())
 	if size == 0 {
 		// The list of objects is empty.
-		return
+		return object
 	}
 	if index < 0 {
 		// Negative indices start from the end of the list.
@@ -248,15 +251,17 @@ func (v *component_) removeItem(
 	}
 	if index > size {
 		// The index is out of bounds.
-		return
+		return object
 	}
 	if len(indices) == 0 {
+		object = objects.GetValue(index)
 		objects.RemoveValue(index)
-		return
+		return object
 	}
-	var object = objects.GetValue(index)
+	object = objects.GetValue(index)
 	var component = object.GetComponent()
-	component.RemoveObject(indices...)
+	object = component.RemoveObject(indices...)
+	return object
 }
 
 func (v *component_) getAttribute(
@@ -310,7 +315,8 @@ func (v *component_) removeAttribute(
 	associations fra.CatalogLike[any, ObjectLike],
 	key any,
 	indices ...any,
-) {
+) ObjectLike {
+	var object ObjectLike
 	var first = fmt.Sprintf("%v", key)
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
@@ -318,15 +324,16 @@ func (v *component_) removeAttribute(
 		var second = fmt.Sprintf("%v", association.GetKey())
 		if first == second {
 			if len(indices) > 0 {
-				var object = association.GetValue()
+				object = association.GetValue()
 				var component = object.GetComponent()
-				component.RemoveObject(indices...)
+				object = component.RemoveObject(indices...)
 			} else {
-				associations.RemoveValue(key)
+				object = associations.RemoveValue(key)
 			}
 			break
 		}
 	}
+	return object
 }
 
 // Instance Structure

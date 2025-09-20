@@ -90,6 +90,12 @@ func (v *validator_) ProcessBoolean(
 	// TBD - Add the method implementation.
 }
 
+func (v *validator_) ProcessBracket(
+	bracket fra.Bracket,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *validator_) ProcessBytecode(
 	bytecode ass.BytecodeLike,
 ) {
@@ -104,12 +110,6 @@ func (v *validator_) ProcessComment(
 
 func (v *validator_) ProcessDuration(
 	duration fra.DurationLike,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) ProcessExtent(
-	extent doc.Extent,
 ) {
 	// TBD - Add the method implementation.
 }

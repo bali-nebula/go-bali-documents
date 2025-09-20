@@ -513,13 +513,12 @@ func (v *inflator_) PostprocessLeft(
 	index_ uint,
 	count_ uint,
 ) {
-	var extent doc.Extent
 	var bracket = left.GetAny().(string)
 	switch bracket {
 	case "[":
-		extent = doc.Inclusive
+		v.stack_.AddValue(fra.Inclusive)
 	case "(":
-		extent = doc.Exclusive
+		v.stack_.AddValue(fra.Exclusive)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
@@ -527,7 +526,6 @@ func (v *inflator_) PostprocessLeft(
 		)
 		panic(message)
 	}
-	v.stack_.AddValue(extent)
 }
 
 func (v *inflator_) PostprocessLetClause(
@@ -790,10 +788,10 @@ func (v *inflator_) PostprocessRange(
 	index_ uint,
 	count_ uint,
 ) {
-	var right = v.stack_.RemoveLast().(doc.Extent)
+	var right = v.stack_.RemoveLast().(fra.Bracket)
 	var last = v.stack_.RemoveLast()
 	var first = v.stack_.RemoveLast()
-	var left = v.stack_.RemoveLast().(doc.Extent)
+	var left = v.stack_.RemoveLast().(fra.Bracket)
 	v.stack_.AddValue(doc.RangeClass().Range(left, first, last, right))
 }
 
@@ -839,13 +837,12 @@ func (v *inflator_) PostprocessRight(
 	index_ uint,
 	count_ uint,
 ) {
-	var extent doc.Extent
 	var bracket = right.GetAny().(string)
 	switch bracket {
 	case "]":
-		extent = doc.Inclusive
+		v.stack_.AddValue(fra.Inclusive)
 	case ")":
-		extent = doc.Exclusive
+		v.stack_.AddValue(fra.Exclusive)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
@@ -853,7 +850,6 @@ func (v *inflator_) PostprocessRight(
 		)
 		panic(message)
 	}
-	v.stack_.AddValue(extent)
 }
 
 func (v *inflator_) PostprocessSaveClause(

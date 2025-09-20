@@ -50,17 +50,6 @@ const (
 )
 
 /*
-Extent is a constrained type specifying whether or not a range endpoint is
-inclusive or exclusive.
-*/
-type Extent uint8
-
-const (
-	Inclusive Extent = iota
-	Exclusive
-)
-
-/*
 Inverse is a constrained type specifying a type of mathematical inverse.
 */
 type Inverse uint8
@@ -481,10 +470,10 @@ range-like class.
 type RangeClassLike interface {
 	// Constructor Methods
 	Range(
-		left Extent,
+		left fra.Bracket,
 		first any,
 		last any,
-		right Extent,
+		right fra.Bracket,
 	) RangeLike
 }
 
@@ -1039,10 +1028,10 @@ type RangeLike interface {
 	GetClass() RangeClassLike
 
 	// Attribute Methods
-	GetLeft() Extent
+	GetLeft() fra.Bracket
 	GetFirst() any
 	GetLast() any
-	GetRight() Extent
+	GetRight() fra.Bracket
 }
 
 /*
@@ -1210,10 +1199,10 @@ type Declarative interface {
 		indices ...any,
 	) ObjectLike
 	SetObject(
-		class any,
+		value any,
 		indices ...any,
 	)
 	RemoveObject(
 		indices ...any,
-	)
+	) ObjectLike
 }
