@@ -1093,6 +1093,8 @@ func Catalog[K comparable, V any](
 	value any,
 ) CatalogLike[K, V] {
 	switch actual := value.(type) {
+	case string:
+		return ParseSource(actual).GetEntity().(CatalogLike[K, V])
 	case []AssociationLike[K, V]:
 		return fra.CatalogFromArray(actual)
 	case map[K]V:
@@ -1112,6 +1114,8 @@ func List[V any](
 	value any,
 ) ListLike[V] {
 	switch actual := value.(type) {
+	case string:
+		return ParseSource(actual).GetEntity().(ListLike[V])
 	case []V:
 		return ListClass[V]().ListFromArray(actual)
 	case fra.Sequential[V]:
@@ -1129,6 +1133,8 @@ func Queue[V any](
 	value any,
 ) QueueLike[V] {
 	switch actual := value.(type) {
+	case string:
+		return ParseSource(actual).GetEntity().(QueueLike[V])
 	case uti.Cardinal:
 		return QueueClass[V]().QueueWithCapacity(actual)
 	case []V:
@@ -1148,6 +1154,8 @@ func Set[V any](
 	value any,
 ) SetLike[V] {
 	switch actual := value.(type) {
+	case string:
+		return ParseSource(actual).GetEntity().(SetLike[V])
 	case fra.CollatorLike[V]:
 		return SetClass[V]().SetWithCollator(actual)
 	case []V:
@@ -1167,6 +1175,8 @@ func Stack[V any](
 	value any,
 ) StackLike[V] {
 	switch actual := value.(type) {
+	case string:
+		return ParseSource(actual).GetEntity().(StackLike[V])
 	case uti.Cardinal:
 		return StackClass[V]().StackWithCapacity(actual)
 	case []V:
