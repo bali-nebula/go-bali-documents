@@ -887,6 +887,8 @@ func WithClause(
 
 // GLOBAL FUNCTIONS
 
+// Components
+
 func ParseSource(
 	source string,
 ) ComponentLike {
@@ -974,7 +976,7 @@ func Collator[V any](
 	value any,
 ) CollatorLike[V] {
 	switch actual := value.(type) {
-	case uti.Cardinal:
+	case Cardinal:
 		return CollatorClass[V]().CollatorWithMaximumDepth(actual)
 	default:
 		return CollatorClass[V]().Collator()
@@ -1135,7 +1137,7 @@ func Queue[V any](
 	switch actual := value.(type) {
 	case string:
 		return ParseSource(actual).GetEntity().(QueueLike[V])
-	case uti.Cardinal:
+	case Cardinal:
 		return QueueClass[V]().QueueWithCapacity(actual)
 	case []V:
 		return QueueClass[V]().QueueFromArray(actual)
@@ -1177,7 +1179,7 @@ func Stack[V any](
 	switch actual := value.(type) {
 	case string:
 		return ParseSource(actual).GetEntity().(StackLike[V])
-	case uti.Cardinal:
+	case Cardinal:
 		return StackClass[V]().StackWithCapacity(actual)
 	case []V:
 		return StackClass[V]().StackFromArray(actual)
@@ -1518,9 +1520,15 @@ func Spectrum[V fra.Spectral[V]](
 // Strings
 
 type (
+	Cardinal = uti.Cardinal
+	Index    = uti.Index
+	Ordinal  = uti.Ordinal
+)
+
+type (
+	Character  = fra.Character
 	Identifier = fra.Identifier
 	Line       = fra.Line
-	Character  = fra.Character
 )
 
 type (
@@ -1659,7 +1667,7 @@ func Tag(
 		return TagClass().Tag(actual)
 	case fra.Sequential[byte]:
 		return TagClass().TagFromSequence(actual)
-	case uti.Cardinal:
+	case Cardinal:
 		return TagClass().TagWithSize(actual)
 	default:
 		return TagClass().TagWithSize(20)
@@ -1676,11 +1684,11 @@ func Version(
 	switch actual := value.(type) {
 	case string:
 		return VersionClass().VersionFromString(actual)
-	case []uti.Ordinal:
+	case []Ordinal:
 		return VersionClass().Version(actual)
-	case fra.Sequential[uti.Ordinal]:
+	case fra.Sequential[Ordinal]:
 		return VersionClass().VersionFromSequence(actual)
 	default:
-		return VersionClass().Version([]uti.Ordinal{})
+		return VersionClass().Version([]Ordinal{})
 	}
 }
