@@ -1574,27 +1574,18 @@ func NameClass() NameClassLike {
 }
 
 func Name(
-	identifiers []fra.Identifier,
+	value any,
 ) NameLike {
-	return NameClass().Name(
-		identifiers,
-	)
-}
-
-func NameFromSequence(
-	sequence fra.Sequential[fra.Identifier],
-) NameLike {
-	return NameClass().NameFromSequence(
-		sequence,
-	)
-}
-
-func NameFromString(
-	source string,
-) NameLike {
-	return NameClass().NameFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return NameClass().NameFromString(actual)
+	case []fra.Identifier:
+		return NameClass().Name(actual)
+	case fra.Sequential[fra.Identifier]:
+		return NameClass().NameFromSequence(actual)
+	default:
+		return NameClass().Name([]fra.Identifier{})
+	}
 }
 
 func NarrativeClass() NarrativeClassLike {
@@ -1602,27 +1593,18 @@ func NarrativeClass() NarrativeClassLike {
 }
 
 func Narrative(
-	lines []fra.Line,
+	value any,
 ) NarrativeLike {
-	return NarrativeClass().Narrative(
-		lines,
-	)
-}
-
-func NarrativeFromSequence(
-	sequence fra.Sequential[fra.Line],
-) NarrativeLike {
-	return NarrativeClass().NarrativeFromSequence(
-		sequence,
-	)
-}
-
-func NarrativeFromString(
-	source string,
-) NarrativeLike {
-	return NarrativeClass().NarrativeFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return NarrativeClass().NarrativeFromString(actual)
+	case []fra.Line:
+		return NarrativeClass().Narrative(actual)
+	case fra.Sequential[fra.Line]:
+		return NarrativeClass().NarrativeFromSequence(actual)
+	default:
+		return NarrativeClass().Narrative([]fra.Line{})
+	}
 }
 
 func PatternClass() PatternClassLike {
@@ -1630,27 +1612,18 @@ func PatternClass() PatternClassLike {
 }
 
 func Pattern(
-	characters []fra.Character,
+	value any,
 ) PatternLike {
-	return PatternClass().Pattern(
-		characters,
-	)
-}
-
-func PatternFromSequence(
-	sequence fra.Sequential[fra.Character],
-) PatternLike {
-	return PatternClass().PatternFromSequence(
-		sequence,
-	)
-}
-
-func PatternFromString(
-	source string,
-) PatternLike {
-	return PatternClass().PatternFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return PatternClass().PatternFromString(actual)
+	case []fra.Character:
+		return PatternClass().Pattern(actual)
+	case fra.Sequential[fra.Character]:
+		return PatternClass().PatternFromSequence(actual)
+	default:
+		return PatternClass().Pattern([]fra.Character{})
+	}
 }
 
 func QuoteClass() QuoteClassLike {
@@ -1658,27 +1631,18 @@ func QuoteClass() QuoteClassLike {
 }
 
 func Quote(
-	characters []fra.Character,
+	value any,
 ) QuoteLike {
-	return QuoteClass().Quote(
-		characters,
-	)
-}
-
-func QuoteFromSequence(
-	sequence fra.Sequential[fra.Character],
-) QuoteLike {
-	return QuoteClass().QuoteFromSequence(
-		sequence,
-	)
-}
-
-func QuoteFromString(
-	source string,
-) QuoteLike {
-	return QuoteClass().QuoteFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return QuoteClass().QuoteFromString(actual)
+	case []fra.Character:
+		return QuoteClass().Quote(actual)
+	case fra.Sequential[fra.Character]:
+		return QuoteClass().QuoteFromSequence(actual)
+	default:
+		return QuoteClass().Quote([]fra.Character{})
+	}
 }
 
 func TagClass() TagClassLike {
@@ -1686,35 +1650,20 @@ func TagClass() TagClassLike {
 }
 
 func Tag(
-	bytes []byte,
+	value any,
 ) TagLike {
-	return TagClass().Tag(
-		bytes,
-	)
-}
-
-func TagWithSize(
-	size uti.Cardinal,
-) TagLike {
-	return TagClass().TagWithSize(
-		size,
-	)
-}
-
-func TagFromSequence(
-	sequence fra.Sequential[byte],
-) TagLike {
-	return TagClass().TagFromSequence(
-		sequence,
-	)
-}
-
-func TagFromString(
-	source string,
-) TagLike {
-	return TagClass().TagFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return TagClass().TagFromString(actual)
+	case []byte:
+		return TagClass().Tag(actual)
+	case fra.Sequential[byte]:
+		return TagClass().TagFromSequence(actual)
+	case uti.Cardinal:
+		return TagClass().TagWithSize(actual)
+	default:
+		return TagClass().TagWithSize(20)
+	}
 }
 
 func VersionClass() VersionClassLike {
@@ -1722,25 +1671,16 @@ func VersionClass() VersionClassLike {
 }
 
 func Version(
-	ordinals []uti.Ordinal,
+	value any,
 ) VersionLike {
-	return VersionClass().Version(
-		ordinals,
-	)
-}
-
-func VersionFromSequence(
-	sequence fra.Sequential[uti.Ordinal],
-) VersionLike {
-	return VersionClass().VersionFromSequence(
-		sequence,
-	)
-}
-
-func VersionFromString(
-	source string,
-) VersionLike {
-	return VersionClass().VersionFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return VersionClass().VersionFromString(actual)
+	case []uti.Ordinal:
+		return VersionClass().Version(actual)
+	case fra.Sequential[uti.Ordinal]:
+		return VersionClass().VersionFromSequence(actual)
+	default:
+		return VersionClass().Version([]uti.Ordinal{})
+	}
 }
