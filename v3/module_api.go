@@ -970,16 +970,15 @@ func CollatorClass[V any]() CollatorClassLike[V] {
 	return fra.CollatorClass[V]()
 }
 
-func Collator[V any]() CollatorLike[V] {
-	return CollatorClass[V]().Collator()
-}
-
-func CollatorWithMaximumDepth[V any](
-	maximumDepth uti.Cardinal,
+func Collator[V any](
+	value any,
 ) CollatorLike[V] {
-	return CollatorClass[V]().CollatorWithMaximumDepth(
-		maximumDepth,
-	)
+	switch actual := value.(type) {
+	case uti.Cardinal:
+		return CollatorClass[V]().CollatorWithMaximumDepth(actual)
+	default:
+		return CollatorClass[V]().Collator()
+	}
 }
 
 func ControllerClass() ControllerClassLike {
@@ -1030,16 +1029,15 @@ func SorterClass[V any]() SorterClassLike[V] {
 	return fra.SorterClass[V]()
 }
 
-func Sorter[V any]() SorterLike[V] {
-	return SorterClass[V]().Sorter()
-}
-
-func SorterWithRanker[V any](
-	ranker fra.RankingFunction[V],
+func Sorter[V any](
+	value any,
 ) SorterLike[V] {
-	return SorterClass[V]().SorterWithRanker(
-		ranker,
-	)
+	switch actual := value.(type) {
+	case fra.RankingFunction[V]:
+		return SorterClass[V]().SorterWithRanker(actual)
+	default:
+		return SorterClass[V]().Sorter()
+	}
 }
 
 // Collections
@@ -1106,148 +1104,78 @@ func Catalog[K comparable, V any](
 	}
 }
 
-func CatalogFromArray[K comparable, V any](
-	associations []fra.AssociationLike[K, V],
-) CatalogLike[K, V] {
-	return CatalogClass[K, V]().CatalogFromArray(
-		associations,
-	)
-}
-
-func CatalogFromMap[K comparable, V any](
-	associations map[K]V,
-) CatalogLike[K, V] {
-	return CatalogClass[K, V]().CatalogFromMap(
-		associations,
-	)
-}
-
-func CatalogFromSequence[K comparable, V any](
-	associations fra.Sequential[fra.AssociationLike[K, V]],
-) CatalogLike[K, V] {
-	return CatalogClass[K, V]().CatalogFromSequence(
-		associations,
-	)
-}
-
 func ListClass[V any]() ListClassLike[V] {
 	return fra.ListClass[V]()
 }
 
-func List[V any]() ListLike[V] {
-	return ListClass[V]().List()
-}
-
-func ListFromArray[V any](
-	values []V,
+func List[V any](
+	value any,
 ) ListLike[V] {
-	return ListClass[V]().ListFromArray(
-		values,
-	)
-}
-
-func ListFromSequence[V any](
-	values fra.Sequential[V],
-) ListLike[V] {
-	return ListClass[V]().ListFromSequence(
-		values,
-	)
+	switch actual := value.(type) {
+	case []V:
+		return ListClass[V]().ListFromArray(actual)
+	case fra.Sequential[V]:
+		return ListClass[V]().ListFromSequence(actual)
+	default:
+		return ListClass[V]().List()
+	}
 }
 
 func QueueClass[V any]() QueueClassLike[V] {
 	return fra.QueueClass[V]()
 }
 
-func Queue[V any]() QueueLike[V] {
-	return QueueClass[V]().Queue()
-}
-
-func QueueWithCapacity[V any](
-	capacity uti.Cardinal,
+func Queue[V any](
+	value any,
 ) QueueLike[V] {
-	return QueueClass[V]().QueueWithCapacity(
-		capacity,
-	)
-}
-
-func QueueFromArray[V any](
-	values []V,
-) QueueLike[V] {
-	return QueueClass[V]().QueueFromArray(
-		values,
-	)
-}
-
-func QueueFromSequence[V any](
-	values fra.Sequential[V],
-) QueueLike[V] {
-	return QueueClass[V]().QueueFromSequence(
-		values,
-	)
+	switch actual := value.(type) {
+	case uti.Cardinal:
+		return QueueClass[V]().QueueWithCapacity(actual)
+	case []V:
+		return QueueClass[V]().QueueFromArray(actual)
+	case fra.Sequential[V]:
+		return QueueClass[V]().QueueFromSequence(actual)
+	default:
+		return QueueClass[V]().Queue()
+	}
 }
 
 func SetClass[V any]() SetClassLike[V] {
 	return fra.SetClass[V]()
 }
 
-func Set[V any]() SetLike[V] {
-	return SetClass[V]().Set()
-}
-
-func SetWithCollator[V any](
-	collator fra.CollatorLike[V],
+func Set[V any](
+	value any,
 ) SetLike[V] {
-	return SetClass[V]().SetWithCollator(
-		collator,
-	)
-}
-
-func SetFromArray[V any](
-	values []V,
-) SetLike[V] {
-	return SetClass[V]().SetFromArray(
-		values,
-	)
-}
-
-func SetFromSequence[V any](
-	values fra.Sequential[V],
-) SetLike[V] {
-	return SetClass[V]().SetFromSequence(
-		values,
-	)
+	switch actual := value.(type) {
+	case fra.CollatorLike[V]:
+		return SetClass[V]().SetWithCollator(actual)
+	case []V:
+		return SetClass[V]().SetFromArray(actual)
+	case fra.Sequential[V]:
+		return SetClass[V]().SetFromSequence(actual)
+	default:
+		return SetClass[V]().Set()
+	}
 }
 
 func StackClass[V any]() StackClassLike[V] {
 	return fra.StackClass[V]()
 }
 
-func Stack[V any]() StackLike[V] {
-	return StackClass[V]().Stack()
-}
-
-func StackWithCapacity[V any](
-	capacity uti.Cardinal,
+func Stack[V any](
+	value any,
 ) StackLike[V] {
-	return StackClass[V]().StackWithCapacity(
-		capacity,
-	)
-}
-
-func StackFromArray[V any](
-	values []V,
-) StackLike[V] {
-	return StackClass[V]().StackFromArray(
-		values,
-	)
-}
-
-func StackFromSequence[V any](
-	values fra.Sequential[V],
-) StackLike[V] {
-	return StackClass[V]().StackFromSequence(
-		values,
-	)
+	switch actual := value.(type) {
+	case uti.Cardinal:
+		return StackClass[V]().StackWithCapacity(actual)
+	case []V:
+		return StackClass[V]().StackFromArray(actual)
+	case fra.Sequential[V]:
+		return StackClass[V]().StackFromSequence(actual)
+	default:
+		return StackClass[V]().Stack()
+	}
 }
 
 // Elements
