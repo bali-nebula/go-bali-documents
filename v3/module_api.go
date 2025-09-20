@@ -1555,27 +1555,18 @@ func BinaryClass() BinaryClassLike {
 }
 
 func Binary(
-	bytes []byte,
+	value any,
 ) BinaryLike {
-	return BinaryClass().Binary(
-		bytes,
-	)
-}
-
-func BinaryFromSequence(
-	sequence fra.Sequential[byte],
-) BinaryLike {
-	return BinaryClass().BinaryFromSequence(
-		sequence,
-	)
-}
-
-func BinaryFromString(
-	source string,
-) BinaryLike {
-	return BinaryClass().BinaryFromString(
-		source,
-	)
+	switch actual := value.(type) {
+	case string:
+		return BinaryClass().BinaryFromString(actual)
+	case []byte:
+		return BinaryClass().Binary(actual)
+	case fra.Sequential[byte]:
+		return BinaryClass().BinaryFromSequence(actual)
+	default:
+		return BinaryClass().Binary([]byte{})
+	}
 }
 
 func NameClass() NameClassLike {
