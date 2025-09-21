@@ -973,9 +973,12 @@ func CollatorClass[V any]() CollatorClassLike[V] {
 }
 
 func Collator[V any](
-	value any,
+	value ...any,
 ) CollatorLike[V] {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return CollatorClass[V]().Collator()
+	}
+	switch actual := value[0].(type) {
 	case Cardinal:
 		return CollatorClass[V]().CollatorWithMaximumDepth(actual)
 	default:
@@ -1032,161 +1035,16 @@ func SorterClass[V any]() SorterClassLike[V] {
 }
 
 func Sorter[V any](
-	value any,
+	value ...any,
 ) SorterLike[V] {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return SorterClass[V]().Sorter()
+	}
+	switch actual := value[0].(type) {
 	case fra.RankingFunction[V]:
 		return SorterClass[V]().SorterWithRanker(actual)
 	default:
 		return SorterClass[V]().Sorter()
-	}
-}
-
-// Collections
-
-type (
-	AssociationClassLike[K comparable, V any] = fra.AssociationClassLike[K, V]
-	CatalogClassLike[K comparable, V any]     = fra.CatalogClassLike[K, V]
-	ListClassLike[V any]                      = fra.ListClassLike[V]
-	QueueClassLike[V any]                     = fra.QueueClassLike[V]
-	SetClassLike[V any]                       = fra.SetClassLike[V]
-	StackClassLike[V any]                     = fra.StackClassLike[V]
-)
-
-type (
-	AssociationLike[K comparable, V any] = fra.AssociationLike[K, V]
-	CatalogLike[K comparable, V any]     = fra.CatalogLike[K, V]
-	ListLike[V any]                      = fra.ListLike[V]
-	QueueLike[V any]                     = fra.QueueLike[V]
-	SetLike[V any]                       = fra.SetLike[V]
-	StackLike[V any]                     = fra.StackLike[V]
-)
-
-type (
-	Associative[K comparable, V any] = fra.Associative[K, V]
-	Elastic[V any]                   = fra.Elastic[V]
-	Fifo[V any]                      = fra.Fifo[V]
-	Lifo[V any]                      = fra.Lifo[V]
-	Malleable[V any]                 = fra.Malleable[V]
-	Sortable[V any]                  = fra.Sortable[V]
-	Synchronized                     = fra.Synchronized
-	Updatable[V any]                 = fra.Updatable[V]
-)
-
-func AssociationClass[K comparable, V any]() AssociationClassLike[K, V] {
-	return fra.AssociationClass[K, V]()
-}
-
-func Association[K comparable, V any](
-	key K,
-	value V,
-) AssociationLike[K, V] {
-	return AssociationClass[K, V]().Association(
-		key,
-		value,
-	)
-}
-
-func CatalogClass[K comparable, V any]() CatalogClassLike[K, V] {
-	return fra.CatalogClass[K, V]()
-}
-
-func Catalog[K comparable, V any](
-	value any,
-) CatalogLike[K, V] {
-	switch actual := value.(type) {
-	case string:
-		return ParseSource(actual).GetEntity().(CatalogLike[K, V])
-	case []AssociationLike[K, V]:
-		return fra.CatalogFromArray(actual)
-	case map[K]V:
-		return fra.CatalogFromMap(actual)
-	case Sequential[AssociationLike[K, V]]:
-		return fra.CatalogFromSequence(actual)
-	default:
-		return fra.Catalog[K, V]()
-	}
-}
-
-func ListClass[V any]() ListClassLike[V] {
-	return fra.ListClass[V]()
-}
-
-func List[V any](
-	value any,
-) ListLike[V] {
-	switch actual := value.(type) {
-	case string:
-		return ParseSource(actual).GetEntity().(ListLike[V])
-	case []V:
-		return ListClass[V]().ListFromArray(actual)
-	case fra.Sequential[V]:
-		return ListClass[V]().ListFromSequence(actual)
-	default:
-		return ListClass[V]().List()
-	}
-}
-
-func QueueClass[V any]() QueueClassLike[V] {
-	return fra.QueueClass[V]()
-}
-
-func Queue[V any](
-	value any,
-) QueueLike[V] {
-	switch actual := value.(type) {
-	case string:
-		return ParseSource(actual).GetEntity().(QueueLike[V])
-	case Cardinal:
-		return QueueClass[V]().QueueWithCapacity(actual)
-	case []V:
-		return QueueClass[V]().QueueFromArray(actual)
-	case fra.Sequential[V]:
-		return QueueClass[V]().QueueFromSequence(actual)
-	default:
-		return QueueClass[V]().Queue()
-	}
-}
-
-func SetClass[V any]() SetClassLike[V] {
-	return fra.SetClass[V]()
-}
-
-func Set[V any](
-	value any,
-) SetLike[V] {
-	switch actual := value.(type) {
-	case string:
-		return ParseSource(actual).GetEntity().(SetLike[V])
-	case fra.CollatorLike[V]:
-		return SetClass[V]().SetWithCollator(actual)
-	case []V:
-		return SetClass[V]().SetFromArray(actual)
-	case fra.Sequential[V]:
-		return SetClass[V]().SetFromSequence(actual)
-	default:
-		return SetClass[V]().Set()
-	}
-}
-
-func StackClass[V any]() StackClassLike[V] {
-	return fra.StackClass[V]()
-}
-
-func Stack[V any](
-	value any,
-) StackLike[V] {
-	switch actual := value.(type) {
-	case string:
-		return ParseSource(actual).GetEntity().(StackLike[V])
-	case Cardinal:
-		return StackClass[V]().StackWithCapacity(actual)
-	case []V:
-		return StackClass[V]().StackFromArray(actual)
-	case fra.Sequential[V]:
-		return StackClass[V]().StackFromSequence(actual)
-	default:
-		return StackClass[V]().Stack()
 	}
 }
 
@@ -1241,9 +1099,12 @@ func AngleClass() AngleClassLike {
 }
 
 func Angle(
-	value any,
+	value ...any,
 ) AngleLike {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return AngleClass().Zero()
+	}
+	switch actual := value[0].(type) {
 	case string:
 		return AngleClass().AngleFromString(actual)
 	case float64:
@@ -1258,9 +1119,12 @@ func BooleanClass() BooleanClassLike {
 }
 
 func Boolean(
-	value any,
+	value ...any,
 ) BooleanLike {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return BooleanClass().False()
+	}
+	switch actual := value[0].(type) {
 	case string:
 		return BooleanClass().BooleanFromString(actual)
 	case bool:
@@ -1275,9 +1139,12 @@ func DurationClass() DurationClassLike {
 }
 
 func Duration(
-	value any,
+	value ...any,
 ) DurationLike {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return DurationClass().Undefined()
+	}
+	switch actual := value[0].(type) {
 	case string:
 		return DurationClass().DurationFromString(actual)
 	case int:
@@ -1292,9 +1159,12 @@ func GlyphClass() GlyphClassLike {
 }
 
 func Glyph(
-	value any,
+	value ...any,
 ) GlyphLike {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return GlyphClass().Undefined()
+	}
+	switch actual := value[0].(type) {
 	case string:
 		return GlyphClass().GlyphFromString(actual)
 	case rune:
@@ -1311,9 +1181,12 @@ func MomentClass() MomentClassLike {
 }
 
 func Moment(
-	value any,
+	value ...any,
 ) MomentLike {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return MomentClass().Now()
+	}
+	switch actual := value[0].(type) {
 	case string:
 		return MomentClass().MomentFromString(actual)
 	case int:
@@ -1328,9 +1201,12 @@ func NumberClass() NumberClassLike {
 }
 
 func Number(
-	value any,
+	value ...any,
 ) NumberLike {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return NumberClass().Undefined()
+	}
+	switch actual := value[0].(type) {
 	case string:
 		return NumberClass().NumberFromString(actual)
 	case complex128:
@@ -1344,14 +1220,14 @@ func Number(
 	}
 }
 
-func NumberFromPolar(
+func Polar(
 	magnitude float64,
 	phase float64,
 ) NumberLike {
 	return NumberClass().NumberFromPolar(magnitude, phase)
 }
 
-func NumberFromRectangular(
+func Rectangular(
 	x float64,
 	y float64,
 ) NumberLike {
@@ -1363,9 +1239,12 @@ func PercentageClass() PercentageClassLike {
 }
 
 func Percentage(
-	value any,
+	value ...any,
 ) PercentageLike {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return PercentageClass().Undefined()
+	}
+	switch actual := value[0].(type) {
 	case string:
 		return PercentageClass().PercentageFromString(actual)
 	case int:
@@ -1382,9 +1261,12 @@ func ProbabilityClass() ProbabilityClassLike {
 }
 
 func Probability(
-	value any,
+	value ...any,
 ) ProbabilityLike {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return ProbabilityClass().Random()
+	}
+	switch actual := value[0].(type) {
 	case string:
 		return ProbabilityClass().ProbabilityFromString(actual)
 	case bool:
@@ -1401,9 +1283,12 @@ func ResourceClass() ResourceClassLike {
 }
 
 func Resource(
-	value any,
+	value ...any,
 ) ResourceLike {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return ResourceClass().ResourceFromString("<>") // TBD - Add Undefined().
+	}
+	switch actual := value[0].(type) {
 	case string:
 		if actual[0] == '<' {
 			return ResourceClass().ResourceFromString(actual)
@@ -1422,9 +1307,12 @@ func SymbolClass() SymbolClassLike {
 }
 
 func Symbol(
-	value any,
+	value ...any,
 ) SymbolLike {
-	switch actual := value.(type) {
+	if len(value) == 0 {
+		return SymbolClass().SymbolFromString("$") // TBD - Add Undefined().
+	}
+	switch actual := value[0].(type) {
 	case string:
 		if actual[0] == '$' {
 			return SymbolClass().SymbolFromString(actual)
@@ -1433,6 +1321,207 @@ func Symbol(
 		}
 	default:
 		return SymbolClass().SymbolFromString("$") // TBD - Add Undefined().
+	}
+}
+
+// Strings
+
+type (
+	Cardinal = uti.Cardinal
+	Index    = uti.Index
+	Ordinal  = uti.Ordinal
+)
+
+type (
+	Character  = fra.Character
+	Identifier = fra.Identifier
+	Line       = fra.Line
+)
+
+type (
+	BinaryClassLike    = fra.BinaryClassLike
+	NameClassLike      = fra.NameClassLike
+	NarrativeClassLike = fra.NarrativeClassLike
+	PatternClassLike   = fra.PatternClassLike
+	QuoteClassLike     = fra.QuoteClassLike
+	TagClassLike       = fra.TagClassLike
+	VersionClassLike   = fra.VersionClassLike
+)
+
+type (
+	BinaryLike    = fra.BinaryLike
+	NameLike      = fra.NameLike
+	NarrativeLike = fra.NarrativeLike
+	PatternLike   = fra.PatternLike
+	QuoteLike     = fra.QuoteLike
+	TagLike       = fra.TagLike
+	VersionLike   = fra.VersionLike
+)
+
+type (
+	Accessible[V any] = fra.Accessible[V]
+	Searchable[V any] = fra.Searchable[V]
+	Sequential[V any] = fra.Sequential[V]
+	Spectral[V any]   = fra.Spectral[V]
+)
+
+func BinaryClass() BinaryClassLike {
+	return fra.BinaryClass()
+}
+
+func Binary(
+	value ...any,
+) BinaryLike {
+	if len(value) == 0 {
+		return BinaryClass().Binary([]byte{})
+	}
+	switch actual := value[0].(type) {
+	case string:
+		return BinaryClass().BinaryFromString(actual)
+	case []byte:
+		return BinaryClass().Binary(actual)
+	case fra.Sequential[byte]:
+		return BinaryClass().BinaryFromSequence(actual)
+	default:
+		return BinaryClass().Binary([]byte{})
+	}
+}
+
+func NameClass() NameClassLike {
+	return fra.NameClass()
+}
+
+func Name(
+	value ...any,
+) NameLike {
+	if len(value) == 0 {
+		return NameClass().Name([]fra.Identifier{})
+	}
+	switch actual := value[0].(type) {
+	case string:
+		return NameClass().NameFromString(actual)
+	case []fra.Identifier:
+		return NameClass().Name(actual)
+	case fra.Sequential[fra.Identifier]:
+		return NameClass().NameFromSequence(actual)
+	default:
+		return NameClass().Name([]fra.Identifier{})
+	}
+}
+
+func NarrativeClass() NarrativeClassLike {
+	return fra.NarrativeClass()
+}
+
+func Narrative(
+	value ...any,
+) NarrativeLike {
+	if len(value) == 0 {
+		return NarrativeClass().Narrative([]fra.Line{})
+	}
+	switch actual := value[0].(type) {
+	case string:
+		return NarrativeClass().NarrativeFromString(actual)
+	case []fra.Line:
+		return NarrativeClass().Narrative(actual)
+	case fra.Sequential[fra.Line]:
+		return NarrativeClass().NarrativeFromSequence(actual)
+	default:
+		return NarrativeClass().Narrative([]fra.Line{})
+	}
+}
+
+func PatternClass() PatternClassLike {
+	return fra.PatternClass()
+}
+
+func Pattern(
+	value ...any,
+) PatternLike {
+	if len(value) == 0 {
+		return PatternClass().None()
+	}
+	switch actual := value[0].(type) {
+	case string:
+		return PatternClass().PatternFromString(actual)
+	case []fra.Character:
+		return PatternClass().Pattern(actual)
+	case fra.Sequential[fra.Character]:
+		return PatternClass().PatternFromSequence(actual)
+	default:
+		return PatternClass().None()
+	}
+}
+
+func QuoteClass() QuoteClassLike {
+	return fra.QuoteClass()
+}
+
+func Quote(
+	value ...any,
+) QuoteLike {
+	if len(value) == 0 {
+		return QuoteClass().QuoteFromString(`""`)
+	}
+	switch actual := value[0].(type) {
+	case string:
+		if actual[0] == '"' {
+			return QuoteClass().QuoteFromString(actual)
+		} else {
+			return QuoteClass().QuoteFromString(`"` + actual + `"`)
+		}
+	case []fra.Character:
+		return QuoteClass().Quote(actual)
+	case fra.Sequential[fra.Character]:
+		return QuoteClass().QuoteFromSequence(actual)
+	default:
+		return QuoteClass().QuoteFromString(`""`)
+	}
+}
+
+func TagClass() TagClassLike {
+	return fra.TagClass()
+}
+
+func Tag(
+	value ...any,
+) TagLike {
+	if len(value) == 0 {
+		return TagClass().TagWithSize(20)
+	}
+	switch actual := value[0].(type) {
+	case string:
+		return TagClass().TagFromString(actual)
+	case []byte:
+		return TagClass().Tag(actual)
+	case fra.Sequential[byte]:
+		return TagClass().TagFromSequence(actual)
+	case Cardinal:
+		return TagClass().TagWithSize(actual)
+	default:
+		return TagClass().TagWithSize(20)
+	}
+}
+
+func VersionClass() VersionClassLike {
+	return fra.VersionClass()
+}
+
+func Version(
+	value ...any,
+) VersionLike {
+	if len(value) == 0 {
+		return VersionClass().Version([]Ordinal{1})
+	}
+	switch actual := value[0].(type) {
+	case string:
+		return VersionClass().VersionFromString(actual)
+	case []Ordinal:
+		return VersionClass().Version(actual)
+	case fra.Sequential[Ordinal]:
+		return VersionClass().VersionFromSequence(actual)
+	default:
+		return VersionClass().Version([]Ordinal{})
 	}
 }
 
@@ -1517,178 +1606,165 @@ func Spectrum[V fra.Spectral[V]](
 	)
 }
 
-// Strings
+// Collections
 
 type (
-	Cardinal = uti.Cardinal
-	Index    = uti.Index
-	Ordinal  = uti.Ordinal
+	AssociationClassLike[K comparable, V any] = fra.AssociationClassLike[K, V]
+	CatalogClassLike[K comparable, V any]     = fra.CatalogClassLike[K, V]
+	ListClassLike[V any]                      = fra.ListClassLike[V]
+	QueueClassLike[V any]                     = fra.QueueClassLike[V]
+	SetClassLike[V any]                       = fra.SetClassLike[V]
+	StackClassLike[V any]                     = fra.StackClassLike[V]
 )
 
 type (
-	Character  = fra.Character
-	Identifier = fra.Identifier
-	Line       = fra.Line
+	AssociationLike[K comparable, V any] = fra.AssociationLike[K, V]
+	CatalogLike[K comparable, V any]     = fra.CatalogLike[K, V]
+	ListLike[V any]                      = fra.ListLike[V]
+	QueueLike[V any]                     = fra.QueueLike[V]
+	SetLike[V any]                       = fra.SetLike[V]
+	StackLike[V any]                     = fra.StackLike[V]
 )
 
 type (
-	BinaryClassLike    = fra.BinaryClassLike
-	NameClassLike      = fra.NameClassLike
-	NarrativeClassLike = fra.NarrativeClassLike
-	PatternClassLike   = fra.PatternClassLike
-	QuoteClassLike     = fra.QuoteClassLike
-	TagClassLike       = fra.TagClassLike
-	VersionClassLike   = fra.VersionClassLike
+	Associative[K comparable, V any] = fra.Associative[K, V]
+	Elastic[V any]                   = fra.Elastic[V]
+	Fifo[V any]                      = fra.Fifo[V]
+	Lifo[V any]                      = fra.Lifo[V]
+	Malleable[V any]                 = fra.Malleable[V]
+	Sortable[V any]                  = fra.Sortable[V]
+	Synchronized                     = fra.Synchronized
+	Updatable[V any]                 = fra.Updatable[V]
 )
 
-type (
-	BinaryLike    = fra.BinaryLike
-	NameLike      = fra.NameLike
-	NarrativeLike = fra.NarrativeLike
-	PatternLike   = fra.PatternLike
-	QuoteLike     = fra.QuoteLike
-	TagLike       = fra.TagLike
-	VersionLike   = fra.VersionLike
-)
-
-type (
-	Accessible[V any] = fra.Accessible[V]
-	Searchable[V any] = fra.Searchable[V]
-	Sequential[V any] = fra.Sequential[V]
-	Spectral[V any]   = fra.Spectral[V]
-)
-
-func BinaryClass() BinaryClassLike {
-	return fra.BinaryClass()
+func AssociationClass[K comparable, V any]() AssociationClassLike[K, V] {
+	return fra.AssociationClass[K, V]()
 }
 
-func Binary(
-	value any,
-) BinaryLike {
-	switch actual := value.(type) {
+func Association[K comparable, V any](
+	key K,
+	value V,
+) AssociationLike[K, V] {
+	return AssociationClass[K, V]().Association(
+		key,
+		value,
+	)
+}
+
+func CatalogClass[K comparable, V any]() CatalogClassLike[K, V] {
+	return fra.CatalogClass[K, V]()
+}
+
+func Catalog[K comparable, V any](
+	value ...any,
+) CatalogLike[K, V] {
+	if len(value) == 0 {
+		return fra.Catalog[K, V]()
+	}
+	switch actual := value[0].(type) {
 	case string:
-		return BinaryClass().BinaryFromString(actual)
-	case []byte:
-		return BinaryClass().Binary(actual)
-	case fra.Sequential[byte]:
-		return BinaryClass().BinaryFromSequence(actual)
+		return ParseSource(actual).GetEntity().(CatalogLike[K, V])
+	case []AssociationLike[K, V]:
+		return fra.CatalogFromArray(actual)
+	case map[K]V:
+		return fra.CatalogFromMap(actual)
+	case Sequential[AssociationLike[K, V]]:
+		return fra.CatalogFromSequence(actual)
 	default:
-		return BinaryClass().Binary([]byte{})
+		return fra.Catalog[K, V]()
 	}
 }
 
-func NameClass() NameClassLike {
-	return fra.NameClass()
+func ListClass[V any]() ListClassLike[V] {
+	return fra.ListClass[V]()
 }
 
-func Name(
-	value any,
-) NameLike {
-	switch actual := value.(type) {
+func List[V any](
+	value ...any,
+) ListLike[V] {
+	if len(value) == 0 {
+		return ListClass[V]().List()
+	}
+	switch actual := value[0].(type) {
 	case string:
-		return NameClass().NameFromString(actual)
-	case []fra.Identifier:
-		return NameClass().Name(actual)
-	case fra.Sequential[fra.Identifier]:
-		return NameClass().NameFromSequence(actual)
+		return ParseSource(actual).GetEntity().(ListLike[V])
+	case []V:
+		return ListClass[V]().ListFromArray(actual)
+	case fra.Sequential[V]:
+		return ListClass[V]().ListFromSequence(actual)
 	default:
-		return NameClass().Name([]fra.Identifier{})
+		return ListClass[V]().List()
 	}
 }
 
-func NarrativeClass() NarrativeClassLike {
-	return fra.NarrativeClass()
+func QueueClass[V any]() QueueClassLike[V] {
+	return fra.QueueClass[V]()
 }
 
-func Narrative(
-	value any,
-) NarrativeLike {
-	switch actual := value.(type) {
-	case string:
-		return NarrativeClass().NarrativeFromString(actual)
-	case []fra.Line:
-		return NarrativeClass().Narrative(actual)
-	case fra.Sequential[fra.Line]:
-		return NarrativeClass().NarrativeFromSequence(actual)
-	default:
-		return NarrativeClass().Narrative([]fra.Line{})
+func Queue[V any](
+	value ...any,
+) QueueLike[V] {
+	if len(value) == 0 {
+		return QueueClass[V]().Queue()
 	}
-}
-
-func PatternClass() PatternClassLike {
-	return fra.PatternClass()
-}
-
-func Pattern(
-	value any,
-) PatternLike {
-	switch actual := value.(type) {
+	switch actual := value[0].(type) {
 	case string:
-		return PatternClass().PatternFromString(actual)
-	case []fra.Character:
-		return PatternClass().Pattern(actual)
-	case fra.Sequential[fra.Character]:
-		return PatternClass().PatternFromSequence(actual)
-	default:
-		return PatternClass().Pattern([]fra.Character{})
-	}
-}
-
-func QuoteClass() QuoteClassLike {
-	return fra.QuoteClass()
-}
-
-func Quote(
-	value any,
-) QuoteLike {
-	switch actual := value.(type) {
-	case string:
-		return QuoteClass().QuoteFromString(actual)
-	case []fra.Character:
-		return QuoteClass().Quote(actual)
-	case fra.Sequential[fra.Character]:
-		return QuoteClass().QuoteFromSequence(actual)
-	default:
-		return QuoteClass().Quote([]fra.Character{})
-	}
-}
-
-func TagClass() TagClassLike {
-	return fra.TagClass()
-}
-
-func Tag(
-	value any,
-) TagLike {
-	switch actual := value.(type) {
-	case string:
-		return TagClass().TagFromString(actual)
-	case []byte:
-		return TagClass().Tag(actual)
-	case fra.Sequential[byte]:
-		return TagClass().TagFromSequence(actual)
+		return ParseSource(actual).GetEntity().(QueueLike[V])
 	case Cardinal:
-		return TagClass().TagWithSize(actual)
+		return QueueClass[V]().QueueWithCapacity(actual)
+	case []V:
+		return QueueClass[V]().QueueFromArray(actual)
+	case fra.Sequential[V]:
+		return QueueClass[V]().QueueFromSequence(actual)
 	default:
-		return TagClass().TagWithSize(20)
+		return QueueClass[V]().Queue()
 	}
 }
 
-func VersionClass() VersionClassLike {
-	return fra.VersionClass()
+func SetClass[V any]() SetClassLike[V] {
+	return fra.SetClass[V]()
 }
 
-func Version(
-	value any,
-) VersionLike {
-	switch actual := value.(type) {
+func Set[V any](
+	value ...any,
+) SetLike[V] {
+	if len(value) == 0 {
+		return SetClass[V]().Set()
+	}
+	switch actual := value[0].(type) {
 	case string:
-		return VersionClass().VersionFromString(actual)
-	case []Ordinal:
-		return VersionClass().Version(actual)
-	case fra.Sequential[Ordinal]:
-		return VersionClass().VersionFromSequence(actual)
+		return ParseSource(actual).GetEntity().(SetLike[V])
+	case fra.CollatorLike[V]:
+		return SetClass[V]().SetWithCollator(actual)
+	case []V:
+		return SetClass[V]().SetFromArray(actual)
+	case fra.Sequential[V]:
+		return SetClass[V]().SetFromSequence(actual)
 	default:
-		return VersionClass().Version([]Ordinal{})
+		return SetClass[V]().Set()
+	}
+}
+
+func StackClass[V any]() StackClassLike[V] {
+	return fra.StackClass[V]()
+}
+
+func Stack[V any](
+	value ...any,
+) StackLike[V] {
+	if len(value) == 0 {
+		return StackClass[V]().Stack()
+	}
+	switch actual := value[0].(type) {
+	case string:
+		return ParseSource(actual).GetEntity().(StackLike[V])
+	case Cardinal:
+		return StackClass[V]().StackWithCapacity(actual)
+	case []V:
+		return StackClass[V]().StackFromArray(actual)
+	case fra.Sequential[V]:
+		return StackClass[V]().StackFromSequence(actual)
+	default:
+		return StackClass[V]().Stack()
 	}
 }
