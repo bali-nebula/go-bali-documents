@@ -276,7 +276,7 @@ func TestRank(t *tes.T) {
 }
 
 func TestCompareMaximum(t *tes.T) {
-	var collator = doc.Collator[any](1)
+	var collator = doc.Collator[any](doc.Cardinal(1))
 	var list = doc.List[any]([]any{"foo", []int{1, 2, 3}})
 	defer func() {
 		if e := recover(); e != nil {
@@ -289,7 +289,7 @@ func TestCompareMaximum(t *tes.T) {
 }
 
 func TestRankMaximum(t *tes.T) {
-	var collator = doc.Collator[any](1)
+	var collator = doc.Collator[any](doc.Cardinal(1))
 	var list = doc.List[any]([]any{"foo", []int{1, 2, 3}})
 	defer func() {
 		if e := recover(); e != nil {
@@ -966,7 +966,7 @@ func TestQueueWithConcurrency(t *tes.T) {
 	defer group.Wait()
 
 	// Create a new queue with a specific capacity.
-	var queue = doc.Queue[int](12)
+	var queue = doc.Queue[int](doc.Cardinal(12))
 	ass.True(t, queue.GetCapacity() == 12)
 	ass.True(t, queue.IsEmpty())
 	ass.True(t, queue.GetSize() == 0)
@@ -1307,7 +1307,7 @@ func TestStackConstructors(t *tes.T) {
 }
 
 func TestStackWithSmallCapacity(t *tes.T) {
-	var stack = doc.Stack[int](1)
+	var stack = doc.Stack[int](doc.Cardinal(1))
 	stack.AddValue(1)
 	defer func() {
 		if e := recover(); e != nil {
@@ -1357,7 +1357,7 @@ func TestUnits(t *tes.T) {
 }
 
 func TestZeroAngles(t *tes.T) {
-	var v = doc.Angle(0)
+	var v = doc.Angle()
 	ass.Equal(t, 0.0, v.AsIntrinsic())
 	ass.Equal(t, 0.0, v.AsFloat())
 	ass.Equal(t, "~0", v.AsString())
@@ -1734,7 +1734,7 @@ func TestNegativePureImaginaries(t *tes.T) {
 }
 
 func TestNumber(t *tes.T) {
-	var v = doc.Number(1.0, mat.Pi)
+	var v = doc.Polar(1.0, mat.Pi)
 	ass.Equal(t, -1.0+0i, v.AsIntrinsic())
 	ass.True(t, v.IsNegative())
 	ass.Equal(t, -1.0, v.AsFloat())
@@ -1742,6 +1742,13 @@ func TestNumber(t *tes.T) {
 	ass.Equal(t, 0.0, v.GetImaginary())
 	ass.Equal(t, 1.0, v.GetMagnitude())
 	ass.Equal(t, mat.Pi, v.GetPhase())
+
+	v = doc.Rectangular(3.0, 4.0)
+	ass.Equal(t, 3.0+4.0i, v.AsIntrinsic())
+	ass.False(t, v.IsNegative())
+	ass.Equal(t, 3.0, v.GetReal())
+	ass.Equal(t, 4.0, v.GetImaginary())
+	ass.Equal(t, 5.0, v.GetMagnitude())
 
 	v = doc.Number("5e^~1i")
 	ass.Equal(t, 5.0, v.GetMagnitude())
@@ -2665,8 +2672,8 @@ func TestContinuumConstructors(t *tes.T) {
 
 	var probabilities = doc.ContinuumClass[doc.ProbabilityLike]().Continuum(
 		doc.Inclusive,
-		doc.Probability(0),
-		doc.Probability(1),
+		doc.Probability(0.0),
+		doc.Probability(1.0),
 		doc.Inclusive,
 	)
 	ass.Equal(t, "[p0..p1]", fmt.Sprintf("%v", probabilities))
