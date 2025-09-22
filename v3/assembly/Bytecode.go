@@ -108,8 +108,8 @@ func (v bytecode_) IsEmpty() bool {
 	return len(v.AsIntrinsic()) == 0
 }
 
-func (v bytecode_) GetSize() uti.Cardinal {
-	return uti.Cardinal(len(v.AsIntrinsic()))
+func (v bytecode_) GetSize() uint {
+	return uti.ArraySize(v.AsIntrinsic())
 }
 
 func (v bytecode_) AsArray() []InstructionLike {

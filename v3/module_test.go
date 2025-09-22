@@ -68,7 +68,7 @@ func TestParameterAccess(t *tes.T) {
 func TestObjectAccess(t *tes.T) {
 	var source = `[ ]`
 	var component = doc.ParseSource(source)
-	var index uti.Index = 1
+	var index = 1
 	var object = component.GetObject(index)
 	ass.Equal(t, nil, object)
 
@@ -192,7 +192,7 @@ func TestObjectAccess(t *tes.T) {
 ]`
 	component = doc.ParseSource(source)
 	index = 1
-	var index2 uti.Index = 2
+	var index2 = 2
 	object = component.GetObject(index, index2)
 	ass.Equal(t, "2", doc.FormatComponent(object))
 	index = 2
@@ -210,7 +210,7 @@ func TestObjectAccess(t *tes.T) {
 	ass.Equal(t, "~τ", doc.FormatComponent(object))
 	index = 2
 	key2 = doc.Symbol("alpha")
-	var index3 uti.Index = -1
+	var index3 = -1
 	component.RemoveObject(index, key2, index3)
 	object = component.GetObject(index, key2, index3)
 	ass.Equal(t, "'b'", doc.FormatComponent(object))
@@ -276,7 +276,7 @@ func TestRank(t *tes.T) {
 }
 
 func TestCompareMaximum(t *tes.T) {
-	var collator = doc.Collator[any](doc.Cardinal(1))
+	var collator = doc.Collator[any](1)
 	var list = doc.List[any]([]any{"foo", []int{1, 2, 3}})
 	defer func() {
 		if e := recover(); e != nil {
@@ -289,7 +289,7 @@ func TestCompareMaximum(t *tes.T) {
 }
 
 func TestRankMaximum(t *tes.T) {
-	var collator = doc.Collator[any](doc.Cardinal(1))
+	var collator = doc.Collator[any](1)
 	var list = doc.List[any]([]any{"foo", []int{1, 2, 3}})
 	defer func() {
 		if e := recover(); e != nil {
@@ -966,7 +966,7 @@ func TestQueueWithConcurrency(t *tes.T) {
 	defer group.Wait()
 
 	// Create a new queue with a specific capacity.
-	var queue = doc.Queue[int](doc.Cardinal(12))
+	var queue = doc.Queue[int](12)
 	ass.True(t, queue.GetCapacity() == 12)
 	ass.True(t, queue.IsEmpty())
 	ass.True(t, queue.GetSize() == 0)
@@ -1307,7 +1307,7 @@ func TestStackConstructors(t *tes.T) {
 }
 
 func TestStackWithSmallCapacity(t *tes.T) {
-	var stack = doc.Stack[int](doc.Cardinal(1))
+	var stack = doc.Stack[int](1)
 	stack.AddValue(1)
 	defer func() {
 		if e := recover(); e != nil {
@@ -1523,25 +1523,24 @@ var DurationClass = doc.DurationClass()
 
 func TestZeroDurations(t *tes.T) {
 	var v = doc.Duration(0)
-	ass.Equal(t, 0, v.AsInteger())
-	ass.False(t, v.IsNegative())
-	ass.Equal(t, 0, v.AsIntrinsic())
-	ass.Equal(t, 0.0, v.AsMilliseconds())
-	ass.Equal(t, 0.0, v.AsSeconds())
-	ass.Equal(t, 0.0, v.AsMinutes())
-	ass.Equal(t, 0.0, v.AsHours())
-	ass.Equal(t, 0.0, v.AsDays())
-	ass.Equal(t, 0.0, v.AsWeeks())
-	ass.Equal(t, 0.0, v.AsMonths())
-	ass.Equal(t, 0.0, v.AsYears())
-	ass.Equal(t, 0, v.GetMilliseconds())
-	ass.Equal(t, 0, v.GetSeconds())
-	ass.Equal(t, 0, v.GetMinutes())
-	ass.Equal(t, 0, v.GetHours())
-	ass.Equal(t, 0, v.GetDays())
-	ass.Equal(t, 0, v.GetWeeks())
-	ass.Equal(t, 0, v.GetMonths())
-	ass.Equal(t, 0, v.GetYears())
+	ass.True(t, v.AsInteger() == 0)
+	ass.True(t, v.AsIntrinsic() == 0)
+	ass.True(t, v.AsMilliseconds() == 0)
+	ass.True(t, v.AsSeconds() == 0)
+	ass.True(t, v.AsMinutes() == 0)
+	ass.True(t, v.AsHours() == 0)
+	ass.True(t, v.AsDays() == 0)
+	ass.True(t, v.AsWeeks() == 0)
+	ass.True(t, v.AsMonths() == 0)
+	ass.True(t, v.AsYears() == 0)
+	ass.True(t, v.GetMilliseconds() == 0)
+	ass.True(t, v.GetSeconds() == 0)
+	ass.True(t, v.GetMinutes() == 0)
+	ass.True(t, v.GetHours() == 0)
+	ass.True(t, v.GetDays() == 0)
+	ass.True(t, v.GetWeeks() == 0)
+	ass.True(t, v.GetMonths() == 0)
+	ass.True(t, v.GetYears() == 0)
 }
 
 func TestStringDurations(t *tes.T) {
@@ -1553,26 +1552,25 @@ func TestStringDurations(t *tes.T) {
 
 func TestDurations(t *tes.T) {
 	var v = doc.Duration(60000)
-	ass.Equal(t, "~PT1M", v.AsString())
-	ass.Equal(t, 60000, v.AsInteger())
-	ass.False(t, v.IsNegative())
-	ass.Equal(t, 60000, v.AsIntrinsic())
-	ass.Equal(t, 60000.0, v.AsMilliseconds())
-	ass.Equal(t, 60.0, v.AsSeconds())
-	ass.Equal(t, 1.0, v.AsMinutes())
-	ass.Equal(t, 0.016666666666666666, v.AsHours())
-	ass.Equal(t, 0.0006944444444444445, v.AsDays())
-	ass.Equal(t, 9.92063492063492e-05, v.AsWeeks())
-	ass.Equal(t, 2.2815891724904232e-05, v.AsMonths())
-	ass.Equal(t, 1.9013243104086858e-06, v.AsYears())
-	ass.Equal(t, 0, v.GetMilliseconds())
-	ass.Equal(t, 0, v.GetSeconds())
-	ass.Equal(t, 1, v.GetMinutes())
-	ass.Equal(t, 0, v.GetHours())
-	ass.Equal(t, 0, v.GetDays())
-	ass.Equal(t, 0, v.GetWeeks())
-	ass.Equal(t, 0, v.GetMonths())
-	ass.Equal(t, 0, v.GetYears())
+	ass.True(t, v.AsString() == "~PT1M")
+	ass.True(t, v.AsInteger() == 60000)
+	ass.True(t, v.AsIntrinsic() == 60000)
+	ass.True(t, v.AsMilliseconds() == 60000)
+	ass.True(t, v.AsSeconds() == 60)
+	ass.True(t, v.AsMinutes() == 1)
+	ass.True(t, v.AsHours() == 0.016666666666666666)
+	ass.True(t, v.AsDays() == 0.0006944444444444445)
+	ass.True(t, v.AsWeeks() == 9.92063492063492e-05)
+	ass.True(t, v.AsMonths() == 2.2815891724904232e-05)
+	ass.True(t, v.AsYears() == 1.9013243104086858e-06)
+	ass.True(t, v.GetMilliseconds() == 0)
+	ass.True(t, v.GetSeconds() == 0)
+	ass.True(t, v.GetMinutes() == 1)
+	ass.True(t, v.GetHours() == 0)
+	ass.True(t, v.GetDays() == 0)
+	ass.True(t, v.GetWeeks() == 0)
+	ass.True(t, v.GetMonths() == 0)
+	ass.True(t, v.GetYears() == 0)
 }
 
 var GlyphClass = doc.GlyphClass()
@@ -1620,14 +1618,14 @@ func TestIntegerMoments(t *tes.T) {
 	ass.Equal(t, 2047.9320383416004, v.AsWeeks())
 	ass.Equal(t, 470.9919881193849, v.AsMonths())
 	ass.Equal(t, 39.24933234328208, v.AsYears())
-	ass.Equal(t, 789, v.GetMilliseconds())
-	ass.Equal(t, 56, v.GetSeconds())
-	ass.Equal(t, 34, v.GetMinutes())
-	ass.Equal(t, 12, v.GetHours())
-	ass.Equal(t, 1, v.GetDays())
-	ass.Equal(t, 14, v.GetWeeks())
-	ass.Equal(t, 4, v.GetMonths())
-	ass.Equal(t, 2009, v.GetYears())
+	ass.True(t, v.GetMilliseconds() == 789)
+	ass.True(t, v.GetSeconds() == 56)
+	ass.True(t, v.GetMinutes() == 34)
+	ass.True(t, v.GetHours() == 12)
+	ass.True(t, v.GetDays() == 1)
+	ass.True(t, v.GetWeeks() == 14)
+	ass.True(t, v.GetMonths() == 4)
+	ass.True(t, v.GetYears() == 2009)
 }
 
 func TestStringMoments(t *tes.T) {
@@ -2495,8 +2493,7 @@ func TestQuotesLibrary(t *tes.T) {
 }
 
 func TestStringTags(t *tes.T) {
-	var size uti.Cardinal
-	for size = 8; size < 33; size++ {
+	for size := 8; size < 33; size++ {
 		var t1 = doc.Tag(size)
 		ass.Equal(t, len(t1.AsString()), 1+int(mat.Ceil(float64(size)*8.0/5.0)))
 		var s1 = t1.AsString()
@@ -2513,20 +2510,20 @@ func TestVersion(t *tes.T) {
 	ass.Equal(t, "v1.2.3", v1.AsString())
 	ass.False(t, v1.IsEmpty())
 	ass.Equal(t, 3, int(v1.GetSize()))
-	ass.Equal(t, uti.Ordinal(1), v1.GetValue(1))
-	ass.Equal(t, uti.Ordinal(3), v1.GetValue(-1))
+	ass.Equal(t, uint(1), v1.GetValue(1))
+	ass.Equal(t, uint(3), v1.GetValue(-1))
 	var v3 = doc.Version(v1.GetValues(1, 2))
 	ass.Equal(t, 2, int(v1.GetIndex(2)))
 	ass.Equal(t, "v1.2", v3.AsString())
 }
 
 func TestVersionsLibrary(t *tes.T) {
-	var v1 = doc.Version([]uti.Ordinal{1})
-	var v2 = doc.Version([]uti.Ordinal{2, 3})
+	var v1 = doc.Version([]uint{1})
+	var v2 = doc.Version([]uint{2, 3})
 	var class = doc.VersionClass()
 
 	var v3 = class.Concatenate(v1, v2)
-	ass.Equal(t, []uti.Ordinal{1, 2, 3}, v3.AsIntrinsic())
+	ass.Equal(t, []uint{1, 2, 3}, v3.AsIntrinsic())
 	ass.False(t, class.IsValidNextVersion(v1, v1))
 	ass.Equal(t, "v2", class.GetNextVersion(v1, 0).AsString())
 	ass.Equal(t, "v2", class.GetNextVersion(v1, 1).AsString())
@@ -2582,15 +2579,15 @@ func TestIntervalConstructors(t *tes.T) {
 		doc.Inclusive,
 	)
 	ass.Equal(t, 2419200000, int(durations.GetSize()))
-	ass.Equal(t, "(~P0W..~P4W]", fmt.Sprintf("%v", durations))
+	ass.Equal(t, "(..~P4W]", fmt.Sprintf("%v", durations))
 
 	durations = doc.Interval[doc.DurationLike](
 		doc.Inclusive,
 		doc.Duration("~P5D"),
-		doc.DurationClass().Undefined(),
+		doc.Duration(0),
 		doc.Exclusive,
 	)
-	ass.Equal(t, -432000001, int(durations.GetSize()))
+	ass.Equal(t, -432000000, int(durations.GetSize()))
 	ass.Equal(t, "[~P5D..)", fmt.Sprintf("%v", durations))
 
 	var moments = doc.Interval[doc.MomentLike](

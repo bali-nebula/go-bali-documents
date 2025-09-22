@@ -95,7 +95,7 @@ func (v *component_) GetObject(
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
 			var objects = collection.GetObjects()
-			var index = key.(uti.Index)
+			var index = key.(int)
 			object = v.getItem(objects, index, indices...)
 		case AttributesLike:
 			var associations = collection.GetAssociations()
@@ -127,7 +127,7 @@ func (v *component_) SetObject(
 		case ItemsLike:
 			switch objects := collection.GetObjects().(type) {
 			case fra.ListLike[ObjectLike]:
-				var index = key.(uti.Index)
+				var index = key.(int)
 				v.setItem(objects, object, index, indices...)
 			default:
 				var message = fmt.Sprintf(
@@ -154,7 +154,7 @@ func (v *component_) RemoveObject(
 		case ItemsLike:
 			switch objects := collection.GetObjects().(type) {
 			case fra.ListLike[ObjectLike]:
-				var index = key.(uti.Index)
+				var index = key.(int)
 				object = v.removeItem(objects, index, indices...)
 			default:
 				var message = fmt.Sprintf(
@@ -177,11 +177,11 @@ func (v *component_) RemoveObject(
 
 func (v *component_) getItem(
 	objects fra.Sequential[ObjectLike],
-	index uti.Index,
+	index int,
 	indices ...any,
 ) ObjectLike {
 	var object ObjectLike
-	var size = uti.Index(objects.GetSize())
+	var size = int(objects.GetSize())
 	if size == 0 {
 		// The list of objects is empty.
 		return object
@@ -205,7 +205,7 @@ func (v *component_) getItem(
 func (v *component_) setItem(
 	objects fra.ListLike[ObjectLike],
 	object ObjectLike,
-	index uti.Index,
+	index int,
 	indices ...any,
 ) {
 	if index == 0 && len(indices) == 0 {
@@ -213,7 +213,7 @@ func (v *component_) setItem(
 		objects.AppendValue(object)
 		return
 	}
-	var size = uti.Index(objects.GetSize())
+	var size = int(objects.GetSize())
 	if size == 0 {
 		// The list is empty.
 		return
@@ -231,16 +231,16 @@ func (v *component_) setItem(
 		component.SetObject(object, indices...)
 		return
 	}
-	objects.SetValue(uti.Index(index), object)
+	objects.SetValue(index, object)
 }
 
 func (v *component_) removeItem(
 	objects fra.ListLike[ObjectLike],
-	index uti.Index,
+	index int,
 	indices ...any,
 ) ObjectLike {
 	var object ObjectLike
-	var size = uti.Index(objects.GetSize())
+	var size = int(objects.GetSize())
 	if size == 0 {
 		// The list of objects is empty.
 		return object

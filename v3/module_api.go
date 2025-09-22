@@ -36,7 +36,6 @@ import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
-	uti "github.com/craterdog/go-missing-utilities/v7"
 	uri "net/url"
 )
 
@@ -935,7 +934,6 @@ func FormatDocument(
 type (
 	Event       = fra.Event
 	Rank        = fra.Rank
-	Slot        = fra.Slot
 	State       = fra.State
 	Transitions = fra.Transitions
 )
@@ -979,7 +977,9 @@ func Collator[V any](
 		return CollatorClass[V]().Collator()
 	}
 	switch actual := value[0].(type) {
-	case Cardinal:
+	case int:
+		return CollatorClass[V]().CollatorWithMaximumDepth(uint(actual))
+	case uint:
 		return CollatorClass[V]().CollatorWithMaximumDepth(actual)
 	default:
 		return CollatorClass[V]().Collator()
@@ -1142,7 +1142,7 @@ func Duration(
 	value ...any,
 ) DurationLike {
 	if len(value) == 0 {
-		return DurationClass().Undefined()
+		return DurationClass().Duration(0)
 	}
 	switch actual := value[0].(type) {
 	case string:
@@ -1150,7 +1150,7 @@ func Duration(
 	case int:
 		return DurationClass().Duration(actual)
 	default:
-		return DurationClass().Undefined()
+		return DurationClass().Duration(0)
 	}
 }
 
@@ -1286,7 +1286,7 @@ func Resource(
 	value ...any,
 ) ResourceLike {
 	if len(value) == 0 {
-		return ResourceClass().ResourceFromString("<>") // TBD - Add Undefined().
+		return ResourceClass().Undefined()
 	}
 	switch actual := value[0].(type) {
 	case string:
@@ -1298,7 +1298,7 @@ func Resource(
 	case *uri.URL:
 		return ResourceClass().ResourceFromUri(actual)
 	default:
-		return ResourceClass().ResourceFromString("<>") // TBD - Add Undefined().
+		return ResourceClass().Undefined()
 	}
 }
 
@@ -1310,7 +1310,7 @@ func Symbol(
 	value ...any,
 ) SymbolLike {
 	if len(value) == 0 {
-		return SymbolClass().SymbolFromString("$") // TBD - Add Undefined().
+		return SymbolClass().Undefined()
 	}
 	switch actual := value[0].(type) {
 	case string:
@@ -1320,17 +1320,11 @@ func Symbol(
 			return SymbolClass().Symbol(actual)
 		}
 	default:
-		return SymbolClass().SymbolFromString("$") // TBD - Add Undefined().
+		return SymbolClass().Undefined()
 	}
 }
 
 // Strings
-
-type (
-	Cardinal = uti.Cardinal
-	Index    = uti.Index
-	Ordinal  = uti.Ordinal
-)
 
 type (
 	Character  = fra.Character
@@ -1496,7 +1490,9 @@ func Tag(
 		return TagClass().Tag(actual)
 	case fra.Sequential[byte]:
 		return TagClass().TagFromSequence(actual)
-	case Cardinal:
+	case int:
+		return TagClass().TagWithSize(uint(actual))
+	case uint:
 		return TagClass().TagWithSize(actual)
 	default:
 		return TagClass().TagWithSize(20)
@@ -1511,17 +1507,17 @@ func Version(
 	value ...any,
 ) VersionLike {
 	if len(value) == 0 {
-		return VersionClass().Version([]Ordinal{1})
+		return VersionClass().Version([]uint{1})
 	}
 	switch actual := value[0].(type) {
 	case string:
 		return VersionClass().VersionFromString(actual)
-	case []Ordinal:
+	case []uint:
 		return VersionClass().Version(actual)
-	case fra.Sequential[Ordinal]:
+	case fra.Sequential[uint]:
 		return VersionClass().VersionFromSequence(actual)
 	default:
-		return VersionClass().Version([]Ordinal{})
+		return VersionClass().Version([]uint{})
 	}
 }
 
@@ -1710,7 +1706,9 @@ func Queue[V any](
 	switch actual := value[0].(type) {
 	case string:
 		return ParseSource(actual).GetEntity().(QueueLike[V])
-	case Cardinal:
+	case int:
+		return QueueClass[V]().QueueWithCapacity(uint(actual))
+	case uint:
 		return QueueClass[V]().QueueWithCapacity(actual)
 	case []V:
 		return QueueClass[V]().QueueFromArray(actual)
@@ -1758,7 +1756,9 @@ func Stack[V any](
 	switch actual := value[0].(type) {
 	case string:
 		return ParseSource(actual).GetEntity().(StackLike[V])
-	case Cardinal:
+	case int:
+		return StackClass[V]().StackWithCapacity(uint(actual))
+	case uint:
 		return StackClass[V]().StackWithCapacity(actual)
 	case []V:
 		return StackClass[V]().StackFromArray(actual)
