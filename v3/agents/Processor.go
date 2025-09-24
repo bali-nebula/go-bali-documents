@@ -13,7 +13,6 @@
 package agents
 
 import (
-	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	fra "github.com/craterdog/go-component-framework/v7"
 )
@@ -82,7 +81,7 @@ func (v *processor_) ProcessBracket(
 }
 
 func (v *processor_) ProcessBytecode(
-	bytecode ass.BytecodeLike,
+	bytecode doc.BytecodeLike,
 ) {
 }
 

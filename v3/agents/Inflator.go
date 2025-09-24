@@ -14,7 +14,6 @@ package agents
 
 import (
 	fmt "fmt"
-	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
@@ -93,7 +92,7 @@ func (v *inflator_) ProcessBoolean(
 func (v *inflator_) ProcessBytecode(
 	bytecode string,
 ) {
-	v.stack_.AddValue(ass.BytecodeClass().BytecodeFromString(bytecode))
+	v.stack_.AddValue(doc.BytecodeClass().BytecodeFromString(bytecode))
 }
 
 func (v *inflator_) ProcessComment(

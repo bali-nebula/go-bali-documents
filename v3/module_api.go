@@ -32,7 +32,6 @@ package module
 
 import (
 	age "github.com/bali-nebula/go-bali-documents/v3/agents"
-	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
@@ -61,56 +60,6 @@ type (
 
 type (
 	Methodical = age.Methodical
-)
-
-// Assembly
-
-type (
-	Operation = ass.Operation
-	Modifier  = ass.Modifier
-	Operand   = ass.Operand
-)
-
-const (
-	JumpOperation         = ass.JumpOperation
-	PushOperation         = ass.PushOperation
-	PullOperation         = ass.PullOperation
-	LoadOperation         = ass.LoadOperation
-	SaveOperation         = ass.SaveOperation
-	DropOperation         = ass.DropOperation
-	CallOperation         = ass.CallOperation
-	SendOperation         = ass.SendOperation
-	OnAnyModifier         = ass.OnAnyModifier
-	OnNoneModifier        = ass.OnNoneModifier
-	OnFalseModifier       = ass.OnFalseModifier
-	OnEmptyModifier       = ass.OnEmptyModifier
-	LiteralModifier       = ass.LiteralModifier
-	ConstantModifier      = ass.ConstantModifier
-	ArgumentModifier      = ass.ArgumentModifier
-	HandlerModifier       = ass.HandlerModifier
-	ComponentModifier     = ass.ComponentModifier
-	ResultModifier        = ass.ResultModifier
-	ExceptionModifier     = ass.ExceptionModifier
-	DraftModifier         = ass.DraftModifier
-	ContractModifier      = ass.ContractModifier
-	VariableModifier      = ass.VariableModifier
-	MessageModifier       = ass.MessageModifier
-	With0Modifier         = ass.With0Modifier
-	With1Modifier         = ass.With1Modifier
-	With2Modifier         = ass.With2Modifier
-	With3Modifier         = ass.With3Modifier
-	ComponentWithModifier = ass.ComponentWithModifier
-	ContractWithModifier  = ass.ContractWithModifier
-)
-
-type (
-	BytecodeClassLike    = ass.BytecodeClassLike
-	InstructionClassLike = ass.InstructionClassLike
-)
-
-type (
-	BytecodeLike    = ass.BytecodeLike
-	InstructionLike = ass.InstructionLike
 )
 
 // Documents
@@ -156,6 +105,7 @@ type (
 	AcceptClauseClassLike     = doc.AcceptClauseClassLike
 	AttributesClassLike       = doc.AttributesClassLike
 	BreakClauseClassLike      = doc.BreakClauseClassLike
+	BytecodeClassLike         = doc.BytecodeClassLike
 	CheckoutClauseClassLike   = doc.CheckoutClauseClassLike
 	ComplementClassLike       = doc.ComplementClassLike
 	ComponentClassLike        = doc.ComponentClassLike
@@ -200,6 +150,7 @@ type (
 	AcceptClauseLike     = doc.AcceptClauseLike
 	AttributesLike       = doc.AttributesLike
 	BreakClauseLike      = doc.BreakClauseLike
+	BytecodeLike         = doc.BytecodeLike
 	CheckoutClauseLike   = doc.CheckoutClauseLike
 	ComplementLike       = doc.ComplementLike
 	ComponentLike        = doc.ComponentLike
@@ -292,52 +243,6 @@ func Visitor(
 	)
 }
 
-// Assembly
-
-func BytecodeClass() BytecodeClassLike {
-	return ass.BytecodeClass()
-}
-
-func Bytecode(
-	instructions []ass.InstructionLike,
-) BytecodeLike {
-	return BytecodeClass().Bytecode(
-		instructions,
-	)
-}
-
-func BytecodeFromString(
-	source string,
-) BytecodeLike {
-	return BytecodeClass().BytecodeFromString(
-		source,
-	)
-}
-
-func InstructionClass() InstructionClassLike {
-	return ass.InstructionClass()
-}
-
-func Instruction(
-	operation ass.Operation,
-	modifier ass.Modifier,
-	operand ass.Operand,
-) InstructionLike {
-	return InstructionClass().Instruction(
-		operation,
-		modifier,
-		operand,
-	)
-}
-
-func InstructionFromInteger(
-	integer uint16,
-) InstructionLike {
-	return InstructionClass().InstructionFromInteger(
-		integer,
-	)
-}
-
 // Documents
 
 func AcceptClauseClass() AcceptClauseClassLike {
@@ -370,6 +275,26 @@ func BreakClauseClass() BreakClauseClassLike {
 
 func BreakClause() BreakClauseLike {
 	return BreakClauseClass().BreakClause()
+}
+
+func BytecodeClass() BytecodeClassLike {
+	return doc.BytecodeClass()
+}
+
+func Bytecode(
+	value ...any,
+) BytecodeLike {
+	if len(value) == 0 {
+		return BytecodeClass().Bytecode([]uint16{0})
+	}
+	switch actual := value[0].(type) {
+	case string:
+		return BytecodeClass().BytecodeFromString(actual)
+	case []uint16:
+		return BytecodeClass().Bytecode(actual)
+	default:
+		return BytecodeClass().Bytecode([]uint16{0})
+	}
 }
 
 func CheckoutClauseClass() CheckoutClauseClassLike {

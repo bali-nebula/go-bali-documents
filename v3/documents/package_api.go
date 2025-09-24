@@ -134,6 +134,21 @@ type BreakClauseClassLike interface {
 }
 
 /*
+BytecodeClassLike is a class interface that declares the complete set of
+class constructors, constants and functions that must be supported by each
+concrete bytecode-like class.
+*/
+type BytecodeClassLike interface {
+	// Constructor Methods
+	Bytecode(
+		instructions []uint16,
+	) BytecodeLike
+	BytecodeFromString(
+		source string,
+	) BytecodeLike
+}
+
+/*
 CheckoutClauseClassLike is a class interface that declares the complete set of
 class constructors, constants and functions that must be supported by each
 concrete checkout-clause-like class.
@@ -653,6 +668,21 @@ of a concrete break-clause-like class.
 type BreakClauseLike interface {
 	// Principal Methods
 	GetClass() BreakClauseClassLike
+}
+
+/*
+BytecodeLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete bytecode-like class.
+*/
+type BytecodeLike interface {
+	// Principal Methods
+	GetClass() BytecodeClassLike
+	AsString() string
+	AsIntrinsic() []uint16
+
+	// Aspect Interfaces
+	fra.Sequential[uint16]
 }
 
 /*

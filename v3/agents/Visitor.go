@@ -14,7 +14,6 @@ package agents
 
 import (
 	fmt "fmt"
-	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
@@ -1477,7 +1476,7 @@ func (v *visitor_) visitPrimitive(
 		v.processor_.ProcessSymbol(actual)
 	case fra.BinaryLike:
 		v.processor_.ProcessBinary(actual)
-	case ass.BytecodeLike:
+	case doc.BytecodeLike:
 		v.processor_.ProcessBytecode(actual)
 	case fra.NameLike:
 		v.processor_.ProcessName(actual)

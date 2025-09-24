@@ -25,7 +25,6 @@ on interfaces, not on each other.
 package agents
 
 import (
-	ass "github.com/bali-nebula/go-bali-documents/v3/assembly"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
@@ -191,7 +190,7 @@ type Methodical interface {
 		bracket fra.Bracket,
 	)
 	ProcessBytecode(
-		bytecode ass.BytecodeLike,
+		bytecode doc.BytecodeLike,
 	)
 	ProcessComment(
 		comment string,
