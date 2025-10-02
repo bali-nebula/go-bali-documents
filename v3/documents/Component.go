@@ -85,26 +85,6 @@ func (v *component_) GetParameter(
 	return parameter
 }
 
-func (v *component_) GetObject(
-	indices ...any,
-) ObjectLike {
-	var object ObjectLike
-	if len(indices) > 0 {
-		var key = indices[0]
-		indices = indices[1:]
-		switch collection := v.GetEntity().(type) {
-		case ItemsLike:
-			var objects = collection.GetObjects()
-			var index = key.(int)
-			object = v.getItem(objects, index, indices...)
-		case AttributesLike:
-			var associations = collection.GetAssociations()
-			object = v.getAttribute(associations, key, indices...)
-		}
-	}
-	return object
-}
-
 func (v *component_) SetObject(
 	value any,
 	indices ...any,
@@ -141,6 +121,26 @@ func (v *component_) SetObject(
 			v.setAttribute(associations, key, object, indices...)
 		}
 	}
+}
+
+func (v *component_) GetObject(
+	indices ...any,
+) ObjectLike {
+	var object ObjectLike
+	if len(indices) > 0 {
+		var key = indices[0]
+		indices = indices[1:]
+		switch collection := v.GetEntity().(type) {
+		case ItemsLike:
+			var objects = collection.GetObjects()
+			var index = key.(int)
+			object = v.getItem(objects, index, indices...)
+		case AttributesLike:
+			var associations = collection.GetAssociations()
+			object = v.getAttribute(associations, key, indices...)
+		}
+	}
+	return object
 }
 
 func (v *component_) RemoveObject(

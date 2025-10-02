@@ -1225,13 +1225,13 @@ type Declarative interface {
 	GetParameter(
 		symbol fra.SymbolLike,
 	) ComponentLike
-	GetObject(
-		indices ...any,
-	) ObjectLike
 	SetObject(
 		value any,
 		indices ...any,
 	)
+	GetObject(
+		indices ...any,
+	) ObjectLike
 	RemoveObject(
 		indices ...any,
 	) ObjectLike
