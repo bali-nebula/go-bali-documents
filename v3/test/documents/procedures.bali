@@ -70,7 +70,7 @@
     } matching $worse do {
     } matching $worst do {
     }
-    post messages[last] to bag
+    send messages[last] to bag
     publish [
         $type: $messagePosted
         $messageId: #0123456789ABC
