@@ -825,26 +825,6 @@ func (v *processor_) PostprocessParameterization(
 ) {
 }
 
-func (v *processor_) PreprocessPostClause(
-	postClause doc.PostClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessPostClauseSlot(
-	postClause doc.PostClauseLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessPostClause(
-	postClause doc.PostClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
 func (v *processor_) PreprocessPrecedence(
 	precedence doc.PrecedenceLike,
 	index_ uint,
@@ -1120,6 +1100,26 @@ func (v *processor_) ProcessSelectClauseSlot(
 
 func (v *processor_) PostprocessSelectClause(
 	selectClause doc.SelectClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessSendClause(
+	sendClause doc.SendClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessSendClauseSlot(
+	sendClause doc.SendClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessSendClause(
+	sendClause doc.SendClauseLike,
 	index_ uint,
 	count_ uint,
 ) {

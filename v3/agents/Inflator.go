@@ -727,16 +727,6 @@ func (v *inflator_) PostprocessParameterization(
 	v.stack_.AddValue(doc.ParameterizationClass().Parameterization(catalog))
 }
 
-func (v *inflator_) PostprocessPostClause(
-	postClause not.PostClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	var bag = v.stack_.RemoveLast().(doc.ExpressionLike)
-	var message = v.stack_.RemoveLast().(doc.ExpressionLike)
-	v.stack_.AddValue(doc.PostClauseClass().PostClause(message, bag))
-}
-
 func (v *inflator_) PostprocessPrecedence(
 	precedence not.PrecedenceLike,
 	index_ uint,
@@ -877,6 +867,16 @@ func (v *inflator_) PostprocessSelectClause(
 	list.ReverseValues() // They were pulled off the stack in reverse order.
 	var expression = v.stack_.RemoveLast().(doc.ExpressionLike)
 	v.stack_.AddValue(doc.SelectClauseClass().SelectClause(expression, list))
+}
+
+func (v *inflator_) PostprocessSendClause(
+	sendClause not.SendClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var bag = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var message = v.stack_.RemoveLast().(doc.ExpressionLike)
+	v.stack_.AddValue(doc.SendClauseClass().SendClause(message, bag))
 }
 
 func (v *inflator_) ProcessStatementSlot(

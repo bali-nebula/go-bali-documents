@@ -704,29 +704,6 @@ func (v *validator_) PostprocessParameterization(
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) PreprocessPostClause(
-	postClause doc.PostClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) ProcessPostClauseSlot(
-	postClause doc.PostClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) PostprocessPostClause(
-	postClause doc.PostClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *validator_) PreprocessPrecedence(
 	precedence doc.PrecedenceLike,
 	index_ uint,
@@ -974,6 +951,29 @@ func (v *validator_) ProcessSelectClauseSlot(
 
 func (v *validator_) PostprocessSelectClause(
 	selectClause doc.SelectClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) PreprocessSendClause(
+	sendClause doc.SendClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) ProcessSendClauseSlot(
+	sendClause doc.SendClauseLike,
+	slot_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) PostprocessSendClause(
+	sendClause doc.SendClauseLike,
 	index_ uint,
 	count_ uint,
 ) {

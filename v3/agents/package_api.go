@@ -686,20 +686,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessPostClause(
-		postClause doc.PostClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessPostClauseSlot(
-		postClause doc.PostClauseLike,
-		slot_ uint,
-	)
-	PostprocessPostClause(
-		postClause doc.PostClauseLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessPrecedence(
 		precedence doc.PrecedenceLike,
 		index_ uint,
@@ -893,6 +879,20 @@ type Methodical interface {
 	)
 	PostprocessSelectClause(
 		selectClause doc.SelectClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessSendClause(
+		sendClause doc.SendClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessSendClauseSlot(
+		sendClause doc.SendClauseLike,
+		slot_ uint,
+	)
+	PostprocessSendClause(
+		sendClause doc.SendClauseLike,
 		index_ uint,
 		count_ uint,
 	)

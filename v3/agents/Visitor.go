@@ -902,14 +902,14 @@ func (v *visitor_) visitMainClause(
 			0,
 			0,
 		)
-	case doc.PostClauseLike:
-		v.processor_.PreprocessPostClause(
+	case doc.SendClauseLike:
+		v.processor_.PreprocessSendClause(
 			actual,
 			0,
 			0,
 		)
-		v.visitPostClause(actual)
-		v.processor_.PostprocessPostClause(
+		v.visitSendClause(actual)
+		v.processor_.PostprocessSendClause(
 			actual,
 			0,
 			0,
@@ -1371,10 +1371,10 @@ func (v *visitor_) visitParameterization(
 	}
 }
 
-func (v *visitor_) visitPostClause(
-	postClause doc.PostClauseLike,
+func (v *visitor_) visitSendClause(
+	sendClause doc.SendClauseLike,
 ) {
-	var message = postClause.GetMessage()
+	var message = sendClause.GetMessage()
 	v.processor_.PreprocessExpression(
 		message,
 		0,
@@ -1388,12 +1388,12 @@ func (v *visitor_) visitPostClause(
 	)
 
 	// Visit slot 1 between terms.
-	v.processor_.ProcessPostClauseSlot(
-		postClause,
+	v.processor_.ProcessSendClauseSlot(
+		sendClause,
 		1,
 	)
 
-	var bag = postClause.GetBag()
+	var bag = sendClause.GetBag()
 	v.processor_.PreprocessExpression(
 		bag,
 		0,

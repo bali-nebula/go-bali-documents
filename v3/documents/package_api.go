@@ -416,19 +416,6 @@ type ParameterizationClassLike interface {
 }
 
 /*
-PostClauseClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-post-clause-like class.
-*/
-type PostClauseClassLike interface {
-	// Constructor Methods
-	PostClause(
-		message ExpressionLike,
-		bag ExpressionLike,
-	) PostClauseLike
-}
-
-/*
 PrecedenceClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
 precedence-like class.
@@ -565,6 +552,19 @@ type SelectClauseClassLike interface {
 		expression ExpressionLike,
 		matchingClauses fra.Sequential[MatchingClauseLike],
 	) SelectClauseLike
+}
+
+/*
+SendClauseClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+send-clause-like class.
+*/
+type SendClauseClassLike interface {
+	// Constructor Methods
+	SendClause(
+		message ExpressionLike,
+		bag ExpressionLike,
+	) SendClauseLike
 }
 
 /*
@@ -982,20 +982,6 @@ type ParameterizationLike interface {
 }
 
 /*
-PostClauseLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete post-clause-like class.
-*/
-type PostClauseLike interface {
-	// Principal Methods
-	GetClass() PostClauseClassLike
-
-	// Attribute Methods
-	GetMessage() ExpressionLike
-	GetBag() ExpressionLike
-}
-
-/*
 PrecedenceLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete precedence-like class.
@@ -1143,6 +1129,20 @@ type SelectClauseLike interface {
 	// Attribute Methods
 	GetExpression() ExpressionLike
 	GetMatchingClauses() fra.Sequential[MatchingClauseLike]
+}
+
+/*
+SendClauseLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete send-clause-like class.
+*/
+type SendClauseLike interface {
+	// Principal Methods
+	GetClass() SendClauseClassLike
+
+	// Attribute Methods
+	GetMessage() ExpressionLike
+	GetBag() ExpressionLike
 }
 
 /*

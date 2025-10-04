@@ -127,7 +127,6 @@ type (
 	ObjectClassLike           = doc.ObjectClassLike
 	OnClauseClassLike         = doc.OnClauseClassLike
 	ParameterizationClassLike = doc.ParameterizationClassLike
-	PostClauseClassLike       = doc.PostClauseClassLike
 	PrecedenceClassLike       = doc.PrecedenceClassLike
 	PredicateClassLike        = doc.PredicateClassLike
 	ProcedureClassLike        = doc.ProcedureClassLike
@@ -139,6 +138,7 @@ type (
 	ReturnClauseClassLike     = doc.ReturnClauseClassLike
 	SaveClauseClassLike       = doc.SaveClauseClassLike
 	SelectClauseClassLike     = doc.SelectClauseClassLike
+	SendClauseClassLike       = doc.SendClauseClassLike
 	StatementClassLike        = doc.StatementClassLike
 	SubcomponentClassLike     = doc.SubcomponentClassLike
 	ThrowClauseClassLike      = doc.ThrowClauseClassLike
@@ -172,7 +172,6 @@ type (
 	ObjectLike           = doc.ObjectLike
 	OnClauseLike         = doc.OnClauseLike
 	ParameterizationLike = doc.ParameterizationLike
-	PostClauseLike       = doc.PostClauseLike
 	PrecedenceLike       = doc.PrecedenceLike
 	PredicateLike        = doc.PredicateLike
 	ProcedureLike        = doc.ProcedureLike
@@ -184,6 +183,7 @@ type (
 	ReturnClauseLike     = doc.ReturnClauseLike
 	SaveClauseLike       = doc.SaveClauseLike
 	SelectClauseLike     = doc.SelectClauseLike
+	SendClauseLike       = doc.SendClauseLike
 	StatementLike        = doc.StatementLike
 	SubcomponentLike     = doc.SubcomponentLike
 	ThrowClauseLike      = doc.ThrowClauseLike
@@ -579,20 +579,6 @@ func Parameterization(
 	)
 }
 
-func PostClauseClass() PostClauseClassLike {
-	return doc.PostClauseClass()
-}
-
-func PostClause(
-	message doc.ExpressionLike,
-	bag doc.ExpressionLike,
-) PostClauseLike {
-	return PostClauseClass().PostClause(
-		message,
-		bag,
-	)
-}
-
 func PrecedenceClass() PrecedenceClassLike {
 	return doc.PrecedenceClass()
 }
@@ -736,6 +722,20 @@ func SelectClause(
 	return SelectClauseClass().SelectClause(
 		expression,
 		matchingClauses,
+	)
+}
+
+func SendClauseClass() SendClauseClassLike {
+	return doc.SendClauseClass()
+}
+
+func SendClause(
+	message doc.ExpressionLike,
+	bag doc.ExpressionLike,
+) SendClauseLike {
+	return SendClauseClass().SendClause(
+		message,
+		bag,
 	)
 }
 

@@ -800,22 +800,6 @@ func (v *deflator_) PostprocessParameterization(
 	v.stack_.AddValue(not.Parameterization("(", parameters, ")"))
 }
 
-func (v *deflator_) PostprocessPostClause(
-	postClause doc.PostClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var bag = not.Bag(expression)
-	expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var message = not.Message(expression)
-	v.stack_.AddValue(
-		not.MessageHandling(
-			not.PostClause("post", message, "to", bag),
-		),
-	)
-}
-
 func (v *deflator_) PostprocessPrecedence(
 	precedence doc.PrecedenceLike,
 	index_ uint,
@@ -1022,6 +1006,22 @@ func (v *deflator_) PostprocessSelectClause(
 	v.stack_.AddValue(
 		not.FlowControl(
 			not.SelectClause("select", expression, matchingClauses),
+		),
+	)
+}
+
+func (v *deflator_) PostprocessSendClause(
+	sendClause doc.SendClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var bag = not.Bag(expression)
+	expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var message = not.Message(expression)
+	v.stack_.AddValue(
+		not.MessageHandling(
+			not.SendClause("send", message, "to", bag),
 		),
 	)
 }
