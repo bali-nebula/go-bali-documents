@@ -35,9 +35,6 @@ func (c *documentClass_) Document(
 	var instance = &document_{
 		// Initialize the instance attributes.
 		component_: component,
-
-		// Initialize the inherited aspects.
-		Declarative: component,
 	}
 	return instance
 }
@@ -69,9 +66,6 @@ func (v *document_) GetComponent() ComponentLike {
 type document_ struct {
 	// Declare the instance attributes.
 	component_ ComponentLike
-
-	// Declare the inherited aspects.
-	Declarative
 }
 
 // Class Structure

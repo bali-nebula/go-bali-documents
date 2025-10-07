@@ -37,9 +37,6 @@ func (c *objectClass_) Object(
 		// Initialize the instance attributes.
 		component_:    component,
 		optionalNote_: optionalNote,
-
-		// Initialize the inherited aspects.
-		Declarative: component,
 	}
 	return instance
 }
@@ -76,9 +73,6 @@ type object_ struct {
 	// Declare the instance attributes.
 	component_    ComponentLike
 	optionalNote_ string
-
-	// Declare the inherited aspects.
-	Declarative
 }
 
 // Class Structure

@@ -191,10 +191,6 @@ type (
 	WithClauseLike       = doc.WithClauseLike
 )
 
-type (
-	Declarative = doc.Declarative
-)
-
 // CLASS ACCESSORS
 
 // Agents

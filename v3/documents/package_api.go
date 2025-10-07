@@ -721,13 +721,23 @@ of a concrete component-like class.
 type ComponentLike interface {
 	// Principal Methods
 	GetClass() ComponentClassLike
+	GetParameter(
+		symbol fra.SymbolLike,
+	) ComponentLike
+	SetObject(
+		value any,
+		indices ...any,
+	)
+	GetObject(
+		indices ...any,
+	) ObjectLike
+	RemoveObject(
+		indices ...any,
+	) ObjectLike
 
 	// Attribute Methods
 	GetEntity() any
 	GetOptionalParameterization() ParameterizationLike
-
-	// Aspect Interfaces
-	Declarative
 }
 
 /*
@@ -791,9 +801,6 @@ type DocumentLike interface {
 
 	// Attribute Methods
 	GetComponent() ComponentLike
-
-	// Aspect Interfaces
-	Declarative
 }
 
 /*
@@ -949,9 +956,6 @@ type ObjectLike interface {
 	// Attribute Methods
 	GetComponent() ComponentLike
 	GetOptionalNote() string
-
-	// Aspect Interfaces
-	Declarative
 }
 
 /*
@@ -1216,23 +1220,3 @@ type WithClauseLike interface {
 }
 
 // ASPECT DECLARATIONS
-
-/*
-Declarative declares the set of method signatures that must be supported by
-all declarative documents.
-*/
-type Declarative interface {
-	GetParameter(
-		symbol fra.SymbolLike,
-	) ComponentLike
-	SetObject(
-		value any,
-		indices ...any,
-	)
-	GetObject(
-		indices ...any,
-	) ObjectLike
-	RemoveObject(
-		indices ...any,
-	) ObjectLike
-}

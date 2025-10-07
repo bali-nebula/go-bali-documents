@@ -55,18 +55,6 @@ func (v *component_) GetClass() ComponentClassLike {
 	return componentClass()
 }
 
-// Attribute Methods
-
-func (v *component_) GetEntity() any {
-	return v.entity_
-}
-
-func (v *component_) GetOptionalParameterization() ParameterizationLike {
-	return v.optionalParameterization_
-}
-
-// Declarative Methods
-
 func (v *component_) GetParameter(
 	symbol fra.SymbolLike,
 ) ComponentLike {
@@ -169,6 +157,16 @@ func (v *component_) RemoveObject(
 		}
 	}
 	return object
+}
+
+// Attribute Methods
+
+func (v *component_) GetEntity() any {
+	return v.entity_
+}
+
+func (v *component_) GetOptionalParameterization() ParameterizationLike {
+	return v.optionalParameterization_
 }
 
 // PROTECTED INTERFACE
