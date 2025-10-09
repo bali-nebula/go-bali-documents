@@ -1,13 +1,18 @@
 <img src="https://craterdog.com/images/CraterDog.png" width="50%">
 
-### _\* \* \* NOTICE \* \* \*_
-_This project is still under development and is for reference purposes only. If
-you are interested in this project or have suggestions on how to improve it feel
-free to contact us at [craterdog@gmail.com](mailto:craterdog@gmail.com)._
+## Go Bali Documents
 
 ### Overview
-This project provides a framework for manipulating documents containing _Bali
-Document Notation™_ ("Bali" for short).
+This project provides a powerful framework for manipulating documents containing
+Bali Document Notation™ ("Bali" for short).  It integrates the classes found in the
+[go-component-framework](https://github.com/craterdog/go-component-framework)
+with "smart" versions of the classes that were generated in the
+[go-document-notation](https://github.com/bali-nebula/go-document-notation)
+project.
+
+⚠️  This project is still under development and is for reference purposes only. If
+you are interested in this project or have suggestions on how to improve it feel
+free to contact us at [craterdog@gmail.com](mailto:craterdog@gmail.com).
 
 ### Quick Links
 For more information on this project click on the following links:
