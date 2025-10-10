@@ -35,7 +35,7 @@ func TestParsingRoundtrips(t *tes.T) {
 			filename = directory + filename
 			fmt.Println(filename)
 			var source = uti.ReadFile(filename)
-			var document = doc.ParseSource(source)
+			var document = doc.ParseDocument(source)
 			var formatted = doc.FormatDocument(document)
 			ass.Equal(t, source, formatted)
 		}
@@ -44,18 +44,18 @@ func TestParsingRoundtrips(t *tes.T) {
 
 func TestParameterAccess(t *tes.T) {
 	var source = `[ ]`
-	var component = doc.ParseSource(source).GetComponent()
+	var component = doc.ParseComponent(source)
 	var key = doc.Symbol("$type")
 	var parameter = component.GetParameter(key)
 	ass.Equal(t, nil, parameter)
 
 	source = `[ ]($type: "foo")`
-	component = doc.ParseSource(source).GetComponent()
+	component = doc.ParseComponent(source)
 	parameter = component.GetParameter(key)
 	ass.Equal(t, "\"foo\"", doc.FormatComponent(parameter))
 
 	source = `[ ]($type: "foo" $hype: /bar $skype: none)`
-	component = doc.ParseSource(source).GetComponent()
+	component = doc.ParseComponent(source)
 	key = doc.Symbol("$type")
 	parameter = component.GetParameter(key)
 	ass.Equal(t, "\"foo\"", doc.FormatComponent(parameter))
@@ -69,12 +69,12 @@ func TestParameterAccess(t *tes.T) {
 
 func TestObjectAccess(t *tes.T) {
 	var source = `[ ]`
-	var component = doc.ParseSource(source).GetComponent()
+	var component = doc.ParseComponent(source)
 	var index = 1
 	var object = component.GetObject(index)
 	ass.Equal(t, nil, object)
 
-	var component2 = doc.ParseSource("$new").GetComponent()
+	var component2 = doc.ParseComponent("$new")
 	index = 0 // Append a new object.
 	component.SetObject(component2, index)
 	index = 1
@@ -90,7 +90,7 @@ func TestObjectAccess(t *tes.T) {
     $beta
     $gamma
 ]`
-	component = doc.ParseSource(source).GetComponent()
+	component = doc.ParseComponent(source)
 	index = 1
 	object = component.GetObject(index)
 	ass.Equal(t, "$alpha", doc.FormatComponent(object))
@@ -100,12 +100,12 @@ func TestObjectAccess(t *tes.T) {
 	index = 3
 	object = component.GetObject(index)
 	ass.Equal(t, "$gamma", doc.FormatComponent(object))
-	component2 = doc.ParseSource("$delta").GetComponent()
+	component2 = doc.ParseComponent("$delta")
 	component.SetObject(component2, index)
 	object = component.GetObject(index)
 	ass.Equal(t, "$delta", doc.FormatComponent(object))
 	index = 0
-	component2 = doc.ParseSource("$epsilon").GetComponent()
+	component2 = doc.ParseComponent("$epsilon")
 	component.SetObject(component2, index)
 	index = 4
 	object = component.GetObject(index)
@@ -121,7 +121,7 @@ func TestObjectAccess(t *tes.T) {
     $beta: "2"
     $gamma: "3"
 ]`
-	component = doc.ParseSource(source).GetComponent()
+	component = doc.ParseComponent(source)
 	var key = doc.Symbol("alpha")
 	object = component.GetObject(key)
 	ass.Equal(t, "\"1\"", doc.FormatComponent(object))
@@ -131,7 +131,7 @@ func TestObjectAccess(t *tes.T) {
 	key = doc.Symbol("gamma")
 	object = component.GetObject(key)
 	ass.Equal(t, "\"3\"", doc.FormatComponent(object))
-	component2 = doc.ParseSource("\"5\"").GetComponent()
+	component2 = doc.ParseComponent("\"5\"")
 	component.SetObject(component2, key)
 	object = component.GetObject(key)
 	ass.Equal(t, "\"5\"", doc.FormatComponent(object))
@@ -153,7 +153,7 @@ func TestObjectAccess(t *tes.T) {
         $gamma: "3"
     ]
 ]`
-	component = doc.ParseSource(source).GetComponent()
+	component = doc.ParseComponent(source)
 	key = doc.Symbol("items")
 	index = 2
 	object = component.GetObject(key, index)
@@ -163,7 +163,7 @@ func TestObjectAccess(t *tes.T) {
 	object = component.GetObject(key, key2)
 	ass.Equal(t, "\"3\"", doc.FormatComponent(object))
 	key2 = doc.Symbol("delta")
-	component2 = doc.ParseSource("\"4\"").GetComponent()
+	component2 = doc.ParseComponent("\"4\"")
 	component.SetObject(component2, key, key2)
 	object = component.GetObject(key, key2)
 	ass.Equal(t, "\"4\"", doc.FormatComponent(object))
@@ -192,7 +192,7 @@ func TestObjectAccess(t *tes.T) {
         $gamma: "3"
     ]
 ]`
-	component = doc.ParseSource(source).GetComponent()
+	component = doc.ParseComponent(source)
 	index = 1
 	var index2 = 2
 	object = component.GetObject(index, index2)
@@ -206,7 +206,7 @@ func TestObjectAccess(t *tes.T) {
 	var key3 = doc.Angle("~tau")
 	object = component.GetObject(index, index2, key3)
 	ass.Equal(t, "6.28", doc.FormatComponent(object))
-	component2 = doc.ParseSource("~τ").GetComponent()
+	component2 = doc.ParseComponent("~τ")
 	component.SetObject(component2, index, index2, key3)
 	object = component.GetObject(index, index2, key3)
 	ass.Equal(t, "~τ", doc.FormatComponent(object))
