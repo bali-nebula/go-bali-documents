@@ -242,6 +242,7 @@ document-like class.
 type DocumentClassLike interface {
 	// Constructor Methods
 	Document(
+		optionalAnnotation string,
 		component ComponentLike,
 	) DocumentLike
 }
@@ -800,6 +801,7 @@ type DocumentLike interface {
 	GetClass() DocumentClassLike
 
 	// Attribute Methods
+	GetOptionalAnnotation() string
 	GetComponent() ComponentLike
 }
 

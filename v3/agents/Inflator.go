@@ -384,13 +384,25 @@ func (v *inflator_) PostprocessDoClause(
 	v.stack_.AddValue(doc.DoClauseClass().DoClause(method))
 }
 
+func (v *inflator_) PreprocessDocument(
+	document not.DocumentLike,
+	index_ uint,
+	count_ uint,
+) {
+	if uti.IsUndefined(document.GetOptionalAnnotation()) {
+		var annotation string
+		v.stack_.AddValue(annotation)
+	}
+}
+
 func (v *inflator_) PostprocessDocument(
 	document not.DocumentLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var component = v.stack_.RemoveLast().(doc.ComponentLike)
-	v.stack_.AddValue(doc.DocumentClass().Document(component))
+	var annotation = v.stack_.RemoveLast().(string)
+	v.stack_.AddValue(doc.DocumentClass().Document(annotation, component))
 }
 
 func (v *inflator_) PostprocessExpression(

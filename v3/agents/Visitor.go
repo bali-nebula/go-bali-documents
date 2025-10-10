@@ -327,6 +327,10 @@ func (v *visitor_) visitDoClause(
 func (v *visitor_) visitDocument(
 	document doc.DocumentLike,
 ) {
+	var optionalAnnotation = document.GetOptionalAnnotation()
+	if uti.IsDefined(optionalAnnotation) {
+		v.processor_.ProcessAnnotation(optionalAnnotation)
+	}
 	var component = document.GetComponent()
 	v.processor_.PreprocessComponent(
 		component,

@@ -1,3 +1,6 @@
+!>
+    This is a comment annotation.
+<!
 [
     ~π($units: $radians)
     true($granularity: $boolean)  ! This is a note.

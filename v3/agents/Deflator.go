@@ -80,7 +80,7 @@ func (v *deflator_) ProcessAngle(
 func (v *deflator_) ProcessAnnotation(
 	annotation string,
 ) {
-	v.stack_.AddValue(not.Line(not.Annotation(annotation)))
+	v.stack_.AddValue(not.Annotation(annotation))
 }
 
 func (v *deflator_) ProcessAssignment(
@@ -527,14 +527,33 @@ func (v *deflator_) PostprocessDoClause(
 	)
 }
 
+func (v *deflator_) PreprocessDocument(
+	document doc.DocumentLike,
+	index_ uint,
+	count_ uint,
+) {
+	if uti.IsUndefined(document.GetOptionalAnnotation()) {
+		var annotation not.AnnotationLike
+		v.stack_.AddValue(annotation)
+	}
+}
+
 func (v *deflator_) PostprocessDocument(
 	document doc.DocumentLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var component = v.stack_.RemoveLast().(not.ComponentLike)
+	var annotation not.AnnotationLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case not.AnnotationLike:
+		annotation = actual
+	default:
+		annotation = nil
+	}
 	v.stack_.AddValue(
 		not.Document(
+			annotation,
 			component,
 		),
 	)
@@ -831,7 +850,7 @@ func (v *deflator_) PostprocessProcedure(
 	var lines = fra.List[not.LineLike]()
 	var iterator = procedure.GetLines().GetIterator()
 	for iterator.HasNext() {
-		var line = v.stack_.RemoveLast().(not.LineLike)
+		var line = not.Line(v.stack_.RemoveLast())
 		lines.AppendValue(line)
 		iterator.GetNext()
 	}
@@ -1049,7 +1068,7 @@ func (v *deflator_) PostprocessStatement(
 		onClause = optional.(not.OnClauseLike)
 	}
 	var mainClause = not.MainClause(v.stack_.RemoveLast())
-	v.stack_.AddValue(not.Line(not.Statement(mainClause, onClause)))
+	v.stack_.AddValue(not.Statement(mainClause, onClause))
 }
 
 func (v *deflator_) PostprocessSubcomponent(
