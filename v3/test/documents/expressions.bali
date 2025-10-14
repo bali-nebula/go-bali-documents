@@ -1,5 +1,7 @@
 {
-    let $foo := ~π($units: $radians)
+    let $foo := ~π(
+        $units: $radians
+    )
     let $foo := sum(a b)
     let $foo := foo<-bar(x)
     let $foo := |z|

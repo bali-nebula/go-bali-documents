@@ -20,80 +20,132 @@
          6. Move top disk on peg B to peg C
          7. Move top disk on peg A to peg C
         `
-    <"($mediaType: "application/bsmd")
+    <"(
+        $mediaType: "application/bsmd"
+    )
     $attributes: [
         $pegs: [
             $description: ">
                 The three pegs (A, B and C) that are used to hold the disks.
-            <"($mediaType: "application/bsmd")
+            <"(
+                $mediaType: "application/bsmd"
+            )
             $type: /bali/collections/Catalog/v1(
                 $keyType: /bali/strings/Symbol/v1
                 $valueType: /bali/collections/Stack/v1(
-                    $itemType: /bali/elements/Number/v1($range: [1..10])
+                    $itemType: /bali/elements/Number/v1(
+                        $range: [1..10]
+                    )
                 )
             )
-        ]($type: /bali/aspects/Attribute/v1)
+        ](
+            $type: /bali/aspects/Attribute/v1
+        )
         $steps: [
             $description: ">
                 The steps needed to move the disks.
-            <"($mediaType: "application/bsmd")
-            $type: /bali/collections/List/v1($itemType: /bali/strings/Text/v1)
-        ]($type: /bali/aspects/Attribute/v1)
+            <"(
+                $mediaType: "application/bsmd"
+            )
+            $type: /bali/collections/List/v1(
+                $itemType: /bali/strings/Text/v1
+            )
+        ](
+            $type: /bali/aspects/Attribute/v1
+        )
     ](
-        $type: /bali/collections/Catalog/v1($valueType: /bali/aspects/Attribute/v1)
+        $type: /bali/collections/Catalog/v1(
+            $valueType: /bali/aspects/Attribute/v1
+        )
     )
     $operations: [
         $play: [
             $description: ">
                 This procedure causes the game to (re)initialize itself and play the game.
-            <"($mediaType: "application/bsmd")
+            <"(
+                $mediaType: "application/bsmd"
+            )
             $parameters: [
                 $numberOfDisks: [
                     $description: ">
                         The number of disks.
-                    <"($mediaType: "application/bsmd")
-                    $type: /bali/elements/Number/v1($range: [1..10])
-                ]($type: /bali/aspects/Parameter/v1)
+                    <"(
+                        $mediaType: "application/bsmd"
+                    )
+                    $type: /bali/elements/Number/v1(
+                        $range: [1..10]
+                    )
+                ](
+                    $type: /bali/aspects/Parameter/v1
+                )
             ](
-                $type: /bali/collections/Catalog/v1($valueType: /bali/aspects/Parameter/v1)
+                $type: /bali/collections/Catalog/v1(
+                    $valueType: /bali/aspects/Parameter/v1
+                )
             )
             $type: /bali/collections/Catalog/v1(
-                $keyType: /bali/elements/Number/v1($range: [1..10])
+                $keyType: /bali/elements/Number/v1(
+                    $range: [1..10]
+                )
                 $valueType: /bali/strings/Text/v1
             )
-        ]($type: /bali/aspects/Operation/v1)
+        ](
+            $type: /bali/aspects/Operation/v1
+        )
         $moveTower: [
             $description: ">
                 This procedure causes the game to move a tower of disks of a certain height
                 from one peg to another peg using a third peg as a buffer.
-            <"($mediaType: "application/bsmd")
+            <"(
+                $mediaType: "application/bsmd"
+            )
             $parameters: [
                 $height: [
                     $description: ">
                         The height of the tower to be moved.
-                    <"($mediaType: "application/bsmd")
-                    $type: /bali/elements/Number/v1($range: [1..10])
-                ]($type: /bali/aspects/Parameter/v1)
+                    <"(
+                        $mediaType: "application/bsmd"
+                    )
+                    $type: /bali/elements/Number/v1(
+                        $range: [1..10]
+                    )
+                ](
+                    $type: /bali/aspects/Parameter/v1
+                )
                 $fromPeg: [
                     $description: ">
                         The peg from which the disks originate.
-                    <"($mediaType: "application/bsmd")
+                    <"(
+                        $mediaType: "application/bsmd"
+                    )
                     $type: /bali/strings/Text/v1
-                ]($type: /bali/aspects/Parameter/v1)
+                ](
+                    $type: /bali/aspects/Parameter/v1
+                )
                 $toPeg: [
                     $description: ">
                         The peg to which the disks should be moved.
-                    <"($mediaType: "application/bsmd")
+                    <"(
+                        $mediaType: "application/bsmd"
+                    )
                     $type: /bali/strings/Text/v1
-                ]($type: /bali/aspects/Parameter/v1)
+                ](
+                    $type: /bali/aspects/Parameter/v1
+                )
                 $withPeg: [
                     $description: ">
                         The peg to use to buffer the disks during the move.
-                    <"($mediaType: "application/bsmd")
+                    <"(
+                        $mediaType: "application/bsmd"
+                    )
                     $type: /bali/strings/Text/v1
-                ]($type: /bali/aspects/Parameter/v1)
+                ](
+                    $type: /bali/aspects/Parameter/v1
+                )
             ](
-                $type: /bali/collections/Catalog/v1($valueType: /bali/aspects/Parameter/v1)
+                $type: /bali/collections/Catalog/v1(
+                    $valueType: /bali/aspects/Parameter/v1
+                )
             )
         ](
             $type: /bali/aspects/Operation/v1
@@ -102,29 +154,43 @@
         $moveDisk: [
             $description: ">
                 This procedure causes the game to move the top disk from one peg to another.
-            <"($mediaType: "application/bsmd")
+            <"(
+                $mediaType: "application/bsmd"
+            )
             $parameters: [
                 $fromPeg: [
                     $description: ">
                         The peg from which the disk originates.
-                    <"($mediaType: "application/bsmd")
+                    <"(
+                        $mediaType: "application/bsmd"
+                    )
                     $type: /bali/strings/Text/v1
-                ]($type: /bali/aspects/Parameter/v1)
+                ](
+                    $type: /bali/aspects/Parameter/v1
+                )
                 $toPeg: [
                     $description: ">
                         The peg to which the disk should be moved.
-                    <"($mediaType: "application/bsmd")
+                    <"(
+                        $mediaType: "application/bsmd"
+                    )
                     $type: /bali/strings/Text/v1
-                ]($type: /bali/aspects/Parameter/v1)
+                ](
+                    $type: /bali/aspects/Parameter/v1
+                )
             ](
-                $type: /bali/collections/Catalog/v1($valueType: /bali/aspects/Parameter/v1)
+                $type: /bali/collections/Catalog/v1(
+                    $valueType: /bali/aspects/Parameter/v1
+                )
             )
         ](
             $type: /bali/aspects/Operation/v1
             $access: $private
         )
     ](
-        $type: /bali/collections/Catalog/v1($valueType: /bali/aspects/Operation/v1)
+        $type: /bali/collections/Catalog/v1(
+            $valueType: /bali/aspects/Operation/v1
+        )
     )
     $methods: [
         $play: [
@@ -132,17 +198,23 @@
                 let target[$pegs] := [
                     "peg A": [ ](
                         $type: /bali/collections/Stack/v1(
-                            $itemType: /bali/elements/Number/v1($range: [1..10])
+                            $itemType: /bali/elements/Number/v1(
+                                $range: [1..10]
+                            )
                         )
                     )
                     "peg B": [ ](
                         $type: /bali/collections/Stack/v1(
-                            $itemType: /bali/elements/Number/v1($range: [1..10])
+                            $itemType: /bali/elements/Number/v1(
+                                $range: [1..10]
+                            )
                         )
                     )
                     "peg C": [ ](
                         $type: /bali/collections/Stack/v1(
-                            $itemType: /bali/elements/Number/v1($range: [1..10])
+                            $itemType: /bali/elements/Number/v1(
+                                $range: [1..10]
+                            )
                         )
                     )
                 ]
@@ -181,7 +253,9 @@
                 $n
                 $result-1
             ](
-                $type: /bali/collections/Set/v1($itemType: /bali/strings/Symbol/v1)
+                $type: /bali/collections/Set/v1(
+                    $itemType: /bali/strings/Symbol/v1
+                )
             )
             $messages: [
                 $addItem
@@ -191,7 +265,9 @@
                 $moveTower
                 $next
             ](
-                $type: /bali/collections/Set/v1($itemType: /bali/strings/Symbol/v1)
+                $type: /bali/collections/Set/v1(
+                    $itemType: /bali/strings/Symbol/v1
+                )
             )
             $addresses: [
                 "1.EvaluateStatement": 1
@@ -210,7 +286,9 @@
                     $valueType: /bali/interfaces/Discrete/v1
                 )
             )
-        ]($type: /bali/aspects/Method/v1)
+        ](
+            $type: /bali/aspects/Method/v1
+        )
         $moveTower: [
             $procedure: {
                 if height do {
@@ -236,14 +314,20 @@
                 $toPeg: none
                 $withPeg: none
             ]
-            $variables: [$result-1](
-                $type: /bali/collections/Set/v1($itemType: /bali/strings/Symbol/v1)
+            $variables: [
+                $result-1
+            ](
+                $type: /bali/collections/Set/v1(
+                    $itemType: /bali/strings/Symbol/v1
+                )
             )
             $messages: [
                 $moveDisk
                 $moveTower
             ](
-                $type: /bali/collections/Set/v1($itemType: /bali/strings/Symbol/v1)
+                $type: /bali/collections/Set/v1(
+                    $itemType: /bali/strings/Symbol/v1
+                )
             )
             $addresses: [
                 "1.IfStatement": 1
@@ -258,7 +342,9 @@
                     $valueType: /bali/interfaces/Discrete/v1
                 )
             )
-        ]($valueType: /bali/aspects/Method/v1)
+        ](
+            $valueType: /bali/aspects/Method/v1
+        )
         $moveDisk: [
             $procedure: {
                 let $fromPeg := target[$pegs fromPeg]
@@ -285,14 +371,18 @@
                 $disk
                 $result-1
             ](
-                $type: /bali/collections/Set/v1($itemType: /bali/strings/Symbol/v1)
+                $type: /bali/collections/Set/v1(
+                    $itemType: /bali/strings/Symbol/v1
+                )
             )
             $messages: [
                 $addItem
                 $append
                 $removeItem
             ](
-                $type: /bali/collections/Set/v1($itemType: /bali/strings/Symbol/v1)
+                $type: /bali/collections/Set/v1(
+                    $itemType: /bali/strings/Symbol/v1
+                )
             )
             $addresses: [
                 "1.EvaluateStatement": 1
@@ -304,9 +394,13 @@
                     $valueType: /bali/interfaces/Discrete/v1
                 )
             )
-        ]($type: /bali/aspects/Method/v1)
+        ](
+            $type: /bali/aspects/Method/v1
+        )
     ](
-        $type: /bali/collections/Catalog/v1($valueType: /bali/aspects/Method/v1)
+        $type: /bali/collections/Catalog/v1(
+            $valueType: /bali/aspects/Method/v1
+        )
     )
     $literals: [
         1
@@ -322,7 +416,9 @@
         "peg A"
         "peg B"
         "peg C"
-    ]($type: /bali/collections/Set/v1)
+    ](
+        $type: /bali/collections/Set/v1
+    )
 ](
     $type: /bali/types/Class/v1
     $tag: #1M9WB8VXAWP8A0T1K3MHWD4ZFBM3MG7T

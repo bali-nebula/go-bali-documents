@@ -2,8 +2,12 @@
     This is a comment annotation.
 <!
 [
-    ~π($units: $radians)
-    true($granularity: $boolean)  ! This is a note.
+    ~π(
+        $units: $radians
+    )
+    true(
+        $granularity: $boolean
+    )  ! This is a note.
     '>
         1234abcd
     <'(
@@ -14,5 +18,7 @@
         1
         2
         3
-    ]($type: <bali:/types/collections/List:v1>)
+    ](
+        $type: /bali/types/collections/List/v1
+    )
 ]

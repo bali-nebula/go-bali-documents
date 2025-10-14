@@ -1,7 +1,9 @@
 !  This is a note annotation.
 [
     [ ]
-    [[ ]]
+    [
+        [ ]
+    ]
     [~0..~τ]
     [~P0W..~P3Y)
     [<2000>..<2023>]
@@ -14,7 +16,7 @@
     (0%..75%)
     (p0..p1]
     (p0.25..p0.75)
-    [<bali:/types/aspects/Continuous:v3>..<bali:/types/aspects/Spectral:v3.2>]
+    [/bali/types/aspects/Continuous/v3../bali/types/aspects/Spectral/v3.2]
     [$bar..$foo]
     [v1.2..v1.6.3)
     [1..∞]
@@ -25,10 +27,16 @@
     ["a".."f"]
     [~0..~π)
     (-∞..-1.2]
-    [42]
-    ["abc"]
     [
-        "abc"($encoding: $ASCII)
+        42
+    ]
+    [
+        "abc"
+    ]
+    [
+        "abc"(
+            $encoding: $ASCII
+        )
     ]
     [
         "foo": $bar
@@ -43,28 +51,55 @@
         1
         2
         3
-    ]($type: <bali:/types/collections/Stack:v3>)
+    ](
+        $type: /bali/types/collections/Stack/v3
+    )
     [
         $alpha: 1
         $beta: 2
         $gamma: 3
     ]
     [
-        $a: [$array]
-        $b: [$foo: "bar"]
+        $a: [
+            $array
+        ]
+        $b: [
+            $foo: "bar"
+        ]
     ]
-    [ ]($type: <bali:/types/collections/Set:v3>)
-    [$foobar]($type: <bali:/types/collections/Queue:v3>)
+    [ ](
+        $type: /bali/types/collections/Set/v3
+    )
+    [
+        $foobar
+    ](
+        $type: /bali/types/collections/Queue/v3(
+            $valueType: /bali/types/repository/Message/v3
+        )
+    )
     [
         $foo
         $bar
-    ]($type: <bali:/types/collections/List:v3>)
-    [$foo: "bar"]($type: <bali:/types/collections/Catalog:v3>)
+    ](
+        $type: /bali/types/collections/List/v3
+    )
+    [
+        $foo: "bar"
+    ](
+        $type: /bali/types/collections/Catalog/v3(
+            $keyType: /bali/types/elements/Symbol/v3
+            $valueType: /bali/types/strings/Quote/v3
+        )
+    )
     [
         $foo: "bar"
         $bar: "foo"
-    ]($type: <bali:/types/collections/Catalog:v3>)
-    [$key: "value"]
+    ](
+        $type: /bali/types/collections/Catalog/v3
+    )
+    [
+        $key: "value"
+    ]
     [
         $foo: 5
         $bar: ~π
