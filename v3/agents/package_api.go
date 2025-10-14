@@ -350,6 +350,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessComposite(
+		composite doc.CompositeLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessCompositeSlot(
+		composite doc.CompositeLike,
+		slot_ uint,
+	)
+	PostprocessComposite(
+		composite doc.CompositeLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessConstraint(
 		constraint doc.ConstraintLike,
 		index_ uint,
@@ -599,20 +613,6 @@ type Methodical interface {
 	)
 	PostprocessMatchingClause(
 		matchingClause doc.MatchingClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessObject(
-		object doc.ObjectLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessObjectSlot(
-		object doc.ObjectLike,
-		slot_ uint,
-	)
-	PostprocessObject(
-		object doc.ObjectLike,
 		index_ uint,
 		count_ uint,
 	)

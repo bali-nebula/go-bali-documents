@@ -325,6 +325,26 @@ func (v *processor_) PostprocessComponent(
 ) {
 }
 
+func (v *processor_) PreprocessComposite(
+	composite doc.CompositeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessCompositeSlot(
+	composite doc.CompositeLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessComposite(
+	composite doc.CompositeLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessConstraint(
 	constraint doc.ConstraintLike,
 	index_ uint,
@@ -760,26 +780,6 @@ func (v *processor_) ProcessNumericalSlot(
 
 func (v *processor_) PostprocessNumerical(
 	numerical any,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PreprocessObject(
-	object doc.ObjectLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessObjectSlot(
-	object doc.ObjectLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessObject(
-	object doc.ObjectLike,
 	index_ uint,
 	count_ uint,
 ) {

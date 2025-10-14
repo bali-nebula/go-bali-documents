@@ -67,23 +67,23 @@ func TestParameterAccess(t *tes.T) {
 	ass.Equal(t, "none", doc.FormatComponent(parameter))
 }
 
-func TestObjectAccess(t *tes.T) {
+func TestCompositeAccess(t *tes.T) {
 	var source = `[ ]`
 	var component = doc.ParseComponent(source)
 	var index = 1
-	var object = component.GetObject(index)
-	ass.Equal(t, nil, object)
+	var composite = component.GetComposite(index)
+	ass.Equal(t, nil, composite)
 
 	var component2 = doc.ParseComponent("$new")
-	index = 0 // Append a new object.
-	component.SetObject(component2, index)
+	index = 0 // Append a new composite.
+	component.SetComposite(component2, index)
 	index = 1
-	object = component.GetObject(index)
-	ass.Equal(t, "$new", doc.FormatComponent(object))
-	object = component.RemoveObject(index)
-	ass.Equal(t, "$new", doc.FormatComponent(object))
-	object = component.GetObject(index)
-	ass.Equal(t, nil, object)
+	composite = component.GetComposite(index)
+	ass.Equal(t, "$new", doc.FormatComponent(composite))
+	composite = component.RemoveComposite(index)
+	ass.Equal(t, "$new", doc.FormatComponent(composite))
+	composite = component.GetComposite(index)
+	ass.Equal(t, nil, composite)
 
 	source = `[
     $alpha
@@ -92,29 +92,29 @@ func TestObjectAccess(t *tes.T) {
 ]`
 	component = doc.ParseComponent(source)
 	index = 1
-	object = component.GetObject(index)
-	ass.Equal(t, "$alpha", doc.FormatComponent(object))
+	composite = component.GetComposite(index)
+	ass.Equal(t, "$alpha", doc.FormatComponent(composite))
 	index = 2
-	object = component.GetObject(index)
-	ass.Equal(t, "$beta", doc.FormatComponent(object))
+	composite = component.GetComposite(index)
+	ass.Equal(t, "$beta", doc.FormatComponent(composite))
 	index = 3
-	object = component.GetObject(index)
-	ass.Equal(t, "$gamma", doc.FormatComponent(object))
+	composite = component.GetComposite(index)
+	ass.Equal(t, "$gamma", doc.FormatComponent(composite))
 	component2 = doc.ParseComponent("$delta")
-	component.SetObject(component2, index)
-	object = component.GetObject(index)
-	ass.Equal(t, "$delta", doc.FormatComponent(object))
+	component.SetComposite(component2, index)
+	composite = component.GetComposite(index)
+	ass.Equal(t, "$delta", doc.FormatComponent(composite))
 	index = 0
 	component2 = doc.ParseComponent("$epsilon")
-	component.SetObject(component2, index)
+	component.SetComposite(component2, index)
 	index = 4
-	object = component.GetObject(index)
-	ass.Equal(t, "$epsilon", doc.FormatComponent(object))
-	object = component.RemoveObject(index)
-	ass.Equal(t, "$epsilon", doc.FormatComponent(object))
+	composite = component.GetComposite(index)
+	ass.Equal(t, "$epsilon", doc.FormatComponent(composite))
+	composite = component.RemoveComposite(index)
+	ass.Equal(t, "$epsilon", doc.FormatComponent(composite))
 	index = -1
-	object = component.GetObject(index)
-	ass.Equal(t, "$delta", doc.FormatComponent(object))
+	composite = component.GetComposite(index)
+	ass.Equal(t, "$delta", doc.FormatComponent(composite))
 
 	source = `[
     $alpha: "1"
@@ -123,23 +123,23 @@ func TestObjectAccess(t *tes.T) {
 ]`
 	component = doc.ParseComponent(source)
 	var key = doc.Symbol("alpha")
-	object = component.GetObject(key)
-	ass.Equal(t, "\"1\"", doc.FormatComponent(object))
+	composite = component.GetComposite(key)
+	ass.Equal(t, "\"1\"", doc.FormatComponent(composite))
 	key = doc.Symbol("beta")
-	object = component.GetObject(key)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(object))
+	composite = component.GetComposite(key)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(composite))
 	key = doc.Symbol("gamma")
-	object = component.GetObject(key)
-	ass.Equal(t, "\"3\"", doc.FormatComponent(object))
+	composite = component.GetComposite(key)
+	ass.Equal(t, "\"3\"", doc.FormatComponent(composite))
 	component2 = doc.ParseComponent("\"5\"")
-	component.SetObject(component2, key)
-	object = component.GetObject(key)
-	ass.Equal(t, "\"5\"", doc.FormatComponent(object))
-	object = component.RemoveObject(key)
-	ass.Equal(t, "\"5\"", doc.FormatComponent(object))
+	component.SetComposite(component2, key)
+	composite = component.GetComposite(key)
+	ass.Equal(t, "\"5\"", doc.FormatComponent(composite))
+	composite = component.RemoveComposite(key)
+	ass.Equal(t, "\"5\"", doc.FormatComponent(composite))
 	key = doc.Symbol("beta")
-	object = component.GetObject(key)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(object))
+	composite = component.GetComposite(key)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(composite))
 
 	source = `[
     $items: [
@@ -156,22 +156,22 @@ func TestObjectAccess(t *tes.T) {
 	component = doc.ParseComponent(source)
 	key = doc.Symbol("items")
 	index = 2
-	object = component.GetObject(key, index)
-	ass.Equal(t, "2", doc.FormatComponent(object))
+	composite = component.GetComposite(key, index)
+	ass.Equal(t, "2", doc.FormatComponent(composite))
 	key = doc.Symbol("attributes")
 	var key2 = doc.Symbol("gamma")
-	object = component.GetObject(key, key2)
-	ass.Equal(t, "\"3\"", doc.FormatComponent(object))
+	composite = component.GetComposite(key, key2)
+	ass.Equal(t, "\"3\"", doc.FormatComponent(composite))
 	key2 = doc.Symbol("delta")
 	component2 = doc.ParseComponent("\"4\"")
-	component.SetObject(component2, key, key2)
-	object = component.GetObject(key, key2)
-	ass.Equal(t, "\"4\"", doc.FormatComponent(object))
-	object = component.RemoveObject(key, key2)
-	ass.Equal(t, "\"4\"", doc.FormatComponent(object))
+	component.SetComposite(component2, key, key2)
+	composite = component.GetComposite(key, key2)
+	ass.Equal(t, "\"4\"", doc.FormatComponent(composite))
+	composite = component.RemoveComposite(key, key2)
+	ass.Equal(t, "\"4\"", doc.FormatComponent(composite))
 	key2 = doc.Symbol("beta")
-	object = component.GetObject(key, key2)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(object))
+	composite = component.GetComposite(key, key2)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(composite))
 
 	source = `[
     [
@@ -195,34 +195,34 @@ func TestObjectAccess(t *tes.T) {
 	component = doc.ParseComponent(source)
 	index = 1
 	var index2 = 2
-	object = component.GetObject(index, index2)
-	ass.Equal(t, "2", doc.FormatComponent(object))
+	composite = component.GetComposite(index, index2)
+	ass.Equal(t, "2", doc.FormatComponent(composite))
 	index = 2
 	key2 = doc.Symbol("beta")
-	object = component.GetObject(index, key2)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(object))
+	composite = component.GetComposite(index, key2)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(composite))
 	index = 1
 	index2 = 3
 	var key3 = doc.Angle("~tau")
-	object = component.GetObject(index, index2, key3)
-	ass.Equal(t, "6.28", doc.FormatComponent(object))
+	composite = component.GetComposite(index, index2, key3)
+	ass.Equal(t, "6.28", doc.FormatComponent(composite))
 	component2 = doc.ParseComponent("~τ")
-	component.SetObject(component2, index, index2, key3)
-	object = component.GetObject(index, index2, key3)
-	ass.Equal(t, "~τ", doc.FormatComponent(object))
+	component.SetComposite(component2, index, index2, key3)
+	composite = component.GetComposite(index, index2, key3)
+	ass.Equal(t, "~τ", doc.FormatComponent(composite))
 	index = 2
 	key2 = doc.Symbol("alpha")
 	var index3 = -1
-	component.RemoveObject(index, key2, index3)
-	object = component.GetObject(index, key2, index3)
-	ass.Equal(t, "'b'", doc.FormatComponent(object))
+	component.RemoveComposite(index, key2, index3)
+	composite = component.GetComposite(index, key2, index3)
+	ass.Equal(t, "'b'", doc.FormatComponent(composite))
 	index = 3
-	object = component.GetObject(index)
-	ass.Equal(t, nil, object)
+	composite = component.GetComposite(index)
+	ass.Equal(t, nil, composite)
 	index = 2
 	key2 = doc.Symbol("delta")
-	object = component.GetObject(index, key2)
-	ass.Equal(t, nil, object)
+	composite = component.GetComposite(index, key2)
+	ass.Equal(t, nil, composite)
 }
 
 func TestModuleFunctions(t *tes.T) {

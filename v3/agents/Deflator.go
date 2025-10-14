@@ -343,9 +343,9 @@ func (v *deflator_) PostprocessAttributes(
 	var associations = fra.List[not.AssociationLike]()
 	var iterator = attributes.GetAssociations().GetIterator()
 	for iterator.HasNext() {
-		var object = v.stack_.RemoveLast().(not.ObjectLike)
+		var composite = v.stack_.RemoveLast().(not.CompositeLike)
 		var primitive = not.Primitive(v.stack_.RemoveLast())
-		var association = not.Association(primitive, ":", object)
+		var association = not.Association(primitive, ":", composite)
 		associations.AppendValue(association)
 		iterator.GetNext()
 	}
@@ -452,6 +452,34 @@ func (v *deflator_) PostprocessComponent(
 		not.Component(
 			entity,
 			parameterization,
+		),
+	)
+}
+
+func (v *deflator_) ProcessCompositeSlot(
+	composite doc.CompositeLike,
+	slot_ uint,
+) {
+	switch slot_ {
+	case 1:
+		if uti.IsUndefined(composite.GetOptionalNote()) {
+			var note string
+			v.stack_.AddValue(note)
+		}
+	}
+}
+
+func (v *deflator_) PostprocessComposite(
+	composite doc.CompositeLike,
+	index_ uint,
+	count_ uint,
+) {
+	var note = v.stack_.RemoveLast().(string)
+	var component = v.stack_.RemoveLast().(not.ComponentLike)
+	v.stack_.AddValue(
+		not.Composite(
+			component,
+			note,
 		),
 	)
 }
@@ -646,15 +674,15 @@ func (v *deflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var objects = fra.List[not.ObjectLike]()
-	var iterator = items.GetObjects().GetIterator()
+	var composites = fra.List[not.CompositeLike]()
+	var iterator = items.GetComposites().GetIterator()
 	for iterator.HasNext() {
-		var object = v.stack_.RemoveLast().(not.ObjectLike)
-		objects.AppendValue(object)
+		var composite = v.stack_.RemoveLast().(not.CompositeLike)
+		composites.AppendValue(composite)
 		iterator.GetNext()
 	}
-	objects.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Collection(not.Items("[", objects, "]")))
+	composites.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Collection(not.Items("[", composites, "]")))
 }
 
 func (v *deflator_) PostprocessLetClause(
@@ -699,34 +727,6 @@ func (v *deflator_) PostprocessMatchingClause(
 	var template = not.Template(expression)
 	v.stack_.AddValue(
 		not.MatchingClause("matching", template, "do", procedure),
-	)
-}
-
-func (v *deflator_) ProcessObjectSlot(
-	object doc.ObjectLike,
-	slot_ uint,
-) {
-	switch slot_ {
-	case 1:
-		if uti.IsUndefined(object.GetOptionalNote()) {
-			var note string
-			v.stack_.AddValue(note)
-		}
-	}
-}
-
-func (v *deflator_) PostprocessObject(
-	object doc.ObjectLike,
-	index_ uint,
-	count_ uint,
-) {
-	var note = v.stack_.RemoveLast().(string)
-	var component = v.stack_.RemoveLast().(not.ComponentLike)
-	v.stack_.AddValue(
-		not.Object(
-			component,
-			note,
-		),
 	)
 }
 

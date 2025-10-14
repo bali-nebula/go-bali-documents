@@ -123,7 +123,7 @@ type (
 	MatchingClauseClassLike   = doc.MatchingClauseClassLike
 	MethodClassLike           = doc.MethodClassLike
 	NotarizeClauseClassLike   = doc.NotarizeClauseClassLike
-	ObjectClassLike           = doc.ObjectClassLike
+	CompositeClassLike        = doc.CompositeClassLike
 	OnClauseClassLike         = doc.OnClauseClassLike
 	ParameterizationClassLike = doc.ParameterizationClassLike
 	PrecedenceClassLike       = doc.PrecedenceClassLike
@@ -167,7 +167,7 @@ type (
 	MatchingClauseLike   = doc.MatchingClauseLike
 	MethodLike           = doc.MethodLike
 	NotarizeClauseLike   = doc.NotarizeClauseLike
-	ObjectLike           = doc.ObjectLike
+	CompositeLike        = doc.CompositeLike
 	OnClauseLike         = doc.OnClauseLike
 	ParameterizationLike = doc.ParameterizationLike
 	PrecedenceLike       = doc.PrecedenceLike
@@ -256,7 +256,7 @@ func AttributesClass() AttributesClassLike {
 }
 
 func Attributes(
-	associations fra.CatalogLike[any, doc.ObjectLike],
+	associations fra.CatalogLike[any, doc.CompositeLike],
 ) AttributesLike {
 	return AttributesClass().Attributes(
 		associations,
@@ -434,10 +434,10 @@ func ItemsClass() ItemsClassLike {
 }
 
 func Items(
-	objects fra.ListLike[doc.ObjectLike],
+	composites fra.ListLike[doc.CompositeLike],
 ) ItemsLike {
 	return ItemsClass().Items(
-		objects,
+		composites,
 	)
 }
 
@@ -515,15 +515,15 @@ func NotarizeClause(
 	)
 }
 
-func ObjectClass() ObjectClassLike {
-	return doc.ObjectClass()
+func CompositeClass() CompositeClassLike {
+	return doc.CompositeClass()
 }
 
-func Object(
+func Composite(
 	component doc.ComponentLike,
 	optionalNote string,
-) ObjectLike {
-	return ObjectClass().Object(
+) CompositeLike {
+	return CompositeClass().Composite(
 		component,
 		optionalNote,
 	)
@@ -818,7 +818,7 @@ func FormatComponent(
 		component = Component(entity, parameterization)
 	case DocumentLike:
 		component = actual.GetComponent()
-	case ObjectLike:
+	case CompositeLike:
 		component = actual.GetComponent()
 	default:
 		component = Component(value, nil)

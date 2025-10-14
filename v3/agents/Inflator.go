@@ -239,13 +239,13 @@ func (v *inflator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = fra.Catalog[any, doc.ObjectLike]()
+	var catalog = fra.Catalog[any, doc.CompositeLike]()
 	var associations = attributes.GetAssociations()
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
-		var object = v.stack_.RemoveLast().(doc.ObjectLike)
+		var composite = v.stack_.RemoveLast().(doc.CompositeLike)
 		var primitive = v.stack_.RemoveLast()
-		catalog.SetValue(primitive, object)
+		catalog.SetValue(primitive, composite)
 		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.
@@ -324,11 +324,39 @@ func (v *inflator_) PostprocessComponent(
 		parameterization = optional.(doc.ParameterizationLike)
 		switch actual := entity.(type) {
 		case doc.ItemsLike:
-			var objects = v.getObjects(actual, parameterization)
-			entity = doc.ItemsClass().Items(objects)
+			var composites = v.getComposites(actual, parameterization)
+			entity = doc.ItemsClass().Items(composites)
 		}
 	}
 	v.stack_.AddValue(doc.ComponentClass().Component(entity, parameterization))
+}
+
+func (v *inflator_) ProcessCompositeSlot(
+	composite not.CompositeLike,
+	slot_ uint,
+) {
+	switch slot_ {
+	case 1:
+		if uti.IsUndefined(composite.GetOptionalNote()) {
+			var note string
+			v.stack_.AddValue(note)
+		}
+	}
+}
+
+func (v *inflator_) PostprocessComposite(
+	composite not.CompositeLike,
+	index_ uint,
+	count_ uint,
+) {
+	var note = v.stack_.RemoveLast().(string)
+	var component = v.stack_.RemoveLast().(doc.ComponentLike)
+	v.stack_.AddValue(
+		doc.CompositeClass().Composite(
+			component,
+			note,
+		),
+	)
 }
 
 func (v *inflator_) ProcessConstraintSlot(
@@ -508,15 +536,15 @@ func (v *inflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var objects = fra.List[doc.ObjectLike]()
-	var iterator = items.GetObjects().GetIterator()
+	var composites = fra.List[doc.CompositeLike]()
+	var iterator = items.GetComposites().GetIterator()
 	for iterator.HasNext() {
-		var object = v.stack_.RemoveLast().(doc.ObjectLike)
-		objects.AppendValue(object)
+		var composite = v.stack_.RemoveLast().(doc.CompositeLike)
+		composites.AppendValue(composite)
 		iterator.GetNext()
 	}
-	objects.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(doc.ItemsClass().Items(objects))
+	composites.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(doc.ItemsClass().Items(composites))
 }
 
 func (v *inflator_) PostprocessLeft(
@@ -570,34 +598,6 @@ func (v *inflator_) PostprocessMatchingClause(
 	var template = v.stack_.RemoveLast().(doc.ExpressionLike)
 	v.stack_.AddValue(
 		doc.MatchingClauseClass().MatchingClause(template, procedure),
-	)
-}
-
-func (v *inflator_) ProcessObjectSlot(
-	object not.ObjectLike,
-	slot_ uint,
-) {
-	switch slot_ {
-	case 1:
-		if uti.IsUndefined(object.GetOptionalNote()) {
-			var note string
-			v.stack_.AddValue(note)
-		}
-	}
-}
-
-func (v *inflator_) PostprocessObject(
-	object not.ObjectLike,
-	index_ uint,
-	count_ uint,
-) {
-	var note = v.stack_.RemoveLast().(string)
-	var component = v.stack_.RemoveLast().(doc.ComponentLike)
-	v.stack_.AddValue(
-		doc.ObjectClass().Object(
-			component,
-			note,
-		),
 	)
 }
 
@@ -972,11 +972,11 @@ func (v *inflator_) PostprocessWithClause(
 
 // Private Methods
 
-func (v *inflator_) getObjects(
+func (v *inflator_) getComposites(
 	items doc.ItemsLike,
 	parameterization doc.ParameterizationLike,
-) fra.Sequential[doc.ObjectLike] {
-	var objects = items.GetObjects()
+) fra.Sequential[doc.CompositeLike] {
+	var composites = items.GetComposites()
 	var dummy = doc.ComponentClass().Component(
 		fra.PatternClass().None(),
 		parameterization,
@@ -986,14 +986,14 @@ func (v *inflator_) getObjects(
 	case fra.ResourceLike:
 		switch entity.AsSource() {
 		case "<bali:/types/collections/Queue:v3>":
-			objects = fra.QueueFromSequence(objects)
+			composites = fra.QueueFromSequence(composites)
 		case "<bali:/types/collections/Set:v3>":
-			objects = fra.SetFromSequence(objects)
+			composites = fra.SetFromSequence(composites)
 		case "<bali:/types/collections/Stack:v3>":
-			objects = fra.StackFromSequence(objects)
+			composites = fra.StackFromSequence(composites)
 		}
 	}
-	return objects
+	return composites
 }
 
 // Instance Structure

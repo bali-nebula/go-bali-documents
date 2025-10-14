@@ -119,7 +119,7 @@ attributes-like class.
 type AttributesClassLike interface {
 	// Constructor Methods
 	Attributes(
-		associations fra.CatalogLike[any, ObjectLike],
+		associations fra.CatalogLike[any, CompositeLike],
 	) AttributesLike
 }
 
@@ -170,6 +170,19 @@ type ComponentClassLike interface {
 		entity any,
 		optionalParameterization ParameterizationLike,
 	) ComponentLike
+}
+
+/*
+CompositeClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+composite-like class.
+*/
+type CompositeClassLike interface {
+	// Constructor Methods
+	Composite(
+		component ComponentLike,
+		optionalNote string,
+	) CompositeLike
 }
 
 /*
@@ -292,7 +305,7 @@ items-like class.
 type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
-		objects fra.Sequential[ObjectLike],
+		composites fra.Sequential[CompositeLike],
 	) ItemsLike
 }
 
@@ -361,19 +374,6 @@ type NotarizeClauseClassLike interface {
 		draft ExpressionLike,
 		location ExpressionLike,
 	) NotarizeClauseLike
-}
-
-/*
-ObjectClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-component-like class.
-*/
-type ObjectClassLike interface {
-	// Constructor Methods
-	Object(
-		component ComponentLike,
-		optionalNote string,
-	) ObjectLike
 }
 
 /*
@@ -643,7 +643,7 @@ type AttributesLike interface {
 	GetClass() AttributesClassLike
 
 	// Attribute Methods
-	GetAssociations() fra.CatalogLike[any, ObjectLike]
+	GetAssociations() fra.CatalogLike[any, CompositeLike]
 }
 
 /*
@@ -695,20 +695,34 @@ type ComponentLike interface {
 	GetParameter(
 		symbol fra.SymbolLike,
 	) ComponentLike
-	SetObject(
+	SetComposite(
 		value any,
 		indices ...any,
 	)
-	GetObject(
+	GetComposite(
 		indices ...any,
-	) ObjectLike
-	RemoveObject(
+	) CompositeLike
+	RemoveComposite(
 		indices ...any,
-	) ObjectLike
+	) CompositeLike
 
 	// Attribute Methods
 	GetEntity() any
 	GetOptionalParameterization() ParameterizationLike
+}
+
+/*
+CompositeLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete composite-like class.
+*/
+type CompositeLike interface {
+	// Principal Methods
+	GetClass() CompositeClassLike
+
+	// Attribute Methods
+	GetComponent() ComponentLike
+	GetOptionalNote() string
 }
 
 /*
@@ -841,7 +855,7 @@ type ItemsLike interface {
 	GetClass() ItemsClassLike
 
 	// Attribute Methods
-	GetObjects() fra.Sequential[ObjectLike]
+	GetComposites() fra.Sequential[CompositeLike]
 }
 
 /*
@@ -914,20 +928,6 @@ type NotarizeClauseLike interface {
 	// Attribute Methods
 	GetDraft() ExpressionLike
 	GetLocation() ExpressionLike
-}
-
-/*
-ObjectLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete component-like class.
-*/
-type ObjectLike interface {
-	// Principal Methods
-	GetClass() ObjectClassLike
-
-	// Attribute Methods
-	GetComponent() ComponentLike
-	GetOptionalNote() string
 }
 
 /*

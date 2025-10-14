@@ -20,20 +20,20 @@ import (
 
 // Access Function
 
-func ObjectClass() ObjectClassLike {
-	return objectClass()
+func CompositeClass() CompositeClassLike {
+	return compositeClass()
 }
 
 // Constructor Methods
 
-func (c *objectClass_) Object(
+func (c *compositeClass_) Composite(
 	component ComponentLike,
 	optionalNote string,
-) ObjectLike {
+) CompositeLike {
 	if uti.IsUndefined(component) {
 		panic("The \"component\" attribute is required by this class.")
 	}
-	var instance = &object_{
+	var instance = &composite_{
 		// Initialize the instance attributes.
 		component_:    component,
 		optionalNote_: optionalNote,
@@ -49,17 +49,17 @@ func (c *objectClass_) Object(
 
 // Principal Methods
 
-func (v *object_) GetClass() ObjectClassLike {
-	return objectClass()
+func (v *composite_) GetClass() CompositeClassLike {
+	return compositeClass()
 }
 
 // Attribute Methods
 
-func (v *object_) GetComponent() ComponentLike {
+func (v *composite_) GetComponent() ComponentLike {
 	return v.component_
 }
 
-func (v *object_) GetOptionalNote() string {
+func (v *composite_) GetOptionalNote() string {
 	return v.optionalNote_
 }
 
@@ -69,7 +69,7 @@ func (v *object_) GetOptionalNote() string {
 
 // Instance Structure
 
-type object_ struct {
+type composite_ struct {
 	// Declare the instance attributes.
 	component_    ComponentLike
 	optionalNote_ string
@@ -77,16 +77,16 @@ type object_ struct {
 
 // Class Structure
 
-type objectClass_ struct {
+type compositeClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func objectClass() *objectClass_ {
-	return objectClassReference_
+func compositeClass() *compositeClass_ {
+	return compositeClassReference_
 }
 
-var objectClassReference_ = &objectClass_{
+var compositeClassReference_ = &compositeClass_{
 	// Initialize the class constants.
 }
