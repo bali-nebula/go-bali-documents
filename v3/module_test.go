@@ -589,39 +589,39 @@ func TestCatalogsWithPrimitivesAndStrings(t *tes.T) {
 <'`
 	var binary = doc.Binary(binaryString)
 	catalog.SetValue(binary, binaryString)
-	ass.Equal(t, catalog.GetValue(binary), binary.AsString())
+	ass.Equal(t, catalog.GetValue(binary), binary.AsSource())
 
 	var nameString = "/foo/5bar"
 	var name = doc.Name(nameString)
 	catalog.SetValue(name, nameString)
-	ass.Equal(t, catalog.GetValue(name), name.AsString())
+	ass.Equal(t, catalog.GetValue(name), name.AsSource())
 
 	var narrativeString = `">
     This is a narrative.
 <"`
 	var narrative = doc.Narrative(narrativeString)
 	catalog.SetValue(narrative, narrativeString)
-	ass.Equal(t, catalog.GetValue(narrative), narrative.AsString())
+	ass.Equal(t, catalog.GetValue(narrative), narrative.AsSource())
 
 	var patternString = `"b[aeiou]g"?`
 	var pattern = doc.Pattern(patternString)
 	catalog.SetValue(pattern, patternString)
-	ass.Equal(t, catalog.GetValue(pattern), pattern.AsString())
+	ass.Equal(t, catalog.GetValue(pattern), pattern.AsSource())
 
 	var quoteString = `"To be or not to be..."`
 	var quote = doc.Quote(quoteString)
 	catalog.SetValue(quote, quoteString)
-	ass.Equal(t, catalog.GetValue(quote), quote.AsString())
+	ass.Equal(t, catalog.GetValue(quote), quote.AsSource())
 
 	var tag = doc.Tag(16)
-	var tagString = tag.AsString()
+	var tagString = tag.AsSource()
 	catalog.SetValue(tag, tagString)
-	ass.Equal(t, catalog.GetValue(tag), tag.AsString())
+	ass.Equal(t, catalog.GetValue(tag), tag.AsSource())
 
 	var versionString = "v1.2.3"
 	var version = doc.Version(versionString)
 	catalog.SetValue(version, versionString)
-	ass.Equal(t, catalog.GetValue(version), version.AsString())
+	ass.Equal(t, catalog.GetValue(version), version.AsSource())
 }
 
 func TestCatalogsWithStringsAndIntegers(t *tes.T) {
@@ -1362,21 +1362,21 @@ func TestZeroAngles(t *tes.T) {
 	var v = doc.Angle()
 	ass.Equal(t, 0.0, v.AsIntrinsic())
 	ass.Equal(t, 0.0, v.AsFloat())
-	ass.Equal(t, "~0", v.AsString())
+	ass.Equal(t, "~0", v.AsSource())
 	ass.Equal(t, v, doc.AngleClass().Zero())
 
 	v = doc.Angle(2.0 * mat.Pi)
 	ass.Equal(t, 0.0, v.AsIntrinsic())
 	ass.Equal(t, 0.0, v.AsFloat())
-	ass.Equal(t, "~0", v.AsString())
+	ass.Equal(t, "~0", v.AsSource())
 	ass.Equal(t, v, doc.AngleClass().Zero())
 
 	v = doc.Angle("~0")
-	ass.Equal(t, "~0", v.AsString())
+	ass.Equal(t, "~0", v.AsSource())
 	ass.Equal(t, v, doc.AngleClass().Zero())
 
 	v = doc.Angle("~τ")
-	ass.Equal(t, "~τ", v.AsString())
+	ass.Equal(t, "~τ", v.AsSource())
 	ass.Equal(t, v, doc.AngleClass().Tau())
 }
 
@@ -1386,7 +1386,7 @@ func TestPositiveAngles(t *tes.T) {
 	ass.Equal(t, v, doc.AngleClass().Pi())
 
 	v = doc.Angle("~π")
-	ass.Equal(t, "~π", v.AsString())
+	ass.Equal(t, "~π", v.AsSource())
 	ass.Equal(t, v, doc.AngleClass().Pi())
 }
 
@@ -1462,7 +1462,7 @@ func TestFalseBooleans(t *tes.T) {
 	var v = doc.Boolean(false)
 	ass.False(t, v.AsIntrinsic())
 	v = doc.Boolean("false")
-	ass.Equal(t, "false", v.AsString())
+	ass.Equal(t, "false", v.AsSource())
 	ass.Equal(t, v, doc.BooleanClass().False())
 }
 
@@ -1471,7 +1471,7 @@ func TestTrueBooleans(t *tes.T) {
 	var v = doc.Boolean(true)
 	ass.True(t, v.AsIntrinsic())
 	v = doc.Boolean("true")
-	ass.Equal(t, "true", v.AsString())
+	ass.Equal(t, "true", v.AsSource())
 	ass.Equal(t, v, doc.BooleanClass().True())
 }
 
@@ -1547,14 +1547,14 @@ func TestZeroDurations(t *tes.T) {
 
 func TestStringDurations(t *tes.T) {
 	var duration = doc.Duration("~P1Y2M3DT4H5M6S")
-	ass.Equal(t, "~P1Y2M3DT4H5M6S", duration.AsString())
+	ass.Equal(t, "~P1Y2M3DT4H5M6S", duration.AsSource())
 	duration = doc.Duration("~P0W")
-	ass.Equal(t, "~P0W", duration.AsString())
+	ass.Equal(t, "~P0W", duration.AsSource())
 }
 
 func TestDurations(t *tes.T) {
 	var v = doc.Duration(60000)
-	ass.True(t, v.AsString() == "~PT1M")
+	ass.True(t, v.AsSource() == "~PT1M")
 	ass.True(t, v.AsInteger() == 60000)
 	ass.True(t, v.AsIntrinsic() == 60000)
 	ass.True(t, v.AsMilliseconds() == 60000)
@@ -1579,31 +1579,31 @@ var GlyphClass = doc.GlyphClass()
 
 func TestGlyphs(t *tes.T) {
 	var v = doc.Glyph("'''")
-	ass.Equal(t, "'''", v.AsString())
+	ass.Equal(t, "'''", v.AsSource())
 
 	v = doc.Glyph('a')
-	ass.Equal(t, "'a'", v.AsString())
+	ass.Equal(t, "'a'", v.AsSource())
 
 	v = doc.Glyph('"')
-	ass.Equal(t, `'"'`, v.AsString())
+	ass.Equal(t, `'"'`, v.AsSource())
 
 	v = doc.Glyph('😊')
-	ass.Equal(t, "'😊'", v.AsString())
+	ass.Equal(t, "'😊'", v.AsSource())
 
 	v = doc.Glyph('界')
-	ass.Equal(t, "'界'", v.AsString())
+	ass.Equal(t, "'界'", v.AsSource())
 
 	v = doc.Glyph('\'')
-	ass.Equal(t, "'''", v.AsString())
+	ass.Equal(t, "'''", v.AsSource())
 
 	v = doc.Glyph('\\')
-	ass.Equal(t, "'\\'", v.AsString())
+	ass.Equal(t, "'\\'", v.AsSource())
 
 	v = doc.Glyph('\n')
-	ass.Equal(t, "'\n'", v.AsString())
+	ass.Equal(t, "'\n'", v.AsSource())
 
 	v = doc.Glyph('\t')
-	ass.Equal(t, "'\t'", v.AsString())
+	ass.Equal(t, "'\t'", v.AsSource())
 }
 
 var MomentClass = doc.MomentClass()
@@ -1632,7 +1632,7 @@ func TestIntegerMoments(t *tes.T) {
 
 func TestStringMoments(t *tes.T) {
 	var v = doc.Moment("<-1-02-03T04:05:06.700>")
-	ass.Equal(t, "<-1-02-03T04:05:06.700>", v.AsString())
+	ass.Equal(t, "<-1-02-03T04:05:06.700>", v.AsSource())
 }
 
 func TestMomentsLibrary(t *tes.T) {
@@ -1654,7 +1654,7 @@ func TestZero(t *tes.T) {
 	ass.False(t, v.IsInfinite())
 	ass.True(t, v.IsDefined())
 	ass.False(t, v.IsNegative())
-	ass.Equal(t, "0", v.AsString())
+	ass.Equal(t, "0", v.AsSource())
 	ass.Equal(t, 0.0, v.AsFloat())
 	ass.Equal(t, 0.0, v.GetReal())
 	ass.Equal(t, 0.0, v.GetImaginary())
@@ -1668,7 +1668,7 @@ func TestInfinity(t *tes.T) {
 	ass.True(t, v.IsInfinite())
 	ass.True(t, v.IsDefined())
 	ass.False(t, v.IsNegative())
-	ass.Equal(t, "∞", v.AsString())
+	ass.Equal(t, "∞", v.AsSource())
 	ass.Equal(t, mat.Inf(1), v.AsFloat())
 	ass.Equal(t, mat.Inf(1), v.GetReal())
 	ass.Equal(t, mat.Inf(1), v.GetImaginary())
@@ -1701,9 +1701,9 @@ func TestPositivePureReals(t *tes.T) {
 	v = doc.Number(float)
 	ass.Equal(t, 5.0, v.AsFloat())
 	v = doc.Number("1.23456789E+100")
-	ass.Equal(t, "1.23456789E+100", v.AsString())
+	ass.Equal(t, "1.23456789E+100", v.AsSource())
 	v = doc.Number("1.23456789E-10")
-	ass.Equal(t, "1.23456789E-10", v.AsString())
+	ass.Equal(t, "1.23456789E-10", v.AsSource())
 }
 
 func TestPositivePureImaginaries(t *tes.T) {
@@ -1741,7 +1741,7 @@ func TestNumber(t *tes.T) {
 	ass.Equal(t, -1.0, v.GetReal())
 	ass.Equal(t, 0.0, v.GetImaginary())
 	ass.Equal(t, 1.0, v.GetMagnitude())
-	ass.Equal(t, mat.Pi, v.GetPhase())
+	ass.Equal(t, mat.Pi, v.GetAngle())
 
 	v = doc.Rectangular(3.0, 4.0)
 	ass.Equal(t, 3.0+4.0i, v.AsIntrinsic())
@@ -1752,120 +1752,120 @@ func TestNumber(t *tes.T) {
 
 	v = doc.Number("5e^~1i")
 	ass.Equal(t, 5.0, v.GetMagnitude())
-	ass.Equal(t, 1.0, v.GetPhase())
+	ass.Equal(t, 1.0, v.GetAngle())
 	ass.Equal(t, "5e^~1i", v.AsPolar())
 
 	v = doc.Number("1e^~πi")
 	ass.Equal(t, -1.0+0i, v.AsIntrinsic())
 	ass.True(t, v.IsNegative())
-	ass.Equal(t, "-1", v.AsString())
+	ass.Equal(t, "-1", v.AsSource())
 	ass.Equal(t, "1e^~πi", v.AsPolar())
 	ass.Equal(t, -1.0, v.AsFloat())
 	ass.Equal(t, -1.0, v.GetReal())
 	ass.Equal(t, 0.0, v.GetImaginary())
 	ass.Equal(t, 1.0, v.GetMagnitude())
-	ass.Equal(t, mat.Pi, v.GetPhase())
+	ass.Equal(t, mat.Pi, v.GetAngle())
 
 	v = doc.Number("-1.2-3.4i")
-	ass.Equal(t, "-1.2-3.4i", v.AsString())
+	ass.Equal(t, "-1.2-3.4i", v.AsSource())
 	ass.Equal(t, -1.2, v.GetReal())
 	ass.Equal(t, -3.4, v.GetImaginary())
 
 	v = doc.Number("-π+τi")
-	ass.Equal(t, "-π+τi", v.AsString())
+	ass.Equal(t, "-π+τi", v.AsSource())
 	ass.Equal(t, -3.141592653589793, v.GetReal())
 	ass.Equal(t, 6.283185307179586, v.GetImaginary())
 
 	v = doc.Number("undefined")
-	ass.Equal(t, "undefined", v.AsString())
+	ass.Equal(t, "undefined", v.AsSource())
 	ass.False(t, v.IsDefined())
 	ass.False(t, v.HasMagnitude())
 
 	v = doc.Number("+infinity")
-	ass.Equal(t, "+∞", v.AsString())
+	ass.Equal(t, "+∞", v.AsSource())
 	ass.True(t, v.IsMaximum())
 	ass.False(t, v.HasMagnitude())
 
 	v = doc.Number("infinity")
-	ass.Equal(t, "∞", v.AsString())
+	ass.Equal(t, "∞", v.AsSource())
 	ass.True(t, v.IsInfinite())
 	ass.False(t, v.HasMagnitude())
 
 	v = doc.Number("-infinity")
-	ass.Equal(t, "-∞", v.AsString())
+	ass.Equal(t, "-∞", v.AsSource())
 	ass.True(t, v.IsMinimum())
 	ass.False(t, v.HasMagnitude())
 
 	v = doc.Number("∞")
-	ass.Equal(t, "∞", v.AsString())
+	ass.Equal(t, "∞", v.AsSource())
 	ass.True(t, v.IsInfinite())
 	ass.False(t, v.HasMagnitude())
 
 	v = doc.Number("-∞")
-	ass.Equal(t, "-∞", v.AsString())
+	ass.Equal(t, "-∞", v.AsSource())
 	ass.True(t, v.IsMinimum())
 	ass.False(t, v.HasMagnitude())
 
 	v = doc.Number("+1")
-	ass.Equal(t, "1", v.AsString())
+	ass.Equal(t, "1", v.AsSource())
 	ass.Equal(t, 1.0, v.GetReal())
 	ass.Equal(t, 0.0, v.GetImaginary())
 	ass.Equal(t, 1.0, v.GetMagnitude())
-	ass.Equal(t, 0.0, v.GetPhase())
+	ass.Equal(t, 0.0, v.GetAngle())
 	ass.True(t, v.HasMagnitude())
 	ass.False(t, v.IsNegative())
 
 	v = doc.Number("1")
-	ass.Equal(t, "1", v.AsString())
+	ass.Equal(t, "1", v.AsSource())
 	ass.Equal(t, 1.0, v.GetReal())
 	ass.Equal(t, 0.0, v.GetImaginary())
 	ass.Equal(t, 1.0, v.GetMagnitude())
-	ass.Equal(t, 0.0, v.GetPhase())
+	ass.Equal(t, 0.0, v.GetAngle())
 	ass.True(t, v.HasMagnitude())
 	ass.False(t, v.IsNegative())
 
 	v = doc.Number("-π")
-	ass.Equal(t, "-π", v.AsString())
+	ass.Equal(t, "-π", v.AsSource())
 	ass.Equal(t, -mat.Pi, v.GetReal())
-	ass.Equal(t, mat.Pi, v.GetPhase())
+	ass.Equal(t, mat.Pi, v.GetAngle())
 	ass.True(t, v.HasMagnitude())
 	ass.True(t, v.IsNegative())
 
 	v = doc.Number("+1i")
-	ass.Equal(t, "1i", v.AsString())
+	ass.Equal(t, "1i", v.AsSource())
 	ass.Equal(t, 0.0, v.GetReal())
 	ass.Equal(t, 1.0, v.GetImaginary())
 	ass.Equal(t, 1.0, v.GetMagnitude())
-	ass.Equal(t, mat.Pi/2.0, v.GetPhase())
+	ass.Equal(t, mat.Pi/2.0, v.GetAngle())
 	ass.True(t, v.HasMagnitude())
 	ass.False(t, v.IsNegative())
 
 	v = doc.Number("1i")
-	ass.Equal(t, "1i", v.AsString())
+	ass.Equal(t, "1i", v.AsSource())
 	ass.Equal(t, 0.0, v.GetReal())
 	ass.Equal(t, 1.0, v.GetImaginary())
 	ass.Equal(t, 1.0, v.GetMagnitude())
-	ass.Equal(t, mat.Pi/2.0, v.GetPhase())
+	ass.Equal(t, mat.Pi/2.0, v.GetAngle())
 	ass.True(t, v.HasMagnitude())
 	ass.False(t, v.IsNegative())
 
 	v = doc.Number("-1i")
-	ass.Equal(t, "-1i", v.AsString())
+	ass.Equal(t, "-1i", v.AsSource())
 	ass.Equal(t, 0.0, v.GetReal())
 	ass.Equal(t, -1.0, v.GetImaginary())
 	ass.Equal(t, 1.0, v.GetMagnitude())
-	ass.Equal(t, -mat.Pi/2.0, v.GetPhase())
+	ass.Equal(t, -mat.Pi/2.0, v.GetAngle())
 	ass.True(t, v.HasMagnitude())
 	ass.False(t, v.IsNegative())
 
 	v = doc.Number("-1.2345678E+90")
-	ass.Equal(t, "-1.2345678E+90", v.AsString())
+	ass.Equal(t, "-1.2345678E+90", v.AsSource())
 	ass.True(t, v.IsNegative())
 	ass.Equal(t, -1.2345678e+90, v.GetReal())
 	ass.Equal(t, 0.0, v.GetImaginary())
 
 	v = doc.Number("-1.2345678E+90i")
-	ass.Equal(t, "-1.2345678E+90i", v.AsString())
+	ass.Equal(t, "-1.2345678E+90i", v.AsSource())
 	ass.False(t, v.IsNegative())
 	ass.Equal(t, 0.0, v.GetReal())
 	ass.Equal(t, -1.2345678e+90, v.GetImaginary())
@@ -1874,7 +1874,7 @@ func TestNumber(t *tes.T) {
 	ass.Equal(t, "1.2345678E+90e^~1.2345678E-90i", v.AsPolar())
 	ass.False(t, v.IsNegative())
 	ass.Equal(t, 1.2345678e+90, v.GetMagnitude())
-	ass.Equal(t, 1.2345678e-90, v.GetPhase())
+	ass.Equal(t, 1.2345678e-90, v.GetAngle())
 }
 
 func TestNumberLibrary(t *tes.T) {
@@ -2101,7 +2101,7 @@ func TestStringPercentages(t *tes.T) {
 	var v = doc.Percentage("1.7%")
 	//ass.Equal(t, -1.0, v.AsIntrinsic())
 	//ass.Equal(t, -100.0, v.AsFloat())
-	ass.Equal(t, "1.7%", v.AsString())
+	ass.Equal(t, "1.7%", v.AsSource())
 }
 
 func TestBooleanProbabilities(t *tes.T) {
@@ -2130,17 +2130,17 @@ func TestStringProbabilities(t *tes.T) {
 	var v = doc.Probability("p0")
 	ass.Equal(t, 0.0, v.AsIntrinsic())
 	ass.Equal(t, 0.0, v.AsFloat())
-	ass.Equal(t, "p0", v.AsString())
+	ass.Equal(t, "p0", v.AsSource())
 
 	v = doc.Probability("p0.5")
 	ass.Equal(t, 0.5, v.AsIntrinsic())
 	ass.Equal(t, 0.5, v.AsFloat())
-	ass.Equal(t, "p0.5", v.AsString())
+	ass.Equal(t, "p0.5", v.AsSource())
 
 	v = doc.Probability("p1")
 	ass.Equal(t, 1.0, v.AsIntrinsic())
 	ass.Equal(t, 1.0, v.AsFloat())
-	ass.Equal(t, "p1", v.AsString())
+	ass.Equal(t, "p1", v.AsSource())
 }
 
 func TestOtherProbabilities(t *tes.T) {
@@ -2212,7 +2212,7 @@ func TestResource(t *tes.T) {
 
 func TestResourceWithAuthorityAndPath(t *tes.T) {
 	var v = doc.Resource("<https://craterdog.com/About.html>")
-	ass.Equal(t, "<https://craterdog.com/About.html>", v.AsString())
+	ass.Equal(t, "<https://craterdog.com/About.html>", v.AsSource())
 	ass.Equal(t, "https", v.GetScheme())
 	ass.Equal(t, "craterdog.com", v.GetAuthority())
 	ass.Equal(t, "/About.html", v.GetPath())
@@ -2222,7 +2222,7 @@ func TestResourceWithAuthorityAndPath(t *tes.T) {
 
 func TestResourceWithPath(t *tes.T) {
 	var v = doc.Resource("<mailto:craterdog@google.com>")
-	ass.Equal(t, "<mailto:craterdog@google.com>", v.AsString())
+	ass.Equal(t, "<mailto:craterdog@google.com>", v.AsSource())
 	ass.Equal(t, "mailto", v.GetScheme())
 	ass.Equal(t, "", v.GetAuthority())
 	ass.Equal(t, "", v.GetPath())
@@ -2232,7 +2232,7 @@ func TestResourceWithPath(t *tes.T) {
 
 func TestResourceWithAuthorityAndPathAndQuery(t *tes.T) {
 	var v = doc.Resource("<https://craterdog.com/?foo=bar;bar=baz>")
-	ass.Equal(t, "<https://craterdog.com/?foo=bar;bar=baz>", v.AsString())
+	ass.Equal(t, "<https://craterdog.com/?foo=bar;bar=baz>", v.AsSource())
 	ass.Equal(t, "https", v.GetScheme())
 	ass.Equal(t, "craterdog.com", v.GetAuthority())
 	ass.Equal(t, "/", v.GetPath())
@@ -2242,7 +2242,7 @@ func TestResourceWithAuthorityAndPathAndQuery(t *tes.T) {
 
 func TestResourceWithAuthorityAndPathAndFragment(t *tes.T) {
 	var v = doc.Resource("<https://craterdog.com/#Home>")
-	ass.Equal(t, "<https://craterdog.com/#Home>", v.AsString())
+	ass.Equal(t, "<https://craterdog.com/#Home>", v.AsSource())
 	ass.Equal(t, "https", v.GetScheme())
 	ass.Equal(t, "craterdog.com", v.GetAuthority())
 	ass.Equal(t, "/", v.GetPath())
@@ -2252,7 +2252,7 @@ func TestResourceWithAuthorityAndPathAndFragment(t *tes.T) {
 
 func TestResourceWithAuthorityAndPathAndQueryAndFragment(t *tes.T) {
 	var v = doc.Resource("<https://craterdog.com/?foo=bar;bar=baz#Home>")
-	ass.Equal(t, "<https://craterdog.com/?foo=bar;bar=baz#Home>", v.AsString())
+	ass.Equal(t, "<https://craterdog.com/?foo=bar;bar=baz#Home>", v.AsSource())
 	ass.Equal(t, "https", v.GetScheme())
 	ass.Equal(t, "craterdog.com", v.GetAuthority())
 	ass.Equal(t, "/", v.GetPath())
@@ -2267,7 +2267,7 @@ func TestSymbol(t *tes.T) {
 
 	foobar = "$foo-bar"
 	v = doc.Symbol(foobar)
-	ass.Equal(t, foobar, v.AsString())
+	ass.Equal(t, foobar, v.AsSource())
 }
 
 // STRING
@@ -2275,7 +2275,7 @@ func TestSymbol(t *tes.T) {
 func TestEmptyBinary(t *tes.T) {
 	var binary = `'><'`
 	var v = doc.Binary(binary)
-	ass.Equal(t, binary, v.AsString())
+	ass.Equal(t, binary, v.AsSource())
 	ass.True(t, v.IsEmpty())
 	ass.Equal(t, 0, int(v.GetSize()))
 }
@@ -2284,18 +2284,11 @@ func TestBinary(t *tes.T) {
 	var b1 = `'>
     abcd1234
 <'`
-	var b2 = `'>
-    abcd
-<'`
 	var v = doc.Binary(b1)
-	ass.Equal(t, b1, v.AsString())
+	ass.Equal(t, b1, v.AsSource())
 	ass.False(t, v.IsEmpty())
 	ass.Equal(t, 6, int(v.GetSize()))
-	ass.Equal(t, byte(0x69), v.GetValue(1))
-	ass.Equal(t, byte(0xf8), v.GetValue(-1))
 	ass.Equal(t, v.AsArray(), doc.Binary(v.AsArray()).AsArray())
-	ass.Equal(t, b2, doc.Binary(v.GetValues(1, 3)).AsString())
-	ass.Equal(t, 1, int(v.GetIndex(0x69)))
 }
 
 func TestBinaryLibrary(t *tes.T) {
@@ -2311,7 +2304,7 @@ func TestBinaryLibrary(t *tes.T) {
 	var v1 = doc.Binary(b1)
 	var v2 = doc.Binary(b2)
 	var class = doc.BinaryClass()
-	ass.Equal(t, b3, class.Concatenate(v1, v2).AsString())
+	ass.Equal(t, b3, class.Concatenate(v1, v2).AsSource())
 
 	v1 = doc.Binary([]byte{0x00, 0x01, 0x02, 0x03, 0x04})
 	v2 = doc.Binary([]byte{0x03, 0x00, 0x01, 0x02})
@@ -2332,16 +2325,16 @@ func TestBinaryLibrary(t *tes.T) {
 
 func TestName(t *tes.T) {
 	var v1 = doc.Name("/bali-nebula/types/abstractions/5String")
-	ass.Equal(t, "/bali-nebula/types/abstractions/5String", v1.AsString())
+	ass.Equal(t, "/bali-nebula/types/abstractions/5String", v1.AsSource())
 	ass.False(t, v1.IsEmpty())
 	ass.Equal(t, 4, int(v1.GetSize()))
-	ass.Equal(t, doc.Identifier("bali-nebula"), v1.GetValue(1))
-	ass.Equal(t, doc.Identifier("5String"), v1.GetValue(-1))
+	ass.Equal(t, doc.Folder("bali-nebula"), v1.GetValue(1))
+	ass.Equal(t, doc.Folder("5String"), v1.GetValue(-1))
 	var v2 = doc.Name(v1.AsArray())
-	ass.Equal(t, v1.AsString(), v2.AsString())
+	ass.Equal(t, v1.AsSource(), v2.AsSource())
 	var v3 = doc.Name(v1.GetValues(1, 2))
 	ass.Equal(t, 1, int(v1.GetIndex("bali-nebula")))
-	ass.Equal(t, "/bali-nebula/types", v3.AsString())
+	ass.Equal(t, "/bali-nebula/types", v3.AsSource())
 }
 
 func TestNamesLibrary(t *tes.T) {
@@ -2350,7 +2343,7 @@ func TestNamesLibrary(t *tes.T) {
 	ass.Equal(
 		t,
 		"/bali-nebula/types/abstractions/String",
-		doc.NameClass().Concatenate(v1, v2).AsString(),
+		doc.NameClass().Concatenate(v1, v2).AsSource(),
 	)
 }
 
@@ -2377,7 +2370,7 @@ const n3 = `">
 
 func TestEmptyNarrative(t *tes.T) {
 	var v0 = doc.Narrative(n0)
-	ass.Equal(t, n0, v0.AsString())
+	ass.Equal(t, n0, v0.AsSource())
 	ass.True(t, v0.IsEmpty())
 	ass.Equal(t, 0, int(v0.GetSize()))
 	ass.Equal(t, 0, len(v0.AsArray()))
@@ -2385,16 +2378,16 @@ func TestEmptyNarrative(t *tes.T) {
 
 func TestNarrative(t *tes.T) {
 	var v1 = doc.Narrative(n1)
-	ass.Equal(t, n1, v1.AsString())
+	ass.Equal(t, n1, v1.AsSource())
 	ass.False(t, v1.IsEmpty())
 	ass.Equal(t, 1, int(v1.GetSize()))
 
 	var v3 = doc.Narrative(n3)
-	ass.Equal(t, n3, v3.AsString())
+	ass.Equal(t, n3, v3.AsSource())
 	ass.False(t, v3.IsEmpty())
 	ass.Equal(t, 5, int(v3.GetSize()))
 
-	ass.Equal(t, n3, doc.Narrative(v3.AsArray()).AsString())
+	ass.Equal(t, n3, doc.Narrative(v3.AsArray()).AsSource())
 	ass.Equal(t, 5, len(v3.AsArray()))
 }
 
@@ -2404,15 +2397,15 @@ func TestNarrativesLibrary(t *tes.T) {
 	var v3 = doc.NarrativeClass().Concatenate(v1, v2)
 	ass.Equal(t, v1.GetValue(1), v3.GetValue(1))
 	ass.Equal(t, v2.GetValue(-1), v3.GetValue(-1))
-	ass.Equal(t, n3, v3.AsString())
+	ass.Equal(t, n3, v3.AsSource())
 }
 
 func TestNonePattern(t *tes.T) {
 	var v = doc.PatternClass().None()
-	ass.Equal(t, `none`, v.AsString())
+	ass.Equal(t, `none`, v.AsSource())
 
 	v = doc.Pattern(`none`)
-	ass.Equal(t, `none`, v.AsString())
+	ass.Equal(t, `none`, v.AsSource())
 	ass.Equal(t, v, doc.PatternClass().None())
 
 	var text = ""
@@ -2430,10 +2423,10 @@ func TestNonePattern(t *tes.T) {
 
 func TestAnyPattern(t *tes.T) {
 	var v = doc.PatternClass().Any()
-	ass.Equal(t, `any`, v.AsString())
+	ass.Equal(t, `any`, v.AsSource())
 
 	v = doc.Pattern(`any`)
-	ass.Equal(t, `any`, v.AsString())
+	ass.Equal(t, `any`, v.AsSource())
 	ass.Equal(t, v, doc.PatternClass().Any())
 
 	var text = ""
@@ -2451,7 +2444,7 @@ func TestAnyPattern(t *tes.T) {
 
 func TestSomePattern(t *tes.T) {
 	var v = doc.Pattern(`"c(.+t)"?`)
-	ass.Equal(t, `"c(.+t)"?`, v.AsString())
+	ass.Equal(t, `"c(.+t)"?`, v.AsSource())
 
 	var text = "ct"
 	ass.False(t, v.MatchesText(text))
@@ -2471,37 +2464,37 @@ func TestSomePattern(t *tes.T) {
 }
 
 func TestEmptyQuote(t *tes.T) {
-	var v = doc.Quote([]doc.Character{})
-	ass.Equal(t, []doc.Character{}, v.AsIntrinsic())
+	var v = doc.Quote([]rune{})
+	ass.Equal(t, []rune{}, v.AsIntrinsic())
 	ass.True(t, v.IsEmpty())
 	ass.Equal(t, 0, int(v.GetSize()))
 }
 
 func TestQuote(t *tes.T) {
 	var v = doc.Quote(`"abcd本1234"`)
-	ass.Equal(t, `"abcd本1234"`, v.AsString())
+	ass.Equal(t, `"abcd本1234"`, v.AsSource())
 	ass.False(t, v.IsEmpty())
 	ass.Equal(t, 9, int(v.GetSize()))
 	ass.Equal(t, 'a', rune(v.GetValue(1)))
 	ass.Equal(t, '4', rune(v.GetValue(-1)))
-	ass.Equal(t, `"d本1"`, doc.Quote(v.GetValues(4, 6)).AsString())
+	ass.Equal(t, `"d本1"`, doc.Quote(v.GetValues(4, 6)).AsSource())
 	ass.Equal(t, 8, int(v.GetIndex('3')))
 }
 
 func TestQuotesLibrary(t *tes.T) {
 	var v1 = doc.Quote(`"abcd本"`)
 	var v2 = doc.Quote(`"1234"`)
-	ass.Equal(t, `"abcd本1234"`, doc.QuoteClass().Concatenate(v1, v2).AsString())
+	ass.Equal(t, `"abcd本1234"`, doc.QuoteClass().Concatenate(v1, v2).AsSource())
 }
 
 func TestStringTags(t *tes.T) {
 	for size := 8; size < 33; size++ {
 		var t1 = doc.Tag(size)
-		ass.Equal(t, len(t1.AsString()), 1+int(mat.Ceil(float64(size)*8.0/5.0)))
-		var s1 = t1.AsString()
+		ass.Equal(t, len(t1.AsSource()), 1+int(mat.Ceil(float64(size)*8.0/5.0)))
+		var s1 = t1.AsSource()
 		var t2 = doc.Tag(s1)
 		ass.Equal(t, t1, t2)
-		var s2 = t2.AsString()
+		var s2 = t2.AsSource()
 		ass.Equal(t, s1, s2)
 		ass.Equal(t, t1.AsArray(), t2.AsArray())
 	}
@@ -2509,14 +2502,14 @@ func TestStringTags(t *tes.T) {
 
 func TestVersion(t *tes.T) {
 	var v1 = doc.Version("v1.2.3")
-	ass.Equal(t, "v1.2.3", v1.AsString())
+	ass.Equal(t, "v1.2.3", v1.AsSource())
 	ass.False(t, v1.IsEmpty())
 	ass.Equal(t, 3, int(v1.GetSize()))
 	ass.Equal(t, uint(1), v1.GetValue(1))
 	ass.Equal(t, uint(3), v1.GetValue(-1))
 	var v3 = doc.Version(v1.GetValues(1, 2))
 	ass.Equal(t, 2, int(v1.GetIndex(2)))
-	ass.Equal(t, "v1.2", v3.AsString())
+	ass.Equal(t, "v1.2", v3.AsSource())
 }
 
 func TestVersionsLibrary(t *tes.T) {
@@ -2527,39 +2520,39 @@ func TestVersionsLibrary(t *tes.T) {
 	var v3 = class.Concatenate(v1, v2)
 	ass.Equal(t, []uint{1, 2, 3}, v3.AsIntrinsic())
 	ass.False(t, class.IsValidNextVersion(v1, v1))
-	ass.Equal(t, "v2", class.GetNextVersion(v1, 0).AsString())
-	ass.Equal(t, "v2", class.GetNextVersion(v1, 1).AsString())
+	ass.Equal(t, "v2", class.GetNextVersion(v1, 0).AsSource())
+	ass.Equal(t, "v2", class.GetNextVersion(v1, 1).AsSource())
 	ass.True(t, class.IsValidNextVersion(v1, class.GetNextVersion(v1, 1)))
 	ass.False(t, class.IsValidNextVersion(class.GetNextVersion(v1, 1), v1))
-	ass.Equal(t, "v1.1", class.GetNextVersion(v1, 2).AsString())
+	ass.Equal(t, "v1.1", class.GetNextVersion(v1, 2).AsSource())
 	ass.True(t, class.IsValidNextVersion(v1, class.GetNextVersion(v1, 2)))
 	ass.False(t, class.IsValidNextVersion(class.GetNextVersion(v1, 2), v1))
-	ass.Equal(t, "v1.1", class.GetNextVersion(v1, 3).AsString())
+	ass.Equal(t, "v1.1", class.GetNextVersion(v1, 3).AsSource())
 
 	ass.False(t, class.IsValidNextVersion(v2, v2))
-	ass.Equal(t, "v3", class.GetNextVersion(v2, 1).AsString())
+	ass.Equal(t, "v3", class.GetNextVersion(v2, 1).AsSource())
 	ass.True(t, class.IsValidNextVersion(v2, class.GetNextVersion(v2, 1)))
 	ass.False(t, class.IsValidNextVersion(class.GetNextVersion(v2, 1), v2))
-	ass.Equal(t, "v2.4", class.GetNextVersion(v2, 0).AsString())
-	ass.Equal(t, "v2.4", class.GetNextVersion(v2, 2).AsString())
+	ass.Equal(t, "v2.4", class.GetNextVersion(v2, 0).AsSource())
+	ass.Equal(t, "v2.4", class.GetNextVersion(v2, 2).AsSource())
 	ass.True(t, class.IsValidNextVersion(v2, class.GetNextVersion(v2, 2)))
 	ass.False(t, class.IsValidNextVersion(class.GetNextVersion(v2, 2), v2))
-	ass.Equal(t, "v2.3.1", class.GetNextVersion(v2, 3).AsString())
+	ass.Equal(t, "v2.3.1", class.GetNextVersion(v2, 3).AsSource())
 	ass.True(t, class.IsValidNextVersion(v2, class.GetNextVersion(v2, 3)))
 	ass.False(t, class.IsValidNextVersion(class.GetNextVersion(v2, 3), v2))
 
 	ass.False(t, class.IsValidNextVersion(v3, v3))
-	ass.Equal(t, "v2", class.GetNextVersion(v3, 1).AsString())
+	ass.Equal(t, "v2", class.GetNextVersion(v3, 1).AsSource())
 	ass.True(t, class.IsValidNextVersion(v3, class.GetNextVersion(v3, 1)))
 	ass.False(t, class.IsValidNextVersion(class.GetNextVersion(v3, 1), v3))
-	ass.Equal(t, "v1.3", class.GetNextVersion(v3, 2).AsString())
+	ass.Equal(t, "v1.3", class.GetNextVersion(v3, 2).AsSource())
 	ass.True(t, class.IsValidNextVersion(v3, class.GetNextVersion(v3, 2)))
 	ass.False(t, class.IsValidNextVersion(class.GetNextVersion(v3, 2), v3))
-	ass.Equal(t, "v1.2.4", class.GetNextVersion(v3, 0).AsString())
-	ass.Equal(t, "v1.2.4", class.GetNextVersion(v3, 3).AsString())
+	ass.Equal(t, "v1.2.4", class.GetNextVersion(v3, 0).AsSource())
+	ass.Equal(t, "v1.2.4", class.GetNextVersion(v3, 3).AsSource())
 	ass.True(t, class.IsValidNextVersion(v3, class.GetNextVersion(v3, 3)))
 	ass.False(t, class.IsValidNextVersion(class.GetNextVersion(v3, 3), v3))
-	ass.Equal(t, "v1.2.3.1", class.GetNextVersion(v3, 4).AsString())
+	ass.Equal(t, "v1.2.3.1", class.GetNextVersion(v3, 4).AsSource())
 	ass.True(t, class.IsValidNextVersion(v3, class.GetNextVersion(v3, 4)))
 	ass.False(t, class.IsValidNextVersion(class.GetNextVersion(v3, 4), v3))
 }

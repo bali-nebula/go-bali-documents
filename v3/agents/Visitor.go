@@ -1480,7 +1480,7 @@ func (v *visitor_) visitPrimitive(
 		v.processor_.ProcessSymbol(actual)
 	case fra.BinaryLike:
 		v.processor_.ProcessBinary(actual)
-	case doc.BytecodeLike:
+	case fra.BytecodeLike:
 		v.processor_.ProcessBytecode(actual)
 	case fra.NameLike:
 		v.processor_.ProcessName(actual)

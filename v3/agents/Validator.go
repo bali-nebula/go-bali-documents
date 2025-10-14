@@ -96,7 +96,7 @@ func (v *validator_) ProcessBracket(
 }
 
 func (v *validator_) ProcessBytecode(
-	bytecode doc.BytecodeLike,
+	bytecode fra.BytecodeLike,
 ) {
 	// TBD - Add the method implementation.
 }

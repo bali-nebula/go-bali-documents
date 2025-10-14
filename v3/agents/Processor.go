@@ -81,7 +81,7 @@ func (v *processor_) ProcessBracket(
 }
 
 func (v *processor_) ProcessBytecode(
-	bytecode doc.BytecodeLike,
+	bytecode fra.BytecodeLike,
 ) {
 }
 

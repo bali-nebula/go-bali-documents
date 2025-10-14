@@ -105,7 +105,6 @@ type (
 	AcceptClauseClassLike     = doc.AcceptClauseClassLike
 	AttributesClassLike       = doc.AttributesClassLike
 	BreakClauseClassLike      = doc.BreakClauseClassLike
-	BytecodeClassLike         = doc.BytecodeClassLike
 	CheckoutClauseClassLike   = doc.CheckoutClauseClassLike
 	ComplementClassLike       = doc.ComplementClassLike
 	ComponentClassLike        = doc.ComponentClassLike
@@ -150,7 +149,6 @@ type (
 	AcceptClauseLike     = doc.AcceptClauseLike
 	AttributesLike       = doc.AttributesLike
 	BreakClauseLike      = doc.BreakClauseLike
-	BytecodeLike         = doc.BytecodeLike
 	CheckoutClauseLike   = doc.CheckoutClauseLike
 	ComplementLike       = doc.ComplementLike
 	ComponentLike        = doc.ComponentLike
@@ -271,26 +269,6 @@ func BreakClauseClass() BreakClauseClassLike {
 
 func BreakClause() BreakClauseLike {
 	return BreakClauseClass().BreakClause()
-}
-
-func BytecodeClass() BytecodeClassLike {
-	return doc.BytecodeClass()
-}
-
-func Bytecode(
-	value ...any,
-) BytecodeLike {
-	if len(value) == 0 {
-		return BytecodeClass().Bytecode([]uint16{0})
-	}
-	switch actual := value[0].(type) {
-	case string:
-		return BytecodeClass().BytecodeFromString(actual)
-	case []uint16:
-		return BytecodeClass().Bytecode(actual)
-	default:
-		return BytecodeClass().Bytecode([]uint16{0})
-	}
 }
 
 func CheckoutClauseClass() CheckoutClauseClassLike {
@@ -1035,7 +1013,7 @@ func Angle(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return AngleClass().AngleFromString(actual)
+		return AngleClass().AngleFromSource(actual)
 	case float64:
 		return AngleClass().Angle(actual)
 	default:
@@ -1055,7 +1033,7 @@ func Boolean(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return BooleanClass().BooleanFromString(actual)
+		return BooleanClass().BooleanFromSource(actual)
 	case bool:
 		return BooleanClass().Boolean(actual)
 	default:
@@ -1075,7 +1053,7 @@ func Duration(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return DurationClass().DurationFromString(actual)
+		return DurationClass().DurationFromSource(actual)
 	case int:
 		return DurationClass().Duration(actual)
 	default:
@@ -1095,7 +1073,7 @@ func Glyph(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return GlyphClass().GlyphFromString(actual)
+		return GlyphClass().GlyphFromSource(actual)
 	case rune:
 		return GlyphClass().Glyph(actual)
 	case int:
@@ -1117,7 +1095,7 @@ func Moment(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return MomentClass().MomentFromString(actual)
+		return MomentClass().MomentFromSource(actual)
 	case int:
 		return MomentClass().Moment(actual)
 	default:
@@ -1137,7 +1115,7 @@ func Number(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return NumberClass().NumberFromString(actual)
+		return NumberClass().NumberFromSource(actual)
 	case complex128:
 		return NumberClass().Number(actual)
 	case int:
@@ -1175,7 +1153,7 @@ func Percentage(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return PercentageClass().PercentageFromString(actual)
+		return PercentageClass().PercentageFromSource(actual)
 	case int:
 		return PercentageClass().PercentageFromInteger(actual)
 	case float64:
@@ -1197,7 +1175,7 @@ func Probability(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return ProbabilityClass().ProbabilityFromString(actual)
+		return ProbabilityClass().ProbabilityFromSource(actual)
 	case bool:
 		return ProbabilityClass().ProbabilityFromBoolean(actual)
 	case float64:
@@ -1220,7 +1198,7 @@ func Resource(
 	switch actual := value[0].(type) {
 	case string:
 		if actual[0] == '<' {
-			return ResourceClass().ResourceFromString(actual)
+			return ResourceClass().ResourceFromSource(actual)
 		} else {
 			return ResourceClass().Resource(actual)
 		}
@@ -1244,7 +1222,7 @@ func Symbol(
 	switch actual := value[0].(type) {
 	case string:
 		if actual[0] == '$' {
-			return SymbolClass().SymbolFromString(actual)
+			return SymbolClass().SymbolFromSource(actual)
 		} else {
 			return SymbolClass().Symbol(actual)
 		}
@@ -1256,13 +1234,12 @@ func Symbol(
 // Strings
 
 type (
-	Character  = fra.Character
-	Identifier = fra.Identifier
-	Line       = fra.Line
+	Folder = fra.Folder
 )
 
 type (
 	BinaryClassLike    = fra.BinaryClassLike
+	BytecodeClassLike  = fra.BytecodeClassLike
 	NameClassLike      = fra.NameClassLike
 	NarrativeClassLike = fra.NarrativeClassLike
 	PatternClassLike   = fra.PatternClassLike
@@ -1273,6 +1250,7 @@ type (
 
 type (
 	BinaryLike    = fra.BinaryLike
+	BytecodeLike  = fra.BytecodeLike
 	NameLike      = fra.NameLike
 	NarrativeLike = fra.NarrativeLike
 	PatternLike   = fra.PatternLike
@@ -1300,13 +1278,33 @@ func Binary(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return BinaryClass().BinaryFromString(actual)
+		return BinaryClass().BinaryFromSource(actual)
 	case []byte:
 		return BinaryClass().Binary(actual)
 	case fra.Sequential[byte]:
 		return BinaryClass().BinaryFromSequence(actual)
 	default:
 		return BinaryClass().Binary([]byte{})
+	}
+}
+
+func BytecodeClass() BytecodeClassLike {
+	return fra.BytecodeClass()
+}
+
+func Bytecode(
+	value ...any,
+) BytecodeLike {
+	if len(value) == 0 {
+		return BytecodeClass().Bytecode([]uint16{0})
+	}
+	switch actual := value[0].(type) {
+	case string:
+		return BytecodeClass().BytecodeFromSource(actual)
+	case []uint16:
+		return BytecodeClass().Bytecode(actual)
+	default:
+		return BytecodeClass().Bytecode([]uint16{0})
 	}
 }
 
@@ -1318,17 +1316,17 @@ func Name(
 	value ...any,
 ) NameLike {
 	if len(value) == 0 {
-		return NameClass().Name([]fra.Identifier{})
+		return NameClass().Name([]fra.Folder{})
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return NameClass().NameFromString(actual)
-	case []fra.Identifier:
+		return NameClass().NameFromSource(actual)
+	case []fra.Folder:
 		return NameClass().Name(actual)
-	case fra.Sequential[fra.Identifier]:
+	case fra.Sequential[fra.Folder]:
 		return NameClass().NameFromSequence(actual)
 	default:
-		return NameClass().Name([]fra.Identifier{})
+		return NameClass().Name([]fra.Folder{})
 	}
 }
 
@@ -1340,17 +1338,17 @@ func Narrative(
 	value ...any,
 ) NarrativeLike {
 	if len(value) == 0 {
-		return NarrativeClass().Narrative([]fra.Line{})
+		return NarrativeClass().Narrative([]string{})
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return NarrativeClass().NarrativeFromString(actual)
-	case []fra.Line:
+		return NarrativeClass().NarrativeFromSource(actual)
+	case []string:
 		return NarrativeClass().Narrative(actual)
-	case fra.Sequential[fra.Line]:
+	case fra.Sequential[string]:
 		return NarrativeClass().NarrativeFromSequence(actual)
 	default:
-		return NarrativeClass().Narrative([]fra.Line{})
+		return NarrativeClass().Narrative([]string{})
 	}
 }
 
@@ -1366,10 +1364,10 @@ func Pattern(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return PatternClass().PatternFromString(actual)
-	case []fra.Character:
+		return PatternClass().PatternFromSource(actual)
+	case []rune:
 		return PatternClass().Pattern(actual)
-	case fra.Sequential[fra.Character]:
+	case fra.Sequential[rune]:
 		return PatternClass().PatternFromSequence(actual)
 	default:
 		return PatternClass().None()
@@ -1384,21 +1382,21 @@ func Quote(
 	value ...any,
 ) QuoteLike {
 	if len(value) == 0 {
-		return QuoteClass().QuoteFromString(`""`)
+		return QuoteClass().QuoteFromSource(`""`)
 	}
 	switch actual := value[0].(type) {
 	case string:
 		if actual[0] == '"' {
-			return QuoteClass().QuoteFromString(actual)
+			return QuoteClass().QuoteFromSource(actual)
 		} else {
-			return QuoteClass().QuoteFromString(`"` + actual + `"`)
+			return QuoteClass().QuoteFromSource(`"` + actual + `"`)
 		}
-	case []fra.Character:
+	case []rune:
 		return QuoteClass().Quote(actual)
-	case fra.Sequential[fra.Character]:
+	case fra.Sequential[rune]:
 		return QuoteClass().QuoteFromSequence(actual)
 	default:
-		return QuoteClass().QuoteFromString(`""`)
+		return QuoteClass().QuoteFromSource(`""`)
 	}
 }
 
@@ -1414,7 +1412,7 @@ func Tag(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return TagClass().TagFromString(actual)
+		return TagClass().TagFromSource(actual)
 	case []byte:
 		return TagClass().Tag(actual)
 	case fra.Sequential[byte]:
@@ -1440,7 +1438,7 @@ func Version(
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return VersionClass().VersionFromString(actual)
+		return VersionClass().VersionFromSource(actual)
 	case []uint:
 		return VersionClass().Version(actual)
 	case fra.Sequential[uint]:

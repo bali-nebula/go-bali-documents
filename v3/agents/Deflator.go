@@ -74,7 +74,7 @@ func (v *deflator_) DeflateDocument(
 func (v *deflator_) ProcessAngle(
 	angle fra.AngleLike,
 ) {
-	v.stack_.AddValue(not.Element(angle.AsString()))
+	v.stack_.AddValue(not.Element(angle.AsSource()))
 }
 
 func (v *deflator_) ProcessAnnotation(
@@ -114,19 +114,19 @@ func (v *deflator_) ProcessAssignment(
 func (v *deflator_) ProcessBinary(
 	binary fra.BinaryLike,
 ) {
-	v.stack_.AddValue(not.String(binary.AsString()))
+	v.stack_.AddValue(not.String(binary.AsSource()))
 }
 
 func (v *deflator_) ProcessBoolean(
 	boolean fra.BooleanLike,
 ) {
-	v.stack_.AddValue(not.Element(boolean.AsString()))
+	v.stack_.AddValue(not.Element(boolean.AsSource()))
 }
 
 func (v *deflator_) ProcessBytecode(
-	bytecode doc.BytecodeLike,
+	bytecode fra.BytecodeLike,
 ) {
-	v.stack_.AddValue(not.String(bytecode.AsString()))
+	v.stack_.AddValue(not.String(bytecode.AsSource()))
 }
 
 func (v *deflator_) ProcessComment(
@@ -138,13 +138,13 @@ func (v *deflator_) ProcessComment(
 func (v *deflator_) ProcessDuration(
 	duration fra.DurationLike,
 ) {
-	v.stack_.AddValue(not.Element(duration.AsString()))
+	v.stack_.AddValue(not.Element(duration.AsSource()))
 }
 
 func (v *deflator_) ProcessGlyph(
 	glyph fra.GlyphLike,
 ) {
-	v.stack_.AddValue(not.Element(glyph.AsString()))
+	v.stack_.AddValue(not.Element(glyph.AsSource()))
 }
 
 func (v *deflator_) ProcessIdentifier(
@@ -198,19 +198,19 @@ func (v *deflator_) ProcessInvoke(
 func (v *deflator_) ProcessMoment(
 	moment fra.MomentLike,
 ) {
-	v.stack_.AddValue(not.Element(moment.AsString()))
+	v.stack_.AddValue(not.Element(moment.AsSource()))
 }
 
 func (v *deflator_) ProcessName(
 	name fra.NameLike,
 ) {
-	v.stack_.AddValue(not.String(name.AsString()))
+	v.stack_.AddValue(not.String(name.AsSource()))
 }
 
 func (v *deflator_) ProcessNarrative(
 	narrative fra.NarrativeLike,
 ) {
-	v.stack_.AddValue(not.String(narrative.AsString()))
+	v.stack_.AddValue(not.String(narrative.AsSource()))
 }
 
 func (v *deflator_) ProcessNote(
@@ -222,7 +222,7 @@ func (v *deflator_) ProcessNote(
 func (v *deflator_) ProcessNumber(
 	number fra.NumberLike,
 ) {
-	v.stack_.AddValue(not.Element(number.AsString()))
+	v.stack_.AddValue(not.Element(number.AsSource()))
 }
 
 func (v *deflator_) ProcessOperator(
@@ -276,49 +276,49 @@ func (v *deflator_) ProcessOperator(
 func (v *deflator_) ProcessPattern(
 	pattern fra.PatternLike,
 ) {
-	v.stack_.AddValue(not.String(pattern.AsString()))
+	v.stack_.AddValue(not.String(pattern.AsSource()))
 }
 
 func (v *deflator_) ProcessPercentage(
 	percentage fra.PercentageLike,
 ) {
-	v.stack_.AddValue(not.Element(percentage.AsString()))
+	v.stack_.AddValue(not.Element(percentage.AsSource()))
 }
 
 func (v *deflator_) ProcessProbability(
 	probability fra.ProbabilityLike,
 ) {
-	v.stack_.AddValue(not.Element(probability.AsString()))
+	v.stack_.AddValue(not.Element(probability.AsSource()))
 }
 
 func (v *deflator_) ProcessQuote(
 	quote fra.QuoteLike,
 ) {
-	v.stack_.AddValue(not.String(quote.AsString()))
+	v.stack_.AddValue(not.String(quote.AsSource()))
 }
 
 func (v *deflator_) ProcessResource(
 	resource fra.ResourceLike,
 ) {
-	v.stack_.AddValue(not.Element(resource.AsString()))
+	v.stack_.AddValue(not.Element(resource.AsSource()))
 }
 
 func (v *deflator_) ProcessSymbol(
 	symbol fra.SymbolLike,
 ) {
-	v.stack_.AddValue(not.Element(symbol.AsString()))
+	v.stack_.AddValue(not.Element(symbol.AsSource()))
 }
 
 func (v *deflator_) ProcessTag(
 	tag fra.TagLike,
 ) {
-	v.stack_.AddValue(not.String(tag.AsString()))
+	v.stack_.AddValue(not.String(tag.AsSource()))
 }
 
 func (v *deflator_) ProcessVersion(
 	version fra.VersionLike,
 ) {
-	v.stack_.AddValue(not.String(version.AsString()))
+	v.stack_.AddValue(not.String(version.AsSource()))
 }
 
 func (v *deflator_) PostprocessAcceptClause(

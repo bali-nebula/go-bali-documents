@@ -74,25 +74,25 @@ func (v *inflator_) InflateDocument(
 func (v *inflator_) ProcessAngle(
 	angle string,
 ) {
-	v.stack_.AddValue(fra.AngleFromString(angle))
+	v.stack_.AddValue(fra.AngleFromSource(angle))
 }
 
 func (v *inflator_) ProcessBinary(
 	binary string,
 ) {
-	v.stack_.AddValue(fra.BinaryFromString(binary))
+	v.stack_.AddValue(fra.BinaryFromSource(binary))
 }
 
 func (v *inflator_) ProcessBoolean(
 	boolean string,
 ) {
-	v.stack_.AddValue(fra.BooleanFromString(boolean))
+	v.stack_.AddValue(fra.BooleanFromSource(boolean))
 }
 
 func (v *inflator_) ProcessBytecode(
 	bytecode string,
 ) {
-	v.stack_.AddValue(doc.BytecodeClass().BytecodeFromString(bytecode))
+	v.stack_.AddValue(fra.BytecodeClass().BytecodeFromSource(bytecode))
 }
 
 func (v *inflator_) ProcessComment(
@@ -104,13 +104,13 @@ func (v *inflator_) ProcessComment(
 func (v *inflator_) ProcessDuration(
 	duration string,
 ) {
-	v.stack_.AddValue(fra.DurationFromString(duration))
+	v.stack_.AddValue(fra.DurationFromSource(duration))
 }
 
 func (v *inflator_) ProcessGlyph(
 	glyph string,
 ) {
-	v.stack_.AddValue(fra.GlyphFromString(glyph))
+	v.stack_.AddValue(fra.GlyphFromSource(glyph))
 }
 
 func (v *inflator_) ProcessIdentifier(
@@ -122,19 +122,19 @@ func (v *inflator_) ProcessIdentifier(
 func (v *inflator_) ProcessMoment(
 	moment string,
 ) {
-	v.stack_.AddValue(fra.MomentFromString(moment))
+	v.stack_.AddValue(fra.MomentFromSource(moment))
 }
 
 func (v *inflator_) ProcessName(
 	name string,
 ) {
-	v.stack_.AddValue(fra.NameFromString(name))
+	v.stack_.AddValue(fra.NameFromSource(name))
 }
 
 func (v *inflator_) ProcessNarrative(
 	narrative string,
 ) {
-	v.stack_.AddValue(fra.NarrativeFromString(narrative))
+	v.stack_.AddValue(fra.NarrativeFromSource(narrative))
 }
 
 func (v *inflator_) ProcessNote(
@@ -146,55 +146,55 @@ func (v *inflator_) ProcessNote(
 func (v *inflator_) ProcessNumber(
 	number string,
 ) {
-	v.stack_.AddValue(fra.NumberFromString(number))
+	v.stack_.AddValue(fra.NumberFromSource(number))
 }
 
 func (v *inflator_) ProcessPattern(
 	pattern string,
 ) {
-	v.stack_.AddValue(fra.PatternFromString(pattern))
+	v.stack_.AddValue(fra.PatternFromSource(pattern))
 }
 
 func (v *inflator_) ProcessPercentage(
 	percentage string,
 ) {
-	v.stack_.AddValue(fra.PercentageFromString(percentage))
+	v.stack_.AddValue(fra.PercentageFromSource(percentage))
 }
 
 func (v *inflator_) ProcessProbability(
 	probability string,
 ) {
-	v.stack_.AddValue(fra.ProbabilityFromString(probability))
+	v.stack_.AddValue(fra.ProbabilityFromSource(probability))
 }
 
 func (v *inflator_) ProcessQuote(
 	quote string,
 ) {
-	v.stack_.AddValue(fra.QuoteFromString(quote))
+	v.stack_.AddValue(fra.QuoteFromSource(quote))
 }
 
 func (v *inflator_) ProcessResource(
 	resource string,
 ) {
-	v.stack_.AddValue(fra.ResourceFromString(resource))
+	v.stack_.AddValue(fra.ResourceFromSource(resource))
 }
 
 func (v *inflator_) ProcessSymbol(
 	symbol string,
 ) {
-	v.stack_.AddValue(fra.SymbolFromString(symbol))
+	v.stack_.AddValue(fra.SymbolFromSource(symbol))
 }
 
 func (v *inflator_) ProcessTag(
 	tag string,
 ) {
-	v.stack_.AddValue(fra.TagFromString(tag))
+	v.stack_.AddValue(fra.TagFromSource(tag))
 }
 
 func (v *inflator_) ProcessVersion(
 	version string,
 ) {
-	v.stack_.AddValue(fra.VersionFromString(version))
+	v.stack_.AddValue(fra.VersionFromSource(version))
 }
 
 func (v *inflator_) PostprocessAcceptClause(
@@ -984,7 +984,7 @@ func (v *inflator_) getObjects(
 	var parameter = dummy.GetParameter(fra.Symbol("type"))
 	switch entity := parameter.GetEntity().(type) {
 	case fra.ResourceLike:
-		switch entity.AsString() {
+		switch entity.AsSource() {
 		case "<bali:/types/collections/Queue:v3>":
 			objects = fra.QueueFromSequence(objects)
 		case "<bali:/types/collections/Set:v3>":

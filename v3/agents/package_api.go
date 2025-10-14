@@ -190,7 +190,7 @@ type Methodical interface {
 		bracket fra.Bracket,
 	)
 	ProcessBytecode(
-		bytecode doc.BytecodeLike,
+		bytecode fra.BytecodeLike,
 	)
 	ProcessComment(
 		comment string,
