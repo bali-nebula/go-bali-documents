@@ -695,14 +695,14 @@ type ComponentLike interface {
 	GetParameter(
 		symbol fra.SymbolLike,
 	) ComponentLike
-	SetComposite(
+	SetSubcomponent(
 		value any,
 		indices ...any,
 	)
-	GetComposite(
+	GetSubcomponent(
 		indices ...any,
 	) CompositeLike
-	RemoveComposite(
+	RemoveSubcomponent(
 		indices ...any,
 	) CompositeLike
 
