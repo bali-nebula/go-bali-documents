@@ -20,23 +20,23 @@ import (
 
 // Access Function
 
-func RetrieveClauseClass() RetrieveClauseClassLike {
-	return retrieveClauseClass()
+func ReceiveClauseClass() ReceiveClauseClassLike {
+	return receiveClauseClass()
 }
 
 // Constructor Methods
 
-func (c *retrieveClauseClass_) RetrieveClause(
+func (c *receiveClauseClass_) ReceiveClause(
 	recipient any,
 	bag ExpressionLike,
-) RetrieveClauseLike {
+) ReceiveClauseLike {
 	if uti.IsUndefined(recipient) {
 		panic("The \"recipient\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(bag) {
 		panic("The \"bag\" attribute is required by this class.")
 	}
-	var instance = &retrieveClause_{
+	var instance = &receiveClause_{
 		// Initialize the instance attributes.
 		recipient_: recipient,
 		bag_:       bag,
@@ -52,17 +52,17 @@ func (c *retrieveClauseClass_) RetrieveClause(
 
 // Principal Methods
 
-func (v *retrieveClause_) GetClass() RetrieveClauseClassLike {
-	return retrieveClauseClass()
+func (v *receiveClause_) GetClass() ReceiveClauseClassLike {
+	return receiveClauseClass()
 }
 
 // Attribute Methods
 
-func (v *retrieveClause_) GetRecipient() any {
+func (v *receiveClause_) GetRecipient() any {
 	return v.recipient_
 }
 
-func (v *retrieveClause_) GetBag() ExpressionLike {
+func (v *receiveClause_) GetBag() ExpressionLike {
 	return v.bag_
 }
 
@@ -72,7 +72,7 @@ func (v *retrieveClause_) GetBag() ExpressionLike {
 
 // Instance Structure
 
-type retrieveClause_ struct {
+type receiveClause_ struct {
 	// Declare the instance attributes.
 	recipient_ any
 	bag_       ExpressionLike
@@ -80,16 +80,16 @@ type retrieveClause_ struct {
 
 // Class Structure
 
-type retrieveClauseClass_ struct {
+type receiveClauseClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func retrieveClauseClass() *retrieveClauseClass_ {
-	return retrieveClauseClassReference_
+func receiveClauseClass() *receiveClauseClass_ {
+	return receiveClauseClassReference_
 }
 
-var retrieveClauseClassReference_ = &retrieveClauseClass_{
+var receiveClauseClassReference_ = &receiveClauseClass_{
 	// Initialize the class constants.
 }

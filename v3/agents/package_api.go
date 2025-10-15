@@ -770,6 +770,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessReceiveClause(
+		receiveClause doc.ReceiveClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessReceiveClauseSlot(
+		receiveClause doc.ReceiveClauseLike,
+		slot_ uint,
+	)
+	PostprocessReceiveClause(
+		receiveClause doc.ReceiveClauseLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessRecipient(
 		recipient any,
 		index_ uint,
@@ -823,20 +837,6 @@ type Methodical interface {
 	)
 	PostprocessRejectClause(
 		rejectClause doc.RejectClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessRetrieveClause(
-		retrieveClause doc.RetrieveClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessRetrieveClauseSlot(
-		retrieveClause doc.RetrieveClauseLike,
-		slot_ uint,
-	)
-	PostprocessRetrieveClause(
-		retrieveClause doc.RetrieveClauseLike,
 		index_ uint,
 		count_ uint,
 	)

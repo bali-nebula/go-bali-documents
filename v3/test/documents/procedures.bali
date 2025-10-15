@@ -76,7 +76,7 @@
         $messageId: #0123456789ABC
     ]
     reject message
-    retrieve $message from bag on $error matching any do {
+    receive $message from bag on $error matching any do {
         return error
     }
 }

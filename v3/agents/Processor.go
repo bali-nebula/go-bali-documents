@@ -945,6 +945,26 @@ func (v *processor_) PostprocessRange(
 ) {
 }
 
+func (v *processor_) PreprocessReceiveClause(
+	receiveClause doc.ReceiveClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessReceiveClauseSlot(
+	receiveClause doc.ReceiveClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessReceiveClause(
+	receiveClause doc.ReceiveClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessRecipient(
 	recipient any,
 	index_ uint,
@@ -1020,26 +1040,6 @@ func (v *processor_) ProcessRejectClauseSlot(
 
 func (v *processor_) PostprocessRejectClause(
 	rejectClause doc.RejectClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PreprocessRetrieveClause(
-	retrieveClause doc.RetrieveClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessRetrieveClauseSlot(
-	retrieveClause doc.RetrieveClauseLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessRetrieveClause(
-	retrieveClause doc.RetrieveClauseLike,
 	index_ uint,
 	count_ uint,
 ) {

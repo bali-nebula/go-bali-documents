@@ -819,6 +819,29 @@ func (v *validator_) PostprocessRange(
 	// TBD - Add the method implementation.
 }
 
+func (v *validator_) PreprocessReceiveClause(
+	receiveClause doc.ReceiveClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) ProcessReceiveClauseSlot(
+	receiveClause doc.ReceiveClauseLike,
+	slot_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) PostprocessReceiveClause(
+	receiveClause doc.ReceiveClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
 func (v *validator_) PreprocessReferent(
 	referent doc.ReferentLike,
 	index_ uint,
@@ -859,29 +882,6 @@ func (v *validator_) ProcessRejectClauseSlot(
 
 func (v *validator_) PostprocessRejectClause(
 	rejectClause doc.RejectClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) PreprocessRetrieveClause(
-	retrieveClause doc.RetrieveClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) ProcessRetrieveClauseSlot(
-	retrieveClause doc.RetrieveClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) PostprocessRetrieveClause(
-	retrieveClause doc.RetrieveClauseLike,
 	index_ uint,
 	count_ uint,
 ) {

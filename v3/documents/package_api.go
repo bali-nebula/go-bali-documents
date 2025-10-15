@@ -466,6 +466,19 @@ type RangeClassLike interface {
 }
 
 /*
+ReceiveClauseClassLike is a class interface that declares the complete set of
+class constructors, constants and functions that must be supported by each
+concrete receive-clause-like class.
+*/
+type ReceiveClauseClassLike interface {
+	// Constructor Methods
+	ReceiveClause(
+		recipient any,
+		bag ExpressionLike,
+	) ReceiveClauseLike
+}
+
+/*
 ReferentClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
 referent-like class.
@@ -487,19 +500,6 @@ type RejectClauseClassLike interface {
 	RejectClause(
 		message ExpressionLike,
 	) RejectClauseLike
-}
-
-/*
-RetrieveClauseClassLike is a class interface that declares the complete set of
-class constructors, constants and functions that must be supported by each
-concrete retrieve-clause-like class.
-*/
-type RetrieveClauseClassLike interface {
-	// Constructor Methods
-	RetrieveClause(
-		recipient any,
-		bag ExpressionLike,
-	) RetrieveClauseLike
 }
 
 /*
@@ -1027,6 +1027,20 @@ type RangeLike interface {
 }
 
 /*
+ReceiveClauseLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete receive-clause-like class.
+*/
+type ReceiveClauseLike interface {
+	// Principal Methods
+	GetClass() ReceiveClauseClassLike
+
+	// Attribute Methods
+	GetRecipient() any
+	GetBag() ExpressionLike
+}
+
+/*
 ReferentLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete referent-like class.
@@ -1050,20 +1064,6 @@ type RejectClauseLike interface {
 
 	// Attribute Methods
 	GetMessage() ExpressionLike
-}
-
-/*
-RetrieveClauseLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete retrieve-clause-like class.
-*/
-type RetrieveClauseLike interface {
-	// Principal Methods
-	GetClass() RetrieveClauseClassLike
-
-	// Attribute Methods
-	GetRecipient() any
-	GetBag() ExpressionLike
 }
 
 /*

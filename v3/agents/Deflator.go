@@ -920,6 +920,32 @@ func (v *deflator_) PostprocessRange(
 	)
 }
 
+func (v *deflator_) PostprocessReceiveClause(
+	receiveClause doc.ReceiveClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var bag = not.Bag(expression)
+	var recipient not.RecipientLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case not.ElementLike:
+		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
+	case not.SubcomponentLike:
+		recipient = not.Recipient(actual)
+	}
+	v.stack_.AddValue(
+		not.MessageHandling(
+			not.ReceiveClause(
+				"receive",
+				recipient,
+				"from",
+				bag,
+			),
+		),
+	)
+}
+
 func (v *deflator_) PostprocessReferent(
 	referent doc.ReferentLike,
 	index_ uint,
@@ -947,32 +973,6 @@ func (v *deflator_) PostprocessRejectClause(
 			not.RejectClause(
 				"reject",
 				message,
-			),
-		),
-	)
-}
-
-func (v *deflator_) PostprocessRetrieveClause(
-	retrieveClause doc.RetrieveClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var bag = not.Bag(expression)
-	var recipient not.RecipientLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.ElementLike:
-		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
-	case not.SubcomponentLike:
-		recipient = not.Recipient(actual)
-	}
-	v.stack_.AddValue(
-		not.MessageHandling(
-			not.RetrieveClause(
-				"retrieve",
-				recipient,
-				"from",
-				bag,
 			),
 		),
 	)

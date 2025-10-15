@@ -918,14 +918,14 @@ func (v *visitor_) visitMainClause(
 			0,
 			0,
 		)
-	case doc.RetrieveClauseLike:
-		v.processor_.PreprocessRetrieveClause(
+	case doc.ReceiveClauseLike:
+		v.processor_.PreprocessReceiveClause(
 			actual,
 			0,
 			0,
 		)
-		v.visitRetrieveClause(actual)
-		v.processor_.PostprocessRetrieveClause(
+		v.visitReceiveClause(actual)
+		v.processor_.PostprocessReceiveClause(
 			actual,
 			0,
 			0,
@@ -1598,6 +1598,42 @@ func (v *visitor_) visitRange(
 	v.processor_.ProcessBracket(right)
 }
 
+func (v *visitor_) visitReceiveClause(
+	receiveClause doc.ReceiveClauseLike,
+) {
+	var recipient = receiveClause.GetRecipient()
+	v.processor_.PreprocessRecipient(
+		recipient,
+		0,
+		0,
+	)
+	v.visitRecipient(recipient)
+	v.processor_.PostprocessRecipient(
+		recipient,
+		0,
+		0,
+	)
+
+	// Visit slot 1 between terms.
+	v.processor_.ProcessReceiveClauseSlot(
+		receiveClause,
+		1,
+	)
+
+	var bag = receiveClause.GetBag()
+	v.processor_.PreprocessExpression(
+		bag,
+		0,
+		0,
+	)
+	v.visitExpression(bag)
+	v.processor_.PostprocessExpression(
+		bag,
+		0,
+		0,
+	)
+}
+
 func (v *visitor_) visitRecipient(
 	recipient any,
 ) {
@@ -1731,42 +1767,6 @@ func (v *visitor_) visitRejectClause(
 	v.visitExpression(message)
 	v.processor_.PostprocessExpression(
 		message,
-		0,
-		0,
-	)
-}
-
-func (v *visitor_) visitRetrieveClause(
-	retrieveClause doc.RetrieveClauseLike,
-) {
-	var recipient = retrieveClause.GetRecipient()
-	v.processor_.PreprocessRecipient(
-		recipient,
-		0,
-		0,
-	)
-	v.visitRecipient(recipient)
-	v.processor_.PostprocessRecipient(
-		recipient,
-		0,
-		0,
-	)
-
-	// Visit slot 1 between terms.
-	v.processor_.ProcessRetrieveClauseSlot(
-		retrieveClause,
-		1,
-	)
-
-	var bag = retrieveClause.GetBag()
-	v.processor_.PreprocessExpression(
-		bag,
-		0,
-		0,
-	)
-	v.visitExpression(bag)
-	v.processor_.PostprocessExpression(
-		bag,
 		0,
 		0,
 	)

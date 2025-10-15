@@ -131,9 +131,9 @@ type (
 	ProcedureClassLike        = doc.ProcedureClassLike
 	PublishClauseClassLike    = doc.PublishClauseClassLike
 	RangeClassLike            = doc.RangeClassLike
+	ReceiveClauseClassLike    = doc.ReceiveClauseClassLike
 	ReferentClassLike         = doc.ReferentClassLike
 	RejectClauseClassLike     = doc.RejectClauseClassLike
-	RetrieveClauseClassLike   = doc.RetrieveClauseClassLike
 	ReturnClauseClassLike     = doc.ReturnClauseClassLike
 	SaveClauseClassLike       = doc.SaveClauseClassLike
 	SelectClauseClassLike     = doc.SelectClauseClassLike
@@ -175,9 +175,9 @@ type (
 	ProcedureLike        = doc.ProcedureLike
 	PublishClauseLike    = doc.PublishClauseLike
 	RangeLike            = doc.RangeLike
+	ReceiveClauseLike    = doc.ReceiveClauseLike
 	ReferentLike         = doc.ReferentLike
 	RejectClauseLike     = doc.RejectClauseLike
-	RetrieveClauseLike   = doc.RetrieveClauseLike
 	ReturnClauseLike     = doc.ReturnClauseLike
 	SaveClauseLike       = doc.SaveClauseLike
 	SelectClauseLike     = doc.SelectClauseLike
@@ -623,6 +623,20 @@ func Range(
 	)
 }
 
+func ReceiveClauseClass() ReceiveClauseClassLike {
+	return doc.ReceiveClauseClass()
+}
+
+func ReceiveClause(
+	recipient any,
+	bag doc.ExpressionLike,
+) ReceiveClauseLike {
+	return ReceiveClauseClass().ReceiveClause(
+		recipient,
+		bag,
+	)
+}
+
 func ReferentClass() ReferentClassLike {
 	return doc.ReferentClass()
 }
@@ -644,20 +658,6 @@ func RejectClause(
 ) RejectClauseLike {
 	return RejectClauseClass().RejectClause(
 		message,
-	)
-}
-
-func RetrieveClauseClass() RetrieveClauseClassLike {
-	return doc.RetrieveClauseClass()
-}
-
-func RetrieveClause(
-	recipient any,
-	bag doc.ExpressionLike,
-) RetrieveClauseLike {
-	return RetrieveClauseClass().RetrieveClause(
-		recipient,
-		bag,
 	)
 }
 

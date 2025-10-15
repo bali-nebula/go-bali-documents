@@ -796,6 +796,16 @@ func (v *inflator_) PostprocessRange(
 	v.stack_.AddValue(doc.RangeClass().Range(left, first, last, right))
 }
 
+func (v *inflator_) PostprocessReceiveClause(
+	receiveClause not.ReceiveClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var bag = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var recipient = v.stack_.RemoveLast()
+	v.stack_.AddValue(doc.ReceiveClauseClass().ReceiveClause(recipient, bag))
+}
+
 func (v *inflator_) PostprocessReferent(
 	referent not.ReferentLike,
 	index_ uint,
@@ -812,16 +822,6 @@ func (v *inflator_) PostprocessRejectClause(
 ) {
 	var message = v.stack_.RemoveLast().(doc.ExpressionLike)
 	v.stack_.AddValue(doc.RejectClauseClass().RejectClause(message))
-}
-
-func (v *inflator_) PostprocessRetrieveClause(
-	retrieveClause not.RetrieveClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	var bag = v.stack_.RemoveLast().(doc.ExpressionLike)
-	var recipient = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.RetrieveClauseClass().RetrieveClause(recipient, bag))
 }
 
 func (v *inflator_) PostprocessReturnClause(
