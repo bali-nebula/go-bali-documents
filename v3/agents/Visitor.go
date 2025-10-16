@@ -1811,15 +1811,15 @@ func (v *visitor_) visitSaveClause(
 		1,
 	)
 
-	var location = saveClause.GetLocation()
-	v.processor_.PreprocessExpression(
-		location,
+	var recipient = saveClause.GetRecipient()
+	v.processor_.PreprocessRecipient(
+		recipient,
 		0,
 		0,
 	)
-	v.visitExpression(location)
-	v.processor_.PostprocessExpression(
-		location,
+	v.visitRecipient(recipient)
+	v.processor_.PostprocessRecipient(
+		recipient,
 		0,
 		0,
 	)

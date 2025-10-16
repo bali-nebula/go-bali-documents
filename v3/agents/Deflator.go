@@ -640,10 +640,9 @@ func (v *deflator_) PostprocessIfClause(
 ) {
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var condition = not.Condition(expression)
 	v.stack_.AddValue(
 		not.FlowControl(
-			not.IfClause("if", condition, "do", procedure),
+			not.IfClause("if", expression, "do", procedure),
 		),
 	)
 }
@@ -724,9 +723,8 @@ func (v *deflator_) PostprocessMatchingClause(
 ) {
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var template = not.Template(expression)
 	v.stack_.AddValue(
-		not.MatchingClause("matching", template, "do", procedure),
+		not.MatchingClause("matching", expression, "do", procedure),
 	)
 }
 
@@ -769,7 +767,7 @@ func (v *deflator_) PostprocessNotarizeClause(
 			not.NotarizeClause(
 				"notarize",
 				draft,
-				"at",
+				"as",
 				location,
 			),
 		),
@@ -864,10 +862,10 @@ func (v *deflator_) PostprocessPublishClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var event = not.Event(expression)
+	var message = not.Message(expression)
 	v.stack_.AddValue(
 		not.MessageHandling(
-			not.PublishClause("publish", event),
+			not.PublishClause("publish", message),
 		),
 	)
 }
@@ -926,7 +924,7 @@ func (v *deflator_) PostprocessReceiveClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var bag = not.Bag(expression)
+	var location = not.Location(expression)
 	var recipient not.RecipientLike
 	switch actual := v.stack_.RemoveLast().(type) {
 	case not.ElementLike:
@@ -940,7 +938,7 @@ func (v *deflator_) PostprocessReceiveClause(
 				"receive",
 				recipient,
 				"from",
-				bag,
+				location,
 			),
 		),
 	)
@@ -984,10 +982,9 @@ func (v *deflator_) PostprocessReturnClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var result = not.Result(expression)
 	v.stack_.AddValue(
 		not.FlowControl(
-			not.ReturnClause("return", result),
+			not.ReturnClause("return", expression),
 		),
 	)
 }
@@ -997,13 +994,18 @@ func (v *deflator_) PostprocessSaveClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var recipient not.RecipientLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case not.ElementLike:
+		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
+	case not.SubcomponentLike:
+		recipient = not.Recipient(actual)
+	}
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var location = not.Location(expression)
-	expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var draft = not.Draft(expression)
 	v.stack_.AddValue(
 		not.RepositoryAccess(
-			not.SaveClause("save", draft, "to", location),
+			not.SaveClause("save", draft, "as", recipient),
 		),
 	)
 }
@@ -1035,12 +1037,12 @@ func (v *deflator_) PostprocessSendClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var bag = not.Bag(expression)
+	var location = not.Location(expression)
 	expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var message = not.Message(expression)
 	v.stack_.AddValue(
 		not.MessageHandling(
-			not.SendClause("send", message, "to", bag),
+			not.SendClause("send", message, "to", location),
 		),
 	)
 }
@@ -1100,10 +1102,9 @@ func (v *deflator_) PostprocessThrowClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var exception = not.Exception(expression)
 	v.stack_.AddValue(
 		not.FlowControl(
-			not.ThrowClause("throw", exception),
+			not.ThrowClause("throw", expression),
 		),
 	)
 }
@@ -1115,12 +1116,11 @@ func (v *deflator_) PostprocessWhileClause(
 ) {
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var condition = not.Condition(expression)
 	v.stack_.AddValue(
 		not.FlowControl(
 			not.WhileClause(
 				"while",
-				condition,
+				expression,
 				"do",
 				procedure,
 			),
@@ -1135,7 +1135,6 @@ func (v *deflator_) PostprocessWithClause(
 ) {
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var sequence = not.Sequence(expression)
 	var element = v.stack_.RemoveLast().(not.ElementLike)
 	var variable = not.Variable(element.GetAny().(string))
 	v.stack_.AddValue(
@@ -1145,7 +1144,7 @@ func (v *deflator_) PostprocessWithClause(
 				"each",
 				variable,
 				"in",
-				sequence,
+				expression,
 				"do",
 				procedure,
 			),

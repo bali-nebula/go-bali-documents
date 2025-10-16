@@ -523,7 +523,7 @@ type SaveClauseClassLike interface {
 	// Constructor Methods
 	SaveClause(
 		draft ExpressionLike,
-		location ExpressionLike,
+		recipient any,
 	) SaveClauseLike
 }
 
@@ -1090,7 +1090,7 @@ type SaveClauseLike interface {
 
 	// Attribute Methods
 	GetDraft() ExpressionLike
-	GetLocation() ExpressionLike
+	GetRecipient() any
 }
 
 /*

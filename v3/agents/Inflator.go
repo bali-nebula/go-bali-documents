@@ -858,9 +858,9 @@ func (v *inflator_) PostprocessSaveClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var location = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var recipient = v.stack_.RemoveLast()
 	var draft = v.stack_.RemoveLast().(doc.ExpressionLike)
-	v.stack_.AddValue(doc.SaveClauseClass().SaveClause(draft, location))
+	v.stack_.AddValue(doc.SaveClauseClass().SaveClause(draft, recipient))
 }
 
 func (v *inflator_) PostprocessSelectClause(
