@@ -27,14 +27,14 @@ func ComplementClass() ComplementClassLike {
 // Constructor Methods
 
 func (c *complementClass_) Complement(
-	logical any,
+	reversible any,
 ) ComplementLike {
-	if uti.IsUndefined(logical) {
-		panic("The \"logical\" attribute is required by this class.")
+	if uti.IsUndefined(reversible) {
+		panic("The \"reversible\" attribute is required by this class.")
 	}
 	var instance = &complement_{
 		// Initialize the instance attributes.
-		logical_: logical,
+		reversible_: reversible,
 	}
 	return instance
 }
@@ -53,8 +53,8 @@ func (v *complement_) GetClass() ComplementClassLike {
 
 // Attribute Methods
 
-func (v *complement_) GetLogical() any {
-	return v.logical_
+func (v *complement_) GetReversible() any {
+	return v.reversible_
 }
 
 // PROTECTED INTERFACE
@@ -65,7 +65,7 @@ func (v *complement_) GetLogical() any {
 
 type complement_ struct {
 	// Declare the instance attributes.
-	logical_ any
+	reversible_ any
 }
 
 // Class Structure

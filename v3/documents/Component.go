@@ -30,15 +30,15 @@ func ComponentClass() ComponentClassLike {
 
 func (c *componentClass_) Component(
 	entity any,
-	optionalParameterization ParameterizationLike,
+	optionalGenerics GenericsLike,
 ) ComponentLike {
 	if uti.IsUndefined(entity) {
 		panic("The \"entity\" attribute is required by this class.")
 	}
 	var instance = &component_{
 		// Initialize the instance attributes.
-		entity_:                   entity,
-		optionalParameterization_: optionalParameterization,
+		entity_:           entity,
+		optionalGenerics_: optionalGenerics,
 	}
 	return instance
 }
@@ -59,14 +59,14 @@ func (v *component_) GetParameter(
 	symbol fra.SymbolLike,
 ) ComponentLike {
 	var parameter ComponentLike
-	var parameterization = v.GetOptionalParameterization()
-	if uti.IsDefined(parameterization) {
-		var parameters = parameterization.GetParameters()
+	var generics = v.GetOptionalGenerics()
+	if uti.IsDefined(generics) {
+		var parameters = generics.GetParameters()
 		var constraint = parameters.GetValue(symbol)
 		if uti.IsDefined(constraint) {
 			parameter = componentClass().Component(
 				constraint.GetMetadata(),
-				constraint.GetOptionalParameterization(),
+				constraint.GetOptionalGenerics(),
 			)
 		}
 	}
@@ -167,8 +167,8 @@ func (v *component_) GetEntity() any {
 	return v.entity_
 }
 
-func (v *component_) GetOptionalParameterization() ParameterizationLike {
-	return v.optionalParameterization_
+func (v *component_) GetOptionalGenerics() GenericsLike {
+	return v.optionalGenerics_
 }
 
 // PROTECTED INTERFACE
@@ -340,8 +340,8 @@ func (v *component_) removeAttribute(
 
 type component_ struct {
 	// Declare the instance attributes.
-	entity_                   any
-	optionalParameterization_ ParameterizationLike
+	entity_           any
+	optionalGenerics_ GenericsLike
 }
 
 // Class Structure

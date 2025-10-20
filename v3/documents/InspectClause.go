@@ -20,23 +20,26 @@ import (
 
 // Access Function
 
-func ConstraintClass() ConstraintClassLike {
-	return constraintClass()
+func InspectClauseClass() InspectClauseClassLike {
+	return inspectClauseClass()
 }
 
 // Constructor Methods
 
-func (c *constraintClass_) Constraint(
-	metadata any,
-	optionalGenerics GenericsLike,
-) ConstraintLike {
-	if uti.IsUndefined(metadata) {
-		panic("The \"type\" attribute is required by this class.")
+func (c *inspectClauseClass_) InspectClause(
+	recipient any,
+	location ExpressionLike,
+) InspectClauseLike {
+	if uti.IsUndefined(recipient) {
+		panic("The \"recipient\" attribute is required by this class.")
 	}
-	var instance = &constraint_{
+	if uti.IsUndefined(location) {
+		panic("The \"location\" attribute is required by this class.")
+	}
+	var instance = &inspectClause_{
 		// Initialize the instance attributes.
-		metadata:          metadata,
-		optionalGenerics_: optionalGenerics,
+		recipient_: recipient,
+		location_:  location,
 	}
 	return instance
 }
@@ -49,18 +52,18 @@ func (c *constraintClass_) Constraint(
 
 // Principal Methods
 
-func (v *constraint_) GetClass() ConstraintClassLike {
-	return constraintClass()
+func (v *inspectClause_) GetClass() InspectClauseClassLike {
+	return inspectClauseClass()
 }
 
 // Attribute Methods
 
-func (v *constraint_) GetMetadata() any {
-	return v.metadata
+func (v *inspectClause_) GetRecipient() any {
+	return v.recipient_
 }
 
-func (v *constraint_) GetOptionalGenerics() GenericsLike {
-	return v.optionalGenerics_
+func (v *inspectClause_) GetLocation() ExpressionLike {
+	return v.location_
 }
 
 // PROTECTED INTERFACE
@@ -69,24 +72,24 @@ func (v *constraint_) GetOptionalGenerics() GenericsLike {
 
 // Instance Structure
 
-type constraint_ struct {
+type inspectClause_ struct {
 	// Declare the instance attributes.
-	metadata          any
-	optionalGenerics_ GenericsLike
+	recipient_ any
+	location_  ExpressionLike
 }
 
 // Class Structure
 
-type constraintClass_ struct {
+type inspectClauseClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func constraintClass() *constraintClass_ {
-	return constraintClassReference_
+func inspectClauseClass() *inspectClauseClass_ {
+	return inspectClauseClassReference_
 }
 
-var constraintClassReference_ = &constraintClass_{
+var inspectClauseClassReference_ = &inspectClauseClass_{
 	// Initialize the class constants.
 }

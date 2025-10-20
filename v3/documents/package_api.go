@@ -36,21 +36,22 @@ import (
 // TYPE DECLARATIONS
 
 /*
-Assignment is a constrained type specifying a type of mathematical assignment.
+Assignment is a constrained type specifying a specific type of assignment.
 */
 type Assignment uint8
 
 const (
-	Equals Assignment = iota
-	EqualsDefault
-	EqualsPlus
-	EqualsMinus
-	EqualsTimes
-	EqualsDivide
+	DefaultEquals Assignment = iota
+	AssignEquals
+	PlusEquals
+	MinusEquals
+	TimesEquals
+	DivideEquals
+	ChainEquals
 )
 
 /*
-Inverse is a constrained type specifying a type of mathematical inverse.
+Inverse is a constrained type specifying a type of numerical inverse.
 */
 type Inverse uint8
 
@@ -72,12 +73,16 @@ const (
 )
 
 /*
-Operator is a constrained type representing a mathematical operator.
+Operator is a constrained type representing an expression operator.
 */
 type Operator uint16
 
 const (
-	Chain Operator = iota
+	Less Operator = iota
+	Equal
+	More
+	Is
+	Matches
 	And
 	San
 	Ior
@@ -88,11 +93,7 @@ const (
 	Divide
 	Remainder
 	Power
-	Less
-	Equal
-	More
-	Is
-	Matches
+	Chain
 )
 
 // FUNCTIONAL DECLARATIONS
@@ -108,6 +109,7 @@ type AcceptClauseClassLike interface {
 	// Constructor Methods
 	AcceptClause(
 		message ExpressionLike,
+		bag ExpressionLike,
 	) AcceptClauseLike
 }
 
@@ -155,7 +157,7 @@ complement-like class.
 type ComplementClassLike interface {
 	// Constructor Methods
 	Complement(
-		logical any,
+		reversible any,
 	) ComplementLike
 }
 
@@ -168,7 +170,7 @@ type ComponentClassLike interface {
 	// Constructor Methods
 	Component(
 		entity any,
-		optionalParameterization ParameterizationLike,
+		optionalGenerics GenericsLike,
 	) ComponentLike
 }
 
@@ -194,7 +196,7 @@ type ConstraintClassLike interface {
 	// Constructor Methods
 	Constraint(
 		metadata any,
-		optionalParameterization ParameterizationLike,
+		optionalGenerics GenericsLike,
 	) ConstraintLike
 }
 
@@ -216,7 +218,7 @@ concrete discard-clause-like class.
 type DiscardClauseClassLike interface {
 	// Constructor Methods
 	DiscardClause(
-		location ExpressionLike,
+		citation ExpressionLike,
 	) DiscardClauseLike
 }
 
@@ -272,6 +274,18 @@ type FunctionClassLike interface {
 }
 
 /*
+GenericsClassLike is a class interface that declares the complete set of
+class constructors, constants and functions that must be supported by each
+concrete generics-like class.
+*/
+type GenericsClassLike interface {
+	// Constructor Methods
+	Generics(
+		parameters fra.CatalogLike[fra.SymbolLike, ConstraintLike],
+	) GenericsLike
+}
+
+/*
 IfClauseClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
 if-clause-like class.
@@ -282,6 +296,19 @@ type IfClauseClassLike interface {
 		condition ExpressionLike,
 		procedure ProcedureLike,
 	) IfClauseLike
+}
+
+/*
+InspectClauseClassLike is a class interface that declares the complete set of
+class constructors, constants and functions that must be supported by each
+concrete inspect-clause-like class.
+*/
+type InspectClauseClassLike interface {
+	// Constructor Methods
+	InspectClause(
+		recipient any,
+		location ExpressionLike,
+	) InspectClauseLike
 }
 
 /*
@@ -358,7 +385,7 @@ type MethodClassLike interface {
 	Method(
 		target string,
 		invoke Invoke,
-		message string,
+		identifier string,
 		arguments fra.Sequential[any],
 	) MethodLike
 }
@@ -384,21 +411,9 @@ on-clause-like class.
 type OnClauseClassLike interface {
 	// Constructor Methods
 	OnClause(
-		failure fra.SymbolLike,
+		symbol fra.SymbolLike,
 		matchingClauses fra.Sequential[MatchingClauseLike],
 	) OnClauseLike
-}
-
-/*
-ParameterizationClassLike is a class interface that declares the complete set of
-class constructors, constants and functions that must be supported by each
-concrete parameterization-like class.
-*/
-type ParameterizationClassLike interface {
-	// Constructor Methods
-	Parameterization(
-		parameters fra.CatalogLike[fra.SymbolLike, ConstraintLike],
-	) ParameterizationLike
 }
 
 /*
@@ -446,7 +461,7 @@ concrete publish-clause-like class.
 type PublishClauseClassLike interface {
 	// Constructor Methods
 	PublishClause(
-		event ExpressionLike,
+		message ExpressionLike,
 	) PublishClauseLike
 }
 
@@ -499,7 +514,21 @@ type RejectClauseClassLike interface {
 	// Constructor Methods
 	RejectClause(
 		message ExpressionLike,
+		bag ExpressionLike,
 	) RejectClauseLike
+}
+
+/*
+RetrieveClauseClassLike is a class interface that declares the complete set of
+class constructors, constants and functions that must be supported by each
+concrete retrieve-clause-like class.
+*/
+type RetrieveClauseClassLike interface {
+	// Constructor Methods
+	RetrieveClause(
+		recipient any,
+		citation ExpressionLike,
+	) RetrieveClauseLike
 }
 
 /*
@@ -535,7 +564,7 @@ concrete select-clause-like class.
 type SelectClauseClassLike interface {
 	// Constructor Methods
 	SelectClause(
-		expression ExpressionLike,
+		template ExpressionLike,
 		matchingClauses fra.Sequential[MatchingClauseLike],
 	) SelectClauseLike
 }
@@ -612,7 +641,7 @@ with-clause-like class.
 type WithClauseClassLike interface {
 	// Constructor Methods
 	WithClause(
-		variable fra.SymbolLike,
+		symbol fra.SymbolLike,
 		sequence ExpressionLike,
 		procedure ProcedureLike,
 	) WithClauseLike
@@ -631,6 +660,7 @@ type AcceptClauseLike interface {
 
 	// Attribute Methods
 	GetMessage() ExpressionLike
+	GetBag() ExpressionLike
 }
 
 /*
@@ -681,7 +711,7 @@ type ComplementLike interface {
 	GetClass() ComplementClassLike
 
 	// Attribute Methods
-	GetLogical() any
+	GetReversible() any
 }
 
 /*
@@ -708,7 +738,7 @@ type ComponentLike interface {
 
 	// Attribute Methods
 	GetEntity() any
-	GetOptionalParameterization() ParameterizationLike
+	GetOptionalGenerics() GenericsLike
 }
 
 /*
@@ -736,7 +766,7 @@ type ConstraintLike interface {
 
 	// Attribute Methods
 	GetMetadata() any
-	GetOptionalParameterization() ParameterizationLike
+	GetOptionalGenerics() GenericsLike
 }
 
 /*
@@ -759,7 +789,7 @@ type DiscardClauseLike interface {
 	GetClass() DiscardClauseClassLike
 
 	// Attribute Methods
-	GetLocation() ExpressionLike
+	GetCitation() ExpressionLike
 }
 
 /*
@@ -818,6 +848,19 @@ type FunctionLike interface {
 }
 
 /*
+GenericsLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete generics-like class.
+*/
+type GenericsLike interface {
+	// Principal Methods
+	GetClass() GenericsClassLike
+
+	// Attribute Methods
+	GetParameters() fra.CatalogLike[fra.SymbolLike, ConstraintLike]
+}
+
+/*
 IfClauseLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete if-clause-like class.
@@ -829,6 +872,20 @@ type IfClauseLike interface {
 	// Attribute Methods
 	GetCondition() ExpressionLike
 	GetProcedure() ProcedureLike
+}
+
+/*
+InspectClauseLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete inspect-clause-like class.
+*/
+type InspectClauseLike interface {
+	// Principal Methods
+	GetClass() InspectClauseClassLike
+
+	// Attribute Methods
+	GetRecipient() any
+	GetLocation() ExpressionLike
 }
 
 /*
@@ -912,7 +969,7 @@ type MethodLike interface {
 	// Attribute Methods
 	GetTarget() string
 	GetInvoke() Invoke
-	GetMessage() string
+	GetIdentifier() string
 	GetArguments() fra.Sequential[any]
 }
 
@@ -940,21 +997,8 @@ type OnClauseLike interface {
 	GetClass() OnClauseClassLike
 
 	// Attribute Methods
-	GetFailure() fra.SymbolLike
+	GetSymbol() fra.SymbolLike
 	GetMatchingClauses() fra.Sequential[MatchingClauseLike]
-}
-
-/*
-ParameterizationLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete parameterization-like class.
-*/
-type ParameterizationLike interface {
-	// Principal Methods
-	GetClass() ParameterizationClassLike
-
-	// Attribute Methods
-	GetParameters() fra.CatalogLike[fra.SymbolLike, ConstraintLike]
 }
 
 /*
@@ -1007,7 +1051,7 @@ type PublishClauseLike interface {
 	GetClass() PublishClauseClassLike
 
 	// Attribute Methods
-	GetEvent() ExpressionLike
+	GetMessage() ExpressionLike
 }
 
 /*
@@ -1064,6 +1108,21 @@ type RejectClauseLike interface {
 
 	// Attribute Methods
 	GetMessage() ExpressionLike
+	GetBag() ExpressionLike
+}
+
+/*
+RetrieveClauseLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete retrieve-clause-like class.
+*/
+type RetrieveClauseLike interface {
+	// Principal Methods
+	GetClass() RetrieveClauseClassLike
+
+	// Attribute Methods
+	GetRecipient() any
+	GetCitation() ExpressionLike
 }
 
 /*
@@ -1103,7 +1162,7 @@ type SelectClauseLike interface {
 	GetClass() SelectClauseClassLike
 
 	// Attribute Methods
-	GetExpression() ExpressionLike
+	GetTemplate() ExpressionLike
 	GetMatchingClauses() fra.Sequential[MatchingClauseLike]
 }
 
@@ -1186,7 +1245,7 @@ type WithClauseLike interface {
 	GetClass() WithClauseClassLike
 
 	// Attribute Methods
-	GetVariable() fra.SymbolLike
+	GetSymbol() fra.SymbolLike
 	GetSequence() ExpressionLike
 	GetProcedure() ProcedureLike
 }

@@ -30,7 +30,7 @@ func MethodClass() MethodClassLike {
 func (c *methodClass_) Method(
 	target string,
 	invoke Invoke,
-	message string,
+	identifier string,
 	arguments fra.Sequential[any],
 ) MethodLike {
 	if uti.IsUndefined(target) {
@@ -39,18 +39,18 @@ func (c *methodClass_) Method(
 	if uti.IsUndefined(invoke) {
 		panic("The \"invoke\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(message) {
-		panic("The \"message\" attribute is required by this class.")
+	if uti.IsUndefined(identifier) {
+		panic("The \"identifier\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(arguments) {
 		panic("The \"arguments\" attribute is required by this class.")
 	}
 	var instance = &method_{
 		// Initialize the instance attributes.
-		target_:    target,
-		invoke_:    invoke,
-		message_:   message,
-		arguments_: arguments,
+		target_:     target,
+		invoke_:     invoke,
+		identifier_: identifier,
+		arguments_:  arguments,
 	}
 	return instance
 }
@@ -77,8 +77,8 @@ func (v *method_) GetInvoke() Invoke {
 	return v.invoke_
 }
 
-func (v *method_) GetMessage() string {
-	return v.message_
+func (v *method_) GetIdentifier() string {
+	return v.identifier_
 }
 
 func (v *method_) GetArguments() fra.Sequential[any] {
@@ -93,10 +93,10 @@ func (v *method_) GetArguments() fra.Sequential[any] {
 
 type method_ struct {
 	// Declare the instance attributes.
-	target_    string
-	invoke_    Invoke
-	message_   string
-	arguments_ fra.Sequential[any]
+	target_     string
+	invoke_     Invoke
+	identifier_ string
+	arguments_  fra.Sequential[any]
 }
 
 // Class Structure

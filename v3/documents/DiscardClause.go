@@ -27,14 +27,14 @@ func DiscardClauseClass() DiscardClauseClassLike {
 // Constructor Methods
 
 func (c *discardClauseClass_) DiscardClause(
-	location ExpressionLike,
+	citation ExpressionLike,
 ) DiscardClauseLike {
-	if uti.IsUndefined(location) {
-		panic("The \"location\" attribute is required by this class.")
+	if uti.IsUndefined(citation) {
+		panic("The \"citation\" attribute is required by this class.")
 	}
 	var instance = &discardClause_{
 		// Initialize the instance attributes.
-		location_: location,
+		citation_: citation,
 	}
 	return instance
 }
@@ -53,8 +53,8 @@ func (v *discardClause_) GetClass() DiscardClauseClassLike {
 
 // Attribute Methods
 
-func (v *discardClause_) GetLocation() ExpressionLike {
-	return v.location_
+func (v *discardClause_) GetCitation() ExpressionLike {
+	return v.citation_
 }
 
 // PROTECTED INTERFACE
@@ -65,7 +65,7 @@ func (v *discardClause_) GetLocation() ExpressionLike {
 
 type discardClause_ struct {
 	// Declare the instance attributes.
-	location_ ExpressionLike
+	citation_ ExpressionLike
 }
 
 // Class Structure

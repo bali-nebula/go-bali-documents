@@ -681,23 +681,23 @@ func (v *validator_) PostprocessOnClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) PreprocessParameterization(
-	parameterization doc.ParameterizationLike,
+func (v *validator_) PreprocessGenerics(
+	generics doc.GenericsLike,
 	index_ uint,
 	count_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) ProcessParameterizationSlot(
-	parameterization doc.ParameterizationLike,
+func (v *validator_) ProcessGenericsSlot(
+	generics doc.GenericsLike,
 	slot_ uint,
 ) {
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) PostprocessParameterization(
-	parameterization doc.ParameterizationLike,
+func (v *validator_) PostprocessGenerics(
+	generics doc.GenericsLike,
 	index_ uint,
 	count_ uint,
 ) {

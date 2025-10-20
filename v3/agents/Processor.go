@@ -545,6 +545,26 @@ func (v *processor_) PostprocessIndex(
 ) {
 }
 
+func (v *processor_) PreprocessInspectClause(
+	inspectClause doc.InspectClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessInspectClauseSlot(
+	inspectClause doc.InspectClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessInspectClause(
+	inspectClause doc.InspectClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessInversion(
 	inversion doc.InversionLike,
 	index_ uint,
@@ -805,21 +825,21 @@ func (v *processor_) PostprocessOnClause(
 ) {
 }
 
-func (v *processor_) PreprocessParameterization(
-	parameterization doc.ParameterizationLike,
+func (v *processor_) PreprocessGenerics(
+	generics doc.GenericsLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessParameterizationSlot(
-	parameterization doc.ParameterizationLike,
+func (v *processor_) ProcessGenericsSlot(
+	generics doc.GenericsLike,
 	slot_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessParameterization(
-	parameterization doc.ParameterizationLike,
+func (v *processor_) PostprocessGenerics(
+	generics doc.GenericsLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -1045,6 +1065,26 @@ func (v *processor_) PostprocessRejectClause(
 ) {
 }
 
+func (v *processor_) PreprocessRetrieveClause(
+	retrieveClause doc.RetrieveClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessRetrieveClauseSlot(
+	retrieveClause doc.RetrieveClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessRetrieveClause(
+	retrieveClause doc.RetrieveClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessReturnClause(
 	returnClause doc.ReturnClauseLike,
 	index_ uint,
@@ -1060,6 +1100,26 @@ func (v *processor_) ProcessReturnClauseSlot(
 
 func (v *processor_) PostprocessReturnClause(
 	returnClause doc.ReturnClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessReversible(
+	reversible any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessReversibleSlot(
+	reversible any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessReversible(
+	reversible any,
 	index_ uint,
 	count_ uint,
 ) {

@@ -3,7 +3,7 @@
         ! This is a note.
     }
     while ok do {
-        accept messages[index]
+        accept messages[index] from /bali/examples/Bag
 
         !>
             COMMENTED OUT...
@@ -31,7 +31,7 @@
     }
     checkout $draft at level 3 from /bali/examples/Procedure/v1.2
     checkout $draft from /bali/examples/Procedure/v1.2
-    save draft as $citation
+    save draft to $citation
     discard $location
     notarize document as /bali/examples/Contract/v1.2
     select foo matching any do {
@@ -75,7 +75,7 @@
         $type: $messagePosted
         $messageId: #0123456789ABC
     ]
-    reject message
+    reject message from bag
     receive $message from bag on $error matching any do {
         return error
     }

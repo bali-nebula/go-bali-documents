@@ -88,18 +88,20 @@ func (v *deflator_) ProcessAssignment(
 ) {
 	var operation string
 	switch assignment {
-	case doc.Equals:
-		operation = ":="
-	case doc.EqualsDefault:
+	case doc.DefaultEquals:
 		operation = "?="
-	case doc.EqualsPlus:
+	case doc.AssignEquals:
+		operation = ":="
+	case doc.PlusEquals:
 		operation = "+="
-	case doc.EqualsMinus:
+	case doc.MinusEquals:
 		operation = "-="
-	case doc.EqualsTimes:
+	case doc.TimesEquals:
 		operation = "*="
-	case doc.EqualsDivide:
+	case doc.DivideEquals:
 		operation = "/="
+	case doc.ChainEquals:
+		operation = "&="
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected value in a switch statement: %v(%T)",
@@ -230,38 +232,38 @@ func (v *deflator_) ProcessOperator(
 ) {
 	var operation any
 	switch operator {
-	case doc.Chain:
-		operation = not.LexicalOperator("&")
-	case doc.And:
-		operation = not.LogicalOperator("and")
-	case doc.San:
-		operation = not.LogicalOperator("san")
-	case doc.Ior:
-		operation = not.LogicalOperator("ior")
-	case doc.Xor:
-		operation = not.LogicalOperator("xor")
-	case doc.Plus:
-		operation = not.ArithmeticOperator("+")
-	case doc.Minus:
-		operation = not.ArithmeticOperator("-")
-	case doc.Times:
-		operation = not.ArithmeticOperator("*")
-	case doc.Divide:
-		operation = not.ArithmeticOperator("/")
-	case doc.Remainder:
-		operation = not.ArithmeticOperator("%")
-	case doc.Power:
-		operation = not.ArithmeticOperator("^")
 	case doc.Less:
-		operation = not.ComparisonOperator("<")
+		operation = not.Comparison("<")
 	case doc.Equal:
-		operation = not.ComparisonOperator("=")
+		operation = not.Comparison("=")
 	case doc.More:
-		operation = not.ComparisonOperator(">")
+		operation = not.Comparison(">")
 	case doc.Is:
-		operation = not.ComparisonOperator("is")
+		operation = not.Comparison("is")
 	case doc.Matches:
-		operation = not.ComparisonOperator("matches")
+		operation = not.Comparison("matches")
+	case doc.And:
+		operation = not.Logical("and")
+	case doc.San:
+		operation = not.Logical("san")
+	case doc.Ior:
+		operation = not.Logical("ior")
+	case doc.Xor:
+		operation = not.Logical("xor")
+	case doc.Plus:
+		operation = not.Arithmetic("+")
+	case doc.Minus:
+		operation = not.Arithmetic("-")
+	case doc.Times:
+		operation = not.Arithmetic("*")
+	case doc.Divide:
+		operation = not.Arithmetic("/")
+	case doc.Remainder:
+		operation = not.Arithmetic("%")
+	case doc.Power:
+		operation = not.Arithmetic("^")
+	case doc.Chain:
+		operation = not.Lexical("&")
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected value in a switch statement: %v(%T)",
@@ -327,10 +329,12 @@ func (v *deflator_) PostprocessAcceptClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var bag = not.Bag(expression)
+	expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var message = not.Message(expression)
 	v.stack_.AddValue(
 		not.MessageHandling(
-			not.AcceptClause("accept", message),
+			not.AcceptClause("accept", message, "from", bag),
 		),
 	)
 }
@@ -409,18 +413,15 @@ func (v *deflator_) PostprocessComplement(
 	index_ uint,
 	count_ uint,
 ) {
-	var logical not.LogicalLike
+	var reversible not.ReversibleLike
 	switch actual := v.stack_.RemoveLast().(type) {
 	case string:
-		logical = not.Logical(not.Value(actual))
+		reversible = not.Reversible(not.Value(actual))
 	default:
-		logical = not.Logical(actual)
+		reversible = not.Reversible(actual)
 	}
 	v.stack_.AddValue(
-		not.Complement(
-			"not",
-			logical,
-		),
+		not.Complement("not", reversible),
 	)
 }
 
@@ -430,9 +431,9 @@ func (v *deflator_) ProcessComponentSlot(
 ) {
 	switch slot_ {
 	case 1:
-		if uti.IsUndefined(component.GetOptionalParameterization()) {
-			var parameterization not.ParameterizationLike
-			v.stack_.AddValue(parameterization)
+		if uti.IsUndefined(component.GetOptionalGenerics()) {
+			var generics not.GenericsLike
+			v.stack_.AddValue(generics)
 		}
 	}
 }
@@ -442,16 +443,16 @@ func (v *deflator_) PostprocessComponent(
 	index_ uint,
 	count_ uint,
 ) {
-	var parameterization not.ParameterizationLike
+	var generics not.GenericsLike
 	var optional = v.stack_.RemoveLast()
 	if uti.IsDefined(optional) {
-		parameterization = optional.(not.ParameterizationLike)
+		generics = optional.(not.GenericsLike)
 	}
 	var entity = not.Entity(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.Component(
 			entity,
-			parameterization,
+			generics,
 		),
 	)
 }
@@ -490,9 +491,9 @@ func (v *deflator_) ProcessConstraintSlot(
 ) {
 	switch slot_ {
 	case 1:
-		if uti.IsUndefined(constraint.GetOptionalParameterization()) {
-			var parameterization not.ParameterizationLike
-			v.stack_.AddValue(parameterization)
+		if uti.IsUndefined(constraint.GetOptionalGenerics()) {
+			var generics not.GenericsLike
+			v.stack_.AddValue(generics)
 		}
 	}
 }
@@ -502,16 +503,16 @@ func (v *deflator_) PostprocessConstraint(
 	index_ uint,
 	count_ uint,
 ) {
-	var parameterization not.ParameterizationLike
+	var generics not.GenericsLike
 	var optional = v.stack_.RemoveLast()
 	if uti.IsDefined(optional) {
-		parameterization = optional.(not.ParameterizationLike)
+		generics = optional.(not.GenericsLike)
 	}
 	var metadata = not.Metadata(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.Constraint(
 			metadata,
-			parameterization,
+			generics,
 		),
 	)
 }
@@ -534,10 +535,10 @@ func (v *deflator_) PostprocessDiscardClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var location = not.Location(expression)
+	var citation = not.Citation(expression)
 	v.stack_.AddValue(
 		not.RepositoryAccess(
-			not.DiscardClause("discard", location),
+			not.DiscardClause("discard", citation),
 		),
 	)
 }
@@ -764,12 +765,7 @@ func (v *deflator_) PostprocessNotarizeClause(
 	var draft = not.Draft(expression)
 	v.stack_.AddValue(
 		not.RepositoryAccess(
-			not.NotarizeClause(
-				"notarize",
-				draft,
-				"as",
-				location,
-			),
+			not.NotarizeClause("notarize", draft, "as", location),
 		),
 	)
 }
@@ -788,23 +784,19 @@ func (v *deflator_) PostprocessOnClause(
 	}
 	matchingClauses.ReverseValues() // They were pulled off the stack in reverse order.
 	var element = v.stack_.RemoveLast().(not.ElementLike)
-	var failure = not.Failure(element.GetAny().(string))
+	var symbol = element.GetAny().(string)
 	v.stack_.AddValue(
-		not.OnClause(
-			"on",
-			failure,
-			matchingClauses,
-		),
+		not.OnClause("on", symbol, matchingClauses),
 	)
 }
 
-func (v *deflator_) PostprocessParameterization(
-	parameterization doc.ParameterizationLike,
+func (v *deflator_) PostprocessGenerics(
+	generics doc.GenericsLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var parameters = fra.List[not.ParameterLike]()
-	var iterator = parameterization.GetParameters().GetIterator()
+	var iterator = generics.GetParameters().GetIterator()
 	for iterator.HasNext() {
 		var constraint = v.stack_.RemoveLast().(not.ConstraintLike)
 		var element = v.stack_.RemoveLast().(not.ElementLike)
@@ -814,7 +806,7 @@ func (v *deflator_) PostprocessParameterization(
 		iterator.GetNext()
 	}
 	parameters.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Parameterization("(", parameters, ")"))
+	v.stack_.AddValue(not.Generics("(", parameters, ")"))
 }
 
 func (v *deflator_) PostprocessPrecedence(
@@ -908,13 +900,7 @@ func (v *deflator_) PostprocessRange(
 		panic(message)
 	}
 	v.stack_.AddValue(
-		not.Range(
-			left,
-			primitive1,
-			"..",
-			primitive2,
-			right,
-		),
+		not.Range(left, primitive1, "..", primitive2, right),
 	)
 }
 
@@ -924,7 +910,7 @@ func (v *deflator_) PostprocessReceiveClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var location = not.Location(expression)
+	var bag = not.Bag(expression)
 	var recipient not.RecipientLike
 	switch actual := v.stack_.RemoveLast().(type) {
 	case not.ElementLike:
@@ -934,12 +920,7 @@ func (v *deflator_) PostprocessReceiveClause(
 	}
 	v.stack_.AddValue(
 		not.MessageHandling(
-			not.ReceiveClause(
-				"receive",
-				recipient,
-				"from",
-				location,
-			),
+			not.ReceiveClause("receive", recipient, "from", bag),
 		),
 	)
 }
@@ -965,13 +946,12 @@ func (v *deflator_) PostprocessRejectClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var bag = not.Bag(expression)
+	expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var message = not.Message(expression)
 	v.stack_.AddValue(
 		not.MessageHandling(
-			not.RejectClause(
-				"reject",
-				message,
-			),
+			not.RejectClause("reject", message, "from", bag),
 		),
 	)
 }
@@ -1005,7 +985,7 @@ func (v *deflator_) PostprocessSaveClause(
 	var draft = not.Draft(expression)
 	v.stack_.AddValue(
 		not.RepositoryAccess(
-			not.SaveClause("save", draft, "as", recipient),
+			not.SaveClause("save", draft, "to", recipient),
 		),
 	)
 }
@@ -1037,12 +1017,12 @@ func (v *deflator_) PostprocessSendClause(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var location = not.Location(expression)
+	var bag = not.Bag(expression)
 	expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var message = not.Message(expression)
 	v.stack_.AddValue(
 		not.MessageHandling(
-			not.SendClause("send", message, "to", location),
+			not.SendClause("send", message, "to", bag),
 		),
 	)
 }
@@ -1118,12 +1098,7 @@ func (v *deflator_) PostprocessWhileClause(
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	v.stack_.AddValue(
 		not.FlowControl(
-			not.WhileClause(
-				"while",
-				expression,
-				"do",
-				procedure,
-			),
+			not.WhileClause("while", expression, "do", procedure),
 		),
 	)
 }
@@ -1136,13 +1111,13 @@ func (v *deflator_) PostprocessWithClause(
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
 	var element = v.stack_.RemoveLast().(not.ElementLike)
-	var variable = not.Variable(element.GetAny().(string))
+	var symbol = element.GetAny().(string)
 	v.stack_.AddValue(
 		not.FlowControl(
 			not.WithClause(
 				"with",
 				"each",
-				variable,
+				symbol,
 				"in",
 				expression,
 				"do",

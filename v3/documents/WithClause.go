@@ -28,12 +28,12 @@ func WithClauseClass() WithClauseClassLike {
 // Constructor Methods
 
 func (c *withClauseClass_) WithClause(
-	variable fra.SymbolLike,
+	symbol fra.SymbolLike,
 	sequence ExpressionLike,
 	procedure ProcedureLike,
 ) WithClauseLike {
-	if uti.IsUndefined(variable) {
-		panic("The \"variable\" attribute is required by this class.")
+	if uti.IsUndefined(symbol) {
+		panic("The \"symbol\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(sequence) {
 		panic("The \"sequence\" attribute is required by this class.")
@@ -43,7 +43,7 @@ func (c *withClauseClass_) WithClause(
 	}
 	var instance = &withClause_{
 		// Initialize the instance attributes.
-		variable_:  variable,
+		symbol_:    symbol,
 		sequence_:  sequence,
 		procedure_: procedure,
 	}
@@ -64,8 +64,8 @@ func (v *withClause_) GetClass() WithClauseClassLike {
 
 // Attribute Methods
 
-func (v *withClause_) GetVariable() fra.SymbolLike {
-	return v.variable_
+func (v *withClause_) GetSymbol() fra.SymbolLike {
+	return v.symbol_
 }
 
 func (v *withClause_) GetSequence() ExpressionLike {
@@ -84,7 +84,7 @@ func (v *withClause_) GetProcedure() ProcedureLike {
 
 type withClause_ struct {
 	// Declare the instance attributes.
-	variable_  fra.SymbolLike
+	symbol_    fra.SymbolLike
 	sequence_  ExpressionLike
 	procedure_ ProcedureLike
 }

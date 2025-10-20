@@ -476,6 +476,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessGenerics(
+		generics doc.GenericsLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessGenericsSlot(
+		generics doc.GenericsLike,
+		slot_ uint,
+	)
+	PostprocessGenerics(
+		generics doc.GenericsLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessIfClause(
 		ifClause doc.IfClauseLike,
 		index_ uint,
@@ -501,6 +515,20 @@ type Methodical interface {
 	)
 	PostprocessIndex(
 		index any,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessInspectClause(
+		inspectClause doc.InspectClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessInspectClauseSlot(
+		inspectClause doc.InspectClauseLike,
+		slot_ uint,
+	)
+	PostprocessInspectClause(
+		inspectClause doc.InspectClauseLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -616,6 +644,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessMetadata(
+		metadata any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessMetadataSlot(
+		metadata any,
+		slot_ uint,
+	)
+	PostprocessMetadata(
+		metadata any,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessMethod(
 		method doc.MethodLike,
 		index_ uint,
@@ -669,20 +711,6 @@ type Methodical interface {
 	)
 	PostprocessOnClause(
 		onClause doc.OnClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessParameterization(
-		parameterization doc.ParameterizationLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessParameterizationSlot(
-		parameterization doc.ParameterizationLike,
-		slot_ uint,
-	)
-	PostprocessParameterization(
-		parameterization doc.ParameterizationLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -840,6 +868,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessRetrieveClause(
+		rejectClause doc.RetrieveClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessRetrieveClauseSlot(
+		rejectClause doc.RetrieveClauseLike,
+		slot_ uint,
+	)
+	PostprocessRetrieveClause(
+		rejectClause doc.RetrieveClauseLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessReturnClause(
 		returnClause doc.ReturnClauseLike,
 		index_ uint,
@@ -851,6 +893,20 @@ type Methodical interface {
 	)
 	PostprocessReturnClause(
 		returnClause doc.ReturnClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessReversible(
+		reversible any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessReversibleSlot(
+		reversible any,
+		slot_ uint,
+	)
+	PostprocessReversible(
+		reversible any,
 		index_ uint,
 		count_ uint,
 	)
@@ -949,20 +1005,6 @@ type Methodical interface {
 	)
 	PostprocessThrowClause(
 		throwClause doc.ThrowClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessMetadata(
-		metadata any,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessMetadataSlot(
-		metadata any,
-		slot_ uint,
-	)
-	PostprocessMetadata(
-		metadata any,
 		index_ uint,
 		count_ uint,
 	)

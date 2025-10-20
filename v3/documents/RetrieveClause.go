@@ -20,26 +20,26 @@ import (
 
 // Access Function
 
-func ReceiveClauseClass() ReceiveClauseClassLike {
-	return receiveClauseClass()
+func RetrieveClauseClass() RetrieveClauseClassLike {
+	return retrieveClauseClass()
 }
 
 // Constructor Methods
 
-func (c *receiveClauseClass_) ReceiveClause(
+func (c *retrieveClauseClass_) RetrieveClause(
 	recipient any,
-	bag ExpressionLike,
-) ReceiveClauseLike {
+	citation ExpressionLike,
+) RetrieveClauseLike {
 	if uti.IsUndefined(recipient) {
 		panic("The \"recipient\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(bag) {
-		panic("The \"bag\" attribute is required by this class.")
+	if uti.IsUndefined(citation) {
+		panic("The \"citation\" attribute is required by this class.")
 	}
-	var instance = &receiveClause_{
+	var instance = &retrieveClause_{
 		// Initialize the instance attributes.
 		recipient_: recipient,
-		bag_:       bag,
+		citation_:  citation,
 	}
 	return instance
 }
@@ -52,18 +52,18 @@ func (c *receiveClauseClass_) ReceiveClause(
 
 // Principal Methods
 
-func (v *receiveClause_) GetClass() ReceiveClauseClassLike {
-	return receiveClauseClass()
+func (v *retrieveClause_) GetClass() RetrieveClauseClassLike {
+	return retrieveClauseClass()
 }
 
 // Attribute Methods
 
-func (v *receiveClause_) GetRecipient() any {
+func (v *retrieveClause_) GetRecipient() any {
 	return v.recipient_
 }
 
-func (v *receiveClause_) GetBag() ExpressionLike {
-	return v.bag_
+func (v *retrieveClause_) GetCitation() ExpressionLike {
+	return v.citation_
 }
 
 // PROTECTED INTERFACE
@@ -72,24 +72,24 @@ func (v *receiveClause_) GetBag() ExpressionLike {
 
 // Instance Structure
 
-type receiveClause_ struct {
+type retrieveClause_ struct {
 	// Declare the instance attributes.
 	recipient_ any
-	bag_       ExpressionLike
+	citation_  ExpressionLike
 }
 
 // Class Structure
 
-type receiveClauseClass_ struct {
+type retrieveClauseClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func receiveClauseClass() *receiveClauseClass_ {
-	return receiveClauseClassReference_
+func retrieveClauseClass() *retrieveClauseClass_ {
+	return retrieveClauseClassReference_
 }
 
-var receiveClauseClassReference_ = &receiveClauseClass_{
+var retrieveClauseClassReference_ = &retrieveClauseClass_{
 	// Initialize the class constants.
 }

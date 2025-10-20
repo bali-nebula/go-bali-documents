@@ -27,14 +27,14 @@ func PublishClauseClass() PublishClauseClassLike {
 // Constructor Methods
 
 func (c *publishClauseClass_) PublishClause(
-	event ExpressionLike,
+	message ExpressionLike,
 ) PublishClauseLike {
-	if uti.IsUndefined(event) {
-		panic("The \"event\" attribute is required by this class.")
+	if uti.IsUndefined(message) {
+		panic("The \"message\" attribute is required by this class.")
 	}
 	var instance = &publishClause_{
 		// Initialize the instance attributes.
-		event_: event,
+		message_: message,
 	}
 	return instance
 }
@@ -53,8 +53,8 @@ func (v *publishClause_) GetClass() PublishClauseClassLike {
 
 // Attribute Methods
 
-func (v *publishClause_) GetEvent() ExpressionLike {
-	return v.event_
+func (v *publishClause_) GetMessage() ExpressionLike {
+	return v.message_
 }
 
 // PROTECTED INTERFACE
@@ -65,7 +65,7 @@ func (v *publishClause_) GetEvent() ExpressionLike {
 
 type publishClause_ struct {
 	// Declare the instance attributes.
-	event_ ExpressionLike
+	message_ ExpressionLike
 }
 
 // Class Structure

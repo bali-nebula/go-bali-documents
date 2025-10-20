@@ -20,23 +20,26 @@ import (
 
 // Access Function
 
-func ConstraintClass() ConstraintClassLike {
-	return constraintClass()
+func ReceiveClauseClass() ReceiveClauseClassLike {
+	return receiveClauseClass()
 }
 
 // Constructor Methods
 
-func (c *constraintClass_) Constraint(
-	metadata any,
-	optionalGenerics GenericsLike,
-) ConstraintLike {
-	if uti.IsUndefined(metadata) {
-		panic("The \"type\" attribute is required by this class.")
+func (c *receiveClauseClass_) ReceiveClause(
+	recipient any,
+	bag ExpressionLike,
+) ReceiveClauseLike {
+	if uti.IsUndefined(recipient) {
+		panic("The \"recipient\" attribute is required by this class.")
 	}
-	var instance = &constraint_{
+	if uti.IsUndefined(bag) {
+		panic("The \"bag\" attribute is required by this class.")
+	}
+	var instance = &receiveClause_{
 		// Initialize the instance attributes.
-		metadata:          metadata,
-		optionalGenerics_: optionalGenerics,
+		recipient_: recipient,
+		bag_:       bag,
 	}
 	return instance
 }
@@ -49,18 +52,18 @@ func (c *constraintClass_) Constraint(
 
 // Principal Methods
 
-func (v *constraint_) GetClass() ConstraintClassLike {
-	return constraintClass()
+func (v *receiveClause_) GetClass() ReceiveClauseClassLike {
+	return receiveClauseClass()
 }
 
 // Attribute Methods
 
-func (v *constraint_) GetMetadata() any {
-	return v.metadata
+func (v *receiveClause_) GetRecipient() any {
+	return v.recipient_
 }
 
-func (v *constraint_) GetOptionalGenerics() GenericsLike {
-	return v.optionalGenerics_
+func (v *receiveClause_) GetBag() ExpressionLike {
+	return v.bag_
 }
 
 // PROTECTED INTERFACE
@@ -69,24 +72,24 @@ func (v *constraint_) GetOptionalGenerics() GenericsLike {
 
 // Instance Structure
 
-type constraint_ struct {
+type receiveClause_ struct {
 	// Declare the instance attributes.
-	metadata          any
-	optionalGenerics_ GenericsLike
+	recipient_ any
+	bag_       ExpressionLike
 }
 
 // Class Structure
 
-type constraintClass_ struct {
+type receiveClauseClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func constraintClass() *constraintClass_ {
-	return constraintClassReference_
+func receiveClauseClass() *receiveClauseClass_ {
+	return receiveClauseClassReference_
 }
 
-var constraintClassReference_ = &constraintClass_{
+var receiveClauseClassReference_ = &receiveClauseClass_{
 	// Initialize the class constants.
 }

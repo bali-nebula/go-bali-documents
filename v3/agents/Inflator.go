@@ -202,8 +202,9 @@ func (v *inflator_) PostprocessAcceptClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var bag = v.stack_.RemoveLast().(doc.ExpressionLike)
 	var message = v.stack_.RemoveLast().(doc.ExpressionLike)
-	v.stack_.AddValue(doc.AcceptClauseClass().AcceptClause(message))
+	v.stack_.AddValue(doc.AcceptClauseClass().AcceptClause(message, bag))
 }
 
 func (v *inflator_) PostprocessAssignment(
@@ -213,18 +214,20 @@ func (v *inflator_) PostprocessAssignment(
 ) {
 	var operator = assignment.GetAny().(string)
 	switch operator {
-	case ":=":
-		v.stack_.AddValue(doc.Equals)
 	case "?=":
-		v.stack_.AddValue(doc.EqualsDefault)
+		v.stack_.AddValue(doc.DefaultEquals)
+	case ":=":
+		v.stack_.AddValue(doc.AssignEquals)
 	case "+=":
-		v.stack_.AddValue(doc.EqualsPlus)
+		v.stack_.AddValue(doc.PlusEquals)
 	case "-=":
-		v.stack_.AddValue(doc.EqualsMinus)
+		v.stack_.AddValue(doc.MinusEquals)
 	case "*=":
-		v.stack_.AddValue(doc.EqualsTimes)
+		v.stack_.AddValue(doc.TimesEquals)
 	case "/=":
-		v.stack_.AddValue(doc.EqualsDivide)
+		v.stack_.AddValue(doc.DivideEquals)
+	case "&=":
+		v.stack_.AddValue(doc.ChainEquals)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
@@ -305,9 +308,9 @@ func (v *inflator_) ProcessComponentSlot(
 ) {
 	switch slot_ {
 	case 1:
-		if uti.IsUndefined(component.GetOptionalParameterization()) {
-			var parameterization doc.ParameterizationLike
-			v.stack_.AddValue(parameterization)
+		if uti.IsUndefined(component.GetOptionalGenerics()) {
+			var generics doc.GenericsLike
+			v.stack_.AddValue(generics)
 		}
 	}
 }
@@ -317,18 +320,18 @@ func (v *inflator_) PostprocessComponent(
 	index_ uint,
 	count_ uint,
 ) {
-	var parameterization doc.ParameterizationLike
+	var generics doc.GenericsLike
 	var optional = v.stack_.RemoveLast()
 	var entity = v.stack_.RemoveLast()
 	if uti.IsDefined(optional) {
-		parameterization = optional.(doc.ParameterizationLike)
+		generics = optional.(doc.GenericsLike)
 		switch actual := entity.(type) {
 		case doc.ItemsLike:
-			var composites = v.getComposites(actual, parameterization)
+			var composites = v.getComposites(actual, generics)
 			entity = doc.ItemsClass().Items(composites)
 		}
 	}
-	v.stack_.AddValue(doc.ComponentClass().Component(entity, parameterization))
+	v.stack_.AddValue(doc.ComponentClass().Component(entity, generics))
 }
 
 func (v *inflator_) ProcessCompositeSlot(
@@ -365,9 +368,9 @@ func (v *inflator_) ProcessConstraintSlot(
 ) {
 	switch slot_ {
 	case 1:
-		if uti.IsUndefined(constraint.GetOptionalParameterization()) {
-			var parameterization doc.ParameterizationLike
-			v.stack_.AddValue(parameterization)
+		if uti.IsUndefined(constraint.GetOptionalGenerics()) {
+			var generics doc.GenericsLike
+			v.stack_.AddValue(generics)
 		}
 	}
 }
@@ -377,13 +380,13 @@ func (v *inflator_) PostprocessConstraint(
 	index_ uint,
 	count_ uint,
 ) {
-	var parameterization doc.ParameterizationLike
+	var generics doc.GenericsLike
 	var optional = v.stack_.RemoveLast()
 	if uti.IsDefined(optional) {
-		parameterization = optional.(doc.ParameterizationLike)
+		generics = optional.(doc.GenericsLike)
 	}
 	var metadata = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.ConstraintClass().Constraint(metadata, parameterization))
+	v.stack_.AddValue(doc.ConstraintClass().Constraint(metadata, generics))
 }
 
 func (v *inflator_) PostprocessContinueClause(
@@ -662,13 +665,13 @@ func (v *inflator_) PostprocessOperator(
 ) {
 	var wrapper any
 	switch actual := operator.GetAny().(type) {
-	case not.LexicalOperatorLike:
+	case not.ComparisonLike:
 		wrapper = actual.GetAny()
-	case not.LogicalOperatorLike:
+	case not.LogicalLike:
 		wrapper = actual.GetAny()
-	case not.ArithmeticOperatorLike:
+	case not.ArithmeticLike:
 		wrapper = actual.GetAny()
-	case not.ComparisonOperatorLike:
+	case not.LexicalLike:
 		wrapper = actual.GetAny()
 	default:
 		var message = fmt.Sprintf(
@@ -680,8 +683,16 @@ func (v *inflator_) PostprocessOperator(
 	}
 	var actual = wrapper.(string)
 	switch actual {
-	case "&":
-		v.stack_.AddValue(doc.Chain)
+	case "<":
+		v.stack_.AddValue(doc.Less)
+	case "=":
+		v.stack_.AddValue(doc.Equal)
+	case ">":
+		v.stack_.AddValue(doc.More)
+	case "is":
+		v.stack_.AddValue(doc.Is)
+	case "matches":
+		v.stack_.AddValue(doc.Matches)
 	case "and":
 		v.stack_.AddValue(doc.And)
 	case "san":
@@ -702,16 +713,8 @@ func (v *inflator_) PostprocessOperator(
 		v.stack_.AddValue(doc.Remainder)
 	case "^":
 		v.stack_.AddValue(doc.Power)
-	case "<":
-		v.stack_.AddValue(doc.Less)
-	case "=":
-		v.stack_.AddValue(doc.Equal)
-	case ">":
-		v.stack_.AddValue(doc.More)
-	case "is":
-		v.stack_.AddValue(doc.Is)
-	case "matches":
-		v.stack_.AddValue(doc.Matches)
+	case "&":
+		v.stack_.AddValue(doc.Chain)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
@@ -721,13 +724,13 @@ func (v *inflator_) PostprocessOperator(
 	}
 }
 
-func (v *inflator_) PostprocessParameterization(
-	parameterization not.ParameterizationLike,
+func (v *inflator_) PostprocessGenerics(
+	generics not.GenericsLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var catalog = fra.Catalog[fra.SymbolLike, doc.ConstraintLike]()
-	var parameters = parameterization.GetParameters()
+	var parameters = generics.GetParameters()
 	var iterator = parameters.GetIterator()
 	for iterator.HasNext() {
 		var constraint = v.stack_.RemoveLast().(doc.ConstraintLike)
@@ -736,7 +739,7 @@ func (v *inflator_) PostprocessParameterization(
 		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(doc.ParameterizationClass().Parameterization(catalog))
+	v.stack_.AddValue(doc.GenericsClass().Generics(catalog))
 }
 
 func (v *inflator_) PostprocessPrecedence(
@@ -820,8 +823,9 @@ func (v *inflator_) PostprocessRejectClause(
 	index_ uint,
 	count_ uint,
 ) {
+	var bag = v.stack_.RemoveLast().(doc.ExpressionLike)
 	var message = v.stack_.RemoveLast().(doc.ExpressionLike)
-	v.stack_.AddValue(doc.RejectClauseClass().RejectClause(message))
+	v.stack_.AddValue(doc.RejectClauseClass().RejectClause(message, bag))
 }
 
 func (v *inflator_) PostprocessReturnClause(
@@ -974,12 +978,12 @@ func (v *inflator_) PostprocessWithClause(
 
 func (v *inflator_) getComposites(
 	items doc.ItemsLike,
-	parameterization doc.ParameterizationLike,
+	generics doc.GenericsLike,
 ) fra.Sequential[doc.CompositeLike] {
 	var composites = items.GetComposites()
 	var dummy = doc.ComponentClass().Component(
 		fra.PatternClass().None(),
-		parameterization,
+		generics,
 	)
 	var parameter = dummy.GetParameter(fra.Symbol("type"))
 	switch entity := parameter.GetEntity().(type) {

@@ -72,18 +72,23 @@ type (
 )
 
 const (
-	Equals         = doc.Equals
-	EqualsDefault  = doc.EqualsDefault
-	EqualsPlus     = doc.EqualsPlus
-	EqualsMinus    = doc.EqualsMinus
-	EqualsTimes    = doc.EqualsTimes
-	EqualsDivide   = doc.EqualsDivide
+	DefaultEquals  = doc.DefaultEquals
+	AssignEquals   = doc.AssignEquals
+	PlusEquals     = doc.PlusEquals
+	MinusEquals    = doc.MinusEquals
+	TimesEquals    = doc.TimesEquals
+	DivideEquals   = doc.DivideEquals
+	ChainEquals    = doc.ChainEquals
 	Additive       = doc.Additive
 	Multiplicative = doc.Multiplicative
 	Conjugate      = doc.Conjugate
 	Synchronous    = doc.Synchronous
 	Asynchronous   = doc.Asynchronous
-	Chain          = doc.Chain
+	Less           = doc.Less
+	Equal          = doc.Equal
+	More           = doc.More
+	Is             = doc.Is
+	Matches        = doc.Matches
 	And            = doc.And
 	San            = doc.San
 	Ior            = doc.Ior
@@ -94,99 +99,99 @@ const (
 	Divide         = doc.Divide
 	Remainder      = doc.Remainder
 	Power          = doc.Power
-	Less           = doc.Less
-	Equal          = doc.Equal
-	More           = doc.More
-	Is             = doc.Is
-	Matches        = doc.Matches
+	Chain          = doc.Chain
 )
 
 type (
-	AcceptClauseClassLike     = doc.AcceptClauseClassLike
-	AttributesClassLike       = doc.AttributesClassLike
-	BreakClauseClassLike      = doc.BreakClauseClassLike
-	CheckoutClauseClassLike   = doc.CheckoutClauseClassLike
-	ComplementClassLike       = doc.ComplementClassLike
-	ComponentClassLike        = doc.ComponentClassLike
-	ConstraintClassLike       = doc.ConstraintClassLike
-	ContinueClauseClassLike   = doc.ContinueClauseClassLike
-	DiscardClauseClassLike    = doc.DiscardClauseClassLike
-	DoClauseClassLike         = doc.DoClauseClassLike
-	DocumentClassLike         = doc.DocumentClassLike
-	ExpressionClassLike       = doc.ExpressionClassLike
-	FunctionClassLike         = doc.FunctionClassLike
-	IfClauseClassLike         = doc.IfClauseClassLike
-	InversionClassLike        = doc.InversionClassLike
-	ItemsClassLike            = doc.ItemsClassLike
-	LetClauseClassLike        = doc.LetClauseClassLike
-	MagnitudeClassLike        = doc.MagnitudeClassLike
-	MatchingClauseClassLike   = doc.MatchingClauseClassLike
-	MethodClassLike           = doc.MethodClassLike
-	NotarizeClauseClassLike   = doc.NotarizeClauseClassLike
-	CompositeClassLike        = doc.CompositeClassLike
-	OnClauseClassLike         = doc.OnClauseClassLike
-	ParameterizationClassLike = doc.ParameterizationClassLike
-	PrecedenceClassLike       = doc.PrecedenceClassLike
-	PredicateClassLike        = doc.PredicateClassLike
-	ProcedureClassLike        = doc.ProcedureClassLike
-	PublishClauseClassLike    = doc.PublishClauseClassLike
-	RangeClassLike            = doc.RangeClassLike
-	ReceiveClauseClassLike    = doc.ReceiveClauseClassLike
-	ReferentClassLike         = doc.ReferentClassLike
-	RejectClauseClassLike     = doc.RejectClauseClassLike
-	ReturnClauseClassLike     = doc.ReturnClauseClassLike
-	SaveClauseClassLike       = doc.SaveClauseClassLike
-	SelectClauseClassLike     = doc.SelectClauseClassLike
-	SendClauseClassLike       = doc.SendClauseClassLike
-	StatementClassLike        = doc.StatementClassLike
-	SubcomponentClassLike     = doc.SubcomponentClassLike
-	ThrowClauseClassLike      = doc.ThrowClauseClassLike
-	WhileClauseClassLike      = doc.WhileClauseClassLike
-	WithClauseClassLike       = doc.WithClauseClassLike
+	AcceptClauseClassLike   = doc.AcceptClauseClassLike
+	AttributesClassLike     = doc.AttributesClassLike
+	BreakClauseClassLike    = doc.BreakClauseClassLike
+	CheckoutClauseClassLike = doc.CheckoutClauseClassLike
+	ComplementClassLike     = doc.ComplementClassLike
+	ComponentClassLike      = doc.ComponentClassLike
+	CompositeClassLike      = doc.CompositeClassLike
+	ConstraintClassLike     = doc.ConstraintClassLike
+	ContinueClauseClassLike = doc.ContinueClauseClassLike
+	DiscardClauseClassLike  = doc.DiscardClauseClassLike
+	DoClauseClassLike       = doc.DoClauseClassLike
+	DocumentClassLike       = doc.DocumentClassLike
+	ExpressionClassLike     = doc.ExpressionClassLike
+	FunctionClassLike       = doc.FunctionClassLike
+	GenericsClassLike       = doc.GenericsClassLike
+	IfClauseClassLike       = doc.IfClauseClassLike
+	InspectClauseClassLike  = doc.InspectClauseClassLike
+	InversionClassLike      = doc.InversionClassLike
+	ItemsClassLike          = doc.ItemsClassLike
+	LetClauseClassLike      = doc.LetClauseClassLike
+	MagnitudeClassLike      = doc.MagnitudeClassLike
+	MatchingClauseClassLike = doc.MatchingClauseClassLike
+	MethodClassLike         = doc.MethodClassLike
+	NotarizeClauseClassLike = doc.NotarizeClauseClassLike
+	OnClauseClassLike       = doc.OnClauseClassLike
+	PrecedenceClassLike     = doc.PrecedenceClassLike
+	PredicateClassLike      = doc.PredicateClassLike
+	ProcedureClassLike      = doc.ProcedureClassLike
+	PublishClauseClassLike  = doc.PublishClauseClassLike
+	RangeClassLike          = doc.RangeClassLike
+	ReceiveClauseClassLike  = doc.ReceiveClauseClassLike
+	ReferentClassLike       = doc.ReferentClassLike
+	RejectClauseClassLike   = doc.RejectClauseClassLike
+	RetrieveClauseClassLike = doc.RetrieveClauseClassLike
+	ReturnClauseClassLike   = doc.ReturnClauseClassLike
+	SaveClauseClassLike     = doc.SaveClauseClassLike
+	SelectClauseClassLike   = doc.SelectClauseClassLike
+	SendClauseClassLike     = doc.SendClauseClassLike
+	StatementClassLike      = doc.StatementClassLike
+	SubcomponentClassLike   = doc.SubcomponentClassLike
+	ThrowClauseClassLike    = doc.ThrowClauseClassLike
+	WhileClauseClassLike    = doc.WhileClauseClassLike
+	WithClauseClassLike     = doc.WithClauseClassLike
 )
 
 type (
-	AcceptClauseLike     = doc.AcceptClauseLike
-	AttributesLike       = doc.AttributesLike
-	BreakClauseLike      = doc.BreakClauseLike
-	CheckoutClauseLike   = doc.CheckoutClauseLike
-	ComplementLike       = doc.ComplementLike
-	ComponentLike        = doc.ComponentLike
-	ConstraintLike       = doc.ConstraintLike
-	ContinueClauseLike   = doc.ContinueClauseLike
-	DiscardClauseLike    = doc.DiscardClauseLike
-	DoClauseLike         = doc.DoClauseLike
-	DocumentLike         = doc.DocumentLike
-	ExpressionLike       = doc.ExpressionLike
-	FunctionLike         = doc.FunctionLike
-	IfClauseLike         = doc.IfClauseLike
-	InversionLike        = doc.InversionLike
-	ItemsLike            = doc.ItemsLike
-	LetClauseLike        = doc.LetClauseLike
-	MagnitudeLike        = doc.MagnitudeLike
-	MatchingClauseLike   = doc.MatchingClauseLike
-	MethodLike           = doc.MethodLike
-	NotarizeClauseLike   = doc.NotarizeClauseLike
-	CompositeLike        = doc.CompositeLike
-	OnClauseLike         = doc.OnClauseLike
-	ParameterizationLike = doc.ParameterizationLike
-	PrecedenceLike       = doc.PrecedenceLike
-	PredicateLike        = doc.PredicateLike
-	ProcedureLike        = doc.ProcedureLike
-	PublishClauseLike    = doc.PublishClauseLike
-	RangeLike            = doc.RangeLike
-	ReceiveClauseLike    = doc.ReceiveClauseLike
-	ReferentLike         = doc.ReferentLike
-	RejectClauseLike     = doc.RejectClauseLike
-	ReturnClauseLike     = doc.ReturnClauseLike
-	SaveClauseLike       = doc.SaveClauseLike
-	SelectClauseLike     = doc.SelectClauseLike
-	SendClauseLike       = doc.SendClauseLike
-	StatementLike        = doc.StatementLike
-	SubcomponentLike     = doc.SubcomponentLike
-	ThrowClauseLike      = doc.ThrowClauseLike
-	WhileClauseLike      = doc.WhileClauseLike
-	WithClauseLike       = doc.WithClauseLike
+	AcceptClauseLike   = doc.AcceptClauseLike
+	AttributesLike     = doc.AttributesLike
+	BreakClauseLike    = doc.BreakClauseLike
+	CheckoutClauseLike = doc.CheckoutClauseLike
+	ComplementLike     = doc.ComplementLike
+	ComponentLike      = doc.ComponentLike
+	CompositeLike      = doc.CompositeLike
+	ConstraintLike     = doc.ConstraintLike
+	ContinueClauseLike = doc.ContinueClauseLike
+	DiscardClauseLike  = doc.DiscardClauseLike
+	DoClauseLike       = doc.DoClauseLike
+	DocumentLike       = doc.DocumentLike
+	ExpressionLike     = doc.ExpressionLike
+	FunctionLike       = doc.FunctionLike
+	GenericsLike       = doc.GenericsLike
+	IfClauseLike       = doc.IfClauseLike
+	InspectClauseLike  = doc.InspectClauseLike
+	InversionLike      = doc.InversionLike
+	ItemsLike          = doc.ItemsLike
+	LetClauseLike      = doc.LetClauseLike
+	MagnitudeLike      = doc.MagnitudeLike
+	MatchingClauseLike = doc.MatchingClauseLike
+	MethodLike         = doc.MethodLike
+	NotarizeClauseLike = doc.NotarizeClauseLike
+	OnClauseLike       = doc.OnClauseLike
+	PrecedenceLike     = doc.PrecedenceLike
+	PredicateLike      = doc.PredicateLike
+	ProcedureLike      = doc.ProcedureLike
+	PublishClauseLike  = doc.PublishClauseLike
+	RangeLike          = doc.RangeLike
+	ReceiveClauseLike  = doc.ReceiveClauseLike
+	ReferentLike       = doc.ReferentLike
+	RejectClauseLike   = doc.RejectClauseLike
+	RetrieveClauseLike = doc.RetrieveClauseLike
+	ReturnClauseLike   = doc.ReturnClauseLike
+	SaveClauseLike     = doc.SaveClauseLike
+	SelectClauseLike   = doc.SelectClauseLike
+	SendClauseLike     = doc.SendClauseLike
+	StatementLike      = doc.StatementLike
+	SubcomponentLike   = doc.SubcomponentLike
+	ThrowClauseLike    = doc.ThrowClauseLike
+	WhileClauseLike    = doc.WhileClauseLike
+	WithClauseLike     = doc.WithClauseLike
 )
 
 // CLASS ACCESSORS
@@ -245,9 +250,11 @@ func AcceptClauseClass() AcceptClauseClassLike {
 
 func AcceptClause(
 	message doc.ExpressionLike,
+	bag doc.ExpressionLike,
 ) AcceptClauseLike {
 	return AcceptClauseClass().AcceptClause(
 		message,
+		bag,
 	)
 }
 
@@ -292,10 +299,10 @@ func ComplementClass() ComplementClassLike {
 }
 
 func Complement(
-	logical any,
+	reversible any,
 ) ComplementLike {
 	return ComplementClass().Complement(
-		logical,
+		reversible,
 	)
 }
 
@@ -305,11 +312,25 @@ func ComponentClass() ComponentClassLike {
 
 func Component(
 	entity any,
-	optionalParameterization doc.ParameterizationLike,
+	optionalGenerics doc.GenericsLike,
 ) ComponentLike {
 	return ComponentClass().Component(
 		entity,
-		optionalParameterization,
+		optionalGenerics,
+	)
+}
+
+func CompositeClass() CompositeClassLike {
+	return doc.CompositeClass()
+}
+
+func Composite(
+	component doc.ComponentLike,
+	optionalNote string,
+) CompositeLike {
+	return CompositeClass().Composite(
+		component,
+		optionalNote,
 	)
 }
 
@@ -319,11 +340,11 @@ func ConstraintClass() ConstraintClassLike {
 
 func Constraint(
 	metadata any,
-	optionalParameterization doc.ParameterizationLike,
+	optionalGenerics doc.GenericsLike,
 ) ConstraintLike {
 	return ConstraintClass().Constraint(
 		metadata,
-		optionalParameterization,
+		optionalGenerics,
 	)
 }
 
@@ -340,10 +361,10 @@ func DiscardClauseClass() DiscardClauseClassLike {
 }
 
 func DiscardClause(
-	location doc.ExpressionLike,
+	citation doc.ExpressionLike,
 ) DiscardClauseLike {
 	return DiscardClauseClass().DiscardClause(
-		location,
+		citation,
 	)
 }
 
@@ -364,11 +385,11 @@ func DocumentClass() DocumentClassLike {
 }
 
 func Document(
-	annotation string,
+	optionalAnnotation string,
 	component doc.ComponentLike,
 ) DocumentLike {
 	return DocumentClass().Document(
-		annotation,
+		optionalAnnotation,
 		component,
 	)
 }
@@ -379,7 +400,7 @@ func ExpressionClass() ExpressionClassLike {
 
 func Expression(
 	subject any,
-	predicates fra.ListLike[doc.PredicateLike],
+	predicates fra.Sequential[doc.PredicateLike],
 ) ExpressionLike {
 	return ExpressionClass().Expression(
 		subject,
@@ -393,11 +414,23 @@ func FunctionClass() FunctionClassLike {
 
 func Function(
 	identifier string,
-	arguments fra.ListLike[any],
+	arguments fra.Sequential[any],
 ) FunctionLike {
 	return FunctionClass().Function(
 		identifier,
 		arguments,
+	)
+}
+
+func GenericsClass() GenericsClassLike {
+	return doc.GenericsClass()
+}
+
+func Generics(
+	parameters fra.CatalogLike[fra.SymbolLike, doc.ConstraintLike],
+) GenericsLike {
+	return GenericsClass().Generics(
+		parameters,
 	)
 }
 
@@ -412,6 +445,20 @@ func IfClause(
 	return IfClauseClass().IfClause(
 		condition,
 		procedure,
+	)
+}
+
+func InspectClauseClass() InspectClauseClassLike {
+	return doc.InspectClauseClass()
+}
+
+func InspectClause(
+	recipient any,
+	location doc.ExpressionLike,
+) InspectClauseLike {
+	return InspectClauseClass().InspectClause(
+		recipient,
+		location,
 	)
 }
 
@@ -434,7 +481,7 @@ func ItemsClass() ItemsClassLike {
 }
 
 func Items(
-	composites fra.ListLike[doc.CompositeLike],
+	composites fra.Sequential[doc.CompositeLike],
 ) ItemsLike {
 	return ItemsClass().Items(
 		composites,
@@ -490,13 +537,13 @@ func MethodClass() MethodClassLike {
 func Method(
 	target string,
 	invoke doc.Invoke,
-	message string,
-	arguments fra.ListLike[any],
+	identifier string,
+	arguments fra.Sequential[any],
 ) MethodLike {
 	return MethodClass().Method(
 		target,
 		invoke,
-		message,
+		identifier,
 		arguments,
 	)
 }
@@ -515,43 +562,17 @@ func NotarizeClause(
 	)
 }
 
-func CompositeClass() CompositeClassLike {
-	return doc.CompositeClass()
-}
-
-func Composite(
-	component doc.ComponentLike,
-	optionalNote string,
-) CompositeLike {
-	return CompositeClass().Composite(
-		component,
-		optionalNote,
-	)
-}
-
 func OnClauseClass() OnClauseClassLike {
 	return doc.OnClauseClass()
 }
 
 func OnClause(
-	failure fra.SymbolLike,
-	matchingClauses fra.ListLike[doc.MatchingClauseLike],
+	symbol fra.SymbolLike,
+	matchingClauses fra.Sequential[doc.MatchingClauseLike],
 ) OnClauseLike {
 	return OnClauseClass().OnClause(
-		failure,
+		symbol,
 		matchingClauses,
-	)
-}
-
-func ParameterizationClass() ParameterizationClassLike {
-	return doc.ParameterizationClass()
-}
-
-func Parameterization(
-	parameters fra.CatalogLike[fra.SymbolLike, doc.ConstraintLike],
-) ParameterizationLike {
-	return ParameterizationClass().Parameterization(
-		parameters,
 	)
 }
 
@@ -586,7 +607,7 @@ func ProcedureClass() ProcedureClassLike {
 }
 
 func Procedure(
-	lines fra.ListLike[any],
+	lines fra.Sequential[any],
 ) ProcedureLike {
 	return ProcedureClass().Procedure(
 		lines,
@@ -598,10 +619,10 @@ func PublishClauseClass() PublishClauseClassLike {
 }
 
 func PublishClause(
-	event doc.ExpressionLike,
+	message doc.ExpressionLike,
 ) PublishClauseLike {
 	return PublishClauseClass().PublishClause(
-		event,
+		message,
 	)
 }
 
@@ -655,9 +676,25 @@ func RejectClauseClass() RejectClauseClassLike {
 
 func RejectClause(
 	message doc.ExpressionLike,
+	bag doc.ExpressionLike,
 ) RejectClauseLike {
 	return RejectClauseClass().RejectClause(
 		message,
+		bag,
+	)
+}
+
+func RetrieveClauseClass() RetrieveClauseClassLike {
+	return doc.RetrieveClauseClass()
+}
+
+func RetrieveClause(
+	recipient any,
+	citation doc.ExpressionLike,
+) RetrieveClauseLike {
+	return RetrieveClauseClass().RetrieveClause(
+		recipient,
+		citation,
 	)
 }
 
@@ -679,11 +716,11 @@ func SaveClauseClass() SaveClauseClassLike {
 
 func SaveClause(
 	draft doc.ExpressionLike,
-	location doc.ExpressionLike,
+	recipient any,
 ) SaveClauseLike {
 	return SaveClauseClass().SaveClause(
 		draft,
-		location,
+		recipient,
 	)
 }
 
@@ -692,11 +729,11 @@ func SelectClauseClass() SelectClauseClassLike {
 }
 
 func SelectClause(
-	expression doc.ExpressionLike,
-	matchingClauses fra.ListLike[doc.MatchingClauseLike],
+	template doc.ExpressionLike,
+	matchingClauses fra.Sequential[doc.MatchingClauseLike],
 ) SelectClauseLike {
 	return SelectClauseClass().SelectClause(
-		expression,
+		template,
 		matchingClauses,
 	)
 }
@@ -735,7 +772,7 @@ func SubcomponentClass() SubcomponentClassLike {
 
 func Subcomponent(
 	identifier string,
-	indexes fra.ListLike[any],
+	indexes fra.Sequential[any],
 ) SubcomponentLike {
 	return SubcomponentClass().Subcomponent(
 		identifier,
@@ -774,12 +811,12 @@ func WithClauseClass() WithClauseClassLike {
 }
 
 func WithClause(
-	variable fra.SymbolLike,
+	symbol fra.SymbolLike,
 	sequence doc.ExpressionLike,
 	procedure doc.ProcedureLike,
 ) WithClauseLike {
 	return WithClauseClass().WithClause(
-		variable,
+		symbol,
 		sequence,
 		procedure,
 	)
@@ -814,8 +851,8 @@ func FormatComponent(
 		component = actual
 	case ConstraintLike:
 		var entity = actual.GetMetadata()
-		var parameterization = actual.GetOptionalParameterization()
-		component = Component(entity, parameterization)
+		var generics = actual.GetOptionalGenerics()
+		component = Component(entity, generics)
 	case DocumentLike:
 		component = actual.GetComponent()
 	case CompositeLike:

@@ -21,19 +21,19 @@ import (
 
 // Access Function
 
-func ParameterizationClass() ParameterizationClassLike {
-	return parameterizationClass()
+func GenericsClass() GenericsClassLike {
+	return genericsClass()
 }
 
 // Constructor Methods
 
-func (c *parameterizationClass_) Parameterization(
+func (c *genericsClass_) Generics(
 	parameters fra.CatalogLike[fra.SymbolLike, ConstraintLike],
-) ParameterizationLike {
+) GenericsLike {
 	if uti.IsUndefined(parameters) {
 		panic("The \"parameters\" attribute is required by this class.")
 	}
-	var instance = &parameterization_{
+	var instance = &generics_{
 		// Initialize the instance attributes.
 		parameters_: parameters,
 	}
@@ -48,13 +48,13 @@ func (c *parameterizationClass_) Parameterization(
 
 // Principal Methods
 
-func (v *parameterization_) GetClass() ParameterizationClassLike {
-	return parameterizationClass()
+func (v *generics_) GetClass() GenericsClassLike {
+	return genericsClass()
 }
 
 // Attribute Methods
 
-func (v *parameterization_) GetParameters() fra.CatalogLike[fra.SymbolLike, ConstraintLike] {
+func (v *generics_) GetParameters() fra.CatalogLike[fra.SymbolLike, ConstraintLike] {
 	return v.parameters_
 }
 
@@ -64,23 +64,23 @@ func (v *parameterization_) GetParameters() fra.CatalogLike[fra.SymbolLike, Cons
 
 // Instance Structure
 
-type parameterization_ struct {
+type generics_ struct {
 	// Declare the instance attributes.
 	parameters_ fra.CatalogLike[fra.SymbolLike, ConstraintLike]
 }
 
 // Class Structure
 
-type parameterizationClass_ struct {
+type genericsClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func parameterizationClass() *parameterizationClass_ {
-	return parameterizationClassReference_
+func genericsClass() *genericsClass_ {
+	return genericsClassReference_
 }
 
-var parameterizationClassReference_ = &parameterizationClass_{
+var genericsClassReference_ = &genericsClass_{
 	// Initialize the class constants.
 }

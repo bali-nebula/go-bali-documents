@@ -28,18 +28,18 @@ func OnClauseClass() OnClauseClassLike {
 // Constructor Methods
 
 func (c *onClauseClass_) OnClause(
-	failure fra.SymbolLike,
+	symbol fra.SymbolLike,
 	matchingClauses fra.Sequential[MatchingClauseLike],
 ) OnClauseLike {
-	if uti.IsUndefined(failure) {
-		panic("The \"failure\" attribute is required by this class.")
+	if uti.IsUndefined(symbol) {
+		panic("The \"symbol\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(matchingClauses) {
 		panic("The \"matchingClauses\" attribute is required by this class.")
 	}
 	var instance = &onClause_{
 		// Initialize the instance attributes.
-		failure_:         failure,
+		symbol_:          symbol,
 		matchingClauses_: matchingClauses,
 	}
 	return instance
@@ -59,8 +59,8 @@ func (v *onClause_) GetClass() OnClauseClassLike {
 
 // Attribute Methods
 
-func (v *onClause_) GetFailure() fra.SymbolLike {
-	return v.failure_
+func (v *onClause_) GetSymbol() fra.SymbolLike {
+	return v.symbol_
 }
 
 func (v *onClause_) GetMatchingClauses() fra.Sequential[MatchingClauseLike] {
@@ -75,7 +75,7 @@ func (v *onClause_) GetMatchingClauses() fra.Sequential[MatchingClauseLike] {
 
 type onClause_ struct {
 	// Declare the instance attributes.
-	failure_         fra.SymbolLike
+	symbol_          fra.SymbolLike
 	matchingClauses_ fra.Sequential[MatchingClauseLike]
 }
 

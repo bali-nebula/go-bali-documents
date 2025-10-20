@@ -28,13 +28,18 @@ func RejectClauseClass() RejectClauseClassLike {
 
 func (c *rejectClauseClass_) RejectClause(
 	message ExpressionLike,
+	bag ExpressionLike,
 ) RejectClauseLike {
 	if uti.IsUndefined(message) {
 		panic("The \"message\" attribute is required by this class.")
 	}
+	if uti.IsUndefined(bag) {
+		panic("The \"bag\" attribute is required by this class.")
+	}
 	var instance = &rejectClause_{
 		// Initialize the instance attributes.
 		message_: message,
+		bag_:     bag,
 	}
 	return instance
 }
@@ -56,6 +61,9 @@ func (v *rejectClause_) GetClass() RejectClauseClassLike {
 func (v *rejectClause_) GetMessage() ExpressionLike {
 	return v.message_
 }
+func (v *rejectClause_) GetBag() ExpressionLike {
+	return v.bag_
+}
 
 // PROTECTED INTERFACE
 
@@ -66,6 +74,7 @@ func (v *rejectClause_) GetMessage() ExpressionLike {
 type rejectClause_ struct {
 	// Declare the instance attributes.
 	message_ ExpressionLike
+	bag_     ExpressionLike
 }
 
 // Class Structure
