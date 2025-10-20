@@ -13,6 +13,7 @@
 package documents
 
 import (
+	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
 	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
@@ -28,7 +29,7 @@ func GenericsClass() GenericsClassLike {
 // Constructor Methods
 
 func (c *genericsClass_) Generics(
-	parameters fra.CatalogLike[fra.SymbolLike, ConstraintLike],
+	parameters fra.CatalogLike[ele.SymbolLike, ConstraintLike],
 ) GenericsLike {
 	if uti.IsUndefined(parameters) {
 		panic("The \"parameters\" attribute is required by this class.")
@@ -54,7 +55,7 @@ func (v *generics_) GetClass() GenericsClassLike {
 
 // Attribute Methods
 
-func (v *generics_) GetParameters() fra.CatalogLike[fra.SymbolLike, ConstraintLike] {
+func (v *generics_) GetParameters() fra.CatalogLike[ele.SymbolLike, ConstraintLike] {
 	return v.parameters_
 }
 
@@ -66,7 +67,7 @@ func (v *generics_) GetParameters() fra.CatalogLike[fra.SymbolLike, ConstraintLi
 
 type generics_ struct {
 	// Declare the instance attributes.
-	parameters_ fra.CatalogLike[fra.SymbolLike, ConstraintLike]
+	parameters_ fra.CatalogLike[ele.SymbolLike, ConstraintLike]
 }
 
 // Class Structure

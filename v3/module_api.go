@@ -33,6 +33,9 @@ package module
 import (
 	age "github.com/bali-nebula/go-bali-documents/v3/agents"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
+	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
+	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
+	str "github.com/bali-nebula/go-bali-documents/v3/strings"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
 	uri "net/url"
@@ -192,6 +195,114 @@ type (
 	ThrowClauseLike    = doc.ThrowClauseLike
 	WhileClauseLike    = doc.WhileClauseLike
 	WithClauseLike     = doc.WithClauseLike
+)
+
+// Elements
+
+type (
+	Units = ele.Units
+)
+
+const (
+	Degrees  = ele.Degrees
+	Radians  = ele.Radians
+	Gradians = ele.Gradians
+)
+
+type (
+	AngleClassLike       = ele.AngleClassLike
+	BooleanClassLike     = ele.BooleanClassLike
+	DurationClassLike    = ele.DurationClassLike
+	GlyphClassLike       = ele.GlyphClassLike
+	MomentClassLike      = ele.MomentClassLike
+	NumberClassLike      = ele.NumberClassLike
+	PercentageClassLike  = ele.PercentageClassLike
+	ProbabilityClassLike = ele.ProbabilityClassLike
+	ResourceClassLike    = ele.ResourceClassLike
+	SymbolClassLike      = ele.SymbolClassLike
+)
+
+type (
+	AngleLike       = ele.AngleLike
+	BooleanLike     = ele.BooleanLike
+	DurationLike    = ele.DurationLike
+	GlyphLike       = ele.GlyphLike
+	MomentLike      = ele.MomentLike
+	NumberLike      = ele.NumberLike
+	PercentageLike  = ele.PercentageLike
+	ProbabilityLike = ele.ProbabilityLike
+	ResourceLike    = ele.ResourceLike
+	SymbolLike      = ele.SymbolLike
+)
+
+type (
+	Continuous = ele.Continuous
+	Discrete   = ele.Discrete
+	Factored   = ele.Factored
+	Polarized  = ele.Polarized
+	Temporal   = ele.Temporal
+)
+
+// Strings
+
+type (
+	Folder = str.Folder
+)
+
+type (
+	BinaryClassLike    = str.BinaryClassLike
+	BytecodeClassLike  = str.BytecodeClassLike
+	NameClassLike      = str.NameClassLike
+	NarrativeClassLike = str.NarrativeClassLike
+	PatternClassLike   = str.PatternClassLike
+	QuoteClassLike     = str.QuoteClassLike
+	TagClassLike       = str.TagClassLike
+	VersionClassLike   = str.VersionClassLike
+)
+
+type (
+	BinaryLike    = str.BinaryLike
+	BytecodeLike  = str.BytecodeLike
+	NameLike      = str.NameLike
+	NarrativeLike = str.NarrativeLike
+	PatternLike   = str.PatternLike
+	QuoteLike     = str.QuoteLike
+	TagLike       = str.TagLike
+	VersionLike   = str.VersionLike
+)
+
+type (
+	Accessible[V any] = str.Accessible[V]
+	Searchable[V any] = str.Searchable[V]
+	Sequential[V any] = str.Sequential[V]
+	Spectral[V any]   = str.Spectral[V]
+)
+
+// Ranges
+
+type (
+	Bracket = ran.Bracket
+)
+
+const (
+	Inclusive = ran.Inclusive
+	Exclusive = ran.Exclusive
+)
+
+type (
+	ContinuumClassLike[V ele.Continuous] = ran.ContinuumClassLike[V]
+	IntervalClassLike[V ele.Discrete]    = ran.IntervalClassLike[V]
+	SpectrumClassLike[V str.Spectral[V]] = ran.SpectrumClassLike[V]
+)
+
+type (
+	ContinuumLike[V ele.Continuous] = ran.ContinuumLike[V]
+	IntervalLike[V ele.Discrete]    = ran.IntervalLike[V]
+	SpectrumLike[V str.Spectral[V]] = ran.SpectrumLike[V]
+)
+
+type (
+	Bounded[V any] = ran.Bounded[V]
 )
 
 // CLASS ACCESSORS
@@ -427,7 +538,7 @@ func GenericsClass() GenericsClassLike {
 }
 
 func Generics(
-	parameters fra.CatalogLike[fra.SymbolLike, doc.ConstraintLike],
+	parameters fra.CatalogLike[ele.SymbolLike, doc.ConstraintLike],
 ) GenericsLike {
 	return GenericsClass().Generics(
 		parameters,
@@ -567,7 +678,7 @@ func OnClauseClass() OnClauseClassLike {
 }
 
 func OnClause(
-	symbol fra.SymbolLike,
+	symbol ele.SymbolLike,
 	matchingClauses fra.Sequential[doc.MatchingClauseLike],
 ) OnClauseLike {
 	return OnClauseClass().OnClause(
@@ -631,10 +742,10 @@ func RangeClass() RangeClassLike {
 }
 
 func Range(
-	left fra.Bracket,
+	left ran.Bracket,
 	first any,
 	last any,
-	right fra.Bracket,
+	right ran.Bracket,
 ) RangeLike {
 	return RangeClass().Range(
 		left,
@@ -811,7 +922,7 @@ func WithClauseClass() WithClauseClassLike {
 }
 
 func WithClause(
-	symbol fra.SymbolLike,
+	symbol ele.SymbolLike,
 	sequence doc.ExpressionLike,
 	procedure doc.ProcedureLike,
 ) WithClauseLike {
@@ -819,6 +930,138 @@ func WithClause(
 		symbol,
 		sequence,
 		procedure,
+	)
+}
+
+// Elements
+
+func AngleClass() AngleClassLike {
+	return ele.AngleClass()
+}
+
+func BooleanClass() BooleanClassLike {
+	return ele.BooleanClass()
+}
+
+func DurationClass() DurationClassLike {
+	return ele.DurationClass()
+}
+
+func GlyphClass() GlyphClassLike {
+	return ele.GlyphClass()
+}
+
+func MomentClass() MomentClassLike {
+	return ele.MomentClass()
+}
+
+func NumberClass() NumberClassLike {
+	return ele.NumberClass()
+}
+
+func PercentageClass() PercentageClassLike {
+	return ele.PercentageClass()
+}
+
+func ProbabilityClass() ProbabilityClassLike {
+	return ele.ProbabilityClass()
+}
+
+func ResourceClass() ResourceClassLike {
+	return ele.ResourceClass()
+}
+
+func SymbolClass() SymbolClassLike {
+	return ele.SymbolClass()
+}
+
+// Strings
+
+func BinaryClass() BinaryClassLike {
+	return str.BinaryClass()
+}
+
+func BytecodeClass() BytecodeClassLike {
+	return str.BytecodeClass()
+}
+
+func NameClass() NameClassLike {
+	return str.NameClass()
+}
+
+func NarrativeClass() NarrativeClassLike {
+	return str.NarrativeClass()
+}
+
+func PatternClass() PatternClassLike {
+	return str.PatternClass()
+}
+
+func QuoteClass() QuoteClassLike {
+	return str.QuoteClass()
+}
+
+func TagClass() TagClassLike {
+	return str.TagClass()
+}
+
+func VersionClass() VersionClassLike {
+	return str.VersionClass()
+}
+
+// Ranges
+
+func ContinuumClass[V ele.Continuous]() ContinuumClassLike[V] {
+	return ran.ContinuumClass[V]()
+}
+
+func Continuum[V ele.Continuous](
+	left ran.Bracket,
+	minimum V,
+	maximum V,
+	right ran.Bracket,
+) ContinuumLike[V] {
+	return ContinuumClass[V]().Continuum(
+		left,
+		minimum,
+		maximum,
+		right,
+	)
+}
+
+func IntervalClass[V ele.Discrete]() IntervalClassLike[V] {
+	return ran.IntervalClass[V]()
+}
+
+func Interval[V ele.Discrete](
+	left ran.Bracket,
+	minimum V,
+	maximum V,
+	right ran.Bracket,
+) IntervalLike[V] {
+	return IntervalClass[V]().Interval(
+		left,
+		minimum,
+		maximum,
+		right,
+	)
+}
+
+func SpectrumClass[V str.Spectral[V]]() SpectrumClassLike[V] {
+	return ran.SpectrumClass[V]()
+}
+
+func Spectrum[V str.Spectral[V]](
+	left ran.Bracket,
+	minimum V,
+	maximum V,
+	right ran.Bracket,
+) SpectrumLike[V] {
+	return SpectrumClass[V]().Spectrum(
+		left,
+		minimum,
+		maximum,
+		right,
 	)
 }
 
@@ -994,54 +1237,6 @@ func Sorter[V any](
 
 // Elements
 
-type (
-	Units = fra.Units
-)
-
-const (
-	Degrees  = fra.Degrees
-	Radians  = fra.Radians
-	Gradians = fra.Gradians
-)
-
-type (
-	AngleClassLike       = fra.AngleClassLike
-	BooleanClassLike     = fra.BooleanClassLike
-	DurationClassLike    = fra.DurationClassLike
-	GlyphClassLike       = fra.GlyphClassLike
-	MomentClassLike      = fra.MomentClassLike
-	NumberClassLike      = fra.NumberClassLike
-	PercentageClassLike  = fra.PercentageClassLike
-	ProbabilityClassLike = fra.ProbabilityClassLike
-	ResourceClassLike    = fra.ResourceClassLike
-	SymbolClassLike      = fra.SymbolClassLike
-)
-
-type (
-	AngleLike       = fra.AngleLike
-	BooleanLike     = fra.BooleanLike
-	DurationLike    = fra.DurationLike
-	GlyphLike       = fra.GlyphLike
-	MomentLike      = fra.MomentLike
-	NumberLike      = fra.NumberLike
-	PercentageLike  = fra.PercentageLike
-	ProbabilityLike = fra.ProbabilityLike
-	ResourceLike    = fra.ResourceLike
-	SymbolLike      = fra.SymbolLike
-)
-
-type (
-	Continuous = fra.Continuous
-	Discrete   = fra.Discrete
-	Factored   = fra.Factored
-	Polarized  = fra.Polarized
-	Temporal   = fra.Temporal
-)
-
-func AngleClass() AngleClassLike {
-	return fra.AngleClass()
-}
-
 func Angle(
 	value ...any,
 ) AngleLike {
@@ -1056,10 +1251,6 @@ func Angle(
 	default:
 		return AngleClass().Zero()
 	}
-}
-
-func BooleanClass() BooleanClassLike {
-	return fra.BooleanClass()
 }
 
 func Boolean(
@@ -1078,10 +1269,6 @@ func Boolean(
 	}
 }
 
-func DurationClass() DurationClassLike {
-	return fra.DurationClass()
-}
-
 func Duration(
 	value ...any,
 ) DurationLike {
@@ -1096,10 +1283,6 @@ func Duration(
 	default:
 		return DurationClass().Duration(0)
 	}
-}
-
-func GlyphClass() GlyphClassLike {
-	return fra.GlyphClass()
 }
 
 func Glyph(
@@ -1120,10 +1303,6 @@ func Glyph(
 	}
 }
 
-func MomentClass() MomentClassLike {
-	return fra.MomentClass()
-}
-
 func Moment(
 	value ...any,
 ) MomentLike {
@@ -1138,10 +1317,6 @@ func Moment(
 	default:
 		return MomentClass().Now()
 	}
-}
-
-func NumberClass() NumberClassLike {
-	return fra.NumberClass()
 }
 
 func Number(
@@ -1178,10 +1353,6 @@ func Rectangular(
 	return NumberClass().NumberFromRectangular(x, y)
 }
 
-func PercentageClass() PercentageClassLike {
-	return fra.PercentageClass()
-}
-
 func Percentage(
 	value ...any,
 ) PercentageLike {
@@ -1200,10 +1371,6 @@ func Percentage(
 	}
 }
 
-func ProbabilityClass() ProbabilityClassLike {
-	return fra.ProbabilityClass()
-}
-
 func Probability(
 	value ...any,
 ) ProbabilityLike {
@@ -1220,10 +1387,6 @@ func Probability(
 	default:
 		return ProbabilityClass().Random()
 	}
-}
-
-func ResourceClass() ResourceClassLike {
-	return fra.ResourceClass()
 }
 
 func Resource(
@@ -1246,10 +1409,6 @@ func Resource(
 	}
 }
 
-func SymbolClass() SymbolClassLike {
-	return fra.SymbolClass()
-}
-
 func Symbol(
 	value ...any,
 ) SymbolLike {
@@ -1270,43 +1429,6 @@ func Symbol(
 
 // Strings
 
-type (
-	Folder = fra.Folder
-)
-
-type (
-	BinaryClassLike    = fra.BinaryClassLike
-	BytecodeClassLike  = fra.BytecodeClassLike
-	NameClassLike      = fra.NameClassLike
-	NarrativeClassLike = fra.NarrativeClassLike
-	PatternClassLike   = fra.PatternClassLike
-	QuoteClassLike     = fra.QuoteClassLike
-	TagClassLike       = fra.TagClassLike
-	VersionClassLike   = fra.VersionClassLike
-)
-
-type (
-	BinaryLike    = fra.BinaryLike
-	BytecodeLike  = fra.BytecodeLike
-	NameLike      = fra.NameLike
-	NarrativeLike = fra.NarrativeLike
-	PatternLike   = fra.PatternLike
-	QuoteLike     = fra.QuoteLike
-	TagLike       = fra.TagLike
-	VersionLike   = fra.VersionLike
-)
-
-type (
-	Accessible[V any] = fra.Accessible[V]
-	Searchable[V any] = fra.Searchable[V]
-	Sequential[V any] = fra.Sequential[V]
-	Spectral[V any]   = fra.Spectral[V]
-)
-
-func BinaryClass() BinaryClassLike {
-	return fra.BinaryClass()
-}
-
 func Binary(
 	value ...any,
 ) BinaryLike {
@@ -1318,15 +1440,11 @@ func Binary(
 		return BinaryClass().BinaryFromSource(actual)
 	case []byte:
 		return BinaryClass().Binary(actual)
-	case fra.Sequential[byte]:
+	case Sequential[byte]:
 		return BinaryClass().BinaryFromSequence(actual)
 	default:
 		return BinaryClass().Binary([]byte{})
 	}
-}
-
-func BytecodeClass() BytecodeClassLike {
-	return fra.BytecodeClass()
 }
 
 func Bytecode(
@@ -1345,30 +1463,22 @@ func Bytecode(
 	}
 }
 
-func NameClass() NameClassLike {
-	return fra.NameClass()
-}
-
 func Name(
 	value ...any,
 ) NameLike {
 	if len(value) == 0 {
-		return NameClass().Name([]fra.Folder{})
+		return NameClass().Name([]str.Folder{})
 	}
 	switch actual := value[0].(type) {
 	case string:
 		return NameClass().NameFromSource(actual)
-	case []fra.Folder:
+	case []str.Folder:
 		return NameClass().Name(actual)
-	case fra.Sequential[fra.Folder]:
+	case Sequential[str.Folder]:
 		return NameClass().NameFromSequence(actual)
 	default:
-		return NameClass().Name([]fra.Folder{})
+		return NameClass().Name([]str.Folder{})
 	}
-}
-
-func NarrativeClass() NarrativeClassLike {
-	return fra.NarrativeClass()
 }
 
 func Narrative(
@@ -1382,15 +1492,11 @@ func Narrative(
 		return NarrativeClass().NarrativeFromSource(actual)
 	case []string:
 		return NarrativeClass().Narrative(actual)
-	case fra.Sequential[string]:
+	case Sequential[string]:
 		return NarrativeClass().NarrativeFromSequence(actual)
 	default:
 		return NarrativeClass().Narrative([]string{})
 	}
-}
-
-func PatternClass() PatternClassLike {
-	return fra.PatternClass()
 }
 
 func Pattern(
@@ -1404,15 +1510,11 @@ func Pattern(
 		return PatternClass().PatternFromSource(actual)
 	case []rune:
 		return PatternClass().Pattern(actual)
-	case fra.Sequential[rune]:
+	case Sequential[rune]:
 		return PatternClass().PatternFromSequence(actual)
 	default:
 		return PatternClass().None()
 	}
-}
-
-func QuoteClass() QuoteClassLike {
-	return fra.QuoteClass()
 }
 
 func Quote(
@@ -1430,15 +1532,11 @@ func Quote(
 		}
 	case []rune:
 		return QuoteClass().Quote(actual)
-	case fra.Sequential[rune]:
+	case Sequential[rune]:
 		return QuoteClass().QuoteFromSequence(actual)
 	default:
 		return QuoteClass().QuoteFromSource(`""`)
 	}
-}
-
-func TagClass() TagClassLike {
-	return fra.TagClass()
 }
 
 func Tag(
@@ -1452,7 +1550,7 @@ func Tag(
 		return TagClass().TagFromSource(actual)
 	case []byte:
 		return TagClass().Tag(actual)
-	case fra.Sequential[byte]:
+	case Sequential[byte]:
 		return TagClass().TagFromSequence(actual)
 	case int:
 		return TagClass().TagWithSize(uint(actual))
@@ -1461,10 +1559,6 @@ func Tag(
 	default:
 		return TagClass().TagWithSize(20)
 	}
-}
-
-func VersionClass() VersionClassLike {
-	return fra.VersionClass()
 }
 
 func Version(
@@ -1478,92 +1572,11 @@ func Version(
 		return VersionClass().VersionFromSource(actual)
 	case []uint:
 		return VersionClass().Version(actual)
-	case fra.Sequential[uint]:
+	case Sequential[uint]:
 		return VersionClass().VersionFromSequence(actual)
 	default:
 		return VersionClass().Version([]uint{})
 	}
-}
-
-// Ranges
-
-type (
-	Bracket = fra.Bracket
-)
-
-const (
-	Inclusive = fra.Inclusive
-	Exclusive = fra.Exclusive
-)
-
-type (
-	ContinuumClassLike[V fra.Continuous] = fra.ContinuumClassLike[V]
-	IntervalClassLike[V fra.Discrete]    = fra.IntervalClassLike[V]
-	SpectrumClassLike[V fra.Spectral[V]] = fra.SpectrumClassLike[V]
-)
-
-type (
-	ContinuumLike[V fra.Continuous] = fra.ContinuumLike[V]
-	IntervalLike[V fra.Discrete]    = fra.IntervalLike[V]
-	SpectrumLike[V fra.Spectral[V]] = fra.SpectrumLike[V]
-)
-
-type (
-	Bounded[V any] = fra.Bounded[V]
-)
-
-func ContinuumClass[V fra.Continuous]() ContinuumClassLike[V] {
-	return fra.ContinuumClass[V]()
-}
-
-func Continuum[V fra.Continuous](
-	left fra.Bracket,
-	minimum V,
-	maximum V,
-	right fra.Bracket,
-) ContinuumLike[V] {
-	return ContinuumClass[V]().Continuum(
-		left,
-		minimum,
-		maximum,
-		right,
-	)
-}
-
-func IntervalClass[V fra.Discrete]() IntervalClassLike[V] {
-	return fra.IntervalClass[V]()
-}
-
-func Interval[V fra.Discrete](
-	left fra.Bracket,
-	minimum V,
-	maximum V,
-	right fra.Bracket,
-) IntervalLike[V] {
-	return IntervalClass[V]().Interval(
-		left,
-		minimum,
-		maximum,
-		right,
-	)
-}
-
-func SpectrumClass[V fra.Spectral[V]]() SpectrumClassLike[V] {
-	return fra.SpectrumClass[V]()
-}
-
-func Spectrum[V fra.Spectral[V]](
-	left fra.Bracket,
-	minimum V,
-	maximum V,
-	right fra.Bracket,
-) SpectrumLike[V] {
-	return SpectrumClass[V]().Spectrum(
-		left,
-		minimum,
-		maximum,
-		right,
-	)
 }
 
 // Collections

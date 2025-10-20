@@ -13,6 +13,7 @@
 package documents
 
 import (
+	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
 	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
@@ -28,7 +29,7 @@ func OnClauseClass() OnClauseClassLike {
 // Constructor Methods
 
 func (c *onClauseClass_) OnClause(
-	symbol fra.SymbolLike,
+	symbol ele.SymbolLike,
 	matchingClauses fra.Sequential[MatchingClauseLike],
 ) OnClauseLike {
 	if uti.IsUndefined(symbol) {
@@ -59,7 +60,7 @@ func (v *onClause_) GetClass() OnClauseClassLike {
 
 // Attribute Methods
 
-func (v *onClause_) GetSymbol() fra.SymbolLike {
+func (v *onClause_) GetSymbol() ele.SymbolLike {
 	return v.symbol_
 }
 
@@ -75,7 +76,7 @@ func (v *onClause_) GetMatchingClauses() fra.Sequential[MatchingClauseLike] {
 
 type onClause_ struct {
 	// Declare the instance attributes.
-	symbol_          fra.SymbolLike
+	symbol_          ele.SymbolLike
 	matchingClauses_ fra.Sequential[MatchingClauseLike]
 }
 

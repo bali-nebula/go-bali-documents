@@ -15,6 +15,9 @@ package agents
 import (
 	fmt "fmt"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
+	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
+	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
+	str "github.com/bali-nebula/go-bali-documents/v3/strings"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
@@ -72,7 +75,7 @@ func (v *deflator_) DeflateDocument(
 // Methodical Methods
 
 func (v *deflator_) ProcessAngle(
-	angle fra.AngleLike,
+	angle ele.AngleLike,
 ) {
 	v.stack_.AddValue(not.Element(angle.AsSource()))
 }
@@ -114,19 +117,19 @@ func (v *deflator_) ProcessAssignment(
 }
 
 func (v *deflator_) ProcessBinary(
-	binary fra.BinaryLike,
+	binary str.BinaryLike,
 ) {
 	v.stack_.AddValue(not.String(binary.AsSource()))
 }
 
 func (v *deflator_) ProcessBoolean(
-	boolean fra.BooleanLike,
+	boolean ele.BooleanLike,
 ) {
 	v.stack_.AddValue(not.Element(boolean.AsSource()))
 }
 
 func (v *deflator_) ProcessBytecode(
-	bytecode fra.BytecodeLike,
+	bytecode str.BytecodeLike,
 ) {
 	v.stack_.AddValue(not.String(bytecode.AsSource()))
 }
@@ -138,13 +141,13 @@ func (v *deflator_) ProcessComment(
 }
 
 func (v *deflator_) ProcessDuration(
-	duration fra.DurationLike,
+	duration ele.DurationLike,
 ) {
 	v.stack_.AddValue(not.Element(duration.AsSource()))
 }
 
 func (v *deflator_) ProcessGlyph(
-	glyph fra.GlyphLike,
+	glyph ele.GlyphLike,
 ) {
 	v.stack_.AddValue(not.Element(glyph.AsSource()))
 }
@@ -198,19 +201,19 @@ func (v *deflator_) ProcessInvoke(
 }
 
 func (v *deflator_) ProcessMoment(
-	moment fra.MomentLike,
+	moment ele.MomentLike,
 ) {
 	v.stack_.AddValue(not.Element(moment.AsSource()))
 }
 
 func (v *deflator_) ProcessName(
-	name fra.NameLike,
+	name str.NameLike,
 ) {
 	v.stack_.AddValue(not.String(name.AsSource()))
 }
 
 func (v *deflator_) ProcessNarrative(
-	narrative fra.NarrativeLike,
+	narrative str.NarrativeLike,
 ) {
 	v.stack_.AddValue(not.String(narrative.AsSource()))
 }
@@ -222,7 +225,7 @@ func (v *deflator_) ProcessNote(
 }
 
 func (v *deflator_) ProcessNumber(
-	number fra.NumberLike,
+	number ele.NumberLike,
 ) {
 	v.stack_.AddValue(not.Element(number.AsSource()))
 }
@@ -276,49 +279,49 @@ func (v *deflator_) ProcessOperator(
 }
 
 func (v *deflator_) ProcessPattern(
-	pattern fra.PatternLike,
+	pattern str.PatternLike,
 ) {
 	v.stack_.AddValue(not.String(pattern.AsSource()))
 }
 
 func (v *deflator_) ProcessPercentage(
-	percentage fra.PercentageLike,
+	percentage ele.PercentageLike,
 ) {
 	v.stack_.AddValue(not.Element(percentage.AsSource()))
 }
 
 func (v *deflator_) ProcessProbability(
-	probability fra.ProbabilityLike,
+	probability ele.ProbabilityLike,
 ) {
 	v.stack_.AddValue(not.Element(probability.AsSource()))
 }
 
 func (v *deflator_) ProcessQuote(
-	quote fra.QuoteLike,
+	quote str.QuoteLike,
 ) {
 	v.stack_.AddValue(not.String(quote.AsSource()))
 }
 
 func (v *deflator_) ProcessResource(
-	resource fra.ResourceLike,
+	resource ele.ResourceLike,
 ) {
 	v.stack_.AddValue(not.Element(resource.AsSource()))
 }
 
 func (v *deflator_) ProcessSymbol(
-	symbol fra.SymbolLike,
+	symbol ele.SymbolLike,
 ) {
 	v.stack_.AddValue(not.Element(symbol.AsSource()))
 }
 
 func (v *deflator_) ProcessTag(
-	tag fra.TagLike,
+	tag str.TagLike,
 ) {
 	v.stack_.AddValue(not.String(tag.AsSource()))
 }
 
 func (v *deflator_) ProcessVersion(
-	version fra.VersionLike,
+	version str.VersionLike,
 ) {
 	v.stack_.AddValue(not.String(version.AsSource()))
 }
@@ -870,9 +873,9 @@ func (v *deflator_) PostprocessRange(
 	var right not.RightLike
 	var extent = range_.GetRight()
 	switch extent {
-	case fra.Inclusive:
+	case ran.Inclusive:
 		right = not.Right("]")
-	case fra.Exclusive:
+	case ran.Exclusive:
 		right = not.Right(")")
 	default:
 		var message = fmt.Sprintf(
@@ -887,9 +890,9 @@ func (v *deflator_) PostprocessRange(
 	var left not.LeftLike
 	extent = range_.GetLeft()
 	switch extent {
-	case fra.Inclusive:
+	case ran.Inclusive:
 		left = not.Left("[")
-	case fra.Exclusive:
+	case ran.Exclusive:
 		left = not.Left("(")
 	default:
 		var message = fmt.Sprintf(

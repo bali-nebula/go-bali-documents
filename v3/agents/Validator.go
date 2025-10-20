@@ -14,7 +14,9 @@ package agents
 
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	fra "github.com/craterdog/go-component-framework/v7"
+	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
+	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
+	str "github.com/bali-nebula/go-bali-documents/v3/strings"
 )
 
 // CLASS INTERFACE
@@ -60,7 +62,7 @@ func (v *validator_) ValidateDocument(
 // Methodical Methods
 
 func (v *validator_) ProcessAngle(
-	angle fra.AngleLike,
+	angle ele.AngleLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -78,25 +80,25 @@ func (v *validator_) ProcessAssignment(
 }
 
 func (v *validator_) ProcessBinary(
-	binary fra.BinaryLike,
+	binary str.BinaryLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessBoolean(
-	boolean fra.BooleanLike,
+	boolean ele.BooleanLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessBracket(
-	bracket fra.Bracket,
+	bracket ran.Bracket,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessBytecode(
-	bytecode fra.BytecodeLike,
+	bytecode str.BytecodeLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -108,13 +110,13 @@ func (v *validator_) ProcessComment(
 }
 
 func (v *validator_) ProcessDuration(
-	duration fra.DurationLike,
+	duration ele.DurationLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessGlyph(
-	glyph fra.GlyphLike,
+	glyph ele.GlyphLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -138,19 +140,19 @@ func (v *validator_) ProcessInvoke(
 }
 
 func (v *validator_) ProcessMoment(
-	moment fra.MomentLike,
+	moment ele.MomentLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessName(
-	name fra.NameLike,
+	name str.NameLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessNarrative(
-	narrative fra.NarrativeLike,
+	narrative str.NarrativeLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -162,7 +164,7 @@ func (v *validator_) ProcessNote(
 }
 
 func (v *validator_) ProcessNumber(
-	number fra.NumberLike,
+	number ele.NumberLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -174,49 +176,49 @@ func (v *validator_) ProcessOperator(
 }
 
 func (v *validator_) ProcessPattern(
-	pattern fra.PatternLike,
+	pattern str.PatternLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessPercentage(
-	percentage fra.PercentageLike,
+	percentage ele.PercentageLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessProbability(
-	probability fra.ProbabilityLike,
+	probability ele.ProbabilityLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessQuote(
-	quote fra.QuoteLike,
+	quote str.QuoteLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessResource(
-	resource fra.ResourceLike,
+	resource ele.ResourceLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessSymbol(
-	symbol fra.SymbolLike,
+	symbol ele.SymbolLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessTag(
-	tag fra.TagLike,
+	tag str.TagLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessVersion(
-	version fra.VersionLike,
+	version str.VersionLike,
 ) {
 	// TBD - Add the method implementation.
 }

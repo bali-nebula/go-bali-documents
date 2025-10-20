@@ -30,6 +30,8 @@ on interfaces, not on each other.
 package documents
 
 import (
+	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
+	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
 	fra "github.com/craterdog/go-component-framework/v7"
 )
 
@@ -281,7 +283,7 @@ concrete generics-like class.
 type GenericsClassLike interface {
 	// Constructor Methods
 	Generics(
-		parameters fra.CatalogLike[fra.SymbolLike, ConstraintLike],
+		parameters fra.CatalogLike[ele.SymbolLike, ConstraintLike],
 	) GenericsLike
 }
 
@@ -411,7 +413,7 @@ on-clause-like class.
 type OnClauseClassLike interface {
 	// Constructor Methods
 	OnClause(
-		symbol fra.SymbolLike,
+		symbol ele.SymbolLike,
 		matchingClauses fra.Sequential[MatchingClauseLike],
 	) OnClauseLike
 }
@@ -473,10 +475,10 @@ range-like class.
 type RangeClassLike interface {
 	// Constructor Methods
 	Range(
-		left fra.Bracket,
+		left ran.Bracket,
 		first any,
 		last any,
-		right fra.Bracket,
+		right ran.Bracket,
 	) RangeLike
 }
 
@@ -641,7 +643,7 @@ with-clause-like class.
 type WithClauseClassLike interface {
 	// Constructor Methods
 	WithClause(
-		symbol fra.SymbolLike,
+		symbol ele.SymbolLike,
 		sequence ExpressionLike,
 		procedure ProcedureLike,
 	) WithClauseLike
@@ -723,7 +725,7 @@ type ComponentLike interface {
 	// Principal Methods
 	GetClass() ComponentClassLike
 	GetParameter(
-		symbol fra.SymbolLike,
+		symbol ele.SymbolLike,
 	) ComponentLike
 	SetSubcomponent(
 		value any,
@@ -857,7 +859,7 @@ type GenericsLike interface {
 	GetClass() GenericsClassLike
 
 	// Attribute Methods
-	GetParameters() fra.CatalogLike[fra.SymbolLike, ConstraintLike]
+	GetParameters() fra.CatalogLike[ele.SymbolLike, ConstraintLike]
 }
 
 /*
@@ -997,7 +999,7 @@ type OnClauseLike interface {
 	GetClass() OnClauseClassLike
 
 	// Attribute Methods
-	GetSymbol() fra.SymbolLike
+	GetSymbol() ele.SymbolLike
 	GetMatchingClauses() fra.Sequential[MatchingClauseLike]
 }
 
@@ -1064,10 +1066,10 @@ type RangeLike interface {
 	GetClass() RangeClassLike
 
 	// Attribute Methods
-	GetLeft() fra.Bracket
+	GetLeft() ran.Bracket
 	GetFirst() any
 	GetLast() any
-	GetRight() fra.Bracket
+	GetRight() ran.Bracket
 }
 
 /*
@@ -1245,7 +1247,7 @@ type WithClauseLike interface {
 	GetClass() WithClauseClassLike
 
 	// Attribute Methods
-	GetSymbol() fra.SymbolLike
+	GetSymbol() ele.SymbolLike
 	GetSequence() ExpressionLike
 	GetProcedure() ProcedureLike
 }

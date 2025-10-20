@@ -15,7 +15,8 @@ package agents
 import (
 	fmt "fmt"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	fra "github.com/craterdog/go-component-framework/v7"
+	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
+	str "github.com/bali-nebula/go-bali-documents/v3/strings"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -1401,41 +1402,41 @@ func (v *visitor_) visitPrimitive(
 	primitive any,
 ) {
 	switch actual := primitive.(type) {
-	case fra.AngleLike:
+	case ele.AngleLike:
 		v.processor_.ProcessAngle(actual)
-	case fra.BooleanLike:
+	case ele.BooleanLike:
 		v.processor_.ProcessBoolean(actual)
-	case fra.DurationLike:
+	case ele.DurationLike:
 		v.processor_.ProcessDuration(actual)
-	case fra.GlyphLike:
+	case ele.GlyphLike:
 		v.processor_.ProcessGlyph(actual)
-	case fra.MomentLike:
+	case ele.MomentLike:
 		v.processor_.ProcessMoment(actual)
-	case fra.NumberLike:
+	case ele.NumberLike:
 		v.processor_.ProcessNumber(actual)
-	case fra.PercentageLike:
+	case ele.PercentageLike:
 		v.processor_.ProcessPercentage(actual)
-	case fra.ProbabilityLike:
+	case ele.ProbabilityLike:
 		v.processor_.ProcessProbability(actual)
-	case fra.ResourceLike:
+	case ele.ResourceLike:
 		v.processor_.ProcessResource(actual)
-	case fra.SymbolLike:
+	case ele.SymbolLike:
 		v.processor_.ProcessSymbol(actual)
-	case fra.BinaryLike:
+	case str.BinaryLike:
 		v.processor_.ProcessBinary(actual)
-	case fra.BytecodeLike:
+	case str.BytecodeLike:
 		v.processor_.ProcessBytecode(actual)
-	case fra.NameLike:
+	case str.NameLike:
 		v.processor_.ProcessName(actual)
-	case fra.NarrativeLike:
+	case str.NarrativeLike:
 		v.processor_.ProcessNarrative(actual)
-	case fra.PatternLike:
+	case str.PatternLike:
 		v.processor_.ProcessPattern(actual)
-	case fra.QuoteLike:
+	case str.QuoteLike:
 		v.processor_.ProcessQuote(actual)
-	case fra.TagLike:
+	case str.TagLike:
 		v.processor_.ProcessTag(actual)
-	case fra.VersionLike:
+	case str.VersionLike:
 		v.processor_.ProcessVersion(actual)
 	default:
 		var message = fmt.Sprintf(
@@ -1593,7 +1594,7 @@ func (v *visitor_) visitRecipient(
 			0,
 			0,
 		)
-	case fra.SymbolLike:
+	case ele.SymbolLike:
 		v.processor_.ProcessSymbol(actual)
 	default:
 		var message = fmt.Sprintf(

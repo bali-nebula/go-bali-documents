@@ -13,7 +13,7 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-component-framework/v7"
+	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -28,10 +28,10 @@ func RangeClass() RangeClassLike {
 // Constructor Methods
 
 func (c *rangeClass_) Range(
-	left fra.Bracket,
+	left ran.Bracket,
 	first any,
 	last any,
-	right fra.Bracket,
+	right ran.Bracket,
 ) RangeLike {
 	if uti.IsUndefined(left) {
 		panic("The \"left\" attribute is required by this class.")
@@ -69,7 +69,7 @@ func (v *range_) GetClass() RangeClassLike {
 
 // Attribute Methods
 
-func (v *range_) GetLeft() fra.Bracket {
+func (v *range_) GetLeft() ran.Bracket {
 	return v.left_
 }
 
@@ -81,7 +81,7 @@ func (v *range_) GetLast() any {
 	return v.last_
 }
 
-func (v *range_) GetRight() fra.Bracket {
+func (v *range_) GetRight() ran.Bracket {
 	return v.right_
 }
 
@@ -93,10 +93,10 @@ func (v *range_) GetRight() fra.Bracket {
 
 type range_ struct {
 	// Declare the instance attributes.
-	left_  fra.Bracket
+	left_  ran.Bracket
 	first_ any
 	last_  any
-	right_ fra.Bracket
+	right_ ran.Bracket
 }
 
 // Class Structure

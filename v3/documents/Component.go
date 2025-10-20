@@ -14,6 +14,7 @@ package documents
 
 import (
 	fmt "fmt"
+	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
 	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
@@ -56,7 +57,7 @@ func (v *component_) GetClass() ComponentClassLike {
 }
 
 func (v *component_) GetParameter(
-	symbol fra.SymbolLike,
+	symbol ele.SymbolLike,
 ) ComponentLike {
 	var parameter ComponentLike
 	var generics = v.GetOptionalGenerics()

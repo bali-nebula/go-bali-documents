@@ -15,6 +15,9 @@ package agents
 import (
 	fmt "fmt"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
+	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
+	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
+	str "github.com/bali-nebula/go-bali-documents/v3/strings"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-component-framework/v7"
 	uti "github.com/craterdog/go-missing-utilities/v7"
@@ -74,25 +77,25 @@ func (v *inflator_) InflateDocument(
 func (v *inflator_) ProcessAngle(
 	angle string,
 ) {
-	v.stack_.AddValue(fra.AngleFromSource(angle))
+	v.stack_.AddValue(ele.AngleClass().AngleFromSource(angle))
 }
 
 func (v *inflator_) ProcessBinary(
 	binary string,
 ) {
-	v.stack_.AddValue(fra.BinaryFromSource(binary))
+	v.stack_.AddValue(str.BinaryClass().BinaryFromSource(binary))
 }
 
 func (v *inflator_) ProcessBoolean(
 	boolean string,
 ) {
-	v.stack_.AddValue(fra.BooleanFromSource(boolean))
+	v.stack_.AddValue(ele.BooleanClass().BooleanFromSource(boolean))
 }
 
 func (v *inflator_) ProcessBytecode(
 	bytecode string,
 ) {
-	v.stack_.AddValue(fra.BytecodeClass().BytecodeFromSource(bytecode))
+	v.stack_.AddValue(str.BytecodeClass().BytecodeFromSource(bytecode))
 }
 
 func (v *inflator_) ProcessComment(
@@ -104,13 +107,13 @@ func (v *inflator_) ProcessComment(
 func (v *inflator_) ProcessDuration(
 	duration string,
 ) {
-	v.stack_.AddValue(fra.DurationFromSource(duration))
+	v.stack_.AddValue(ele.DurationClass().DurationFromSource(duration))
 }
 
 func (v *inflator_) ProcessGlyph(
 	glyph string,
 ) {
-	v.stack_.AddValue(fra.GlyphFromSource(glyph))
+	v.stack_.AddValue(ele.GlyphClass().GlyphFromSource(glyph))
 }
 
 func (v *inflator_) ProcessIdentifier(
@@ -122,19 +125,19 @@ func (v *inflator_) ProcessIdentifier(
 func (v *inflator_) ProcessMoment(
 	moment string,
 ) {
-	v.stack_.AddValue(fra.MomentFromSource(moment))
+	v.stack_.AddValue(ele.MomentClass().MomentFromSource(moment))
 }
 
 func (v *inflator_) ProcessName(
 	name string,
 ) {
-	v.stack_.AddValue(fra.NameFromSource(name))
+	v.stack_.AddValue(str.NameClass().NameFromSource(name))
 }
 
 func (v *inflator_) ProcessNarrative(
 	narrative string,
 ) {
-	v.stack_.AddValue(fra.NarrativeFromSource(narrative))
+	v.stack_.AddValue(str.NarrativeClass().NarrativeFromSource(narrative))
 }
 
 func (v *inflator_) ProcessNote(
@@ -146,55 +149,55 @@ func (v *inflator_) ProcessNote(
 func (v *inflator_) ProcessNumber(
 	number string,
 ) {
-	v.stack_.AddValue(fra.NumberFromSource(number))
+	v.stack_.AddValue(ele.NumberClass().NumberFromSource(number))
 }
 
 func (v *inflator_) ProcessPattern(
 	pattern string,
 ) {
-	v.stack_.AddValue(fra.PatternFromSource(pattern))
+	v.stack_.AddValue(str.PatternClass().PatternFromSource(pattern))
 }
 
 func (v *inflator_) ProcessPercentage(
 	percentage string,
 ) {
-	v.stack_.AddValue(fra.PercentageFromSource(percentage))
+	v.stack_.AddValue(ele.PercentageClass().PercentageFromSource(percentage))
 }
 
 func (v *inflator_) ProcessProbability(
 	probability string,
 ) {
-	v.stack_.AddValue(fra.ProbabilityFromSource(probability))
+	v.stack_.AddValue(ele.ProbabilityClass().ProbabilityFromSource(probability))
 }
 
 func (v *inflator_) ProcessQuote(
 	quote string,
 ) {
-	v.stack_.AddValue(fra.QuoteFromSource(quote))
+	v.stack_.AddValue(str.QuoteClass().QuoteFromSource(quote))
 }
 
 func (v *inflator_) ProcessResource(
 	resource string,
 ) {
-	v.stack_.AddValue(fra.ResourceFromSource(resource))
+	v.stack_.AddValue(ele.ResourceClass().ResourceFromSource(resource))
 }
 
 func (v *inflator_) ProcessSymbol(
 	symbol string,
 ) {
-	v.stack_.AddValue(fra.SymbolFromSource(symbol))
+	v.stack_.AddValue(ele.SymbolClass().SymbolFromSource(symbol))
 }
 
 func (v *inflator_) ProcessTag(
 	tag string,
 ) {
-	v.stack_.AddValue(fra.TagFromSource(tag))
+	v.stack_.AddValue(str.TagClass().TagFromSource(tag))
 }
 
 func (v *inflator_) ProcessVersion(
 	version string,
 ) {
-	v.stack_.AddValue(fra.VersionFromSource(version))
+	v.stack_.AddValue(str.VersionClass().VersionFromSource(version))
 }
 
 func (v *inflator_) PostprocessAcceptClause(
@@ -558,9 +561,9 @@ func (v *inflator_) PostprocessLeft(
 	var bracket = left.GetAny().(string)
 	switch bracket {
 	case "[":
-		v.stack_.AddValue(fra.Inclusive)
+		v.stack_.AddValue(ran.Inclusive)
 	case "(":
-		v.stack_.AddValue(fra.Exclusive)
+		v.stack_.AddValue(ran.Exclusive)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
@@ -652,7 +655,7 @@ func (v *inflator_) PostprocessOnClause(
 		iterator.GetNext()
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
-	var symbol = v.stack_.RemoveLast().(fra.SymbolLike)
+	var symbol = v.stack_.RemoveLast().(ele.SymbolLike)
 	v.stack_.AddValue(
 		doc.OnClauseClass().OnClause(symbol, list),
 	)
@@ -729,12 +732,12 @@ func (v *inflator_) PostprocessGenerics(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = fra.Catalog[fra.SymbolLike, doc.ConstraintLike]()
+	var catalog = fra.Catalog[ele.SymbolLike, doc.ConstraintLike]()
 	var parameters = generics.GetParameters()
 	var iterator = parameters.GetIterator()
 	for iterator.HasNext() {
 		var constraint = v.stack_.RemoveLast().(doc.ConstraintLike)
-		var symbol = v.stack_.RemoveLast().(fra.SymbolLike)
+		var symbol = v.stack_.RemoveLast().(ele.SymbolLike)
 		catalog.SetValue(symbol, constraint)
 		iterator.GetNext()
 	}
@@ -792,10 +795,10 @@ func (v *inflator_) PostprocessRange(
 	index_ uint,
 	count_ uint,
 ) {
-	var right = v.stack_.RemoveLast().(fra.Bracket)
+	var right = v.stack_.RemoveLast().(ran.Bracket)
 	var last = v.stack_.RemoveLast()
 	var first = v.stack_.RemoveLast()
-	var left = v.stack_.RemoveLast().(fra.Bracket)
+	var left = v.stack_.RemoveLast().(ran.Bracket)
 	v.stack_.AddValue(doc.RangeClass().Range(left, first, last, right))
 }
 
@@ -845,9 +848,9 @@ func (v *inflator_) PostprocessRight(
 	var bracket = right.GetAny().(string)
 	switch bracket {
 	case "]":
-		v.stack_.AddValue(fra.Inclusive)
+		v.stack_.AddValue(ran.Inclusive)
 	case ")":
-		v.stack_.AddValue(fra.Exclusive)
+		v.stack_.AddValue(ran.Exclusive)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
@@ -966,7 +969,7 @@ func (v *inflator_) PostprocessWithClause(
 ) {
 	var procedure = v.stack_.RemoveLast().(doc.ProcedureLike)
 	var sequence = v.stack_.RemoveLast().(doc.ExpressionLike)
-	var variable = v.stack_.RemoveLast().(fra.SymbolLike)
+	var variable = v.stack_.RemoveLast().(ele.SymbolLike)
 	v.stack_.AddValue(
 		doc.WithClauseClass().WithClause(variable, sequence, procedure),
 	)
@@ -982,12 +985,12 @@ func (v *inflator_) getComposites(
 ) fra.Sequential[doc.CompositeLike] {
 	var composites = items.GetComposites()
 	var dummy = doc.ComponentClass().Component(
-		fra.PatternClass().None(),
+		str.PatternClass().None(),
 		generics,
 	)
-	var parameter = dummy.GetParameter(fra.Symbol("type"))
+	var parameter = dummy.GetParameter(ele.SymbolClass().Symbol("type"))
 	switch entity := parameter.GetEntity().(type) {
-	case fra.ResourceLike:
+	case ele.ResourceLike:
 		switch entity.AsSource() {
 		case "<bali:/types/collections/Queue:v3>":
 			composites = fra.QueueFromSequence(composites)

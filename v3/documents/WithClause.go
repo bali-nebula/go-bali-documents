@@ -13,7 +13,7 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-component-framework/v7"
+	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
 	uti "github.com/craterdog/go-missing-utilities/v7"
 )
 
@@ -28,7 +28,7 @@ func WithClauseClass() WithClauseClassLike {
 // Constructor Methods
 
 func (c *withClauseClass_) WithClause(
-	symbol fra.SymbolLike,
+	symbol ele.SymbolLike,
 	sequence ExpressionLike,
 	procedure ProcedureLike,
 ) WithClauseLike {
@@ -64,7 +64,7 @@ func (v *withClause_) GetClass() WithClauseClassLike {
 
 // Attribute Methods
 
-func (v *withClause_) GetSymbol() fra.SymbolLike {
+func (v *withClause_) GetSymbol() ele.SymbolLike {
 	return v.symbol_
 }
 
@@ -84,7 +84,7 @@ func (v *withClause_) GetProcedure() ProcedureLike {
 
 type withClause_ struct {
 	// Declare the instance attributes.
-	symbol_    fra.SymbolLike
+	symbol_    ele.SymbolLike
 	sequence_  ExpressionLike
 	procedure_ ProcedureLike
 }
