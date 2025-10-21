@@ -15,8 +15,8 @@ package strings
 import (
 	bin "encoding/binary"
 	fmt "fmt"
-	age "github.com/craterdog/go-component-framework/v7/agents"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	fra "github.com/craterdog/go-collection-framework/v8"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 	reg "regexp"
 	sli "slices"
 )
@@ -35,8 +35,7 @@ func (c *tagClass_) Tag(
 	bytes []byte,
 ) TagLike {
 	c.validateSize(uti.ArraySize(bytes))
-	var encoder = age.EncoderClass().Encoder()
-	var encoded = encoder.Base32Encode(bytes)
+	var encoded = uti.Base32Encode(bytes)
 	return tag_("#" + encoded)
 }
 
@@ -44,8 +43,7 @@ func (c *tagClass_) TagWithSize(
 	size uint,
 ) TagLike {
 	c.validateSize(size)
-	var generator = age.GeneratorClass().Generator()
-	var bytes = generator.RandomBytes(size)
+	var bytes = uti.RandomBytes(size)
 	return c.Tag(bytes)
 }
 
@@ -100,8 +98,7 @@ func (v tag_) GetClass() TagClassLike {
 
 func (v tag_) AsIntrinsic() []byte {
 	var base32 = string(v[1:]) // Strip off the leading "#".
-	var encoder = age.EncoderClass().Encoder()
-	var bytes = encoder.Base32Decode(base32)
+	var bytes = uti.Base32Decode(base32)
 	return bytes
 }
 
@@ -167,8 +164,8 @@ func (v tag_) AsArray() []byte {
 	return v.AsIntrinsic()
 }
 
-func (v tag_) GetIterator() age.IteratorLike[byte] {
-	return age.IteratorClass[byte]().Iterator(v.AsIntrinsic())
+func (v tag_) GetIterator() fra.IteratorLike[byte] {
+	return fra.IteratorClass[byte]().Iterator(v.AsIntrinsic())
 }
 
 // Accessible[byte] Methods

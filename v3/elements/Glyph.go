@@ -14,7 +14,7 @@ package elements
 
 import (
 	fmt "fmt"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 	mat "math"
 	reg "regexp"
 	uni "unicode"

@@ -15,7 +15,7 @@ package elements
 import (
 	ran "crypto/rand"
 	fmt "fmt"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 	mat "math"
 	big "math/big"
 	reg "regexp"

@@ -37,7 +37,7 @@ import (
 	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
 	str "github.com/bali-nebula/go-bali-documents/v3/strings"
 	not "github.com/bali-nebula/go-document-notation/v3"
-	fra "github.com/craterdog/go-component-framework/v7"
+	fra "github.com/craterdog/go-collection-framework/v8"
 	uri "net/url"
 )
 
@@ -46,19 +46,27 @@ import (
 // Agents
 
 type (
-	DeflatorClassLike  = age.DeflatorClassLike
-	InflatorClassLike  = age.InflatorClassLike
-	ProcessorClassLike = age.ProcessorClassLike
-	ValidatorClassLike = age.ValidatorClassLike
-	VisitorClassLike   = age.VisitorClassLike
+	Event       = age.Event
+	State       = age.State
+	Transitions = age.Transitions
 )
 
 type (
-	DeflatorLike  = age.DeflatorLike
-	InflatorLike  = age.InflatorLike
-	ProcessorLike = age.ProcessorLike
-	ValidatorLike = age.ValidatorLike
-	VisitorLike   = age.VisitorLike
+	ControllerClassLike = age.ControllerClassLike
+	DeflatorClassLike   = age.DeflatorClassLike
+	InflatorClassLike   = age.InflatorClassLike
+	ProcessorClassLike  = age.ProcessorClassLike
+	ValidatorClassLike  = age.ValidatorClassLike
+	VisitorClassLike    = age.VisitorClassLike
+)
+
+type (
+	ControllerLike = age.ControllerLike
+	DeflatorLike   = age.DeflatorLike
+	InflatorLike   = age.InflatorLike
+	ProcessorLike  = age.ProcessorLike
+	ValidatorLike  = age.ValidatorLike
+	VisitorLike    = age.VisitorLike
 )
 
 type (
@@ -308,6 +316,22 @@ type (
 // CLASS ACCESSORS
 
 // Agents
+
+func ControllerClass() ControllerClassLike {
+	return age.ControllerClass()
+}
+
+func Controller(
+	events []age.Event,
+	transitions map[State]age.Transitions,
+	initialState age.State,
+) ControllerLike {
+	return ControllerClass().Controller(
+		events,
+		transitions,
+		initialState,
+	)
+}
 
 func DeflatorClass() DeflatorClassLike {
 	return age.DeflatorClass()
@@ -975,8 +999,6 @@ func SymbolClass() SymbolClassLike {
 	return ele.SymbolClass()
 }
 
-// Strings
-
 func BinaryClass() BinaryClassLike {
 	return str.BinaryClass()
 }
@@ -1119,10 +1141,7 @@ func FormatDocument(
 // Agents
 
 type (
-	Event       = fra.Event
-	Rank        = fra.Rank
-	State       = fra.State
-	Transitions = fra.Transitions
+	Rank = fra.Rank
 )
 
 const (
@@ -1137,18 +1156,12 @@ type (
 
 type (
 	CollatorClassLike[V any] = fra.CollatorClassLike[V]
-	ControllerClassLike      = fra.ControllerClassLike
-	EncoderClassLike         = fra.EncoderClassLike
-	GeneratorClassLike       = fra.GeneratorClassLike
 	IteratorClassLike[V any] = fra.IteratorClassLike[V]
 	SorterClassLike[V any]   = fra.SorterClassLike[V]
 )
 
 type (
 	CollatorLike[V any] = fra.CollatorLike[V]
-	ControllerLike      = fra.ControllerLike
-	EncoderLike         = fra.EncoderLike
-	GeneratorLike       = fra.GeneratorLike
 	IteratorLike[V any] = fra.IteratorLike[V]
 	SorterLike[V any]   = fra.SorterLike[V]
 )
@@ -1171,38 +1184,6 @@ func Collator[V any](
 	default:
 		return CollatorClass[V]().Collator()
 	}
-}
-
-func ControllerClass() ControllerClassLike {
-	return fra.ControllerClass()
-}
-
-func Controller(
-	events []fra.Event,
-	transitions map[State]fra.Transitions,
-	initialState fra.State,
-) ControllerLike {
-	return ControllerClass().Controller(
-		events,
-		transitions,
-		initialState,
-	)
-}
-
-func EncoderClass() EncoderClassLike {
-	return fra.EncoderClass()
-}
-
-func Encoder() EncoderLike {
-	return EncoderClass().Encoder()
-}
-
-func GeneratorClass() GeneratorClassLike {
-	return fra.GeneratorClass()
-}
-
-func Generator() GeneratorLike {
-	return GeneratorClass().Generator()
 }
 
 func IteratorClass[V any]() IteratorClassLike[V] {
@@ -1228,7 +1209,7 @@ func Sorter[V any](
 		return SorterClass[V]().Sorter()
 	}
 	switch actual := value[0].(type) {
-	case fra.RankingFunction[V]:
+	case RankingFunction[V]:
 		return SorterClass[V]().SorterWithRanker(actual)
 	default:
 		return SorterClass[V]().Sorter()
@@ -1663,7 +1644,7 @@ func List[V any](
 		return ParseComponent(actual).GetEntity().(ListLike[V])
 	case []V:
 		return ListClass[V]().ListFromArray(actual)
-	case fra.Sequential[V]:
+	case Sequential[V]:
 		return ListClass[V]().ListFromSequence(actual)
 	default:
 		return ListClass[V]().List()
@@ -1689,7 +1670,7 @@ func Queue[V any](
 		return QueueClass[V]().QueueWithCapacity(actual)
 	case []V:
 		return QueueClass[V]().QueueFromArray(actual)
-	case fra.Sequential[V]:
+	case Sequential[V]:
 		return QueueClass[V]().QueueFromSequence(actual)
 	default:
 		return QueueClass[V]().Queue()
@@ -1709,11 +1690,11 @@ func Set[V any](
 	switch actual := value[0].(type) {
 	case string:
 		return ParseComponent(actual).GetEntity().(SetLike[V])
-	case fra.CollatorLike[V]:
+	case CollatorLike[V]:
 		return SetClass[V]().SetWithCollator(actual)
 	case []V:
 		return SetClass[V]().SetFromArray(actual)
-	case fra.Sequential[V]:
+	case Sequential[V]:
 		return SetClass[V]().SetFromSequence(actual)
 	default:
 		return SetClass[V]().Set()
@@ -1739,7 +1720,7 @@ func Stack[V any](
 		return StackClass[V]().StackWithCapacity(actual)
 	case []V:
 		return StackClass[V]().StackFromArray(actual)
-	case fra.Sequential[V]:
+	case Sequential[V]:
 		return StackClass[V]().StackFromSequence(actual)
 	default:
 		return StackClass[V]().Stack()

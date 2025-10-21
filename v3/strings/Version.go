@@ -14,8 +14,8 @@ package strings
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-component-framework/v7/agents"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	fra "github.com/craterdog/go-collection-framework/v8"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 	reg "regexp"
 	sli "slices"
 	stc "strconv"
@@ -81,7 +81,7 @@ func (c *versionClass_) IsValidNextVersion(
 	}
 
 	// Iterate through the versions comparing level values.
-	var class = age.IteratorClass[uint]()
+	var class = fra.IteratorClass[uint]()
 	var currentIterator = class.Iterator(current.AsArray())
 	var nextIterator = class.Iterator(next.AsArray())
 	for currentIterator.HasNext() && nextIterator.HasNext() {
@@ -170,14 +170,14 @@ func (v version_) AsSource() string {
 
 func (v version_) CompareWith(
 	value VersionLike,
-) age.Rank {
+) fra.Rank {
 	switch sli.Compare(v.AsIntrinsic(), value.AsIntrinsic()) {
 	case -1:
-		return age.LesserRank
+		return fra.LesserRank
 	case 1:
-		return age.GreaterRank
+		return fra.GreaterRank
 	default:
-		return age.EqualRank
+		return fra.EqualRank
 	}
 }
 
@@ -233,8 +233,8 @@ func (v version_) AsArray() []uint {
 	return v.AsIntrinsic()
 }
 
-func (v version_) GetIterator() age.IteratorLike[uint] {
-	return age.IteratorClass[uint]().Iterator(v.AsIntrinsic())
+func (v version_) GetIterator() fra.IteratorLike[uint] {
+	return fra.IteratorClass[uint]().Iterator(v.AsIntrinsic())
 }
 
 // Accessible[uint] Methods

@@ -14,8 +14,8 @@ package strings
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-component-framework/v7/agents"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	fra "github.com/craterdog/go-collection-framework/v8"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 	reg "regexp"
 	sli "slices"
 	sts "strings"
@@ -166,8 +166,8 @@ func (v narrative_) AsArray() []string {
 	return v.AsIntrinsic()
 }
 
-func (v narrative_) GetIterator() age.IteratorLike[string] {
-	return age.IteratorClass[string]().Iterator(v.AsIntrinsic())
+func (v narrative_) GetIterator() fra.IteratorLike[string] {
+	return fra.IteratorClass[string]().Iterator(v.AsIntrinsic())
 }
 
 // Accessible[string] Methods

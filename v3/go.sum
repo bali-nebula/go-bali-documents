@@ -1,9 +1,9 @@
-github.com/bali-nebula/go-document-notation/v3 v3.34.0 h1:qBZQcngMQDL1geeHMlPs/8F2sLUpeGO5TRbZ/JzjyqQ=
-github.com/bali-nebula/go-document-notation/v3 v3.34.0/go.mod h1:NBBbRKMY4YhcFt/jmmL7oHIufalgC3Iyyd7yLL0hKsM=
-github.com/craterdog/go-component-framework/v7 v7.28.0 h1:yUWLeJjIcmMakqeXpEFI++35nebJNJ7tUoNOh/aQNLA=
-github.com/craterdog/go-component-framework/v7 v7.28.0/go.mod h1:n/BIzP+8Iyqnmf/h/yddytklJxNH4timuUpvzZtlS10=
-github.com/craterdog/go-missing-utilities/v7 v7.18.0 h1:hdGOuBj8gx+1M+MOcxSU0qfldKbquPrBM184l+fScjE=
-github.com/craterdog/go-missing-utilities/v7 v7.18.0/go.mod h1:QIlxcEbals02cl4kp6qo4rQHtVEBv97XNYSZLA9NhgU=
+github.com/bali-nebula/go-document-notation/v3 v3.35.0 h1:Pxg5gpP7QPZxf5NOUMabSua1c1itY87TLRm5A1u0hyg=
+github.com/bali-nebula/go-document-notation/v3 v3.35.0/go.mod h1:XKO2zSYFwQ5pK60733zbY1+mRY7QMVP6NWea4C8KRVk=
+github.com/craterdog/go-collection-framework/v8 v8.2.0 h1:Wvwi1OZkX+BjMPdHrsqN7Fc1NrAr9vv9D6PZ5GrK8eY=
+github.com/craterdog/go-collection-framework/v8 v8.2.0/go.mod h1:vQMO2tU9f0PMWfJQO6B78LDRunIEOA5UFsoFdG+oY50=
+github.com/craterdog/go-missing-utilities/v8 v8.1.0 h1:/bBbiJvhyQUwO8rKhTyJ3TyTjfQQlgl+eb1gzOcUeQ4=
+github.com/craterdog/go-missing-utilities/v8 v8.1.0/go.mod h1:UrJvQh367oQNTIQCgysf83X4GKMGZOCXeLJbOg5TC/c=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

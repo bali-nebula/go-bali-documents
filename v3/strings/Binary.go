@@ -14,8 +14,8 @@ package strings
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-component-framework/v7/agents"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	fra "github.com/craterdog/go-collection-framework/v8"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 	reg "regexp"
 	sts "strings"
 )
@@ -33,8 +33,7 @@ func BinaryClass() BinaryClassLike {
 func (c *binaryClass_) Binary(
 	bytes []byte,
 ) BinaryLike {
-	var encoder = age.EncoderClass().Encoder()
-	var encoded = encoder.Base64Encode(bytes)
+	var encoded = uti.Base64Encode(bytes)
 	var length = len(encoded)
 	var source = "'>"
 	if length > 0 {
@@ -210,8 +209,7 @@ func (v binary_) AsIntrinsic() []byte {
 	var base64 = binary[2 : len(v)-2]         // Strip off the delimiters.
 	base64 = sts.ReplaceAll(base64, " ", "")  // Remove all spaces.
 	base64 = sts.ReplaceAll(base64, "\n", "") // Remove all newlines.
-	var encoder = age.EncoderClass().Encoder()
-	var bytes = encoder.Base64Decode(base64)
+	var bytes = uti.Base64Decode(base64)
 	return bytes
 }
 
@@ -235,8 +233,8 @@ func (v binary_) AsArray() []byte {
 	return v.AsIntrinsic()
 }
 
-func (v binary_) GetIterator() age.IteratorLike[byte] {
-	return age.IteratorClass[byte]().Iterator(v.AsIntrinsic())
+func (v binary_) GetIterator() fra.IteratorLike[byte] {
+	return fra.IteratorClass[byte]().Iterator(v.AsIntrinsic())
 }
 
 // PROTECTED INTERFACE

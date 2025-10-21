@@ -16,7 +16,7 @@ import (
 	fmt "fmt"
 	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
 	str "github.com/bali-nebula/go-bali-documents/v3/strings"
-	fra "github.com/craterdog/go-component-framework/v7"
+	fra "github.com/craterdog/go-collection-framework/v8"
 	syn "sync"
 )
 

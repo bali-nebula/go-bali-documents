@@ -15,8 +15,8 @@ package documents
 import (
 	fmt "fmt"
 	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
-	fra "github.com/craterdog/go-component-framework/v7"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	fra "github.com/craterdog/go-collection-framework/v8"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 )
 
 // CLASS INTERFACE

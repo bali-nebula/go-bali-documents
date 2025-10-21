@@ -17,7 +17,7 @@ import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
 	str "github.com/bali-nebula/go-bali-documents/v3/strings"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 )
 
 // CLASS INTERFACE

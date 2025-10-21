@@ -19,8 +19,8 @@ import (
 	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
 	str "github.com/bali-nebula/go-bali-documents/v3/strings"
 	not "github.com/bali-nebula/go-document-notation/v3"
-	fra "github.com/craterdog/go-component-framework/v7"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	fra "github.com/craterdog/go-collection-framework/v8"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 )
 
 // CLASS INTERFACE

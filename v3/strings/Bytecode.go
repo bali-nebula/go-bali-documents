@@ -14,8 +14,8 @@ package strings
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-component-framework/v7/agents"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	fra "github.com/craterdog/go-collection-framework/v8"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 	mat "math"
 	reg "regexp"
 	stc "strconv"
@@ -115,8 +115,8 @@ func (v bytecode_) AsArray() []uint16 {
 	return v.AsIntrinsic()
 }
 
-func (v bytecode_) GetIterator() age.IteratorLike[uint16] {
-	return age.IteratorClass[uint16]().Iterator(v.AsIntrinsic())
+func (v bytecode_) GetIterator() fra.IteratorLike[uint16] {
+	return fra.IteratorClass[uint16]().Iterator(v.AsIntrinsic())
 }
 
 // PROTECTED INTERFACE

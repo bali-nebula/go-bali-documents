@@ -14,8 +14,8 @@ package strings
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-component-framework/v7/agents"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	fra "github.com/craterdog/go-collection-framework/v8"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 	reg "regexp"
 	sli "slices"
 	stc "strconv"
@@ -91,14 +91,14 @@ func (v quote_) AsSource() string {
 
 func (v quote_) CompareWith(
 	value QuoteLike,
-) age.Rank {
+) fra.Rank {
 	switch sli.Compare(v.AsIntrinsic(), value.AsIntrinsic()) {
 	case -1:
-		return age.LesserRank
+		return fra.LesserRank
 	case 1:
-		return age.GreaterRank
+		return fra.GreaterRank
 	default:
-		return age.EqualRank
+		return fra.EqualRank
 	}
 }
 
@@ -154,8 +154,8 @@ func (v quote_) AsArray() []rune {
 	return v.AsIntrinsic()
 }
 
-func (v quote_) GetIterator() age.IteratorLike[rune] {
-	return age.IteratorClass[rune]().Iterator(v.AsIntrinsic())
+func (v quote_) GetIterator() fra.IteratorLike[rune] {
+	return fra.IteratorClass[rune]().Iterator(v.AsIntrinsic())
 }
 
 // Accessible[rune] Methods

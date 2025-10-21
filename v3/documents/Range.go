@@ -14,7 +14,7 @@ package documents
 
 import (
 	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
-	uti "github.com/craterdog/go-missing-utilities/v7"
+	uti "github.com/craterdog/go-missing-utilities/v8"
 )
 
 // CLASS INTERFACE
