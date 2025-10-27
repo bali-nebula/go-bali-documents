@@ -15,11 +15,9 @@ package agents
 import (
 	fmt "fmt"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
-	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
-	str "github.com/bali-nebula/go-bali-documents/v3/strings"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-collection-framework/v8"
+	ele "github.com/craterdog/go-essential-elements/v8"
 	uti "github.com/craterdog/go-missing-utilities/v8"
 )
 
@@ -83,7 +81,7 @@ func (v *inflator_) ProcessAngle(
 func (v *inflator_) ProcessBinary(
 	binary string,
 ) {
-	v.stack_.AddValue(str.BinaryClass().BinaryFromSource(binary))
+	v.stack_.AddValue(ele.BinaryClass().BinaryFromSource(binary))
 }
 
 func (v *inflator_) ProcessBoolean(
@@ -95,7 +93,7 @@ func (v *inflator_) ProcessBoolean(
 func (v *inflator_) ProcessBytecode(
 	bytecode string,
 ) {
-	v.stack_.AddValue(str.BytecodeClass().BytecodeFromSource(bytecode))
+	v.stack_.AddValue(ele.BytecodeClass().BytecodeFromSource(bytecode))
 }
 
 func (v *inflator_) ProcessComment(
@@ -131,13 +129,13 @@ func (v *inflator_) ProcessMoment(
 func (v *inflator_) ProcessName(
 	name string,
 ) {
-	v.stack_.AddValue(str.NameClass().NameFromSource(name))
+	v.stack_.AddValue(ele.NameClass().NameFromSource(name))
 }
 
 func (v *inflator_) ProcessNarrative(
 	narrative string,
 ) {
-	v.stack_.AddValue(str.NarrativeClass().NarrativeFromSource(narrative))
+	v.stack_.AddValue(ele.NarrativeClass().NarrativeFromSource(narrative))
 }
 
 func (v *inflator_) ProcessNote(
@@ -155,7 +153,7 @@ func (v *inflator_) ProcessNumber(
 func (v *inflator_) ProcessPattern(
 	pattern string,
 ) {
-	v.stack_.AddValue(str.PatternClass().PatternFromSource(pattern))
+	v.stack_.AddValue(ele.PatternClass().PatternFromSource(pattern))
 }
 
 func (v *inflator_) ProcessPercentage(
@@ -173,7 +171,7 @@ func (v *inflator_) ProcessProbability(
 func (v *inflator_) ProcessQuote(
 	quote string,
 ) {
-	v.stack_.AddValue(str.QuoteClass().QuoteFromSource(quote))
+	v.stack_.AddValue(ele.QuoteClass().QuoteFromSource(quote))
 }
 
 func (v *inflator_) ProcessResource(
@@ -191,13 +189,13 @@ func (v *inflator_) ProcessSymbol(
 func (v *inflator_) ProcessTag(
 	tag string,
 ) {
-	v.stack_.AddValue(str.TagClass().TagFromSource(tag))
+	v.stack_.AddValue(ele.TagClass().TagFromSource(tag))
 }
 
 func (v *inflator_) ProcessVersion(
 	version string,
 ) {
-	v.stack_.AddValue(str.VersionClass().VersionFromSource(version))
+	v.stack_.AddValue(ele.VersionClass().VersionFromSource(version))
 }
 
 func (v *inflator_) PostprocessAcceptClause(
@@ -561,9 +559,9 @@ func (v *inflator_) PostprocessLeft(
 	var bracket = left.GetAny().(string)
 	switch bracket {
 	case "[":
-		v.stack_.AddValue(ran.Inclusive)
+		v.stack_.AddValue(fra.Inclusive)
 	case "(":
-		v.stack_.AddValue(ran.Exclusive)
+		v.stack_.AddValue(fra.Exclusive)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
@@ -795,10 +793,10 @@ func (v *inflator_) PostprocessRange(
 	index_ uint,
 	count_ uint,
 ) {
-	var right = v.stack_.RemoveLast().(ran.Bracket)
+	var right = v.stack_.RemoveLast().(fra.Bracket)
 	var last = v.stack_.RemoveLast()
 	var first = v.stack_.RemoveLast()
-	var left = v.stack_.RemoveLast().(ran.Bracket)
+	var left = v.stack_.RemoveLast().(fra.Bracket)
 	v.stack_.AddValue(doc.RangeClass().Range(left, first, last, right))
 }
 
@@ -848,9 +846,9 @@ func (v *inflator_) PostprocessRight(
 	var bracket = right.GetAny().(string)
 	switch bracket {
 	case "]":
-		v.stack_.AddValue(ran.Inclusive)
+		v.stack_.AddValue(fra.Inclusive)
 	case ")":
-		v.stack_.AddValue(ran.Exclusive)
+		v.stack_.AddValue(fra.Exclusive)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
@@ -985,7 +983,7 @@ func (v *inflator_) getComposites(
 ) fra.Sequential[doc.CompositeLike] {
 	var composites = items.GetComposites()
 	var dummy = doc.ComponentClass().Component(
-		str.PatternClass().None(),
+		ele.PatternClass().None(),
 		generics,
 	)
 	var parameter = dummy.GetParameter(ele.SymbolClass().Symbol("type"))

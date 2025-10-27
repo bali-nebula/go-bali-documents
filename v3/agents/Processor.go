@@ -14,9 +14,8 @@ package agents
 
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
-	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
-	str "github.com/bali-nebula/go-bali-documents/v3/strings"
+	fra "github.com/craterdog/go-collection-framework/v8"
+	ele "github.com/craterdog/go-essential-elements/v8"
 )
 
 // CLASS INTERFACE
@@ -68,7 +67,7 @@ func (v *processor_) ProcessAssignment(
 }
 
 func (v *processor_) ProcessBinary(
-	binary str.BinaryLike,
+	binary ele.BinaryLike,
 ) {
 }
 
@@ -78,12 +77,12 @@ func (v *processor_) ProcessBoolean(
 }
 
 func (v *processor_) ProcessBracket(
-	bracket ran.Bracket,
+	bracket fra.Bracket,
 ) {
 }
 
 func (v *processor_) ProcessBytecode(
-	bytecode str.BytecodeLike,
+	bytecode ele.BytecodeLike,
 ) {
 }
 
@@ -123,12 +122,12 @@ func (v *processor_) ProcessMoment(
 }
 
 func (v *processor_) ProcessName(
-	name str.NameLike,
+	name ele.NameLike,
 ) {
 }
 
 func (v *processor_) ProcessNarrative(
-	narrative str.NarrativeLike,
+	narrative ele.NarrativeLike,
 ) {
 }
 
@@ -148,7 +147,7 @@ func (v *processor_) ProcessOperator(
 }
 
 func (v *processor_) ProcessPattern(
-	pattern str.PatternLike,
+	pattern ele.PatternLike,
 ) {
 }
 
@@ -163,7 +162,7 @@ func (v *processor_) ProcessProbability(
 }
 
 func (v *processor_) ProcessQuote(
-	quote str.QuoteLike,
+	quote ele.QuoteLike,
 ) {
 }
 
@@ -178,12 +177,12 @@ func (v *processor_) ProcessSymbol(
 }
 
 func (v *processor_) ProcessTag(
-	tag str.TagLike,
+	tag ele.TagLike,
 ) {
 }
 
 func (v *processor_) ProcessVersion(
-	version str.VersionLike,
+	version ele.VersionLike,
 ) {
 }
 

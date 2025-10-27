@@ -15,11 +15,9 @@ package agents
 import (
 	fmt "fmt"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
-	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
-	str "github.com/bali-nebula/go-bali-documents/v3/strings"
 	not "github.com/bali-nebula/go-document-notation/v3"
 	fra "github.com/craterdog/go-collection-framework/v8"
+	ele "github.com/craterdog/go-essential-elements/v8"
 	uti "github.com/craterdog/go-missing-utilities/v8"
 )
 
@@ -117,7 +115,7 @@ func (v *deflator_) ProcessAssignment(
 }
 
 func (v *deflator_) ProcessBinary(
-	binary str.BinaryLike,
+	binary ele.BinaryLike,
 ) {
 	v.stack_.AddValue(not.String(binary.AsSource()))
 }
@@ -129,7 +127,7 @@ func (v *deflator_) ProcessBoolean(
 }
 
 func (v *deflator_) ProcessBytecode(
-	bytecode str.BytecodeLike,
+	bytecode ele.BytecodeLike,
 ) {
 	v.stack_.AddValue(not.String(bytecode.AsSource()))
 }
@@ -207,13 +205,13 @@ func (v *deflator_) ProcessMoment(
 }
 
 func (v *deflator_) ProcessName(
-	name str.NameLike,
+	name ele.NameLike,
 ) {
 	v.stack_.AddValue(not.String(name.AsSource()))
 }
 
 func (v *deflator_) ProcessNarrative(
-	narrative str.NarrativeLike,
+	narrative ele.NarrativeLike,
 ) {
 	v.stack_.AddValue(not.String(narrative.AsSource()))
 }
@@ -279,7 +277,7 @@ func (v *deflator_) ProcessOperator(
 }
 
 func (v *deflator_) ProcessPattern(
-	pattern str.PatternLike,
+	pattern ele.PatternLike,
 ) {
 	v.stack_.AddValue(not.String(pattern.AsSource()))
 }
@@ -297,7 +295,7 @@ func (v *deflator_) ProcessProbability(
 }
 
 func (v *deflator_) ProcessQuote(
-	quote str.QuoteLike,
+	quote ele.QuoteLike,
 ) {
 	v.stack_.AddValue(not.String(quote.AsSource()))
 }
@@ -315,13 +313,13 @@ func (v *deflator_) ProcessSymbol(
 }
 
 func (v *deflator_) ProcessTag(
-	tag str.TagLike,
+	tag ele.TagLike,
 ) {
 	v.stack_.AddValue(not.String(tag.AsSource()))
 }
 
 func (v *deflator_) ProcessVersion(
-	version str.VersionLike,
+	version ele.VersionLike,
 ) {
 	v.stack_.AddValue(not.String(version.AsSource()))
 }
@@ -873,9 +871,9 @@ func (v *deflator_) PostprocessRange(
 	var right not.RightLike
 	var extent = range_.GetRight()
 	switch extent {
-	case ran.Inclusive:
+	case fra.Inclusive:
 		right = not.Right("]")
-	case ran.Exclusive:
+	case fra.Exclusive:
 		right = not.Right(")")
 	default:
 		var message = fmt.Sprintf(
@@ -890,9 +888,9 @@ func (v *deflator_) PostprocessRange(
 	var left not.LeftLike
 	extent = range_.GetLeft()
 	switch extent {
-	case ran.Inclusive:
+	case fra.Inclusive:
 		left = not.Left("[")
-	case ran.Exclusive:
+	case fra.Exclusive:
 		left = not.Left("(")
 	default:
 		var message = fmt.Sprintf(

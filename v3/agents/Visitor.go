@@ -15,8 +15,7 @@ package agents
 import (
 	fmt "fmt"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
-	str "github.com/bali-nebula/go-bali-documents/v3/strings"
+	ele "github.com/craterdog/go-essential-elements/v8"
 	uti "github.com/craterdog/go-missing-utilities/v8"
 )
 
@@ -1422,21 +1421,21 @@ func (v *visitor_) visitPrimitive(
 		v.processor_.ProcessResource(actual)
 	case ele.SymbolLike:
 		v.processor_.ProcessSymbol(actual)
-	case str.BinaryLike:
+	case ele.BinaryLike:
 		v.processor_.ProcessBinary(actual)
-	case str.BytecodeLike:
+	case ele.BytecodeLike:
 		v.processor_.ProcessBytecode(actual)
-	case str.NameLike:
+	case ele.NameLike:
 		v.processor_.ProcessName(actual)
-	case str.NarrativeLike:
+	case ele.NarrativeLike:
 		v.processor_.ProcessNarrative(actual)
-	case str.PatternLike:
+	case ele.PatternLike:
 		v.processor_.ProcessPattern(actual)
-	case str.QuoteLike:
+	case ele.QuoteLike:
 		v.processor_.ProcessQuote(actual)
-	case str.TagLike:
+	case ele.TagLike:
 		v.processor_.ProcessTag(actual)
-	case str.VersionLike:
+	case ele.VersionLike:
 		v.processor_.ProcessVersion(actual)
 	default:
 		var message = fmt.Sprintf(

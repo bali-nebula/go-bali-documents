@@ -14,9 +14,8 @@ package agents
 
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
-	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
-	str "github.com/bali-nebula/go-bali-documents/v3/strings"
+	fra "github.com/craterdog/go-collection-framework/v8"
+	ele "github.com/craterdog/go-essential-elements/v8"
 )
 
 // CLASS INTERFACE
@@ -80,7 +79,7 @@ func (v *validator_) ProcessAssignment(
 }
 
 func (v *validator_) ProcessBinary(
-	binary str.BinaryLike,
+	binary ele.BinaryLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -92,13 +91,13 @@ func (v *validator_) ProcessBoolean(
 }
 
 func (v *validator_) ProcessBracket(
-	bracket ran.Bracket,
+	bracket fra.Bracket,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessBytecode(
-	bytecode str.BytecodeLike,
+	bytecode ele.BytecodeLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -146,13 +145,13 @@ func (v *validator_) ProcessMoment(
 }
 
 func (v *validator_) ProcessName(
-	name str.NameLike,
+	name ele.NameLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessNarrative(
-	narrative str.NarrativeLike,
+	narrative ele.NarrativeLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -176,7 +175,7 @@ func (v *validator_) ProcessOperator(
 }
 
 func (v *validator_) ProcessPattern(
-	pattern str.PatternLike,
+	pattern ele.PatternLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -194,7 +193,7 @@ func (v *validator_) ProcessProbability(
 }
 
 func (v *validator_) ProcessQuote(
-	quote str.QuoteLike,
+	quote ele.QuoteLike,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -212,13 +211,13 @@ func (v *validator_) ProcessSymbol(
 }
 
 func (v *validator_) ProcessTag(
-	tag str.TagLike,
+	tag ele.TagLike,
 ) {
 	// TBD - Add the method implementation.
 }
 
 func (v *validator_) ProcessVersion(
-	version str.VersionLike,
+	version ele.VersionLike,
 ) {
 	// TBD - Add the method implementation.
 }

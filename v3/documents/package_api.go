@@ -30,9 +30,8 @@ on interfaces, not on each other.
 package documents
 
 import (
-	ele "github.com/bali-nebula/go-bali-documents/v3/elements"
-	ran "github.com/bali-nebula/go-bali-documents/v3/ranges"
 	fra "github.com/craterdog/go-collection-framework/v8"
+	ele "github.com/craterdog/go-essential-elements/v8"
 )
 
 // TYPE DECLARATIONS
@@ -475,10 +474,10 @@ range-like class.
 type RangeClassLike interface {
 	// Constructor Methods
 	Range(
-		left ran.Bracket,
+		left fra.Bracket,
 		first any,
 		last any,
-		right ran.Bracket,
+		right fra.Bracket,
 	) RangeLike
 }
 
@@ -1066,10 +1065,10 @@ type RangeLike interface {
 	GetClass() RangeClassLike
 
 	// Attribute Methods
-	GetLeft() ran.Bracket
+	GetLeft() fra.Bracket
 	GetFirst() any
 	GetLast() any
-	GetRight() ran.Bracket
+	GetRight() fra.Bracket
 }
 
 /*

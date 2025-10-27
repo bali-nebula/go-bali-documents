@@ -3,9 +3,10 @@ module github.com/bali-nebula/go-bali-documents/v3
 go 1.25
 
 require (
-	github.com/bali-nebula/go-document-notation/v3 v3.36.0
-	github.com/craterdog/go-collection-framework/v8 v8.3.0
-	github.com/craterdog/go-missing-utilities/v8 v8.1.0
+	github.com/bali-nebula/go-document-notation/v3 v3.38.0
+	github.com/craterdog/go-collection-framework/v8 v8.6.0
+	github.com/craterdog/go-essential-elements/v8 v8.1.0
+	github.com/craterdog/go-missing-utilities/v8 v8.3.0
 	github.com/stretchr/testify v1.11.1
 )
 

@@ -228,7 +228,6 @@ func TestSubcomponentAccess(t *tes.T) {
 func TestModuleFunctions(t *tes.T) {
 	doc.Collator[any]()
 	doc.Collator[any](8)
-	doc.Iterator[any]([]any{"foo", 5})
 	var sorter = doc.Sorter[any]()
 	doc.Sorter[any](sorter.GetRanker())
 	doc.List[string]()
@@ -2475,27 +2474,27 @@ func TestContinuumConstructors(t *tes.T) {
 }
 
 var (
-	invalid doc.State = doc.ControllerClass().Invalid()
-	state1  doc.State = "$State1"
-	state2  doc.State = "$State2"
-	state3  doc.State = "$State3"
+	invalid uti.State
+	state1  uti.State = "$State1"
+	state2  uti.State = "$State2"
+	state3  uti.State = "$State3"
 )
 
 var (
-	initialized doc.Event = "$Initialized"
-	processed   doc.Event = "$Processed"
-	finalized   doc.Event = "$Finalized"
+	initialized uti.Event = "$Initialized"
+	processed   uti.Event = "$Processed"
+	finalized   uti.Event = "$Finalized"
 )
 
 func TestController(t *tes.T) {
-	var events = []doc.Event{initialized, processed, finalized}
-	var transitions = map[doc.State]doc.Transitions{
-		state1: doc.Transitions{state2, invalid, invalid},
-		state2: doc.Transitions{invalid, state2, state3},
-		state3: doc.Transitions{invalid, invalid, invalid},
+	var events = []uti.Event{initialized, processed, finalized}
+	var transitions = map[uti.State]uti.Transitions{
+		state1: uti.Transitions{state2, invalid, invalid},
+		state2: uti.Transitions{invalid, state2, state3},
+		state3: uti.Transitions{invalid, invalid, invalid},
 	}
 
-	var controller = doc.Controller(events, transitions, state1)
+	var controller = uti.Controller(events, transitions, state1)
 	ass.Equal(t, state1, controller.GetState())
 	ass.Equal(t, state2, controller.ProcessEvent(initialized))
 	ass.Equal(t, state2, controller.ProcessEvent(processed))
