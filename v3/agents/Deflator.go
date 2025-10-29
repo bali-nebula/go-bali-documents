@@ -117,7 +117,7 @@ func (v *deflator_) ProcessAssignment(
 func (v *deflator_) ProcessBinary(
 	binary pri.BinaryLike,
 ) {
-	v.stack_.AddValue(not.String(binary.AsSource()))
+	v.stack_.AddValue(not.Sequence(binary.AsSource()))
 }
 
 func (v *deflator_) ProcessBoolean(
@@ -129,7 +129,7 @@ func (v *deflator_) ProcessBoolean(
 func (v *deflator_) ProcessBytecode(
 	bytecode pri.BytecodeLike,
 ) {
-	v.stack_.AddValue(not.String(bytecode.AsSource()))
+	v.stack_.AddValue(not.Sequence(bytecode.AsSource()))
 }
 
 func (v *deflator_) ProcessComment(
@@ -207,13 +207,13 @@ func (v *deflator_) ProcessMoment(
 func (v *deflator_) ProcessName(
 	name pri.NameLike,
 ) {
-	v.stack_.AddValue(not.String(name.AsSource()))
+	v.stack_.AddValue(not.Sequence(name.AsSource()))
 }
 
 func (v *deflator_) ProcessNarrative(
 	narrative pri.NarrativeLike,
 ) {
-	v.stack_.AddValue(not.String(narrative.AsSource()))
+	v.stack_.AddValue(not.Sequence(narrative.AsSource()))
 }
 
 func (v *deflator_) ProcessNote(
@@ -279,7 +279,7 @@ func (v *deflator_) ProcessOperator(
 func (v *deflator_) ProcessPattern(
 	pattern pri.PatternLike,
 ) {
-	v.stack_.AddValue(not.String(pattern.AsSource()))
+	v.stack_.AddValue(not.Sequence(pattern.AsSource()))
 }
 
 func (v *deflator_) ProcessPercentage(
@@ -297,7 +297,7 @@ func (v *deflator_) ProcessProbability(
 func (v *deflator_) ProcessQuote(
 	quote pri.QuoteLike,
 ) {
-	v.stack_.AddValue(not.String(quote.AsSource()))
+	v.stack_.AddValue(not.Sequence(quote.AsSource()))
 }
 
 func (v *deflator_) ProcessResource(
@@ -315,13 +315,13 @@ func (v *deflator_) ProcessSymbol(
 func (v *deflator_) ProcessTag(
 	tag pri.TagLike,
 ) {
-	v.stack_.AddValue(not.String(tag.AsSource()))
+	v.stack_.AddValue(not.Sequence(tag.AsSource()))
 }
 
 func (v *deflator_) ProcessVersion(
 	version pri.VersionLike,
 ) {
-	v.stack_.AddValue(not.String(version.AsSource()))
+	v.stack_.AddValue(not.Sequence(version.AsSource()))
 }
 
 func (v *deflator_) PostprocessAcceptClause(
