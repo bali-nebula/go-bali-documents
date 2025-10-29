@@ -13,8 +13,8 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -31,7 +31,7 @@ func (c *methodClass_) Method(
 	target string,
 	invoke Invoke,
 	identifier string,
-	arguments fra.Sequential[any],
+	arguments com.Sequential[any],
 ) MethodLike {
 	if uti.IsUndefined(target) {
 		panic("The \"target\" attribute is required by this class.")
@@ -81,7 +81,7 @@ func (v *method_) GetIdentifier() string {
 	return v.identifier_
 }
 
-func (v *method_) GetArguments() fra.Sequential[any] {
+func (v *method_) GetArguments() com.Sequential[any] {
 	return v.arguments_
 }
 
@@ -96,7 +96,7 @@ type method_ struct {
 	target_     string
 	invoke_     Invoke
 	identifier_ string
-	arguments_  fra.Sequential[any]
+	arguments_  com.Sequential[any]
 }
 
 // Class Structure

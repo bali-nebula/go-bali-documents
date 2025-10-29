@@ -14,8 +14,8 @@ package agents
 
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
-	fra "github.com/craterdog/go-collection-framework/v8"
-	ele "github.com/craterdog/go-essential-elements/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
 )
 
 // CLASS INTERFACE
@@ -52,7 +52,7 @@ func (v *processor_) GetClass() ProcessorClassLike {
 // Methodical Methods
 
 func (v *processor_) ProcessAngle(
-	angle ele.AngleLike,
+	angle pri.AngleLike,
 ) {
 }
 
@@ -67,22 +67,22 @@ func (v *processor_) ProcessAssignment(
 }
 
 func (v *processor_) ProcessBinary(
-	binary ele.BinaryLike,
+	binary pri.BinaryLike,
 ) {
 }
 
 func (v *processor_) ProcessBoolean(
-	boolean ele.BooleanLike,
+	boolean pri.BooleanLike,
 ) {
 }
 
 func (v *processor_) ProcessBracket(
-	bracket fra.Bracket,
+	bracket com.Bracket,
 ) {
 }
 
 func (v *processor_) ProcessBytecode(
-	bytecode ele.BytecodeLike,
+	bytecode pri.BytecodeLike,
 ) {
 }
 
@@ -92,12 +92,12 @@ func (v *processor_) ProcessComment(
 }
 
 func (v *processor_) ProcessDuration(
-	duration ele.DurationLike,
+	duration pri.DurationLike,
 ) {
 }
 
 func (v *processor_) ProcessGlyph(
-	glyph ele.GlyphLike,
+	glyph pri.GlyphLike,
 ) {
 }
 
@@ -117,17 +117,17 @@ func (v *processor_) ProcessInvoke(
 }
 
 func (v *processor_) ProcessMoment(
-	moment ele.MomentLike,
+	moment pri.MomentLike,
 ) {
 }
 
 func (v *processor_) ProcessName(
-	name ele.NameLike,
+	name pri.NameLike,
 ) {
 }
 
 func (v *processor_) ProcessNarrative(
-	narrative ele.NarrativeLike,
+	narrative pri.NarrativeLike,
 ) {
 }
 
@@ -137,7 +137,7 @@ func (v *processor_) ProcessNote(
 }
 
 func (v *processor_) ProcessNumber(
-	number ele.NumberLike,
+	number pri.NumberLike,
 ) {
 }
 
@@ -147,42 +147,42 @@ func (v *processor_) ProcessOperator(
 }
 
 func (v *processor_) ProcessPattern(
-	pattern ele.PatternLike,
+	pattern pri.PatternLike,
 ) {
 }
 
 func (v *processor_) ProcessPercentage(
-	percentage ele.PercentageLike,
+	percentage pri.PercentageLike,
 ) {
 }
 
 func (v *processor_) ProcessProbability(
-	probability ele.ProbabilityLike,
+	probability pri.ProbabilityLike,
 ) {
 }
 
 func (v *processor_) ProcessQuote(
-	quote ele.QuoteLike,
+	quote pri.QuoteLike,
 ) {
 }
 
 func (v *processor_) ProcessResource(
-	resource ele.ResourceLike,
+	resource pri.ResourceLike,
 ) {
 }
 
 func (v *processor_) ProcessSymbol(
-	symbol ele.SymbolLike,
+	symbol pri.SymbolLike,
 ) {
 }
 
 func (v *processor_) ProcessTag(
-	tag ele.TagLike,
+	tag pri.TagLike,
 ) {
 }
 
 func (v *processor_) ProcessVersion(
-	version ele.VersionLike,
+	version pri.VersionLike,
 ) {
 }
 

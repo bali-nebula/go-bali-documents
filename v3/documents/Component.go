@@ -14,9 +14,9 @@ package documents
 
 import (
 	fmt "fmt"
-	fra "github.com/craterdog/go-collection-framework/v8"
-	ele "github.com/craterdog/go-essential-elements/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -57,7 +57,7 @@ func (v *component_) GetClass() ComponentClassLike {
 }
 
 func (v *component_) GetParameter(
-	symbol ele.SymbolLike,
+	symbol pri.SymbolLike,
 ) ComponentLike {
 	var parameter ComponentLike
 	var generics = v.GetOptionalGenerics()
@@ -97,7 +97,7 @@ func (v *component_) SetSubcomponent(
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
 			switch composites := collection.GetComposites().(type) {
-			case fra.ListLike[CompositeLike]:
+			case com.ListLike[CompositeLike]:
 				var index = key.(int)
 				v.setItem(composites, composite, index, indices...)
 			default:
@@ -144,7 +144,7 @@ func (v *component_) RemoveSubcomponent(
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
 			switch composites := collection.GetComposites().(type) {
-			case fra.ListLike[CompositeLike]:
+			case com.ListLike[CompositeLike]:
 				var index = key.(int)
 				composite = v.removeItem(composites, index, indices...)
 			default:
@@ -177,7 +177,7 @@ func (v *component_) GetOptionalGenerics() GenericsLike {
 // Private Methods
 
 func (v *component_) getItem(
-	composites fra.Sequential[CompositeLike],
+	composites com.Sequential[CompositeLike],
 	index int,
 	indices ...any,
 ) CompositeLike {
@@ -204,7 +204,7 @@ func (v *component_) getItem(
 }
 
 func (v *component_) setItem(
-	composites fra.ListLike[CompositeLike],
+	composites com.ListLike[CompositeLike],
 	composite CompositeLike,
 	index int,
 	indices ...any,
@@ -236,7 +236,7 @@ func (v *component_) setItem(
 }
 
 func (v *component_) removeItem(
-	composites fra.ListLike[CompositeLike],
+	composites com.ListLike[CompositeLike],
 	index int,
 	indices ...any,
 ) CompositeLike {
@@ -266,7 +266,7 @@ func (v *component_) removeItem(
 }
 
 func (v *component_) getAttribute(
-	associations fra.CatalogLike[any, CompositeLike],
+	associations com.CatalogLike[any, CompositeLike],
 	key any,
 	indices ...any,
 ) CompositeLike {
@@ -289,7 +289,7 @@ func (v *component_) getAttribute(
 }
 
 func (v *component_) setAttribute(
-	associations fra.CatalogLike[any, CompositeLike],
+	associations com.CatalogLike[any, CompositeLike],
 	key any,
 	composite CompositeLike,
 	indices ...any,
@@ -313,7 +313,7 @@ func (v *component_) setAttribute(
 }
 
 func (v *component_) removeAttribute(
-	associations fra.CatalogLike[any, CompositeLike],
+	associations com.CatalogLike[any, CompositeLike],
 	key any,
 	indices ...any,
 ) CompositeLike {

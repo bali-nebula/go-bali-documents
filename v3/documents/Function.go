@@ -13,8 +13,8 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -29,7 +29,7 @@ func FunctionClass() FunctionClassLike {
 
 func (c *functionClass_) Function(
 	identifier string,
-	arguments fra.Sequential[any],
+	arguments com.Sequential[any],
 ) FunctionLike {
 	if uti.IsUndefined(identifier) {
 		panic("The \"identifier\" attribute is required by this class.")
@@ -63,7 +63,7 @@ func (v *function_) GetIdentifier() string {
 	return v.identifier_
 }
 
-func (v *function_) GetArguments() fra.Sequential[any] {
+func (v *function_) GetArguments() com.Sequential[any] {
 	return v.arguments_
 }
 
@@ -76,7 +76,7 @@ func (v *function_) GetArguments() fra.Sequential[any] {
 type function_ struct {
 	// Declare the instance attributes.
 	identifier_ string
-	arguments_  fra.Sequential[any]
+	arguments_  com.Sequential[any]
 }
 
 // Class Structure

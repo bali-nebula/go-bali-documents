@@ -13,8 +13,8 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -29,7 +29,7 @@ func SelectClauseClass() SelectClauseClassLike {
 
 func (c *selectClauseClass_) SelectClause(
 	template ExpressionLike,
-	matchingClauses fra.Sequential[MatchingClauseLike],
+	matchingClauses com.Sequential[MatchingClauseLike],
 ) SelectClauseLike {
 	if uti.IsUndefined(template) {
 		panic("The \"template\" attribute is required by this class.")
@@ -63,7 +63,7 @@ func (v *selectClause_) GetTemplate() ExpressionLike {
 	return v.template_
 }
 
-func (v *selectClause_) GetMatchingClauses() fra.Sequential[MatchingClauseLike] {
+func (v *selectClause_) GetMatchingClauses() com.Sequential[MatchingClauseLike] {
 	return v.matchingClauses_
 }
 
@@ -76,7 +76,7 @@ func (v *selectClause_) GetMatchingClauses() fra.Sequential[MatchingClauseLike] 
 type selectClause_ struct {
 	// Declare the instance attributes.
 	template_        ExpressionLike
-	matchingClauses_ fra.Sequential[MatchingClauseLike]
+	matchingClauses_ com.Sequential[MatchingClauseLike]
 }
 
 // Class Structure

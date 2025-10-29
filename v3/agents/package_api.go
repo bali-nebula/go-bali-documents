@@ -27,8 +27,8 @@ package agents
 import (
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
-	fra "github.com/craterdog/go-collection-framework/v8"
-	ele "github.com/craterdog/go-essential-elements/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
 )
 
 // TYPE DECLARATIONS
@@ -173,7 +173,7 @@ all methodical processors.
 */
 type Methodical interface {
 	ProcessAngle(
-		angle ele.AngleLike,
+		angle pri.AngleLike,
 	)
 	ProcessAnnotation(
 		annotation string,
@@ -182,25 +182,25 @@ type Methodical interface {
 		assignment doc.Assignment,
 	)
 	ProcessBinary(
-		binary ele.BinaryLike,
+		binary pri.BinaryLike,
 	)
 	ProcessBoolean(
-		boolean ele.BooleanLike,
+		boolean pri.BooleanLike,
 	)
 	ProcessBracket(
-		bracket fra.Bracket,
+		bracket com.Bracket,
 	)
 	ProcessBytecode(
-		bytecode ele.BytecodeLike,
+		bytecode pri.BytecodeLike,
 	)
 	ProcessComment(
 		comment string,
 	)
 	ProcessDuration(
-		duration ele.DurationLike,
+		duration pri.DurationLike,
 	)
 	ProcessGlyph(
-		glyph ele.GlyphLike,
+		glyph pri.GlyphLike,
 	)
 	ProcessIdentifier(
 		identifier string,
@@ -212,46 +212,46 @@ type Methodical interface {
 		invoke doc.Invoke,
 	)
 	ProcessMoment(
-		moment ele.MomentLike,
+		moment pri.MomentLike,
 	)
 	ProcessName(
-		name ele.NameLike,
+		name pri.NameLike,
 	)
 	ProcessNarrative(
-		narrative ele.NarrativeLike,
+		narrative pri.NarrativeLike,
 	)
 	ProcessNote(
 		note string,
 	)
 	ProcessNumber(
-		number ele.NumberLike,
+		number pri.NumberLike,
 	)
 	ProcessOperator(
 		operator doc.Operator,
 	)
 	ProcessPattern(
-		pattern ele.PatternLike,
+		pattern pri.PatternLike,
 	)
 	ProcessPercentage(
-		percentage ele.PercentageLike,
+		percentage pri.PercentageLike,
 	)
 	ProcessProbability(
-		probability ele.ProbabilityLike,
+		probability pri.ProbabilityLike,
 	)
 	ProcessQuote(
-		quote ele.QuoteLike,
+		quote pri.QuoteLike,
 	)
 	ProcessResource(
-		resource ele.ResourceLike,
+		resource pri.ResourceLike,
 	)
 	ProcessSymbol(
-		symbol ele.SymbolLike,
+		symbol pri.SymbolLike,
 	)
 	ProcessTag(
-		tag ele.TagLike,
+		tag pri.TagLike,
 	)
 	ProcessVersion(
-		version ele.VersionLike,
+		version pri.VersionLike,
 	)
 	PreprocessAcceptClause(
 		acceptClause doc.AcceptClauseLike,

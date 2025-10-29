@@ -5,8 +5,9 @@
 ### Overview
 This project provides a powerful framework for manipulating documents containing
 Bali Document Notation™ ("Bali" for short).  It integrates the classes found in the
-[go-collection-framework](https://github.com/craterdog/go-collection-framework)
-with "smart" versions of the classes that were generated in the
+[go-essential-primitives](https://github.com/craterdog/go-essential-primitives) and
+[go-essential-composites](https://github.com/craterdog/go-essential-composites)
+projects with "smart" versions of the classes that were generated in the
 [go-document-notation](https://github.com/bali-nebula/go-document-notation)
 project.
 

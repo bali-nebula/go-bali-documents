@@ -13,8 +13,8 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -29,7 +29,7 @@ func SubcomponentClass() SubcomponentClassLike {
 
 func (c *subcomponentClass_) Subcomponent(
 	identifier string,
-	indexes fra.Sequential[any],
+	indexes com.Sequential[any],
 ) SubcomponentLike {
 	if uti.IsUndefined(identifier) {
 		panic("The \"identifier\" attribute is required by this class.")
@@ -63,7 +63,7 @@ func (v *subcomponent_) GetIdentifier() string {
 	return v.identifier_
 }
 
-func (v *subcomponent_) GetIndexes() fra.Sequential[any] {
+func (v *subcomponent_) GetIndexes() com.Sequential[any] {
 	return v.indexes_
 }
 
@@ -76,7 +76,7 @@ func (v *subcomponent_) GetIndexes() fra.Sequential[any] {
 type subcomponent_ struct {
 	// Declare the instance attributes.
 	identifier_ string
-	indexes_    fra.Sequential[any]
+	indexes_    com.Sequential[any]
 }
 
 // Class Structure

@@ -13,8 +13,8 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -28,7 +28,7 @@ func ProcedureClass() ProcedureClassLike {
 // Constructor Methods
 
 func (c *procedureClass_) Procedure(
-	lines fra.Sequential[any],
+	lines com.Sequential[any],
 ) ProcedureLike {
 	if uti.IsUndefined(lines) {
 		panic("The \"lines\" attribute is required by this class.")
@@ -54,7 +54,7 @@ func (v *procedure_) GetClass() ProcedureClassLike {
 
 // Attribute Methods
 
-func (v *procedure_) GetLines() fra.Sequential[any] {
+func (v *procedure_) GetLines() com.Sequential[any] {
 	return v.lines_
 }
 
@@ -66,7 +66,7 @@ func (v *procedure_) GetLines() fra.Sequential[any] {
 
 type procedure_ struct {
 	// Declare the instance attributes.
-	lines_ fra.Sequential[any]
+	lines_ com.Sequential[any]
 }
 
 // Class Structure

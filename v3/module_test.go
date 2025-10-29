@@ -15,7 +15,7 @@ package module_test
 import (
 	fmt "fmt"
 	doc "github.com/bali-nebula/go-bali-documents/v3"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 	ass "github.com/stretchr/testify/assert"
 	mat "math"
 	cmp "math/cmplx"

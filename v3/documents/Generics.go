@@ -13,9 +13,9 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	ele "github.com/craterdog/go-essential-elements/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -29,7 +29,7 @@ func GenericsClass() GenericsClassLike {
 // Constructor Methods
 
 func (c *genericsClass_) Generics(
-	parameters fra.CatalogLike[ele.SymbolLike, ConstraintLike],
+	parameters com.CatalogLike[pri.SymbolLike, ConstraintLike],
 ) GenericsLike {
 	if uti.IsUndefined(parameters) {
 		panic("The \"parameters\" attribute is required by this class.")
@@ -55,7 +55,7 @@ func (v *generics_) GetClass() GenericsClassLike {
 
 // Attribute Methods
 
-func (v *generics_) GetParameters() fra.CatalogLike[ele.SymbolLike, ConstraintLike] {
+func (v *generics_) GetParameters() com.CatalogLike[pri.SymbolLike, ConstraintLike] {
 	return v.parameters_
 }
 
@@ -67,7 +67,7 @@ func (v *generics_) GetParameters() fra.CatalogLike[ele.SymbolLike, ConstraintLi
 
 type generics_ struct {
 	// Declare the instance attributes.
-	parameters_ fra.CatalogLike[ele.SymbolLike, ConstraintLike]
+	parameters_ com.CatalogLike[pri.SymbolLike, ConstraintLike]
 }
 
 // Class Structure

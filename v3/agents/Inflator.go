@@ -16,9 +16,9 @@ import (
 	fmt "fmt"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
-	fra "github.com/craterdog/go-collection-framework/v8"
-	ele "github.com/craterdog/go-essential-elements/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -34,7 +34,7 @@ func InflatorClass() InflatorClassLike {
 func (c *inflatorClass_) Inflator() InflatorLike {
 	var instance = &inflator_{
 		// Initialize the instance attributes.
-		stack_: fra.StackWithCapacity[any](256),
+		stack_: com.StackWithCapacity[any](256),
 
 		// Initialize the inherited aspects.
 		Methodical: not.ProcessorClass().Processor(),
@@ -75,25 +75,25 @@ func (v *inflator_) InflateDocument(
 func (v *inflator_) ProcessAngle(
 	angle string,
 ) {
-	v.stack_.AddValue(ele.AngleClass().AngleFromSource(angle))
+	v.stack_.AddValue(pri.AngleClass().AngleFromSource(angle))
 }
 
 func (v *inflator_) ProcessBinary(
 	binary string,
 ) {
-	v.stack_.AddValue(ele.BinaryClass().BinaryFromSource(binary))
+	v.stack_.AddValue(pri.BinaryClass().BinaryFromSource(binary))
 }
 
 func (v *inflator_) ProcessBoolean(
 	boolean string,
 ) {
-	v.stack_.AddValue(ele.BooleanClass().BooleanFromSource(boolean))
+	v.stack_.AddValue(pri.BooleanClass().BooleanFromSource(boolean))
 }
 
 func (v *inflator_) ProcessBytecode(
 	bytecode string,
 ) {
-	v.stack_.AddValue(ele.BytecodeClass().BytecodeFromSource(bytecode))
+	v.stack_.AddValue(pri.BytecodeClass().BytecodeFromSource(bytecode))
 }
 
 func (v *inflator_) ProcessComment(
@@ -105,13 +105,13 @@ func (v *inflator_) ProcessComment(
 func (v *inflator_) ProcessDuration(
 	duration string,
 ) {
-	v.stack_.AddValue(ele.DurationClass().DurationFromSource(duration))
+	v.stack_.AddValue(pri.DurationClass().DurationFromSource(duration))
 }
 
 func (v *inflator_) ProcessGlyph(
 	glyph string,
 ) {
-	v.stack_.AddValue(ele.GlyphClass().GlyphFromSource(glyph))
+	v.stack_.AddValue(pri.GlyphClass().GlyphFromSource(glyph))
 }
 
 func (v *inflator_) ProcessIdentifier(
@@ -123,19 +123,19 @@ func (v *inflator_) ProcessIdentifier(
 func (v *inflator_) ProcessMoment(
 	moment string,
 ) {
-	v.stack_.AddValue(ele.MomentClass().MomentFromSource(moment))
+	v.stack_.AddValue(pri.MomentClass().MomentFromSource(moment))
 }
 
 func (v *inflator_) ProcessName(
 	name string,
 ) {
-	v.stack_.AddValue(ele.NameClass().NameFromSource(name))
+	v.stack_.AddValue(pri.NameClass().NameFromSource(name))
 }
 
 func (v *inflator_) ProcessNarrative(
 	narrative string,
 ) {
-	v.stack_.AddValue(ele.NarrativeClass().NarrativeFromSource(narrative))
+	v.stack_.AddValue(pri.NarrativeClass().NarrativeFromSource(narrative))
 }
 
 func (v *inflator_) ProcessNote(
@@ -147,55 +147,55 @@ func (v *inflator_) ProcessNote(
 func (v *inflator_) ProcessNumber(
 	number string,
 ) {
-	v.stack_.AddValue(ele.NumberClass().NumberFromSource(number))
+	v.stack_.AddValue(pri.NumberClass().NumberFromSource(number))
 }
 
 func (v *inflator_) ProcessPattern(
 	pattern string,
 ) {
-	v.stack_.AddValue(ele.PatternClass().PatternFromSource(pattern))
+	v.stack_.AddValue(pri.PatternClass().PatternFromSource(pattern))
 }
 
 func (v *inflator_) ProcessPercentage(
 	percentage string,
 ) {
-	v.stack_.AddValue(ele.PercentageClass().PercentageFromSource(percentage))
+	v.stack_.AddValue(pri.PercentageClass().PercentageFromSource(percentage))
 }
 
 func (v *inflator_) ProcessProbability(
 	probability string,
 ) {
-	v.stack_.AddValue(ele.ProbabilityClass().ProbabilityFromSource(probability))
+	v.stack_.AddValue(pri.ProbabilityClass().ProbabilityFromSource(probability))
 }
 
 func (v *inflator_) ProcessQuote(
 	quote string,
 ) {
-	v.stack_.AddValue(ele.QuoteClass().QuoteFromSource(quote))
+	v.stack_.AddValue(pri.QuoteClass().QuoteFromSource(quote))
 }
 
 func (v *inflator_) ProcessResource(
 	resource string,
 ) {
-	v.stack_.AddValue(ele.ResourceClass().ResourceFromSource(resource))
+	v.stack_.AddValue(pri.ResourceClass().ResourceFromSource(resource))
 }
 
 func (v *inflator_) ProcessSymbol(
 	symbol string,
 ) {
-	v.stack_.AddValue(ele.SymbolClass().SymbolFromSource(symbol))
+	v.stack_.AddValue(pri.SymbolClass().SymbolFromSource(symbol))
 }
 
 func (v *inflator_) ProcessTag(
 	tag string,
 ) {
-	v.stack_.AddValue(ele.TagClass().TagFromSource(tag))
+	v.stack_.AddValue(pri.TagClass().TagFromSource(tag))
 }
 
 func (v *inflator_) ProcessVersion(
 	version string,
 ) {
-	v.stack_.AddValue(ele.VersionClass().VersionFromSource(version))
+	v.stack_.AddValue(pri.VersionClass().VersionFromSource(version))
 }
 
 func (v *inflator_) PostprocessAcceptClause(
@@ -243,7 +243,7 @@ func (v *inflator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = fra.Catalog[any, doc.CompositeLike]()
+	var catalog = com.Catalog[any, doc.CompositeLike]()
 	var associations = attributes.GetAssociations()
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
@@ -442,7 +442,7 @@ func (v *inflator_) PostprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = fra.List[doc.PredicateLike]()
+	var list = com.List[doc.PredicateLike]()
 	var predicates = expression.GetPredicates()
 	var iterator = predicates.GetIterator()
 	for iterator.HasNext() {
@@ -460,7 +460,7 @@ func (v *inflator_) PostprocessFunction(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = fra.List[any]()
+	var list = com.List[any]()
 	var arguments = function.GetArguments()
 	var iterator = arguments.GetIterator()
 	for iterator.HasNext() {
@@ -540,7 +540,7 @@ func (v *inflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var composites = fra.List[doc.CompositeLike]()
+	var composites = com.List[doc.CompositeLike]()
 	var iterator = items.GetComposites().GetIterator()
 	for iterator.HasNext() {
 		var composite = v.stack_.RemoveLast().(doc.CompositeLike)
@@ -559,9 +559,9 @@ func (v *inflator_) PostprocessLeft(
 	var bracket = left.GetAny().(string)
 	switch bracket {
 	case "[":
-		v.stack_.AddValue(fra.Inclusive)
+		v.stack_.AddValue(com.Inclusive)
 	case "(":
-		v.stack_.AddValue(fra.Exclusive)
+		v.stack_.AddValue(com.Exclusive)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
@@ -610,7 +610,7 @@ func (v *inflator_) PostprocessMethod(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = fra.List[any]()
+	var list = com.List[any]()
 	var arguments = method.GetArguments()
 	var iterator = arguments.GetIterator()
 	for iterator.HasNext() {
@@ -644,7 +644,7 @@ func (v *inflator_) PostprocessOnClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = fra.List[doc.MatchingClauseLike]()
+	var list = com.List[doc.MatchingClauseLike]()
 	var matchingClauses = onClause.GetMatchingClauses()
 	var iterator = matchingClauses.GetIterator()
 	for iterator.HasNext() {
@@ -653,7 +653,7 @@ func (v *inflator_) PostprocessOnClause(
 		iterator.GetNext()
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
-	var symbol = v.stack_.RemoveLast().(ele.SymbolLike)
+	var symbol = v.stack_.RemoveLast().(pri.SymbolLike)
 	v.stack_.AddValue(
 		doc.OnClauseClass().OnClause(symbol, list),
 	)
@@ -730,12 +730,12 @@ func (v *inflator_) PostprocessGenerics(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = fra.Catalog[ele.SymbolLike, doc.ConstraintLike]()
+	var catalog = com.Catalog[pri.SymbolLike, doc.ConstraintLike]()
 	var parameters = generics.GetParameters()
 	var iterator = parameters.GetIterator()
 	for iterator.HasNext() {
 		var constraint = v.stack_.RemoveLast().(doc.ConstraintLike)
-		var symbol = v.stack_.RemoveLast().(ele.SymbolLike)
+		var symbol = v.stack_.RemoveLast().(pri.SymbolLike)
 		catalog.SetValue(symbol, constraint)
 		iterator.GetNext()
 	}
@@ -767,7 +767,7 @@ func (v *inflator_) PostprocessProcedure(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = fra.List[any]()
+	var list = com.List[any]()
 	var lines = procedure.GetLines()
 	var iterator = lines.GetIterator()
 	for iterator.HasNext() {
@@ -793,10 +793,10 @@ func (v *inflator_) PostprocessRange(
 	index_ uint,
 	count_ uint,
 ) {
-	var right = v.stack_.RemoveLast().(fra.Bracket)
+	var right = v.stack_.RemoveLast().(com.Bracket)
 	var last = v.stack_.RemoveLast()
 	var first = v.stack_.RemoveLast()
-	var left = v.stack_.RemoveLast().(fra.Bracket)
+	var left = v.stack_.RemoveLast().(com.Bracket)
 	v.stack_.AddValue(doc.RangeClass().Range(left, first, last, right))
 }
 
@@ -846,9 +846,9 @@ func (v *inflator_) PostprocessRight(
 	var bracket = right.GetAny().(string)
 	switch bracket {
 	case "]":
-		v.stack_.AddValue(fra.Inclusive)
+		v.stack_.AddValue(com.Inclusive)
 	case ")":
-		v.stack_.AddValue(fra.Exclusive)
+		v.stack_.AddValue(com.Exclusive)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
@@ -873,7 +873,7 @@ func (v *inflator_) PostprocessSelectClause(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = fra.List[doc.MatchingClauseLike]()
+	var list = com.List[doc.MatchingClauseLike]()
 	var matchingClauses = selectClause.GetMatchingClauses()
 	var iterator = matchingClauses.GetIterator()
 	for iterator.HasNext() {
@@ -928,7 +928,7 @@ func (v *inflator_) PostprocessSubcomponent(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = fra.List[any]()
+	var list = com.List[any]()
 	var indexes = subcomponent.GetIndexes()
 	var iterator = indexes.GetIterator()
 	for iterator.HasNext() {
@@ -967,7 +967,7 @@ func (v *inflator_) PostprocessWithClause(
 ) {
 	var procedure = v.stack_.RemoveLast().(doc.ProcedureLike)
 	var sequence = v.stack_.RemoveLast().(doc.ExpressionLike)
-	var variable = v.stack_.RemoveLast().(ele.SymbolLike)
+	var variable = v.stack_.RemoveLast().(pri.SymbolLike)
 	v.stack_.AddValue(
 		doc.WithClauseClass().WithClause(variable, sequence, procedure),
 	)
@@ -980,22 +980,22 @@ func (v *inflator_) PostprocessWithClause(
 func (v *inflator_) getComposites(
 	items doc.ItemsLike,
 	generics doc.GenericsLike,
-) fra.Sequential[doc.CompositeLike] {
+) com.Sequential[doc.CompositeLike] {
 	var composites = items.GetComposites()
 	var dummy = doc.ComponentClass().Component(
-		ele.PatternClass().None(),
+		pri.PatternClass().None(),
 		generics,
 	)
-	var parameter = dummy.GetParameter(ele.SymbolClass().Symbol("type"))
+	var parameter = dummy.GetParameter(pri.SymbolClass().Symbol("type"))
 	switch entity := parameter.GetEntity().(type) {
-	case ele.ResourceLike:
+	case pri.ResourceLike:
 		switch entity.AsSource() {
 		case "<bali:/types/collections/Queue:v3>":
-			composites = fra.QueueFromSequence(composites)
+			composites = com.QueueFromSequence(composites)
 		case "<bali:/types/collections/Set:v3>":
-			composites = fra.SetFromSequence(composites)
+			composites = com.SetFromSequence(composites)
 		case "<bali:/types/collections/Stack:v3>":
-			composites = fra.StackFromSequence(composites)
+			composites = com.StackFromSequence(composites)
 		}
 	}
 	return composites
@@ -1005,7 +1005,7 @@ func (v *inflator_) getComposites(
 
 type inflator_ struct {
 	// Declare the instance attributes.
-	stack_ fra.StackLike[any]
+	stack_ com.StackLike[any]
 
 	// Declare the inherited aspects.
 	not.Methodical

@@ -34,8 +34,8 @@ import (
 	age "github.com/bali-nebula/go-bali-documents/v3/agents"
 	doc "github.com/bali-nebula/go-bali-documents/v3/documents"
 	not "github.com/bali-nebula/go-document-notation/v3"
-	fra "github.com/craterdog/go-collection-framework/v8"
-	ele "github.com/craterdog/go-essential-elements/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
 	uri "net/url"
 )
 
@@ -264,7 +264,7 @@ func AttributesClass() AttributesClassLike {
 }
 
 func Attributes(
-	associations fra.CatalogLike[any, doc.CompositeLike],
+	associations com.CatalogLike[any, doc.CompositeLike],
 ) AttributesLike {
 	return AttributesClass().Attributes(
 		associations,
@@ -401,7 +401,7 @@ func ExpressionClass() ExpressionClassLike {
 
 func Expression(
 	subject any,
-	predicates fra.Sequential[doc.PredicateLike],
+	predicates com.Sequential[doc.PredicateLike],
 ) ExpressionLike {
 	return ExpressionClass().Expression(
 		subject,
@@ -415,7 +415,7 @@ func FunctionClass() FunctionClassLike {
 
 func Function(
 	identifier string,
-	arguments fra.Sequential[any],
+	arguments com.Sequential[any],
 ) FunctionLike {
 	return FunctionClass().Function(
 		identifier,
@@ -428,7 +428,7 @@ func GenericsClass() GenericsClassLike {
 }
 
 func Generics(
-	parameters fra.CatalogLike[ele.SymbolLike, doc.ConstraintLike],
+	parameters com.CatalogLike[pri.SymbolLike, doc.ConstraintLike],
 ) GenericsLike {
 	return GenericsClass().Generics(
 		parameters,
@@ -482,7 +482,7 @@ func ItemsClass() ItemsClassLike {
 }
 
 func Items(
-	composites fra.Sequential[doc.CompositeLike],
+	composites com.Sequential[doc.CompositeLike],
 ) ItemsLike {
 	return ItemsClass().Items(
 		composites,
@@ -539,7 +539,7 @@ func Method(
 	target string,
 	invoke doc.Invoke,
 	identifier string,
-	arguments fra.Sequential[any],
+	arguments com.Sequential[any],
 ) MethodLike {
 	return MethodClass().Method(
 		target,
@@ -568,8 +568,8 @@ func OnClauseClass() OnClauseClassLike {
 }
 
 func OnClause(
-	symbol ele.SymbolLike,
-	matchingClauses fra.Sequential[doc.MatchingClauseLike],
+	symbol pri.SymbolLike,
+	matchingClauses com.Sequential[doc.MatchingClauseLike],
 ) OnClauseLike {
 	return OnClauseClass().OnClause(
 		symbol,
@@ -608,7 +608,7 @@ func ProcedureClass() ProcedureClassLike {
 }
 
 func Procedure(
-	lines fra.Sequential[any],
+	lines com.Sequential[any],
 ) ProcedureLike {
 	return ProcedureClass().Procedure(
 		lines,
@@ -632,10 +632,10 @@ func RangeClass() RangeClassLike {
 }
 
 func Range(
-	left fra.Bracket,
+	left com.Bracket,
 	first any,
 	last any,
-	right fra.Bracket,
+	right com.Bracket,
 ) RangeLike {
 	return RangeClass().Range(
 		left,
@@ -731,7 +731,7 @@ func SelectClauseClass() SelectClauseClassLike {
 
 func SelectClause(
 	template doc.ExpressionLike,
-	matchingClauses fra.Sequential[doc.MatchingClauseLike],
+	matchingClauses com.Sequential[doc.MatchingClauseLike],
 ) SelectClauseLike {
 	return SelectClauseClass().SelectClause(
 		template,
@@ -773,7 +773,7 @@ func SubcomponentClass() SubcomponentClassLike {
 
 func Subcomponent(
 	identifier string,
-	indexes fra.Sequential[any],
+	indexes com.Sequential[any],
 ) SubcomponentLike {
 	return SubcomponentClass().Subcomponent(
 		identifier,
@@ -812,7 +812,7 @@ func WithClauseClass() WithClauseClassLike {
 }
 
 func WithClause(
-	symbol ele.SymbolLike,
+	symbol pri.SymbolLike,
 	sequence doc.ExpressionLike,
 	procedure doc.ProcedureLike,
 ) WithClauseLike {
@@ -877,31 +877,31 @@ func FormatDocument(
 // Agents
 
 type (
-	Rank = fra.Rank
+	Rank = com.Rank
 )
 
 const (
-	LesserRank  = fra.LesserRank
-	EqualRank   = fra.EqualRank
-	GreaterRank = fra.GreaterRank
+	LesserRank  = com.LesserRank
+	EqualRank   = com.EqualRank
+	GreaterRank = com.GreaterRank
 )
 
 type (
-	RankingFunction[V any] = fra.RankingFunction[V]
+	RankingFunction[V any] = com.RankingFunction[V]
 )
 
 type (
-	CollatorClassLike[V any] = fra.CollatorClassLike[V]
-	SorterClassLike[V any]   = fra.SorterClassLike[V]
+	CollatorClassLike[V any] = com.CollatorClassLike[V]
+	SorterClassLike[V any]   = com.SorterClassLike[V]
 )
 
 type (
-	CollatorLike[V any] = fra.CollatorLike[V]
-	SorterLike[V any]   = fra.SorterLike[V]
+	CollatorLike[V any] = com.CollatorLike[V]
+	SorterLike[V any]   = com.SorterLike[V]
 )
 
 func CollatorClass[V any]() CollatorClassLike[V] {
-	return fra.CollatorClass[V]()
+	return com.CollatorClass[V]()
 }
 
 func Collator[V any](
@@ -921,7 +921,7 @@ func Collator[V any](
 }
 
 func SorterClass[V any]() SorterClassLike[V] {
-	return fra.SorterClass[V]()
+	return com.SorterClass[V]()
 }
 
 func Sorter[V any](
@@ -941,51 +941,51 @@ func Sorter[V any](
 // Elements
 
 type (
-	Units = ele.Units
+	Units = pri.Units
 )
 
 const (
-	Degrees  = ele.Degrees
-	Radians  = ele.Radians
-	Gradians = ele.Gradians
+	Degrees  = pri.Degrees
+	Radians  = pri.Radians
+	Gradians = pri.Gradians
 )
 
 type (
-	AngleClassLike       = ele.AngleClassLike
-	BooleanClassLike     = ele.BooleanClassLike
-	DurationClassLike    = ele.DurationClassLike
-	GlyphClassLike       = ele.GlyphClassLike
-	MomentClassLike      = ele.MomentClassLike
-	NumberClassLike      = ele.NumberClassLike
-	PercentageClassLike  = ele.PercentageClassLike
-	ProbabilityClassLike = ele.ProbabilityClassLike
-	ResourceClassLike    = ele.ResourceClassLike
-	SymbolClassLike      = ele.SymbolClassLike
+	AngleClassLike       = pri.AngleClassLike
+	BooleanClassLike     = pri.BooleanClassLike
+	DurationClassLike    = pri.DurationClassLike
+	GlyphClassLike       = pri.GlyphClassLike
+	MomentClassLike      = pri.MomentClassLike
+	NumberClassLike      = pri.NumberClassLike
+	PercentageClassLike  = pri.PercentageClassLike
+	ProbabilityClassLike = pri.ProbabilityClassLike
+	ResourceClassLike    = pri.ResourceClassLike
+	SymbolClassLike      = pri.SymbolClassLike
 )
 
 type (
-	AngleLike       = ele.AngleLike
-	BooleanLike     = ele.BooleanLike
-	DurationLike    = ele.DurationLike
-	GlyphLike       = ele.GlyphLike
-	MomentLike      = ele.MomentLike
-	NumberLike      = ele.NumberLike
-	PercentageLike  = ele.PercentageLike
-	ProbabilityLike = ele.ProbabilityLike
-	ResourceLike    = ele.ResourceLike
-	SymbolLike      = ele.SymbolLike
+	AngleLike       = pri.AngleLike
+	BooleanLike     = pri.BooleanLike
+	DurationLike    = pri.DurationLike
+	GlyphLike       = pri.GlyphLike
+	MomentLike      = pri.MomentLike
+	NumberLike      = pri.NumberLike
+	PercentageLike  = pri.PercentageLike
+	ProbabilityLike = pri.ProbabilityLike
+	ResourceLike    = pri.ResourceLike
+	SymbolLike      = pri.SymbolLike
 )
 
 type (
-	Continuous = ele.Continuous
-	Discrete   = ele.Discrete
-	Factored   = ele.Factored
-	Polarized  = ele.Polarized
-	Temporal   = ele.Temporal
+	Continuous = pri.Continuous
+	Discrete   = pri.Discrete
+	Factored   = pri.Factored
+	Polarized  = pri.Polarized
+	Temporal   = pri.Temporal
 )
 
 func AngleClass() AngleClassLike {
-	return ele.AngleClass()
+	return pri.AngleClass()
 }
 
 func Angle(
@@ -1005,7 +1005,7 @@ func Angle(
 }
 
 func BooleanClass() BooleanClassLike {
-	return ele.BooleanClass()
+	return pri.BooleanClass()
 }
 
 func Boolean(
@@ -1025,7 +1025,7 @@ func Boolean(
 }
 
 func DurationClass() DurationClassLike {
-	return ele.DurationClass()
+	return pri.DurationClass()
 }
 
 func Duration(
@@ -1045,7 +1045,7 @@ func Duration(
 }
 
 func GlyphClass() GlyphClassLike {
-	return ele.GlyphClass()
+	return pri.GlyphClass()
 }
 
 func Glyph(
@@ -1067,7 +1067,7 @@ func Glyph(
 }
 
 func MomentClass() MomentClassLike {
-	return ele.MomentClass()
+	return pri.MomentClass()
 }
 
 func Moment(
@@ -1087,7 +1087,7 @@ func Moment(
 }
 
 func NumberClass() NumberClassLike {
-	return ele.NumberClass()
+	return pri.NumberClass()
 }
 
 func Number(
@@ -1125,7 +1125,7 @@ func Rectangular(
 }
 
 func PercentageClass() PercentageClassLike {
-	return ele.PercentageClass()
+	return pri.PercentageClass()
 }
 
 func Percentage(
@@ -1147,7 +1147,7 @@ func Percentage(
 }
 
 func ProbabilityClass() ProbabilityClassLike {
-	return ele.ProbabilityClass()
+	return pri.ProbabilityClass()
 }
 
 func Probability(
@@ -1169,7 +1169,7 @@ func Probability(
 }
 
 func ResourceClass() ResourceClassLike {
-	return ele.ResourceClass()
+	return pri.ResourceClass()
 }
 
 func Resource(
@@ -1193,7 +1193,7 @@ func Resource(
 }
 
 func SymbolClass() SymbolClassLike {
-	return ele.SymbolClass()
+	return pri.SymbolClass()
 }
 
 func Symbol(
@@ -1217,40 +1217,40 @@ func Symbol(
 // Strings
 
 type (
-	Folder = ele.Folder
+	Folder = pri.Folder
 )
 
 type (
-	BinaryClassLike    = ele.BinaryClassLike
-	BytecodeClassLike  = ele.BytecodeClassLike
-	NameClassLike      = ele.NameClassLike
-	NarrativeClassLike = ele.NarrativeClassLike
-	PatternClassLike   = ele.PatternClassLike
-	QuoteClassLike     = ele.QuoteClassLike
-	TagClassLike       = ele.TagClassLike
-	VersionClassLike   = ele.VersionClassLike
+	BinaryClassLike    = pri.BinaryClassLike
+	BytecodeClassLike  = pri.BytecodeClassLike
+	NameClassLike      = pri.NameClassLike
+	NarrativeClassLike = pri.NarrativeClassLike
+	PatternClassLike   = pri.PatternClassLike
+	QuoteClassLike     = pri.QuoteClassLike
+	TagClassLike       = pri.TagClassLike
+	VersionClassLike   = pri.VersionClassLike
 )
 
 type (
-	BinaryLike    = ele.BinaryLike
-	BytecodeLike  = ele.BytecodeLike
-	NameLike      = ele.NameLike
-	NarrativeLike = ele.NarrativeLike
-	PatternLike   = ele.PatternLike
-	QuoteLike     = ele.QuoteLike
-	TagLike       = ele.TagLike
-	VersionLike   = ele.VersionLike
+	BinaryLike    = pri.BinaryLike
+	BytecodeLike  = pri.BytecodeLike
+	NameLike      = pri.NameLike
+	NarrativeLike = pri.NarrativeLike
+	PatternLike   = pri.PatternLike
+	QuoteLike     = pri.QuoteLike
+	TagLike       = pri.TagLike
+	VersionLike   = pri.VersionLike
 )
 
 type (
-	Accessible[V any] = ele.Accessible[V]
-	Searchable[V any] = ele.Searchable[V]
-	Sequential[V any] = ele.Sequential[V]
-	Ordered[V any]    = ele.Ordered[V]
+	Accessible[V any] = pri.Accessible[V]
+	Searchable[V any] = pri.Searchable[V]
+	Sequential[V any] = pri.Sequential[V]
+	Ordered[V any]    = pri.Ordered[V]
 )
 
 func BinaryClass() BinaryClassLike {
-	return ele.BinaryClass()
+	return pri.BinaryClass()
 }
 
 func Binary(
@@ -1272,7 +1272,7 @@ func Binary(
 }
 
 func BytecodeClass() BytecodeClassLike {
-	return ele.BytecodeClass()
+	return pri.BytecodeClass()
 }
 
 func Bytecode(
@@ -1292,7 +1292,7 @@ func Bytecode(
 }
 
 func NameClass() NameClassLike {
-	return ele.NameClass()
+	return pri.NameClass()
 }
 
 func Name(
@@ -1314,7 +1314,7 @@ func Name(
 }
 
 func NarrativeClass() NarrativeClassLike {
-	return ele.NarrativeClass()
+	return pri.NarrativeClass()
 }
 
 func Narrative(
@@ -1336,7 +1336,7 @@ func Narrative(
 }
 
 func PatternClass() PatternClassLike {
-	return ele.PatternClass()
+	return pri.PatternClass()
 }
 
 func Pattern(
@@ -1358,7 +1358,7 @@ func Pattern(
 }
 
 func QuoteClass() QuoteClassLike {
-	return ele.QuoteClass()
+	return pri.QuoteClass()
 }
 
 func Quote(
@@ -1384,7 +1384,7 @@ func Quote(
 }
 
 func TagClass() TagClassLike {
-	return ele.TagClass()
+	return pri.TagClass()
 }
 
 func Tag(
@@ -1410,7 +1410,7 @@ func Tag(
 }
 
 func VersionClass() VersionClassLike {
-	return ele.VersionClass()
+	return pri.VersionClass()
 }
 
 func Version(
@@ -1434,32 +1434,32 @@ func Version(
 // Ranges
 
 type (
-	Bracket = fra.Bracket
+	Bracket = com.Bracket
 )
 
 const (
-	Inclusive = fra.Inclusive
-	Exclusive = fra.Exclusive
+	Inclusive = com.Inclusive
+	Exclusive = com.Exclusive
 )
 
 type (
-	ContinuumClassLike[V fra.Continuous] = fra.ContinuumClassLike[V]
-	IntervalClassLike[V fra.Discrete]    = fra.IntervalClassLike[V]
-	SpectrumClassLike[V fra.Ordered[V]]  = fra.SpectrumClassLike[V]
+	ContinuumClassLike[V com.Continuous] = com.ContinuumClassLike[V]
+	IntervalClassLike[V com.Discrete]    = com.IntervalClassLike[V]
+	SpectrumClassLike[V com.Ordered[V]]  = com.SpectrumClassLike[V]
 )
 
 type (
-	ContinuumLike[V fra.Continuous] = fra.ContinuumLike[V]
-	IntervalLike[V fra.Discrete]    = fra.IntervalLike[V]
-	SpectrumLike[V fra.Ordered[V]]  = fra.SpectrumLike[V]
+	ContinuumLike[V com.Continuous] = com.ContinuumLike[V]
+	IntervalLike[V com.Discrete]    = com.IntervalLike[V]
+	SpectrumLike[V com.Ordered[V]]  = com.SpectrumLike[V]
 )
 
 type (
-	Bounded[V any] = fra.Bounded[V]
+	Bounded[V any] = com.Bounded[V]
 )
 
 func ContinuumClass[V Continuous]() ContinuumClassLike[V] {
-	return fra.ContinuumClass[V]()
+	return com.ContinuumClass[V]()
 }
 
 func Continuum[V Continuous](
@@ -1477,7 +1477,7 @@ func Continuum[V Continuous](
 }
 
 func IntervalClass[V Discrete]() IntervalClassLike[V] {
-	return fra.IntervalClass[V]()
+	return com.IntervalClass[V]()
 }
 
 func Interval[V Discrete](
@@ -1495,7 +1495,7 @@ func Interval[V Discrete](
 }
 
 func SpectrumClass[V Ordered[V]]() SpectrumClassLike[V] {
-	return fra.SpectrumClass[V]()
+	return com.SpectrumClass[V]()
 }
 
 func Spectrum[V Ordered[V]](
@@ -1515,36 +1515,36 @@ func Spectrum[V Ordered[V]](
 // Collections
 
 type (
-	AssociationClassLike[K comparable, V any] = fra.AssociationClassLike[K, V]
-	CatalogClassLike[K comparable, V any]     = fra.CatalogClassLike[K, V]
-	ListClassLike[V any]                      = fra.ListClassLike[V]
-	QueueClassLike[V any]                     = fra.QueueClassLike[V]
-	SetClassLike[V any]                       = fra.SetClassLike[V]
-	StackClassLike[V any]                     = fra.StackClassLike[V]
+	AssociationClassLike[K comparable, V any] = com.AssociationClassLike[K, V]
+	CatalogClassLike[K comparable, V any]     = com.CatalogClassLike[K, V]
+	ListClassLike[V any]                      = com.ListClassLike[V]
+	QueueClassLike[V any]                     = com.QueueClassLike[V]
+	SetClassLike[V any]                       = com.SetClassLike[V]
+	StackClassLike[V any]                     = com.StackClassLike[V]
 )
 
 type (
-	AssociationLike[K comparable, V any] = fra.AssociationLike[K, V]
-	CatalogLike[K comparable, V any]     = fra.CatalogLike[K, V]
-	ListLike[V any]                      = fra.ListLike[V]
-	QueueLike[V any]                     = fra.QueueLike[V]
-	SetLike[V any]                       = fra.SetLike[V]
-	StackLike[V any]                     = fra.StackLike[V]
+	AssociationLike[K comparable, V any] = com.AssociationLike[K, V]
+	CatalogLike[K comparable, V any]     = com.CatalogLike[K, V]
+	ListLike[V any]                      = com.ListLike[V]
+	QueueLike[V any]                     = com.QueueLike[V]
+	SetLike[V any]                       = com.SetLike[V]
+	StackLike[V any]                     = com.StackLike[V]
 )
 
 type (
-	Associative[K comparable, V any] = fra.Associative[K, V]
-	Elastic[V any]                   = fra.Elastic[V]
-	Fifo[V any]                      = fra.Fifo[V]
-	Lifo[V any]                      = fra.Lifo[V]
-	Malleable[V any]                 = fra.Malleable[V]
-	Sortable[V any]                  = fra.Sortable[V]
-	Synchronized                     = fra.Synchronized
-	Updatable[V any]                 = fra.Updatable[V]
+	Associative[K comparable, V any] = com.Associative[K, V]
+	Elastic[V any]                   = com.Elastic[V]
+	Fifo[V any]                      = com.Fifo[V]
+	Lifo[V any]                      = com.Lifo[V]
+	Malleable[V any]                 = com.Malleable[V]
+	Sortable[V any]                  = com.Sortable[V]
+	Synchronized                     = com.Synchronized
+	Updatable[V any]                 = com.Updatable[V]
 )
 
 func AssociationClass[K comparable, V any]() AssociationClassLike[K, V] {
-	return fra.AssociationClass[K, V]()
+	return com.AssociationClass[K, V]()
 }
 
 func Association[K comparable, V any](
@@ -1558,31 +1558,31 @@ func Association[K comparable, V any](
 }
 
 func CatalogClass[K comparable, V any]() CatalogClassLike[K, V] {
-	return fra.CatalogClass[K, V]()
+	return com.CatalogClass[K, V]()
 }
 
 func Catalog[K comparable, V any](
 	value ...any,
 ) CatalogLike[K, V] {
 	if len(value) == 0 {
-		return fra.Catalog[K, V]()
+		return com.Catalog[K, V]()
 	}
 	switch actual := value[0].(type) {
 	case string:
 		return ParseComponent(actual).GetEntity().(CatalogLike[K, V])
 	case []AssociationLike[K, V]:
-		return fra.CatalogFromArray(actual)
+		return com.CatalogFromArray(actual)
 	case map[K]V:
-		return fra.CatalogFromMap(actual)
+		return com.CatalogFromMap(actual)
 	case Sequential[AssociationLike[K, V]]:
-		return fra.CatalogFromSequence(actual)
+		return com.CatalogFromSequence(actual)
 	default:
-		return fra.Catalog[K, V]()
+		return com.Catalog[K, V]()
 	}
 }
 
 func ListClass[V any]() ListClassLike[V] {
-	return fra.ListClass[V]()
+	return com.ListClass[V]()
 }
 
 func List[V any](
@@ -1604,7 +1604,7 @@ func List[V any](
 }
 
 func QueueClass[V any]() QueueClassLike[V] {
-	return fra.QueueClass[V]()
+	return com.QueueClass[V]()
 }
 
 func Queue[V any](
@@ -1630,7 +1630,7 @@ func Queue[V any](
 }
 
 func SetClass[V any]() SetClassLike[V] {
-	return fra.SetClass[V]()
+	return com.SetClass[V]()
 }
 
 func Set[V any](
@@ -1654,7 +1654,7 @@ func Set[V any](
 }
 
 func StackClass[V any]() StackClassLike[V] {
-	return fra.StackClass[V]()
+	return com.StackClass[V]()
 }
 
 func Stack[V any](

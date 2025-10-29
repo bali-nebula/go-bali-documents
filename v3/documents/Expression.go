@@ -13,8 +13,8 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -29,7 +29,7 @@ func ExpressionClass() ExpressionClassLike {
 
 func (c *expressionClass_) Expression(
 	subject any,
-	predicates fra.Sequential[PredicateLike],
+	predicates com.Sequential[PredicateLike],
 ) ExpressionLike {
 	if uti.IsUndefined(subject) {
 		panic("The \"subject\" attribute is required by this class.")
@@ -63,7 +63,7 @@ func (v *expression_) GetSubject() any {
 	return v.subject_
 }
 
-func (v *expression_) GetPredicates() fra.Sequential[PredicateLike] {
+func (v *expression_) GetPredicates() com.Sequential[PredicateLike] {
 	return v.predicates_
 }
 
@@ -76,7 +76,7 @@ func (v *expression_) GetPredicates() fra.Sequential[PredicateLike] {
 type expression_ struct {
 	// Declare the instance attributes.
 	subject_    any
-	predicates_ fra.Sequential[PredicateLike]
+	predicates_ com.Sequential[PredicateLike]
 }
 
 // Class Structure

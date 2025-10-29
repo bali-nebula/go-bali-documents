@@ -13,9 +13,9 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	ele "github.com/craterdog/go-essential-elements/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -29,8 +29,8 @@ func OnClauseClass() OnClauseClassLike {
 // Constructor Methods
 
 func (c *onClauseClass_) OnClause(
-	symbol ele.SymbolLike,
-	matchingClauses fra.Sequential[MatchingClauseLike],
+	symbol pri.SymbolLike,
+	matchingClauses com.Sequential[MatchingClauseLike],
 ) OnClauseLike {
 	if uti.IsUndefined(symbol) {
 		panic("The \"symbol\" attribute is required by this class.")
@@ -60,11 +60,11 @@ func (v *onClause_) GetClass() OnClauseClassLike {
 
 // Attribute Methods
 
-func (v *onClause_) GetSymbol() ele.SymbolLike {
+func (v *onClause_) GetSymbol() pri.SymbolLike {
 	return v.symbol_
 }
 
-func (v *onClause_) GetMatchingClauses() fra.Sequential[MatchingClauseLike] {
+func (v *onClause_) GetMatchingClauses() com.Sequential[MatchingClauseLike] {
 	return v.matchingClauses_
 }
 
@@ -76,8 +76,8 @@ func (v *onClause_) GetMatchingClauses() fra.Sequential[MatchingClauseLike] {
 
 type onClause_ struct {
 	// Declare the instance attributes.
-	symbol_          ele.SymbolLike
-	matchingClauses_ fra.Sequential[MatchingClauseLike]
+	symbol_          pri.SymbolLike
+	matchingClauses_ com.Sequential[MatchingClauseLike]
 }
 
 // Class Structure

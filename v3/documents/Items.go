@@ -13,8 +13,8 @@
 package documents
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -28,7 +28,7 @@ func ItemsClass() ItemsClassLike {
 // Constructor Methods
 
 func (c *itemsClass_) Items(
-	composites fra.Sequential[CompositeLike],
+	composites com.Sequential[CompositeLike],
 ) ItemsLike {
 	if uti.IsUndefined(composites) {
 		panic("The \"composites\" attribute is required by this class.")
@@ -54,7 +54,7 @@ func (v *items_) GetClass() ItemsClassLike {
 
 // Attribute Methods
 
-func (v *items_) GetComposites() fra.Sequential[CompositeLike] {
+func (v *items_) GetComposites() com.Sequential[CompositeLike] {
 	return v.composites_
 }
 
@@ -66,7 +66,7 @@ func (v *items_) GetComposites() fra.Sequential[CompositeLike] {
 
 type items_ struct {
 	// Declare the instance attributes.
-	composites_ fra.Sequential[CompositeLike]
+	composites_ com.Sequential[CompositeLike]
 }
 
 // Class Structure

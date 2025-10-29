@@ -13,8 +13,8 @@
 package documents
 
 import (
-	ele "github.com/craterdog/go-essential-elements/v8"
-	uti "github.com/craterdog/go-missing-utilities/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
+	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
 // CLASS INTERFACE
@@ -28,7 +28,7 @@ func WithClauseClass() WithClauseClassLike {
 // Constructor Methods
 
 func (c *withClauseClass_) WithClause(
-	symbol ele.SymbolLike,
+	symbol pri.SymbolLike,
 	sequence ExpressionLike,
 	procedure ProcedureLike,
 ) WithClauseLike {
@@ -64,7 +64,7 @@ func (v *withClause_) GetClass() WithClauseClassLike {
 
 // Attribute Methods
 
-func (v *withClause_) GetSymbol() ele.SymbolLike {
+func (v *withClause_) GetSymbol() pri.SymbolLike {
 	return v.symbol_
 }
 
@@ -84,7 +84,7 @@ func (v *withClause_) GetProcedure() ProcedureLike {
 
 type withClause_ struct {
 	// Declare the instance attributes.
-	symbol_    ele.SymbolLike
+	symbol_    pri.SymbolLike
 	sequence_  ExpressionLike
 	procedure_ ProcedureLike
 }

@@ -30,8 +30,8 @@ on interfaces, not on each other.
 package documents
 
 import (
-	fra "github.com/craterdog/go-collection-framework/v8"
-	ele "github.com/craterdog/go-essential-elements/v8"
+	com "github.com/craterdog/go-essential-composites/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
 )
 
 // TYPE DECLARATIONS
@@ -122,7 +122,7 @@ attributes-like class.
 type AttributesClassLike interface {
 	// Constructor Methods
 	Attributes(
-		associations fra.CatalogLike[any, CompositeLike],
+		associations com.CatalogLike[any, CompositeLike],
 	) AttributesLike
 }
 
@@ -257,7 +257,7 @@ type ExpressionClassLike interface {
 	// Constructor Methods
 	Expression(
 		subject any,
-		predicates fra.Sequential[PredicateLike],
+		predicates com.Sequential[PredicateLike],
 	) ExpressionLike
 }
 
@@ -270,7 +270,7 @@ type FunctionClassLike interface {
 	// Constructor Methods
 	Function(
 		identifier string,
-		arguments fra.Sequential[any],
+		arguments com.Sequential[any],
 	) FunctionLike
 }
 
@@ -282,7 +282,7 @@ concrete generics-like class.
 type GenericsClassLike interface {
 	// Constructor Methods
 	Generics(
-		parameters fra.CatalogLike[ele.SymbolLike, ConstraintLike],
+		parameters com.CatalogLike[pri.SymbolLike, ConstraintLike],
 	) GenericsLike
 }
 
@@ -333,7 +333,7 @@ items-like class.
 type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
-		composites fra.Sequential[CompositeLike],
+		composites com.Sequential[CompositeLike],
 	) ItemsLike
 }
 
@@ -387,7 +387,7 @@ type MethodClassLike interface {
 		target string,
 		invoke Invoke,
 		identifier string,
-		arguments fra.Sequential[any],
+		arguments com.Sequential[any],
 	) MethodLike
 }
 
@@ -412,8 +412,8 @@ on-clause-like class.
 type OnClauseClassLike interface {
 	// Constructor Methods
 	OnClause(
-		symbol ele.SymbolLike,
-		matchingClauses fra.Sequential[MatchingClauseLike],
+		symbol pri.SymbolLike,
+		matchingClauses com.Sequential[MatchingClauseLike],
 	) OnClauseLike
 }
 
@@ -450,7 +450,7 @@ procedure-like class.
 type ProcedureClassLike interface {
 	// Constructor Methods
 	Procedure(
-		lines fra.Sequential[any],
+		lines com.Sequential[any],
 	) ProcedureLike
 }
 
@@ -474,10 +474,10 @@ range-like class.
 type RangeClassLike interface {
 	// Constructor Methods
 	Range(
-		left fra.Bracket,
+		left com.Bracket,
 		first any,
 		last any,
-		right fra.Bracket,
+		right com.Bracket,
 	) RangeLike
 }
 
@@ -566,7 +566,7 @@ type SelectClauseClassLike interface {
 	// Constructor Methods
 	SelectClause(
 		template ExpressionLike,
-		matchingClauses fra.Sequential[MatchingClauseLike],
+		matchingClauses com.Sequential[MatchingClauseLike],
 	) SelectClauseLike
 }
 
@@ -605,7 +605,7 @@ type SubcomponentClassLike interface {
 	// Constructor Methods
 	Subcomponent(
 		identifier string,
-		indexes fra.Sequential[any],
+		indexes com.Sequential[any],
 	) SubcomponentLike
 }
 
@@ -642,7 +642,7 @@ with-clause-like class.
 type WithClauseClassLike interface {
 	// Constructor Methods
 	WithClause(
-		symbol ele.SymbolLike,
+		symbol pri.SymbolLike,
 		sequence ExpressionLike,
 		procedure ProcedureLike,
 	) WithClauseLike
@@ -674,7 +674,7 @@ type AttributesLike interface {
 	GetClass() AttributesClassLike
 
 	// Attribute Methods
-	GetAssociations() fra.CatalogLike[any, CompositeLike]
+	GetAssociations() com.CatalogLike[any, CompositeLike]
 }
 
 /*
@@ -724,7 +724,7 @@ type ComponentLike interface {
 	// Principal Methods
 	GetClass() ComponentClassLike
 	GetParameter(
-		symbol ele.SymbolLike,
+		symbol pri.SymbolLike,
 	) ComponentLike
 	SetSubcomponent(
 		value any,
@@ -831,7 +831,7 @@ type ExpressionLike interface {
 
 	// Attribute Methods
 	GetSubject() any
-	GetPredicates() fra.Sequential[PredicateLike]
+	GetPredicates() com.Sequential[PredicateLike]
 }
 
 /*
@@ -845,7 +845,7 @@ type FunctionLike interface {
 
 	// Attribute Methods
 	GetIdentifier() string
-	GetArguments() fra.Sequential[any]
+	GetArguments() com.Sequential[any]
 }
 
 /*
@@ -858,7 +858,7 @@ type GenericsLike interface {
 	GetClass() GenericsClassLike
 
 	// Attribute Methods
-	GetParameters() fra.CatalogLike[ele.SymbolLike, ConstraintLike]
+	GetParameters() com.CatalogLike[pri.SymbolLike, ConstraintLike]
 }
 
 /*
@@ -913,7 +913,7 @@ type ItemsLike interface {
 	GetClass() ItemsClassLike
 
 	// Attribute Methods
-	GetComposites() fra.Sequential[CompositeLike]
+	GetComposites() com.Sequential[CompositeLike]
 }
 
 /*
@@ -971,7 +971,7 @@ type MethodLike interface {
 	GetTarget() string
 	GetInvoke() Invoke
 	GetIdentifier() string
-	GetArguments() fra.Sequential[any]
+	GetArguments() com.Sequential[any]
 }
 
 /*
@@ -998,8 +998,8 @@ type OnClauseLike interface {
 	GetClass() OnClauseClassLike
 
 	// Attribute Methods
-	GetSymbol() ele.SymbolLike
-	GetMatchingClauses() fra.Sequential[MatchingClauseLike]
+	GetSymbol() pri.SymbolLike
+	GetMatchingClauses() com.Sequential[MatchingClauseLike]
 }
 
 /*
@@ -1039,7 +1039,7 @@ type ProcedureLike interface {
 	GetClass() ProcedureClassLike
 
 	// Attribute Methods
-	GetLines() fra.Sequential[any]
+	GetLines() com.Sequential[any]
 }
 
 /*
@@ -1065,10 +1065,10 @@ type RangeLike interface {
 	GetClass() RangeClassLike
 
 	// Attribute Methods
-	GetLeft() fra.Bracket
+	GetLeft() com.Bracket
 	GetFirst() any
 	GetLast() any
-	GetRight() fra.Bracket
+	GetRight() com.Bracket
 }
 
 /*
@@ -1164,7 +1164,7 @@ type SelectClauseLike interface {
 
 	// Attribute Methods
 	GetTemplate() ExpressionLike
-	GetMatchingClauses() fra.Sequential[MatchingClauseLike]
+	GetMatchingClauses() com.Sequential[MatchingClauseLike]
 }
 
 /*
@@ -1206,7 +1206,7 @@ type SubcomponentLike interface {
 
 	// Attribute Methods
 	GetIdentifier() string
-	GetIndexes() fra.Sequential[any]
+	GetIndexes() com.Sequential[any]
 }
 
 /*
@@ -1246,7 +1246,7 @@ type WithClauseLike interface {
 	GetClass() WithClauseClassLike
 
 	// Attribute Methods
-	GetSymbol() ele.SymbolLike
+	GetSymbol() pri.SymbolLike
 	GetSequence() ExpressionLike
 	GetProcedure() ProcedureLike
 }
