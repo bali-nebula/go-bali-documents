@@ -309,7 +309,7 @@ func (v *deflator_) ProcessResource(
 func (v *deflator_) ProcessSymbol(
 	symbol pri.SymbolLike,
 ) {
-	v.stack_.AddValue(not.Element(symbol.AsSource()))
+	v.stack_.AddValue(not.Sequence(symbol.AsSource()))
 }
 
 func (v *deflator_) ProcessTag(
@@ -397,7 +397,7 @@ func (v *deflator_) PostprocessCheckoutClause(
 	}
 	var recipient not.RecipientLike
 	switch actual := v.stack_.RemoveLast().(type) {
-	case not.ElementLike:
+	case not.SequenceLike:
 		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
 	case not.SubcomponentLike:
 		recipient = not.Recipient(actual)
@@ -695,7 +695,7 @@ func (v *deflator_) PostprocessLetClause(
 	var assignment = v.stack_.RemoveLast().(not.AssignmentLike)
 	var recipient not.RecipientLike
 	switch actual := v.stack_.RemoveLast().(type) {
-	case not.ElementLike:
+	case not.SequenceLike:
 		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
 	case not.SubcomponentLike:
 		recipient = not.Recipient(actual)
@@ -784,8 +784,8 @@ func (v *deflator_) PostprocessOnClause(
 		iterator.GetNext()
 	}
 	matchingClauses.ReverseValues() // They were pulled off the stack in reverse order.
-	var element = v.stack_.RemoveLast().(not.ElementLike)
-	var symbol = element.GetAny().(string)
+	var sequence = v.stack_.RemoveLast().(not.SequenceLike)
+	var symbol = sequence.GetAny().(string)
 	v.stack_.AddValue(
 		not.OnClause("on", symbol, matchingClauses),
 	)
@@ -800,8 +800,8 @@ func (v *deflator_) PostprocessGenerics(
 	var iterator = generics.GetParameters().GetIterator()
 	for iterator.HasNext() {
 		var constraint = v.stack_.RemoveLast().(not.ConstraintLike)
-		var element = v.stack_.RemoveLast().(not.ElementLike)
-		var symbol = element.GetAny().(string)
+		var sequence = v.stack_.RemoveLast().(not.SequenceLike)
+		var symbol = sequence.GetAny().(string)
 		var parameter = not.Parameter(symbol, ":", constraint)
 		parameters.AppendValue(parameter)
 		iterator.GetNext()
@@ -914,7 +914,7 @@ func (v *deflator_) PostprocessReceiveClause(
 	var bag = not.Bag(expression)
 	var recipient not.RecipientLike
 	switch actual := v.stack_.RemoveLast().(type) {
-	case not.ElementLike:
+	case not.SequenceLike:
 		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
 	case not.SubcomponentLike:
 		recipient = not.Recipient(actual)
@@ -977,7 +977,7 @@ func (v *deflator_) PostprocessSaveClause(
 ) {
 	var recipient not.RecipientLike
 	switch actual := v.stack_.RemoveLast().(type) {
-	case not.ElementLike:
+	case not.SequenceLike:
 		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
 	case not.SubcomponentLike:
 		recipient = not.Recipient(actual)
@@ -1111,8 +1111,8 @@ func (v *deflator_) PostprocessWithClause(
 ) {
 	var procedure = v.stack_.RemoveLast().(not.ProcedureLike)
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var element = v.stack_.RemoveLast().(not.ElementLike)
-	var symbol = element.GetAny().(string)
+	var sequence = v.stack_.RemoveLast().(not.SequenceLike)
+	var symbol = sequence.GetAny().(string)
 	v.stack_.AddValue(
 		not.FlowControl(
 			not.WithClause(

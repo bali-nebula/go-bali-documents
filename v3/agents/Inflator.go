@@ -986,7 +986,7 @@ func (v *inflator_) getComposites(
 		pri.PatternClass().None(),
 		generics,
 	)
-	var parameter = dummy.GetParameter(pri.SymbolClass().Symbol("type"))
+	var parameter = dummy.GetParameter(pri.SymbolClass().SymbolFromSource("$type"))
 	switch entity := parameter.GetEntity().(type) {
 	case pri.ResourceLike:
 		switch entity.AsSource() {

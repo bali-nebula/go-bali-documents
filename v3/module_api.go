@@ -960,7 +960,6 @@ type (
 	PercentageClassLike  = pri.PercentageClassLike
 	ProbabilityClassLike = pri.ProbabilityClassLike
 	ResourceClassLike    = pri.ResourceClassLike
-	SymbolClassLike      = pri.SymbolClassLike
 )
 
 type (
@@ -973,7 +972,6 @@ type (
 	PercentageLike  = pri.PercentageLike
 	ProbabilityLike = pri.ProbabilityLike
 	ResourceLike    = pri.ResourceLike
-	SymbolLike      = pri.SymbolLike
 )
 
 type (
@@ -1038,6 +1036,11 @@ func Duration(
 	case string:
 		return DurationClass().DurationFromSource(actual)
 	case int:
+		if actual < 0 {
+			actual = -actual
+		}
+		return DurationClass().Duration(uint(actual))
+	case uint:
 		return DurationClass().Duration(actual)
 	default:
 		return DurationClass().Duration(0)
@@ -1192,29 +1195,7 @@ func Resource(
 	}
 }
 
-func SymbolClass() SymbolClassLike {
-	return pri.SymbolClass()
-}
-
-func Symbol(
-	value ...any,
-) SymbolLike {
-	if len(value) == 0 {
-		return SymbolClass().Undefined()
-	}
-	switch actual := value[0].(type) {
-	case string:
-		if actual[0] == '$' {
-			return SymbolClass().SymbolFromSource(actual)
-		} else {
-			return SymbolClass().Symbol(actual)
-		}
-	default:
-		return SymbolClass().Undefined()
-	}
-}
-
-// Strings
+// Sequences
 
 type (
 	Folder = pri.Folder
@@ -1227,6 +1208,7 @@ type (
 	NarrativeClassLike = pri.NarrativeClassLike
 	PatternClassLike   = pri.PatternClassLike
 	QuoteClassLike     = pri.QuoteClassLike
+	SymbolClassLike    = pri.SymbolClassLike
 	TagClassLike       = pri.TagClassLike
 	VersionClassLike   = pri.VersionClassLike
 )
@@ -1238,6 +1220,7 @@ type (
 	NarrativeLike = pri.NarrativeLike
 	PatternLike   = pri.PatternLike
 	QuoteLike     = pri.QuoteLike
+	SymbolLike    = pri.SymbolLike
 	TagLike       = pri.TagLike
 	VersionLike   = pri.VersionLike
 )
@@ -1380,6 +1363,29 @@ func Quote(
 		return QuoteClass().QuoteFromSequence(actual)
 	default:
 		return QuoteClass().QuoteFromSource(`""`)
+	}
+}
+
+func SymbolClass() SymbolClassLike {
+	return pri.SymbolClass()
+}
+
+func Symbol(
+	value ...any,
+) SymbolLike {
+	if len(value) == 0 {
+		return SymbolClass().Undefined()
+	}
+	switch actual := value[0].(type) {
+	case string:
+		if actual[0] != '$' {
+			actual = "$" + actual
+		}
+		return SymbolClass().SymbolFromSource(actual)
+	case []rune:
+		return SymbolClass().Symbol(actual)
+	default:
+		return SymbolClass().Undefined()
 	}
 }
 
