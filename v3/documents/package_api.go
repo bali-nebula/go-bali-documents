@@ -724,10 +724,6 @@ type ComponentLike interface {
 	// Principal Methods
 	GetClass() ComponentClassLike
 
-	// Attribute Methods
-	GetEntity() any
-	GetOptionalGenerics() GenericsLike
-
 	// Aspect Interfaces
 	Compound
 }
@@ -1248,6 +1244,8 @@ Compound declares the set of method signatures that must be supported by
 all compound documents.
 */
 type Compound interface {
+	GetEntity() any
+	GetOptionalGenerics() GenericsLike
 	GetParameter(
 		symbol pri.SymbolLike,
 	) ComponentLike

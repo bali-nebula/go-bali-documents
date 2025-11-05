@@ -56,7 +56,7 @@ func (v *component_) GetClass() ComponentClassLike {
 	return componentClass()
 }
 
-// Attribute Methods
+// Compound Method
 
 func (v *component_) GetEntity() any {
 	return v.entity_
@@ -65,8 +65,6 @@ func (v *component_) GetEntity() any {
 func (v *component_) GetOptionalGenerics() GenericsLike {
 	return v.optionalGenerics_
 }
-
-// Compound Method
 
 func (v *component_) GetParameter(
 	symbol pri.SymbolLike,
