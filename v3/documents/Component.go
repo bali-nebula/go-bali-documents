@@ -56,6 +56,18 @@ func (v *component_) GetClass() ComponentClassLike {
 	return componentClass()
 }
 
+// Attribute Methods
+
+func (v *component_) GetEntity() any {
+	return v.entity_
+}
+
+func (v *component_) GetOptionalGenerics() GenericsLike {
+	return v.optionalGenerics_
+}
+
+// Compound Method
+
 func (v *component_) GetParameter(
 	symbol pri.SymbolLike,
 ) ComponentLike {
@@ -160,16 +172,6 @@ func (v *component_) RemoveSubcomponent(
 		}
 	}
 	return composite
-}
-
-// Attribute Methods
-
-func (v *component_) GetEntity() any {
-	return v.entity_
-}
-
-func (v *component_) GetOptionalGenerics() GenericsLike {
-	return v.optionalGenerics_
 }
 
 // PROTECTED INTERFACE

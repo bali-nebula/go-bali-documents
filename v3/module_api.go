@@ -195,6 +195,10 @@ type (
 	WithClauseLike     = doc.WithClauseLike
 )
 
+type (
+	Compound = doc.Compound
+)
+
 // CLASS ACCESSORS
 
 // Agents

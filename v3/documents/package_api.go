@@ -723,23 +723,13 @@ of a concrete component-like class.
 type ComponentLike interface {
 	// Principal Methods
 	GetClass() ComponentClassLike
-	GetParameter(
-		symbol pri.SymbolLike,
-	) ComponentLike
-	SetSubcomponent(
-		value any,
-		indices ...any,
-	)
-	GetSubcomponent(
-		indices ...any,
-	) CompositeLike
-	RemoveSubcomponent(
-		indices ...any,
-	) CompositeLike
 
 	// Attribute Methods
 	GetEntity() any
 	GetOptionalGenerics() GenericsLike
+
+	// Aspect Interfaces
+	Compound
 }
 
 /*
@@ -1252,3 +1242,23 @@ type WithClauseLike interface {
 }
 
 // ASPECT DECLARATIONS
+
+/*
+Compound declares the set of method signatures that must be supported by
+all compound documents.
+*/
+type Compound interface {
+	GetParameter(
+		symbol pri.SymbolLike,
+	) ComponentLike
+	SetSubcomponent(
+		value any,
+		indices ...any,
+	)
+	GetSubcomponent(
+		indices ...any,
+	) CompositeLike
+	RemoveSubcomponent(
+		indices ...any,
+	) CompositeLike
+}
