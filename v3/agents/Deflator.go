@@ -426,21 +426,21 @@ func (v *deflator_) PostprocessComplement(
 	)
 }
 
-func (v *deflator_) ProcessComponentSlot(
-	component doc.Composite,
+func (v *deflator_) ProcessCompositeSlot(
+	composite doc.Composite,
 	slot_ uint,
 ) {
 	switch slot_ {
 	case 1:
-		if uti.IsUndefined(component.GetOptionalGenerics()) {
+		if uti.IsUndefined(composite.GetOptionalGenerics()) {
 			var generics not.GenericsLike
 			v.stack_.AddValue(generics)
 		}
 	}
 }
 
-func (v *deflator_) PostprocessComponent(
-	component doc.Composite,
+func (v *deflator_) PostprocessComposite(
+	composite doc.Composite,
 	index_ uint,
 	count_ uint,
 ) {

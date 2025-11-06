@@ -228,10 +228,10 @@ func (v *visitor_) visitComplement(
 	)
 }
 
-func (v *visitor_) visitComponent(
-	component doc.Composite,
+func (v *visitor_) visitComposite(
+	composite doc.Composite,
 ) {
-	var entity = component.GetEntity()
+	var entity = composite.GetEntity()
 	v.processor_.PreprocessEntity(
 		entity,
 		0,
@@ -245,12 +245,12 @@ func (v *visitor_) visitComponent(
 	)
 
 	// Visit slot 1 between terms.
-	v.processor_.ProcessComponentSlot(
-		component,
+	v.processor_.ProcessCompositeSlot(
+		composite,
 		1,
 	)
 
-	var optionalGenerics = component.GetOptionalGenerics()
+	var optionalGenerics = composite.GetOptionalGenerics()
 	if uti.IsDefined(optionalGenerics) {
 		v.processor_.PreprocessGenerics(
 			optionalGenerics,
@@ -269,15 +269,15 @@ func (v *visitor_) visitComponent(
 func (v *visitor_) visitContent(
 	content doc.ContentLike,
 ) {
-	var component = content.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
+	var composite = content.GetComposite()
+	v.processor_.PreprocessComposite(
+		composite,
 		0,
 		0,
 	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
+	v.visitComposite(composite)
+	v.processor_.PostprocessComposite(
+		composite,
 		0,
 		0,
 	)
@@ -378,15 +378,15 @@ func (v *visitor_) visitDocument(
 	if uti.IsDefined(comment) {
 		v.processor_.ProcessComment(comment)
 	}
-	var component = document.GetComponent()
-	v.processor_.PreprocessComponent(
-		component,
+	var composite = document.GetComposite()
+	v.processor_.PreprocessComposite(
+		composite,
 		0,
 		0,
 	)
-	v.visitComponent(component)
-	v.processor_.PostprocessComponent(
-		component,
+	v.visitComposite(composite)
+	v.processor_.PostprocessComposite(
+		composite,
 		0,
 		0,
 	)
@@ -1214,14 +1214,14 @@ func (v *visitor_) visitNumerical(
 	numerical any,
 ) {
 	switch actual := numerical.(type) {
-	case doc.ComponentLike:
-		v.processor_.PreprocessComponent(
+	case doc.Composite:
+		v.processor_.PreprocessComposite(
 			actual,
 			0,
 			0,
 		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
+		v.visitComposite(actual)
+		v.processor_.PostprocessComposite(
 			actual,
 			0,
 			0,
@@ -1609,14 +1609,14 @@ func (v *visitor_) visitReference(
 	reference any,
 ) {
 	switch actual := reference.(type) {
-	case doc.ComponentLike:
-		v.processor_.PreprocessComponent(
+	case doc.Composite:
+		v.processor_.PreprocessComposite(
 			actual,
 			0,
 			0,
 		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
+		v.visitComposite(actual)
+		v.processor_.PostprocessComposite(
 			actual,
 			0,
 			0,
@@ -1791,14 +1791,14 @@ func (v *visitor_) visitReversible(
 	reversible any,
 ) {
 	switch actual := reversible.(type) {
-	case doc.ComponentLike:
-		v.processor_.PreprocessComponent(
+	case doc.Composite:
+		v.processor_.PreprocessComposite(
 			actual,
 			0,
 			0,
 		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
+		v.visitComposite(actual)
+		v.processor_.PostprocessComposite(
 			actual,
 			0,
 			0,
@@ -2075,14 +2075,14 @@ func (v *visitor_) visitSubject(
 	subject any,
 ) {
 	switch actual := subject.(type) {
-	case doc.ComponentLike:
-		v.processor_.PreprocessComponent(
+	case doc.Composite:
+		v.processor_.PreprocessComposite(
 			actual,
 			0,
 			0,
 		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
+		v.visitComposite(actual)
+		v.processor_.PostprocessComposite(
 			actual,
 			0,
 			0,

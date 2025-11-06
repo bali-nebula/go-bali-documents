@@ -28,15 +28,15 @@ func DocumentClass() DocumentClassLike {
 
 func (c *documentClass_) Document(
 	optionalComment string,
-	component Composite,
+	composite Composite,
 ) DocumentLike {
-	if uti.IsUndefined(component) {
-		panic("The \"component\" attribute is required by this class.")
+	if uti.IsUndefined(composite) {
+		panic("The \"composite\" attribute is required by this class.")
 	}
 	var instance = &document_{
 		// Initialize the instance attributes.
 		optionalComment_: optionalComment,
-		component_:       component,
+		composite_:       composite,
 	}
 	return instance
 }
@@ -59,8 +59,8 @@ func (v *document_) GetOptionalComment() string {
 	return v.optionalComment_
 }
 
-func (v *document_) GetComponent() Composite {
-	return v.component_
+func (v *document_) GetComposite() Composite {
+	return v.composite_
 }
 
 // PROTECTED INTERFACE
@@ -72,7 +72,7 @@ func (v *document_) GetComponent() Composite {
 type document_ struct {
 	// Declare the instance attributes.
 	optionalComment_ string
-	component_       Composite
+	composite_       Composite
 }
 
 // Class Structure

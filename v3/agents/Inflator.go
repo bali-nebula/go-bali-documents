@@ -354,10 +354,10 @@ func (v *inflator_) PostprocessContent(
 	count_ uint,
 ) {
 	var note = v.stack_.RemoveLast().(string)
-	var component = v.stack_.RemoveLast().(doc.ComponentLike)
+	var composite = v.stack_.RemoveLast().(doc.Composite)
 	v.stack_.AddValue(
 		doc.ContentClass().Content(
-			component,
+			composite,
 			note,
 		),
 	)
@@ -434,9 +434,9 @@ func (v *inflator_) PostprocessDocument(
 	index_ uint,
 	count_ uint,
 ) {
-	var component = v.stack_.RemoveLast().(doc.ComponentLike)
+	var composite = v.stack_.RemoveLast().(doc.Composite)
 	var comment = v.stack_.RemoveLast().(string)
-	v.stack_.AddValue(doc.DocumentClass().Document(comment, component))
+	v.stack_.AddValue(doc.DocumentClass().Document(comment, composite))
 }
 
 func (v *inflator_) PostprocessExpression(

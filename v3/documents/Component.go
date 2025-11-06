@@ -93,7 +93,7 @@ func (v *component_) SetSubcomponent(
 	case Composite:
 		content = ContentClass().Content(actual, "")
 	case DocumentLike:
-		content = ContentClass().Content(actual.GetComponent(), "")
+		content = ContentClass().Content(actual.GetComposite(), "")
 	case ContentLike:
 		content = actual
 	default:
@@ -197,8 +197,8 @@ func (v *component_) getItem(
 	}
 	content = contents.AsArray()[index-1]
 	if len(indices) > 0 {
-		var component = content.GetComponent()
-		content = component.GetSubcomponent(indices...)
+		var composite = content.GetComposite()
+		content = composite.GetSubcomponent(indices...)
 	}
 	return content
 }
@@ -228,8 +228,8 @@ func (v *component_) setItem(
 		return
 	}
 	if len(indices) > 0 {
-		var component = contents.GetValue(index).GetComponent()
-		component.SetSubcomponent(content, indices...)
+		var composite = contents.GetValue(index).GetComposite()
+		composite.SetSubcomponent(content, indices...)
 		return
 	}
 	contents.SetValue(index, content)
@@ -260,8 +260,8 @@ func (v *component_) removeItem(
 		return content
 	}
 	content = contents.GetValue(index)
-	var component = content.GetComponent()
-	content = component.RemoveSubcomponent(indices...)
+	var composite = content.GetComposite()
+	content = composite.RemoveSubcomponent(indices...)
 	return content
 }
 
@@ -279,8 +279,8 @@ func (v *component_) getAttribute(
 		if first == second {
 			content = association.GetValue()
 			if len(indices) > 0 {
-				var component = content.GetComponent()
-				content = component.GetSubcomponent(indices...)
+				var composite = content.GetComposite()
+				content = composite.GetSubcomponent(indices...)
 			}
 			break
 		}
@@ -301,8 +301,8 @@ func (v *component_) setAttribute(
 		var second = fmt.Sprintf("%v", association.GetKey())
 		if first == second {
 			if len(indices) > 0 {
-				var component = association.GetValue().GetComponent()
-				component.SetSubcomponent(content, indices...)
+				var composite = association.GetValue().GetComposite()
+				composite.SetSubcomponent(content, indices...)
 			} else {
 				association.SetValue(content)
 			}
@@ -326,8 +326,8 @@ func (v *component_) removeAttribute(
 		if first == second {
 			if len(indices) > 0 {
 				content = association.GetValue()
-				var component = content.GetComponent()
-				content = component.RemoveSubcomponent(indices...)
+				var composite = content.GetComposite()
+				content = composite.RemoveSubcomponent(indices...)
 			} else {
 				content = associations.RemoveValue(key)
 			}

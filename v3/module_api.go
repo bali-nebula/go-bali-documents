@@ -330,11 +330,11 @@ func ContentClass() ContentClassLike {
 }
 
 func Content(
-	component doc.ComponentLike,
+	composite doc.Composite,
 	optionalNote string,
 ) ContentLike {
 	return ContentClass().Content(
-		component,
+		composite,
 		optionalNote,
 	)
 }
@@ -391,11 +391,11 @@ func DocumentClass() DocumentClassLike {
 
 func Document(
 	optionalAnnotation string,
-	component doc.Composite,
+	composite doc.Composite,
 ) DocumentLike {
 	return DocumentClass().Document(
 		optionalAnnotation,
-		component,
+		composite,
 	)
 }
 
@@ -835,7 +835,7 @@ func ParseComponent(
 	source string,
 ) Composite {
 	var document = ParseDocument(source)
-	return document.GetComponent()
+	return document.GetComposite()
 }
 
 func ParseDocument(
@@ -850,22 +850,22 @@ func ParseDocument(
 func FormatComponent(
 	value any,
 ) string {
-	var component Composite
+	var composite Composite
 	switch actual := value.(type) {
 	case Composite:
-		component = actual
+		composite = actual
 	case ConstraintLike:
 		var entity = actual.GetMetadata()
 		var generics = actual.GetOptionalGenerics()
-		component = Component(entity, generics)
+		composite = Component(entity, generics)
 	case DocumentLike:
-		component = actual.GetComponent()
+		composite = actual.GetComposite()
 	case ContentLike:
-		component = actual.GetComponent()
+		composite = actual.GetComposite()
 	default:
-		component = Component(value, nil)
+		composite = Component(value, nil)
 	}
-	var source = FormatDocument(Document("", component))
+	var source = FormatDocument(Document("", composite))
 	return source[:len(source)-1] // Remove the trailing newline.
 }
 

@@ -27,15 +27,15 @@ func ContentClass() ContentClassLike {
 // Constructor Methods
 
 func (c *contentClass_) Content(
-	component Composite,
+	composite Composite,
 	optionalNote string,
 ) ContentLike {
-	if uti.IsUndefined(component) {
-		panic("The \"component\" attribute is required by this class.")
+	if uti.IsUndefined(composite) {
+		panic("The \"composite\" attribute is required by this class.")
 	}
 	var instance = &content_{
 		// Initialize the instance attributes.
-		component_:    component,
+		composite_:    composite,
 		optionalNote_: optionalNote,
 	}
 	return instance
@@ -55,8 +55,8 @@ func (v *content_) GetClass() ContentClassLike {
 
 // Attribute Methods
 
-func (v *content_) GetComponent() Composite {
-	return v.component_
+func (v *content_) GetComposite() Composite {
+	return v.composite_
 }
 
 func (v *content_) GetOptionalNote() string {
@@ -71,7 +71,7 @@ func (v *content_) GetOptionalNote() string {
 
 type content_ struct {
 	// Declare the instance attributes.
-	component_    Composite
+	composite_    Composite
 	optionalNote_ string
 }
 

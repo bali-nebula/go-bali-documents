@@ -183,7 +183,7 @@ content-like class.
 type ContentClassLike interface {
 	// Constructor Methods
 	Content(
-		component Composite,
+		composite Composite,
 		optionalNote string,
 	) ContentLike
 }
@@ -244,7 +244,7 @@ type DocumentClassLike interface {
 	// Constructor Methods
 	Document(
 		optionalComment string,
-		component Composite,
+		composite Composite,
 	) DocumentLike
 }
 
@@ -738,7 +738,7 @@ type ContentLike interface {
 	GetClass() ContentClassLike
 
 	// Attribute Methods
-	GetComponent() Composite
+	GetComposite() Composite
 	GetOptionalNote() string
 }
 
@@ -803,7 +803,7 @@ type DocumentLike interface {
 
 	// Attribute Methods
 	GetOptionalComment() string
-	GetComponent() Composite
+	GetComposite() Composite
 }
 
 /*

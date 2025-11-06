@@ -306,21 +306,21 @@ func (v *processor_) PostprocessComplement(
 ) {
 }
 
-func (v *processor_) PreprocessComponent(
-	component doc.Composite,
+func (v *processor_) PreprocessComposite(
+	composite doc.Composite,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessComponentSlot(
-	component doc.Composite,
+func (v *processor_) ProcessCompositeSlot(
+	composite doc.Composite,
 	slot_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessComponent(
-	component doc.Composite,
+func (v *processor_) PostprocessComposite(
+	composite doc.Composite,
 	index_ uint,
 	count_ uint,
 ) {
