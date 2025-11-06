@@ -863,7 +863,7 @@ func FormatComponent(
 	case ContentLike:
 		composite = actual.GetComposite()
 	default:
-		composite = Component(value, nil)
+		composite = Component(actual, nil)
 	}
 	var source = FormatDocument(Document("", composite))
 	return source[:len(source)-1] // Remove the trailing newline.
