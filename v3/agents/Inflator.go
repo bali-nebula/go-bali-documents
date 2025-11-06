@@ -422,8 +422,8 @@ func (v *inflator_) PreprocessDocument(
 	count_ uint,
 ) {
 	var comment string
-	var header = document.GetOptionalHeader()
-	if uti.IsUndefined(header) {
+	var heading = document.GetOptionalHeading()
+	if uti.IsUndefined(heading) {
 		// We only add it if it is not defined, otherwise ProcessComment adds it.
 		v.stack_.AddValue(comment)
 	}

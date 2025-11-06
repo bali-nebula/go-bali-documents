@@ -427,7 +427,7 @@ func (v *deflator_) PostprocessComplement(
 }
 
 func (v *deflator_) ProcessComponentSlot(
-	component doc.Compound,
+	component doc.Composite,
 	slot_ uint,
 ) {
 	switch slot_ {
@@ -440,7 +440,7 @@ func (v *deflator_) ProcessComponentSlot(
 }
 
 func (v *deflator_) PostprocessComponent(
-	component doc.Compound,
+	component doc.Composite,
 	index_ uint,
 	count_ uint,
 ) {
@@ -575,14 +575,14 @@ func (v *deflator_) PostprocessDocument(
 	count_ uint,
 ) {
 	var component = v.stack_.RemoveLast().(not.ComponentLike)
-	var header not.HeaderLike
+	var heading not.HeadingLike
 	var comment = v.stack_.RemoveLast().(string)
 	if uti.IsDefined(comment) {
-		header = not.Header(comment)
+		heading = not.Heading(comment)
 	}
 	v.stack_.AddValue(
 		not.Document(
-			header,
+			heading,
 			component,
 		),
 	)

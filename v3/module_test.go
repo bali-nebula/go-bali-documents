@@ -71,19 +71,19 @@ func TestSubcomponentAccess(t *tes.T) {
 	var source = `[ ]`
 	var component = doc.ParseComponent(source)
 	var index = 1
-	var composite = component.GetSubcomponent(index)
-	ass.Equal(t, nil, composite)
+	var content = component.GetSubcomponent(index)
+	ass.Equal(t, nil, content)
 
 	var component2 = doc.ParseComponent("$new")
-	index = 0 // Append a new composite.
+	index = 0 // Append a new content.
 	component.SetSubcomponent(component2, index)
 	index = 1
-	composite = component.GetSubcomponent(index)
-	ass.Equal(t, "$new", doc.FormatComponent(composite))
-	composite = component.RemoveSubcomponent(index)
-	ass.Equal(t, "$new", doc.FormatComponent(composite))
-	composite = component.GetSubcomponent(index)
-	ass.Equal(t, nil, composite)
+	content = component.GetSubcomponent(index)
+	ass.Equal(t, "$new", doc.FormatComponent(content))
+	content = component.RemoveSubcomponent(index)
+	ass.Equal(t, "$new", doc.FormatComponent(content))
+	content = component.GetSubcomponent(index)
+	ass.Equal(t, nil, content)
 
 	source = `[
     $alpha
@@ -92,29 +92,29 @@ func TestSubcomponentAccess(t *tes.T) {
 ]`
 	component = doc.ParseComponent(source)
 	index = 1
-	composite = component.GetSubcomponent(index)
-	ass.Equal(t, "$alpha", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index)
+	ass.Equal(t, "$alpha", doc.FormatComponent(content))
 	index = 2
-	composite = component.GetSubcomponent(index)
-	ass.Equal(t, "$beta", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index)
+	ass.Equal(t, "$beta", doc.FormatComponent(content))
 	index = 3
-	composite = component.GetSubcomponent(index)
-	ass.Equal(t, "$gamma", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index)
+	ass.Equal(t, "$gamma", doc.FormatComponent(content))
 	component2 = doc.ParseComponent("$delta")
 	component.SetSubcomponent(component2, index)
-	composite = component.GetSubcomponent(index)
-	ass.Equal(t, "$delta", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index)
+	ass.Equal(t, "$delta", doc.FormatComponent(content))
 	index = 0
 	component2 = doc.ParseComponent("$epsilon")
 	component.SetSubcomponent(component2, index)
 	index = 4
-	composite = component.GetSubcomponent(index)
-	ass.Equal(t, "$epsilon", doc.FormatComponent(composite))
-	composite = component.RemoveSubcomponent(index)
-	ass.Equal(t, "$epsilon", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index)
+	ass.Equal(t, "$epsilon", doc.FormatComponent(content))
+	content = component.RemoveSubcomponent(index)
+	ass.Equal(t, "$epsilon", doc.FormatComponent(content))
 	index = -1
-	composite = component.GetSubcomponent(index)
-	ass.Equal(t, "$delta", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index)
+	ass.Equal(t, "$delta", doc.FormatComponent(content))
 
 	source = `[
     $alpha: "1"
@@ -123,23 +123,23 @@ func TestSubcomponentAccess(t *tes.T) {
 ]`
 	component = doc.ParseComponent(source)
 	var key = doc.Symbol("alpha")
-	composite = component.GetSubcomponent(key)
-	ass.Equal(t, "\"1\"", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(key)
+	ass.Equal(t, "\"1\"", doc.FormatComponent(content))
 	key = doc.Symbol("beta")
-	composite = component.GetSubcomponent(key)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(key)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(content))
 	key = doc.Symbol("gamma")
-	composite = component.GetSubcomponent(key)
-	ass.Equal(t, "\"3\"", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(key)
+	ass.Equal(t, "\"3\"", doc.FormatComponent(content))
 	component2 = doc.ParseComponent("\"5\"")
 	component.SetSubcomponent(component2, key)
-	composite = component.GetSubcomponent(key)
-	ass.Equal(t, "\"5\"", doc.FormatComponent(composite))
-	composite = component.RemoveSubcomponent(key)
-	ass.Equal(t, "\"5\"", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(key)
+	ass.Equal(t, "\"5\"", doc.FormatComponent(content))
+	content = component.RemoveSubcomponent(key)
+	ass.Equal(t, "\"5\"", doc.FormatComponent(content))
 	key = doc.Symbol("beta")
-	composite = component.GetSubcomponent(key)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(key)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(content))
 
 	source = `[
     $items: [
@@ -156,22 +156,22 @@ func TestSubcomponentAccess(t *tes.T) {
 	component = doc.ParseComponent(source)
 	key = doc.Symbol("items")
 	index = 2
-	composite = component.GetSubcomponent(key, index)
-	ass.Equal(t, "2", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(key, index)
+	ass.Equal(t, "2", doc.FormatComponent(content))
 	key = doc.Symbol("attributes")
 	var key2 = doc.Symbol("gamma")
-	composite = component.GetSubcomponent(key, key2)
-	ass.Equal(t, "\"3\"", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(key, key2)
+	ass.Equal(t, "\"3\"", doc.FormatComponent(content))
 	key2 = doc.Symbol("delta")
 	component2 = doc.ParseComponent("\"4\"")
 	component.SetSubcomponent(component2, key, key2)
-	composite = component.GetSubcomponent(key, key2)
-	ass.Equal(t, "\"4\"", doc.FormatComponent(composite))
-	composite = component.RemoveSubcomponent(key, key2)
-	ass.Equal(t, "\"4\"", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(key, key2)
+	ass.Equal(t, "\"4\"", doc.FormatComponent(content))
+	content = component.RemoveSubcomponent(key, key2)
+	ass.Equal(t, "\"4\"", doc.FormatComponent(content))
 	key2 = doc.Symbol("beta")
-	composite = component.GetSubcomponent(key, key2)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(key, key2)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(content))
 
 	source = `[
     [
@@ -195,34 +195,34 @@ func TestSubcomponentAccess(t *tes.T) {
 	component = doc.ParseComponent(source)
 	index = 1
 	var index2 = 2
-	composite = component.GetSubcomponent(index, index2)
-	ass.Equal(t, "2", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index, index2)
+	ass.Equal(t, "2", doc.FormatComponent(content))
 	index = 2
 	key2 = doc.Symbol("beta")
-	composite = component.GetSubcomponent(index, key2)
-	ass.Equal(t, "\"2\"", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index, key2)
+	ass.Equal(t, "\"2\"", doc.FormatComponent(content))
 	index = 1
 	index2 = 3
 	var key3 = doc.Angle("~tau")
-	composite = component.GetSubcomponent(index, index2, key3)
-	ass.Equal(t, "6.28", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index, index2, key3)
+	ass.Equal(t, "6.28", doc.FormatComponent(content))
 	component2 = doc.ParseComponent("~τ")
 	component.SetSubcomponent(component2, index, index2, key3)
-	composite = component.GetSubcomponent(index, index2, key3)
-	ass.Equal(t, "~τ", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index, index2, key3)
+	ass.Equal(t, "~τ", doc.FormatComponent(content))
 	index = 2
 	key2 = doc.Symbol("alpha")
 	var index3 = -1
 	component.RemoveSubcomponent(index, key2, index3)
-	composite = component.GetSubcomponent(index, key2, index3)
-	ass.Equal(t, "'b'", doc.FormatComponent(composite))
+	content = component.GetSubcomponent(index, key2, index3)
+	ass.Equal(t, "'b'", doc.FormatComponent(content))
 	index = 3
-	composite = component.GetSubcomponent(index)
-	ass.Equal(t, nil, composite)
+	content = component.GetSubcomponent(index)
+	ass.Equal(t, nil, content)
 	index = 2
 	key2 = doc.Symbol("delta")
-	composite = component.GetSubcomponent(index, key2)
-	ass.Equal(t, nil, composite)
+	content = component.GetSubcomponent(index, key2)
+	ass.Equal(t, nil, content)
 }
 
 func TestModuleFunctions(t *tes.T) {

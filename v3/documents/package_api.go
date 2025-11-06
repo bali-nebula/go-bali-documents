@@ -183,7 +183,7 @@ content-like class.
 type ContentClassLike interface {
 	// Constructor Methods
 	Content(
-		component Compound,
+		component Composite,
 		optionalNote string,
 	) ContentLike
 }
@@ -244,7 +244,7 @@ type DocumentClassLike interface {
 	// Constructor Methods
 	Document(
 		optionalComment string,
-		component Compound,
+		component Composite,
 	) DocumentLike
 }
 
@@ -725,7 +725,7 @@ type ComponentLike interface {
 	GetClass() ComponentClassLike
 
 	// Aspect Interfaces
-	Compound
+	Composite
 }
 
 /*
@@ -738,7 +738,7 @@ type ContentLike interface {
 	GetClass() ContentClassLike
 
 	// Attribute Methods
-	GetComponent() Compound
+	GetComponent() Composite
 	GetOptionalNote() string
 }
 
@@ -803,7 +803,7 @@ type DocumentLike interface {
 
 	// Attribute Methods
 	GetOptionalComment() string
-	GetComponent() Compound
+	GetComponent() Composite
 }
 
 /*
@@ -1240,15 +1240,15 @@ type WithClauseLike interface {
 // ASPECT DECLARATIONS
 
 /*
-Compound declares the set of method signatures that must be supported by
-all compound documents.
+Composite declares the set of method signatures that must be supported by
+all composite documents.
 */
-type Compound interface {
+type Composite interface {
 	GetEntity() any
 	GetOptionalGenerics() GenericsLike
 	GetParameter(
 		symbol pri.SymbolLike,
-	) Compound
+	) Composite
 	SetSubcomponent(
 		value any,
 		indices ...any,

@@ -229,7 +229,7 @@ func (v *visitor_) visitComplement(
 }
 
 func (v *visitor_) visitComponent(
-	component doc.Compound,
+	component doc.Composite,
 ) {
 	var entity = component.GetEntity()
 	v.processor_.PreprocessEntity(

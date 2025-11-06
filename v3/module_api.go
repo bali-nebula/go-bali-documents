@@ -110,7 +110,7 @@ type (
 	CheckoutClauseClassLike = doc.CheckoutClauseClassLike
 	ComplementClassLike     = doc.ComplementClassLike
 	ComponentClassLike      = doc.ComponentClassLike
-	ContentClassLike      = doc.ContentClassLike
+	ContentClassLike        = doc.ContentClassLike
 	ConstraintClassLike     = doc.ConstraintClassLike
 	ContinueClauseClassLike = doc.ContinueClauseClassLike
 	DiscardClauseClassLike  = doc.DiscardClauseClassLike
@@ -156,7 +156,7 @@ type (
 	CheckoutClauseLike = doc.CheckoutClauseLike
 	ComplementLike     = doc.ComplementLike
 	ComponentLike      = doc.ComponentLike
-	ContentLike      = doc.ContentLike
+	ContentLike        = doc.ContentLike
 	ConstraintLike     = doc.ConstraintLike
 	ContinueClauseLike = doc.ContinueClauseLike
 	DiscardClauseLike  = doc.DiscardClauseLike
@@ -196,7 +196,7 @@ type (
 )
 
 type (
-	Compound = doc.Compound
+	Composite = doc.Composite
 )
 
 // CLASS ACCESSORS
@@ -391,7 +391,7 @@ func DocumentClass() DocumentClassLike {
 
 func Document(
 	optionalAnnotation string,
-	component doc.Compound,
+	component doc.Composite,
 ) DocumentLike {
 	return DocumentClass().Document(
 		optionalAnnotation,
@@ -833,7 +833,7 @@ func WithClause(
 
 func ParseComponent(
 	source string,
-) Compound {
+) Composite {
 	var document = ParseDocument(source)
 	return document.GetComponent()
 }
@@ -850,9 +850,9 @@ func ParseDocument(
 func FormatComponent(
 	value any,
 ) string {
-	var component Compound
+	var component Composite
 	switch actual := value.(type) {
-	case Compound:
+	case Composite:
 		component = actual
 	case ConstraintLike:
 		var entity = actual.GetMetadata()

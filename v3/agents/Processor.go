@@ -307,20 +307,20 @@ func (v *processor_) PostprocessComplement(
 }
 
 func (v *processor_) PreprocessComponent(
-	component doc.Compound,
+	component doc.Composite,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *processor_) ProcessComponentSlot(
-	component doc.Compound,
+	component doc.Composite,
 	slot_ uint,
 ) {
 }
 
 func (v *processor_) PostprocessComponent(
-	component doc.Compound,
+	component doc.Composite,
 	index_ uint,
 	count_ uint,
 ) {

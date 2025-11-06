@@ -27,7 +27,7 @@ func ContentClass() ContentClassLike {
 // Constructor Methods
 
 func (c *contentClass_) Content(
-	component Compound,
+	component Composite,
 	optionalNote string,
 ) ContentLike {
 	if uti.IsUndefined(component) {
@@ -55,7 +55,7 @@ func (v *content_) GetClass() ContentClassLike {
 
 // Attribute Methods
 
-func (v *content_) GetComponent() Compound {
+func (v *content_) GetComponent() Composite {
 	return v.component_
 }
 
@@ -71,7 +71,7 @@ func (v *content_) GetOptionalNote() string {
 
 type content_ struct {
 	// Declare the instance attributes.
-	component_    Compound
+	component_    Composite
 	optionalNote_ string
 }
 

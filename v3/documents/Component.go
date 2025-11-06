@@ -56,7 +56,7 @@ func (v *component_) GetClass() ComponentClassLike {
 	return componentClass()
 }
 
-// Compound Methods
+// Composite Methods
 
 func (v *component_) GetEntity() any {
 	return v.entity_
@@ -68,8 +68,8 @@ func (v *component_) GetOptionalGenerics() GenericsLike {
 
 func (v *component_) GetParameter(
 	symbol pri.SymbolLike,
-) Compound {
-	var parameter Compound
+) Composite {
+	var parameter Composite
 	var generics = v.GetOptionalGenerics()
 	if uti.IsDefined(generics) {
 		var parameters = generics.GetParameters()
@@ -90,7 +90,7 @@ func (v *component_) SetSubcomponent(
 ) {
 	var content ContentLike
 	switch actual := value.(type) {
-	case Compound:
+	case Composite:
 		content = ContentClass().Content(actual, "")
 	case DocumentLike:
 		content = ContentClass().Content(actual.GetComponent(), "")

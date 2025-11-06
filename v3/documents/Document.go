@@ -28,7 +28,7 @@ func DocumentClass() DocumentClassLike {
 
 func (c *documentClass_) Document(
 	optionalComment string,
-	component Compound,
+	component Composite,
 ) DocumentLike {
 	if uti.IsUndefined(component) {
 		panic("The \"component\" attribute is required by this class.")
@@ -59,7 +59,7 @@ func (v *document_) GetOptionalComment() string {
 	return v.optionalComment_
 }
 
-func (v *document_) GetComponent() Compound {
+func (v *document_) GetComponent() Composite {
 	return v.component_
 }
 
@@ -72,7 +72,7 @@ func (v *document_) GetComponent() Compound {
 type document_ struct {
 	// Declare the instance attributes.
 	optionalComment_ string
-	component_       Compound
+	component_       Composite
 }
 
 // Class Structure
