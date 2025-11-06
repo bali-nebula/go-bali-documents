@@ -110,7 +110,7 @@ type (
 	CheckoutClauseClassLike = doc.CheckoutClauseClassLike
 	ComplementClassLike     = doc.ComplementClassLike
 	ComponentClassLike      = doc.ComponentClassLike
-	CompositeClassLike      = doc.CompositeClassLike
+	ContentClassLike      = doc.ContentClassLike
 	ConstraintClassLike     = doc.ConstraintClassLike
 	ContinueClauseClassLike = doc.ContinueClauseClassLike
 	DiscardClauseClassLike  = doc.DiscardClauseClassLike
@@ -156,7 +156,7 @@ type (
 	CheckoutClauseLike = doc.CheckoutClauseLike
 	ComplementLike     = doc.ComplementLike
 	ComponentLike      = doc.ComponentLike
-	CompositeLike      = doc.CompositeLike
+	ContentLike      = doc.ContentLike
 	ConstraintLike     = doc.ConstraintLike
 	ContinueClauseLike = doc.ContinueClauseLike
 	DiscardClauseLike  = doc.DiscardClauseLike
@@ -268,7 +268,7 @@ func AttributesClass() AttributesClassLike {
 }
 
 func Attributes(
-	associations com.CatalogLike[any, doc.CompositeLike],
+	associations com.CatalogLike[any, doc.ContentLike],
 ) AttributesLike {
 	return AttributesClass().Attributes(
 		associations,
@@ -325,15 +325,15 @@ func Component(
 	)
 }
 
-func CompositeClass() CompositeClassLike {
-	return doc.CompositeClass()
+func ContentClass() ContentClassLike {
+	return doc.ContentClass()
 }
 
-func Composite(
+func Content(
 	component doc.ComponentLike,
 	optionalNote string,
-) CompositeLike {
-	return CompositeClass().Composite(
+) ContentLike {
+	return ContentClass().Content(
 		component,
 		optionalNote,
 	)
@@ -391,7 +391,7 @@ func DocumentClass() DocumentClassLike {
 
 func Document(
 	optionalAnnotation string,
-	component doc.ComponentLike,
+	component doc.Compound,
 ) DocumentLike {
 	return DocumentClass().Document(
 		optionalAnnotation,
@@ -486,10 +486,10 @@ func ItemsClass() ItemsClassLike {
 }
 
 func Items(
-	composites com.Sequential[doc.CompositeLike],
+	contents com.Sequential[doc.ContentLike],
 ) ItemsLike {
 	return ItemsClass().Items(
-		composites,
+		contents,
 	)
 }
 
@@ -833,7 +833,7 @@ func WithClause(
 
 func ParseComponent(
 	source string,
-) ComponentLike {
+) Compound {
 	var document = ParseDocument(source)
 	return document.GetComponent()
 }
@@ -850,9 +850,9 @@ func ParseDocument(
 func FormatComponent(
 	value any,
 ) string {
-	var component ComponentLike
+	var component Compound
 	switch actual := value.(type) {
-	case ComponentLike:
+	case Compound:
 		component = actual
 	case ConstraintLike:
 		var entity = actual.GetMetadata()
@@ -860,7 +860,7 @@ func FormatComponent(
 		component = Component(entity, generics)
 	case DocumentLike:
 		component = actual.GetComponent()
-	case CompositeLike:
+	case ContentLike:
 		component = actual.GetComponent()
 	default:
 		component = Component(value, nil)

@@ -134,15 +134,15 @@ func (v *visitor_) visitAttributes(
 		var association = associations.GetNext()
 		var primitive = association.GetKey()
 		v.visitPrimitive(primitive)
-		var composite = association.GetValue()
-		v.processor_.PreprocessComposite(
-			composite,
+		var content = association.GetValue()
+		v.processor_.PreprocessContent(
+			content,
 			associationsIndex,
 			associationsCount,
 		)
-		v.visitComposite(composite)
-		v.processor_.PostprocessComposite(
-			composite,
+		v.visitContent(content)
+		v.processor_.PostprocessContent(
+			content,
 			associationsIndex,
 			associationsCount,
 		)
@@ -229,7 +229,7 @@ func (v *visitor_) visitComplement(
 }
 
 func (v *visitor_) visitComponent(
-	component doc.ComponentLike,
+	component doc.Compound,
 ) {
 	var entity = component.GetEntity()
 	v.processor_.PreprocessEntity(
@@ -266,10 +266,10 @@ func (v *visitor_) visitComponent(
 	}
 }
 
-func (v *visitor_) visitComposite(
-	composite doc.CompositeLike,
+func (v *visitor_) visitContent(
+	content doc.ContentLike,
 ) {
-	var component = composite.GetComponent()
+	var component = content.GetComponent()
 	v.processor_.PreprocessComponent(
 		component,
 		0,
@@ -283,12 +283,12 @@ func (v *visitor_) visitComposite(
 	)
 
 	// Visit slot 1 between terms.
-	v.processor_.ProcessCompositeSlot(
-		composite,
+	v.processor_.ProcessContentSlot(
+		content,
 		1,
 	)
 
-	var optionalNote = composite.GetOptionalNote()
+	var optionalNote = content.GetOptionalNote()
 	if uti.IsDefined(optionalNote) {
 		v.processor_.ProcessNote(optionalNote)
 	}
@@ -374,9 +374,9 @@ func (v *visitor_) visitDoClause(
 func (v *visitor_) visitDocument(
 	document doc.DocumentLike,
 ) {
-	var optionalAnnotation = document.GetOptionalAnnotation()
-	if uti.IsDefined(optionalAnnotation) {
-		v.processor_.ProcessAnnotation(optionalAnnotation)
+	var comment = document.GetOptionalComment()
+	if uti.IsDefined(comment) {
+		v.processor_.ProcessComment(comment)
 	}
 	var component = document.GetComponent()
 	v.processor_.PreprocessComponent(
@@ -681,22 +681,22 @@ func (v *visitor_) visitInversion(
 func (v *visitor_) visitItems(
 	items doc.ItemsLike,
 ) {
-	var compositesIndex uint
-	var composites = items.GetComposites().GetIterator()
-	var compositesCount = uint(composites.GetSize())
-	for composites.HasNext() {
-		compositesIndex++
-		var composite = composites.GetNext()
-		v.processor_.PreprocessComposite(
-			composite,
-			compositesIndex,
-			compositesCount,
+	var contentsIndex uint
+	var contents = items.GetContents().GetIterator()
+	var contentsCount = uint(contents.GetSize())
+	for contents.HasNext() {
+		contentsIndex++
+		var content = contents.GetNext()
+		v.processor_.PreprocessContent(
+			content,
+			contentsIndex,
+			contentsCount,
 		)
-		v.visitComposite(composite)
-		v.processor_.PostprocessComposite(
-			composite,
-			compositesIndex,
-			compositesCount,
+		v.visitContent(content)
+		v.processor_.PostprocessContent(
+			content,
+			contentsIndex,
+			contentsCount,
 		)
 	}
 }

@@ -56,7 +56,7 @@ func (v *component_) GetClass() ComponentClassLike {
 	return componentClass()
 }
 
-// Compound Method
+// Compound Methods
 
 func (v *component_) GetEntity() any {
 	return v.entity_
@@ -68,8 +68,8 @@ func (v *component_) GetOptionalGenerics() GenericsLike {
 
 func (v *component_) GetParameter(
 	symbol pri.SymbolLike,
-) ComponentLike {
-	var parameter ComponentLike
+) Compound {
+	var parameter Compound
 	var generics = v.GetOptionalGenerics()
 	if uti.IsDefined(generics) {
 		var parameters = generics.GetParameters()
@@ -88,88 +88,88 @@ func (v *component_) SetSubcomponent(
 	value any,
 	indices ...any,
 ) {
-	var composite CompositeLike
+	var content ContentLike
 	switch actual := value.(type) {
-	case ComponentLike:
-		composite = CompositeClass().Composite(actual, "")
+	case Compound:
+		content = ContentClass().Content(actual, "")
 	case DocumentLike:
-		composite = CompositeClass().Composite(actual.GetComponent(), "")
-	case CompositeLike:
-		composite = actual
+		content = ContentClass().Content(actual.GetComponent(), "")
+	case ContentLike:
+		content = actual
 	default:
-		composite = CompositeClass().Composite(
+		content = ContentClass().Content(
 			componentClass().Component(value, nil), "",
 		)
 	}
-	if uti.IsDefined(composite) && len(indices) > 0 {
+	if uti.IsDefined(content) && len(indices) > 0 {
 		var key = indices[0]
 		indices = indices[1:]
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
-			switch composites := collection.GetComposites().(type) {
-			case com.ListLike[CompositeLike]:
+			switch contents := collection.GetContents().(type) {
+			case com.ListLike[ContentLike]:
 				var index = key.(int)
-				v.setItem(composites, composite, index, indices...)
+				v.setItem(contents, content, index, indices...)
 			default:
 				var message = fmt.Sprintf(
 					"Attempted to set an item in a non-list type: %T",
-					composites,
+					contents,
 				)
 				panic(message)
 			}
 		case AttributesLike:
 			var associations = collection.GetAssociations()
-			v.setAttribute(associations, key, composite, indices...)
+			v.setAttribute(associations, key, content, indices...)
 		}
 	}
 }
 
 func (v *component_) GetSubcomponent(
 	indices ...any,
-) CompositeLike {
-	var composite CompositeLike
+) ContentLike {
+	var content ContentLike
 	if len(indices) > 0 {
 		var key = indices[0]
 		indices = indices[1:]
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
-			var composites = collection.GetComposites()
+			var contents = collection.GetContents()
 			var index = key.(int)
-			composite = v.getItem(composites, index, indices...)
+			content = v.getItem(contents, index, indices...)
 		case AttributesLike:
 			var associations = collection.GetAssociations()
-			composite = v.getAttribute(associations, key, indices...)
+			content = v.getAttribute(associations, key, indices...)
 		}
 	}
-	return composite
+	return content
 }
 
 func (v *component_) RemoveSubcomponent(
 	indices ...any,
-) CompositeLike {
-	var composite CompositeLike
+) ContentLike {
+	var content ContentLike
 	if len(indices) > 0 {
 		var key = indices[0]
 		indices = indices[1:]
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
-			switch composites := collection.GetComposites().(type) {
-			case com.ListLike[CompositeLike]:
+			switch contents := collection.GetContents().(type) {
+			case com.ListLike[ContentLike]:
 				var index = key.(int)
-				composite = v.removeItem(composites, index, indices...)
+				content = v.removeItem(contents, index, indices...)
 			default:
 				var message = fmt.Sprintf(
 					"Attempted to remove an item from a non-list type: %T",
-					composites,
+					contents,
 				)
 				panic(message)
 			}
 		case AttributesLike:
 			var associations = collection.GetAssociations()
-			composite = v.removeAttribute(associations, key, indices...)
+			content = v.removeAttribute(associations, key, indices...)
 		}
 	}
-	return composite
+	return content
 }
 
 // PROTECTED INTERFACE
@@ -177,15 +177,15 @@ func (v *component_) RemoveSubcomponent(
 // Private Methods
 
 func (v *component_) getItem(
-	composites com.Sequential[CompositeLike],
+	contents com.Sequential[ContentLike],
 	index int,
 	indices ...any,
-) CompositeLike {
-	var composite CompositeLike
-	var size = int(composites.GetSize())
+) ContentLike {
+	var content ContentLike
+	var size = int(contents.GetSize())
 	if size == 0 {
-		// The list of composites is empty.
-		return composite
+		// The list of contents is empty.
+		return content
 	}
 	if index < 0 {
 		// Negative indices start from the end of the list.
@@ -193,28 +193,28 @@ func (v *component_) getItem(
 	}
 	if index > size {
 		// The index is out of bounds.
-		return composite
+		return content
 	}
-	composite = composites.AsArray()[index-1]
+	content = contents.AsArray()[index-1]
 	if len(indices) > 0 {
-		var component = composite.GetComponent()
-		composite = component.GetSubcomponent(indices...)
+		var component = content.GetComponent()
+		content = component.GetSubcomponent(indices...)
 	}
-	return composite
+	return content
 }
 
 func (v *component_) setItem(
-	composites com.ListLike[CompositeLike],
-	composite CompositeLike,
+	contents com.ListLike[ContentLike],
+	content ContentLike,
 	index int,
 	indices ...any,
 ) {
 	if index == 0 && len(indices) == 0 {
 		// Append the attribute to the end of the list.
-		composites.AppendValue(composite)
+		contents.AppendValue(content)
 		return
 	}
-	var size = int(composites.GetSize())
+	var size = int(contents.GetSize())
 	if size == 0 {
 		// The list is empty.
 		return
@@ -228,23 +228,23 @@ func (v *component_) setItem(
 		return
 	}
 	if len(indices) > 0 {
-		var component = composites.GetValue(index).GetComponent()
-		component.SetSubcomponent(composite, indices...)
+		var component = contents.GetValue(index).GetComponent()
+		component.SetSubcomponent(content, indices...)
 		return
 	}
-	composites.SetValue(index, composite)
+	contents.SetValue(index, content)
 }
 
 func (v *component_) removeItem(
-	composites com.ListLike[CompositeLike],
+	contents com.ListLike[ContentLike],
 	index int,
 	indices ...any,
-) CompositeLike {
-	var composite CompositeLike
-	var size = int(composites.GetSize())
+) ContentLike {
+	var content ContentLike
+	var size = int(contents.GetSize())
 	if size == 0 {
-		// The list of composites is empty.
-		return composite
+		// The list of contents is empty.
+		return content
 	}
 	if index < 0 {
 		// Negative indices start from the end of the list.
@@ -252,46 +252,46 @@ func (v *component_) removeItem(
 	}
 	if index > size {
 		// The index is out of bounds.
-		return composite
+		return content
 	}
 	if len(indices) == 0 {
-		composite = composites.GetValue(index)
-		composites.RemoveValue(index)
-		return composite
+		content = contents.GetValue(index)
+		contents.RemoveValue(index)
+		return content
 	}
-	composite = composites.GetValue(index)
-	var component = composite.GetComponent()
-	composite = component.RemoveSubcomponent(indices...)
-	return composite
+	content = contents.GetValue(index)
+	var component = content.GetComponent()
+	content = component.RemoveSubcomponent(indices...)
+	return content
 }
 
 func (v *component_) getAttribute(
-	associations com.CatalogLike[any, CompositeLike],
+	associations com.CatalogLike[any, ContentLike],
 	key any,
 	indices ...any,
-) CompositeLike {
-	var composite CompositeLike
+) ContentLike {
+	var content ContentLike
 	var first = fmt.Sprintf("%v", key)
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
 		var association = iterator.GetNext()
 		var second = fmt.Sprintf("%v", association.GetKey())
 		if first == second {
-			composite = association.GetValue()
+			content = association.GetValue()
 			if len(indices) > 0 {
-				var component = composite.GetComponent()
-				composite = component.GetSubcomponent(indices...)
+				var component = content.GetComponent()
+				content = component.GetSubcomponent(indices...)
 			}
 			break
 		}
 	}
-	return composite
+	return content
 }
 
 func (v *component_) setAttribute(
-	associations com.CatalogLike[any, CompositeLike],
+	associations com.CatalogLike[any, ContentLike],
 	key any,
-	composite CompositeLike,
+	content ContentLike,
 	indices ...any,
 ) {
 	var first = fmt.Sprintf("%v", key)
@@ -302,22 +302,22 @@ func (v *component_) setAttribute(
 		if first == second {
 			if len(indices) > 0 {
 				var component = association.GetValue().GetComponent()
-				component.SetSubcomponent(composite, indices...)
+				component.SetSubcomponent(content, indices...)
 			} else {
-				association.SetValue(composite)
+				association.SetValue(content)
 			}
 			return
 		}
 	}
-	associations.SetValue(key, composite)
+	associations.SetValue(key, content)
 }
 
 func (v *component_) removeAttribute(
-	associations com.CatalogLike[any, CompositeLike],
+	associations com.CatalogLike[any, ContentLike],
 	key any,
 	indices ...any,
-) CompositeLike {
-	var composite CompositeLike
+) ContentLike {
+	var content ContentLike
 	var first = fmt.Sprintf("%v", key)
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
@@ -325,16 +325,16 @@ func (v *component_) removeAttribute(
 		var second = fmt.Sprintf("%v", association.GetKey())
 		if first == second {
 			if len(indices) > 0 {
-				composite = association.GetValue()
-				var component = composite.GetComponent()
-				composite = component.RemoveSubcomponent(indices...)
+				content = association.GetValue()
+				var component = content.GetComponent()
+				content = component.RemoveSubcomponent(indices...)
 			} else {
-				composite = associations.RemoveValue(key)
+				content = associations.RemoveValue(key)
 			}
 			break
 		}
 	}
-	return composite
+	return content
 }
 
 // Instance Structure

@@ -27,16 +27,16 @@ func DocumentClass() DocumentClassLike {
 // Constructor Methods
 
 func (c *documentClass_) Document(
-	optionalAnnotation string,
-	component ComponentLike,
+	optionalComment string,
+	component Compound,
 ) DocumentLike {
 	if uti.IsUndefined(component) {
 		panic("The \"component\" attribute is required by this class.")
 	}
 	var instance = &document_{
 		// Initialize the instance attributes.
-		optionalAnnotation_: optionalAnnotation,
-		component_:          component,
+		optionalComment_: optionalComment,
+		component_:       component,
 	}
 	return instance
 }
@@ -55,11 +55,11 @@ func (v *document_) GetClass() DocumentClassLike {
 
 // Attribute Methods
 
-func (v *document_) GetOptionalAnnotation() string {
-	return v.optionalAnnotation_
+func (v *document_) GetOptionalComment() string {
+	return v.optionalComment_
 }
 
-func (v *document_) GetComponent() ComponentLike {
+func (v *document_) GetComponent() Compound {
 	return v.component_
 }
 
@@ -71,8 +71,8 @@ func (v *document_) GetComponent() ComponentLike {
 
 type document_ struct {
 	// Declare the instance attributes.
-	optionalAnnotation_ string
-	component_          ComponentLike
+	optionalComment_ string
+	component_       Compound
 }
 
 // Class Structure

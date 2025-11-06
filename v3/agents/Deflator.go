@@ -348,9 +348,9 @@ func (v *deflator_) PostprocessAttributes(
 	var associations = com.List[not.AssociationLike]()
 	var iterator = attributes.GetAssociations().GetIterator()
 	for iterator.HasNext() {
-		var composite = v.stack_.RemoveLast().(not.CompositeLike)
+		var content = v.stack_.RemoveLast().(not.ContentLike)
 		var primitive = not.Primitive(v.stack_.RemoveLast())
-		var association = not.Association(primitive, ":", composite)
+		var association = not.Association(primitive, ":", content)
 		associations.AppendValue(association)
 		iterator.GetNext()
 	}
@@ -427,7 +427,7 @@ func (v *deflator_) PostprocessComplement(
 }
 
 func (v *deflator_) ProcessComponentSlot(
-	component doc.ComponentLike,
+	component doc.Compound,
 	slot_ uint,
 ) {
 	switch slot_ {
@@ -440,7 +440,7 @@ func (v *deflator_) ProcessComponentSlot(
 }
 
 func (v *deflator_) PostprocessComponent(
-	component doc.ComponentLike,
+	component doc.Compound,
 	index_ uint,
 	count_ uint,
 ) {
@@ -458,28 +458,28 @@ func (v *deflator_) PostprocessComponent(
 	)
 }
 
-func (v *deflator_) ProcessCompositeSlot(
-	composite doc.CompositeLike,
+func (v *deflator_) ProcessContentSlot(
+	content doc.ContentLike,
 	slot_ uint,
 ) {
 	switch slot_ {
 	case 1:
-		if uti.IsUndefined(composite.GetOptionalNote()) {
+		if uti.IsUndefined(content.GetOptionalNote()) {
 			var note string
 			v.stack_.AddValue(note)
 		}
 	}
 }
 
-func (v *deflator_) PostprocessComposite(
-	composite doc.CompositeLike,
+func (v *deflator_) PostprocessContent(
+	content doc.ContentLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var note = v.stack_.RemoveLast().(string)
 	var component = v.stack_.RemoveLast().(not.ComponentLike)
 	v.stack_.AddValue(
-		not.Composite(
+		not.Content(
 			component,
 			note,
 		),
@@ -562,9 +562,10 @@ func (v *deflator_) PreprocessDocument(
 	index_ uint,
 	count_ uint,
 ) {
-	if uti.IsUndefined(document.GetOptionalAnnotation()) {
-		var annotation not.AnnotationLike
-		v.stack_.AddValue(annotation)
+	var comment = document.GetOptionalComment()
+	if uti.IsUndefined(comment) {
+		// We only add it if it is not defined, otherwise ProcessComment adds it.
+		v.stack_.AddValue(comment)
 	}
 }
 
@@ -574,16 +575,14 @@ func (v *deflator_) PostprocessDocument(
 	count_ uint,
 ) {
 	var component = v.stack_.RemoveLast().(not.ComponentLike)
-	var annotation not.AnnotationLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.AnnotationLike:
-		annotation = actual
-	default:
-		annotation = nil
+	var header not.HeaderLike
+	var comment = v.stack_.RemoveLast().(string)
+	if uti.IsDefined(comment) {
+		header = not.Header(comment)
 	}
 	v.stack_.AddValue(
 		not.Document(
-			annotation,
+			header,
 			component,
 		),
 	)
@@ -675,15 +674,15 @@ func (v *deflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var composites = com.List[not.CompositeLike]()
-	var iterator = items.GetComposites().GetIterator()
+	var contents = com.List[not.ContentLike]()
+	var iterator = items.GetContents().GetIterator()
 	for iterator.HasNext() {
-		var composite = v.stack_.RemoveLast().(not.CompositeLike)
-		composites.AppendValue(composite)
+		var content = v.stack_.RemoveLast().(not.ContentLike)
+		contents.AppendValue(content)
 		iterator.GetNext()
 	}
-	composites.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Collection(not.Items("[", composites, "]")))
+	contents.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Collection(not.Items("[", contents, "]")))
 }
 
 func (v *deflator_) PostprocessLetClause(

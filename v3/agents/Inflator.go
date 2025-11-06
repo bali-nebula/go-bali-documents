@@ -243,13 +243,13 @@ func (v *inflator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = com.Catalog[any, doc.CompositeLike]()
+	var catalog = com.Catalog[any, doc.ContentLike]()
 	var associations = attributes.GetAssociations()
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
-		var composite = v.stack_.RemoveLast().(doc.CompositeLike)
+		var content = v.stack_.RemoveLast().(doc.ContentLike)
 		var primitive = v.stack_.RemoveLast()
-		catalog.SetValue(primitive, composite)
+		catalog.SetValue(primitive, content)
 		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.
@@ -328,35 +328,35 @@ func (v *inflator_) PostprocessComponent(
 		generics = optional.(doc.GenericsLike)
 		switch actual := entity.(type) {
 		case doc.ItemsLike:
-			var composites = v.getComposites(actual, generics)
-			entity = doc.ItemsClass().Items(composites)
+			var contents = v.getContents(actual, generics)
+			entity = doc.ItemsClass().Items(contents)
 		}
 	}
 	v.stack_.AddValue(doc.ComponentClass().Component(entity, generics))
 }
 
-func (v *inflator_) ProcessCompositeSlot(
-	composite not.CompositeLike,
+func (v *inflator_) ProcessContentSlot(
+	content not.ContentLike,
 	slot_ uint,
 ) {
 	switch slot_ {
 	case 1:
-		if uti.IsUndefined(composite.GetOptionalNote()) {
+		if uti.IsUndefined(content.GetOptionalNote()) {
 			var note string
 			v.stack_.AddValue(note)
 		}
 	}
 }
 
-func (v *inflator_) PostprocessComposite(
-	composite not.CompositeLike,
+func (v *inflator_) PostprocessContent(
+	content not.ContentLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var note = v.stack_.RemoveLast().(string)
 	var component = v.stack_.RemoveLast().(doc.ComponentLike)
 	v.stack_.AddValue(
-		doc.CompositeClass().Composite(
+		doc.ContentClass().Content(
 			component,
 			note,
 		),
@@ -421,9 +421,11 @@ func (v *inflator_) PreprocessDocument(
 	index_ uint,
 	count_ uint,
 ) {
-	if uti.IsUndefined(document.GetOptionalAnnotation()) {
-		var annotation string
-		v.stack_.AddValue(annotation)
+	var comment string
+	var header = document.GetOptionalHeader()
+	if uti.IsUndefined(header) {
+		// We only add it if it is not defined, otherwise ProcessComment adds it.
+		v.stack_.AddValue(comment)
 	}
 }
 
@@ -433,8 +435,8 @@ func (v *inflator_) PostprocessDocument(
 	count_ uint,
 ) {
 	var component = v.stack_.RemoveLast().(doc.ComponentLike)
-	var annotation = v.stack_.RemoveLast().(string)
-	v.stack_.AddValue(doc.DocumentClass().Document(annotation, component))
+	var comment = v.stack_.RemoveLast().(string)
+	v.stack_.AddValue(doc.DocumentClass().Document(comment, component))
 }
 
 func (v *inflator_) PostprocessExpression(
@@ -540,15 +542,15 @@ func (v *inflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var composites = com.List[doc.CompositeLike]()
-	var iterator = items.GetComposites().GetIterator()
+	var contents = com.List[doc.ContentLike]()
+	var iterator = items.GetContents().GetIterator()
 	for iterator.HasNext() {
-		var composite = v.stack_.RemoveLast().(doc.CompositeLike)
-		composites.AppendValue(composite)
+		var content = v.stack_.RemoveLast().(doc.ContentLike)
+		contents.AppendValue(content)
 		iterator.GetNext()
 	}
-	composites.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(doc.ItemsClass().Items(composites))
+	contents.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(doc.ItemsClass().Items(contents))
 }
 
 func (v *inflator_) PostprocessLeft(
@@ -977,11 +979,11 @@ func (v *inflator_) PostprocessWithClause(
 
 // Private Methods
 
-func (v *inflator_) getComposites(
+func (v *inflator_) getContents(
 	items doc.ItemsLike,
 	generics doc.GenericsLike,
-) com.Sequential[doc.CompositeLike] {
-	var composites = items.GetComposites()
+) com.Sequential[doc.ContentLike] {
+	var contents = items.GetContents()
 	var dummy = doc.ComponentClass().Component(
 		pri.PatternClass().None(),
 		generics,
@@ -991,14 +993,14 @@ func (v *inflator_) getComposites(
 	case pri.ResourceLike:
 		switch entity.AsSource() {
 		case "<bali:/types/collections/Queue:v3>":
-			composites = com.QueueFromSequence(composites)
+			contents = com.QueueFromSequence(contents)
 		case "<bali:/types/collections/Set:v3>":
-			composites = com.SetFromSequence(composites)
+			contents = com.SetFromSequence(contents)
 		case "<bali:/types/collections/Stack:v3>":
-			composites = com.StackFromSequence(composites)
+			contents = com.StackFromSequence(contents)
 		}
 	}
-	return composites
+	return contents
 }
 
 // Instance Structure

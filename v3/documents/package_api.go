@@ -122,7 +122,7 @@ attributes-like class.
 type AttributesClassLike interface {
 	// Constructor Methods
 	Attributes(
-		associations com.CatalogLike[any, CompositeLike],
+		associations com.CatalogLike[any, ContentLike],
 	) AttributesLike
 }
 
@@ -176,16 +176,16 @@ type ComponentClassLike interface {
 }
 
 /*
-CompositeClassLike is a class interface that declares the complete set of class
+ContentClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
-composite-like class.
+content-like class.
 */
-type CompositeClassLike interface {
+type ContentClassLike interface {
 	// Constructor Methods
-	Composite(
-		component ComponentLike,
+	Content(
+		component Compound,
 		optionalNote string,
-	) CompositeLike
+	) ContentLike
 }
 
 /*
@@ -243,8 +243,8 @@ document-like class.
 type DocumentClassLike interface {
 	// Constructor Methods
 	Document(
-		optionalAnnotation string,
-		component ComponentLike,
+		optionalComment string,
+		component Compound,
 	) DocumentLike
 }
 
@@ -333,7 +333,7 @@ items-like class.
 type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
-		composites com.Sequential[CompositeLike],
+		contents com.Sequential[ContentLike],
 	) ItemsLike
 }
 
@@ -674,7 +674,7 @@ type AttributesLike interface {
 	GetClass() AttributesClassLike
 
 	// Attribute Methods
-	GetAssociations() com.CatalogLike[any, CompositeLike]
+	GetAssociations() com.CatalogLike[any, ContentLike]
 }
 
 /*
@@ -729,16 +729,16 @@ type ComponentLike interface {
 }
 
 /*
-CompositeLike is an instance interface that declares the complete set of
+ContentLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
-of a concrete composite-like class.
+of a concrete content-like class.
 */
-type CompositeLike interface {
+type ContentLike interface {
 	// Principal Methods
-	GetClass() CompositeClassLike
+	GetClass() ContentClassLike
 
 	// Attribute Methods
-	GetComponent() ComponentLike
+	GetComponent() Compound
 	GetOptionalNote() string
 }
 
@@ -802,8 +802,8 @@ type DocumentLike interface {
 	GetClass() DocumentClassLike
 
 	// Attribute Methods
-	GetOptionalAnnotation() string
-	GetComponent() ComponentLike
+	GetOptionalComment() string
+	GetComponent() Compound
 }
 
 /*
@@ -899,7 +899,7 @@ type ItemsLike interface {
 	GetClass() ItemsClassLike
 
 	// Attribute Methods
-	GetComposites() com.Sequential[CompositeLike]
+	GetContents() com.Sequential[ContentLike]
 }
 
 /*
@@ -1248,15 +1248,15 @@ type Compound interface {
 	GetOptionalGenerics() GenericsLike
 	GetParameter(
 		symbol pri.SymbolLike,
-	) ComponentLike
+	) Compound
 	SetSubcomponent(
 		value any,
 		indices ...any,
 	)
 	GetSubcomponent(
 		indices ...any,
-	) CompositeLike
+	) ContentLike
 	RemoveSubcomponent(
 		indices ...any,
-	) CompositeLike
+	) ContentLike
 }

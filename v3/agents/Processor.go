@@ -307,40 +307,40 @@ func (v *processor_) PostprocessComplement(
 }
 
 func (v *processor_) PreprocessComponent(
-	component doc.ComponentLike,
+	component doc.Compound,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
 func (v *processor_) ProcessComponentSlot(
-	component doc.ComponentLike,
+	component doc.Compound,
 	slot_ uint,
 ) {
 }
 
 func (v *processor_) PostprocessComponent(
-	component doc.ComponentLike,
+	component doc.Compound,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) PreprocessComposite(
-	composite doc.CompositeLike,
+func (v *processor_) PreprocessContent(
+	content doc.ContentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessCompositeSlot(
-	composite doc.CompositeLike,
+func (v *processor_) ProcessContentSlot(
+	content doc.ContentLike,
 	slot_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessComposite(
-	composite doc.CompositeLike,
+func (v *processor_) PostprocessContent(
+	content doc.ContentLike,
 	index_ uint,
 	count_ uint,
 ) {
