@@ -27,12 +27,11 @@ import (
 const testDirectory = "./test/"
 
 func TestParsingRoundtrips(t *tes.T) {
-	var directory = testDirectory + "documents/"
-	uti.MakeDirectory(directory)
-	var filenames = uti.ReadDirectory(directory)
+	uti.MakeDirectory(testDirectory)
+	var filenames = uti.ReadDirectory(testDirectory)
 	for _, filename := range filenames {
 		if sts.HasSuffix(filename, ".bali") {
-			filename = directory + filename
+			filename = testDirectory + filename
 			fmt.Println(filename)
 			var source = uti.ReadFile(filename)
 			var document = doc.ParseDocument(source)
