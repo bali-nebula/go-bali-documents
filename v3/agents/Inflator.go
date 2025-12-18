@@ -264,19 +264,6 @@ func (v *inflator_) PostprocessBreakClause(
 	v.stack_.AddValue(doc.BreakClauseClass().BreakClause())
 }
 
-func (v *inflator_) ProcessCheckoutClauseSlot(
-	checkoutClause not.CheckoutClauseLike,
-	slot_ uint,
-) {
-	switch slot_ {
-	case 2:
-		if uti.IsUndefined(checkoutClause.GetOptionalAtLevel()) {
-			var atLevel doc.ExpressionLike
-			v.stack_.AddValue(atLevel)
-		}
-	}
-}
-
 func (v *inflator_) PostprocessCheckoutClause(
 	checkoutClause not.CheckoutClauseLike,
 	index_ uint,
@@ -284,9 +271,8 @@ func (v *inflator_) PostprocessCheckoutClause(
 ) {
 	var location = v.stack_.RemoveLast().(doc.ExpressionLike)
 	var atLevel doc.ExpressionLike
-	var optional = v.stack_.RemoveLast()
-	if uti.IsDefined(optional) {
-		atLevel = optional.(doc.ExpressionLike)
+	if uti.IsDefined(checkoutClause.GetOptionalAtLevel()) {
+		atLevel = v.stack_.RemoveLast().(doc.ExpressionLike)
 	}
 	var recipient = v.stack_.RemoveLast()
 	v.stack_.AddValue(
@@ -303,29 +289,17 @@ func (v *inflator_) PostprocessComplement(
 	v.stack_.AddValue(doc.ComplementClass().Complement(logical))
 }
 
-func (v *inflator_) ProcessComponentSlot(
-	component not.ComponentLike,
-	slot_ uint,
-) {
-	switch slot_ {
-	case 1:
-		if uti.IsUndefined(component.GetOptionalGenerics()) {
-			var generics doc.GenericsLike
-			v.stack_.AddValue(generics)
-		}
-	}
-}
-
 func (v *inflator_) PostprocessComponent(
 	component not.ComponentLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var generics doc.GenericsLike
-	var optional = v.stack_.RemoveLast()
+	if uti.IsDefined(component.GetOptionalGenerics()) {
+		generics = v.stack_.RemoveLast().(doc.GenericsLike)
+	}
 	var entity = v.stack_.RemoveLast()
-	if uti.IsDefined(optional) {
-		generics = optional.(doc.GenericsLike)
+	if uti.IsDefined(generics) {
 		switch actual := entity.(type) {
 		case doc.ItemsLike:
 			var contents = v.getContents(actual, generics)
@@ -335,45 +309,17 @@ func (v *inflator_) PostprocessComponent(
 	v.stack_.AddValue(doc.ComponentClass().Component(entity, generics))
 }
 
-func (v *inflator_) ProcessContentSlot(
-	content not.ContentLike,
-	slot_ uint,
-) {
-	switch slot_ {
-	case 1:
-		if uti.IsUndefined(content.GetOptionalNote()) {
-			var note string
-			v.stack_.AddValue(note)
-		}
-	}
-}
-
 func (v *inflator_) PostprocessContent(
 	content not.ContentLike,
 	index_ uint,
 	count_ uint,
 ) {
-	var note = v.stack_.RemoveLast().(string)
-	var composite = v.stack_.RemoveLast().(doc.Composite)
-	v.stack_.AddValue(
-		doc.ContentClass().Content(
-			composite,
-			note,
-		),
-	)
-}
-
-func (v *inflator_) ProcessConstraintSlot(
-	constraint not.ConstraintLike,
-	slot_ uint,
-) {
-	switch slot_ {
-	case 1:
-		if uti.IsUndefined(constraint.GetOptionalGenerics()) {
-			var generics doc.GenericsLike
-			v.stack_.AddValue(generics)
-		}
+	var note string
+	if uti.IsDefined(content.GetOptionalNote()) {
+		note = v.stack_.RemoveLast().(string)
 	}
+	var composite = v.stack_.RemoveLast().(doc.Composite)
+	v.stack_.AddValue(doc.ContentClass().Content(composite, note))
 }
 
 func (v *inflator_) PostprocessConstraint(
@@ -382,9 +328,8 @@ func (v *inflator_) PostprocessConstraint(
 	count_ uint,
 ) {
 	var generics doc.GenericsLike
-	var optional = v.stack_.RemoveLast()
-	if uti.IsDefined(optional) {
-		generics = optional.(doc.GenericsLike)
+	if uti.IsDefined(constraint.GetOptionalGenerics()) {
+		generics = v.stack_.RemoveLast().(doc.GenericsLike)
 	}
 	var metadata = v.stack_.RemoveLast()
 	v.stack_.AddValue(doc.ConstraintClass().Constraint(metadata, generics))
@@ -416,26 +361,16 @@ func (v *inflator_) PostprocessDoClause(
 	v.stack_.AddValue(doc.DoClauseClass().DoClause(method))
 }
 
-func (v *inflator_) PreprocessDocument(
-	document not.DocumentLike,
-	index_ uint,
-	count_ uint,
-) {
-	var comment string
-	var heading = document.GetOptionalHeading()
-	if uti.IsUndefined(heading) {
-		// We only add it if it is not defined, otherwise ProcessComment adds it.
-		v.stack_.AddValue(comment)
-	}
-}
-
 func (v *inflator_) PostprocessDocument(
 	document not.DocumentLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var composite = v.stack_.RemoveLast().(doc.Composite)
-	var comment = v.stack_.RemoveLast().(string)
+	var comment string
+	if uti.IsDefined(document.GetOptionalHeading()) {
+		comment = v.stack_.RemoveLast().(string)
+	}
 	v.stack_.AddValue(doc.DocumentClass().Document(comment, composite))
 }
 
@@ -898,28 +833,14 @@ func (v *inflator_) PostprocessSendClause(
 	v.stack_.AddValue(doc.SendClauseClass().SendClause(message, bag))
 }
 
-func (v *inflator_) ProcessStatementSlot(
-	statement not.StatementLike,
-	slot_ uint,
-) {
-	switch slot_ {
-	case 1:
-		if uti.IsUndefined(statement.GetOptionalOnClause()) {
-			var onClause doc.OnClauseLike
-			v.stack_.AddValue(onClause)
-		}
-	}
-}
-
 func (v *inflator_) PostprocessStatement(
 	statement not.StatementLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var onClause doc.OnClauseLike
-	var optional = v.stack_.RemoveLast()
-	if uti.IsDefined(optional) {
-		onClause = optional.(doc.OnClauseLike)
+	if uti.IsDefined(statement.GetOptionalOnClause()) {
+		onClause = v.stack_.RemoveLast().(doc.OnClauseLike)
 	}
 	var mainClause = v.stack_.RemoveLast()
 	v.stack_.AddValue(doc.StatementClass().Statement(mainClause, onClause))
