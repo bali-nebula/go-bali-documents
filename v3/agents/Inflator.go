@@ -58,13 +58,6 @@ func (v *inflator_) InflateDocument(
 	document not.DocumentLike,
 ) doc.DocumentLike {
 	not.VisitorClass().Visitor(v).VisitDocument(document)
-	if v.stack_.GetSize() != 1 {
-		var message = fmt.Sprintf(
-			"Internal Error: the inflator stack is corrupted: %v",
-			v.stack_,
-		)
-		panic(message)
-	}
 	return v.stack_.RemoveLast().(doc.DocumentLike)
 }
 
@@ -372,6 +365,13 @@ func (v *inflator_) PostprocessDocument(
 		comment = v.stack_.RemoveLast().(string)
 	}
 	v.stack_.AddValue(doc.DocumentClass().Document(comment, composite))
+	if v.stack_.GetSize() != 1 {
+		var message = fmt.Sprintf(
+			"Internal Error: the inflator stack is corrupted: %v",
+			v.stack_,
+		)
+		panic(message)
+	}
 }
 
 func (v *inflator_) PostprocessExpression(

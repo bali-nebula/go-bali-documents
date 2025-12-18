@@ -58,13 +58,6 @@ func (v *deflator_) DeflateDocument(
 	document doc.DocumentLike,
 ) not.DocumentLike {
 	VisitorClass().Visitor(v).VisitDocument(document)
-	if v.stack_.GetSize() != 1 {
-		var message = fmt.Sprintf(
-			"Internal Error: the deflator stack is corrupted: %v",
-			v.stack_,
-		)
-		panic(message)
-	}
 	return v.stack_.RemoveLast().(not.DocumentLike)
 }
 
@@ -586,6 +579,13 @@ func (v *deflator_) PostprocessDocument(
 			component,
 		),
 	)
+	if v.stack_.GetSize() != 1 {
+		var message = fmt.Sprintf(
+			"Internal Error: the deflator stack is corrupted: %v",
+			v.stack_,
+		)
+		panic(message)
+	}
 }
 
 func (v *deflator_) PostprocessExpression(
