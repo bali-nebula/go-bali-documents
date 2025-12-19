@@ -1545,8 +1545,6 @@ type (
 type (
 	Associative[K comparable, V any] = com.Associative[K, V]
 	Elastic[V any]                   = com.Elastic[V]
-	Fifo[V any]                      = com.Fifo[V]
-	Lifo[V any]                      = com.Lifo[V]
 	Malleable[V any]                 = com.Malleable[V]
 	Sortable[V any]                  = com.Sortable[V]
 	Synchronized                     = com.Synchronized
