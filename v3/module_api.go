@@ -68,7 +68,7 @@ type (
 type (
 	Assignment = doc.Assignment
 	Inverse    = doc.Inverse
-	Invoke     = doc.Invoke
+	Invocation = doc.Invocation
 	Operator   = doc.Operator
 )
 
@@ -105,6 +105,7 @@ const (
 
 type (
 	AcceptClauseClassLike   = doc.AcceptClauseClassLike
+	AssignClauseClassLike   = doc.AssignClauseClassLike
 	AttributesClassLike     = doc.AttributesClassLike
 	BreakClauseClassLike    = doc.BreakClauseClassLike
 	CheckoutClauseClassLike = doc.CheckoutClauseClassLike
@@ -113,17 +114,17 @@ type (
 	ContentClassLike        = doc.ContentClassLike
 	ConstraintClassLike     = doc.ConstraintClassLike
 	ContinueClauseClassLike = doc.ContinueClauseClassLike
+	DefineClauseClassLike   = doc.DefineClauseClassLike
 	DiscardClauseClassLike  = doc.DiscardClauseClassLike
-	DoClauseClassLike       = doc.DoClauseClassLike
 	DocumentClassLike       = doc.DocumentClassLike
 	ExpressionClassLike     = doc.ExpressionClassLike
 	FunctionClassLike       = doc.FunctionClassLike
 	GenericsClassLike       = doc.GenericsClassLike
 	IfClauseClassLike       = doc.IfClauseClassLike
+	InvokeClauseClassLike   = doc.InvokeClauseClassLike
 	InspectClauseClassLike  = doc.InspectClauseClassLike
 	InversionClassLike      = doc.InversionClassLike
 	ItemsClassLike          = doc.ItemsClassLike
-	LetClauseClassLike      = doc.LetClauseClassLike
 	MagnitudeClassLike      = doc.MagnitudeClassLike
 	MatchingClauseClassLike = doc.MatchingClauseClassLike
 	MethodClassLike         = doc.MethodClassLike
@@ -151,6 +152,7 @@ type (
 
 type (
 	AcceptClauseLike   = doc.AcceptClauseLike
+	AssignClauseLike   = doc.AssignClauseLike
 	AttributesLike     = doc.AttributesLike
 	BreakClauseLike    = doc.BreakClauseLike
 	CheckoutClauseLike = doc.CheckoutClauseLike
@@ -159,17 +161,17 @@ type (
 	ContentLike        = doc.ContentLike
 	ConstraintLike     = doc.ConstraintLike
 	ContinueClauseLike = doc.ContinueClauseLike
+	DefineClauseLike   = doc.DefineClauseLike
 	DiscardClauseLike  = doc.DiscardClauseLike
-	DoClauseLike       = doc.DoClauseLike
 	DocumentLike       = doc.DocumentLike
 	ExpressionLike     = doc.ExpressionLike
 	FunctionLike       = doc.FunctionLike
 	GenericsLike       = doc.GenericsLike
 	IfClauseLike       = doc.IfClauseLike
+	InvokeClauseLike   = doc.InvokeClauseLike
 	InspectClauseLike  = doc.InspectClauseLike
 	InversionLike      = doc.InversionLike
 	ItemsLike          = doc.ItemsLike
-	LetClauseLike      = doc.LetClauseLike
 	MagnitudeLike      = doc.MagnitudeLike
 	MatchingClauseLike = doc.MatchingClauseLike
 	MethodLike         = doc.MethodLike
@@ -260,6 +262,22 @@ func AcceptClause(
 	return AcceptClauseClass().AcceptClause(
 		message,
 		bag,
+	)
+}
+
+func AssignClauseClass() AssignClauseClassLike {
+	return doc.AssignClauseClass()
+}
+
+func AssignClause(
+	recipient any,
+	assignment doc.Assignment,
+	expression doc.ExpressionLike,
+) AssignClauseLike {
+	return AssignClauseClass().AssignClause(
+		recipient,
+		assignment,
+		expression,
 	)
 }
 
@@ -361,6 +379,20 @@ func ContinueClause() ContinueClauseLike {
 	return ContinueClauseClass().ContinueClause()
 }
 
+func DefineClauseClass() DefineClauseClassLike {
+	return doc.DefineClauseClass()
+}
+
+func DefineClause(
+	constant pri.SymbolLike,
+	expression doc.ExpressionLike,
+) DefineClauseLike {
+	return DefineClauseClass().DefineClause(
+		constant,
+		expression,
+	)
+}
+
 func DiscardClauseClass() DiscardClauseClassLike {
 	return doc.DiscardClauseClass()
 }
@@ -373,28 +405,16 @@ func DiscardClause(
 	)
 }
 
-func DoClauseClass() DoClauseClassLike {
-	return doc.DoClauseClass()
-}
-
-func DoClause(
-	method doc.MethodLike,
-) DoClauseLike {
-	return DoClauseClass().DoClause(
-		method,
-	)
-}
-
 func DocumentClass() DocumentClassLike {
 	return doc.DocumentClass()
 }
 
 func Document(
-	optionalAnnotation string,
+	optionalComment string,
 	composite doc.Composite,
 ) DocumentLike {
 	return DocumentClass().Document(
-		optionalAnnotation,
+		optionalComment,
 		composite,
 	)
 }
@@ -453,6 +473,18 @@ func IfClause(
 	)
 }
 
+func InvokeClauseClass() InvokeClauseClassLike {
+	return doc.InvokeClauseClass()
+}
+
+func InvokeClause(
+	method doc.MethodLike,
+) InvokeClauseLike {
+	return InvokeClauseClass().InvokeClause(
+		method,
+	)
+}
+
 func InspectClauseClass() InspectClauseClassLike {
 	return doc.InspectClauseClass()
 }
@@ -493,22 +525,6 @@ func Items(
 	)
 }
 
-func LetClauseClass() LetClauseClassLike {
-	return doc.LetClauseClass()
-}
-
-func LetClause(
-	recipient any,
-	assignment doc.Assignment,
-	expression doc.ExpressionLike,
-) LetClauseLike {
-	return LetClauseClass().LetClause(
-		recipient,
-		assignment,
-		expression,
-	)
-}
-
 func MagnitudeClass() MagnitudeClassLike {
 	return doc.MagnitudeClass()
 }
@@ -541,13 +557,13 @@ func MethodClass() MethodClassLike {
 
 func Method(
 	target string,
-	invoke doc.Invoke,
+	invocation doc.Invocation,
 	identifier string,
 	arguments com.Sequential[any],
 ) MethodLike {
 	return MethodClass().Method(
 		target,
-		invoke,
+		invocation,
 		identifier,
 		arguments,
 	)

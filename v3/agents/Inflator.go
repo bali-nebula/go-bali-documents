@@ -201,6 +201,19 @@ func (v *inflator_) PostprocessAcceptClause(
 	v.stack_.AddValue(doc.AcceptClauseClass().AcceptClause(message, bag))
 }
 
+func (v *inflator_) PostprocessAssignClause(
+	assignClause not.AssignClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var expression = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var assignment = v.stack_.RemoveLast().(doc.Assignment)
+	var recipient = v.stack_.RemoveLast()
+	v.stack_.AddValue(
+		doc.AssignClauseClass().AssignClause(recipient, assignment, expression),
+	)
+}
+
 func (v *inflator_) PostprocessAssignment(
 	assignment not.AssignmentLike,
 	index_ uint,
@@ -336,6 +349,18 @@ func (v *inflator_) PostprocessContinueClause(
 	v.stack_.AddValue(doc.ContinueClauseClass().ContinueClause())
 }
 
+func (v *inflator_) PostprocessDefineClause(
+	defineClause not.DefineClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var expression = v.stack_.RemoveLast().(doc.ExpressionLike)
+	var constant = v.stack_.RemoveLast().(pri.SymbolLike)
+	v.stack_.AddValue(
+		doc.DefineClauseClass().DefineClause(constant, expression),
+	)
+}
+
 func (v *inflator_) PostprocessDiscardClause(
 	discardClause not.DiscardClauseLike,
 	index_ uint,
@@ -343,15 +368,6 @@ func (v *inflator_) PostprocessDiscardClause(
 ) {
 	var location = v.stack_.RemoveLast().(doc.ExpressionLike)
 	v.stack_.AddValue(doc.DiscardClauseClass().DiscardClause(location))
-}
-
-func (v *inflator_) PostprocessDoClause(
-	doClause not.DoClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	var method = v.stack_.RemoveLast().(doc.MethodLike)
-	v.stack_.AddValue(doc.DoClauseClass().DoClause(method))
 }
 
 func (v *inflator_) PostprocessDocument(
@@ -452,12 +468,12 @@ func (v *inflator_) PostprocessInversion(
 	v.stack_.AddValue(doc.InversionClass().Inversion(inverse, numerical))
 }
 
-func (v *inflator_) PostprocessInvoke(
-	invoke not.InvokeLike,
+func (v *inflator_) PostprocessInvocation(
+	invocation not.InvocationLike,
 	index_ uint,
 	count_ uint,
 ) {
-	var operator = invoke.GetAny().(string)
+	var operator = invocation.GetAny().(string)
 	switch operator {
 	case "<-":
 		v.stack_.AddValue(doc.Synchronous)
@@ -470,6 +486,15 @@ func (v *inflator_) PostprocessInvoke(
 		)
 		panic(message)
 	}
+}
+
+func (v *inflator_) PostprocessInvokeClause(
+	invokeClause not.InvokeClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var method = v.stack_.RemoveLast().(doc.MethodLike)
+	v.stack_.AddValue(doc.InvokeClauseClass().InvokeClause(method))
 }
 
 func (v *inflator_) PostprocessItems(
@@ -508,19 +533,6 @@ func (v *inflator_) PostprocessLeft(
 	}
 }
 
-func (v *inflator_) PostprocessLetClause(
-	letClause not.LetClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	var expression = v.stack_.RemoveLast().(doc.ExpressionLike)
-	var assignment = v.stack_.RemoveLast().(doc.Assignment)
-	var recipient = v.stack_.RemoveLast()
-	v.stack_.AddValue(
-		doc.LetClauseClass().LetClause(recipient, assignment, expression),
-	)
-}
-
 func (v *inflator_) PostprocessMagnitude(
 	magnitude not.MagnitudeLike,
 	index_ uint,
@@ -557,10 +569,10 @@ func (v *inflator_) PostprocessMethod(
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
-	var invoke = v.stack_.RemoveLast().(doc.Invoke)
+	var invocation = v.stack_.RemoveLast().(doc.Invocation)
 	var target = v.stack_.RemoveLast().(string)
 	v.stack_.AddValue(
-		doc.MethodClass().Method(target, invoke, identifier, list),
+		doc.MethodClass().Method(target, invocation, identifier, list),
 	)
 }
 

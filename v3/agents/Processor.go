@@ -111,8 +111,8 @@ func (v *processor_) ProcessInverse(
 ) {
 }
 
-func (v *processor_) ProcessInvoke(
-	invoke doc.Invoke,
+func (v *processor_) ProcessInvocation(
+	invocation doc.Invocation,
 ) {
 }
 
@@ -221,6 +221,26 @@ func (v *processor_) ProcessArgumentSlot(
 
 func (v *processor_) PostprocessArgument(
 	argument any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessAssignClause(
+	assignClause doc.AssignClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessAssignClauseSlot(
+	assignClause doc.AssignClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessAssignClause(
+	assignClause doc.AssignClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -386,6 +406,26 @@ func (v *processor_) PostprocessContinueClause(
 ) {
 }
 
+func (v *processor_) PreprocessDefineClause(
+	defineClause doc.DefineClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessDefineClauseSlot(
+	defineClause doc.DefineClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessDefineClause(
+	defineClause doc.DefineClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessDiscardClause(
 	discardClause doc.DiscardClauseLike,
 	index_ uint,
@@ -401,26 +441,6 @@ func (v *processor_) ProcessDiscardClauseSlot(
 
 func (v *processor_) PostprocessDiscardClause(
 	discardClause doc.DiscardClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PreprocessDoClause(
-	doClause doc.DoClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessDoClauseSlot(
-	doClause doc.DoClauseLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessDoClause(
-	doClause doc.DoClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -586,6 +606,26 @@ func (v *processor_) PostprocessInversion(
 ) {
 }
 
+func (v *processor_) PreprocessInvokeClause(
+	invokeClause doc.InvokeClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessInvokeClauseSlot(
+	invokeClause doc.InvokeClauseLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessInvokeClause(
+	invokeClause doc.InvokeClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessItems(
 	items doc.ItemsLike,
 	index_ uint,
@@ -601,26 +641,6 @@ func (v *processor_) ProcessItemsSlot(
 
 func (v *processor_) PostprocessItems(
 	items doc.ItemsLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PreprocessLetClause(
-	letClause doc.LetClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessLetClauseSlot(
-	letClause doc.LetClauseLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessLetClause(
-	letClause doc.LetClauseLike,
 	index_ uint,
 	count_ uint,
 ) {

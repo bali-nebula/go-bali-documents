@@ -20,31 +20,21 @@ import (
 
 // Access Function
 
-func LetClauseClass() LetClauseClassLike {
-	return letClauseClass()
+func InvokeClauseClass() InvokeClauseClassLike {
+	return invokeClauseClass()
 }
 
 // Constructor Methods
 
-func (c *letClauseClass_) LetClause(
-	recipient any,
-	assignment Assignment,
-	expression ExpressionLike,
-) LetClauseLike {
-	if uti.IsUndefined(recipient) {
-		panic("The \"recipient\" attribute is required by this class.")
+func (c *invokeClauseClass_) InvokeClause(
+	method MethodLike,
+) InvokeClauseLike {
+	if uti.IsUndefined(method) {
+		panic("The \"method\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(assignment) {
-		panic("The \"assignment\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(expression) {
-		panic("The \"expression\" attribute is required by this class.")
-	}
-	var instance = &letClause_{
+	var instance = &invokeClause_{
 		// Initialize the instance attributes.
-		recipient_:  recipient,
-		assignment_: assignment,
-		expression_: expression,
+		method_: method,
 	}
 	return instance
 }
@@ -57,22 +47,14 @@ func (c *letClauseClass_) LetClause(
 
 // Principal Methods
 
-func (v *letClause_) GetClass() LetClauseClassLike {
-	return letClauseClass()
+func (v *invokeClause_) GetClass() InvokeClauseClassLike {
+	return invokeClauseClass()
 }
 
 // Attribute Methods
 
-func (v *letClause_) GetRecipient() any {
-	return v.recipient_
-}
-
-func (v *letClause_) GetAssignment() Assignment {
-	return v.assignment_
-}
-
-func (v *letClause_) GetExpression() ExpressionLike {
-	return v.expression_
+func (v *invokeClause_) GetMethod() MethodLike {
+	return v.method_
 }
 
 // PROTECTED INTERFACE
@@ -81,25 +63,23 @@ func (v *letClause_) GetExpression() ExpressionLike {
 
 // Instance Structure
 
-type letClause_ struct {
+type invokeClause_ struct {
 	// Declare the instance attributes.
-	recipient_  any
-	assignment_ Assignment
-	expression_ ExpressionLike
+	method_ MethodLike
 }
 
 // Class Structure
 
-type letClauseClass_ struct {
+type invokeClauseClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func letClauseClass() *letClauseClass_ {
-	return letClauseClassReference_
+func invokeClauseClass() *invokeClauseClass_ {
+	return invokeClauseClassReference_
 }
 
-var letClauseClassReference_ = &letClauseClass_{
+var invokeClauseClassReference_ = &invokeClauseClass_{
 	// Initialize the class constants.
 }

@@ -29,15 +29,15 @@ func MethodClass() MethodClassLike {
 
 func (c *methodClass_) Method(
 	target string,
-	invoke Invoke,
+	invocation Invocation,
 	identifier string,
 	arguments com.Sequential[any],
 ) MethodLike {
 	if uti.IsUndefined(target) {
 		panic("The \"target\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(invoke) {
-		panic("The \"invoke\" attribute is required by this class.")
+	if uti.IsUndefined(invocation) {
+		panic("The \"invocation\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(identifier) {
 		panic("The \"identifier\" attribute is required by this class.")
@@ -48,7 +48,7 @@ func (c *methodClass_) Method(
 	var instance = &method_{
 		// Initialize the instance attributes.
 		target_:     target,
-		invoke_:     invoke,
+		invocation_: invocation,
 		identifier_: identifier,
 		arguments_:  arguments,
 	}
@@ -73,8 +73,8 @@ func (v *method_) GetTarget() string {
 	return v.target_
 }
 
-func (v *method_) GetInvoke() Invoke {
-	return v.invoke_
+func (v *method_) GetInvocation() Invocation {
+	return v.invocation_
 }
 
 func (v *method_) GetIdentifier() string {
@@ -94,7 +94,7 @@ func (v *method_) GetArguments() com.Sequential[any] {
 type method_ struct {
 	// Declare the instance attributes.
 	target_     string
-	invoke_     Invoke
+	invocation_ Invocation
 	identifier_ string
 	arguments_  com.Sequential[any]
 }

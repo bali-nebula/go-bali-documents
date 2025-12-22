@@ -208,8 +208,8 @@ type Methodical interface {
 	ProcessInverse(
 		inverse doc.Inverse,
 	)
-	ProcessInvoke(
-		invoke doc.Invoke,
+	ProcessInvocation(
+		invocation doc.Invocation,
 	)
 	ProcessMoment(
 		moment pri.MomentLike,
@@ -278,6 +278,20 @@ type Methodical interface {
 	)
 	PostprocessArgument(
 		argument any,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessAssignClause(
+		assignClause doc.AssignClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessAssignClauseSlot(
+		assignClause doc.AssignClauseLike,
+		slot_ uint,
+	)
+	PostprocessAssignClause(
+		assignClause doc.AssignClauseLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -393,6 +407,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessDefineClause(
+		defineClause doc.DefineClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessDefineClauseSlot(
+		defineClause doc.DefineClauseLike,
+		slot_ uint,
+	)
+	PostprocessDefineClause(
+		defineClause doc.DefineClauseLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessDiscardClause(
 		discardClause doc.DiscardClauseLike,
 		index_ uint,
@@ -404,20 +432,6 @@ type Methodical interface {
 	)
 	PostprocessDiscardClause(
 		discardClause doc.DiscardClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessDoClause(
-		doClause doc.DoClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessDoClauseSlot(
-		doClause doc.DoClauseLike,
-		slot_ uint,
-	)
-	PostprocessDoClause(
-		doClause doc.DoClauseLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -547,6 +561,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessInvokeClause(
+		invokeClause doc.InvokeClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessInvokeClauseSlot(
+		invokeClause doc.InvokeClauseLike,
+		slot_ uint,
+	)
+	PostprocessInvokeClause(
+		invokeClause doc.InvokeClauseLike,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessItems(
 		items doc.ItemsLike,
 		index_ uint,
@@ -558,20 +586,6 @@ type Methodical interface {
 	)
 	PostprocessItems(
 		items doc.ItemsLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessLetClause(
-		letClause doc.LetClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessLetClauseSlot(
-		letClause doc.LetClauseLike,
-		slot_ uint,
-	)
-	PostprocessLetClause(
-		letClause doc.LetClauseLike,
 		index_ uint,
 		count_ uint,
 	)

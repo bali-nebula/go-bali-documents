@@ -13,6 +13,7 @@
 package documents
 
 import (
+	pri "github.com/craterdog/go-essential-primitives/v8"
 	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
@@ -20,21 +21,26 @@ import (
 
 // Access Function
 
-func DoClauseClass() DoClauseClassLike {
-	return doClauseClass()
+func DefineClauseClass() DefineClauseClassLike {
+	return defineClauseClass()
 }
 
 // Constructor Methods
 
-func (c *doClauseClass_) DoClause(
-	method MethodLike,
-) DoClauseLike {
-	if uti.IsUndefined(method) {
-		panic("The \"method\" attribute is required by this class.")
+func (c *defineClauseClass_) DefineClause(
+	constant pri.SymbolLike,
+	expression ExpressionLike,
+) DefineClauseLike {
+	if uti.IsUndefined(constant) {
+		panic("The \"constant\" attribute is required by this class.")
 	}
-	var instance = &doClause_{
+	if uti.IsUndefined(expression) {
+		panic("The \"expression\" attribute is required by this class.")
+	}
+	var instance = &defineClause_{
 		// Initialize the instance attributes.
-		method_: method,
+		constant_:   constant,
+		expression_: expression,
 	}
 	return instance
 }
@@ -47,14 +53,18 @@ func (c *doClauseClass_) DoClause(
 
 // Principal Methods
 
-func (v *doClause_) GetClass() DoClauseClassLike {
-	return doClauseClass()
+func (v *defineClause_) GetClass() DefineClauseClassLike {
+	return defineClauseClass()
 }
 
 // Attribute Methods
 
-func (v *doClause_) GetMethod() MethodLike {
-	return v.method_
+func (v *defineClause_) GetConstant() pri.SymbolLike {
+	return v.constant_
+}
+
+func (v *defineClause_) GetExpression() ExpressionLike {
+	return v.expression_
 }
 
 // PROTECTED INTERFACE
@@ -63,23 +73,24 @@ func (v *doClause_) GetMethod() MethodLike {
 
 // Instance Structure
 
-type doClause_ struct {
+type defineClause_ struct {
 	// Declare the instance attributes.
-	method_ MethodLike
+	constant_   pri.SymbolLike
+	expression_ ExpressionLike
 }
 
 // Class Structure
 
-type doClauseClass_ struct {
+type defineClauseClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func doClauseClass() *doClauseClass_ {
-	return doClauseClassReference_
+func defineClauseClass() *defineClauseClass_ {
+	return defineClauseClassReference_
 }
 
-var doClauseClassReference_ = &doClauseClass_{
+var defineClauseClassReference_ = &defineClauseClass_{
 	// Initialize the class constants.
 }

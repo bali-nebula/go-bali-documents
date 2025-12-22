@@ -132,8 +132,8 @@ func (v *validator_) ProcessInverse(
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) ProcessInvoke(
-	invoke doc.Invoke,
+func (v *validator_) ProcessInvocation(
+	invocation doc.Invocation,
 ) {
 	// TBD - Add the method implementation.
 }
@@ -239,6 +239,29 @@ func (v *validator_) ProcessAcceptClauseSlot(
 
 func (v *validator_) PostprocessAcceptClause(
 	acceptClause doc.AcceptClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) PreprocessAssignClause(
+	assignClause doc.AssignClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) ProcessAssignClauseSlot(
+	assignClause doc.AssignClauseLike,
+	slot_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) PostprocessAssignClause(
+	assignClause doc.AssignClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -383,29 +406,6 @@ func (v *validator_) PostprocessDiscardClause(
 	// TBD - Add the method implementation.
 }
 
-func (v *validator_) PreprocessDoClause(
-	doClause doc.DoClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) ProcessDoClauseSlot(
-	doClause doc.DoClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) PostprocessDoClause(
-	doClause doc.DoClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
 func (v *validator_) PreprocessDocument(
 	document doc.DocumentLike,
 	index_ uint,
@@ -423,6 +423,29 @@ func (v *validator_) ProcessDocumentSlot(
 
 func (v *validator_) PostprocessDocument(
 	document doc.DocumentLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) PreprocessInvokeClause(
+	invokeClause doc.InvokeClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) ProcessInvokeClauseSlot(
+	invokeClause doc.InvokeClauseLike,
+	slot_ uint,
+) {
+	// TBD - Add the method implementation.
+}
+
+func (v *validator_) PostprocessInvokeClause(
+	invokeClause doc.InvokeClauseLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -538,29 +561,6 @@ func (v *validator_) ProcessInversionSlot(
 
 func (v *validator_) PostprocessInversion(
 	inversion doc.InversionLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) PreprocessLetClause(
-	letClause doc.LetClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) ProcessLetClauseSlot(
-	letClause doc.LetClauseLike,
-	slot_ uint,
-) {
-	// TBD - Add the method implementation.
-}
-
-func (v *validator_) PostprocessLetClause(
-	letClause doc.LetClauseLike,
 	index_ uint,
 	count_ uint,
 ) {

@@ -123,6 +123,51 @@ func (v *visitor_) visitArgument(
 	}
 }
 
+func (v *visitor_) visitAssignClause(
+	assignClause doc.AssignClauseLike,
+) {
+	var recipient = assignClause.GetRecipient()
+	v.processor_.PreprocessRecipient(
+		recipient,
+		0,
+		0,
+	)
+	v.visitRecipient(recipient)
+	v.processor_.PostprocessRecipient(
+		recipient,
+		0,
+		0,
+	)
+
+	// Visit slot 1 between terms.
+	v.processor_.ProcessAssignClauseSlot(
+		assignClause,
+		1,
+	)
+
+	var assignment = assignClause.GetAssignment()
+	v.processor_.ProcessAssignment(assignment)
+
+	// Visit slot 2 between terms.
+	v.processor_.ProcessAssignClauseSlot(
+		assignClause,
+		2,
+	)
+
+	var expression = assignClause.GetExpression()
+	v.processor_.PreprocessExpression(
+		expression,
+		0,
+		0,
+	)
+	v.visitExpression(expression)
+	v.processor_.PostprocessExpression(
+		expression,
+		0,
+		0,
+	)
+}
+
 func (v *visitor_) visitAttributes(
 	attributes doc.AttributesLike,
 ) {
@@ -337,6 +382,32 @@ func (v *visitor_) visitContinueClause(
 ) {
 }
 
+func (v *visitor_) visitDefineClause(
+	defineClause doc.DefineClauseLike,
+) {
+	var constant = defineClause.GetConstant()
+	v.processor_.ProcessSymbol(constant)
+
+	// Visit slot 1 between terms.
+	v.processor_.ProcessDefineClauseSlot(
+		defineClause,
+		1,
+	)
+
+	var expression = defineClause.GetExpression()
+	v.processor_.PreprocessExpression(
+		expression,
+		0,
+		0,
+	)
+	v.visitExpression(expression)
+	v.processor_.PostprocessExpression(
+		expression,
+		0,
+		0,
+	)
+}
+
 func (v *visitor_) visitDiscardClause(
 	discardClause doc.DiscardClauseLike,
 ) {
@@ -354,10 +425,10 @@ func (v *visitor_) visitDiscardClause(
 	)
 }
 
-func (v *visitor_) visitDoClause(
-	doClause doc.DoClauseLike,
+func (v *visitor_) visitInvokeClause(
+	invokeClause doc.InvokeClauseLike,
 ) {
-	var method = doClause.GetMethod()
+	var method = invokeClause.GetMethod()
 	v.processor_.PreprocessMethod(
 		method,
 		0,
@@ -701,51 +772,6 @@ func (v *visitor_) visitItems(
 	}
 }
 
-func (v *visitor_) visitLetClause(
-	letClause doc.LetClauseLike,
-) {
-	var recipient = letClause.GetRecipient()
-	v.processor_.PreprocessRecipient(
-		recipient,
-		0,
-		0,
-	)
-	v.visitRecipient(recipient)
-	v.processor_.PostprocessRecipient(
-		recipient,
-		0,
-		0,
-	)
-
-	// Visit slot 1 between terms.
-	v.processor_.ProcessLetClauseSlot(
-		letClause,
-		1,
-	)
-
-	var assignment = letClause.GetAssignment()
-	v.processor_.ProcessAssignment(assignment)
-
-	// Visit slot 2 between terms.
-	v.processor_.ProcessLetClauseSlot(
-		letClause,
-		2,
-	)
-
-	var expression = letClause.GetExpression()
-	v.processor_.PreprocessExpression(
-		expression,
-		0,
-		0,
-	)
-	v.visitExpression(expression)
-	v.processor_.PostprocessExpression(
-		expression,
-		0,
-		0,
-	)
-}
-
 func (v *visitor_) visitLine(
 	line any,
 ) {
@@ -891,6 +917,42 @@ func (v *visitor_) visitMainClause(
 			0,
 			0,
 		)
+	case doc.DefineClauseLike:
+		v.processor_.PreprocessDefineClause(
+			actual,
+			0,
+			0,
+		)
+		v.visitDefineClause(actual)
+		v.processor_.PostprocessDefineClause(
+			actual,
+			0,
+			0,
+		)
+	case doc.AssignClauseLike:
+		v.processor_.PreprocessAssignClause(
+			actual,
+			0,
+			0,
+		)
+		v.visitAssignClause(actual)
+		v.processor_.PostprocessAssignClause(
+			actual,
+			0,
+			0,
+		)
+	case doc.InvokeClauseLike:
+		v.processor_.PreprocessInvokeClause(
+			actual,
+			0,
+			0,
+		)
+		v.visitInvokeClause(actual)
+		v.processor_.PostprocessInvokeClause(
+			actual,
+			0,
+			0,
+		)
 	case doc.SendClauseLike:
 		v.processor_.PreprocessSendClause(
 			actual,
@@ -1023,30 +1085,6 @@ func (v *visitor_) visitMainClause(
 			0,
 			0,
 		)
-	case doc.DoClauseLike:
-		v.processor_.PreprocessDoClause(
-			actual,
-			0,
-			0,
-		)
-		v.visitDoClause(actual)
-		v.processor_.PostprocessDoClause(
-			actual,
-			0,
-			0,
-		)
-	case doc.LetClauseLike:
-		v.processor_.PreprocessLetClause(
-			actual,
-			0,
-			0,
-		)
-		v.visitLetClause(actual)
-		v.processor_.PostprocessLetClause(
-			actual,
-			0,
-			0,
-		)
 	default:
 		var message = fmt.Sprintf(
 			"Found a value of an unexpected type in a switch statement: %v(%T)",
@@ -1136,8 +1174,8 @@ func (v *visitor_) visitMethod(
 		1,
 	)
 
-	var invoke = method.GetInvoke()
-	v.processor_.ProcessInvoke(invoke)
+	var invocation = method.GetInvocation()
+	v.processor_.ProcessInvocation(invocation)
 
 	// Visit slot 2 between terms.
 	v.processor_.ProcessMethodSlot(

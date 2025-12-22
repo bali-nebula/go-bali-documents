@@ -63,13 +63,13 @@ const (
 )
 
 /*
-Invoke is a constrained type specifying whether or not an invocation is
+Invocation is a constrained type specifying whether or not an invocation is
 synchronous or asynchronous.
 */
-type Invoke uint8
+type Invocation uint8
 
 const (
-	Synchronous Invoke = iota
+	Synchronous Invocation = iota
 	Asynchronous
 )
 
@@ -112,6 +112,20 @@ type AcceptClauseClassLike interface {
 		message ExpressionLike,
 		bag ExpressionLike,
 	) AcceptClauseLike
+}
+
+/*
+AssignClauseClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+let-clause-like class.
+*/
+type AssignClauseClassLike interface {
+	// Constructor Methods
+	AssignClause(
+		recipient any,
+		assignment Assignment,
+		expression ExpressionLike,
+	) AssignClauseLike
 }
 
 /*
@@ -212,6 +226,19 @@ type ContinueClauseClassLike interface {
 }
 
 /*
+DefineClauseClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+define-clause-like class.
+*/
+type DefineClauseClassLike interface {
+	// Constructor Methods
+	DefineClause(
+		constant pri.SymbolLike,
+		expression ExpressionLike,
+	) DefineClauseLike
+}
+
+/*
 DiscardClauseClassLike is a class interface that declares the complete set of
 class constructors, constants and functions that must be supported by each
 concrete discard-clause-like class.
@@ -221,18 +248,6 @@ type DiscardClauseClassLike interface {
 	DiscardClause(
 		citation ExpressionLike,
 	) DiscardClauseLike
-}
-
-/*
-DoClauseClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-do-clause-like class.
-*/
-type DoClauseClassLike interface {
-	// Constructor Methods
-	DoClause(
-		method MethodLike,
-	) DoClauseLike
 }
 
 /*
@@ -300,6 +315,18 @@ type IfClauseClassLike interface {
 }
 
 /*
+InvokeClauseClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+invoke-clause-like class.
+*/
+type InvokeClauseClassLike interface {
+	// Constructor Methods
+	InvokeClause(
+		method MethodLike,
+	) InvokeClauseLike
+}
+
+/*
 InspectClauseClassLike is a class interface that declares the complete set of
 class constructors, constants and functions that must be supported by each
 concrete inspect-clause-like class.
@@ -338,20 +365,6 @@ type ItemsClassLike interface {
 }
 
 /*
-LetClauseClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-let-clause-like class.
-*/
-type LetClauseClassLike interface {
-	// Constructor Methods
-	LetClause(
-		recipient any,
-		assignment Assignment,
-		expression ExpressionLike,
-	) LetClauseLike
-}
-
-/*
 MagnitudeClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
 magnitude-like class.
@@ -385,7 +398,7 @@ type MethodClassLike interface {
 	// Constructor Methods
 	Method(
 		target string,
-		invoke Invoke,
+		invocation Invocation,
 		identifier string,
 		arguments com.Sequential[any],
 	) MethodLike
@@ -665,6 +678,21 @@ type AcceptClauseLike interface {
 }
 
 /*
+AssignClauseLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete let-clause-like class.
+*/
+type AssignClauseLike interface {
+	// Principal Methods
+	GetClass() AssignClauseClassLike
+
+	// Attribute Methods
+	GetRecipient() any
+	GetAssignment() Assignment
+	GetExpression() ExpressionLike
+}
+
+/*
 AttributesLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete attributes-like class.
@@ -767,6 +795,20 @@ type ContinueClauseLike interface {
 }
 
 /*
+DefineClauseLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete define-clause-like class.
+*/
+type DefineClauseLike interface {
+	// Principal Methods
+	GetClass() DefineClauseClassLike
+
+	// Attribute Methods
+	GetConstant() pri.SymbolLike
+	GetExpression() ExpressionLike
+}
+
+/*
 DiscardClauseLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete discard-clause-like class.
@@ -777,19 +819,6 @@ type DiscardClauseLike interface {
 
 	// Attribute Methods
 	GetCitation() ExpressionLike
-}
-
-/*
-DoClauseLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete do-clause-like class.
-*/
-type DoClauseLike interface {
-	// Principal Methods
-	GetClass() DoClauseClassLike
-
-	// Attribute Methods
-	GetMethod() MethodLike
 }
 
 /*
@@ -862,6 +891,19 @@ type IfClauseLike interface {
 }
 
 /*
+InvokeClauseLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete invoke-clause-like class.
+*/
+type InvokeClauseLike interface {
+	// Principal Methods
+	GetClass() InvokeClauseClassLike
+
+	// Attribute Methods
+	GetMethod() MethodLike
+}
+
+/*
 InspectClauseLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete inspect-clause-like class.
@@ -903,21 +945,6 @@ type ItemsLike interface {
 }
 
 /*
-LetClauseLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete let-clause-like class.
-*/
-type LetClauseLike interface {
-	// Principal Methods
-	GetClass() LetClauseClassLike
-
-	// Attribute Methods
-	GetRecipient() any
-	GetAssignment() Assignment
-	GetExpression() ExpressionLike
-}
-
-/*
 MagnitudeLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete magnitude-like class.
@@ -955,7 +982,7 @@ type MethodLike interface {
 
 	// Attribute Methods
 	GetTarget() string
-	GetInvoke() Invoke
+	GetInvocation() Invocation
 	GetIdentifier() string
 	GetArguments() com.Sequential[any]
 }

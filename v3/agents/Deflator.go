@@ -171,11 +171,11 @@ func (v *deflator_) ProcessInverse(
 	v.stack_.AddValue(not.Inverse(operation))
 }
 
-func (v *deflator_) ProcessInvoke(
-	invoke doc.Invoke,
+func (v *deflator_) ProcessInvocation(
+	invocation doc.Invocation,
 ) {
 	var operation string
-	switch invoke {
+	switch invocation {
 	case doc.Synchronous:
 		operation = "<-"
 	case doc.Asynchronous:
@@ -183,12 +183,12 @@ func (v *deflator_) ProcessInvoke(
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected value in a switch statement: %v(%T)",
-			invoke,
-			invoke,
+			invocation,
+			invocation,
 		)
 		panic(message)
 	}
-	v.stack_.AddValue(not.Invoke(operation))
+	v.stack_.AddValue(not.Invocation(operation))
 }
 
 func (v *deflator_) ProcessMoment(
@@ -333,6 +333,27 @@ func (v *deflator_) PostprocessAcceptClause(
 	)
 }
 
+func (v *deflator_) PostprocessAssignClause(
+	assignClause doc.AssignClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var assignment = v.stack_.RemoveLast().(not.AssignmentLike)
+	var recipient not.RecipientLike
+	switch actual := v.stack_.RemoveLast().(type) {
+	case not.SequenceLike:
+		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
+	case not.SubcomponentLike:
+		recipient = not.Recipient(actual)
+	}
+	v.stack_.AddValue(
+		not.LocalTransformation(
+			not.AssignClause("assign", recipient, assignment, expression),
+		),
+	)
+}
+
 func (v *deflator_) PostprocessAttributes(
 	attributes doc.AttributesLike,
 	index_ uint,
@@ -472,6 +493,22 @@ func (v *deflator_) PostprocessContinueClause(
 	)
 }
 
+func (v *deflator_) PostprocessDefineClause(
+	assignClause doc.DefineClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
+	var sequence = v.stack_.RemoveLast().(not.SequenceLike)
+	var symbol = sequence.GetAny().(string)
+	var constant = not.Constant(symbol)
+	v.stack_.AddValue(
+		not.LocalTransformation(
+			not.DefineClause("define", constant, "as", expression),
+		),
+	)
+}
+
 func (v *deflator_) PostprocessDiscardClause(
 	discardClause doc.DiscardClauseLike,
 	index_ uint,
@@ -482,19 +519,6 @@ func (v *deflator_) PostprocessDiscardClause(
 	v.stack_.AddValue(
 		not.RepositoryAccess(
 			not.DiscardClause("discard", citation),
-		),
-	)
-}
-
-func (v *deflator_) PostprocessDoClause(
-	doClause doc.DoClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	var method = v.stack_.RemoveLast().(not.MethodLike)
-	v.stack_.AddValue(
-		not.ActionInduction(
-			not.DoClause("do", method),
 		),
 	)
 }
@@ -606,6 +630,19 @@ func (v *deflator_) PostprocessInversion(
 	)
 }
 
+func (v *deflator_) PostprocessInvokeClause(
+	invokeClause doc.InvokeClauseLike,
+	index_ uint,
+	count_ uint,
+) {
+	var method = v.stack_.RemoveLast().(not.MethodLike)
+	v.stack_.AddValue(
+		not.LocalTransformation(
+			not.InvokeClause("invoke", method),
+		),
+	)
+}
+
 func (v *deflator_) PostprocessItems(
 	items doc.ItemsLike,
 	index_ uint,
@@ -620,27 +657,6 @@ func (v *deflator_) PostprocessItems(
 	}
 	contents.ReverseValues() // They were pulled off the stack in reverse order.
 	v.stack_.AddValue(not.Collection(not.Items("[", contents, "]")))
-}
-
-func (v *deflator_) PostprocessLetClause(
-	letClause doc.LetClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var assignment = v.stack_.RemoveLast().(not.AssignmentLike)
-	var recipient not.RecipientLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case not.SequenceLike:
-		recipient = not.Recipient(not.Variable(actual.GetAny().(string)))
-	case not.SubcomponentLike:
-		recipient = not.Recipient(actual)
-	}
-	v.stack_.AddValue(
-		not.ActionInduction(
-			not.LetClause("let", recipient, assignment, expression),
-		),
-	)
 }
 
 func (v *deflator_) PostprocessMagnitude(
@@ -686,9 +702,13 @@ func (v *deflator_) PostprocessMethod(
 	}
 	arguments.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
-	var invoke = v.stack_.RemoveLast().(not.InvokeLike)
+	var invocation = v.stack_.RemoveLast().(not.InvocationLike)
 	var target = v.stack_.RemoveLast().(string)
-	v.stack_.AddValue(not.Method(target, invoke, identifier, "(", arguments, ")"))
+	v.stack_.AddValue(
+		not.Method(
+			target, invocation, identifier, "(", arguments, ")",
+		),
+	)
 }
 
 func (v *deflator_) PostprocessNotarizeClause(

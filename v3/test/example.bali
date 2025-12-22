@@ -195,7 +195,8 @@
     $methods: [
         $play: [
             $procedure: {
-                let target[$pegs] := [
+                define $numberOfPegs as 3
+                assign target[$pegs] := [
                     "peg A": [ ](
                         $type: /bali/collections/Stack/v1(
                             $itemType: /bali/elements/Number/v1(
@@ -218,14 +219,14 @@
                         )
                     )
                 ]
-                let target[$steps] := [ ]
-                let $disks := range(numberOfDisks 1)
+                assign target[$steps] := [ ]
+                assign $disks := range(numberOfDisks 1)
                 with each $n in disks do {
-                    let $pegA := target[$pegs "peg A"]
-                    do pegA<-addItem(n)
+                    assign $pegA := target[$pegs "peg A"]
+                    invoke pegA<-addItem(n)
                 }
-                do target<-moveTower(numberOfDisks "peg A" "peg C" "peg B")
-                let $steps := target[$steps]
+                invoke target<-moveTower(numberOfDisks "peg A" "peg C" "peg B")
+                assign $steps := target[$steps]
                 return steps<-asCatalog()
             }
             $bytecode: '>
@@ -292,10 +293,10 @@
         $moveTower: [
             $procedure: {
                 if height do {
-                    let $height -= 1
-                    do target<-moveTower(height fromPeg withPeg toPeg)
-                    do target<-moveDisk(fromPeg toPeg)
-                    do target<-moveTower(height withPeg toPeg fromPeg)
+                    assign $height -= 1
+                    invoke target<-moveTower(height fromPeg withPeg toPeg)
+                    invoke target<-moveDisk(fromPeg toPeg)
+                    invoke target<-moveTower(height withPeg toPeg fromPeg)
                 }
             }
             $bytecode: '>
@@ -347,12 +348,12 @@
         )
         $moveDisk: [
             $procedure: {
-                let $fromPeg := target[$pegs fromPeg]
-                let $disk := fromPeg<-removeItem()
-                let $toPeg := target[$pegs toPeg]
-                do toPeg<-addItem(disk)
-                let $steps := target[$steps]
-                do steps<-append("Move disk {disk} from {fromPeg} to {toPeg}.")
+                assign $fromPeg := target[$pegs fromPeg]
+                assign $disk := fromPeg<-removeItem()
+                assign $toPeg := target[$pegs toPeg]
+                invoke toPeg<-addItem(disk)
+                assign $steps := target[$steps]
+                invoke steps<-append("Move disk {disk} from {fromPeg} to {toPeg}.")
             }
             $bytecode: '>
                 :3801:2805:d00a:3802:d00a:e003:8001:3801:2805:d00a:3803:d00a
