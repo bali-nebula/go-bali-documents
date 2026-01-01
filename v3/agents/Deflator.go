@@ -368,8 +368,14 @@ func (v *deflator_) PostprocessAttributes(
 		associations.AppendValue(association)
 		iterator.GetNext()
 	}
-	associations.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Collection(not.Attributes("[", associations, "]")))
+	var collection not.CollectionLike
+	if associations.IsEmpty() {
+		collection = not.Collection(not.Empty("[:]"))
+	} else {
+		associations.ReverseValues() // Pulled off the stack in reverse order.
+		collection = not.Collection(not.Attributes("[", associations, "]"))
+	}
+	v.stack_.AddValue(collection)
 }
 
 func (v *deflator_) PostprocessBreakClause(

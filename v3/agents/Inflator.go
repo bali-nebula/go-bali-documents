@@ -390,6 +390,15 @@ func (v *inflator_) PostprocessDocument(
 	}
 }
 
+func (v *inflator_) PostprocessEmpty(
+	empty not.EmptyLike,
+	index_ uint,
+	count_ uint,
+) {
+	var catalog = com.Catalog[any, doc.ContentLike]()
+	v.stack_.AddValue(doc.AttributesClass().Attributes(catalog))
+}
+
 func (v *inflator_) PostprocessExpression(
 	expression not.ExpressionLike,
 	index_ uint,
