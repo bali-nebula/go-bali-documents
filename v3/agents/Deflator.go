@@ -839,8 +839,14 @@ func (v *deflator_) PostprocessRange(
 		)
 		panic(message)
 	}
-	var primitive2 = not.Primitive(v.stack_.RemoveLast())
-	var primitive1 = not.Primitive(v.stack_.RemoveLast())
+	var primitive2 not.PrimitiveLike
+	if uti.IsDefined(range_.GetOptionalLast()) {
+		primitive2 = not.Primitive(v.stack_.RemoveLast())
+	}
+	var primitive1 not.PrimitiveLike
+	if uti.IsDefined(range_.GetOptionalFirst()) {
+		primitive1 = not.Primitive(v.stack_.RemoveLast())
+	}
 	var left not.LeftLike
 	extent = range_.GetLeft()
 	switch extent {

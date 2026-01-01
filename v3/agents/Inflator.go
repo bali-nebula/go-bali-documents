@@ -743,8 +743,14 @@ func (v *inflator_) PostprocessRange(
 	count_ uint,
 ) {
 	var right = v.stack_.RemoveLast().(com.Bracket)
-	var last = v.stack_.RemoveLast()
-	var first = v.stack_.RemoveLast()
+	var last any
+	if uti.IsDefined(range_.GetOptionalPrimitive2()) {
+		last = v.stack_.RemoveLast()
+	}
+	var first any
+	if uti.IsDefined(range_.GetOptionalPrimitive1()) {
+		first = v.stack_.RemoveLast()
+	}
 	var left = v.stack_.RemoveLast().(com.Bracket)
 	v.stack_.AddValue(doc.RangeClass().Range(left, first, last, right))
 }

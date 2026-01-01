@@ -29,28 +29,22 @@ func RangeClass() RangeClassLike {
 
 func (c *rangeClass_) Range(
 	left com.Bracket,
-	first any,
-	last any,
+	optionalFirst any,
+	optionalLast any,
 	right com.Bracket,
 ) RangeLike {
 	if uti.IsUndefined(left) {
 		panic("The \"left\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(first) {
-		panic("The \"first\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(last) {
-		panic("The \"last\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(right) {
 		panic("The \"right\" attribute is required by this class.")
 	}
 	var instance = &range_{
 		// Initialize the instance attributes.
-		left_:  left,
-		first_: first,
-		last_:  last,
-		right_: right,
+		left_:          left,
+		optionalFirst_: optionalFirst,
+		optionalLast_:  optionalLast,
+		right_:         right,
 	}
 	return instance
 }
@@ -73,12 +67,12 @@ func (v *range_) GetLeft() com.Bracket {
 	return v.left_
 }
 
-func (v *range_) GetFirst() any {
-	return v.first_
+func (v *range_) GetOptionalFirst() any {
+	return v.optionalFirst_
 }
 
-func (v *range_) GetLast() any {
-	return v.last_
+func (v *range_) GetOptionalLast() any {
+	return v.optionalLast_
 }
 
 func (v *range_) GetRight() com.Bracket {
@@ -93,10 +87,10 @@ func (v *range_) GetRight() com.Bracket {
 
 type range_ struct {
 	// Declare the instance attributes.
-	left_  com.Bracket
-	first_ any
-	last_  any
-	right_ com.Bracket
+	left_          com.Bracket
+	optionalFirst_ any
+	optionalLast_  any
+	right_         com.Bracket
 }
 
 // Class Structure

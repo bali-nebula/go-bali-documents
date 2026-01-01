@@ -1079,8 +1079,8 @@ type RangeLike interface {
 
 	// Attribute Methods
 	GetLeft() com.Bracket
-	GetFirst() any
-	GetLast() any
+	GetOptionalFirst() any
+	GetOptionalLast() any
 	GetRight() com.Bracket
 }
 

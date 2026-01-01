@@ -449,6 +449,13 @@ func (v *visitor_) visitDocument(
 	if uti.IsDefined(comment) {
 		v.processor_.ProcessComment(comment)
 	}
+
+	// Visit slot 1 between terms.
+	v.processor_.ProcessDocumentSlot(
+		document,
+		1,
+	)
+
 	var composite = document.GetComposite()
 	v.processor_.PreprocessComposite(
 		composite,
@@ -1537,18 +1544,20 @@ func (v *visitor_) visitRange(
 		1,
 	)
 
-	var first = range_.GetFirst()
-	v.processor_.PreprocessPrimitive(
-		first,
-		0,
-		0,
-	)
-	v.visitPrimitive(first)
-	v.processor_.PostprocessPrimitive(
-		first,
-		0,
-		0,
-	)
+	var first = range_.GetOptionalFirst()
+	if uti.IsDefined(first) {
+		v.processor_.PreprocessPrimitive(
+			first,
+			0,
+			0,
+		)
+		v.visitPrimitive(first)
+		v.processor_.PostprocessPrimitive(
+			first,
+			0,
+			0,
+		)
+	}
 
 	// Visit slot 2 between terms.
 	v.processor_.ProcessRangeSlot(
@@ -1556,18 +1565,20 @@ func (v *visitor_) visitRange(
 		2,
 	)
 
-	var last = range_.GetLast()
-	v.processor_.PreprocessPrimitive(
-		last,
-		0,
-		0,
-	)
-	v.visitPrimitive(last)
-	v.processor_.PostprocessPrimitive(
-		last,
-		0,
-		0,
-	)
+	var last = range_.GetOptionalLast()
+	if uti.IsDefined(last) {
+		v.processor_.PreprocessPrimitive(
+			last,
+			0,
+			0,
+		)
+		v.visitPrimitive(last)
+		v.processor_.PostprocessPrimitive(
+			last,
+			0,
+			0,
+		)
+	}
 
 	// Visit slot 3 between terms.
 	v.processor_.ProcessRangeSlot(
