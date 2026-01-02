@@ -603,6 +603,20 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
+	PreprocessLiteral(
+		literal any,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessLiteralSlot(
+		literal any,
+		slot_ uint,
+	)
+	PostprocessLiteral(
+		literal any,
+		index_ uint,
+		count_ uint,
+	)
 	PreprocessLogical(
 		logical any,
 		index_ uint,
@@ -656,20 +670,6 @@ type Methodical interface {
 	)
 	PostprocessMatchingClause(
 		matchingClause doc.MatchingClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessMetadata(
-		metadata any,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessMetadataSlot(
-		metadata any,
-		slot_ uint,
-	)
-	PostprocessMetadata(
-		metadata any,
 		index_ uint,
 		count_ uint,
 	)

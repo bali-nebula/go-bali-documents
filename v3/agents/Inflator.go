@@ -337,8 +337,8 @@ func (v *inflator_) PostprocessConstraint(
 	if uti.IsDefined(constraint.GetOptionalGenerics()) {
 		generics = v.stack_.RemoveLast().(doc.GenericsLike)
 	}
-	var metadata = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.ConstraintClass().Constraint(metadata, generics))
+	var literal = v.stack_.RemoveLast()
+	v.stack_.AddValue(doc.ConstraintClass().Constraint(literal, generics))
 }
 
 func (v *inflator_) PostprocessContinueClause(

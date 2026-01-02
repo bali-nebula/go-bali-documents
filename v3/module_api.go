@@ -362,11 +362,11 @@ func ConstraintClass() ConstraintClassLike {
 }
 
 func Constraint(
-	metadata any,
+	literal any,
 	optionalGenerics doc.GenericsLike,
 ) ConstraintLike {
 	return ConstraintClass().Constraint(
-		metadata,
+		literal,
 		optionalGenerics,
 	)
 }
@@ -871,7 +871,7 @@ func FormatComponent(
 	case Composite:
 		composite = actual
 	case ConstraintLike:
-		var entity = actual.GetMetadata()
+		var entity = actual.GetLiteral()
 		var generics = actual.GetOptionalGenerics()
 		composite = Component(entity, generics)
 	case DocumentLike:

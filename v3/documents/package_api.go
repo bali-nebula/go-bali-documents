@@ -210,7 +210,7 @@ constraint-like class.
 type ConstraintClassLike interface {
 	// Constructor Methods
 	Constraint(
-		metadata any,
+		literal any,
 		optionalGenerics GenericsLike,
 	) ConstraintLike
 }
@@ -780,7 +780,7 @@ type ConstraintLike interface {
 	GetClass() ConstraintClassLike
 
 	// Attribute Methods
-	GetMetadata() any
+	GetLiteral() any
 	GetOptionalGenerics() GenericsLike
 }
 

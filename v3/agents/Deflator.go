@@ -478,10 +478,10 @@ func (v *deflator_) PostprocessConstraint(
 	if uti.IsDefined(constraint.GetOptionalGenerics()) {
 		generics = v.stack_.RemoveLast().(not.GenericsLike)
 	}
-	var metadata = not.Metadata(v.stack_.RemoveLast())
+	var literal = not.Literal(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.Constraint(
-			metadata,
+			literal,
 			generics,
 		),
 	)
@@ -591,7 +591,7 @@ func (v *deflator_) PostprocessFunction(
 		case string:
 			argument = not.Argument(not.Value(actual))
 		default:
-			argument = not.Argument(not.Primitive(actual))
+			argument = not.Argument(not.Literal(actual))
 		}
 		arguments.AppendValue(argument)
 		iterator.GetNext()
@@ -701,7 +701,7 @@ func (v *deflator_) PostprocessMethod(
 		case string:
 			argument = not.Argument(not.Value(actual))
 		default:
-			argument = not.Argument(not.Primitive(actual))
+			argument = not.Argument(not.Literal(actual))
 		}
 		arguments.AppendValue(argument)
 		iterator.GetNext()

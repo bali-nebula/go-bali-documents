@@ -119,7 +119,7 @@ func (v *visitor_) visitArgument(
 	case string:
 		v.processor_.ProcessIdentifier(actual)
 	default:
-		v.visitPrimitive(argument)
+		v.visitLiteral(argument)
 	}
 }
 
@@ -342,15 +342,15 @@ func (v *visitor_) visitContent(
 func (v *visitor_) visitConstraint(
 	constraint doc.ConstraintLike,
 ) {
-	var metadata = constraint.GetMetadata()
-	v.processor_.PreprocessMetadata(
-		metadata,
+	var literal = constraint.GetLiteral()
+	v.processor_.PreprocessLiteral(
+		literal,
 		0,
 		0,
 	)
-	v.visitMetadata(metadata)
-	v.processor_.PostprocessMetadata(
-		metadata,
+	v.visitLiteral(literal)
+	v.processor_.PostprocessLiteral(
+		literal,
 		0,
 		0,
 	)
@@ -807,6 +807,37 @@ func (v *visitor_) visitLine(
 	}
 }
 
+func (v *visitor_) visitLiteral(
+	literal any,
+) {
+	switch actual := literal.(type) {
+	case doc.RangeLike:
+		v.processor_.PreprocessRange(
+			actual,
+			0,
+			0,
+		)
+		v.visitRange(actual)
+		v.processor_.PostprocessRange(
+			actual,
+			0,
+			0,
+		)
+	default:
+		v.processor_.PreprocessPrimitive(
+			literal,
+			0,
+			0,
+		)
+		v.visitPrimitive(literal)
+		v.processor_.PostprocessPrimitive(
+			literal,
+			0,
+			0,
+		)
+	}
+}
+
 func (v *visitor_) visitMagnitude(
 	magnitude doc.MagnitudeLike,
 ) {
@@ -1136,37 +1167,6 @@ func (v *visitor_) visitMatchingClause(
 		0,
 		0,
 	)
-}
-
-func (v *visitor_) visitMetadata(
-	metadata any,
-) {
-	switch actual := metadata.(type) {
-	case doc.RangeLike:
-		v.processor_.PreprocessRange(
-			actual,
-			0,
-			0,
-		)
-		v.visitRange(actual)
-		v.processor_.PostprocessRange(
-			actual,
-			0,
-			0,
-		)
-	default:
-		v.processor_.PreprocessPrimitive(
-			metadata,
-			0,
-			0,
-		)
-		v.visitPrimitive(metadata)
-		v.processor_.PostprocessPrimitive(
-			metadata,
-			0,
-			0,
-		)
-	}
 }
 
 func (v *visitor_) visitMethod(

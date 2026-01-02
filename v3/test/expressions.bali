@@ -3,6 +3,7 @@
         $units: $radians
     )
     assign $foo := sum(a b)
+    assign $foo := range([0..))
     assign $foo := foo<-bar(x)
     assign $foo := |z|
     assign $foo := |3-4i|

@@ -76,7 +76,7 @@ func (v *component_) GetParameter(
 		var constraint = parameters.GetValue(symbol)
 		if uti.IsDefined(constraint) {
 			parameter = componentClass().Component(
-				constraint.GetMetadata(),
+				constraint.GetLiteral(),
 				constraint.GetOptionalGenerics(),
 			)
 		}

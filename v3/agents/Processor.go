@@ -666,6 +666,26 @@ func (v *processor_) PostprocessLine(
 ) {
 }
 
+func (v *processor_) PreprocessLiteral(
+	literal any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessLiteralSlot(
+	literal any,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessLiteral(
+	literal any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
 func (v *processor_) PreprocessLogical(
 	logical any,
 	index_ uint,
@@ -741,26 +761,6 @@ func (v *processor_) ProcessMatchingClauseSlot(
 
 func (v *processor_) PostprocessMatchingClause(
 	matchingClause doc.MatchingClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PreprocessMetadata(
-	metadata any,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessMetadataSlot(
-	metadata any,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessMetadata(
-	metadata any,
 	index_ uint,
 	count_ uint,
 ) {
