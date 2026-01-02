@@ -136,7 +136,7 @@ attributes-like class.
 type AttributesClassLike interface {
 	// Constructor Methods
 	Attributes(
-		associations com.CatalogLike[any, ContentLike],
+		associations com.CatalogLike[any, EntryLike],
 	) AttributesLike
 }
 
@@ -190,16 +190,16 @@ type ComponentClassLike interface {
 }
 
 /*
-ContentClassLike is a class interface that declares the complete set of class
+EntryClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
-content-like class.
+entry-like class.
 */
-type ContentClassLike interface {
+type EntryClassLike interface {
 	// Constructor Methods
-	Content(
+	Entry(
 		composite Composite,
 		optionalNote string,
-	) ContentLike
+	) EntryLike
 }
 
 /*
@@ -360,7 +360,7 @@ items-like class.
 type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
-		contents com.Sequential[ContentLike],
+		entries com.Sequential[EntryLike],
 	) ItemsLike
 }
 
@@ -702,7 +702,7 @@ type AttributesLike interface {
 	GetClass() AttributesClassLike
 
 	// Attribute Methods
-	GetAssociations() com.CatalogLike[any, ContentLike]
+	GetAssociations() com.CatalogLike[any, EntryLike]
 }
 
 /*
@@ -757,13 +757,13 @@ type ComponentLike interface {
 }
 
 /*
-ContentLike is an instance interface that declares the complete set of
+EntryLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
-of a concrete content-like class.
+of a concrete entry-like class.
 */
-type ContentLike interface {
+type EntryLike interface {
 	// Principal Methods
-	GetClass() ContentClassLike
+	GetClass() EntryClassLike
 
 	// Attribute Methods
 	GetComposite() Composite
@@ -941,7 +941,7 @@ type ItemsLike interface {
 	GetClass() ItemsClassLike
 
 	// Attribute Methods
-	GetContents() com.Sequential[ContentLike]
+	GetEntries() com.Sequential[EntryLike]
 }
 
 /*
@@ -1282,8 +1282,8 @@ type Composite interface {
 	)
 	GetSubcomponent(
 		indices ...any,
-	) ContentLike
+	) EntryLike
 	RemoveSubcomponent(
 		indices ...any,
-	) ContentLike
+	) EntryLike
 }

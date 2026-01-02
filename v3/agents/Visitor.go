@@ -179,15 +179,15 @@ func (v *visitor_) visitAttributes(
 		var association = associations.GetNext()
 		var primitive = association.GetKey()
 		v.visitPrimitive(primitive)
-		var content = association.GetValue()
-		v.processor_.PreprocessContent(
-			content,
+		var entry = association.GetValue()
+		v.processor_.PreprocessEntry(
+			entry,
 			associationsIndex,
 			associationsCount,
 		)
-		v.visitContent(content)
-		v.processor_.PostprocessContent(
-			content,
+		v.visitEntry(entry)
+		v.processor_.PostprocessEntry(
+			entry,
 			associationsIndex,
 			associationsCount,
 		)
@@ -311,34 +311,6 @@ func (v *visitor_) visitComposite(
 	}
 }
 
-func (v *visitor_) visitContent(
-	content doc.ContentLike,
-) {
-	var composite = content.GetComposite()
-	v.processor_.PreprocessComposite(
-		composite,
-		0,
-		0,
-	)
-	v.visitComposite(composite)
-	v.processor_.PostprocessComposite(
-		composite,
-		0,
-		0,
-	)
-
-	// Visit slot 1 between terms.
-	v.processor_.ProcessContentSlot(
-		content,
-		1,
-	)
-
-	var optionalNote = content.GetOptionalNote()
-	if uti.IsDefined(optionalNote) {
-		v.processor_.ProcessNote(optionalNote)
-	}
-}
-
 func (v *visitor_) visitConstraint(
 	constraint doc.ConstraintLike,
 ) {
@@ -420,23 +392,6 @@ func (v *visitor_) visitDiscardClause(
 	v.visitExpression(citation)
 	v.processor_.PostprocessExpression(
 		citation,
-		0,
-		0,
-	)
-}
-
-func (v *visitor_) visitInvokeClause(
-	invokeClause doc.InvokeClauseLike,
-) {
-	var method = invokeClause.GetMethod()
-	v.processor_.PreprocessMethod(
-		method,
-		0,
-		0,
-	)
-	v.visitMethod(method)
-	v.processor_.PostprocessMethod(
-		method,
 		0,
 		0,
 	)
@@ -534,6 +489,34 @@ func (v *visitor_) visitEntity(
 			0,
 			0,
 		)
+	}
+}
+
+func (v *visitor_) visitEntry(
+	entry doc.EntryLike,
+) {
+	var composite = entry.GetComposite()
+	v.processor_.PreprocessComposite(
+		composite,
+		0,
+		0,
+	)
+	v.visitComposite(composite)
+	v.processor_.PostprocessComposite(
+		composite,
+		0,
+		0,
+	)
+
+	// Visit slot 1 between terms.
+	v.processor_.ProcessEntrySlot(
+		entry,
+		1,
+	)
+
+	var optionalNote = entry.GetOptionalNote()
+	if uti.IsDefined(optionalNote) {
+		v.processor_.ProcessNote(optionalNote)
 	}
 }
 
@@ -756,25 +739,42 @@ func (v *visitor_) visitInversion(
 	)
 }
 
+func (v *visitor_) visitInvokeClause(
+	invokeClause doc.InvokeClauseLike,
+) {
+	var method = invokeClause.GetMethod()
+	v.processor_.PreprocessMethod(
+		method,
+		0,
+		0,
+	)
+	v.visitMethod(method)
+	v.processor_.PostprocessMethod(
+		method,
+		0,
+		0,
+	)
+}
+
 func (v *visitor_) visitItems(
 	items doc.ItemsLike,
 ) {
-	var contentsIndex uint
-	var contents = items.GetContents().GetIterator()
-	var contentsCount = uint(contents.GetSize())
-	for contents.HasNext() {
-		contentsIndex++
-		var content = contents.GetNext()
-		v.processor_.PreprocessContent(
-			content,
-			contentsIndex,
-			contentsCount,
+	var entriesIndex uint
+	var entries = items.GetEntries().GetIterator()
+	var entriesCount = uint(entries.GetSize())
+	for entries.HasNext() {
+		entriesIndex++
+		var entry = entries.GetNext()
+		v.processor_.PreprocessEntry(
+			entry,
+			entriesIndex,
+			entriesCount,
 		)
-		v.visitContent(content)
-		v.processor_.PostprocessContent(
-			content,
-			contentsIndex,
-			contentsCount,
+		v.visitEntry(entry)
+		v.processor_.PostprocessEntry(
+			entry,
+			entriesIndex,
+			entriesCount,
 		)
 	}
 }

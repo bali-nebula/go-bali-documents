@@ -346,26 +346,6 @@ func (v *processor_) PostprocessComposite(
 ) {
 }
 
-func (v *processor_) PreprocessContent(
-	content doc.ContentLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessContentSlot(
-	content doc.ContentLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessContent(
-	content doc.ContentLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
 func (v *processor_) PreprocessConstraint(
 	constraint doc.ConstraintLike,
 	index_ uint,
@@ -481,6 +461,26 @@ func (v *processor_) ProcessEntitySlot(
 
 func (v *processor_) PostprocessEntity(
 	entity any,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessEntry(
+	entry doc.EntryLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessEntrySlot(
+	entry doc.EntryLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessEntry(
+	entry doc.EntryLike,
 	index_ uint,
 	count_ uint,
 ) {

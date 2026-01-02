@@ -28,14 +28,14 @@ func ItemsClass() ItemsClassLike {
 // Constructor Methods
 
 func (c *itemsClass_) Items(
-	contents com.Sequential[ContentLike],
+	entries com.Sequential[EntryLike],
 ) ItemsLike {
-	if uti.IsUndefined(contents) {
-		panic("The \"contents\" attribute is required by this class.")
+	if uti.IsUndefined(entries) {
+		panic("The \"entries\" attribute is required by this class.")
 	}
 	var instance = &items_{
 		// Initialize the instance attributes.
-		contents_: contents,
+		entries_: entries,
 	}
 	return instance
 }
@@ -54,8 +54,8 @@ func (v *items_) GetClass() ItemsClassLike {
 
 // Attribute Methods
 
-func (v *items_) GetContents() com.Sequential[ContentLike] {
-	return v.contents_
+func (v *items_) GetEntries() com.Sequential[EntryLike] {
+	return v.entries_
 }
 
 // PROTECTED INTERFACE
@@ -66,7 +66,7 @@ func (v *items_) GetContents() com.Sequential[ContentLike] {
 
 type items_ struct {
 	// Declare the instance attributes.
-	contents_ com.Sequential[ContentLike]
+	entries_ com.Sequential[EntryLike]
 }
 
 // Class Structure

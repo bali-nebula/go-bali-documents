@@ -365,20 +365,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessContent(
-		content doc.ContentLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessContentSlot(
-		content doc.ContentLike,
-		slot_ uint,
-	)
-	PostprocessContent(
-		content doc.ContentLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessConstraint(
 		constraint doc.ConstraintLike,
 		index_ uint,
@@ -460,6 +446,20 @@ type Methodical interface {
 	)
 	PostprocessEntity(
 		entity any,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessEntry(
+		entry doc.EntryLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessEntrySlot(
+		entry doc.EntryLike,
+		slot_ uint,
+	)
+	PostprocessEntry(
+		entry doc.EntryLike,
 		index_ uint,
 		count_ uint,
 	)

@@ -249,13 +249,13 @@ func (v *inflator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = com.Catalog[any, doc.ContentLike]()
+	var catalog = com.Catalog[any, doc.EntryLike]()
 	var associations = attributes.GetAssociations()
 	var iterator = associations.GetIterator()
 	for iterator.HasNext() {
-		var content = v.stack_.RemoveLast().(doc.ContentLike)
+		var entry = v.stack_.RemoveLast().(doc.EntryLike)
 		var primitive = v.stack_.RemoveLast()
-		catalog.SetValue(primitive, content)
+		catalog.SetValue(primitive, entry)
 		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.
@@ -308,24 +308,11 @@ func (v *inflator_) PostprocessComponent(
 	if uti.IsDefined(generics) {
 		switch actual := entity.(type) {
 		case doc.ItemsLike:
-			var contents = v.getContents(actual, generics)
-			entity = doc.ItemsClass().Items(contents)
+			var entries = v.getEntries(actual, generics)
+			entity = doc.ItemsClass().Items(entries)
 		}
 	}
 	v.stack_.AddValue(doc.ComponentClass().Component(entity, generics))
-}
-
-func (v *inflator_) PostprocessContent(
-	content not.ContentLike,
-	index_ uint,
-	count_ uint,
-) {
-	var note string
-	if uti.IsDefined(content.GetOptionalNote()) {
-		note = v.stack_.RemoveLast().(string)
-	}
-	var composite = v.stack_.RemoveLast().(doc.Composite)
-	v.stack_.AddValue(doc.ContentClass().Content(composite, note))
 }
 
 func (v *inflator_) PostprocessConstraint(
@@ -395,8 +382,21 @@ func (v *inflator_) PostprocessEmpty(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = com.Catalog[any, doc.ContentLike]()
+	var catalog = com.Catalog[any, doc.EntryLike]()
 	v.stack_.AddValue(doc.AttributesClass().Attributes(catalog))
+}
+
+func (v *inflator_) PostprocessEntry(
+	entry not.EntryLike,
+	index_ uint,
+	count_ uint,
+) {
+	var note string
+	if uti.IsDefined(entry.GetOptionalNote()) {
+		note = v.stack_.RemoveLast().(string)
+	}
+	var composite = v.stack_.RemoveLast().(doc.Composite)
+	v.stack_.AddValue(doc.EntryClass().Entry(composite, note))
 }
 
 func (v *inflator_) PostprocessExpression(
@@ -511,15 +511,15 @@ func (v *inflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var contents = com.List[doc.ContentLike]()
-	var iterator = items.GetContents().GetIterator()
+	var entries = com.List[doc.EntryLike]()
+	var iterator = items.GetEntries().GetIterator()
 	for iterator.HasNext() {
-		var content = v.stack_.RemoveLast().(doc.ContentLike)
-		contents.AppendValue(content)
+		var entry = v.stack_.RemoveLast().(doc.EntryLike)
+		entries.AppendValue(entry)
 		iterator.GetNext()
 	}
-	contents.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(doc.ItemsClass().Items(contents))
+	entries.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(doc.ItemsClass().Items(entries))
 }
 
 func (v *inflator_) PostprocessLeft(
@@ -927,11 +927,11 @@ func (v *inflator_) PostprocessWithClause(
 
 // Private Methods
 
-func (v *inflator_) getContents(
+func (v *inflator_) getEntries(
 	items doc.ItemsLike,
 	generics doc.GenericsLike,
-) com.Sequential[doc.ContentLike] {
-	var contents = items.GetContents()
+) com.Sequential[doc.EntryLike] {
+	var entries = items.GetEntries()
 	var dummy = doc.ComponentClass().Component(
 		pri.PatternClass().None(),
 		generics,
@@ -941,14 +941,14 @@ func (v *inflator_) getContents(
 	case pri.ResourceLike:
 		switch entity.AsSource() {
 		case "<bali:/types/collections/Queue:v3>":
-			contents = com.QueueFromSequence(contents)
+			entries = com.QueueFromSequence(entries)
 		case "<bali:/types/collections/Set:v3>":
-			contents = com.SetFromSequence(contents)
+			entries = com.SetFromSequence(entries)
 		case "<bali:/types/collections/Stack:v3>":
-			contents = com.StackFromSequence(contents)
+			entries = com.StackFromSequence(entries)
 		}
 	}
-	return contents
+	return entries
 }
 
 // Instance Structure

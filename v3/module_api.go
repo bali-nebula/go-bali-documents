@@ -111,7 +111,7 @@ type (
 	CheckoutClauseClassLike = doc.CheckoutClauseClassLike
 	ComplementClassLike     = doc.ComplementClassLike
 	ComponentClassLike      = doc.ComponentClassLike
-	ContentClassLike        = doc.ContentClassLike
+	EntryClassLike          = doc.EntryClassLike
 	ConstraintClassLike     = doc.ConstraintClassLike
 	ContinueClauseClassLike = doc.ContinueClauseClassLike
 	DefineClauseClassLike   = doc.DefineClauseClassLike
@@ -158,7 +158,7 @@ type (
 	CheckoutClauseLike = doc.CheckoutClauseLike
 	ComplementLike     = doc.ComplementLike
 	ComponentLike      = doc.ComponentLike
-	ContentLike        = doc.ContentLike
+	EntryLike          = doc.EntryLike
 	ConstraintLike     = doc.ConstraintLike
 	ContinueClauseLike = doc.ContinueClauseLike
 	DefineClauseLike   = doc.DefineClauseLike
@@ -286,7 +286,7 @@ func AttributesClass() AttributesClassLike {
 }
 
 func Attributes(
-	associations com.CatalogLike[any, doc.ContentLike],
+	associations com.CatalogLike[any, doc.EntryLike],
 ) AttributesLike {
 	return AttributesClass().Attributes(
 		associations,
@@ -343,15 +343,15 @@ func Component(
 	)
 }
 
-func ContentClass() ContentClassLike {
-	return doc.ContentClass()
+func EntryClass() EntryClassLike {
+	return doc.EntryClass()
 }
 
-func Content(
+func Entry(
 	composite doc.Composite,
 	optionalNote string,
-) ContentLike {
-	return ContentClass().Content(
+) EntryLike {
+	return EntryClass().Entry(
 		composite,
 		optionalNote,
 	)
@@ -518,10 +518,10 @@ func ItemsClass() ItemsClassLike {
 }
 
 func Items(
-	contents com.Sequential[doc.ContentLike],
+	entries com.Sequential[doc.EntryLike],
 ) ItemsLike {
 	return ItemsClass().Items(
-		contents,
+		entries,
 	)
 }
 
@@ -876,7 +876,7 @@ func FormatComponent(
 		composite = Component(entity, generics)
 	case DocumentLike:
 		composite = actual.GetComposite()
-	case ContentLike:
+	case EntryLike:
 		composite = actual.GetComposite()
 	default:
 		composite = Component(actual, nil)
