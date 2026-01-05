@@ -1006,7 +1006,7 @@ func (v *deflator_) PostprocessSubcomponent(
 		case string:
 			index = not.Index(not.Value(actual))
 		default:
-			index = not.Index(not.Primitive(actual))
+			index = not.Index(not.Literal(actual))
 		}
 		indexes.AppendValue(index)
 		iterator.GetNext()

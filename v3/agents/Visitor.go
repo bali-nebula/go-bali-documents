@@ -646,13 +646,13 @@ func (v *visitor_) visitIndex(
 	case string:
 		v.processor_.ProcessIdentifier(actual)
 	default:
-		v.processor_.PreprocessPrimitive(
+		v.processor_.PreprocessLiteral(
 			index,
 			0,
 			0,
 		)
-		v.visitPrimitive(index)
-		v.processor_.PostprocessPrimitive(
+		v.visitLiteral(index)
+		v.processor_.PostprocessLiteral(
 			index,
 			0,
 			0,

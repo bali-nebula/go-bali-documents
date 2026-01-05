@@ -23,7 +23,7 @@
     assign $foo := @reference
     assign $foo := list<-add-value(ex)
     assign $foo := remote<~notify(event)
-    assign $foo := customer[42 $address $province]
+    assign $foo := customer[42 $address [$red..$violet]]
     assign $foo := a & b & c
     assign $foo := a < b and b = c san d > e ior e is f xor f matches g
 }
