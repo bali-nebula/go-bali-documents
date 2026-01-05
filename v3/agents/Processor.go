@@ -326,21 +326,21 @@ func (v *processor_) PostprocessComplement(
 ) {
 }
 
-func (v *processor_) PreprocessComposite(
-	composite doc.Composite,
+func (v *processor_) PreprocessComponent(
+	composite doc.ComponentLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessCompositeSlot(
-	composite doc.Composite,
+func (v *processor_) ProcessComponentSlot(
+	composite doc.ComponentLike,
 	slot_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessComposite(
-	composite doc.Composite,
+func (v *processor_) PostprocessComponent(
+	composite doc.ComponentLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -466,26 +466,6 @@ func (v *processor_) PostprocessEntity(
 ) {
 }
 
-func (v *processor_) PreprocessEntry(
-	entry doc.EntryLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessEntrySlot(
-	entry doc.EntryLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessEntry(
-	entry doc.EntryLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
 func (v *processor_) PreprocessExpression(
 	expression doc.ExpressionLike,
 	index_ uint,
@@ -521,6 +501,26 @@ func (v *processor_) ProcessFunctionSlot(
 
 func (v *processor_) PostprocessFunction(
 	function doc.FunctionLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) PreprocessGenerics(
+	generics doc.GenericsLike,
+	index_ uint,
+	count_ uint,
+) {
+}
+
+func (v *processor_) ProcessGenericsSlot(
+	generics doc.GenericsLike,
+	slot_ uint,
+) {
+}
+
+func (v *processor_) PostprocessGenerics(
+	generics doc.GenericsLike,
 	index_ uint,
 	count_ uint,
 ) {
@@ -641,26 +641,6 @@ func (v *processor_) ProcessItemsSlot(
 
 func (v *processor_) PostprocessItems(
 	items doc.ItemsLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PreprocessLine(
-	line any,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessLineSlot(
-	line any,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessLine(
-	line any,
 	index_ uint,
 	count_ uint,
 ) {
@@ -841,26 +821,6 @@ func (v *processor_) ProcessOnClauseSlot(
 
 func (v *processor_) PostprocessOnClause(
 	onClause doc.OnClauseLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PreprocessGenerics(
-	generics doc.GenericsLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessGenericsSlot(
-	generics doc.GenericsLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessGenerics(
-	generics doc.GenericsLike,
 	index_ uint,
 	count_ uint,
 ) {

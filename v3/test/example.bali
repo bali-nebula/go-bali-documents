@@ -30,7 +30,7 @@
             <"(
                 $mediaType: "application/bsmd"
             )
-            $type: /bali/collections/Catalog/v1(
+            $type: /bali/types/collections/Catalog/v3(
                 $keyType: /bali/strings/Symbol/v1
                 $valueType: /bali/collections/Stack/v1(
                     $itemType: /bali/elements/Number/v1(
@@ -39,7 +39,7 @@
                 )
             )
         ](
-            $type: /bali/aspects/Attribute/v1
+            $type: /bali/types/aspects/Attribute/v3
         )
         $steps: [
             $description: ">
@@ -47,14 +47,14 @@
             <"(
                 $mediaType: "application/bsmd"
             )
-            $type: /bali/collections/List/v1(
+            $type: /bali/types/collections/List/v3(
                 $itemType: /bali/strings/Text/v1
             )
         ](
-            $type: /bali/aspects/Attribute/v1
+            $type: /bali/types/aspects/Attribute/v3
         )
     ](
-        $type: /bali/collections/Catalog/v1(
+        $type: /bali/types/collections/Catalog/v3(
             $valueType: /bali/aspects/Attribute/v1
         )
     )

@@ -47,7 +47,6 @@ type (
 	DeflatorClassLike  = age.DeflatorClassLike
 	InflatorClassLike  = age.InflatorClassLike
 	ProcessorClassLike = age.ProcessorClassLike
-	ValidatorClassLike = age.ValidatorClassLike
 	VisitorClassLike   = age.VisitorClassLike
 )
 
@@ -55,7 +54,6 @@ type (
 	DeflatorLike  = age.DeflatorLike
 	InflatorLike  = age.InflatorLike
 	ProcessorLike = age.ProcessorLike
-	ValidatorLike = age.ValidatorLike
 	VisitorLike   = age.VisitorLike
 )
 
@@ -111,7 +109,6 @@ type (
 	CheckoutClauseClassLike = doc.CheckoutClauseClassLike
 	ComplementClassLike     = doc.ComplementClassLike
 	ComponentClassLike      = doc.ComponentClassLike
-	EntryClassLike          = doc.EntryClassLike
 	ConstraintClassLike     = doc.ConstraintClassLike
 	ContinueClauseClassLike = doc.ContinueClauseClassLike
 	DefineClauseClassLike   = doc.DefineClauseClassLike
@@ -121,9 +118,9 @@ type (
 	FunctionClassLike       = doc.FunctionClassLike
 	GenericsClassLike       = doc.GenericsClassLike
 	IfClauseClassLike       = doc.IfClauseClassLike
-	InvokeClauseClassLike   = doc.InvokeClauseClassLike
 	InspectClauseClassLike  = doc.InspectClauseClassLike
 	InversionClassLike      = doc.InversionClassLike
+	InvokeClauseClassLike   = doc.InvokeClauseClassLike
 	ItemsClassLike          = doc.ItemsClassLike
 	MagnitudeClassLike      = doc.MagnitudeClassLike
 	MatchingClauseClassLike = doc.MatchingClauseClassLike
@@ -158,7 +155,6 @@ type (
 	CheckoutClauseLike = doc.CheckoutClauseLike
 	ComplementLike     = doc.ComplementLike
 	ComponentLike      = doc.ComponentLike
-	EntryLike          = doc.EntryLike
 	ConstraintLike     = doc.ConstraintLike
 	ContinueClauseLike = doc.ContinueClauseLike
 	DefineClauseLike   = doc.DefineClauseLike
@@ -168,9 +164,9 @@ type (
 	FunctionLike       = doc.FunctionLike
 	GenericsLike       = doc.GenericsLike
 	IfClauseLike       = doc.IfClauseLike
-	InvokeClauseLike   = doc.InvokeClauseLike
 	InspectClauseLike  = doc.InspectClauseLike
 	InversionLike      = doc.InversionLike
+	InvokeClauseLike   = doc.InvokeClauseLike
 	ItemsLike          = doc.ItemsLike
 	MagnitudeLike      = doc.MagnitudeLike
 	MatchingClauseLike = doc.MatchingClauseLike
@@ -229,14 +225,6 @@ func Processor() ProcessorLike {
 	return ProcessorClass().Processor()
 }
 
-func ValidatorClass() ValidatorClassLike {
-	return age.ValidatorClass()
-}
-
-func Validator() ValidatorLike {
-	return ValidatorClass().Validator()
-}
-
 func VisitorClass() VisitorClassLike {
 	return age.VisitorClass()
 }
@@ -286,7 +274,7 @@ func AttributesClass() AttributesClassLike {
 }
 
 func Attributes(
-	associations com.CatalogLike[any, doc.EntryLike],
+	associations com.CatalogLike[any, doc.ComponentLike],
 ) AttributesLike {
 	return AttributesClass().Attributes(
 		associations,
@@ -336,23 +324,11 @@ func ComponentClass() ComponentClassLike {
 func Component(
 	entity any,
 	optionalGenerics doc.GenericsLike,
+	optionalNote string,
 ) ComponentLike {
 	return ComponentClass().Component(
 		entity,
 		optionalGenerics,
-	)
-}
-
-func EntryClass() EntryClassLike {
-	return doc.EntryClass()
-}
-
-func Entry(
-	composite doc.Composite,
-	optionalNote string,
-) EntryLike {
-	return EntryClass().Entry(
-		composite,
 		optionalNote,
 	)
 }
@@ -411,11 +387,11 @@ func DocumentClass() DocumentClassLike {
 
 func Document(
 	optionalComment string,
-	composite doc.Composite,
+	component doc.ComponentLike,
 ) DocumentLike {
 	return DocumentClass().Document(
 		optionalComment,
-		composite,
+		component,
 	)
 }
 
@@ -473,18 +449,6 @@ func IfClause(
 	)
 }
 
-func InvokeClauseClass() InvokeClauseClassLike {
-	return doc.InvokeClauseClass()
-}
-
-func InvokeClause(
-	method doc.MethodLike,
-) InvokeClauseLike {
-	return InvokeClauseClass().InvokeClause(
-		method,
-	)
-}
-
 func InspectClauseClass() InspectClauseClassLike {
 	return doc.InspectClauseClass()
 }
@@ -513,15 +477,27 @@ func Inversion(
 	)
 }
 
+func InvokeClauseClass() InvokeClauseClassLike {
+	return doc.InvokeClauseClass()
+}
+
+func InvokeClause(
+	method doc.MethodLike,
+) InvokeClauseLike {
+	return InvokeClauseClass().InvokeClause(
+		method,
+	)
+}
+
 func ItemsClass() ItemsClassLike {
 	return doc.ItemsClass()
 }
 
 func Items(
-	entries com.Sequential[doc.EntryLike],
+	components com.Sequential[doc.ComponentLike],
 ) ItemsLike {
 	return ItemsClass().Items(
-		entries,
+		components,
 	)
 }
 
@@ -628,10 +604,10 @@ func ProcedureClass() ProcedureClassLike {
 }
 
 func Procedure(
-	lines com.Sequential[any],
+	statements com.Sequential[doc.StatementLike],
 ) ProcedureLike {
 	return ProcedureClass().Procedure(
-		lines,
+		statements,
 	)
 }
 
@@ -778,10 +754,12 @@ func StatementClass() StatementClassLike {
 }
 
 func Statement(
+	optionalComment string,
 	mainClause any,
 	optionalOnClause doc.OnClauseLike,
 ) StatementLike {
 	return StatementClass().Statement(
+		optionalComment,
 		mainClause,
 		optionalOnClause,
 	)
@@ -849,9 +827,9 @@ func WithClause(
 
 func ParseComponent(
 	source string,
-) Composite {
+) ComponentLike {
 	var document = ParseDocument(source)
-	return document.GetComposite()
+	return document.GetComponent()
 }
 
 func ParseDocument(
@@ -866,22 +844,20 @@ func ParseDocument(
 func FormatComponent(
 	value any,
 ) string {
-	var composite Composite
+	var component ComponentLike
 	switch actual := value.(type) {
-	case Composite:
-		composite = actual
+	case ComponentLike:
+		component = actual
 	case ConstraintLike:
 		var entity = actual.GetLiteral()
 		var generics = actual.GetOptionalGenerics()
-		composite = Component(entity, generics)
+		component = Component(entity, generics, "")
 	case DocumentLike:
-		composite = actual.GetComposite()
-	case EntryLike:
-		composite = actual.GetComposite()
+		component = actual.GetComponent()
 	default:
-		composite = Component(actual, nil)
+		component = Component(actual, nil, "")
 	}
-	var source = FormatDocument(Document("", composite))
+	var source = FormatDocument(Document("", component))
 	return source[:len(source)-1] // Remove the trailing newline.
 }
 

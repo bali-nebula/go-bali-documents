@@ -179,15 +179,15 @@ func (v *visitor_) visitAttributes(
 		var association = associations.GetNext()
 		var primitive = association.GetKey()
 		v.visitPrimitive(primitive)
-		var entry = association.GetValue()
-		v.processor_.PreprocessEntry(
-			entry,
+		var component = association.GetValue()
+		v.processor_.PreprocessComponent(
+			component,
 			associationsIndex,
 			associationsCount,
 		)
-		v.visitEntry(entry)
-		v.processor_.PostprocessEntry(
-			entry,
+		v.visitComponent(component)
+		v.processor_.PostprocessComponent(
+			component,
 			associationsIndex,
 			associationsCount,
 		)
@@ -273,10 +273,10 @@ func (v *visitor_) visitComplement(
 	)
 }
 
-func (v *visitor_) visitComposite(
-	composite doc.Composite,
+func (v *visitor_) visitComponent(
+	component doc.ComponentLike,
 ) {
-	var entity = composite.GetEntity()
+	var entity = component.GetEntity()
 	v.processor_.PreprocessEntity(
 		entity,
 		0,
@@ -290,12 +290,12 @@ func (v *visitor_) visitComposite(
 	)
 
 	// Visit slot 1 between terms.
-	v.processor_.ProcessCompositeSlot(
-		composite,
+	v.processor_.ProcessComponentSlot(
+		component,
 		1,
 	)
 
-	var optionalGenerics = composite.GetOptionalGenerics()
+	var optionalGenerics = component.GetOptionalGenerics()
 	if uti.IsDefined(optionalGenerics) {
 		v.processor_.PreprocessGenerics(
 			optionalGenerics,
@@ -308,6 +308,17 @@ func (v *visitor_) visitComposite(
 			0,
 			0,
 		)
+	}
+
+	// Visit slot 2 between terms.
+	v.processor_.ProcessComponentSlot(
+		component,
+		2,
+	)
+
+	var optionalNote = component.GetOptionalNote()
+	if uti.IsDefined(optionalNote) {
+		v.processor_.ProcessNote(optionalNote)
 	}
 }
 
@@ -411,15 +422,15 @@ func (v *visitor_) visitDocument(
 		1,
 	)
 
-	var composite = document.GetComposite()
-	v.processor_.PreprocessComposite(
-		composite,
+	var component = document.GetComponent()
+	v.processor_.PreprocessComponent(
+		component,
 		0,
 		0,
 	)
-	v.visitComposite(composite)
-	v.processor_.PostprocessComposite(
-		composite,
+	v.visitComponent(component)
+	v.processor_.PostprocessComponent(
+		component,
 		0,
 		0,
 	)
@@ -489,34 +500,6 @@ func (v *visitor_) visitEntity(
 			0,
 			0,
 		)
-	}
-}
-
-func (v *visitor_) visitEntry(
-	entry doc.EntryLike,
-) {
-	var composite = entry.GetComposite()
-	v.processor_.PreprocessComposite(
-		composite,
-		0,
-		0,
-	)
-	v.visitComposite(composite)
-	v.processor_.PostprocessComposite(
-		composite,
-		0,
-		0,
-	)
-
-	// Visit slot 1 between terms.
-	v.processor_.ProcessEntrySlot(
-		entry,
-		1,
-	)
-
-	var optionalNote = entry.GetOptionalNote()
-	if uti.IsDefined(optionalNote) {
-		v.processor_.ProcessNote(optionalNote)
 	}
 }
 
@@ -759,51 +742,23 @@ func (v *visitor_) visitInvokeClause(
 func (v *visitor_) visitItems(
 	items doc.ItemsLike,
 ) {
-	var entriesIndex uint
-	var entries = items.GetEntries().GetIterator()
-	var entriesCount = uint(entries.GetSize())
-	for entries.HasNext() {
-		entriesIndex++
-		var entry = entries.GetNext()
-		v.processor_.PreprocessEntry(
-			entry,
-			entriesIndex,
-			entriesCount,
+	var componentsIndex uint
+	var components = items.GetComponents().GetIterator()
+	var componentsCount = uint(components.GetSize())
+	for components.HasNext() {
+		componentsIndex++
+		var component = components.GetNext()
+		v.processor_.PreprocessComponent(
+			component,
+			componentsIndex,
+			componentsCount,
 		)
-		v.visitEntry(entry)
-		v.processor_.PostprocessEntry(
-			entry,
-			entriesIndex,
-			entriesCount,
+		v.visitComponent(component)
+		v.processor_.PostprocessComponent(
+			component,
+			componentsIndex,
+			componentsCount,
 		)
-	}
-}
-
-func (v *visitor_) visitLine(
-	line any,
-) {
-	switch actual := line.(type) {
-	case doc.StatementLike:
-		v.processor_.PreprocessStatement(
-			actual,
-			0,
-			0,
-		)
-		v.visitStatement(actual)
-		v.processor_.PostprocessStatement(
-			actual,
-			0,
-			0,
-		)
-	case string:
-		v.processor_.ProcessAnnotation(actual)
-	default:
-		var message = fmt.Sprintf(
-			"Found a value of an unexpected type in a switch statement: %v(%T)",
-			actual,
-			actual,
-		)
-		panic(message)
 	}
 }
 
@@ -1259,14 +1214,14 @@ func (v *visitor_) visitNumerical(
 	numerical any,
 ) {
 	switch actual := numerical.(type) {
-	case doc.Composite:
-		v.processor_.PreprocessComposite(
+	case doc.ComponentLike:
+		v.processor_.PreprocessComponent(
 			actual,
 			0,
 			0,
 		)
-		v.visitComposite(actual)
-		v.processor_.PostprocessComposite(
+		v.visitComponent(actual)
+		v.processor_.PostprocessComponent(
 			actual,
 			0,
 			0,
@@ -1495,22 +1450,22 @@ func (v *visitor_) visitPrimitive(
 func (v *visitor_) visitProcedure(
 	procedure doc.ProcedureLike,
 ) {
-	var linesIndex uint
-	var lines = procedure.GetLines().GetIterator()
-	var linesCount = uint(lines.GetSize())
-	for lines.HasNext() {
-		linesIndex++
-		var line = lines.GetNext()
-		v.processor_.PreprocessLine(
-			line,
-			linesIndex,
-			linesCount,
+	var statementsIndex uint
+	var statements = procedure.GetStatements().GetIterator()
+	var statementsCount = uint(statements.GetSize())
+	for statements.HasNext() {
+		statementsIndex++
+		var statement = statements.GetNext()
+		v.processor_.PreprocessStatement(
+			statement,
+			statementsIndex,
+			statementsCount,
 		)
-		v.visitLine(line)
-		v.processor_.PostprocessLine(
-			line,
-			linesIndex,
-			linesCount,
+		v.visitStatement(statement)
+		v.processor_.PostprocessStatement(
+			statement,
+			statementsIndex,
+			statementsCount,
 		)
 	}
 }
@@ -1658,14 +1613,14 @@ func (v *visitor_) visitReference(
 	reference any,
 ) {
 	switch actual := reference.(type) {
-	case doc.Composite:
-		v.processor_.PreprocessComposite(
+	case doc.ComponentLike:
+		v.processor_.PreprocessComponent(
 			actual,
 			0,
 			0,
 		)
-		v.visitComposite(actual)
-		v.processor_.PostprocessComposite(
+		v.visitComponent(actual)
+		v.processor_.PostprocessComponent(
 			actual,
 			0,
 			0,
@@ -1840,14 +1795,14 @@ func (v *visitor_) visitReversible(
 	reversible any,
 ) {
 	switch actual := reversible.(type) {
-	case doc.Composite:
-		v.processor_.PreprocessComposite(
+	case doc.ComponentLike:
+		v.processor_.PreprocessComponent(
 			actual,
 			0,
 			0,
 		)
-		v.visitComposite(actual)
-		v.processor_.PostprocessComposite(
+		v.visitComponent(actual)
+		v.processor_.PostprocessComponent(
 			actual,
 			0,
 			0,
@@ -2053,6 +2008,17 @@ func (v *visitor_) visitSendClause(
 func (v *visitor_) visitStatement(
 	statement doc.StatementLike,
 ) {
+	var optionalComment = statement.GetOptionalComment()
+	if uti.IsDefined(optionalComment) {
+		v.processor_.ProcessComment(optionalComment)
+	}
+
+	// Visit slot 1 between terms.
+	v.processor_.ProcessStatementSlot(
+		statement,
+		1,
+	)
+
 	var mainClause = statement.GetMainClause()
 	v.processor_.PreprocessMainClause(
 		mainClause,
@@ -2066,10 +2032,10 @@ func (v *visitor_) visitStatement(
 		0,
 	)
 
-	// Visit slot 1 between terms.
+	// Visit slot 2 between terms.
 	v.processor_.ProcessStatementSlot(
 		statement,
-		1,
+		2,
 	)
 
 	var optionalOnClause = statement.GetOptionalOnClause()
@@ -2124,14 +2090,14 @@ func (v *visitor_) visitSubject(
 	subject any,
 ) {
 	switch actual := subject.(type) {
-	case doc.Composite:
-		v.processor_.PreprocessComposite(
+	case doc.ComponentLike:
+		v.processor_.PreprocessComponent(
 			actual,
 			0,
 			0,
 		)
-		v.visitComposite(actual)
-		v.processor_.PostprocessComposite(
+		v.visitComponent(actual)
+		v.processor_.PostprocessComponent(
 			actual,
 			0,
 			0,

@@ -28,14 +28,14 @@ func ProcedureClass() ProcedureClassLike {
 // Constructor Methods
 
 func (c *procedureClass_) Procedure(
-	lines com.Sequential[any],
+	statements com.Sequential[StatementLike],
 ) ProcedureLike {
-	if uti.IsUndefined(lines) {
-		panic("The \"lines\" attribute is required by this class.")
+	if uti.IsUndefined(statements) {
+		panic("The \"statements\" attribute is required by this class.")
 	}
 	var instance = &procedure_{
 		// Initialize the instance attributes.
-		lines_: lines,
+		statements_: statements,
 	}
 	return instance
 }
@@ -54,8 +54,8 @@ func (v *procedure_) GetClass() ProcedureClassLike {
 
 // Attribute Methods
 
-func (v *procedure_) GetLines() com.Sequential[any] {
-	return v.lines_
+func (v *procedure_) GetStatements() com.Sequential[StatementLike] {
+	return v.statements_
 }
 
 // PROTECTED INTERFACE
@@ -66,7 +66,7 @@ func (v *procedure_) GetLines() com.Sequential[any] {
 
 type procedure_ struct {
 	// Declare the instance attributes.
-	lines_ com.Sequential[any]
+	statements_ com.Sequential[StatementLike]
 }
 
 // Class Structure

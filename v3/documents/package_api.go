@@ -136,7 +136,7 @@ attributes-like class.
 type AttributesClassLike interface {
 	// Constructor Methods
 	Attributes(
-		associations com.CatalogLike[any, EntryLike],
+		associations com.CatalogLike[any, ComponentLike],
 	) AttributesLike
 }
 
@@ -186,20 +186,8 @@ type ComponentClassLike interface {
 	Component(
 		entity any,
 		optionalGenerics GenericsLike,
-	) ComponentLike
-}
-
-/*
-EntryClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-entry-like class.
-*/
-type EntryClassLike interface {
-	// Constructor Methods
-	Entry(
-		composite Composite,
 		optionalNote string,
-	) EntryLike
+	) ComponentLike
 }
 
 /*
@@ -259,7 +247,7 @@ type DocumentClassLike interface {
 	// Constructor Methods
 	Document(
 		optionalComment string,
-		composite Composite,
+		component ComponentLike,
 	) DocumentLike
 }
 
@@ -315,18 +303,6 @@ type IfClauseClassLike interface {
 }
 
 /*
-InvokeClauseClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-invoke-clause-like class.
-*/
-type InvokeClauseClassLike interface {
-	// Constructor Methods
-	InvokeClause(
-		method MethodLike,
-	) InvokeClauseLike
-}
-
-/*
 InspectClauseClassLike is a class interface that declares the complete set of
 class constructors, constants and functions that must be supported by each
 concrete inspect-clause-like class.
@@ -353,6 +329,18 @@ type InversionClassLike interface {
 }
 
 /*
+InvokeClauseClassLike is a class interface that declares the complete set of class
+constructors, constants and functions that must be supported by each concrete
+invoke-clause-like class.
+*/
+type InvokeClauseClassLike interface {
+	// Constructor Methods
+	InvokeClause(
+		method MethodLike,
+	) InvokeClauseLike
+}
+
+/*
 ItemsClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
 items-like class.
@@ -360,7 +348,7 @@ items-like class.
 type ItemsClassLike interface {
 	// Constructor Methods
 	Items(
-		entries com.Sequential[EntryLike],
+		components com.Sequential[ComponentLike],
 	) ItemsLike
 }
 
@@ -463,7 +451,7 @@ procedure-like class.
 type ProcedureClassLike interface {
 	// Constructor Methods
 	Procedure(
-		lines com.Sequential[any],
+		statements com.Sequential[StatementLike],
 	) ProcedureLike
 }
 
@@ -604,6 +592,7 @@ statement-like class.
 type StatementClassLike interface {
 	// Constructor Methods
 	Statement(
+		optionalComment string,
 		mainClause any,
 		optionalOnClause OnClauseLike,
 	) StatementLike
@@ -702,7 +691,7 @@ type AttributesLike interface {
 	GetClass() AttributesClassLike
 
 	// Attribute Methods
-	GetAssociations() com.CatalogLike[any, EntryLike]
+	GetAssociations() com.CatalogLike[any, ComponentLike]
 }
 
 /*
@@ -754,20 +743,6 @@ type ComponentLike interface {
 
 	// Aspect Interfaces
 	Composite
-}
-
-/*
-EntryLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete entry-like class.
-*/
-type EntryLike interface {
-	// Principal Methods
-	GetClass() EntryClassLike
-
-	// Attribute Methods
-	GetComposite() Composite
-	GetOptionalNote() string
 }
 
 /*
@@ -832,7 +807,7 @@ type DocumentLike interface {
 
 	// Attribute Methods
 	GetOptionalComment() string
-	GetComposite() Composite
+	GetComponent() ComponentLike
 }
 
 /*
@@ -891,19 +866,6 @@ type IfClauseLike interface {
 }
 
 /*
-InvokeClauseLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete invoke-clause-like class.
-*/
-type InvokeClauseLike interface {
-	// Principal Methods
-	GetClass() InvokeClauseClassLike
-
-	// Attribute Methods
-	GetMethod() MethodLike
-}
-
-/*
 InspectClauseLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete inspect-clause-like class.
@@ -932,6 +894,19 @@ type InversionLike interface {
 }
 
 /*
+InvokeClauseLike is an instance interface that declares the complete set of
+principal, attribute and aspect methods that must be supported by each instance
+of a concrete invoke-clause-like class.
+*/
+type InvokeClauseLike interface {
+	// Principal Methods
+	GetClass() InvokeClauseClassLike
+
+	// Attribute Methods
+	GetMethod() MethodLike
+}
+
+/*
 ItemsLike is an instance interface that declares the complete set of principal,
 attribute and aspect methods that must be supported by each instance of a
 concrete items-like class.
@@ -941,7 +916,7 @@ type ItemsLike interface {
 	GetClass() ItemsClassLike
 
 	// Attribute Methods
-	GetEntries() com.Sequential[EntryLike]
+	GetComponents() com.Sequential[ComponentLike]
 }
 
 /*
@@ -1052,7 +1027,7 @@ type ProcedureLike interface {
 	GetClass() ProcedureClassLike
 
 	// Attribute Methods
-	GetLines() com.Sequential[any]
+	GetStatements() com.Sequential[StatementLike]
 }
 
 /*
@@ -1204,6 +1179,7 @@ type StatementLike interface {
 	GetClass() StatementClassLike
 
 	// Attribute Methods
+	GetOptionalComment() string
 	GetMainClause() any
 	GetOptionalOnClause() OnClauseLike
 }
@@ -1273,17 +1249,18 @@ all composite documents.
 type Composite interface {
 	GetEntity() any
 	GetOptionalGenerics() GenericsLike
+	GetOptionalNote() string
 	GetParameter(
 		symbol pri.SymbolLike,
-	) Composite
+	) ComponentLike
 	SetSubcomponent(
 		value any,
 		indices ...any,
 	)
 	GetSubcomponent(
 		indices ...any,
-	) EntryLike
+	) ComponentLike
 	RemoveSubcomponent(
 		indices ...any,
-	) EntryLike
+	) ComponentLike
 }

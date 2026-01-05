@@ -32,6 +32,7 @@ func ComponentClass() ComponentClassLike {
 func (c *componentClass_) Component(
 	entity any,
 	optionalGenerics GenericsLike,
+	optionalNote string,
 ) ComponentLike {
 	if uti.IsUndefined(entity) {
 		panic("The \"entity\" attribute is required by this class.")
@@ -40,6 +41,7 @@ func (c *componentClass_) Component(
 		// Initialize the instance attributes.
 		entity_:           entity,
 		optionalGenerics_: optionalGenerics,
+		optionalNote_:     optionalNote,
 	}
 	return instance
 }
@@ -66,10 +68,14 @@ func (v *component_) GetOptionalGenerics() GenericsLike {
 	return v.optionalGenerics_
 }
 
+func (v *component_) GetOptionalNote() string {
+	return v.optionalNote_
+}
+
 func (v *component_) GetParameter(
 	symbol pri.SymbolLike,
-) Composite {
-	var parameter Composite
+) ComponentLike {
+	var parameter ComponentLike
 	var generics = v.GetOptionalGenerics()
 	if uti.IsDefined(generics) {
 		var parameters = generics.GetParameters()
@@ -78,6 +84,7 @@ func (v *component_) GetParameter(
 			parameter = componentClass().Component(
 				constraint.GetLiteral(),
 				constraint.GetOptionalGenerics(),
+				"",
 			)
 		}
 	}
@@ -88,88 +95,79 @@ func (v *component_) SetSubcomponent(
 	value any,
 	indices ...any,
 ) {
-	var entry EntryLike
-	switch actual := value.(type) {
-	case Composite:
-		entry = EntryClass().Entry(actual, "")
-	case DocumentLike:
-		entry = EntryClass().Entry(actual.GetComposite(), "")
-	case EntryLike:
-		entry = actual
-	default:
-		entry = EntryClass().Entry(
-			componentClass().Component(value, nil), "",
-		)
+	if len(indices) == 0 {
+		panic("At least one index must be specified when setting a subcomponent.")
 	}
-	if uti.IsDefined(entry) && len(indices) > 0 {
-		var key = indices[0]
-		indices = indices[1:]
-		switch collection := v.GetEntity().(type) {
-		case ItemsLike:
-			switch entries := collection.GetEntries().(type) {
-			case com.ListLike[EntryLike]:
-				var index = key.(int)
-				v.setItem(entries, entry, index, indices...)
-			default:
-				var message = fmt.Sprintf(
-					"Attempted to set an item in a non-list type: %T",
-					entries,
-				)
-				panic(message)
-			}
-		case AttributesLike:
-			var associations = collection.GetAssociations()
-			v.setAttribute(associations, key, entry, indices...)
-		}
+
+	// Turn the value into a component.
+	var component ComponentLike
+	switch actual := value.(type) {
+	case ComponentLike:
+		component = actual
+	case DocumentLike:
+		component = actual.GetComponent()
+	default:
+		component = componentClass().Component(value, nil, "")
+	}
+
+	// Treat items and attributes differently.
+	switch collection := v.GetEntity().(type) {
+	case ItemsLike:
+		var components = collection.GetComponents().(com.ListLike[ComponentLike])
+		v.setItem(components, component, indices...)
+	case AttributesLike:
+		var associations = collection.GetAssociations()
+		v.setAttribute(associations, component, indices...)
+	default:
+		var message = fmt.Sprintf(
+			"Attempted to set a subcomponent in a simple type: %T",
+			collection,
+		)
+		panic(message)
 	}
 }
 
 func (v *component_) GetSubcomponent(
 	indices ...any,
-) EntryLike {
-	var entry EntryLike
-	if len(indices) > 0 {
-		var key = indices[0]
-		indices = indices[1:]
-		switch collection := v.GetEntity().(type) {
-		case ItemsLike:
-			var entries = collection.GetEntries()
-			var index = key.(int)
-			entry = v.getItem(entries, index, indices...)
-		case AttributesLike:
-			var associations = collection.GetAssociations()
-			entry = v.getAttribute(associations, key, indices...)
-		}
+) ComponentLike {
+	var component ComponentLike
+	if len(indices) == 0 {
+		panic("At least one index must be specified when setting a subcomponent.")
 	}
-	return entry
+	switch collection := v.GetEntity().(type) {
+	case ItemsLike:
+		var components = collection.GetComponents()
+		component = v.getItem(components, indices...)
+	case AttributesLike:
+		var associations = collection.GetAssociations()
+		component = v.getAttribute(associations, indices...)
+	}
+	return component
 }
 
 func (v *component_) RemoveSubcomponent(
 	indices ...any,
-) EntryLike {
-	var entry EntryLike
+) ComponentLike {
+	var component ComponentLike
 	if len(indices) > 0 {
-		var key = indices[0]
-		indices = indices[1:]
 		switch collection := v.GetEntity().(type) {
 		case ItemsLike:
-			switch entries := collection.GetEntries().(type) {
-			case com.ListLike[EntryLike]:
-				var index = key.(int)
-				entry = v.removeItem(entries, index, indices...)
+			switch components := collection.GetComponents().(type) {
+			case com.ListLike[ComponentLike]:
+				component = v.removeItem(components, indices...)
 			default:
 				var message = fmt.Sprintf(
 					"Attempted to remove an item from a non-list type: %T",
-					entries,
+					components,
 				)
 				panic(message)
 			}
 		case AttributesLike:
 			var associations = collection.GetAssociations()
-			entry = v.removeAttribute(associations, key, indices...)
+			component = v.removeAttribute(associations, indices...)
 		}
 	}
-	return entry
+	return component
 }
 
 // PROTECTED INTERFACE
@@ -177,164 +175,164 @@ func (v *component_) RemoveSubcomponent(
 // Private Methods
 
 func (v *component_) getItem(
-	entries com.Sequential[EntryLike],
-	index int,
+	components com.Sequential[ComponentLike],
 	indices ...any,
-) EntryLike {
-	var entry EntryLike
-	var size = int(entries.GetSize())
-	if size == 0 {
-		// The list of entries is empty.
-		return entry
-	}
+) ComponentLike {
+	var subcomponent ComponentLike
+
+	// Calculate the index and size constraints.
+	var size = int(components.GetSize())
+	var index = indices[0].(int)
 	if index < 0 {
 		// Negative indices start from the end of the list.
 		index = size + index + 1
 	}
-	if index > size {
-		// The index is out of bounds.
-		return entry
+	indices = indices[1:]
+
+	// Check for an out of bounds index.
+	if index == 0 || index > size {
+		return subcomponent
 	}
-	entry = entries.AsArray()[index-1]
+
+	// Retrieve the subcomponent.
+	subcomponent = components.AsArray()[index-1]
 	if len(indices) > 0 {
-		var composite = entry.GetComposite()
-		entry = composite.GetSubcomponent(indices...)
+		subcomponent = subcomponent.GetSubcomponent(indices...)
 	}
-	return entry
+
+	return subcomponent
 }
 
 func (v *component_) setItem(
-	entries com.ListLike[EntryLike],
-	entry EntryLike,
-	index int,
+	components com.ListLike[ComponentLike],
+	component ComponentLike,
 	indices ...any,
 ) {
-	if index == 0 && len(indices) == 0 {
-		// Append the attribute to the end of the list.
-		entries.AppendValue(entry)
-		return
-	}
-	var size = int(entries.GetSize())
-	if size == 0 {
-		// The list is empty.
-		return
-	}
+	// Calculate the index and size constraints.
+	var size = int(components.GetSize())
+	var index = indices[0].(int)
 	if index < 0 {
 		// Negative indices start from the end of the list.
 		index = size + index + 1
 	}
-	if index > size {
-		// The index is out of bounds.
+	indices = indices[1:]
+
+	// Check for an out of bounds index.
+	if index == 0 || index > size {
+		components.AppendValue(component)
 		return
 	}
+
+	// Update the subcomponent.
 	if len(indices) > 0 {
-		var composite = entries.GetValue(index).GetComposite()
-		composite.SetSubcomponent(entry, indices...)
+		var subcomponent = components.GetValue(index)
+		subcomponent.SetSubcomponent(component, indices...)
 		return
 	}
-	entries.SetValue(index, entry)
+	components.SetValue(index, component)
 }
 
 func (v *component_) removeItem(
-	entries com.ListLike[EntryLike],
-	index int,
+	components com.ListLike[ComponentLike],
 	indices ...any,
-) EntryLike {
-	var entry EntryLike
-	var size = int(entries.GetSize())
-	if size == 0 {
-		// The list of entries is empty.
-		return entry
-	}
+) ComponentLike {
+	var subcomponent ComponentLike
+
+	// Calculate the index and size constraints.
+	var size = int(components.GetSize())
+	var index = indices[0].(int)
 	if index < 0 {
 		// Negative indices start from the end of the list.
 		index = size + index + 1
 	}
-	if index > size {
-		// The index is out of bounds.
-		return entry
+	indices = indices[1:]
+
+	// Check for an out of bounds index.
+	if index == 0 || index > size {
+		return subcomponent
 	}
-	if len(indices) == 0 {
-		entry = entries.GetValue(index)
-		entries.RemoveValue(index)
-		return entry
+
+	// Remove the subcomponent.
+	subcomponent = components.GetValue(index)
+	if len(indices) > 0 {
+		subcomponent = subcomponent.RemoveSubcomponent(indices...)
+		return subcomponent
 	}
-	entry = entries.GetValue(index)
-	var composite = entry.GetComposite()
-	entry = composite.RemoveSubcomponent(indices...)
-	return entry
+	components.RemoveValue(index)
+
+	return subcomponent
 }
 
 func (v *component_) getAttribute(
-	associations com.CatalogLike[any, EntryLike],
-	key any,
+	associations com.CatalogLike[any, ComponentLike],
 	indices ...any,
-) EntryLike {
-	var entry EntryLike
-	var first = fmt.Sprintf("%v", key)
-	var iterator = associations.GetIterator()
-	for iterator.HasNext() {
-		var association = iterator.GetNext()
-		var second = fmt.Sprintf("%v", association.GetKey())
-		if first == second {
-			entry = association.GetValue()
-			if len(indices) > 0 {
-				var composite = entry.GetComposite()
-				entry = composite.GetSubcomponent(indices...)
-			}
-			break
-		}
+) ComponentLike {
+	var subcomponent ComponentLike
+
+	// Calculate the key and size constraints.
+	var size = int(associations.GetSize())
+	var key = indices[0]
+	indices = indices[1:]
+	if size == 0 {
+		return subcomponent
 	}
-	return entry
+
+	// Retrieve the subcomponent.
+	subcomponent = associations.GetValue(key)
+	if len(indices) > 0 {
+		subcomponent = subcomponent.GetSubcomponent(indices...)
+	}
+
+	return subcomponent
 }
 
 func (v *component_) setAttribute(
-	associations com.CatalogLike[any, EntryLike],
-	key any,
-	entry EntryLike,
+	associations com.CatalogLike[any, ComponentLike],
+	component ComponentLike,
 	indices ...any,
 ) {
-	var first = fmt.Sprintf("%v", key)
-	var iterator = associations.GetIterator()
-	for iterator.HasNext() {
-		var association = iterator.GetNext()
-		var second = fmt.Sprintf("%v", association.GetKey())
-		if first == second {
-			if len(indices) > 0 {
-				var composite = association.GetValue().GetComposite()
-				composite.SetSubcomponent(entry, indices...)
-			} else {
-				association.SetValue(entry)
-			}
-			return
-		}
+	// Calculate the key and size constraints.
+	var size = int(associations.GetSize())
+	var key = indices[0]
+	indices = indices[1:]
+	if size == 0 {
+		associations.SetValue(key, component)
+		return
 	}
-	associations.SetValue(key, entry)
+
+	// Update the subcomponent.
+	if len(indices) > 0 {
+		var subcomponent = associations.GetValue(key)
+		subcomponent.SetSubcomponent(component, indices...)
+		return
+	}
+
+	associations.SetValue(key, component)
 }
 
 func (v *component_) removeAttribute(
-	associations com.CatalogLike[any, EntryLike],
-	key any,
+	associations com.CatalogLike[any, ComponentLike],
 	indices ...any,
-) EntryLike {
-	var entry EntryLike
-	var first = fmt.Sprintf("%v", key)
-	var iterator = associations.GetIterator()
-	for iterator.HasNext() {
-		var association = iterator.GetNext()
-		var second = fmt.Sprintf("%v", association.GetKey())
-		if first == second {
-			if len(indices) > 0 {
-				entry = association.GetValue()
-				var composite = entry.GetComposite()
-				entry = composite.RemoveSubcomponent(indices...)
-			} else {
-				entry = associations.RemoveValue(key)
-			}
-			break
-		}
+) ComponentLike {
+	var subcomponent ComponentLike
+
+	// Calculate the key and size constraints.
+	var size = int(associations.GetSize())
+	var key = indices[0]
+	indices = indices[1:]
+	if size == 0 {
+		return subcomponent
 	}
-	return entry
+
+	// Remove the subcomponent.
+	subcomponent = associations.GetValue(key)
+	if len(indices) > 0 {
+		subcomponent = subcomponent.RemoveSubcomponent(indices...)
+		return subcomponent
+	}
+	associations.RemoveValue(key)
+
+	return subcomponent
 }
 
 // Instance Structure
@@ -343,6 +341,7 @@ type component_ struct {
 	// Declare the instance attributes.
 	entity_           any
 	optionalGenerics_ GenericsLike
+	optionalNote_     string
 }
 
 // Class Structure

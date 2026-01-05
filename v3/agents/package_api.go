@@ -68,16 +68,6 @@ type ProcessorClassLike interface {
 }
 
 /*
-ValidatorClassLike is a class interface that declares the complete set of
-class constructors, constants and functions that must be supported by each
-concrete validator-like class.
-*/
-type ValidatorClassLike interface {
-	// Constructor Methods
-	Validator() ValidatorLike
-}
-
-/*
 VisitorClassLike is a class interface that declares the complete set of
 class constructors, constants and functions that must be supported by each
 concrete visitor-like class.
@@ -137,22 +127,6 @@ type ProcessorLike interface {
 }
 
 /*
-ValidatorLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each
-instance of a concrete validator-like class.
-*/
-type ValidatorLike interface {
-	// Principal Methods
-	GetClass() ValidatorClassLike
-	ValidateDocument(
-		document doc.DocumentLike,
-	)
-
-	// Aspect Interfaces
-	Methodical
-}
-
-/*
 VisitorLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each
 instance of a concrete visitor-like class.
@@ -174,9 +148,6 @@ all methodical processors.
 type Methodical interface {
 	ProcessAngle(
 		angle pri.AngleLike,
-	)
-	ProcessAnnotation(
-		annotation string,
 	)
 	ProcessAssignment(
 		assignment doc.Assignment,
@@ -351,17 +322,17 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessComposite(
-		composite doc.Composite,
+	PreprocessComponent(
+		composite doc.ComponentLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessCompositeSlot(
-		composite doc.Composite,
+	ProcessComponentSlot(
+		composite doc.ComponentLike,
 		slot_ uint,
 	)
-	PostprocessComposite(
-		composite doc.Composite,
+	PostprocessComponent(
+		composite doc.ComponentLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -446,20 +417,6 @@ type Methodical interface {
 	)
 	PostprocessEntity(
 		entity any,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessEntry(
-		entry doc.EntryLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessEntrySlot(
-		entry doc.EntryLike,
-		slot_ uint,
-	)
-	PostprocessEntry(
-		entry doc.EntryLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -586,20 +543,6 @@ type Methodical interface {
 	)
 	PostprocessItems(
 		items doc.ItemsLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessLine(
-		line any,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessLineSlot(
-		line any,
-		slot_ uint,
-	)
-	PostprocessLine(
-		line any,
 		index_ uint,
 		count_ uint,
 	)

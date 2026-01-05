@@ -71,12 +71,6 @@ func (v *deflator_) ProcessAngle(
 	v.stack_.AddValue(not.Element(angle.AsSource()))
 }
 
-func (v *deflator_) ProcessAnnotation(
-	annotation string,
-) {
-	v.stack_.AddValue(not.Annotation(annotation))
-}
-
 func (v *deflator_) ProcessAssignment(
 	assignment doc.Assignment,
 ) {
@@ -362,9 +356,9 @@ func (v *deflator_) PostprocessAttributes(
 	var associations = com.List[not.AssociationLike]()
 	var iterator = attributes.GetAssociations().GetIterator()
 	for iterator.HasNext() {
-		var entry = v.stack_.RemoveLast().(not.EntryLike)
+		var component = v.stack_.RemoveLast().(not.ComponentLike)
 		var primitive = not.Primitive(v.stack_.RemoveLast())
-		var association = not.Association(primitive, ":", entry)
+		var association = not.Association(primitive, ":", component)
 		associations.AppendValue(association)
 		iterator.GetNext()
 	}
@@ -433,13 +427,17 @@ func (v *deflator_) PostprocessComplement(
 	)
 }
 
-func (v *deflator_) PostprocessComposite(
-	composite doc.Composite,
+func (v *deflator_) PostprocessComponent(
+	component doc.ComponentLike,
 	index_ uint,
 	count_ uint,
 ) {
+	var note string
+	if uti.IsDefined(component.GetOptionalNote()) {
+		note = v.stack_.RemoveLast().(string)
+	}
 	var generics not.GenericsLike
-	if uti.IsDefined(composite.GetOptionalGenerics()) {
+	if uti.IsDefined(component.GetOptionalGenerics()) {
 		generics = v.stack_.RemoveLast().(not.GenericsLike)
 	}
 	var entity = not.Entity(v.stack_.RemoveLast())
@@ -447,6 +445,7 @@ func (v *deflator_) PostprocessComposite(
 		not.Component(
 			entity,
 			generics,
+			note,
 		),
 	)
 }
@@ -517,14 +516,13 @@ func (v *deflator_) PostprocessDocument(
 	count_ uint,
 ) {
 	var component = v.stack_.RemoveLast().(not.ComponentLike)
-	var heading not.HeadingLike
+	var comment string
 	if uti.IsDefined(document.GetOptionalComment()) {
-		var comment = v.stack_.RemoveLast().(string)
-		heading = not.Heading(comment)
+		comment = v.stack_.RemoveLast().(string)
 	}
 	v.stack_.AddValue(
 		not.Document(
-			heading,
+			comment,
 			component,
 		),
 	)
@@ -535,24 +533,6 @@ func (v *deflator_) PostprocessDocument(
 		)
 		panic(message)
 	}
-}
-
-func (v *deflator_) PostprocessEntry(
-	entry doc.EntryLike,
-	index_ uint,
-	count_ uint,
-) {
-	var note string
-	if uti.IsDefined(entry.GetOptionalNote()) {
-		note = v.stack_.RemoveLast().(string)
-	}
-	var component = v.stack_.RemoveLast().(not.ComponentLike)
-	v.stack_.AddValue(
-		not.Entry(
-			component,
-			note,
-		),
-	)
 }
 
 func (v *deflator_) PostprocessExpression(
@@ -599,6 +579,25 @@ func (v *deflator_) PostprocessFunction(
 	arguments.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
 	v.stack_.AddValue(not.Function(identifier, "(", arguments, ")"))
+}
+
+func (v *deflator_) PostprocessGenerics(
+	generics doc.GenericsLike,
+	index_ uint,
+	count_ uint,
+) {
+	var parameters = com.List[not.ParameterLike]()
+	var iterator = generics.GetParameters().GetIterator()
+	for iterator.HasNext() {
+		var constraint = v.stack_.RemoveLast().(not.ConstraintLike)
+		var sequence = v.stack_.RemoveLast().(not.SequenceLike)
+		var symbol = sequence.GetAny().(string)
+		var parameter = not.Parameter(symbol, ":", constraint)
+		parameters.AppendValue(parameter)
+		iterator.GetNext()
+	}
+	parameters.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Generics("(", parameters, ")"))
 }
 
 func (v *deflator_) PostprocessIfClause(
@@ -654,15 +653,15 @@ func (v *deflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var entries = com.List[not.EntryLike]()
-	var iterator = items.GetEntries().GetIterator()
+	var components = com.List[not.ComponentLike]()
+	var iterator = items.GetComponents().GetIterator()
 	for iterator.HasNext() {
-		var entry = v.stack_.RemoveLast().(not.EntryLike)
-		entries.AppendValue(entry)
+		var component = v.stack_.RemoveLast().(not.ComponentLike)
+		components.AppendValue(component)
 		iterator.GetNext()
 	}
-	entries.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Collection(not.Items("[", entries, "]")))
+	components.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Collection(not.Items("[", components, "]")))
 }
 
 func (v *deflator_) PostprocessMagnitude(
@@ -753,25 +752,6 @@ func (v *deflator_) PostprocessOnClause(
 	)
 }
 
-func (v *deflator_) PostprocessGenerics(
-	generics doc.GenericsLike,
-	index_ uint,
-	count_ uint,
-) {
-	var parameters = com.List[not.ParameterLike]()
-	var iterator = generics.GetParameters().GetIterator()
-	for iterator.HasNext() {
-		var constraint = v.stack_.RemoveLast().(not.ConstraintLike)
-		var sequence = v.stack_.RemoveLast().(not.SequenceLike)
-		var symbol = sequence.GetAny().(string)
-		var parameter = not.Parameter(symbol, ":", constraint)
-		parameters.AppendValue(parameter)
-		iterator.GetNext()
-	}
-	parameters.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Generics("(", parameters, ")"))
-}
-
 func (v *deflator_) PostprocessPrecedence(
 	precedence doc.PrecedenceLike,
 	index_ uint,
@@ -800,15 +780,15 @@ func (v *deflator_) PostprocessProcedure(
 	index_ uint,
 	count_ uint,
 ) {
-	var lines = com.List[not.LineLike]()
-	var iterator = procedure.GetLines().GetIterator()
+	var statements = com.List[not.StatementLike]()
+	var iterator = procedure.GetStatements().GetIterator()
 	for iterator.HasNext() {
-		var line = not.Line(v.stack_.RemoveLast())
-		lines.AppendValue(line)
+		var statement = v.stack_.RemoveLast().(not.StatementLike)
+		statements.AppendValue(statement)
 		iterator.GetNext()
 	}
-	lines.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Procedure("{", lines, "}"))
+	statements.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Procedure("{", statements, "}"))
 }
 
 func (v *deflator_) PostprocessPublishClause(
@@ -1006,7 +986,11 @@ func (v *deflator_) PostprocessStatement(
 		onClause = v.stack_.RemoveLast().(not.OnClauseLike)
 	}
 	var mainClause = not.MainClause(v.stack_.RemoveLast())
-	v.stack_.AddValue(not.Statement(mainClause, onClause))
+	var comment string
+	if uti.IsDefined(statement.GetOptionalComment()) {
+		comment = v.stack_.RemoveLast().(string)
+	}
+	v.stack_.AddValue(not.Statement(comment, mainClause, onClause))
 }
 
 func (v *deflator_) PostprocessSubcomponent(

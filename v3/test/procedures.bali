@@ -1,7 +1,6 @@
 {
-    define $pi as 3.1415
+    define $pi as 3.141592
     if true do {
-        ! This is a note.
     }
     while ok do {
         accept messages[index] from /bali/examples/Bag
@@ -15,9 +14,7 @@
         continue loop
     }
 
-    !>
-        This is a comment.
-    <!
+    !> This is a comment. <!
     with each $index in [1..5] do {
         assign array[index] += index
     }
@@ -33,7 +30,7 @@
     checkout $draft at level 3 from /bali/examples/Procedure/v1.2
     checkout $draft from /bali/examples/Procedure/v1.2
     save draft to $citation
-    discard $location
+    discard $location  ! This is a note.
     notarize document as /bali/examples/Contract/v1.2
     select foo matching any do {
         return foo
@@ -53,7 +50,9 @@
     }
     invoke list<-addValue(value)
 
-    ! Check for empty list.
+    !>
+        Check for empty list.
+    <!
     if list<-isEmpty() and not (value = none) do {
         invoke list<-addValue(value)
     }

@@ -28,7 +28,7 @@ func AttributesClass() AttributesClassLike {
 // Constructor Methods
 
 func (c *attributesClass_) Attributes(
-	associations com.CatalogLike[any, EntryLike],
+	associations com.CatalogLike[any, ComponentLike],
 ) AttributesLike {
 	if uti.IsUndefined(associations) {
 		panic("The \"associations\" attribute is required by this class.")
@@ -54,7 +54,7 @@ func (v *attributes_) GetClass() AttributesClassLike {
 
 // Attribute Methods
 
-func (v *attributes_) GetAssociations() com.CatalogLike[any, EntryLike] {
+func (v *attributes_) GetAssociations() com.CatalogLike[any, ComponentLike] {
 	return v.associations_
 }
 
@@ -66,7 +66,7 @@ func (v *attributes_) GetAssociations() com.CatalogLike[any, EntryLike] {
 
 type attributes_ struct {
 	// Declare the instance attributes.
-	associations_ com.CatalogLike[any, EntryLike]
+	associations_ com.CatalogLike[any, ComponentLike]
 }
 
 // Class Structure
