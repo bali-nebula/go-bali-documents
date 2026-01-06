@@ -119,7 +119,17 @@ func (v *visitor_) visitArgument(
 	case string:
 		v.processor_.ProcessIdentifier(actual)
 	default:
-		v.visitLiteral(argument)
+		v.processor_.PreprocessEntity(
+			actual,
+			0,
+			0,
+		)
+		v.visitEntity(actual)
+		v.processor_.PostprocessEntity(
+			actual,
+			0,
+			0,
+		)
 	}
 }
 
@@ -276,15 +286,15 @@ func (v *visitor_) visitComplement(
 func (v *visitor_) visitComponent(
 	component doc.ComponentLike,
 ) {
-	var entity = component.GetEntity()
-	v.processor_.PreprocessEntity(
-		entity,
+	var literal = component.GetLiteral()
+	v.processor_.PreprocessLiteral(
+		literal,
 		0,
 		0,
 	)
-	v.visitEntity(entity)
-	v.processor_.PostprocessEntity(
-		entity,
+	v.visitLiteral(literal)
+	v.processor_.PostprocessLiteral(
+		literal,
 		0,
 		0,
 	)
@@ -325,15 +335,15 @@ func (v *visitor_) visitComponent(
 func (v *visitor_) visitConstraint(
 	constraint doc.ConstraintLike,
 ) {
-	var literal = constraint.GetLiteral()
-	v.processor_.PreprocessLiteral(
-		literal,
+	var entity = constraint.GetEntity()
+	v.processor_.PreprocessEntity(
+		entity,
 		0,
 		0,
 	)
-	v.visitLiteral(literal)
-	v.processor_.PostprocessLiteral(
-		literal,
+	v.visitEntity(entity)
+	v.processor_.PostprocessEntity(
+		entity,
 		0,
 		0,
 	)
@@ -448,42 +458,6 @@ func (v *visitor_) visitEntity(
 		)
 		v.visitRange(actual)
 		v.processor_.PostprocessRange(
-			actual,
-			0,
-			0,
-		)
-	case doc.AttributesLike:
-		v.processor_.PreprocessAttributes(
-			actual,
-			0,
-			0,
-		)
-		v.visitAttributes(actual)
-		v.processor_.PostprocessAttributes(
-			actual,
-			0,
-			0,
-		)
-	case doc.ItemsLike:
-		v.processor_.PreprocessItems(
-			actual,
-			0,
-			0,
-		)
-		v.visitItems(actual)
-		v.processor_.PostprocessItems(
-			actual,
-			0,
-			0,
-		)
-	case doc.ProcedureLike:
-		v.processor_.PreprocessProcedure(
-			actual,
-			0,
-			0,
-		)
-		v.visitProcedure(actual)
-		v.processor_.PostprocessProcedure(
 			actual,
 			0,
 			0,
@@ -646,13 +620,13 @@ func (v *visitor_) visitIndex(
 	case string:
 		v.processor_.ProcessIdentifier(actual)
 	default:
-		v.processor_.PreprocessLiteral(
+		v.processor_.PreprocessEntity(
 			index,
 			0,
 			0,
 		)
-		v.visitLiteral(index)
-		v.processor_.PostprocessLiteral(
+		v.visitEntity(index)
+		v.processor_.PostprocessEntity(
 			index,
 			0,
 			0,
@@ -774,6 +748,42 @@ func (v *visitor_) visitLiteral(
 		)
 		v.visitRange(actual)
 		v.processor_.PostprocessRange(
+			actual,
+			0,
+			0,
+		)
+	case doc.AttributesLike:
+		v.processor_.PreprocessAttributes(
+			actual,
+			0,
+			0,
+		)
+		v.visitAttributes(actual)
+		v.processor_.PostprocessAttributes(
+			actual,
+			0,
+			0,
+		)
+	case doc.ItemsLike:
+		v.processor_.PreprocessItems(
+			actual,
+			0,
+			0,
+		)
+		v.visitItems(actual)
+		v.processor_.PostprocessItems(
+			actual,
+			0,
+			0,
+		)
+	case doc.ProcedureLike:
+		v.processor_.PreprocessProcedure(
+			actual,
+			0,
+			0,
+		)
+		v.visitProcedure(actual)
+		v.processor_.PostprocessProcedure(
 			actual,
 			0,
 			0,

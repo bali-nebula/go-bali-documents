@@ -322,12 +322,12 @@ func ComponentClass() ComponentClassLike {
 }
 
 func Component(
-	entity any,
+	literal any,
 	optionalGenerics doc.GenericsLike,
 	optionalNote string,
 ) ComponentLike {
 	return ComponentClass().Component(
-		entity,
+		literal,
 		optionalGenerics,
 		optionalNote,
 	)
@@ -338,11 +338,11 @@ func ConstraintClass() ConstraintClassLike {
 }
 
 func Constraint(
-	literal any,
+	entity any,
 	optionalGenerics doc.GenericsLike,
 ) ConstraintLike {
 	return ConstraintClass().Constraint(
-		literal,
+		entity,
 		optionalGenerics,
 	)
 }
@@ -849,7 +849,7 @@ func FormatComponent(
 	case ComponentLike:
 		component = actual
 	case ConstraintLike:
-		var entity = actual.GetLiteral()
+		var entity = actual.GetEntity()
 		var generics = actual.GetOptionalGenerics()
 		component = Component(entity, generics, "")
 	case DocumentLike:
@@ -1569,7 +1569,7 @@ func Catalog[K comparable, V any](
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return ParseComponent(actual).GetEntity().(CatalogLike[K, V])
+		return ParseComponent(actual).GetLiteral().(CatalogLike[K, V])
 	case []AssociationLike[K, V]:
 		return com.CatalogFromArray(actual)
 	case map[K]V:
@@ -1593,7 +1593,7 @@ func List[V any](
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return ParseComponent(actual).GetEntity().(ListLike[V])
+		return ParseComponent(actual).GetLiteral().(ListLike[V])
 	case []V:
 		return ListClass[V]().ListFromArray(actual)
 	case Sequential[V]:
@@ -1615,7 +1615,7 @@ func Queue[V any](
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return ParseComponent(actual).GetEntity().(QueueLike[V])
+		return ParseComponent(actual).GetLiteral().(QueueLike[V])
 	case int:
 		return QueueClass[V]().QueueWithCapacity(uint(actual))
 	case uint:
@@ -1641,7 +1641,7 @@ func Set[V any](
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return ParseComponent(actual).GetEntity().(SetLike[V])
+		return ParseComponent(actual).GetLiteral().(SetLike[V])
 	case CollatorLike[V]:
 		return SetClass[V]().SetWithCollator(actual)
 	case []V:
@@ -1665,7 +1665,7 @@ func Stack[V any](
 	}
 	switch actual := value[0].(type) {
 	case string:
-		return ParseComponent(actual).GetEntity().(StackLike[V])
+		return ParseComponent(actual).GetLiteral().(StackLike[V])
 	case int:
 		return StackClass[V]().StackWithCapacity(uint(actual))
 	case uint:

@@ -184,7 +184,7 @@ component-like class.
 type ComponentClassLike interface {
 	// Constructor Methods
 	Component(
-		entity any,
+		literal any,
 		optionalGenerics GenericsLike,
 		optionalNote string,
 	) ComponentLike
@@ -198,7 +198,7 @@ constraint-like class.
 type ConstraintClassLike interface {
 	// Constructor Methods
 	Constraint(
-		literal any,
+		entity any,
 		optionalGenerics GenericsLike,
 	) ConstraintLike
 }
@@ -755,7 +755,7 @@ type ConstraintLike interface {
 	GetClass() ConstraintClassLike
 
 	// Attribute Methods
-	GetLiteral() any
+	GetEntity() any
 	GetOptionalGenerics() GenericsLike
 }
 
@@ -1247,7 +1247,7 @@ Composite declares the set of method signatures that must be supported by
 all composite documents.
 */
 type Composite interface {
-	GetEntity() any
+	GetLiteral() any
 	GetOptionalGenerics() GenericsLike
 	GetOptionalNote() string
 	GetParameter(

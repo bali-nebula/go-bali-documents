@@ -307,15 +307,15 @@ func (v *inflator_) PostprocessComponent(
 	if uti.IsDefined(component.GetOptionalGenerics()) {
 		generics = v.stack_.RemoveLast().(doc.GenericsLike)
 	}
-	var entity = v.stack_.RemoveLast()
+	var literal = v.stack_.RemoveLast()
 	if uti.IsDefined(generics) {
-		switch actual := entity.(type) {
+		switch actual := literal.(type) {
 		case doc.ItemsLike:
 			var components = actual.GetComponents()
 			var parameters = generics.GetParameters()
 			var parameter = parameters.GetValue(pri.SymbolClass().SymbolFromSource("$type"))
 			if uti.IsDefined(parameter) {
-				switch actual := parameter.GetLiteral().(type) {
+				switch actual := parameter.GetEntity().(type) {
 				case pri.NameLike:
 					switch actual.AsSource() {
 					case "/types/collections/Queue/v3":
@@ -325,12 +325,12 @@ func (v *inflator_) PostprocessComponent(
 					case "/types/collections/Stack/v3":
 						components = com.StackFromSequence(components)
 					}
-					entity = doc.ItemsClass().Items(components)
+					literal = doc.ItemsClass().Items(components)
 				}
 			}
 		}
 	}
-	v.stack_.AddValue(doc.ComponentClass().Component(entity, generics, note))
+	v.stack_.AddValue(doc.ComponentClass().Component(literal, generics, note))
 }
 
 func (v *inflator_) PostprocessConstraint(

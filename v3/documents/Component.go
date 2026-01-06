@@ -30,16 +30,16 @@ func ComponentClass() ComponentClassLike {
 // Constructor Methods
 
 func (c *componentClass_) Component(
-	entity any,
+	literal any,
 	optionalGenerics GenericsLike,
 	optionalNote string,
 ) ComponentLike {
-	if uti.IsUndefined(entity) {
-		panic("The \"entity\" attribute is required by this class.")
+	if uti.IsUndefined(literal) {
+		panic("The \"literal\" attribute is required by this class.")
 	}
 	var instance = &component_{
 		// Initialize the instance attributes.
-		entity_:           entity,
+		literal_:          literal,
 		optionalGenerics_: optionalGenerics,
 		optionalNote_:     optionalNote,
 	}
@@ -60,8 +60,8 @@ func (v *component_) GetClass() ComponentClassLike {
 
 // Composite Methods
 
-func (v *component_) GetEntity() any {
-	return v.entity_
+func (v *component_) GetLiteral() any {
+	return v.literal_
 }
 
 func (v *component_) GetOptionalGenerics() GenericsLike {
@@ -82,7 +82,7 @@ func (v *component_) GetParameter(
 		var constraint = parameters.GetValue(symbol)
 		if uti.IsDefined(constraint) {
 			parameter = componentClass().Component(
-				constraint.GetLiteral(),
+				constraint.GetEntity(),
 				constraint.GetOptionalGenerics(),
 				"",
 			)
@@ -111,7 +111,7 @@ func (v *component_) SetSubcomponent(
 	}
 
 	// Treat items and attributes differently.
-	switch collection := v.GetEntity().(type) {
+	switch collection := v.GetLiteral().(type) {
 	case ItemsLike:
 		var components = collection.GetComponents().(com.ListLike[ComponentLike])
 		v.setItem(components, component, indices...)
@@ -134,7 +134,7 @@ func (v *component_) GetSubcomponent(
 	if len(indices) == 0 {
 		panic("At least one index must be specified when setting a subcomponent.")
 	}
-	switch collection := v.GetEntity().(type) {
+	switch collection := v.GetLiteral().(type) {
 	case ItemsLike:
 		var components = collection.GetComponents()
 		component = v.getItem(components, indices...)
@@ -150,7 +150,7 @@ func (v *component_) RemoveSubcomponent(
 ) ComponentLike {
 	var component ComponentLike
 	if len(indices) > 0 {
-		switch collection := v.GetEntity().(type) {
+		switch collection := v.GetLiteral().(type) {
 		case ItemsLike:
 			switch components := collection.GetComponents().(type) {
 			case com.ListLike[ComponentLike]:
@@ -339,7 +339,7 @@ func (v *component_) removeAttribute(
 
 type component_ struct {
 	// Declare the instance attributes.
-	entity_           any
+	literal_          any
 	optionalGenerics_ GenericsLike
 	optionalNote_     string
 }
