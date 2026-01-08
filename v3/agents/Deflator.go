@@ -353,19 +353,19 @@ func (v *deflator_) PostprocessAttributes(
 	index_ uint,
 	count_ uint,
 ) {
-	var associations = com.List[not.AssociationLike]()
-	var iterator = attributes.GetAssociations().GetIterator()
-	for iterator.HasNext() {
-		var component = v.stack_.RemoveLast().(not.ComponentLike)
-		var primitive = not.Primitive(v.stack_.RemoveLast())
-		var association = not.Association(primitive, ":", component)
-		associations.AppendValue(association)
-		iterator.GetNext()
-	}
 	var collection not.CollectionLike
-	if associations.IsEmpty() {
-		collection = not.Collection(not.Empty("[:]"))
+	if attributes.GetAssociations().IsEmpty() {
+		collection = not.Collection(not.Empty("[", ":", "]"))
 	} else {
+		var associations = com.List[not.AssociationLike]()
+		var iterator = attributes.GetAssociations().GetIterator()
+		for iterator.HasNext() {
+			var component = v.stack_.RemoveLast().(not.ComponentLike)
+			var primitive = not.Primitive(v.stack_.RemoveLast())
+			var association = not.Association(primitive, ":", component)
+			associations.AppendValue(association)
+			iterator.GetNext()
+		}
 		associations.ReverseValues() // Pulled off the stack in reverse order.
 		collection = not.Collection(not.Attributes("[", associations, "]"))
 	}
@@ -653,15 +653,21 @@ func (v *deflator_) PostprocessItems(
 	index_ uint,
 	count_ uint,
 ) {
-	var components = com.List[not.ComponentLike]()
-	var iterator = items.GetComponents().GetIterator()
-	for iterator.HasNext() {
-		var component = v.stack_.RemoveLast().(not.ComponentLike)
-		components.AppendValue(component)
-		iterator.GetNext()
+	var collection not.CollectionLike
+	if items.GetComponents().IsEmpty() {
+		collection = not.Collection(not.Empty("[", "", "]"))
+	} else {
+		var components = com.List[not.ComponentLike]()
+		var iterator = items.GetComponents().GetIterator()
+		for iterator.HasNext() {
+			var component = v.stack_.RemoveLast().(not.ComponentLike)
+			components.AppendValue(component)
+			iterator.GetNext()
+		}
+		components.ReverseValues() // Pulled off the stack in reverse order.
+		collection = not.Collection(not.Items("[", components, "]"))
 	}
-	components.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Collection(not.Items("[", components, "]")))
+	v.stack_.AddValue(collection)
 }
 
 func (v *deflator_) PostprocessMagnitude(

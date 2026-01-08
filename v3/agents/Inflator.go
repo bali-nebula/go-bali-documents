@@ -400,8 +400,13 @@ func (v *inflator_) PostprocessEmpty(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = com.Catalog[any, doc.ComponentLike]()
-	v.stack_.AddValue(doc.AttributesClass().Attributes(catalog))
+	if uti.IsDefined(empty.GetOptionalDelimiter()) {
+		var catalog = com.Catalog[any, doc.ComponentLike]()
+		v.stack_.AddValue(doc.AttributesClass().Attributes(catalog))
+	} else {
+		var list = com.List[doc.ComponentLike]()
+		v.stack_.AddValue(doc.ItemsClass().Items(list))
+	}
 }
 
 func (v *inflator_) PostprocessExpression(
