@@ -466,21 +466,21 @@ func (v *processor_) PostprocessFunction(
 ) {
 }
 
-func (v *processor_) PreprocessGenerics(
-	generics doc.GenericsLike,
+func (v *processor_) PreprocessParameters(
+	parameters doc.ParametersLike,
 	index_ uint,
 	count_ uint,
 ) {
 }
 
-func (v *processor_) ProcessGenericsSlot(
-	generics doc.GenericsLike,
+func (v *processor_) ProcessParametersSlot(
+	parameters doc.ParametersLike,
 	slot_ uint,
 ) {
 }
 
-func (v *processor_) PostprocessGenerics(
-	generics doc.GenericsLike,
+func (v *processor_) PostprocessParameters(
+	parameters doc.ParametersLike,
 	index_ uint,
 	count_ uint,
 ) {

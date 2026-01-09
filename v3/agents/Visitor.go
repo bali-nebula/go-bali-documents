@@ -305,16 +305,16 @@ func (v *visitor_) visitComponent(
 		1,
 	)
 
-	var optionalGenerics = component.GetOptionalGenerics()
-	if uti.IsDefined(optionalGenerics) {
-		v.processor_.PreprocessGenerics(
-			optionalGenerics,
+	var optionalParameters = component.GetOptionalParameters()
+	if uti.IsDefined(optionalParameters) {
+		v.processor_.PreprocessParameters(
+			optionalParameters,
 			0,
 			0,
 		)
-		v.visitGenerics(optionalGenerics)
-		v.processor_.PostprocessGenerics(
-			optionalGenerics,
+		v.visitParameters(optionalParameters)
+		v.processor_.PostprocessParameters(
+			optionalParameters,
 			0,
 			0,
 		)
@@ -482,28 +482,28 @@ func (v *visitor_) visitFunction(
 	}
 }
 
-func (v *visitor_) visitGenerics(
-	generics doc.GenericsLike,
+func (v *visitor_) visitParameters(
+	parameters doc.ParametersLike,
 ) {
-	var parametersIndex uint
-	var parameters = generics.GetParameters().GetIterator()
-	var parametersCount = uint(parameters.GetSize())
-	for parameters.HasNext() {
-		parametersIndex++
-		var parameter = parameters.GetNext()
-		var symbol = parameter.GetKey()
+	var constraintsIndex uint
+	var constraints = parameters.GetConstraints().GetIterator()
+	var constraintsCount = uint(constraints.GetSize())
+	for constraints.HasNext() {
+		constraintsIndex++
+		var constraint = constraints.GetNext()
+		var symbol = constraint.GetKey()
 		v.processor_.ProcessSymbol(symbol)
-		var component = parameter.GetValue()
+		var component = constraint.GetValue()
 		v.processor_.PreprocessComponent(
 			component,
-			parametersIndex,
-			parametersCount,
+			constraintsIndex,
+			constraintsCount,
 		)
 		v.visitComponent(component)
 		v.processor_.PostprocessComponent(
 			component,
-			parametersIndex,
-			parametersCount,
+			constraintsIndex,
+			constraintsCount,
 		)
 	}
 }

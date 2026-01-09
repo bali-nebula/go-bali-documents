@@ -45,24 +45,24 @@ func TestParameterAccess(t *tes.T) {
 	var source = `[ ]`
 	var component = doc.ParseComponent(source)
 	var key = doc.Symbol("$type")
-	var parameter = component.GetParameter(key)
+	var parameter = component.GetConstraint(key)
 	ass.Equal(t, nil, parameter)
 
 	source = `[ ]($type: "foo")`
 	component = doc.ParseComponent(source)
-	parameter = component.GetParameter(key)
+	parameter = component.GetConstraint(key)
 	ass.Equal(t, "\"foo\"", doc.FormatComponent(parameter))
 
 	source = `[ ]($type: "foo" $hype: /bar $skype: none)`
 	component = doc.ParseComponent(source)
 	key = doc.Symbol("$type")
-	parameter = component.GetParameter(key)
+	parameter = component.GetConstraint(key)
 	ass.Equal(t, "\"foo\"", doc.FormatComponent(parameter))
 	key = doc.Symbol("$hype")
-	parameter = component.GetParameter(key)
+	parameter = component.GetConstraint(key)
 	ass.Equal(t, "/bar", doc.FormatComponent(parameter))
 	key = doc.Symbol("$skype")
-	parameter = component.GetParameter(key)
+	parameter = component.GetConstraint(key)
 	ass.Equal(t, "none", doc.FormatComponent(parameter))
 }
 

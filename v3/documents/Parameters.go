@@ -22,21 +22,21 @@ import (
 
 // Access Function
 
-func GenericsClass() GenericsClassLike {
-	return genericsClass()
+func ParametersClass() ParametersClassLike {
+	return parametersClass()
 }
 
 // Constructor Methods
 
-func (c *genericsClass_) Generics(
-	parameters com.CatalogLike[pri.SymbolLike, ComponentLike],
-) GenericsLike {
-	if uti.IsUndefined(parameters) {
-		panic("The \"parameters\" attribute is required by this class.")
+func (c *parametersClass_) Parameters(
+	constraints com.CatalogLike[pri.SymbolLike, ComponentLike],
+) ParametersLike {
+	if uti.IsUndefined(constraints) {
+		panic("The \"constraints\" attribute is required by this class.")
 	}
-	var instance = &generics_{
+	var instance = &parameters_{
 		// Initialize the instance attributes.
-		parameters_: parameters,
+		constraints_: constraints,
 	}
 	return instance
 }
@@ -49,14 +49,14 @@ func (c *genericsClass_) Generics(
 
 // Principal Methods
 
-func (v *generics_) GetClass() GenericsClassLike {
-	return genericsClass()
+func (v *parameters_) GetClass() ParametersClassLike {
+	return parametersClass()
 }
 
 // Attribute Methods
 
-func (v *generics_) GetParameters() com.CatalogLike[pri.SymbolLike, ComponentLike] {
-	return v.parameters_
+func (v *parameters_) GetConstraints() com.CatalogLike[pri.SymbolLike, ComponentLike] {
+	return v.constraints_
 }
 
 // PROTECTED INTERFACE
@@ -65,23 +65,23 @@ func (v *generics_) GetParameters() com.CatalogLike[pri.SymbolLike, ComponentLik
 
 // Instance Structure
 
-type generics_ struct {
+type parameters_ struct {
 	// Declare the instance attributes.
-	parameters_ com.CatalogLike[pri.SymbolLike, ComponentLike]
+	constraints_ com.CatalogLike[pri.SymbolLike, ComponentLike]
 }
 
 // Class Structure
 
-type genericsClass_ struct {
+type parametersClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func genericsClass() *genericsClass_ {
-	return genericsClassReference_
+func parametersClass() *parametersClass_ {
+	return parametersClassReference_
 }
 
-var genericsClassReference_ = &genericsClass_{
+var parametersClassReference_ = &parametersClass_{
 	// Initialize the class constants.
 }

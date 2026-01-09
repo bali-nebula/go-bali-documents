@@ -420,17 +420,17 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessGenerics(
-		generics doc.GenericsLike,
+	PreprocessParameters(
+		parameters doc.ParametersLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessGenericsSlot(
-		generics doc.GenericsLike,
+	ProcessParametersSlot(
+		parameters doc.ParametersLike,
 		slot_ uint,
 	)
-	PostprocessGenerics(
-		generics doc.GenericsLike,
+	PostprocessParameters(
+		parameters doc.ParametersLike,
 		index_ uint,
 		count_ uint,
 	)

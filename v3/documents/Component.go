@@ -31,7 +31,7 @@ func ComponentClass() ComponentClassLike {
 
 func (c *componentClass_) Component(
 	literal any,
-	optionalGenerics GenericsLike,
+	optionalParameters ParametersLike,
 	optionalNote string,
 ) ComponentLike {
 	if uti.IsUndefined(literal) {
@@ -39,9 +39,9 @@ func (c *componentClass_) Component(
 	}
 	var instance = &component_{
 		// Initialize the instance attributes.
-		literal_:          literal,
-		optionalGenerics_: optionalGenerics,
-		optionalNote_:     optionalNote,
+		literal_:            literal,
+		optionalParameters_: optionalParameters,
+		optionalNote_:       optionalNote,
 	}
 	return instance
 }
@@ -64,31 +64,31 @@ func (v *component_) GetLiteral() any {
 	return v.literal_
 }
 
-func (v *component_) GetOptionalGenerics() GenericsLike {
-	return v.optionalGenerics_
+func (v *component_) GetOptionalParameters() ParametersLike {
+	return v.optionalParameters_
 }
 
 func (v *component_) GetOptionalNote() string {
 	return v.optionalNote_
 }
 
-func (v *component_) GetParameter(
+func (v *component_) GetConstraint(
 	symbol pri.SymbolLike,
 ) ComponentLike {
-	var parameter ComponentLike
-	var generics = v.GetOptionalGenerics()
-	if uti.IsDefined(generics) {
-		var parameters = generics.GetParameters()
-		var component = parameters.GetValue(symbol)
+	var constraint ComponentLike
+	var parameters = v.GetOptionalParameters()
+	if uti.IsDefined(parameters) {
+		var constraints = parameters.GetConstraints()
+		var component = constraints.GetValue(symbol)
 		if uti.IsDefined(component) {
-			parameter = componentClass().Component(
+			constraint = componentClass().Component(
 				component.GetLiteral(),
-				component.GetOptionalGenerics(),
+				component.GetOptionalParameters(),
 				"",
 			)
 		}
 	}
-	return parameter
+	return constraint
 }
 
 func (v *component_) SetSubcomponent(
@@ -339,9 +339,9 @@ func (v *component_) removeAttribute(
 
 type component_ struct {
 	// Declare the instance attributes.
-	literal_          any
-	optionalGenerics_ GenericsLike
-	optionalNote_     string
+	literal_            any
+	optionalParameters_ ParametersLike
+	optionalNote_       string
 }
 
 // Class Structure

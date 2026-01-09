@@ -303,17 +303,17 @@ func (v *inflator_) PostprocessComponent(
 	if uti.IsDefined(component.GetOptionalNote()) {
 		note = v.stack_.RemoveLast().(string)
 	}
-	var generics doc.GenericsLike
-	if uti.IsDefined(component.GetOptionalGenerics()) {
-		generics = v.stack_.RemoveLast().(doc.GenericsLike)
+	var parameters doc.ParametersLike
+	if uti.IsDefined(component.GetOptionalParameters()) {
+		parameters = v.stack_.RemoveLast().(doc.ParametersLike)
 	}
 	var literal = v.stack_.RemoveLast()
-	if uti.IsDefined(generics) {
+	if uti.IsDefined(parameters) {
 		switch actual := literal.(type) {
 		case doc.ItemsLike:
 			var components = actual.GetComponents()
-			var parameters = generics.GetParameters()
-			var component = parameters.GetValue(
+			var constraints = parameters.GetConstraints()
+			var component = constraints.GetValue(
 				pri.SymbolClass().SymbolFromSource("$type"),
 			)
 			if uti.IsDefined(component) {
@@ -332,7 +332,7 @@ func (v *inflator_) PostprocessComponent(
 			}
 		}
 	}
-	v.stack_.AddValue(doc.ComponentClass().Component(literal, generics, note))
+	v.stack_.AddValue(doc.ComponentClass().Component(literal, parameters, note))
 }
 
 func (v *inflator_) PostprocessContinueClause(
@@ -434,14 +434,14 @@ func (v *inflator_) PostprocessFunction(
 	v.stack_.AddValue(doc.FunctionClass().Function(identifier, list))
 }
 
-func (v *inflator_) PostprocessGenerics(
-	generics not.GenericsLike,
+func (v *inflator_) PostprocessParameters(
+	parameters not.ParametersLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var catalog = com.Catalog[pri.SymbolLike, doc.ComponentLike]()
-	var parameters = generics.GetParameters()
-	var iterator = parameters.GetIterator()
+	var constraints = parameters.GetConstraints()
+	var iterator = constraints.GetIterator()
 	for iterator.HasNext() {
 		var component = v.stack_.RemoveLast().(doc.ComponentLike)
 		var symbol = v.stack_.RemoveLast().(pri.SymbolLike)
@@ -449,7 +449,7 @@ func (v *inflator_) PostprocessGenerics(
 		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(doc.GenericsClass().Generics(catalog))
+	v.stack_.AddValue(doc.ParametersClass().Parameters(catalog))
 }
 
 func (v *inflator_) PostprocessIfClause(

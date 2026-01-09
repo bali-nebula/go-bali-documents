@@ -436,15 +436,15 @@ func (v *deflator_) PostprocessComponent(
 	if uti.IsDefined(component.GetOptionalNote()) {
 		note = v.stack_.RemoveLast().(string)
 	}
-	var generics not.GenericsLike
-	if uti.IsDefined(component.GetOptionalGenerics()) {
-		generics = v.stack_.RemoveLast().(not.GenericsLike)
+	var parameters not.ParametersLike
+	if uti.IsDefined(component.GetOptionalParameters()) {
+		parameters = v.stack_.RemoveLast().(not.ParametersLike)
 	}
 	var literal = not.Literal(v.stack_.RemoveLast())
 	v.stack_.AddValue(
 		not.Component(
 			literal,
-			generics,
+			parameters,
 			note,
 		),
 	)
@@ -563,23 +563,23 @@ func (v *deflator_) PostprocessFunction(
 	v.stack_.AddValue(not.Function(identifier, "(", arguments, ")"))
 }
 
-func (v *deflator_) PostprocessGenerics(
-	generics doc.GenericsLike,
+func (v *deflator_) PostprocessParameters(
+	parameters doc.ParametersLike,
 	index_ uint,
 	count_ uint,
 ) {
-	var parameters = com.List[not.ParameterLike]()
-	var iterator = generics.GetParameters().GetIterator()
+	var constraints = com.List[not.ConstraintLike]()
+	var iterator = parameters.GetConstraints().GetIterator()
 	for iterator.HasNext() {
 		var component = v.stack_.RemoveLast().(not.ComponentLike)
 		var sequence = v.stack_.RemoveLast().(not.SequenceLike)
 		var symbol = sequence.GetAny().(string)
-		var parameter = not.Parameter(symbol, ":", component)
-		parameters.AppendValue(parameter)
+		var constraint = not.Constraint(symbol, ":", component)
+		constraints.AppendValue(constraint)
 		iterator.GetNext()
 	}
-	parameters.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(not.Generics("(", parameters, ")"))
+	constraints.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(not.Parameters("(", constraints, ")"))
 }
 
 func (v *deflator_) PostprocessIfClause(

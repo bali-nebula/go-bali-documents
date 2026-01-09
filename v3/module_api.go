@@ -115,7 +115,7 @@ type (
 	DocumentClassLike       = doc.DocumentClassLike
 	ExpressionClassLike     = doc.ExpressionClassLike
 	FunctionClassLike       = doc.FunctionClassLike
-	GenericsClassLike       = doc.GenericsClassLike
+	ParametersClassLike     = doc.ParametersClassLike
 	IfClauseClassLike       = doc.IfClauseClassLike
 	InspectClauseClassLike  = doc.InspectClauseClassLike
 	InversionClassLike      = doc.InversionClassLike
@@ -160,7 +160,7 @@ type (
 	DocumentLike       = doc.DocumentLike
 	ExpressionLike     = doc.ExpressionLike
 	FunctionLike       = doc.FunctionLike
-	GenericsLike       = doc.GenericsLike
+	ParametersLike     = doc.ParametersLike
 	IfClauseLike       = doc.IfClauseLike
 	InspectClauseLike  = doc.InspectClauseLike
 	InversionLike      = doc.InversionLike
@@ -321,12 +321,12 @@ func ComponentClass() ComponentClassLike {
 
 func Component(
 	literal any,
-	optionalGenerics doc.GenericsLike,
+	optionalParameters doc.ParametersLike,
 	optionalNote string,
 ) ComponentLike {
 	return ComponentClass().Component(
 		literal,
-		optionalGenerics,
+		optionalParameters,
 		optionalNote,
 	)
 }
@@ -407,15 +407,15 @@ func Function(
 	)
 }
 
-func GenericsClass() GenericsClassLike {
-	return doc.GenericsClass()
+func ParametersClass() ParametersClassLike {
+	return doc.ParametersClass()
 }
 
-func Generics(
-	parameters com.CatalogLike[pri.SymbolLike, doc.ComponentLike],
-) GenericsLike {
-	return GenericsClass().Generics(
-		parameters,
+func Parameters(
+	constraints com.CatalogLike[pri.SymbolLike, doc.ComponentLike],
+) ParametersLike {
+	return ParametersClass().Parameters(
+		constraints,
 	)
 }
 

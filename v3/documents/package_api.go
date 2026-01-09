@@ -185,7 +185,7 @@ type ComponentClassLike interface {
 	// Constructor Methods
 	Component(
 		literal any,
-		optionalGenerics GenericsLike,
+		optionalParameters ParametersLike,
 		optionalNote string,
 	) ComponentLike
 }
@@ -265,15 +265,15 @@ type FunctionClassLike interface {
 }
 
 /*
-GenericsClassLike is a class interface that declares the complete set of
+ParametersClassLike is a class interface that declares the complete set of
 class constructors, constants and functions that must be supported by each
-concrete generics-like class.
+concrete parameters-like class.
 */
-type GenericsClassLike interface {
+type ParametersClassLike interface {
 	// Constructor Methods
-	Generics(
-		parameters com.CatalogLike[pri.SymbolLike, ComponentLike],
-	) GenericsLike
+	Parameters(
+		constraints com.CatalogLike[pri.SymbolLike, ComponentLike],
+	) ParametersLike
 }
 
 /*
@@ -812,16 +812,16 @@ type FunctionLike interface {
 }
 
 /*
-GenericsLike is an instance interface that declares the complete set of
+ParametersLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
-of a concrete generics-like class.
+of a concrete parameters-like class.
 */
-type GenericsLike interface {
+type ParametersLike interface {
 	// Principal Methods
-	GetClass() GenericsClassLike
+	GetClass() ParametersClassLike
 
 	// Attribute Methods
-	GetParameters() com.CatalogLike[pri.SymbolLike, ComponentLike]
+	GetConstraints() com.CatalogLike[pri.SymbolLike, ComponentLike]
 }
 
 /*
@@ -1221,9 +1221,9 @@ all composite documents.
 */
 type Composite interface {
 	GetLiteral() any
-	GetOptionalGenerics() GenericsLike
+	GetOptionalParameters() ParametersLike
 	GetOptionalNote() string
-	GetParameter(
+	GetConstraint(
 		symbol pri.SymbolLike,
 	) ComponentLike
 	SetSubcomponent(
