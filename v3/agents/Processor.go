@@ -346,26 +346,6 @@ func (v *processor_) PostprocessComponent(
 ) {
 }
 
-func (v *processor_) PreprocessConstraint(
-	constraint doc.ConstraintLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessConstraintSlot(
-	constraint doc.ConstraintLike,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessConstraint(
-	constraint doc.ConstraintLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
 func (v *processor_) PreprocessContinueClause(
 	continueClause doc.ContinueClauseLike,
 	index_ uint,
@@ -441,26 +421,6 @@ func (v *processor_) ProcessDocumentSlot(
 
 func (v *processor_) PostprocessDocument(
 	document doc.DocumentLike,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) PreprocessEntity(
-	entity any,
-	index_ uint,
-	count_ uint,
-) {
-}
-
-func (v *processor_) ProcessEntitySlot(
-	entity any,
-	slot_ uint,
-) {
-}
-
-func (v *processor_) PostprocessEntity(
-	entity any,
 	index_ uint,
 	count_ uint,
 ) {

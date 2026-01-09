@@ -118,14 +118,14 @@ func (v *visitor_) visitArgument(
 	switch actual := argument.(type) {
 	case string:
 		v.processor_.ProcessIdentifier(actual)
-	default:
-		v.processor_.PreprocessEntity(
+	case doc.ComponentLike:
+		v.processor_.PreprocessComponent(
 			actual,
 			0,
 			0,
 		)
-		v.visitEntity(actual)
-		v.processor_.PostprocessEntity(
+		v.visitComponent(actual)
+		v.processor_.PostprocessComponent(
 			actual,
 			0,
 			0,
@@ -332,44 +332,6 @@ func (v *visitor_) visitComponent(
 	}
 }
 
-func (v *visitor_) visitConstraint(
-	constraint doc.ConstraintLike,
-) {
-	var entity = constraint.GetEntity()
-	v.processor_.PreprocessEntity(
-		entity,
-		0,
-		0,
-	)
-	v.visitEntity(entity)
-	v.processor_.PostprocessEntity(
-		entity,
-		0,
-		0,
-	)
-
-	// Visit slot 1 between terms.
-	v.processor_.ProcessConstraintSlot(
-		constraint,
-		1,
-	)
-
-	var optionalGenerics = constraint.GetOptionalGenerics()
-	if uti.IsDefined(optionalGenerics) {
-		v.processor_.PreprocessGenerics(
-			optionalGenerics,
-			0,
-			0,
-		)
-		v.visitGenerics(optionalGenerics)
-		v.processor_.PostprocessGenerics(
-			optionalGenerics,
-			0,
-			0,
-		)
-	}
-}
-
 func (v *visitor_) visitContinueClause(
 	continueClause doc.ContinueClauseLike,
 ) {
@@ -444,37 +406,6 @@ func (v *visitor_) visitDocument(
 		0,
 		0,
 	)
-}
-
-func (v *visitor_) visitEntity(
-	entity any,
-) {
-	switch actual := entity.(type) {
-	case doc.RangeLike:
-		v.processor_.PreprocessRange(
-			actual,
-			0,
-			0,
-		)
-		v.visitRange(actual)
-		v.processor_.PostprocessRange(
-			actual,
-			0,
-			0,
-		)
-	default:
-		v.processor_.PreprocessPrimitive(
-			entity,
-			0,
-			0,
-		)
-		v.visitPrimitive(entity)
-		v.processor_.PostprocessPrimitive(
-			entity,
-			0,
-			0,
-		)
-	}
 }
 
 func (v *visitor_) visitExpression(
@@ -562,15 +493,15 @@ func (v *visitor_) visitGenerics(
 		var parameter = parameters.GetNext()
 		var symbol = parameter.GetKey()
 		v.processor_.ProcessSymbol(symbol)
-		var constraint = parameter.GetValue()
-		v.processor_.PreprocessConstraint(
-			constraint,
+		var component = parameter.GetValue()
+		v.processor_.PreprocessComponent(
+			component,
 			parametersIndex,
 			parametersCount,
 		)
-		v.visitConstraint(constraint)
-		v.processor_.PostprocessConstraint(
-			constraint,
+		v.visitComponent(component)
+		v.processor_.PostprocessComponent(
+			component,
 			parametersIndex,
 			parametersCount,
 		)
@@ -620,13 +551,13 @@ func (v *visitor_) visitIndex(
 	case string:
 		v.processor_.ProcessIdentifier(actual)
 	default:
-		v.processor_.PreprocessEntity(
+		v.processor_.PreprocessPrimitive(
 			index,
 			0,
 			0,
 		)
-		v.visitEntity(index)
-		v.processor_.PostprocessEntity(
+		v.visitPrimitive(index)
+		v.processor_.PostprocessPrimitive(
 			index,
 			0,
 			0,

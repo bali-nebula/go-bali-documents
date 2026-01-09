@@ -313,9 +313,11 @@ func (v *inflator_) PostprocessComponent(
 		case doc.ItemsLike:
 			var components = actual.GetComponents()
 			var parameters = generics.GetParameters()
-			var parameter = parameters.GetValue(pri.SymbolClass().SymbolFromSource("$type"))
-			if uti.IsDefined(parameter) {
-				switch actual := parameter.GetEntity().(type) {
+			var component = parameters.GetValue(
+				pri.SymbolClass().SymbolFromSource("$type"),
+			)
+			if uti.IsDefined(component) {
+				switch actual := component.GetLiteral().(type) {
 				case pri.NameLike:
 					switch actual.AsSource() {
 					case "/types/collections/Queue/v3":
@@ -331,19 +333,6 @@ func (v *inflator_) PostprocessComponent(
 		}
 	}
 	v.stack_.AddValue(doc.ComponentClass().Component(literal, generics, note))
-}
-
-func (v *inflator_) PostprocessConstraint(
-	constraint not.ConstraintLike,
-	index_ uint,
-	count_ uint,
-) {
-	var generics doc.GenericsLike
-	if uti.IsDefined(constraint.GetOptionalGenerics()) {
-		generics = v.stack_.RemoveLast().(doc.GenericsLike)
-	}
-	var literal = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.ConstraintClass().Constraint(literal, generics))
 }
 
 func (v *inflator_) PostprocessContinueClause(
@@ -450,13 +439,13 @@ func (v *inflator_) PostprocessGenerics(
 	index_ uint,
 	count_ uint,
 ) {
-	var catalog = com.Catalog[pri.SymbolLike, doc.ConstraintLike]()
+	var catalog = com.Catalog[pri.SymbolLike, doc.ComponentLike]()
 	var parameters = generics.GetParameters()
 	var iterator = parameters.GetIterator()
 	for iterator.HasNext() {
-		var constraint = v.stack_.RemoveLast().(doc.ConstraintLike)
+		var component = v.stack_.RemoveLast().(doc.ComponentLike)
 		var symbol = v.stack_.RemoveLast().(pri.SymbolLike)
-		catalog.SetValue(symbol, constraint)
+		catalog.SetValue(symbol, component)
 		iterator.GetNext()
 	}
 	catalog.ReverseValues() // They were pulled off the stack in reverse order.

@@ -109,7 +109,6 @@ type (
 	CheckoutClauseClassLike = doc.CheckoutClauseClassLike
 	ComplementClassLike     = doc.ComplementClassLike
 	ComponentClassLike      = doc.ComponentClassLike
-	ConstraintClassLike     = doc.ConstraintClassLike
 	ContinueClauseClassLike = doc.ContinueClauseClassLike
 	DefineClauseClassLike   = doc.DefineClauseClassLike
 	DiscardClauseClassLike  = doc.DiscardClauseClassLike
@@ -155,7 +154,6 @@ type (
 	CheckoutClauseLike = doc.CheckoutClauseLike
 	ComplementLike     = doc.ComplementLike
 	ComponentLike      = doc.ComponentLike
-	ConstraintLike     = doc.ConstraintLike
 	ContinueClauseLike = doc.ContinueClauseLike
 	DefineClauseLike   = doc.DefineClauseLike
 	DiscardClauseLike  = doc.DiscardClauseLike
@@ -333,20 +331,6 @@ func Component(
 	)
 }
 
-func ConstraintClass() ConstraintClassLike {
-	return doc.ConstraintClass()
-}
-
-func Constraint(
-	entity any,
-	optionalGenerics doc.GenericsLike,
-) ConstraintLike {
-	return ConstraintClass().Constraint(
-		entity,
-		optionalGenerics,
-	)
-}
-
 func ContinueClauseClass() ContinueClauseClassLike {
 	return doc.ContinueClauseClass()
 }
@@ -428,7 +412,7 @@ func GenericsClass() GenericsClassLike {
 }
 
 func Generics(
-	parameters com.CatalogLike[pri.SymbolLike, doc.ConstraintLike],
+	parameters com.CatalogLike[pri.SymbolLike, doc.ComponentLike],
 ) GenericsLike {
 	return GenericsClass().Generics(
 		parameters,
@@ -848,10 +832,6 @@ func FormatComponent(
 	switch actual := value.(type) {
 	case ComponentLike:
 		component = actual
-	case ConstraintLike:
-		var entity = actual.GetEntity()
-		var generics = actual.GetOptionalGenerics()
-		component = Component(entity, generics, "")
 	case DocumentLike:
 		component = actual.GetComponent()
 	default:

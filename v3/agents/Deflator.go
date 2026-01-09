@@ -450,24 +450,6 @@ func (v *deflator_) PostprocessComponent(
 	)
 }
 
-func (v *deflator_) PostprocessConstraint(
-	constraint doc.ConstraintLike,
-	index_ uint,
-	count_ uint,
-) {
-	var generics not.GenericsLike
-	if uti.IsDefined(constraint.GetOptionalGenerics()) {
-		generics = v.stack_.RemoveLast().(not.GenericsLike)
-	}
-	var entity = not.Entity(v.stack_.RemoveLast())
-	v.stack_.AddValue(
-		not.Constraint(
-			entity,
-			generics,
-		),
-	)
-}
-
 func (v *deflator_) PostprocessContinueClause(
 	continueClause doc.ContinueClauseLike,
 	index_ uint,
@@ -571,7 +553,7 @@ func (v *deflator_) PostprocessFunction(
 		case string:
 			argument = not.Argument(not.Value(actual))
 		default:
-			argument = not.Argument(not.Entity(actual))
+			argument = not.Argument(actual.(not.ComponentLike))
 		}
 		arguments.AppendValue(argument)
 		iterator.GetNext()
@@ -589,10 +571,10 @@ func (v *deflator_) PostprocessGenerics(
 	var parameters = com.List[not.ParameterLike]()
 	var iterator = generics.GetParameters().GetIterator()
 	for iterator.HasNext() {
-		var constraint = v.stack_.RemoveLast().(not.ConstraintLike)
+		var component = v.stack_.RemoveLast().(not.ComponentLike)
 		var sequence = v.stack_.RemoveLast().(not.SequenceLike)
 		var symbol = sequence.GetAny().(string)
-		var parameter = not.Parameter(symbol, ":", constraint)
+		var parameter = not.Parameter(symbol, ":", component)
 		parameters.AppendValue(parameter)
 		iterator.GetNext()
 	}
@@ -706,7 +688,7 @@ func (v *deflator_) PostprocessMethod(
 		case string:
 			argument = not.Argument(not.Value(actual))
 		default:
-			argument = not.Argument(not.Entity(actual))
+			argument = not.Argument(actual.(not.ComponentLike))
 		}
 		arguments.AppendValue(argument)
 		iterator.GetNext()
@@ -1012,7 +994,7 @@ func (v *deflator_) PostprocessSubcomponent(
 		case string:
 			index = not.Index(not.Value(actual))
 		default:
-			index = not.Index(not.Entity(actual))
+			index = not.Index(not.Primitive(actual))
 		}
 		indexes.AppendValue(index)
 		iterator.GetNext()

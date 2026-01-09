@@ -2,7 +2,10 @@
     assign $foo := ~π(
         $units: $radians
     )
-    assign $foo := sum(a b)
+    assign $foo := sum(
+        a
+        b
+    )
     assign $foo := range([0..))
     assign $foo := foo<-bar(x)
     assign $foo := |z|
@@ -23,7 +26,7 @@
     assign $foo := @reference
     assign $foo := list<-add-value(ex)
     assign $foo := remote<~notify(event)
-    assign $foo := customer[42 $address [$red..$violet]]
+    assign $foo := customer[42 $address "violet"]
     assign $foo := a & b & c
     assign $foo := a < b and b = c san d > e ior e is f xor f matches g
 }

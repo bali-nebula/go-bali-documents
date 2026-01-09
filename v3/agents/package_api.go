@@ -336,20 +336,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessConstraint(
-		constraint doc.ConstraintLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessConstraintSlot(
-		constraint doc.ConstraintLike,
-		slot_ uint,
-	)
-	PostprocessConstraint(
-		constraint doc.ConstraintLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessContinueClause(
 		continueClause doc.ContinueClauseLike,
 		index_ uint,
@@ -403,20 +389,6 @@ type Methodical interface {
 	)
 	PostprocessDocument(
 		document doc.DocumentLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessEntity(
-		entity any,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessEntitySlot(
-		entity any,
-		slot_ uint,
-	)
-	PostprocessEntity(
-		entity any,
 		index_ uint,
 		count_ uint,
 	)

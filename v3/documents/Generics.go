@@ -29,7 +29,7 @@ func GenericsClass() GenericsClassLike {
 // Constructor Methods
 
 func (c *genericsClass_) Generics(
-	parameters com.CatalogLike[pri.SymbolLike, ConstraintLike],
+	parameters com.CatalogLike[pri.SymbolLike, ComponentLike],
 ) GenericsLike {
 	if uti.IsUndefined(parameters) {
 		panic("The \"parameters\" attribute is required by this class.")
@@ -55,7 +55,7 @@ func (v *generics_) GetClass() GenericsClassLike {
 
 // Attribute Methods
 
-func (v *generics_) GetParameters() com.CatalogLike[pri.SymbolLike, ConstraintLike] {
+func (v *generics_) GetParameters() com.CatalogLike[pri.SymbolLike, ComponentLike] {
 	return v.parameters_
 }
 
@@ -67,7 +67,7 @@ func (v *generics_) GetParameters() com.CatalogLike[pri.SymbolLike, ConstraintLi
 
 type generics_ struct {
 	// Declare the instance attributes.
-	parameters_ com.CatalogLike[pri.SymbolLike, ConstraintLike]
+	parameters_ com.CatalogLike[pri.SymbolLike, ComponentLike]
 }
 
 // Class Structure

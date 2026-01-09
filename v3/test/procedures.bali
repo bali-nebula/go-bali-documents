@@ -36,17 +36,17 @@
         return foo
     }
     select attribute[$first 3] matching 0 do {
-        assign attribute[$first 3] := 5
+        assign attribute[$first] := 5
     } matching ~π do {
-        assign attribute[$first 3] += ∞
+        assign attribute[$first] += ∞
     } matching ~π do {
-        assign attribute[$first 3] -= 50%
+        assign attribute[$first] -= 50%
     } matching ~π do {
-        assign attribute[$first 3] *= p0.5
+        assign attribute[$first] *= p0.5
     } matching ~π do {
-        assign attribute[$first 3] /= p1
+        assign attribute[$first] /= p1
     } matching none do {
-        assign attribute[$first 3] ?= undefined
+        assign attribute[$first] ?= undefined
     }
     invoke list<-addValue(value)
 

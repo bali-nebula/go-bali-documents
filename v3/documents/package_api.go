@@ -191,19 +191,6 @@ type ComponentClassLike interface {
 }
 
 /*
-ConstraintClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-constraint-like class.
-*/
-type ConstraintClassLike interface {
-	// Constructor Methods
-	Constraint(
-		entity any,
-		optionalGenerics GenericsLike,
-	) ConstraintLike
-}
-
-/*
 ContinueClauseClassLike is a class interface that declares the complete set of
 class constructors, constants and functions that must be supported by each
 concrete continue-clause-like class.
@@ -285,7 +272,7 @@ concrete generics-like class.
 type GenericsClassLike interface {
 	// Constructor Methods
 	Generics(
-		parameters com.CatalogLike[pri.SymbolLike, ConstraintLike],
+		parameters com.CatalogLike[pri.SymbolLike, ComponentLike],
 	) GenericsLike
 }
 
@@ -746,20 +733,6 @@ type ComponentLike interface {
 }
 
 /*
-ConstraintLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete constraint-like class.
-*/
-type ConstraintLike interface {
-	// Principal Methods
-	GetClass() ConstraintClassLike
-
-	// Attribute Methods
-	GetEntity() any
-	GetOptionalGenerics() GenericsLike
-}
-
-/*
 ContinueClauseLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete continue-clause-like class.
@@ -848,7 +821,7 @@ type GenericsLike interface {
 	GetClass() GenericsClassLike
 
 	// Attribute Methods
-	GetParameters() com.CatalogLike[pri.SymbolLike, ConstraintLike]
+	GetParameters() com.CatalogLike[pri.SymbolLike, ComponentLike]
 }
 
 /*

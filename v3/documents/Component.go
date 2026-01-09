@@ -79,11 +79,11 @@ func (v *component_) GetParameter(
 	var generics = v.GetOptionalGenerics()
 	if uti.IsDefined(generics) {
 		var parameters = generics.GetParameters()
-		var constraint = parameters.GetValue(symbol)
-		if uti.IsDefined(constraint) {
+		var component = parameters.GetValue(symbol)
+		if uti.IsDefined(component) {
 			parameter = componentClass().Component(
-				constraint.GetEntity(),
-				constraint.GetOptionalGenerics(),
+				component.GetLiteral(),
+				component.GetOptionalGenerics(),
 				"",
 			)
 		}

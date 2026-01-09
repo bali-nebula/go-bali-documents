@@ -220,12 +220,20 @@
                     )
                 ]
                 assign target[$steps] := [ ]
-                assign $disks := range(numberOfDisks 1)
+                assign $disks := range(
+                    numberOfDisks
+                    1
+                )
                 with each $n in disks do {
                     assign $pegA := target[$pegs "peg A"]
                     invoke pegA<-addItem(n)
                 }
-                invoke target<-moveTower(numberOfDisks "peg A" "peg C" "peg B")
+                invoke target<-moveTower(
+                    numberOfDisks
+                    "peg A"
+                    "peg C"
+                    "peg B"
+                )
                 assign $steps := target[$steps]
                 return steps<-asCatalog()
             }
@@ -294,9 +302,22 @@
             $procedure: {
                 if height do {
                     assign $height -= 1
-                    invoke target<-moveTower(height fromPeg withPeg toPeg)
-                    invoke target<-moveDisk(fromPeg toPeg)
-                    invoke target<-moveTower(height withPeg toPeg fromPeg)
+                    invoke target<-moveTower(
+                        height
+                        fromPeg
+                        withPeg
+                        toPeg
+                    )
+                    invoke target<-moveDisk(
+                        fromPeg
+                        toPeg
+                    )
+                    invoke target<-moveTower(
+                        height
+                        withPeg
+                        toPeg
+                        fromPeg
+                    )
                 }
             }
             $bytecode: '>
