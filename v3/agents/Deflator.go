@@ -76,19 +76,19 @@ func (v *deflator_) ProcessAssignment(
 ) {
 	var operation string
 	switch assignment {
-	case doc.DefaultEquals:
+	case doc.Default:
 		operation = "?="
-	case doc.AssignEquals:
+	case doc.Assign:
 		operation = ":="
-	case doc.PlusEquals:
+	case doc.Add:
 		operation = "+="
-	case doc.MinusEquals:
+	case doc.Subtract:
 		operation = "-="
-	case doc.TimesEquals:
+	case doc.Multiply:
 		operation = "*="
-	case doc.DivideEquals:
+	case doc.Divide:
 		operation = "/="
-	case doc.ChainEquals:
+	case doc.Join:
 		operation = "&="
 	default:
 		var message = fmt.Sprintf(
@@ -165,22 +165,14 @@ func (v *deflator_) ProcessInverse(
 	v.stack_.AddValue(not.Inverse(operation))
 }
 
-func (v *deflator_) ProcessInvocation(
-	invocation doc.Invocation,
+func (v *deflator_) ProcessIsSynchronous(
+	isSynchronous bool,
 ) {
 	var operation string
-	switch invocation {
-	case doc.Synchronous:
+	if isSynchronous {
 		operation = "<-"
-	case doc.Asynchronous:
+	} else {
 		operation = "<~"
-	default:
-		var message = fmt.Sprintf(
-			"Found an unexpected value in a switch statement: %v(%T)",
-			invocation,
-			invocation,
-		)
-		panic(message)
 	}
 	v.stack_.AddValue(not.Invocation(operation))
 }
@@ -215,52 +207,50 @@ func (v *deflator_) ProcessNumber(
 	v.stack_.AddValue(not.Element(number.AsSource()))
 }
 
-func (v *deflator_) ProcessOperator(
-	operator doc.Operator,
+func (v *deflator_) ProcessOperation(
+	operation doc.Operation,
 ) {
-	var operation any
-	switch operator {
+	switch operation {
 	case doc.Less:
-		operation = not.Comparison("<")
+		v.stack_.AddValue(not.Operation(not.Comparison("<")))
 	case doc.Equal:
-		operation = not.Comparison("=")
+		v.stack_.AddValue(not.Operation(not.Comparison("=")))
 	case doc.More:
-		operation = not.Comparison(">")
+		v.stack_.AddValue(not.Operation(not.Comparison(">")))
 	case doc.Is:
-		operation = not.Comparison("is")
+		v.stack_.AddValue(not.Operation(not.Comparison("is")))
 	case doc.Matches:
-		operation = not.Comparison("matches")
+		v.stack_.AddValue(not.Operation(not.Comparison("matches")))
 	case doc.And:
-		operation = not.Logical("and")
+		v.stack_.AddValue(not.Operation(not.Logical("and")))
 	case doc.San:
-		operation = not.Logical("san")
+		v.stack_.AddValue(not.Operation(not.Logical("san")))
 	case doc.Ior:
-		operation = not.Logical("ior")
+		v.stack_.AddValue(not.Operation(not.Logical("ior")))
 	case doc.Xor:
-		operation = not.Logical("xor")
-	case doc.Plus:
-		operation = not.Arithmetic("+")
-	case doc.Minus:
-		operation = not.Arithmetic("-")
-	case doc.Times:
-		operation = not.Arithmetic("*")
-	case doc.Divide:
-		operation = not.Arithmetic("/")
+		v.stack_.AddValue(not.Operation(not.Logical("xor")))
+	case doc.Sum:
+		v.stack_.AddValue(not.Operation(not.Arithmetic("+")))
+	case doc.Difference:
+		v.stack_.AddValue(not.Operation(not.Arithmetic("-")))
+	case doc.Product:
+		v.stack_.AddValue(not.Operation(not.Arithmetic("*")))
+	case doc.Quotient:
+		v.stack_.AddValue(not.Operation(not.Arithmetic("/")))
 	case doc.Remainder:
-		operation = not.Arithmetic("%")
+		v.stack_.AddValue(not.Operation(not.Arithmetic("%")))
 	case doc.Power:
-		operation = not.Arithmetic("^")
+		v.stack_.AddValue(not.Operation(not.Arithmetic("^")))
 	case doc.Chain:
-		operation = not.Lexical("&")
+		v.stack_.AddValue(not.Operation(not.Lexical("&")))
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected value in a switch statement: %v(%T)",
-			operator,
-			operator,
+			operation,
+			operation,
 		)
 		panic(message)
 	}
-	v.stack_.AddValue(not.Operator(operation))
 }
 
 func (v *deflator_) ProcessPattern(
@@ -680,6 +670,7 @@ func (v *deflator_) PostprocessMethod(
 	index_ uint,
 	count_ uint,
 ) {
+	var operation = v.stack_.RemoveLast().(not.InvocationLike)
 	var arguments = com.List[not.ArgumentLike]()
 	var iterator = method.GetArguments().GetIterator()
 	for iterator.HasNext() {
@@ -695,11 +686,10 @@ func (v *deflator_) PostprocessMethod(
 	}
 	arguments.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
-	var invocation = v.stack_.RemoveLast().(not.InvocationLike)
 	var target = v.stack_.RemoveLast().(string)
 	v.stack_.AddValue(
 		not.Method(
-			target, invocation, identifier, "(", arguments, ")",
+			target, operation, identifier, "(", arguments, ")",
 		),
 	)
 }
@@ -757,9 +747,9 @@ func (v *deflator_) PostprocessPredicate(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(not.ExpressionLike)
-	var operator = v.stack_.RemoveLast().(not.OperatorLike)
+	var operation = v.stack_.RemoveLast().(not.OperationLike)
 	v.stack_.AddValue(
-		not.Predicate(operator, expression),
+		not.Predicate(operation, expression),
 	)
 }
 

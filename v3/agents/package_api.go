@@ -179,8 +179,8 @@ type Methodical interface {
 	ProcessInverse(
 		inverse doc.Inverse,
 	)
-	ProcessInvocation(
-		invocation doc.Invocation,
+	ProcessIsSynchronous(
+		isSynchronous bool,
 	)
 	ProcessMoment(
 		moment pri.MomentLike,
@@ -197,8 +197,8 @@ type Methodical interface {
 	ProcessNumber(
 		number pri.NumberLike,
 	)
-	ProcessOperator(
-		operator doc.Operator,
+	ProcessOperation(
+		operation doc.Operation,
 	)
 	ProcessPattern(
 		pattern pri.PatternLike,

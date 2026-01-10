@@ -66,23 +66,20 @@ type (
 type (
 	Assignment = doc.Assignment
 	Inverse    = doc.Inverse
-	Invocation = doc.Invocation
-	Operator   = doc.Operator
+	Operation  = doc.Operation
 )
 
 const (
-	DefaultEquals  = doc.DefaultEquals
-	AssignEquals   = doc.AssignEquals
-	PlusEquals     = doc.PlusEquals
-	MinusEquals    = doc.MinusEquals
-	TimesEquals    = doc.TimesEquals
-	DivideEquals   = doc.DivideEquals
-	ChainEquals    = doc.ChainEquals
+	Default        = doc.Default
+	Assign         = doc.Assign
+	Add            = doc.Add
+	Subtract       = doc.Subtract
+	Multiply       = doc.Multiply
+	Divide         = doc.Divide
+	Join           = doc.Join
 	Additive       = doc.Additive
 	Multiplicative = doc.Multiplicative
 	Conjugate      = doc.Conjugate
-	Synchronous    = doc.Synchronous
-	Asynchronous   = doc.Asynchronous
 	Less           = doc.Less
 	Equal          = doc.Equal
 	More           = doc.More
@@ -92,10 +89,10 @@ const (
 	San            = doc.San
 	Ior            = doc.Ior
 	Xor            = doc.Xor
-	Plus           = doc.Plus
-	Minus          = doc.Minus
-	Times          = doc.Times
-	Divide         = doc.Divide
+	Sum            = doc.Sum
+	Difference     = doc.Difference
+	Product        = doc.Product
+	Quotient       = doc.Quotient
 	Remainder      = doc.Remainder
 	Power          = doc.Power
 	Chain          = doc.Chain
@@ -517,15 +514,15 @@ func MethodClass() MethodClassLike {
 
 func Method(
 	target string,
-	invocation doc.Invocation,
 	identifier string,
 	arguments com.Sequential[any],
+	isSynchronous bool,
 ) MethodLike {
 	return MethodClass().Method(
 		target,
-		invocation,
 		identifier,
 		arguments,
+		isSynchronous,
 	)
 }
 
@@ -574,11 +571,11 @@ func PredicateClass() PredicateClassLike {
 }
 
 func Predicate(
-	operator doc.Operator,
+	operation doc.Operation,
 	expression doc.ExpressionLike,
 ) PredicateLike {
 	return PredicateClass().Predicate(
-		operator,
+		operation,
 		expression,
 	)
 }

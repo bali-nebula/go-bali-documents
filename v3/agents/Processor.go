@@ -111,8 +111,8 @@ func (v *processor_) ProcessInverse(
 ) {
 }
 
-func (v *processor_) ProcessInvocation(
-	invocation doc.Invocation,
+func (v *processor_) ProcessIsSynchronous(
+	isSynchronous bool,
 ) {
 }
 
@@ -141,8 +141,8 @@ func (v *processor_) ProcessNumber(
 ) {
 }
 
-func (v *processor_) ProcessOperator(
-	operator doc.Operator,
+func (v *processor_) ProcessOperation(
+	operation doc.Operation,
 ) {
 }
 

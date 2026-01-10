@@ -29,15 +29,12 @@ func MethodClass() MethodClassLike {
 
 func (c *methodClass_) Method(
 	target string,
-	invocation Invocation,
 	identifier string,
 	arguments com.Sequential[any],
+	isSynchronous bool,
 ) MethodLike {
 	if uti.IsUndefined(target) {
 		panic("The \"target\" attribute is required by this class.")
-	}
-	if uti.IsUndefined(invocation) {
-		panic("The \"invocation\" attribute is required by this class.")
 	}
 	if uti.IsUndefined(identifier) {
 		panic("The \"identifier\" attribute is required by this class.")
@@ -47,10 +44,10 @@ func (c *methodClass_) Method(
 	}
 	var instance = &method_{
 		// Initialize the instance attributes.
-		target_:     target,
-		invocation_: invocation,
-		identifier_: identifier,
-		arguments_:  arguments,
+		target_:        target,
+		identifier_:    identifier,
+		arguments_:     arguments,
+		isSynchronous_: isSynchronous,
 	}
 	return instance
 }
@@ -73,16 +70,16 @@ func (v *method_) GetTarget() string {
 	return v.target_
 }
 
-func (v *method_) GetInvocation() Invocation {
-	return v.invocation_
-}
-
 func (v *method_) GetIdentifier() string {
 	return v.identifier_
 }
 
 func (v *method_) GetArguments() com.Sequential[any] {
 	return v.arguments_
+}
+
+func (v *method_) IsSynchronous() bool {
+	return v.isSynchronous_
 }
 
 // PROTECTED INTERFACE
@@ -93,10 +90,10 @@ func (v *method_) GetArguments() com.Sequential[any] {
 
 type method_ struct {
 	// Declare the instance attributes.
-	target_     string
-	invocation_ Invocation
-	identifier_ string
-	arguments_  com.Sequential[any]
+	target_        string
+	identifier_    string
+	arguments_     com.Sequential[any]
+	isSynchronous_ bool
 }
 
 // Class Structure

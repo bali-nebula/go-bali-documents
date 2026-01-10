@@ -219,26 +219,26 @@ func (v *inflator_) PostprocessAssignment(
 	index_ uint,
 	count_ uint,
 ) {
-	var operator = assignment.GetAny().(string)
-	switch operator {
+	var operation = assignment.GetAny().(string)
+	switch operation {
 	case "?=":
-		v.stack_.AddValue(doc.DefaultEquals)
+		v.stack_.AddValue(doc.Default)
 	case ":=":
-		v.stack_.AddValue(doc.AssignEquals)
+		v.stack_.AddValue(doc.Assign)
 	case "+=":
-		v.stack_.AddValue(doc.PlusEquals)
+		v.stack_.AddValue(doc.Add)
 	case "-=":
-		v.stack_.AddValue(doc.MinusEquals)
+		v.stack_.AddValue(doc.Subtract)
 	case "*=":
-		v.stack_.AddValue(doc.TimesEquals)
+		v.stack_.AddValue(doc.Multiply)
 	case "/=":
-		v.stack_.AddValue(doc.DivideEquals)
+		v.stack_.AddValue(doc.Divide)
 	case "&=":
-		v.stack_.AddValue(doc.ChainEquals)
+		v.stack_.AddValue(doc.Join)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
-			operator,
+			operation,
 		)
 		panic(message)
 	}
@@ -467,8 +467,8 @@ func (v *inflator_) PostprocessInverse(
 	index_ uint,
 	count_ uint,
 ) {
-	var operator = inverse.GetAny().(string)
-	switch operator {
+	var operation = inverse.GetAny().(string)
+	switch operation {
 	case "-":
 		v.stack_.AddValue(doc.Additive)
 	case "/":
@@ -478,7 +478,7 @@ func (v *inflator_) PostprocessInverse(
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
-			operator,
+			operation,
 		)
 		panic(message)
 	}
@@ -499,19 +499,21 @@ func (v *inflator_) PostprocessInvocation(
 	index_ uint,
 	count_ uint,
 ) {
-	var operator = invocation.GetAny().(string)
-	switch operator {
+	var isSynchronous bool
+	var operation = invocation.GetAny().(string)
+	switch operation {
 	case "<-":
-		v.stack_.AddValue(doc.Synchronous)
+		isSynchronous = true
 	case "<~":
-		v.stack_.AddValue(doc.Asynchronous)
+		isSynchronous = false
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
-			operator,
+			operation,
 		)
 		panic(message)
 	}
+	v.stack_.AddValue(isSynchronous)
 }
 
 func (v *inflator_) PostprocessInvokeClause(
@@ -595,10 +597,10 @@ func (v *inflator_) PostprocessMethod(
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
 	var identifier = v.stack_.RemoveLast().(string)
-	var invocation = v.stack_.RemoveLast().(doc.Invocation)
+	var isSynchronous = v.stack_.RemoveLast().(bool)
 	var target = v.stack_.RemoveLast().(string)
 	v.stack_.AddValue(
-		doc.MethodClass().Method(target, invocation, identifier, list),
+		doc.MethodClass().Method(target, identifier, list, isSynchronous),
 	)
 }
 
@@ -634,13 +636,13 @@ func (v *inflator_) PostprocessOnClause(
 	)
 }
 
-func (v *inflator_) PostprocessOperator(
-	operator not.OperatorLike,
+func (v *inflator_) PostprocessOperation(
+	operation not.OperationLike,
 	index_ uint,
 	count_ uint,
 ) {
 	var wrapper any
-	switch actual := operator.GetAny().(type) {
+	switch actual := operation.GetAny().(type) {
 	case not.ComparisonLike:
 		wrapper = actual.GetAny()
 	case not.LogicalLike:
@@ -657,8 +659,7 @@ func (v *inflator_) PostprocessOperator(
 		)
 		panic(message)
 	}
-	var actual = wrapper.(string)
-	switch actual {
+	switch wrapper.(string) {
 	case "<":
 		v.stack_.AddValue(doc.Less)
 	case "=":
@@ -678,13 +679,13 @@ func (v *inflator_) PostprocessOperator(
 	case "xor":
 		v.stack_.AddValue(doc.Xor)
 	case "+":
-		v.stack_.AddValue(doc.Plus)
+		v.stack_.AddValue(doc.Sum)
 	case "-":
-		v.stack_.AddValue(doc.Minus)
+		v.stack_.AddValue(doc.Difference)
 	case "*":
-		v.stack_.AddValue(doc.Times)
+		v.stack_.AddValue(doc.Product)
 	case "/":
-		v.stack_.AddValue(doc.Divide)
+		v.stack_.AddValue(doc.Quotient)
 	case "%":
 		v.stack_.AddValue(doc.Remainder)
 	case "^":
@@ -694,7 +695,7 @@ func (v *inflator_) PostprocessOperator(
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
-			actual,
+			wrapper,
 		)
 		panic(message)
 	}
@@ -715,8 +716,8 @@ func (v *inflator_) PostprocessPredicate(
 	count_ uint,
 ) {
 	var expression = v.stack_.RemoveLast().(doc.ExpressionLike)
-	var operator = v.stack_.RemoveLast().(doc.Operator)
-	v.stack_.AddValue(doc.PredicateClass().Predicate(operator, expression))
+	var operation = v.stack_.RemoveLast().(doc.Operation)
+	v.stack_.AddValue(doc.PredicateClass().Predicate(operation, expression))
 }
 
 func (v *inflator_) PostprocessProcedure(

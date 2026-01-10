@@ -42,13 +42,13 @@ Assignment is a constrained type specifying a specific type of assignment.
 type Assignment uint8
 
 const (
-	DefaultEquals Assignment = iota
-	AssignEquals
-	PlusEquals
-	MinusEquals
-	TimesEquals
-	DivideEquals
-	ChainEquals
+	Default Assignment = iota
+	Assign
+	Add
+	Subtract
+	Multiply
+	Divide
+	Join
 )
 
 /*
@@ -63,23 +63,12 @@ const (
 )
 
 /*
-Invocation is a constrained type specifying whether or not an invocation is
-synchronous or asynchronous.
+Operation is a constrained type representing an expression operation.
 */
-type Invocation uint8
+type Operation uint16
 
 const (
-	Synchronous Invocation = iota
-	Asynchronous
-)
-
-/*
-Operator is a constrained type representing an expression operator.
-*/
-type Operator uint16
-
-const (
-	Less Operator = iota
+	Less Operation = iota
 	Equal
 	More
 	Is
@@ -88,10 +77,10 @@ const (
 	San
 	Ior
 	Xor
-	Plus
-	Minus
-	Times
-	Divide
+	Sum
+	Difference
+	Product
+	Quotient
 	Remainder
 	Power
 	Chain
@@ -373,9 +362,9 @@ type MethodClassLike interface {
 	// Constructor Methods
 	Method(
 		target string,
-		invocation Invocation,
 		identifier string,
 		arguments com.Sequential[any],
+		isSynchronous bool,
 	) MethodLike
 }
 
@@ -425,7 +414,7 @@ predicate-like class.
 type PredicateClassLike interface {
 	// Constructor Methods
 	Predicate(
-		operator Operator,
+		operation Operation,
 		expression ExpressionLike,
 	) PredicateLike
 }
@@ -930,9 +919,9 @@ type MethodLike interface {
 
 	// Attribute Methods
 	GetTarget() string
-	GetInvocation() Invocation
 	GetIdentifier() string
 	GetArguments() com.Sequential[any]
+	IsSynchronous() bool
 }
 
 /*
@@ -986,7 +975,7 @@ type PredicateLike interface {
 	GetClass() PredicateClassLike
 
 	// Attribute Methods
-	GetOperator() Operator
+	GetOperation() Operation
 	GetExpression() ExpressionLike
 }
 

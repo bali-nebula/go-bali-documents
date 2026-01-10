@@ -1077,22 +1077,13 @@ func (v *visitor_) visitMethod(
 		1,
 	)
 
-	var invocation = method.GetInvocation()
-	v.processor_.ProcessInvocation(invocation)
+	var identifier = method.GetIdentifier()
+	v.processor_.ProcessIdentifier(identifier)
 
 	// Visit slot 2 between terms.
 	v.processor_.ProcessMethodSlot(
 		method,
 		2,
-	)
-
-	var identifier = method.GetIdentifier()
-	v.processor_.ProcessIdentifier(identifier)
-
-	// Visit slot 3 between terms.
-	v.processor_.ProcessMethodSlot(
-		method,
-		3,
 	)
 
 	var argumentsIndex uint
@@ -1113,6 +1104,15 @@ func (v *visitor_) visitMethod(
 			argumentsCount,
 		)
 	}
+
+	// Visit slot 3 between terms.
+	v.processor_.ProcessMethodSlot(
+		method,
+		3,
+	)
+
+	var isSynchronous = method.IsSynchronous()
+	v.processor_.ProcessIsSynchronous(isSynchronous)
 }
 
 func (v *visitor_) visitNotarizeClause(
@@ -1315,8 +1315,8 @@ func (v *visitor_) visitPrecedence(
 func (v *visitor_) visitPredicate(
 	predicate doc.PredicateLike,
 ) {
-	var operator = predicate.GetOperator()
-	v.processor_.ProcessOperator(operator)
+	var operation = predicate.GetOperation()
+	v.processor_.ProcessOperation(operation)
 
 	// Visit slot 1 between terms.
 	v.processor_.ProcessPredicateSlot(
