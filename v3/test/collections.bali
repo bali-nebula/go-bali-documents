@@ -5,6 +5,50 @@
     [ ]
     [:]
     [
+        ~π
+        true
+        ~P13W
+        ~P1Y2M3DT4H5M6.789S
+        <1-02-03T04:05:06.789>
+        <-1-02-03T04:05:06.789>
+        <2026-10-10>
+        -e
+        φ
+        -1.2345678E+90
+        ∞
+        +∞
+        -3i
+        3+4i
+        none
+        '🤓'
+        "ca+t"?
+        -1.7%
+        p0.25
+        <https://google.com/path?foo=bar#fragment>
+    ]
+    [
+        $angle: ~π
+        $boolean: true
+        $weeks: ~P13W
+        $duration: ~P1Y2M3DT4H5M6.789S
+        $moment: <1-02-03T04:05:06.789>
+        $before: <-1-02-03T04:05:06.789>
+        $year: <2026-01-10>
+        $negative: -e
+        $transcendental: φ
+        $float: -1.2345678E+90
+        $infinity: ∞
+        $real: +∞
+        $imaginary: -3i
+        $number: 3+4i
+        $component: none
+        $glyph: '🤓'
+        $pattern: "ca+t"?
+        $percent: -1.7%
+        $probability: p0.25
+        $resource: <https://google.com/path?foo=bar#fragment>
+    ]
+    [
         [:]
     ]
     [
