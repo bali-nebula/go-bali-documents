@@ -77,11 +77,18 @@ const (
 	Multiply       = doc.Multiply
 	Divide         = doc.Divide
 	Join           = doc.Join
+	Referent       = doc.Referent
 	Complement     = doc.Complement
 	Additive       = doc.Additive
 	Multiplicative = doc.Multiplicative
 	Conjugate      = doc.Conjugate
-	Referent       = doc.Referent
+	Chain          = doc.Chain
+	Sum            = doc.Sum
+	Difference     = doc.Difference
+	Product        = doc.Product
+	Quotient       = doc.Quotient
+	Remainder      = doc.Remainder
+	Power          = doc.Power
 	Less           = doc.Less
 	Equal          = doc.Equal
 	More           = doc.More
@@ -91,13 +98,6 @@ const (
 	San            = doc.San
 	Ior            = doc.Ior
 	Xor            = doc.Xor
-	Sum            = doc.Sum
-	Difference     = doc.Difference
-	Product        = doc.Product
-	Quotient       = doc.Quotient
-	Remainder      = doc.Remainder
-	Power          = doc.Power
-	Chain          = doc.Chain
 )
 
 type (

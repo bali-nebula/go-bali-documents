@@ -605,6 +605,20 @@ func (v *inflator_) PostprocessOperation(
 ) {
 	var operator = operation.GetAny().(string)
 	switch operator {
+	case "&":
+		v.stack_.AddValue(doc.Chain)
+	case "+":
+		v.stack_.AddValue(doc.Sum)
+	case "-":
+		v.stack_.AddValue(doc.Difference)
+	case "*":
+		v.stack_.AddValue(doc.Product)
+	case "/":
+		v.stack_.AddValue(doc.Quotient)
+	case "%":
+		v.stack_.AddValue(doc.Remainder)
+	case "^":
+		v.stack_.AddValue(doc.Power)
 	case "<":
 		v.stack_.AddValue(doc.Less)
 	case "=":
@@ -623,20 +637,6 @@ func (v *inflator_) PostprocessOperation(
 		v.stack_.AddValue(doc.Ior)
 	case "xor":
 		v.stack_.AddValue(doc.Xor)
-	case "+":
-		v.stack_.AddValue(doc.Sum)
-	case "-":
-		v.stack_.AddValue(doc.Difference)
-	case "*":
-		v.stack_.AddValue(doc.Product)
-	case "/":
-		v.stack_.AddValue(doc.Quotient)
-	case "%":
-		v.stack_.AddValue(doc.Remainder)
-	case "^":
-		v.stack_.AddValue(doc.Power)
-	case "&":
-		v.stack_.AddValue(doc.Chain)
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",

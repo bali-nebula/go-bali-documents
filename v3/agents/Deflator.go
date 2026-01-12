@@ -215,6 +215,20 @@ func (v *deflator_) ProcessOperation(
 	operation doc.Operation,
 ) {
 	switch operation {
+	case doc.Chain:
+		v.stack_.AddValue(not.Operation("&"))
+	case doc.Sum:
+		v.stack_.AddValue(not.Operation("+"))
+	case doc.Difference:
+		v.stack_.AddValue(not.Operation("-"))
+	case doc.Product:
+		v.stack_.AddValue(not.Operation("*"))
+	case doc.Quotient:
+		v.stack_.AddValue(not.Operation("/"))
+	case doc.Remainder:
+		v.stack_.AddValue(not.Operation("%"))
+	case doc.Power:
+		v.stack_.AddValue(not.Operation("^"))
 	case doc.Less:
 		v.stack_.AddValue(not.Operation("<"))
 	case doc.Equal:
@@ -233,20 +247,6 @@ func (v *deflator_) ProcessOperation(
 		v.stack_.AddValue(not.Operation("ior"))
 	case doc.Xor:
 		v.stack_.AddValue(not.Operation("xor"))
-	case doc.Sum:
-		v.stack_.AddValue(not.Operation("+"))
-	case doc.Difference:
-		v.stack_.AddValue(not.Operation("-"))
-	case doc.Product:
-		v.stack_.AddValue(not.Operation("*"))
-	case doc.Quotient:
-		v.stack_.AddValue(not.Operation("/"))
-	case doc.Remainder:
-		v.stack_.AddValue(not.Operation("%"))
-	case doc.Power:
-		v.stack_.AddValue(not.Operation("^"))
-	case doc.Chain:
-		v.stack_.AddValue(not.Operation("&"))
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected value in a switch statement: %v(%T)",

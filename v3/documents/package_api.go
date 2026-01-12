@@ -57,11 +57,11 @@ Modifier is a constrained type specifying a type of subject modifier.
 type Modifier uint8
 
 const (
-	Complement Modifier = iota
+	Referent Modifier = iota
+	Complement
 	Additive
 	Multiplicative
 	Conjugate
-	Referent
 )
 
 /*
@@ -70,7 +70,14 @@ Operation is a constrained type representing an expression operation.
 type Operation uint16
 
 const (
-	Less Operation = iota
+	Chain Operation = iota
+	Sum
+	Difference
+	Product
+	Quotient
+	Remainder
+	Power
+	Less
 	Equal
 	More
 	Is
@@ -79,13 +86,6 @@ const (
 	San
 	Ior
 	Xor
-	Sum
-	Difference
-	Product
-	Quotient
-	Remainder
-	Power
-	Chain
 )
 
 // FUNCTIONAL DECLARATIONS
