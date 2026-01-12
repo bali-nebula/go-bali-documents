@@ -65,7 +65,7 @@ type (
 
 type (
 	Assignment = doc.Assignment
-	Inverse    = doc.Inverse
+	Modifier   = doc.Modifier
 	Operation  = doc.Operation
 )
 
@@ -77,9 +77,11 @@ const (
 	Multiply       = doc.Multiply
 	Divide         = doc.Divide
 	Join           = doc.Join
+	Complement     = doc.Complement
 	Additive       = doc.Additive
 	Multiplicative = doc.Multiplicative
 	Conjugate      = doc.Conjugate
+	Referent       = doc.Referent
 	Less           = doc.Less
 	Equal          = doc.Equal
 	More           = doc.More
@@ -104,7 +106,6 @@ type (
 	AttributesClassLike     = doc.AttributesClassLike
 	BreakClauseClassLike    = doc.BreakClauseClassLike
 	CheckoutClauseClassLike = doc.CheckoutClauseClassLike
-	ComplementClassLike     = doc.ComplementClassLike
 	ComponentClassLike      = doc.ComponentClassLike
 	ContinueClauseClassLike = doc.ContinueClauseClassLike
 	DefineClauseClassLike   = doc.DefineClauseClassLike
@@ -115,7 +116,6 @@ type (
 	ParametersClassLike     = doc.ParametersClassLike
 	IfClauseClassLike       = doc.IfClauseClassLike
 	InspectClauseClassLike  = doc.InspectClauseClassLike
-	InversionClassLike      = doc.InversionClassLike
 	InvokeClauseClassLike   = doc.InvokeClauseClassLike
 	ItemsClassLike          = doc.ItemsClassLike
 	MagnitudeClassLike      = doc.MagnitudeClassLike
@@ -129,7 +129,7 @@ type (
 	PublishClauseClassLike  = doc.PublishClauseClassLike
 	RangeClassLike          = doc.RangeClassLike
 	ReceiveClauseClassLike  = doc.ReceiveClauseClassLike
-	ReferentClassLike       = doc.ReferentClassLike
+	RefinementClassLike     = doc.RefinementClassLike
 	RejectClauseClassLike   = doc.RejectClauseClassLike
 	RetrieveClauseClassLike = doc.RetrieveClauseClassLike
 	ReturnClauseClassLike   = doc.ReturnClauseClassLike
@@ -149,7 +149,6 @@ type (
 	AttributesLike     = doc.AttributesLike
 	BreakClauseLike    = doc.BreakClauseLike
 	CheckoutClauseLike = doc.CheckoutClauseLike
-	ComplementLike     = doc.ComplementLike
 	ComponentLike      = doc.ComponentLike
 	ContinueClauseLike = doc.ContinueClauseLike
 	DefineClauseLike   = doc.DefineClauseLike
@@ -160,7 +159,6 @@ type (
 	ParametersLike     = doc.ParametersLike
 	IfClauseLike       = doc.IfClauseLike
 	InspectClauseLike  = doc.InspectClauseLike
-	InversionLike      = doc.InversionLike
 	InvokeClauseLike   = doc.InvokeClauseLike
 	ItemsLike          = doc.ItemsLike
 	MagnitudeLike      = doc.MagnitudeLike
@@ -174,7 +172,7 @@ type (
 	PublishClauseLike  = doc.PublishClauseLike
 	RangeLike          = doc.RangeLike
 	ReceiveClauseLike  = doc.ReceiveClauseLike
-	ReferentLike       = doc.ReferentLike
+	RefinementLike     = doc.RefinementLike
 	RejectClauseLike   = doc.RejectClauseLike
 	RetrieveClauseLike = doc.RetrieveClauseLike
 	ReturnClauseLike   = doc.ReturnClauseLike
@@ -300,18 +298,6 @@ func CheckoutClause(
 	)
 }
 
-func ComplementClass() ComplementClassLike {
-	return doc.ComplementClass()
-}
-
-func Complement(
-	reversible any,
-) ComplementLike {
-	return ComplementClass().Complement(
-		reversible,
-	)
-}
-
 func ComponentClass() ComponentClassLike {
 	return doc.ComponentClass()
 }
@@ -382,11 +368,11 @@ func ExpressionClass() ExpressionClassLike {
 
 func Expression(
 	subject any,
-	predicates com.Sequential[doc.PredicateLike],
+	optionalPredicate doc.PredicateLike,
 ) ExpressionLike {
 	return ExpressionClass().Expression(
 		subject,
-		predicates,
+		optionalPredicate,
 	)
 }
 
@@ -441,20 +427,6 @@ func InspectClause(
 	return InspectClauseClass().InspectClause(
 		recipient,
 		location,
-	)
-}
-
-func InversionClass() InversionClassLike {
-	return doc.InversionClass()
-}
-
-func Inversion(
-	inverse doc.Inverse,
-	numerical any,
-) InversionLike {
-	return InversionClass().Inversion(
-		inverse,
-		numerical,
 	)
 }
 
@@ -636,15 +608,17 @@ func ReceiveClause(
 	)
 }
 
-func ReferentClass() ReferentClassLike {
-	return doc.ReferentClass()
+func RefinementClass() RefinementClassLike {
+	return doc.RefinementClass()
 }
 
-func Referent(
-	reference any,
-) ReferentLike {
-	return ReferentClass().Referent(
-		reference,
+func Refinement(
+	modifier doc.Modifier,
+	subject any,
+) RefinementLike {
+	return RefinementClass().Refinement(
+		modifier,
+		subject,
 	)
 }
 

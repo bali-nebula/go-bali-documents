@@ -285,15 +285,6 @@ func (v *inflator_) PostprocessCheckoutClause(
 	)
 }
 
-func (v *inflator_) PostprocessComplement(
-	complement not.ComplementLike,
-	index_ uint,
-	count_ uint,
-) {
-	var logical = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.ComplementClass().Complement(logical))
-}
-
 func (v *inflator_) PostprocessComponent(
 	component not.ComponentLike,
 	index_ uint,
@@ -403,17 +394,12 @@ func (v *inflator_) PostprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
-	var list = com.List[doc.PredicateLike]()
-	var predicates = expression.GetPredicates()
-	var iterator = predicates.GetIterator()
-	for iterator.HasNext() {
-		var predicate = v.stack_.RemoveLast().(doc.PredicateLike)
-		list.AppendValue(predicate)
-		iterator.GetNext()
+	var predicate doc.PredicateLike
+	if uti.IsDefined(expression.GetOptionalPredicate()) {
+		predicate = v.stack_.RemoveLast().(doc.PredicateLike)
 	}
-	list.ReverseValues() // They were pulled off the stack in reverse order.
 	var subject = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.ExpressionClass().Expression(subject, list))
+	v.stack_.AddValue(doc.ExpressionClass().Expression(subject, predicate))
 }
 
 func (v *inflator_) PostprocessFunction(
@@ -434,24 +420,6 @@ func (v *inflator_) PostprocessFunction(
 	v.stack_.AddValue(doc.FunctionClass().Function(identifier, list))
 }
 
-func (v *inflator_) PostprocessParameters(
-	parameters not.ParametersLike,
-	index_ uint,
-	count_ uint,
-) {
-	var catalog = com.Catalog[pri.SymbolLike, doc.ComponentLike]()
-	var constraints = parameters.GetConstraints()
-	var iterator = constraints.GetIterator()
-	for iterator.HasNext() {
-		var component = v.stack_.RemoveLast().(doc.ComponentLike)
-		var symbol = v.stack_.RemoveLast().(pri.SymbolLike)
-		catalog.SetValue(symbol, component)
-		iterator.GetNext()
-	}
-	catalog.ReverseValues() // They were pulled off the stack in reverse order.
-	v.stack_.AddValue(doc.ParametersClass().Parameters(catalog))
-}
-
 func (v *inflator_) PostprocessIfClause(
 	ifClause not.IfClauseLike,
 	index_ uint,
@@ -460,38 +428,6 @@ func (v *inflator_) PostprocessIfClause(
 	var procedure = v.stack_.RemoveLast().(doc.ProcedureLike)
 	var condition = v.stack_.RemoveLast().(doc.ExpressionLike)
 	v.stack_.AddValue(doc.IfClauseClass().IfClause(condition, procedure))
-}
-
-func (v *inflator_) PostprocessInverse(
-	inverse not.InverseLike,
-	index_ uint,
-	count_ uint,
-) {
-	var operation = inverse.GetAny().(string)
-	switch operation {
-	case "-":
-		v.stack_.AddValue(doc.Additive)
-	case "/":
-		v.stack_.AddValue(doc.Multiplicative)
-	case "*":
-		v.stack_.AddValue(doc.Conjugate)
-	default:
-		var message = fmt.Sprintf(
-			"Found an unexpected string value in a switch statement: %v",
-			operation,
-		)
-		panic(message)
-	}
-}
-
-func (v *inflator_) PostprocessInversion(
-	inversion not.InversionLike,
-	index_ uint,
-	count_ uint,
-) {
-	var numerical = v.stack_.RemoveLast()
-	var inverse = v.stack_.RemoveLast().(doc.Inverse)
-	v.stack_.AddValue(doc.InversionClass().Inversion(inverse, numerical))
 }
 
 func (v *inflator_) PostprocessInvocation(
@@ -604,6 +540,32 @@ func (v *inflator_) PostprocessMethod(
 	)
 }
 
+func (v *inflator_) PostprocessModifier(
+	modifier not.ModifierLike,
+	index_ uint,
+	count_ uint,
+) {
+	var operation = modifier.GetAny().(string)
+	switch operation {
+	case "not":
+		v.stack_.AddValue(doc.Complement)
+	case "-":
+		v.stack_.AddValue(doc.Additive)
+	case "/":
+		v.stack_.AddValue(doc.Multiplicative)
+	case "*":
+		v.stack_.AddValue(doc.Conjugate)
+	case "@":
+		v.stack_.AddValue(doc.Referent)
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected string value in a switch statement: %v",
+			operation,
+		)
+		panic(message)
+	}
+}
+
 func (v *inflator_) PostprocessNotarizeClause(
 	notarizeClause not.NotarizeClauseLike,
 	index_ uint,
@@ -641,25 +603,8 @@ func (v *inflator_) PostprocessOperation(
 	index_ uint,
 	count_ uint,
 ) {
-	var wrapper any
-	switch actual := operation.GetAny().(type) {
-	case not.ComparisonLike:
-		wrapper = actual.GetAny()
-	case not.LogicalLike:
-		wrapper = actual.GetAny()
-	case not.ArithmeticLike:
-		wrapper = actual.GetAny()
-	case not.LexicalLike:
-		wrapper = actual.GetAny()
-	default:
-		var message = fmt.Sprintf(
-			"Found a value of an unexpected type in a switch statement: %v(%T)",
-			actual,
-			actual,
-		)
-		panic(message)
-	}
-	switch wrapper.(string) {
+	var operator = operation.GetAny().(string)
+	switch operator {
 	case "<":
 		v.stack_.AddValue(doc.Less)
 	case "=":
@@ -695,10 +640,28 @@ func (v *inflator_) PostprocessOperation(
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected string value in a switch statement: %v",
-			wrapper,
+			operator,
 		)
 		panic(message)
 	}
+}
+
+func (v *inflator_) PostprocessParameters(
+	parameters not.ParametersLike,
+	index_ uint,
+	count_ uint,
+) {
+	var catalog = com.Catalog[pri.SymbolLike, doc.ComponentLike]()
+	var constraints = parameters.GetConstraints()
+	var iterator = constraints.GetIterator()
+	for iterator.HasNext() {
+		var component = v.stack_.RemoveLast().(doc.ComponentLike)
+		var symbol = v.stack_.RemoveLast().(pri.SymbolLike)
+		catalog.SetValue(symbol, component)
+		iterator.GetNext()
+	}
+	catalog.ReverseValues() // They were pulled off the stack in reverse order.
+	v.stack_.AddValue(doc.ParametersClass().Parameters(catalog))
 }
 
 func (v *inflator_) PostprocessPrecedence(
@@ -773,13 +736,14 @@ func (v *inflator_) PostprocessReceiveClause(
 	v.stack_.AddValue(doc.ReceiveClauseClass().ReceiveClause(recipient, bag))
 }
 
-func (v *inflator_) PostprocessReferent(
-	referent not.ReferentLike,
+func (v *inflator_) PostprocessRefinement(
+	refinement not.RefinementLike,
 	index_ uint,
 	count_ uint,
 ) {
-	var indirect = v.stack_.RemoveLast()
-	v.stack_.AddValue(doc.ReferentClass().Referent(indirect))
+	var subject = v.stack_.RemoveLast()
+	var modifier = v.stack_.RemoveLast().(doc.Modifier)
+	v.stack_.AddValue(doc.RefinementClass().Refinement(modifier, subject))
 }
 
 func (v *inflator_) PostprocessRejectClause(

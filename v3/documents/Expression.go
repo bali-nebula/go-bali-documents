@@ -13,7 +13,6 @@
 package documents
 
 import (
-	com "github.com/craterdog/go-essential-composites/v8"
 	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
@@ -29,18 +28,15 @@ func ExpressionClass() ExpressionClassLike {
 
 func (c *expressionClass_) Expression(
 	subject any,
-	predicates com.Sequential[PredicateLike],
+	optionalPredicate PredicateLike,
 ) ExpressionLike {
 	if uti.IsUndefined(subject) {
 		panic("The \"subject\" attribute is required by this class.")
 	}
-	if uti.IsUndefined(predicates) {
-		panic("The \"predicates\" attribute is required by this class.")
-	}
 	var instance = &expression_{
 		// Initialize the instance attributes.
-		subject_:    subject,
-		predicates_: predicates,
+		subject_:           subject,
+		optionalPredicate_: optionalPredicate,
 	}
 	return instance
 }
@@ -63,8 +59,8 @@ func (v *expression_) GetSubject() any {
 	return v.subject_
 }
 
-func (v *expression_) GetPredicates() com.Sequential[PredicateLike] {
-	return v.predicates_
+func (v *expression_) GetOptionalPredicate() PredicateLike {
+	return v.optionalPredicate_
 }
 
 // PROTECTED INTERFACE
@@ -75,8 +71,8 @@ func (v *expression_) GetPredicates() com.Sequential[PredicateLike] {
 
 type expression_ struct {
 	// Declare the instance attributes.
-	subject_    any
-	predicates_ com.Sequential[PredicateLike]
+	subject_           any
+	optionalPredicate_ PredicateLike
 }
 
 // Class Structure

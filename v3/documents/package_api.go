@@ -52,14 +52,16 @@ const (
 )
 
 /*
-Inverse is a constrained type specifying a type of numerical inverse.
+Modifier is a constrained type specifying a type of subject modifier.
 */
-type Inverse uint8
+type Modifier uint8
 
 const (
-	Additive Inverse = iota
+	Complement Modifier = iota
+	Additive
 	Multiplicative
 	Conjugate
+	Referent
 )
 
 /*
@@ -154,18 +156,6 @@ type CheckoutClauseClassLike interface {
 }
 
 /*
-ComplementClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-complement-like class.
-*/
-type ComplementClassLike interface {
-	// Constructor Methods
-	Complement(
-		reversible any,
-	) ComplementLike
-}
-
-/*
 ComponentClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
 component-like class.
@@ -236,7 +226,7 @@ type ExpressionClassLike interface {
 	// Constructor Methods
 	Expression(
 		subject any,
-		predicates com.Sequential[PredicateLike],
+		optionalPredicate PredicateLike,
 	) ExpressionLike
 }
 
@@ -289,19 +279,6 @@ type InspectClauseClassLike interface {
 		recipient any,
 		location ExpressionLike,
 	) InspectClauseLike
-}
-
-/*
-InversionClassLike is a class interface that declares the complete set of class
-constructors, constants and functions that must be supported by each concrete
-inversion-like class.
-*/
-type InversionClassLike interface {
-	// Constructor Methods
-	Inversion(
-		inverse Inverse,
-		numerical any,
-	) InversionLike
 }
 
 /*
@@ -472,15 +449,16 @@ type ReceiveClauseClassLike interface {
 }
 
 /*
-ReferentClassLike is a class interface that declares the complete set of class
+RefinementClassLike is a class interface that declares the complete set of class
 constructors, constants and functions that must be supported by each concrete
-referent-like class.
+refinement-like class.
 */
-type ReferentClassLike interface {
+type RefinementClassLike interface {
 	// Constructor Methods
-	Referent(
-		reference any,
-	) ReferentLike
+	Refinement(
+		modifier Modifier,
+		subject any,
+	) RefinementLike
 }
 
 /*
@@ -696,19 +674,6 @@ type CheckoutClauseLike interface {
 }
 
 /*
-ComplementLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete complement-like class.
-*/
-type ComplementLike interface {
-	// Principal Methods
-	GetClass() ComplementClassLike
-
-	// Attribute Methods
-	GetReversible() any
-}
-
-/*
 ComponentLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
 of a concrete component-like class.
@@ -783,7 +748,7 @@ type ExpressionLike interface {
 
 	// Attribute Methods
 	GetSubject() any
-	GetPredicates() com.Sequential[PredicateLike]
+	GetOptionalPredicate() PredicateLike
 }
 
 /*
@@ -839,20 +804,6 @@ type InspectClauseLike interface {
 	// Attribute Methods
 	GetRecipient() any
 	GetLocation() ExpressionLike
-}
-
-/*
-InversionLike is an instance interface that declares the complete set of
-principal, attribute and aspect methods that must be supported by each instance
-of a concrete inversion-like class.
-*/
-type InversionLike interface {
-	// Principal Methods
-	GetClass() InversionClassLike
-
-	// Attribute Methods
-	GetInverse() Inverse
-	GetNumerical() any
 }
 
 /*
@@ -1036,16 +987,17 @@ type ReceiveClauseLike interface {
 }
 
 /*
-ReferentLike is an instance interface that declares the complete set of
+RefinementLike is an instance interface that declares the complete set of
 principal, attribute and aspect methods that must be supported by each instance
-of a concrete referent-like class.
+of a concrete refinement-like class.
 */
-type ReferentLike interface {
+type RefinementLike interface {
 	// Principal Methods
-	GetClass() ReferentClassLike
+	GetClass() RefinementClassLike
 
 	// Attribute Methods
-	GetReference() any
+	GetModifier() Modifier
+	GetSubject() any
 }
 
 /*

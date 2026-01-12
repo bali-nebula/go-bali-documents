@@ -176,11 +176,11 @@ type Methodical interface {
 	ProcessIdentifier(
 		identifier string,
 	)
-	ProcessInverse(
-		inverse doc.Inverse,
-	)
 	ProcessIsSynchronous(
 		isSynchronous bool,
+	)
+	ProcessModifier(
+		modifier doc.Modifier,
 	)
 	ProcessMoment(
 		moment pri.MomentLike,
@@ -308,20 +308,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessComplement(
-		complement doc.ComplementLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessComplementSlot(
-		complement doc.ComplementLike,
-		slot_ uint,
-	)
-	PostprocessComplement(
-		complement doc.ComplementLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessComponent(
 		composite doc.ComponentLike,
 		index_ uint,
@@ -420,20 +406,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessParameters(
-		parameters doc.ParametersLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessParametersSlot(
-		parameters doc.ParametersLike,
-		slot_ uint,
-	)
-	PostprocessParameters(
-		parameters doc.ParametersLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessIfClause(
 		ifClause doc.IfClauseLike,
 		index_ uint,
@@ -476,20 +448,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessInversion(
-		inversion doc.InversionLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessInversionSlot(
-		inversion doc.InversionLike,
-		slot_ uint,
-	)
-	PostprocessInversion(
-		inversion doc.InversionLike,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessInvokeClause(
 		invokeClause doc.InvokeClauseLike,
 		index_ uint,
@@ -529,20 +487,6 @@ type Methodical interface {
 	)
 	PostprocessLiteral(
 		literal any,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessLogical(
-		logical any,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessLogicalSlot(
-		logical any,
-		slot_ uint,
-	)
-	PostprocessLogical(
-		logical any,
 		index_ uint,
 		count_ uint,
 	)
@@ -616,20 +560,6 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessNumerical(
-		numerical any,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessNumericalSlot(
-		numerical any,
-		slot_ uint,
-	)
-	PostprocessNumerical(
-		numerical any,
-		index_ uint,
-		count_ uint,
-	)
 	PreprocessOnClause(
 		onClause doc.OnClauseLike,
 		index_ uint,
@@ -641,6 +571,20 @@ type Methodical interface {
 	)
 	PostprocessOnClause(
 		onClause doc.OnClauseLike,
+		index_ uint,
+		count_ uint,
+	)
+	PreprocessParameters(
+		parameters doc.ParametersLike,
+		index_ uint,
+		count_ uint,
+	)
+	ProcessParametersSlot(
+		parameters doc.ParametersLike,
+		slot_ uint,
+	)
+	PostprocessParameters(
+		parameters doc.ParametersLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -756,31 +700,17 @@ type Methodical interface {
 		index_ uint,
 		count_ uint,
 	)
-	PreprocessReference(
-		reference any,
+	PreprocessRefinement(
+		refinement doc.RefinementLike,
 		index_ uint,
 		count_ uint,
 	)
-	ProcessReferenceSlot(
-		reference any,
+	ProcessRefinementSlot(
+		refinement doc.RefinementLike,
 		slot_ uint,
 	)
-	PostprocessReference(
-		reference any,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessReferent(
-		referent doc.ReferentLike,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessReferentSlot(
-		referent doc.ReferentLike,
-		slot_ uint,
-	)
-	PostprocessReferent(
-		referent doc.ReferentLike,
+	PostprocessRefinement(
+		refinement doc.RefinementLike,
 		index_ uint,
 		count_ uint,
 	)
@@ -823,20 +753,6 @@ type Methodical interface {
 	)
 	PostprocessReturnClause(
 		returnClause doc.ReturnClauseLike,
-		index_ uint,
-		count_ uint,
-	)
-	PreprocessReversible(
-		reversible any,
-		index_ uint,
-		count_ uint,
-	)
-	ProcessReversibleSlot(
-		reversible any,
-		slot_ uint,
-	)
-	PostprocessReversible(
-		reversible any,
 		index_ uint,
 		count_ uint,
 	)

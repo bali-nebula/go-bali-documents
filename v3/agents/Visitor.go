@@ -266,23 +266,6 @@ func (v *visitor_) visitCheckoutClause(
 	)
 }
 
-func (v *visitor_) visitComplement(
-	complement doc.ComplementLike,
-) {
-	var reversible = complement.GetReversible()
-	v.processor_.PreprocessReversible(
-		reversible,
-		0,
-		0,
-	)
-	v.visitReversible(reversible)
-	v.processor_.PostprocessReversible(
-		reversible,
-		0,
-		0,
-	)
-}
-
 func (v *visitor_) visitComponent(
 	component doc.ComponentLike,
 ) {
@@ -430,22 +413,18 @@ func (v *visitor_) visitExpression(
 		1,
 	)
 
-	var predicatesIndex uint
-	var predicates = expression.GetPredicates().GetIterator()
-	var predicatesCount = uint(predicates.GetSize())
-	for predicates.HasNext() {
-		predicatesIndex++
-		var predicate = predicates.GetNext()
+	var predicate = expression.GetOptionalPredicate()
+	if uti.IsDefined(predicate) {
 		v.processor_.PreprocessPredicate(
 			predicate,
-			predicatesIndex,
-			predicatesCount,
+			0,
+			0,
 		)
 		v.visitPredicate(predicate)
 		v.processor_.PostprocessPredicate(
 			predicate,
-			predicatesIndex,
-			predicatesCount,
+			0,
+			0,
 		)
 	}
 }
@@ -478,32 +457,6 @@ func (v *visitor_) visitFunction(
 			argument,
 			argumentsIndex,
 			argumentsCount,
-		)
-	}
-}
-
-func (v *visitor_) visitParameters(
-	parameters doc.ParametersLike,
-) {
-	var constraintsIndex uint
-	var constraints = parameters.GetConstraints().GetIterator()
-	var constraintsCount = uint(constraints.GetSize())
-	for constraints.HasNext() {
-		constraintsIndex++
-		var constraint = constraints.GetNext()
-		var symbol = constraint.GetKey()
-		v.processor_.ProcessSymbol(symbol)
-		var component = constraint.GetValue()
-		v.processor_.PreprocessComponent(
-			component,
-			constraintsIndex,
-			constraintsCount,
-		)
-		v.visitComponent(component)
-		v.processor_.PostprocessComponent(
-			component,
-			constraintsIndex,
-			constraintsCount,
 		)
 	}
 }
@@ -601,27 +554,27 @@ func (v *visitor_) visitInspectClause(
 	)
 }
 
-func (v *visitor_) visitInversion(
-	inversion doc.InversionLike,
+func (v *visitor_) visitRefinement(
+	refinement doc.RefinementLike,
 ) {
-	var inverse = inversion.GetInverse()
-	v.processor_.ProcessInverse(inverse)
+	var modifier = refinement.GetModifier()
+	v.processor_.ProcessModifier(modifier)
 
 	// Visit slot 1 between terms.
-	v.processor_.ProcessInversionSlot(
-		inversion,
+	v.processor_.ProcessRefinementSlot(
+		refinement,
 		1,
 	)
 
-	var numerical = inversion.GetNumerical()
-	v.processor_.PreprocessNumerical(
-		numerical,
+	var subject = refinement.GetSubject()
+	v.processor_.PreprocessSubject(
+		subject,
 		0,
 		0,
 	)
-	v.visitNumerical(numerical)
-	v.processor_.PostprocessNumerical(
-		numerical,
+	v.visitSubject(subject)
+	v.processor_.PostprocessSubject(
+		subject,
 		0,
 		0,
 	)
@@ -1151,118 +1104,6 @@ func (v *visitor_) visitNotarizeClause(
 	)
 }
 
-func (v *visitor_) visitNumerical(
-	numerical any,
-) {
-	switch actual := numerical.(type) {
-	case doc.ComponentLike:
-		v.processor_.PreprocessComponent(
-			actual,
-			0,
-			0,
-		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
-			actual,
-			0,
-			0,
-		)
-	case doc.SubcomponentLike:
-		v.processor_.PreprocessSubcomponent(
-			actual,
-			0,
-			0,
-		)
-		v.visitSubcomponent(actual)
-		v.processor_.PostprocessSubcomponent(
-			actual,
-			0,
-			0,
-		)
-	case doc.PrecedenceLike:
-		v.processor_.PreprocessPrecedence(
-			actual,
-			0,
-			0,
-		)
-		v.visitPrecedence(actual)
-		v.processor_.PostprocessPrecedence(
-			actual,
-			0,
-			0,
-		)
-	case doc.ReferentLike:
-		v.processor_.PreprocessReferent(
-			actual,
-			0,
-			0,
-		)
-		v.visitReferent(actual)
-		v.processor_.PostprocessReferent(
-			actual,
-			0,
-			0,
-		)
-	case doc.InversionLike:
-		v.processor_.PreprocessInversion(
-			actual,
-			0,
-			0,
-		)
-		v.visitInversion(actual)
-		v.processor_.PostprocessInversion(
-			actual,
-			0,
-			0,
-		)
-	case doc.MagnitudeLike:
-		v.processor_.PreprocessMagnitude(
-			actual,
-			0,
-			0,
-		)
-		v.visitMagnitude(actual)
-		v.processor_.PostprocessMagnitude(
-			actual,
-			0,
-			0,
-		)
-	case doc.FunctionLike:
-		v.processor_.PreprocessFunction(
-			actual,
-			0,
-			0,
-		)
-		v.visitFunction(actual)
-		v.processor_.PostprocessFunction(
-			actual,
-			0,
-			0,
-		)
-	case doc.MethodLike:
-		v.processor_.PreprocessMethod(
-			actual,
-			0,
-			0,
-		)
-		v.visitMethod(actual)
-		v.processor_.PostprocessMethod(
-			actual,
-			0,
-			0,
-		)
-	case string:
-		v.processor_.ProcessIdentifier(actual)
-	default:
-		var message = fmt.Sprintf(
-			"Found a value of an unexpected type in a switch statement: %v(%T)",
-			actual,
-			actual,
-		)
-		panic(message)
-	}
-}
-
 func (v *visitor_) visitOnClause(
 	onClause doc.OnClauseLike,
 ) {
@@ -1291,6 +1132,32 @@ func (v *visitor_) visitOnClause(
 			clause,
 			matchingClausesIndex,
 			matchingClausesCount,
+		)
+	}
+}
+
+func (v *visitor_) visitParameters(
+	parameters doc.ParametersLike,
+) {
+	var constraintsIndex uint
+	var constraints = parameters.GetConstraints().GetIterator()
+	var constraintsCount = uint(constraints.GetSize())
+	for constraints.HasNext() {
+		constraintsIndex++
+		var constraint = constraints.GetNext()
+		var symbol = constraint.GetKey()
+		v.processor_.ProcessSymbol(symbol)
+		var component = constraint.GetValue()
+		v.processor_.PreprocessComponent(
+			component,
+			constraintsIndex,
+			constraintsCount,
+		)
+		v.visitComponent(component)
+		v.processor_.PostprocessComponent(
+			component,
+			constraintsIndex,
+			constraintsCount,
 		)
 	}
 }
@@ -1550,99 +1417,6 @@ func (v *visitor_) visitRecipient(
 	}
 }
 
-func (v *visitor_) visitReference(
-	reference any,
-) {
-	switch actual := reference.(type) {
-	case doc.ComponentLike:
-		v.processor_.PreprocessComponent(
-			actual,
-			0,
-			0,
-		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
-			actual,
-			0,
-			0,
-		)
-	case doc.SubcomponentLike:
-		v.processor_.PreprocessSubcomponent(
-			actual,
-			0,
-			0,
-		)
-		v.visitSubcomponent(actual)
-		v.processor_.PostprocessSubcomponent(
-			actual,
-			0,
-			0,
-		)
-	case doc.ReferentLike:
-		v.processor_.PreprocessReferent(
-			actual,
-			0,
-			0,
-		)
-		v.visitReferent(actual)
-		v.processor_.PostprocessReferent(
-			actual,
-			0,
-			0,
-		)
-	case doc.FunctionLike:
-		v.processor_.PreprocessFunction(
-			actual,
-			0,
-			0,
-		)
-		v.visitFunction(actual)
-		v.processor_.PostprocessFunction(
-			actual,
-			0,
-			0,
-		)
-	case doc.MethodLike:
-		v.processor_.PreprocessMethod(
-			actual,
-			0,
-			0,
-		)
-		v.visitMethod(actual)
-		v.processor_.PostprocessMethod(
-			actual,
-			0,
-			0,
-		)
-	case string:
-		v.processor_.ProcessIdentifier(actual)
-	default:
-		var message = fmt.Sprintf(
-			"Found a value of an unexpected type in a switch statement: %v(%T)",
-			actual,
-			actual,
-		)
-		panic(message)
-	}
-}
-
-func (v *visitor_) visitReferent(
-	referent doc.ReferentLike,
-) {
-	var reference = referent.GetReference()
-	v.processor_.PreprocessReference(
-		reference,
-		0,
-		0,
-	)
-	v.visitReference(reference)
-	v.processor_.PostprocessReference(
-		reference,
-		0,
-		0,
-	)
-}
-
 func (v *visitor_) visitRejectClause(
 	rejectClause doc.RejectClauseLike,
 ) {
@@ -1730,106 +1504,6 @@ func (v *visitor_) visitReturnClause(
 		0,
 		0,
 	)
-}
-
-func (v *visitor_) visitReversible(
-	reversible any,
-) {
-	switch actual := reversible.(type) {
-	case doc.ComponentLike:
-		v.processor_.PreprocessComponent(
-			actual,
-			0,
-			0,
-		)
-		v.visitComponent(actual)
-		v.processor_.PostprocessComponent(
-			actual,
-			0,
-			0,
-		)
-	case doc.SubcomponentLike:
-		v.processor_.PreprocessSubcomponent(
-			actual,
-			0,
-			0,
-		)
-		v.visitSubcomponent(actual)
-		v.processor_.PostprocessSubcomponent(
-			actual,
-			0,
-			0,
-		)
-	case doc.PrecedenceLike:
-		v.processor_.PreprocessPrecedence(
-			actual,
-			0,
-			0,
-		)
-		v.visitPrecedence(actual)
-		v.processor_.PostprocessPrecedence(
-			actual,
-			0,
-			0,
-		)
-	case doc.ReferentLike:
-		v.processor_.PreprocessReferent(
-			actual,
-			0,
-			0,
-		)
-		v.visitReferent(actual)
-		v.processor_.PostprocessReferent(
-			actual,
-			0,
-			0,
-		)
-	case doc.ComplementLike:
-		v.processor_.PreprocessComplement(
-			actual,
-			0,
-			0,
-		)
-		v.visitComplement(actual)
-		v.processor_.PostprocessComplement(
-			actual,
-			0,
-			0,
-		)
-	case doc.FunctionLike:
-		v.processor_.PreprocessFunction(
-			actual,
-			0,
-			0,
-		)
-		v.visitFunction(actual)
-		v.processor_.PostprocessFunction(
-			actual,
-			0,
-			0,
-		)
-	case doc.MethodLike:
-		v.processor_.PreprocessMethod(
-			actual,
-			0,
-			0,
-		)
-		v.visitMethod(actual)
-		v.processor_.PostprocessMethod(
-			actual,
-			0,
-			0,
-		)
-	case string:
-		v.processor_.ProcessIdentifier(actual)
-	default:
-		var message = fmt.Sprintf(
-			"Found a value of an unexpected type in a switch statement: %v(%T)",
-			actual,
-			actual,
-		)
-		panic(message)
-	}
 }
 
 func (v *visitor_) visitSaveClause(
@@ -2067,38 +1741,14 @@ func (v *visitor_) visitSubject(
 			0,
 			0,
 		)
-	case doc.ReferentLike:
-		v.processor_.PreprocessReferent(
+	case doc.RefinementLike:
+		v.processor_.PreprocessRefinement(
 			actual,
 			0,
 			0,
 		)
-		v.visitReferent(actual)
-		v.processor_.PostprocessReferent(
-			actual,
-			0,
-			0,
-		)
-	case doc.ComplementLike:
-		v.processor_.PreprocessComplement(
-			actual,
-			0,
-			0,
-		)
-		v.visitComplement(actual)
-		v.processor_.PostprocessComplement(
-			actual,
-			0,
-			0,
-		)
-	case doc.InversionLike:
-		v.processor_.PreprocessInversion(
-			actual,
-			0,
-			0,
-		)
-		v.visitInversion(actual)
-		v.processor_.PostprocessInversion(
+		v.visitRefinement(actual)
+		v.processor_.PostprocessRefinement(
 			actual,
 			0,
 			0,

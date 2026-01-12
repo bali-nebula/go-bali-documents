@@ -143,28 +143,6 @@ func (v *deflator_) ProcessIdentifier(
 	v.stack_.AddValue(identifier)
 }
 
-func (v *deflator_) ProcessInverse(
-	inverse doc.Inverse,
-) {
-	var operation string
-	switch inverse {
-	case doc.Additive:
-		operation = "-"
-	case doc.Multiplicative:
-		operation = "/"
-	case doc.Conjugate:
-		operation = "*"
-	default:
-		var message = fmt.Sprintf(
-			"Found an unexpected value in a switch statement: %v(%T)",
-			inverse,
-			inverse,
-		)
-		panic(message)
-	}
-	v.stack_.AddValue(not.Inverse(operation))
-}
-
 func (v *deflator_) ProcessIsSynchronous(
 	isSynchronous bool,
 ) {
@@ -175,6 +153,32 @@ func (v *deflator_) ProcessIsSynchronous(
 		operation = "<~"
 	}
 	v.stack_.AddValue(not.Invocation(operation))
+}
+
+func (v *deflator_) ProcessModifier(
+	modifier doc.Modifier,
+) {
+	var operation string
+	switch modifier {
+	case doc.Complement:
+		operation = "not"
+	case doc.Additive:
+		operation = "-"
+	case doc.Multiplicative:
+		operation = "/"
+	case doc.Conjugate:
+		operation = "*"
+	case doc.Referent:
+		operation = "@"
+	default:
+		var message = fmt.Sprintf(
+			"Found an unexpected value in a switch statement: %v(%T)",
+			modifier,
+			modifier,
+		)
+		panic(message)
+	}
+	v.stack_.AddValue(not.Modifier(operation))
 }
 
 func (v *deflator_) ProcessMoment(
@@ -212,37 +216,37 @@ func (v *deflator_) ProcessOperation(
 ) {
 	switch operation {
 	case doc.Less:
-		v.stack_.AddValue(not.Operation(not.Comparison("<")))
+		v.stack_.AddValue(not.Operation("<"))
 	case doc.Equal:
-		v.stack_.AddValue(not.Operation(not.Comparison("=")))
+		v.stack_.AddValue(not.Operation("="))
 	case doc.More:
-		v.stack_.AddValue(not.Operation(not.Comparison(">")))
+		v.stack_.AddValue(not.Operation(">"))
 	case doc.Is:
-		v.stack_.AddValue(not.Operation(not.Comparison("is")))
+		v.stack_.AddValue(not.Operation("is"))
 	case doc.Matches:
-		v.stack_.AddValue(not.Operation(not.Comparison("matches")))
+		v.stack_.AddValue(not.Operation("matches"))
 	case doc.And:
-		v.stack_.AddValue(not.Operation(not.Logical("and")))
+		v.stack_.AddValue(not.Operation("and"))
 	case doc.San:
-		v.stack_.AddValue(not.Operation(not.Logical("san")))
+		v.stack_.AddValue(not.Operation("san"))
 	case doc.Ior:
-		v.stack_.AddValue(not.Operation(not.Logical("ior")))
+		v.stack_.AddValue(not.Operation("ior"))
 	case doc.Xor:
-		v.stack_.AddValue(not.Operation(not.Logical("xor")))
+		v.stack_.AddValue(not.Operation("xor"))
 	case doc.Sum:
-		v.stack_.AddValue(not.Operation(not.Arithmetic("+")))
+		v.stack_.AddValue(not.Operation("+"))
 	case doc.Difference:
-		v.stack_.AddValue(not.Operation(not.Arithmetic("-")))
+		v.stack_.AddValue(not.Operation("-"))
 	case doc.Product:
-		v.stack_.AddValue(not.Operation(not.Arithmetic("*")))
+		v.stack_.AddValue(not.Operation("*"))
 	case doc.Quotient:
-		v.stack_.AddValue(not.Operation(not.Arithmetic("/")))
+		v.stack_.AddValue(not.Operation("/"))
 	case doc.Remainder:
-		v.stack_.AddValue(not.Operation(not.Arithmetic("%")))
+		v.stack_.AddValue(not.Operation("%"))
 	case doc.Power:
-		v.stack_.AddValue(not.Operation(not.Arithmetic("^")))
+		v.stack_.AddValue(not.Operation("^"))
 	case doc.Chain:
-		v.stack_.AddValue(not.Operation(not.Lexical("&")))
+		v.stack_.AddValue(not.Operation("&"))
 	default:
 		var message = fmt.Sprintf(
 			"Found an unexpected value in a switch statement: %v(%T)",
@@ -400,23 +404,6 @@ func (v *deflator_) PostprocessCheckoutClause(
 	)
 }
 
-func (v *deflator_) PostprocessComplement(
-	complement doc.ComplementLike,
-	index_ uint,
-	count_ uint,
-) {
-	var reversible not.ReversibleLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case string:
-		reversible = not.Reversible(not.Value(actual))
-	default:
-		reversible = not.Reversible(actual)
-	}
-	v.stack_.AddValue(
-		not.Complement("not", reversible),
-	)
-}
-
 func (v *deflator_) PostprocessComponent(
 	component doc.ComponentLike,
 	index_ uint,
@@ -512,14 +499,10 @@ func (v *deflator_) PostprocessExpression(
 	index_ uint,
 	count_ uint,
 ) {
-	var predicates = com.List[not.PredicateLike]()
-	var iterator = expression.GetPredicates().GetIterator()
-	for iterator.HasNext() {
-		var predicate = v.stack_.RemoveLast().(not.PredicateLike)
-		predicates.AppendValue(predicate)
-		iterator.GetNext()
+	var predicate not.PredicateLike
+	if uti.IsDefined(expression.GetOptionalPredicate()) {
+		predicate = v.stack_.RemoveLast().(not.PredicateLike)
 	}
-	predicates.ReverseValues() // They were pulled off the stack in reverse order.
 	var subject not.SubjectLike
 	switch actual := v.stack_.RemoveLast().(type) {
 	case string:
@@ -527,7 +510,7 @@ func (v *deflator_) PostprocessExpression(
 	default:
 		subject = not.Subject(actual)
 	}
-	v.stack_.AddValue(not.Expression(subject, predicates))
+	v.stack_.AddValue(not.Expression(subject, predicate))
 }
 
 func (v *deflator_) PostprocessFunction(
@@ -582,27 +565,6 @@ func (v *deflator_) PostprocessIfClause(
 	v.stack_.AddValue(
 		not.FlowControl(
 			not.IfClause("if", expression, "do", procedure),
-		),
-	)
-}
-
-func (v *deflator_) PostprocessInversion(
-	inversion doc.InversionLike,
-	index_ uint,
-	count_ uint,
-) {
-	var numerical not.NumericalLike
-	switch actual := v.stack_.RemoveLast().(type) {
-	case string:
-		numerical = not.Numerical(not.Value(actual))
-	default:
-		numerical = not.Numerical(actual)
-	}
-	var inverse = v.stack_.RemoveLast().(not.InverseLike)
-	v.stack_.AddValue(
-		not.Inversion(
-			inverse,
-			numerical,
 		),
 	)
 }
@@ -852,19 +814,25 @@ func (v *deflator_) PostprocessReceiveClause(
 	)
 }
 
-func (v *deflator_) PostprocessReferent(
-	referent doc.ReferentLike,
+func (v *deflator_) PostprocessRefinement(
+	refinement doc.RefinementLike,
 	index_ uint,
 	count_ uint,
 ) {
-	var reference not.ReferenceLike
+	var subject not.SubjectLike
 	switch actual := v.stack_.RemoveLast().(type) {
 	case string:
-		reference = not.Reference(not.Value(actual))
+		subject = not.Subject(not.Value(actual))
 	default:
-		reference = not.Reference(actual)
+		subject = not.Subject(actual)
 	}
-	v.stack_.AddValue(not.Referent("@", reference))
+	var modifier = v.stack_.RemoveLast().(not.ModifierLike)
+	v.stack_.AddValue(
+		not.Refinement(
+			modifier,
+			subject,
+		),
+	)
 }
 
 func (v *deflator_) PostprocessRejectClause(

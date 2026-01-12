@@ -20,21 +20,26 @@ import (
 
 // Access Function
 
-func ComplementClass() ComplementClassLike {
-	return complementClass()
+func RefinementClass() RefinementClassLike {
+	return refinementClass()
 }
 
 // Constructor Methods
 
-func (c *complementClass_) Complement(
-	reversible any,
-) ComplementLike {
-	if uti.IsUndefined(reversible) {
-		panic("The \"reversible\" attribute is required by this class.")
+func (c *refinementClass_) Refinement(
+	modifier Modifier,
+	subject any,
+) RefinementLike {
+	if uti.IsUndefined(modifier) {
+		panic("The \"modifier\" attribute is required by this class.")
 	}
-	var instance = &complement_{
+	if uti.IsUndefined(subject) {
+		panic("The \"subject\" attribute is required by this class.")
+	}
+	var instance = &refinement_{
 		// Initialize the instance attributes.
-		reversible_: reversible,
+		modifier_: modifier,
+		subject_:  subject,
 	}
 	return instance
 }
@@ -47,14 +52,18 @@ func (c *complementClass_) Complement(
 
 // Principal Methods
 
-func (v *complement_) GetClass() ComplementClassLike {
-	return complementClass()
+func (v *refinement_) GetClass() RefinementClassLike {
+	return refinementClass()
 }
 
 // Attribute Methods
 
-func (v *complement_) GetReversible() any {
-	return v.reversible_
+func (v *refinement_) GetModifier() Modifier {
+	return v.modifier_
+}
+
+func (v *refinement_) GetSubject() any {
+	return v.subject_
 }
 
 // PROTECTED INTERFACE
@@ -63,23 +72,24 @@ func (v *complement_) GetReversible() any {
 
 // Instance Structure
 
-type complement_ struct {
+type refinement_ struct {
 	// Declare the instance attributes.
-	reversible_ any
+	modifier_ Modifier
+	subject_  any
 }
 
 // Class Structure
 
-type complementClass_ struct {
+type refinementClass_ struct {
 	// Declare the class constants.
 }
 
 // Class Reference
 
-func complementClass() *complementClass_ {
-	return complementClassReference_
+func refinementClass() *refinementClass_ {
+	return refinementClassReference_
 }
 
-var complementClassReference_ = &complementClass_{
+var refinementClassReference_ = &refinementClass_{
 	// Initialize the class constants.
 }
