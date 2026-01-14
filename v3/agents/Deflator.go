@@ -138,9 +138,9 @@ func (v *deflator_) ProcessGlyph(
 }
 
 func (v *deflator_) ProcessIdentifier(
-	identifier string,
+	identifier pri.IdentifierLike,
 ) {
-	v.stack_.AddValue(identifier)
+	v.stack_.AddValue(identifier.AsSource())
 }
 
 func (v *deflator_) ProcessIsSynchronous(

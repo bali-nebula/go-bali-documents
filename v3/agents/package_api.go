@@ -174,7 +174,7 @@ type Methodical interface {
 		glyph pri.GlyphLike,
 	)
 	ProcessIdentifier(
-		identifier string,
+		identifier pri.IdentifierLike,
 	)
 	ProcessIsSynchronous(
 		isSynchronous bool,

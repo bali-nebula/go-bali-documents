@@ -1401,6 +1401,13 @@ func TestGlyphs(t *tes.T) {
 
 var MomentClass = doc.MomentClass()
 
+func TestIdentifier(t *tes.T) {
+	var foobar = "foo-bar"
+	var v = doc.Identifier(foobar)
+	ass.Equal(t, []rune{'f', 'o', 'o', '-', 'b', 'a', 'r'}, v.AsIntrinsic())
+	ass.Equal(t, foobar, v.AsSource())
+}
+
 func TestIntegerMoments(t *tes.T) {
 	var v = doc.Moment(1238589296789)
 	ass.Equal(t, 1238589296789, v.AsIntrinsic())
@@ -2121,8 +2128,8 @@ func TestName(t *tes.T) {
 	ass.Equal(t, "/bali-nebula/types/abstractions/5String", v1.AsSource())
 	ass.False(t, v1.IsEmpty())
 	ass.Equal(t, 4, int(v1.GetSize()))
-	ass.Equal(t, doc.Folder("bali-nebula"), v1.GetValue(1))
-	ass.Equal(t, doc.Folder("5String"), v1.GetValue(-1))
+	ass.Equal(t, "bali-nebula", v1.GetValue(1))
+	ass.Equal(t, "5String", v1.GetValue(-1))
 	var v2 = doc.Name(v1.AsArray())
 	ass.Equal(t, v1.AsSource(), v2.AsSource())
 	var v3 = doc.Name(v1.GetValues(1, 2))

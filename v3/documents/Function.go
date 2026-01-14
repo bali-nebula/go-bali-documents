@@ -14,6 +14,7 @@ package documents
 
 import (
 	com "github.com/craterdog/go-essential-composites/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
 	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
@@ -28,7 +29,7 @@ func FunctionClass() FunctionClassLike {
 // Constructor Methods
 
 func (c *functionClass_) Function(
-	identifier string,
+	identifier pri.IdentifierLike,
 	arguments com.Sequential[any],
 ) FunctionLike {
 	if uti.IsUndefined(identifier) {
@@ -59,7 +60,7 @@ func (v *function_) GetClass() FunctionClassLike {
 
 // Attribute Methods
 
-func (v *function_) GetIdentifier() string {
+func (v *function_) GetIdentifier() pri.IdentifierLike {
 	return v.identifier_
 }
 
@@ -75,7 +76,7 @@ func (v *function_) GetArguments() com.Sequential[any] {
 
 type function_ struct {
 	// Declare the instance attributes.
-	identifier_ string
+	identifier_ pri.IdentifierLike
 	arguments_  com.Sequential[any]
 }
 

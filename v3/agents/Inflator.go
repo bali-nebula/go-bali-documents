@@ -110,7 +110,7 @@ func (v *inflator_) ProcessGlyph(
 func (v *inflator_) ProcessIdentifier(
 	identifier string,
 ) {
-	v.stack_.AddValue(identifier)
+	v.stack_.AddValue(pri.IdentifierClass().IdentifierFromSource(identifier))
 }
 
 func (v *inflator_) ProcessMoment(
@@ -416,7 +416,7 @@ func (v *inflator_) PostprocessFunction(
 		iterator.GetNext()
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
-	var identifier = v.stack_.RemoveLast().(string)
+	var identifier = v.stack_.RemoveLast().(pri.IdentifierLike)
 	v.stack_.AddValue(doc.FunctionClass().Function(identifier, list))
 }
 
@@ -532,9 +532,9 @@ func (v *inflator_) PostprocessMethod(
 		iterator.GetNext()
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
-	var identifier = v.stack_.RemoveLast().(string)
+	var identifier = v.stack_.RemoveLast().(pri.IdentifierLike)
 	var isSynchronous = v.stack_.RemoveLast().(bool)
-	var target = v.stack_.RemoveLast().(string)
+	var target = v.stack_.RemoveLast().(pri.IdentifierLike)
 	v.stack_.AddValue(
 		doc.MethodClass().Method(target, identifier, list, isSynchronous),
 	)
@@ -854,7 +854,7 @@ func (v *inflator_) PostprocessSubcomponent(
 		iterator.GetNext()
 	}
 	list.ReverseValues() // They were pulled off the stack in reverse order.
-	var identifier = v.stack_.RemoveLast().(string)
+	var identifier = v.stack_.RemoveLast().(pri.IdentifierLike)
 	v.stack_.AddValue(doc.SubcomponentClass().Subcomponent(identifier, list))
 }
 

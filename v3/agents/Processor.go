@@ -97,7 +97,7 @@ func (v *processor_) ProcessGlyph(
 }
 
 func (v *processor_) ProcessIdentifier(
-	identifier string,
+	identifier pri.IdentifierLike,
 ) {
 }
 

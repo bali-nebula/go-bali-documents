@@ -238,7 +238,7 @@ function-like class.
 type FunctionClassLike interface {
 	// Constructor Methods
 	Function(
-		identifier string,
+		identifier pri.IdentifierLike,
 		arguments com.Sequential[any],
 	) FunctionLike
 }
@@ -338,8 +338,8 @@ method-like class.
 type MethodClassLike interface {
 	// Constructor Methods
 	Method(
-		target string,
-		identifier string,
+		target pri.IdentifierLike,
+		identifier pri.IdentifierLike,
 		arguments com.Sequential[any],
 		isSynchronous bool,
 	) MethodLike
@@ -560,7 +560,7 @@ concrete subcomponent-like class.
 type SubcomponentClassLike interface {
 	// Constructor Methods
 	Subcomponent(
-		identifier string,
+		identifier pri.IdentifierLike,
 		indexes com.Sequential[any],
 	) SubcomponentLike
 }
@@ -761,7 +761,7 @@ type FunctionLike interface {
 	GetClass() FunctionClassLike
 
 	// Attribute Methods
-	GetIdentifier() string
+	GetIdentifier() pri.IdentifierLike
 	GetArguments() com.Sequential[any]
 }
 
@@ -869,8 +869,8 @@ type MethodLike interface {
 	GetClass() MethodClassLike
 
 	// Attribute Methods
-	GetTarget() string
-	GetIdentifier() string
+	GetTarget() pri.IdentifierLike
+	GetIdentifier() pri.IdentifierLike
 	GetArguments() com.Sequential[any]
 	IsSynchronous() bool
 }
@@ -1108,7 +1108,7 @@ type SubcomponentLike interface {
 	GetClass() SubcomponentClassLike
 
 	// Attribute Methods
-	GetIdentifier() string
+	GetIdentifier() pri.IdentifierLike
 	GetIndexes() com.Sequential[any]
 }
 

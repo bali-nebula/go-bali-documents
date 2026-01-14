@@ -381,7 +381,7 @@ func FunctionClass() FunctionClassLike {
 }
 
 func Function(
-	identifier string,
+	identifier pri.IdentifierLike,
 	arguments com.Sequential[any],
 ) FunctionLike {
 	return FunctionClass().Function(
@@ -485,8 +485,8 @@ func MethodClass() MethodClassLike {
 }
 
 func Method(
-	target string,
-	identifier string,
+	target pri.IdentifierLike,
+	identifier pri.IdentifierLike,
 	arguments com.Sequential[any],
 	isSynchronous bool,
 ) MethodLike {
@@ -725,7 +725,7 @@ func SubcomponentClass() SubcomponentClassLike {
 }
 
 func Subcomponent(
-	identifier string,
+	identifier pri.IdentifierLike,
 	indexes com.Sequential[any],
 ) SubcomponentLike {
 	return SubcomponentClass().Subcomponent(
@@ -1145,31 +1145,29 @@ func Resource(
 // Sequences
 
 type (
-	Folder = pri.Folder
+	BinaryClassLike     = pri.BinaryClassLike
+	BytecodeClassLike   = pri.BytecodeClassLike
+	IdentifierClassLike = pri.IdentifierClassLike
+	NameClassLike       = pri.NameClassLike
+	NarrativeClassLike  = pri.NarrativeClassLike
+	PatternClassLike    = pri.PatternClassLike
+	QuoteClassLike      = pri.QuoteClassLike
+	SymbolClassLike     = pri.SymbolClassLike
+	TagClassLike        = pri.TagClassLike
+	VersionClassLike    = pri.VersionClassLike
 )
 
 type (
-	BinaryClassLike    = pri.BinaryClassLike
-	BytecodeClassLike  = pri.BytecodeClassLike
-	NameClassLike      = pri.NameClassLike
-	NarrativeClassLike = pri.NarrativeClassLike
-	PatternClassLike   = pri.PatternClassLike
-	QuoteClassLike     = pri.QuoteClassLike
-	SymbolClassLike    = pri.SymbolClassLike
-	TagClassLike       = pri.TagClassLike
-	VersionClassLike   = pri.VersionClassLike
-)
-
-type (
-	BinaryLike    = pri.BinaryLike
-	BytecodeLike  = pri.BytecodeLike
-	NameLike      = pri.NameLike
-	NarrativeLike = pri.NarrativeLike
-	PatternLike   = pri.PatternLike
-	QuoteLike     = pri.QuoteLike
-	SymbolLike    = pri.SymbolLike
-	TagLike       = pri.TagLike
-	VersionLike   = pri.VersionLike
+	BinaryLike     = pri.BinaryLike
+	BytecodeLike   = pri.BytecodeLike
+	IdentifierLike = pri.IdentifierLike
+	NameLike       = pri.NameLike
+	NarrativeLike  = pri.NarrativeLike
+	PatternLike    = pri.PatternLike
+	QuoteLike      = pri.QuoteLike
+	SymbolLike     = pri.SymbolLike
+	TagLike        = pri.TagLike
+	VersionLike    = pri.VersionLike
 )
 
 type (
@@ -1221,6 +1219,26 @@ func Bytecode(
 	}
 }
 
+func IdentifierClass() IdentifierClassLike {
+	return pri.IdentifierClass()
+}
+
+func Identifier(
+	value ...any,
+) IdentifierLike {
+	if len(value) == 0 {
+		return IdentifierClass().Undefined()
+	}
+	switch actual := value[0].(type) {
+	case string:
+		return IdentifierClass().IdentifierFromSource(actual)
+	case []rune:
+		return IdentifierClass().Identifier(actual)
+	default:
+		return IdentifierClass().Undefined()
+	}
+}
+
 func NameClass() NameClassLike {
 	return pri.NameClass()
 }
@@ -1229,17 +1247,17 @@ func Name(
 	value ...any,
 ) NameLike {
 	if len(value) == 0 {
-		return NameClass().Name([]Folder{})
+		return NameClass().Name([]string{})
 	}
 	switch actual := value[0].(type) {
 	case string:
 		return NameClass().NameFromSource(actual)
-	case []Folder:
+	case []string:
 		return NameClass().Name(actual)
-	case Sequential[Folder]:
+	case Sequential[string]:
 		return NameClass().NameFromSequence(actual)
 	default:
-		return NameClass().Name([]Folder{})
+		return NameClass().Name([]string{})
 	}
 }
 

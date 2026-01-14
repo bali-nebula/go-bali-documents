@@ -14,6 +14,7 @@ package documents
 
 import (
 	com "github.com/craterdog/go-essential-composites/v8"
+	pri "github.com/craterdog/go-essential-primitives/v8"
 	uti "github.com/craterdog/go-essential-utilities/v8"
 )
 
@@ -28,8 +29,8 @@ func MethodClass() MethodClassLike {
 // Constructor Methods
 
 func (c *methodClass_) Method(
-	target string,
-	identifier string,
+	target pri.IdentifierLike,
+	identifier pri.IdentifierLike,
 	arguments com.Sequential[any],
 	isSynchronous bool,
 ) MethodLike {
@@ -66,11 +67,11 @@ func (v *method_) GetClass() MethodClassLike {
 
 // Attribute Methods
 
-func (v *method_) GetTarget() string {
+func (v *method_) GetTarget() pri.IdentifierLike {
 	return v.target_
 }
 
-func (v *method_) GetIdentifier() string {
+func (v *method_) GetIdentifier() pri.IdentifierLike {
 	return v.identifier_
 }
 
@@ -90,8 +91,8 @@ func (v *method_) IsSynchronous() bool {
 
 type method_ struct {
 	// Declare the instance attributes.
-	target_        string
-	identifier_    string
+	target_        pri.IdentifierLike
+	identifier_    pri.IdentifierLike
 	arguments_     com.Sequential[any]
 	isSynchronous_ bool
 }

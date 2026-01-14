@@ -116,7 +116,7 @@ func (v *visitor_) visitArgument(
 	argument any,
 ) {
 	switch actual := argument.(type) {
-	case string:
+	case pri.IdentifierLike:
 		v.processor_.ProcessIdentifier(actual)
 	case doc.ComponentLike:
 		v.processor_.PreprocessComponent(
@@ -501,7 +501,7 @@ func (v *visitor_) visitIndex(
 	index any,
 ) {
 	switch actual := index.(type) {
-	case string:
+	case pri.IdentifierLike:
 		v.processor_.ProcessIdentifier(actual)
 	default:
 		v.processor_.PreprocessPrimitive(
@@ -1789,7 +1789,7 @@ func (v *visitor_) visitSubject(
 			0,
 			0,
 		)
-	case string:
+	case pri.IdentifierLike:
 		v.processor_.ProcessIdentifier(actual)
 	default:
 		var message = fmt.Sprintf(
